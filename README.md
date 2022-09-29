@@ -14,13 +14,11 @@ Rust crate for interacting with Cosmos SDK
 
 ## Requirements
 
-- Rust 1.56.1+
-- `make`, `curl`
-- Cosmos SDK (downloaded automatically if you are using `make`)
+The crates in this project require Rust `1.56.1+`.
 
 ## License
 
-Copyright © 2021 Informal Systems
+Copyright © 2022 Informal Systems
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use the files in this repository except in compliance with the License.
