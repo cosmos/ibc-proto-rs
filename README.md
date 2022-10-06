@@ -7,20 +7,18 @@
 ![Rust Stable][rustc-image]
 ![Rust 1.56.1+][rustc-version]
 
-Rust crate for interacting with Cosmos SDK
-[IBC structs](https://github.com/cosmos/ibc-go/tree/main/proto/ibc).
+Rust crate for interacting with Cosmos SDK [IBC structs](https://github.com/cosmos/ibc-go/tree/main/proto/ibc).
 
 [Documentation][docs-link]
 
 ## Requirements
 
 - Rust 1.56.1+
-- `make`, `curl`
-- Cosmos SDK (downloaded automatically if you are using `make`)
+- [Buf CLI](https://buf.build/product/cli/)
 
 ## License
 
-Copyright © 2021 Informal Systems
+Copyright © 2022 Informal Systems
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use the files in this repository except in compliance with the License.
