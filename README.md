@@ -8,7 +8,8 @@
 ![Rust 1.56.1+][rustc-version]
 
 Rust crate for interacting with Cosmos SDK IBC structs.
-This repository maintains all the datastructures relevant for interacting IBC. Whether you're building a relayer, modules, or any client that consumes IBC data structures in Rust, you're at the right place.
+This repository maintains all the data structures relevant for interacting with on-chain IBC data.
+Whether you're building an IBC relayer, IBC modules, or any client software that consumes IBC data structures in Rust, you're at the right place.
 
 
 ## If you are a user of this repository
