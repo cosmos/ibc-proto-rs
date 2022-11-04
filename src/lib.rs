@@ -71,6 +71,11 @@ pub mod cosmos {
                 include_proto!("cosmos.base.kv.v1beta1.rs");
             }
         }
+        pub mod node {
+            pub mod v1beta1 {
+                include_proto!("cosmos.base.node.v1beta1.rs");
+            }
+        }
         pub mod query {
             pub mod v1beta1 {
                 include_proto!("cosmos.base.query.v1beta1.rs");
