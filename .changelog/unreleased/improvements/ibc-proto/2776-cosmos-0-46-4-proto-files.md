@@ -1,1 +1,0 @@
-- Update protobufs for Cosmos SDK to v0.46.4 ([#2776](https://github.com/informalsystems/hermes/2776))
