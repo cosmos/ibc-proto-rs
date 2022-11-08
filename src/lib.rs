@@ -8,7 +8,7 @@
 #![allow(clippy::large_enum_variant, clippy::derive_partial_eq_without_eq)]
 #![allow(rustdoc::bare_urls)]
 #![forbid(unsafe_code)]
-#![doc(html_root_url = "https://docs.rs/ibc-proto/0.20.1")]
+#![doc(html_root_url = "https://docs.rs/ibc-proto/0.21.0")]
 
 pub mod google;
 pub mod protobuf;
@@ -69,6 +69,11 @@ pub mod cosmos {
         pub mod kv {
             pub mod v1beta1 {
                 include_proto!("cosmos.base.kv.v1beta1.rs");
+            }
+        }
+        pub mod node {
+            pub mod v1beta1 {
+                include_proto!("cosmos.base.node.v1beta1.rs");
             }
         }
         pub mod query {
@@ -136,6 +141,11 @@ pub mod ibc {
             }
             pub mod v2 {
                 include_proto!("ibc.applications.transfer.v2.rs");
+            }
+        }
+        pub mod fee {
+            pub mod v1 {
+                include_proto!("ibc.applications.fee.v1.rs");
             }
         }
         pub mod interchain_accounts {

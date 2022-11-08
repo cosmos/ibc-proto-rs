@@ -132,7 +132,6 @@ pub struct FieldDescriptorProto {
     /// For booleans, "true" or "false".
     /// For strings, contains the default text contents (not escaped in any way).
     /// For bytes, contains the C escaped value.  All bytes >= 128 are escaped.
-    /// TODO(kenton):  Base-64 encode?
     #[prost(string, optional, tag="7")]
     pub default_value: ::core::option::Option<::prost::alloc::string::String>,
     /// If set, gives the index of a oneof in the containing type's oneof_decl
@@ -630,8 +629,19 @@ pub struct FieldOptions {
     /// implementation must either *always* check its required fields, or *never*
     /// check its required fields, regardless of whether or not the message has
     /// been parsed.
+    ///
+    /// As of 2021, lazy does no correctness checks on the byte stream during
+    /// parsing.  This may lead to crashes if and when an invalid byte stream is
+    /// finally parsed upon access.
+    ///
+    /// TODO(b/211906113):  Enable validation on lazy fields.
     #[prost(bool, optional, tag="5", default="false")]
     pub lazy: ::core::option::Option<bool>,
+    /// unverified_lazy does no correctness checks on the byte stream. This should
+    /// only be used where lazy with verification is prohibitive for performance
+    /// reasons.
+    #[prost(bool, optional, tag="15", default="false")]
+    pub unverified_lazy: ::core::option::Option<bool>,
     /// Is this field deprecated?
     /// Depending on the target platform, this can emit Deprecated annotations
     /// for accessors, or it will be completely ignored; in the very least, this
@@ -820,8 +830,8 @@ pub mod uninterpreted_option {
     /// The name of the uninterpreted option.  Each string represents a segment in
     /// a dot-separated name.  is_extension is true iff a segment represents an
     /// extension (denoted with parentheses in options specs in .proto files).
-    /// E.g.,{ ["foo", false], ["bar.baz", true], ["qux", false] } represents
-    /// "foo.(bar.baz).qux".
+    /// E.g.,{ ["foo", false], ["bar.baz", true], ["moo", false] } represents
+    /// "foo.(bar.baz).moo".
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct NamePart {
         #[prost(string, required, tag="1")]
@@ -891,8 +901,8 @@ pub mod source_code_info {
         /// location.
         ///
         /// Each element is a field number or an index.  They form a path from
-        /// the root FileDescriptorProto to the place where the definition.  For
-        /// example, this path:
+        /// the root FileDescriptorProto to the place where the definition occurs.
+        /// For example, this path:
         ///    [ 4, 3, 2, 7, 1 ]
         /// refers to:
         ///    file.message_type(3)  // 4, 3
@@ -946,13 +956,13 @@ pub mod source_code_info {
         ///    // Comment attached to baz.
         ///    // Another line attached to baz.
         ///
-        ///    // Comment attached to qux.
+        ///    // Comment attached to moo.
         ///    //
-        ///    // Another line attached to qux.
-        ///    optional double qux = 4;
+        ///    // Another line attached to moo.
+        ///    optional double moo = 4;
         ///
         ///    // Detached comment for corge. This is not leading or trailing comments
-        ///    // to qux or corge because there are blank lines separating it from
+        ///    // to moo or corge because there are blank lines separating it from
         ///    // both.
         ///
         ///    // Detached comment for corge paragraph 2.
@@ -1087,7 +1097,8 @@ pub mod generated_code_info {
 ///      }
 ///
 #[derive(::serde::Serialize, ::serde::Deserialize)]
-#[derive(Clone, PartialEq, Eq, ::prost::Message)]
+#[derive(Eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Any {
     /// A URL/resource name that uniquely identifies the type of the serialized
     /// protocol buffer message. This string must contain at least
@@ -1292,6 +1303,7 @@ pub struct Timestamp {
 ///
 ///
 #[derive(::serde::Serialize, ::serde::Deserialize)]
+#[derive(Eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Duration {
     /// Signed seconds of the span of time. Must be from -315,576,000,000

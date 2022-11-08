@@ -7,20 +7,27 @@
 ![Rust Stable][rustc-image]
 ![Rust 1.56.1+][rustc-version]
 
-Rust crate for interacting with Cosmos SDK
-[IBC structs](https://github.com/cosmos/ibc-go/tree/main/proto/ibc).
+Rust crate for interacting with Cosmos SDK IBC structs.
+This repository maintains all the data structures relevant for interacting with on-chain IBC data.
+Whether you're building an IBC relayer, IBC modules, or any client software that consumes IBC data structures in Rust, you're at the right place.
 
-[Documentation][docs-link]
+
+## If you are a user of this repository
+
+Please check the official [documentation][docs-link].
+
+## If you are a maintainer of this repository
+
+You will likely want to look at [scripts/sync-protobuf.sh](scripts/sync-protobuf.sh).
 
 ## Requirements
 
 - Rust 1.56.1+
-- `make`, `curl`
-- Cosmos SDK (downloaded automatically if you are using `make`)
+- [Buf CLI](https://buf.build/product/cli/)
 
 ## License
 
-Copyright © 2021 Informal Systems
+Copyright © 2022 Informal Systems
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use the files in this repository except in compliance with the License.
