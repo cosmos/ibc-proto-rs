@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## v0.22.0
+
+*November 9, 2022*
+
+This release updates the Cosmos SDK protobufs to v0.46.4.
+
+### BREAKING CHANGES
+
+- Update tendermint-rs libraries to v0.26
+  ([#33](https://github.com/cosmos/ibc-proto-rs/issues/33))
+- Update protobufs for Cosmos SDK to v0.46.4
+  - Adds the `module_account_by_name` method to the `Query` trait
+  ([#2776](https://github.com/informalsystems/hermes/2776))
+
 ## v0.21.0
 
 *October 19, 2022*
