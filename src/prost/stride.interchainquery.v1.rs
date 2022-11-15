@@ -8,7 +8,7 @@ pub struct MsgSubmitQueryResponse {
     #[prost(bytes="vec", tag="3")]
     pub result: ::prost::alloc::vec::Vec<u8>,
     #[prost(message, optional, tag="4")]
-    pub proof_ops: ::core::option::Option<::tendermint_proto::crypto::ProofOps>,
+    pub proof_ops: ::core::option::Option<::tendermint_proto::v0_34::crypto::ProofOps>,
     #[prost(int64, tag="5")]
     pub height: i64,
     #[prost(string, tag="6")]

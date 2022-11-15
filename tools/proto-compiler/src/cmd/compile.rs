@@ -100,7 +100,7 @@ impl CompileCmd {
             .build_server(true)
             .server_mod_attribute(".", r#"#[cfg(feature = "server")]"#)
             .out_dir(out_dir)
-            .extern_path(".tendermint", "::tendermint_proto")
+            .extern_path(".tendermint", "::tendermint_proto::v0_34")
             .type_attribute(".google.protobuf.Any", attrs_serde)
             .type_attribute(".google.protobuf.Any", attrs_eq)
             .type_attribute(".google.protobuf.Timestamp", attrs_serde)

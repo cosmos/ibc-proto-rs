@@ -1,11 +1,3 @@
-/// An InterchainAccount is defined as a BaseAccount & the address of the account owner on the controller chain
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct InterchainAccount {
-    #[prost(message, optional, tag="1")]
-    pub base_account: ::core::option::Option<super::super::super::super::cosmos::auth::v1beta1::BaseAccount>,
-    #[prost(string, tag="2")]
-    pub account_owner: ::prost::alloc::string::String,
-}
 /// InterchainAccountPacketData is comprised of a raw transaction, type of transaction and optional memo field.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct InterchainAccountPacketData {
@@ -119,4 +111,12 @@ pub struct RegisteredInterchainAccount {
     pub port_id: ::prost::alloc::string::String,
     #[prost(string, tag="3")]
     pub account_address: ::prost::alloc::string::String,
+}
+/// An InterchainAccount is defined as a BaseAccount & the address of the account owner on the controller chain
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct InterchainAccount {
+    #[prost(message, optional, tag="1")]
+    pub base_account: ::core::option::Option<super::super::super::super::cosmos::auth::v1beta1::BaseAccount>,
+    #[prost(string, tag="2")]
+    pub account_owner: ::prost::alloc::string::String,
 }

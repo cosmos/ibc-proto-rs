@@ -593,19 +593,6 @@ pub mod msg_server {
         const NAME: &'static str = "ibc.applications.fee.v1.Msg";
     }
 }
-/// IncentivizedAcknowledgement is the acknowledgement format to be used by applications wrapped in the fee middleware
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct IncentivizedAcknowledgement {
-    /// the underlying app acknowledgement bytes
-    #[prost(bytes="vec", tag="1")]
-    pub app_acknowledgement: ::prost::alloc::vec::Vec<u8>,
-    /// the relayer address which submits the recv packet message
-    #[prost(string, tag="2")]
-    pub forward_relayer_address: ::prost::alloc::string::String,
-    /// success flag of the base application callback
-    #[prost(bool, tag="3")]
-    pub underlying_app_success: bool,
-}
 /// GenesisState defines the ICS29 fee middleware genesis state
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenesisState {
@@ -1728,4 +1715,17 @@ pub struct Metadata {
     /// app_version defines the underlying application version, which may or may not be a JSON encoded bytestring
     #[prost(string, tag="2")]
     pub app_version: ::prost::alloc::string::String,
+}
+/// IncentivizedAcknowledgement is the acknowledgement format to be used by applications wrapped in the fee middleware
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct IncentivizedAcknowledgement {
+    /// the underlying app acknowledgement bytes
+    #[prost(bytes="vec", tag="1")]
+    pub app_acknowledgement: ::prost::alloc::vec::Vec<u8>,
+    /// the relayer address which submits the recv packet message
+    #[prost(string, tag="2")]
+    pub forward_relayer_address: ::prost::alloc::string::String,
+    /// success flag of the base application callback
+    #[prost(bool, tag="3")]
+    pub underlying_app_success: bool,
 }

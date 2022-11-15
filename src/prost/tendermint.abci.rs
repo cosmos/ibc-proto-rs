@@ -70,9 +70,11 @@ pub mod abci_application_client {
         }
         pub async fn echo(
             &mut self,
-            request: impl tonic::IntoRequest<::tendermint_proto::abci::RequestEcho>,
+            request: impl tonic::IntoRequest<
+                ::tendermint_proto::v0_34::abci::RequestEcho,
+            >,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseEcho>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseEcho>,
             tonic::Status,
         > {
             self.inner
@@ -92,9 +94,11 @@ pub mod abci_application_client {
         }
         pub async fn flush(
             &mut self,
-            request: impl tonic::IntoRequest<::tendermint_proto::abci::RequestFlush>,
+            request: impl tonic::IntoRequest<
+                ::tendermint_proto::v0_34::abci::RequestFlush,
+            >,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseFlush>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseFlush>,
             tonic::Status,
         > {
             self.inner
@@ -114,9 +118,11 @@ pub mod abci_application_client {
         }
         pub async fn info(
             &mut self,
-            request: impl tonic::IntoRequest<::tendermint_proto::abci::RequestInfo>,
+            request: impl tonic::IntoRequest<
+                ::tendermint_proto::v0_34::abci::RequestInfo,
+            >,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseInfo>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseInfo>,
             tonic::Status,
         > {
             self.inner
@@ -136,9 +142,11 @@ pub mod abci_application_client {
         }
         pub async fn set_option(
             &mut self,
-            request: impl tonic::IntoRequest<::tendermint_proto::abci::RequestSetOption>,
+            request: impl tonic::IntoRequest<
+                ::tendermint_proto::v0_34::abci::RequestSetOption,
+            >,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseSetOption>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseSetOption>,
             tonic::Status,
         > {
             self.inner
@@ -158,9 +166,11 @@ pub mod abci_application_client {
         }
         pub async fn deliver_tx(
             &mut self,
-            request: impl tonic::IntoRequest<::tendermint_proto::abci::RequestDeliverTx>,
+            request: impl tonic::IntoRequest<
+                ::tendermint_proto::v0_34::abci::RequestDeliverTx,
+            >,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseDeliverTx>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseDeliverTx>,
             tonic::Status,
         > {
             self.inner
@@ -180,9 +190,11 @@ pub mod abci_application_client {
         }
         pub async fn check_tx(
             &mut self,
-            request: impl tonic::IntoRequest<::tendermint_proto::abci::RequestCheckTx>,
+            request: impl tonic::IntoRequest<
+                ::tendermint_proto::v0_34::abci::RequestCheckTx,
+            >,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseCheckTx>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseCheckTx>,
             tonic::Status,
         > {
             self.inner
@@ -202,9 +214,11 @@ pub mod abci_application_client {
         }
         pub async fn query(
             &mut self,
-            request: impl tonic::IntoRequest<::tendermint_proto::abci::RequestQuery>,
+            request: impl tonic::IntoRequest<
+                ::tendermint_proto::v0_34::abci::RequestQuery,
+            >,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseQuery>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseQuery>,
             tonic::Status,
         > {
             self.inner
@@ -224,9 +238,11 @@ pub mod abci_application_client {
         }
         pub async fn commit(
             &mut self,
-            request: impl tonic::IntoRequest<::tendermint_proto::abci::RequestCommit>,
+            request: impl tonic::IntoRequest<
+                ::tendermint_proto::v0_34::abci::RequestCommit,
+            >,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseCommit>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseCommit>,
             tonic::Status,
         > {
             self.inner
@@ -246,9 +262,11 @@ pub mod abci_application_client {
         }
         pub async fn init_chain(
             &mut self,
-            request: impl tonic::IntoRequest<::tendermint_proto::abci::RequestInitChain>,
+            request: impl tonic::IntoRequest<
+                ::tendermint_proto::v0_34::abci::RequestInitChain,
+            >,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseInitChain>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseInitChain>,
             tonic::Status,
         > {
             self.inner
@@ -268,9 +286,11 @@ pub mod abci_application_client {
         }
         pub async fn begin_block(
             &mut self,
-            request: impl tonic::IntoRequest<::tendermint_proto::abci::RequestBeginBlock>,
+            request: impl tonic::IntoRequest<
+                ::tendermint_proto::v0_34::abci::RequestBeginBlock,
+            >,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseBeginBlock>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseBeginBlock>,
             tonic::Status,
         > {
             self.inner
@@ -290,9 +310,11 @@ pub mod abci_application_client {
         }
         pub async fn end_block(
             &mut self,
-            request: impl tonic::IntoRequest<::tendermint_proto::abci::RequestEndBlock>,
+            request: impl tonic::IntoRequest<
+                ::tendermint_proto::v0_34::abci::RequestEndBlock,
+            >,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseEndBlock>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseEndBlock>,
             tonic::Status,
         > {
             self.inner
@@ -313,10 +335,10 @@ pub mod abci_application_client {
         pub async fn list_snapshots(
             &mut self,
             request: impl tonic::IntoRequest<
-                ::tendermint_proto::abci::RequestListSnapshots,
+                ::tendermint_proto::v0_34::abci::RequestListSnapshots,
             >,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseListSnapshots>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseListSnapshots>,
             tonic::Status,
         > {
             self.inner
@@ -337,10 +359,10 @@ pub mod abci_application_client {
         pub async fn offer_snapshot(
             &mut self,
             request: impl tonic::IntoRequest<
-                ::tendermint_proto::abci::RequestOfferSnapshot,
+                ::tendermint_proto::v0_34::abci::RequestOfferSnapshot,
             >,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseOfferSnapshot>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseOfferSnapshot>,
             tonic::Status,
         > {
             self.inner
@@ -361,10 +383,10 @@ pub mod abci_application_client {
         pub async fn load_snapshot_chunk(
             &mut self,
             request: impl tonic::IntoRequest<
-                ::tendermint_proto::abci::RequestLoadSnapshotChunk,
+                ::tendermint_proto::v0_34::abci::RequestLoadSnapshotChunk,
             >,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseLoadSnapshotChunk>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseLoadSnapshotChunk>,
             tonic::Status,
         > {
             self.inner
@@ -385,10 +407,10 @@ pub mod abci_application_client {
         pub async fn apply_snapshot_chunk(
             &mut self,
             request: impl tonic::IntoRequest<
-                ::tendermint_proto::abci::RequestApplySnapshotChunk,
+                ::tendermint_proto::v0_34::abci::RequestApplySnapshotChunk,
             >,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseApplySnapshotChunk>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseApplySnapshotChunk>,
             tonic::Status,
         > {
             self.inner
@@ -418,107 +440,115 @@ pub mod abci_application_server {
     pub trait AbciApplication: Send + Sync + 'static {
         async fn echo(
             &self,
-            request: tonic::Request<::tendermint_proto::abci::RequestEcho>,
+            request: tonic::Request<::tendermint_proto::v0_34::abci::RequestEcho>,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseEcho>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseEcho>,
             tonic::Status,
         >;
         async fn flush(
             &self,
-            request: tonic::Request<::tendermint_proto::abci::RequestFlush>,
+            request: tonic::Request<::tendermint_proto::v0_34::abci::RequestFlush>,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseFlush>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseFlush>,
             tonic::Status,
         >;
         async fn info(
             &self,
-            request: tonic::Request<::tendermint_proto::abci::RequestInfo>,
+            request: tonic::Request<::tendermint_proto::v0_34::abci::RequestInfo>,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseInfo>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseInfo>,
             tonic::Status,
         >;
         async fn set_option(
             &self,
-            request: tonic::Request<::tendermint_proto::abci::RequestSetOption>,
+            request: tonic::Request<::tendermint_proto::v0_34::abci::RequestSetOption>,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseSetOption>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseSetOption>,
             tonic::Status,
         >;
         async fn deliver_tx(
             &self,
-            request: tonic::Request<::tendermint_proto::abci::RequestDeliverTx>,
+            request: tonic::Request<::tendermint_proto::v0_34::abci::RequestDeliverTx>,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseDeliverTx>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseDeliverTx>,
             tonic::Status,
         >;
         async fn check_tx(
             &self,
-            request: tonic::Request<::tendermint_proto::abci::RequestCheckTx>,
+            request: tonic::Request<::tendermint_proto::v0_34::abci::RequestCheckTx>,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseCheckTx>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseCheckTx>,
             tonic::Status,
         >;
         async fn query(
             &self,
-            request: tonic::Request<::tendermint_proto::abci::RequestQuery>,
+            request: tonic::Request<::tendermint_proto::v0_34::abci::RequestQuery>,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseQuery>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseQuery>,
             tonic::Status,
         >;
         async fn commit(
             &self,
-            request: tonic::Request<::tendermint_proto::abci::RequestCommit>,
+            request: tonic::Request<::tendermint_proto::v0_34::abci::RequestCommit>,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseCommit>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseCommit>,
             tonic::Status,
         >;
         async fn init_chain(
             &self,
-            request: tonic::Request<::tendermint_proto::abci::RequestInitChain>,
+            request: tonic::Request<::tendermint_proto::v0_34::abci::RequestInitChain>,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseInitChain>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseInitChain>,
             tonic::Status,
         >;
         async fn begin_block(
             &self,
-            request: tonic::Request<::tendermint_proto::abci::RequestBeginBlock>,
+            request: tonic::Request<::tendermint_proto::v0_34::abci::RequestBeginBlock>,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseBeginBlock>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseBeginBlock>,
             tonic::Status,
         >;
         async fn end_block(
             &self,
-            request: tonic::Request<::tendermint_proto::abci::RequestEndBlock>,
+            request: tonic::Request<::tendermint_proto::v0_34::abci::RequestEndBlock>,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseEndBlock>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseEndBlock>,
             tonic::Status,
         >;
         async fn list_snapshots(
             &self,
-            request: tonic::Request<::tendermint_proto::abci::RequestListSnapshots>,
+            request: tonic::Request<
+                ::tendermint_proto::v0_34::abci::RequestListSnapshots,
+            >,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseListSnapshots>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseListSnapshots>,
             tonic::Status,
         >;
         async fn offer_snapshot(
             &self,
-            request: tonic::Request<::tendermint_proto::abci::RequestOfferSnapshot>,
+            request: tonic::Request<
+                ::tendermint_proto::v0_34::abci::RequestOfferSnapshot,
+            >,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseOfferSnapshot>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseOfferSnapshot>,
             tonic::Status,
         >;
         async fn load_snapshot_chunk(
             &self,
-            request: tonic::Request<::tendermint_proto::abci::RequestLoadSnapshotChunk>,
+            request: tonic::Request<
+                ::tendermint_proto::v0_34::abci::RequestLoadSnapshotChunk,
+            >,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseLoadSnapshotChunk>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseLoadSnapshotChunk>,
             tonic::Status,
         >;
         async fn apply_snapshot_chunk(
             &self,
-            request: tonic::Request<::tendermint_proto::abci::RequestApplySnapshotChunk>,
+            request: tonic::Request<
+                ::tendermint_proto::v0_34::abci::RequestApplySnapshotChunk,
+            >,
         ) -> Result<
-            tonic::Response<::tendermint_proto::abci::ResponseApplySnapshotChunk>,
+            tonic::Response<::tendermint_proto::v0_34::abci::ResponseApplySnapshotChunk>,
             tonic::Status,
         >;
     }
@@ -586,9 +616,10 @@ pub mod abci_application_server {
                     struct EchoSvc<T: AbciApplication>(pub Arc<T>);
                     impl<
                         T: AbciApplication,
-                    > tonic::server::UnaryService<::tendermint_proto::abci::RequestEcho>
-                    for EchoSvc<T> {
-                        type Response = ::tendermint_proto::abci::ResponseEcho;
+                    > tonic::server::UnaryService<
+                        ::tendermint_proto::v0_34::abci::RequestEcho,
+                    > for EchoSvc<T> {
+                        type Response = ::tendermint_proto::v0_34::abci::ResponseEcho;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -596,7 +627,7 @@ pub mod abci_application_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::tendermint_proto::abci::RequestEcho,
+                                ::tendermint_proto::v0_34::abci::RequestEcho,
                             >,
                         ) -> Self::Future {
                             let inner = self.0.clone();
@@ -626,9 +657,10 @@ pub mod abci_application_server {
                     struct FlushSvc<T: AbciApplication>(pub Arc<T>);
                     impl<
                         T: AbciApplication,
-                    > tonic::server::UnaryService<::tendermint_proto::abci::RequestFlush>
-                    for FlushSvc<T> {
-                        type Response = ::tendermint_proto::abci::ResponseFlush;
+                    > tonic::server::UnaryService<
+                        ::tendermint_proto::v0_34::abci::RequestFlush,
+                    > for FlushSvc<T> {
+                        type Response = ::tendermint_proto::v0_34::abci::ResponseFlush;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -636,7 +668,7 @@ pub mod abci_application_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::tendermint_proto::abci::RequestFlush,
+                                ::tendermint_proto::v0_34::abci::RequestFlush,
                             >,
                         ) -> Self::Future {
                             let inner = self.0.clone();
@@ -666,9 +698,10 @@ pub mod abci_application_server {
                     struct InfoSvc<T: AbciApplication>(pub Arc<T>);
                     impl<
                         T: AbciApplication,
-                    > tonic::server::UnaryService<::tendermint_proto::abci::RequestInfo>
-                    for InfoSvc<T> {
-                        type Response = ::tendermint_proto::abci::ResponseInfo;
+                    > tonic::server::UnaryService<
+                        ::tendermint_proto::v0_34::abci::RequestInfo,
+                    > for InfoSvc<T> {
+                        type Response = ::tendermint_proto::v0_34::abci::ResponseInfo;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -676,7 +709,7 @@ pub mod abci_application_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::tendermint_proto::abci::RequestInfo,
+                                ::tendermint_proto::v0_34::abci::RequestInfo,
                             >,
                         ) -> Self::Future {
                             let inner = self.0.clone();
@@ -707,9 +740,9 @@ pub mod abci_application_server {
                     impl<
                         T: AbciApplication,
                     > tonic::server::UnaryService<
-                        ::tendermint_proto::abci::RequestSetOption,
+                        ::tendermint_proto::v0_34::abci::RequestSetOption,
                     > for SetOptionSvc<T> {
-                        type Response = ::tendermint_proto::abci::ResponseSetOption;
+                        type Response = ::tendermint_proto::v0_34::abci::ResponseSetOption;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -717,7 +750,7 @@ pub mod abci_application_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::tendermint_proto::abci::RequestSetOption,
+                                ::tendermint_proto::v0_34::abci::RequestSetOption,
                             >,
                         ) -> Self::Future {
                             let inner = self.0.clone();
@@ -748,9 +781,9 @@ pub mod abci_application_server {
                     impl<
                         T: AbciApplication,
                     > tonic::server::UnaryService<
-                        ::tendermint_proto::abci::RequestDeliverTx,
+                        ::tendermint_proto::v0_34::abci::RequestDeliverTx,
                     > for DeliverTxSvc<T> {
-                        type Response = ::tendermint_proto::abci::ResponseDeliverTx;
+                        type Response = ::tendermint_proto::v0_34::abci::ResponseDeliverTx;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -758,7 +791,7 @@ pub mod abci_application_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::tendermint_proto::abci::RequestDeliverTx,
+                                ::tendermint_proto::v0_34::abci::RequestDeliverTx,
                             >,
                         ) -> Self::Future {
                             let inner = self.0.clone();
@@ -789,9 +822,9 @@ pub mod abci_application_server {
                     impl<
                         T: AbciApplication,
                     > tonic::server::UnaryService<
-                        ::tendermint_proto::abci::RequestCheckTx,
+                        ::tendermint_proto::v0_34::abci::RequestCheckTx,
                     > for CheckTxSvc<T> {
-                        type Response = ::tendermint_proto::abci::ResponseCheckTx;
+                        type Response = ::tendermint_proto::v0_34::abci::ResponseCheckTx;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -799,7 +832,7 @@ pub mod abci_application_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::tendermint_proto::abci::RequestCheckTx,
+                                ::tendermint_proto::v0_34::abci::RequestCheckTx,
                             >,
                         ) -> Self::Future {
                             let inner = self.0.clone();
@@ -829,9 +862,10 @@ pub mod abci_application_server {
                     struct QuerySvc<T: AbciApplication>(pub Arc<T>);
                     impl<
                         T: AbciApplication,
-                    > tonic::server::UnaryService<::tendermint_proto::abci::RequestQuery>
-                    for QuerySvc<T> {
-                        type Response = ::tendermint_proto::abci::ResponseQuery;
+                    > tonic::server::UnaryService<
+                        ::tendermint_proto::v0_34::abci::RequestQuery,
+                    > for QuerySvc<T> {
+                        type Response = ::tendermint_proto::v0_34::abci::ResponseQuery;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -839,7 +873,7 @@ pub mod abci_application_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::tendermint_proto::abci::RequestQuery,
+                                ::tendermint_proto::v0_34::abci::RequestQuery,
                             >,
                         ) -> Self::Future {
                             let inner = self.0.clone();
@@ -870,9 +904,9 @@ pub mod abci_application_server {
                     impl<
                         T: AbciApplication,
                     > tonic::server::UnaryService<
-                        ::tendermint_proto::abci::RequestCommit,
+                        ::tendermint_proto::v0_34::abci::RequestCommit,
                     > for CommitSvc<T> {
-                        type Response = ::tendermint_proto::abci::ResponseCommit;
+                        type Response = ::tendermint_proto::v0_34::abci::ResponseCommit;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -880,7 +914,7 @@ pub mod abci_application_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::tendermint_proto::abci::RequestCommit,
+                                ::tendermint_proto::v0_34::abci::RequestCommit,
                             >,
                         ) -> Self::Future {
                             let inner = self.0.clone();
@@ -911,9 +945,9 @@ pub mod abci_application_server {
                     impl<
                         T: AbciApplication,
                     > tonic::server::UnaryService<
-                        ::tendermint_proto::abci::RequestInitChain,
+                        ::tendermint_proto::v0_34::abci::RequestInitChain,
                     > for InitChainSvc<T> {
-                        type Response = ::tendermint_proto::abci::ResponseInitChain;
+                        type Response = ::tendermint_proto::v0_34::abci::ResponseInitChain;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -921,7 +955,7 @@ pub mod abci_application_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::tendermint_proto::abci::RequestInitChain,
+                                ::tendermint_proto::v0_34::abci::RequestInitChain,
                             >,
                         ) -> Self::Future {
                             let inner = self.0.clone();
@@ -952,9 +986,9 @@ pub mod abci_application_server {
                     impl<
                         T: AbciApplication,
                     > tonic::server::UnaryService<
-                        ::tendermint_proto::abci::RequestBeginBlock,
+                        ::tendermint_proto::v0_34::abci::RequestBeginBlock,
                     > for BeginBlockSvc<T> {
-                        type Response = ::tendermint_proto::abci::ResponseBeginBlock;
+                        type Response = ::tendermint_proto::v0_34::abci::ResponseBeginBlock;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -962,7 +996,7 @@ pub mod abci_application_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::tendermint_proto::abci::RequestBeginBlock,
+                                ::tendermint_proto::v0_34::abci::RequestBeginBlock,
                             >,
                         ) -> Self::Future {
                             let inner = self.0.clone();
@@ -993,9 +1027,9 @@ pub mod abci_application_server {
                     impl<
                         T: AbciApplication,
                     > tonic::server::UnaryService<
-                        ::tendermint_proto::abci::RequestEndBlock,
+                        ::tendermint_proto::v0_34::abci::RequestEndBlock,
                     > for EndBlockSvc<T> {
-                        type Response = ::tendermint_proto::abci::ResponseEndBlock;
+                        type Response = ::tendermint_proto::v0_34::abci::ResponseEndBlock;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -1003,7 +1037,7 @@ pub mod abci_application_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::tendermint_proto::abci::RequestEndBlock,
+                                ::tendermint_proto::v0_34::abci::RequestEndBlock,
                             >,
                         ) -> Self::Future {
                             let inner = self.0.clone();
@@ -1034,9 +1068,9 @@ pub mod abci_application_server {
                     impl<
                         T: AbciApplication,
                     > tonic::server::UnaryService<
-                        ::tendermint_proto::abci::RequestListSnapshots,
+                        ::tendermint_proto::v0_34::abci::RequestListSnapshots,
                     > for ListSnapshotsSvc<T> {
-                        type Response = ::tendermint_proto::abci::ResponseListSnapshots;
+                        type Response = ::tendermint_proto::v0_34::abci::ResponseListSnapshots;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -1044,7 +1078,7 @@ pub mod abci_application_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::tendermint_proto::abci::RequestListSnapshots,
+                                ::tendermint_proto::v0_34::abci::RequestListSnapshots,
                             >,
                         ) -> Self::Future {
                             let inner = self.0.clone();
@@ -1077,9 +1111,9 @@ pub mod abci_application_server {
                     impl<
                         T: AbciApplication,
                     > tonic::server::UnaryService<
-                        ::tendermint_proto::abci::RequestOfferSnapshot,
+                        ::tendermint_proto::v0_34::abci::RequestOfferSnapshot,
                     > for OfferSnapshotSvc<T> {
-                        type Response = ::tendermint_proto::abci::ResponseOfferSnapshot;
+                        type Response = ::tendermint_proto::v0_34::abci::ResponseOfferSnapshot;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -1087,7 +1121,7 @@ pub mod abci_application_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::tendermint_proto::abci::RequestOfferSnapshot,
+                                ::tendermint_proto::v0_34::abci::RequestOfferSnapshot,
                             >,
                         ) -> Self::Future {
                             let inner = self.0.clone();
@@ -1120,9 +1154,9 @@ pub mod abci_application_server {
                     impl<
                         T: AbciApplication,
                     > tonic::server::UnaryService<
-                        ::tendermint_proto::abci::RequestLoadSnapshotChunk,
+                        ::tendermint_proto::v0_34::abci::RequestLoadSnapshotChunk,
                     > for LoadSnapshotChunkSvc<T> {
-                        type Response = ::tendermint_proto::abci::ResponseLoadSnapshotChunk;
+                        type Response = ::tendermint_proto::v0_34::abci::ResponseLoadSnapshotChunk;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -1130,7 +1164,7 @@ pub mod abci_application_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::tendermint_proto::abci::RequestLoadSnapshotChunk,
+                                ::tendermint_proto::v0_34::abci::RequestLoadSnapshotChunk,
                             >,
                         ) -> Self::Future {
                             let inner = self.0.clone();
@@ -1163,9 +1197,9 @@ pub mod abci_application_server {
                     impl<
                         T: AbciApplication,
                     > tonic::server::UnaryService<
-                        ::tendermint_proto::abci::RequestApplySnapshotChunk,
+                        ::tendermint_proto::v0_34::abci::RequestApplySnapshotChunk,
                     > for ApplySnapshotChunkSvc<T> {
-                        type Response = ::tendermint_proto::abci::ResponseApplySnapshotChunk;
+                        type Response = ::tendermint_proto::v0_34::abci::ResponseApplySnapshotChunk;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -1173,7 +1207,7 @@ pub mod abci_application_server {
                         fn call(
                             &mut self,
                             request: tonic::Request<
-                                ::tendermint_proto::abci::RequestApplySnapshotChunk,
+                                ::tendermint_proto::v0_34::abci::RequestApplySnapshotChunk,
                             >,
                         ) -> Self::Future {
                             let inner = self.0.clone();
