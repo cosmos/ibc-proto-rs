@@ -82,7 +82,7 @@ where
     ///
     /// [`prost::Message::encode`]: https://docs.rs/prost/*/prost/trait.Message.html#method.encode
     fn encode(&self, buf: &mut Vec<u8>) -> Result<(), Error> {
-        self.clone_into().encode(buf).map_err(Error::encode_message)
+        self.clone_into().encode(buf).map_err(Error::EncodeMessage)
     }
 
     /// Encode with a length-delimiter to a buffer in Protobuf format.
@@ -96,7 +96,7 @@ where
     fn encode_length_delimited(&self, buf: &mut Vec<u8>) -> Result<(), Error> {
         self.clone_into()
             .encode_length_delimited(buf)
-            .map_err(Error::encode_message)
+            .map_err(Error::EncodeMessage)
     }
 
     /// Constructor that attempts to decode an instance from a buffer.
@@ -111,7 +111,7 @@ where
     where
         Self: Sized,
     {
-        let raw = Raw::decode(buf).map_err(Error::decode_message)?;
+        let raw = Raw::decode(buf).map_err(Error::DecodeMessage)?;
 
         Self::try_from(raw).map_err(Error::try_from::<Raw, Self, _>)
     }
@@ -129,7 +129,7 @@ where
     where
         Self: Sized,
     {
-        let raw = Raw::decode_length_delimited(buf).map_err(Error::decode_message)?;
+        let raw = Raw::decode_length_delimited(buf).map_err(Error::DecodeMessage)?;
 
         Self::try_from(raw).map_err(Error::try_from::<Raw, Self, _>)
     }
@@ -162,7 +162,7 @@ where
     /// Encode with a length-delimiter to a `Vec<u8>` Protobuf-encoded message.
     fn encode_length_delimited_vec(&self) -> Result<Vec<u8>, Error> {
         let len = self.encoded_len();
-        let lenu64 = len.try_into().map_err(Error::parse_length)?;
+        let lenu64 = len.try_into().map_err(Error::ParseLength)?;
         let mut wire = Vec::with_capacity(len + encoded_len_varint(lenu64));
         self.encode_length_delimited(&mut wire).map(|_| wire)
     }

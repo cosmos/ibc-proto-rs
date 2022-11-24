@@ -1,35 +1,34 @@
 use alloc::format;
 use alloc::string::String;
 use core::fmt::Display;
-use core::format_args;
 use core::num::TryFromIntError;
 
-use flex_error::{define_error, DisplayOnly};
+use super::erased::TryFrom;
+use displaydoc::Display;
 use prost::{DecodeError, EncodeError};
 
-use super::erased::TryFrom;
-
-define_error! {
-    Error {
-        TryFromProtobuf
-            { reason: String }
-            | e | {
-                format_args!("error converting message type into domain type: {}",
-                    e.reason)
-            },
-
-        EncodeMessage
-            [ DisplayOnly<EncodeError> ]
-            | _ | { "error encoding message into buffer" },
-
-        DecodeMessage
-            [ DisplayOnly<DecodeError> ]
-            | _ | { "error decoding buffer into message" },
-
-        ParseLength
-            [ DisplayOnly<TryFromIntError> ]
-            | _ | { "error parsing encoded length" },
+#[cfg(feature = "std")]
+impl std::error::Error for Error {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        match &self {
+            Error::EncodeMessage(e) => Some(e),
+            Error::DecodeMessage(e) => Some(e),
+            Error::ParseLength(e) => Some(e),
+            _ => None,
+        }
     }
+}
+
+#[derive(Debug, Display)]
+pub enum Error {
+    /// error converting message type into domain type: `{reason}`
+    TryFromProtobuf { reason: String },
+    /// error encoding message into buffer
+    EncodeMessage(EncodeError),
+    /// error decoding buffer into message
+    DecodeMessage(DecodeError),
+    /// error parsing encoded length
+    ParseLength(TryFromIntError),
 }
 
 impl Error {
@@ -38,6 +37,8 @@ impl Error {
         E: Display,
         T: TryFrom<Raw, Error = E>,
     {
-        Error::try_from_protobuf(format!("{}", e))
+        Error::TryFromProtobuf {
+            reason: format!("{}", e),
+        }
     }
 }
