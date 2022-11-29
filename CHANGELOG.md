@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v0.23.0
+
+*November 29th, 2022*
+
+This release updates the Tendermint Protobuf definitons to v0.27.0.
+
+### BREAKING CHANGES
+
+- Update to tendermint-proto 0.27 ([#40](https://github.com/cosmos/ibc-proto-rs/pull/40))
+
 ## v0.22.0
 
 *November 9, 2022*
