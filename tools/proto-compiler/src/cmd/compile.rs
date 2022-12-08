@@ -36,7 +36,8 @@ impl CompileCmd {
 
         // Paths
         let proto_paths = [
-            format!("{}/../proto/definitions/mock", root),
+            format!("{}/../../definitions/mock", root),
+            format!("{}/../../definitions/interchainquery/v1", root),
             format!("{}/ibc", ibc_dir.display()),
             format!("{}/cosmos/auth", sdk_dir.display()),
             format!("{}/cosmos/gov", sdk_dir.display()),
@@ -50,7 +51,8 @@ impl CompileCmd {
         let proto_includes_paths = [
             format!("{}", sdk_dir.display()),
             format!("{}", ibc_dir.display()),
-            format!("{}/../proto/definitions/mock", root),
+            format!("{}/../../definitions/mock", root),
+            format!("{}/../../definitions/interchainquery/v1", root),
         ];
 
         // List available proto files
