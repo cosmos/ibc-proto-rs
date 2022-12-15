@@ -217,6 +217,14 @@ pub mod ics23 {
     include_proto!("ics23.rs");
 }
 
+pub mod stride {
+    pub mod interchainquery {
+        pub mod v1 {
+            include_proto!("stride.interchainquery.v1.rs");
+        }
+    }
+}
+
 pub(crate) mod base64 {
     use alloc::string::String;
     use alloc::vec::Vec;
