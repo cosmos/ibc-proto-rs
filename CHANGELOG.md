@@ -8,8 +8,7 @@ This release updates the Tendermint Protobuf definitons to v0.28.0.
 
 ### BREAKING CHANGES
 
-- Update to tendermint-proto 0.28 ([#45](https://github.com/cosmos/ibc-proto-
-  rs/issues/45))
+- Update to tendermint-proto 0.28 ([#45](https://github.com/cosmos/ibc-proto-rs/issues/45))
 
 ## v0.23.0
 
