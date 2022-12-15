@@ -1,6 +1,6 @@
 [package]
 name         = "ibc-proto"
-version      = "0.23.0"
+version      = "0.24.0"
 authors      = ["Informal Systems <hello@informal.systems>"]
 edition      = "2021"
 license      = "Apache-2.0"
@@ -9,7 +9,6 @@ readme       = "README.md"
 categories   = ["cryptography::cryptocurrencies", "encoding", "no-std"]
 keywords     = ["blockchain", "cosmos", "tendermint", "ibc", "proto"]
 exclude      = ["definitions", "tools"]
-rust-version = "1.60"
 description  = """
     ibc-proto provides Cosmos SDK & IBC Protocol Buffers definitions
 """
@@ -33,7 +32,7 @@ base64      = { version = "0.13", default-features = false, features = ["alloc"]
 flex-error = { version = "0.4.4", default-features = false }
 
 [dependencies.tendermint-proto]
-version          = "0.27"
+version          = "0.28"
 default-features = false
 
 [features]
