@@ -30,6 +30,11 @@ schemars    = { version = "0.8", optional = true }
 subtle-encoding = { version = "0.5", default-features = false }
 base64      = { version = "0.13", default-features = false, features = ["alloc"] }
 flex-error = { version = "0.4.4", default-features = false }
+## for codec encode or decode
+parity-scale-codec = { version = "3.0.0", default-features = false, features = ["full"], optional = true }
+scale-info = { version = "2.1.2", default-features = false, features = ["derive"], optional = true }
+## for borsh encode or decode
+borsh = {version = "0.9.3", default-features = false, optional = true }
 
 [dependencies.tendermint-proto]
 version          = "0.28"
@@ -41,3 +46,5 @@ std         = []
 client      = ["std", "tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
 json-schema = ["std", "schemars"]
 server      = ["std", "tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
+parity-scale-codec = ["dep:parity-scale-codec", "dep:scale-info"]
+borsh = ["dep:borsh"]
