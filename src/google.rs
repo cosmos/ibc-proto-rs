@@ -233,6 +233,8 @@ pub mod protobuf {
     mod sealed {
         #[allow(unused_imports)]
         use super::*;
+        use alloc::string::String;
+        use alloc::vec::Vec;
 
         #[allow(dead_code)]
         #[cfg_attr(
