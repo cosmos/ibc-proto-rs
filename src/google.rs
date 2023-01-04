@@ -230,10 +230,11 @@ pub mod protobuf {
         }
     }
 
-    #[cfg(any(feature = "parity-scale-codec", feature = "borsh"))]
     mod sealed {
+        #[allow(unused_imports)]
         use super::*;
 
+        #[allow(dead_code)]
         #[cfg_attr(
             feature = "parity-scale-codec",
             derive(
@@ -246,7 +247,7 @@ pub mod protobuf {
             feature = "borsh",
             derive(borsh::BorshSerialize, borsh::BorshDeserialize)
         )]
-        pub struct InnerAny {
+        struct InnerAny {
             pub type_url: String,
             pub value: Vec<u8>,
         }
