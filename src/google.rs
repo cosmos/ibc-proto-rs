@@ -230,13 +230,13 @@ pub mod protobuf {
         }
     }
 
+    #[cfg(any(feature = "borsh", feature = "parity-scale-codec"))]
     mod sealed {
-        #[allow(unused_imports)]
-        use super::*;
+        use super::Any;
+
         use alloc::string::String;
         use alloc::vec::Vec;
 
-        #[allow(dead_code)]
         #[cfg_attr(
             feature = "parity-scale-codec",
             derive(
