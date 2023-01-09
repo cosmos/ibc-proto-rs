@@ -299,7 +299,7 @@ pub mod protobuf {
                 let inner_any = InnerAny::decode(input)?;
                 Ok(Any {
                     type_url: inner_any.type_url.clone(),
-                    value: inner_any.value.clone(),
+                    value: inner_any.value,
                 })
             }
         }
