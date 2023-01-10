@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## v0.24.1
+
+*January 10th, 2023*
+
+This release adds `parity-scale-codec` and `borsh` serialize/deserialize for the `Any` type.
+
+### FEATURES
+
+- Add parity-scale-codec and borsh for Any ([#47](https://github.com/cosmos/ibc-
+  proto-rs/issues/47))
+
 ## v0.24.0
 
 *December 13th, 2022*
