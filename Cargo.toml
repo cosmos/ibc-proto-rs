@@ -34,7 +34,7 @@ flex-error = { version = "0.4.4", default-features = false }
 parity-scale-codec = { version = "3.0.0", default-features = false, features = ["full"], optional = true }
 scale-info = { version = "2.1.2", default-features = false, features = ["derive"], optional = true }
 ## for borsh encode or decode
-borsh = {version = "0.9.3", default-features = false, optional = true }
+borsh = {version = "0.10.0", default-features = false, optional = true }
 
 [dependencies.tendermint-proto]
 version          = "0.28"
