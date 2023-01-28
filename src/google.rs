@@ -310,7 +310,7 @@ pub mod protobuf {
 
             fn type_info() -> scale_info::Type {
                 scale_info::Type::builder()
-                    .path(scale_info::Path::new("HeaderAttribute", module_path!()))
+                    .path(scale_info::Path::new("Any", module_path!()))
                     // i128 is chosen before we represent the timestamp is nanoseconds, which is represented as a i128 by Time
                     .composite(
                         scale_info::build::Fields::named()
