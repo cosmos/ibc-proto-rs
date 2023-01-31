@@ -270,7 +270,9 @@ pub mod protobuf {
 
         #[cfg(feature = "borsh")]
         impl borsh::BorshDeserialize for Any {
-            fn deserialize_reader<R: borsh::maybestd::io::Read>(reader: &mut R) -> borsh::maybestd::io::Result<Self> {
+            fn deserialize_reader<R: borsh::maybestd::io::Read>(
+                reader: &mut R,
+            ) -> borsh::maybestd::io::Result<Self> {
                 let inner_any = InnerAny::deserialize_reader(reader)?;
 
                 Ok(Any {
