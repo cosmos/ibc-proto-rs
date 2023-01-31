@@ -235,7 +235,6 @@ pub mod protobuf {
 
         use alloc::string::String;
         use alloc::vec::Vec;
-        use borsh::maybestd::io::Read;
 
         #[cfg_attr(
             feature = "parity-scale-codec",
@@ -271,7 +270,9 @@ pub mod protobuf {
 
         #[cfg(feature = "borsh")]
         impl borsh::BorshDeserialize for Any {
-            fn deserialize_reader<R: Read>(reader: &mut R) -> borsh::maybestd::io::Result<Self> {
+            fn deserialize_reader<R: borsh::maybestd::io::Read>(
+                reader: &mut R,
+            ) -> borsh::maybestd::io::Result<Self> {
                 let inner_any = InnerAny::deserialize_reader(reader)?;
 
                 Ok(Any {
@@ -310,7 +311,7 @@ pub mod protobuf {
 
             fn type_info() -> scale_info::Type {
                 scale_info::Type::builder()
-                    .path(scale_info::Path::new("HeaderAttribute", module_path!()))
+                    .path(scale_info::Path::new("Any", "ibc_proto::google::protobuf"))
                     // i128 is chosen before we represent the timestamp is nanoseconds, which is represented as a i128 by Time
                     .composite(
                         scale_info::build::Fields::named()
