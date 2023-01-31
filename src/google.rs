@@ -235,8 +235,6 @@ pub mod protobuf {
 
         use alloc::string::String;
         use alloc::vec::Vec;
-        #[cfg(feature = "borsh")]
-        use borsh::maybestd::io::Read;
 
         #[cfg_attr(
             feature = "parity-scale-codec",
@@ -272,7 +270,7 @@ pub mod protobuf {
 
         #[cfg(feature = "borsh")]
         impl borsh::BorshDeserialize for Any {
-            fn deserialize_reader<R: Read>(reader: &mut R) -> borsh::maybestd::io::Result<Self> {
+            fn deserialize_reader<R: borsh::maybestd::io::Read>(reader: &mut R) -> borsh::maybestd::io::Result<Self> {
                 let inner_any = InnerAny::deserialize_reader(reader)?;
 
                 Ok(Any {
