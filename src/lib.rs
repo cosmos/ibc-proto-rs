@@ -8,7 +8,7 @@
 #![allow(clippy::large_enum_variant, clippy::derive_partial_eq_without_eq)]
 #![allow(rustdoc::bare_urls)]
 #![forbid(unsafe_code)]
-#![doc(html_root_url = "https://docs.rs/ibc-proto/0.24.1")]
+#![doc(html_root_url = "https://docs.rs/ibc-proto/0.25.0")]
 
 pub mod google;
 pub mod protobuf;

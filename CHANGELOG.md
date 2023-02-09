@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v0.25.0
+
+*February 9th, 2023*
+
+This release updates borsh to v0.10.0 and fixes a typo in borsh deserialization of `Any` ([#59](https://github.com/cosmos/ibc-
+  proto-rs/pull/59)).
+
 ## v0.24.1
 
 *January 10th, 2023*
