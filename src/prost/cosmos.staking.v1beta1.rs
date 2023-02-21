@@ -410,7 +410,7 @@ pub struct MsgCancelUnbondingDelegation {
     pub delegator_address: ::prost::alloc::string::String,
     #[prost(string, tag="2")]
     pub validator_address: ::prost::alloc::string::String,
-    /// amount is always less than or equal to unbonding delegation entry balance 
+    /// amount is always less than or equal to unbonding delegation entry balance
     #[prost(message, optional, tag="3")]
     pub amount: ::core::option::Option<super::super::base::v1beta1::Coin>,
     /// creation_height is the height which the unbonding took place.
@@ -2428,7 +2428,7 @@ pub struct StakeAuthorization {
 pub mod stake_authorization {
     /// Validators defines list of validator addresses.
     #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct ValidatorsVec {
+    pub struct Validators {
         #[prost(string, repeated, tag="1")]
         pub address: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     }
@@ -2438,10 +2438,10 @@ pub mod stake_authorization {
         /// allow_list specifies list of validator addresses to whom grantee can delegate tokens on behalf of granter's
         /// account.
         #[prost(message, tag="2")]
-        AllowList(ValidatorsVec),
+        AllowList(Validators),
         /// deny_list specifies list of validator addresses to whom grantee can not delegate tokens.
         #[prost(message, tag="3")]
-        DenyList(ValidatorsVec),
+        DenyList(Validators),
     }
 }
 /// AuthorizationType defines the type of staking module authorization type
