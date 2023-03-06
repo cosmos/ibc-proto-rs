@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.26.0
+
+*February 17, 2023*
+
+This release updates tendermint protobuf defintions to `v0.29.0`.
+
 ## v0.25.0
 
 *February 9th, 2023*
