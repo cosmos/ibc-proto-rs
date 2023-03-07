@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## v0.27.0
+
+*March 7th, 2023*
+
+This release updates the `tendermint-proto` crate to v0.30.0.
+
+At the moment, only the Tendermint Protobuf definitions for CometBFT 0.37 are exported
+and supported. In the future, side-by-side support for 0.34 and 0.37 definitions may be provided.
+
+### BREAKING CHANGE
+
+- Update `tendermint-proto` to v0.30.0 ([#64](https://github.com/cosmos/ibc-proto-rs/issues/64))
+
 ## v0.26.0
 
 *February 17, 2023*
@@ -10,8 +23,8 @@ This release updates tendermint protobuf defintions to `v0.29.0`.
 
 *February 9th, 2023*
 
-This release updates borsh to v0.10.0 and fixes a typo in borsh deserialization of `Any` ([#59](https://github.com/cosmos/ibc-
-  proto-rs/pull/59)).
+This release updates borsh to v0.10.0 and fixes a typo in borsh deserialization of `Any`
+([#59](https://github.com/cosmos/ibc-proto-rs/pull/59)).
 
 ## v0.24.1
 
