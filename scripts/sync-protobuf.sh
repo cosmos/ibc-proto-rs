@@ -25,13 +25,38 @@ set -eou pipefail
 CACHE_PATH="${XDG_CACHE_HOME:-$HOME/.cache}"
 COSMOS_SDK_GIT="${COSMOS_SDK_GIT:-$CACHE_PATH/cosmos/cosmos-sdk.git}"
 IBC_GO_GIT="${IBC_GO_GIT:-$CACHE_PATH/ibc-go.git}"
-
+COSMOS_ICS_GIT="${COSMOS_ICS_GIT:-$CACHE_PATH/cosmos/interchain-security.git}"
 
 COSMOS_SDK_COMMIT="$(cat src/COSMOS_SDK_COMMIT)"
 IBC_GO_COMMIT="$(cat src/IBC_GO_COMMIT)"
+COSMOS_ICS_COMMIT="$(cat src/COSMOS_ICS_COMMIT)"
 
 echo "COSMOS_SDK_COMMIT: $COSMOS_SDK_COMMIT"
 echo "IBC_GO_COMMIT: $IBC_GO_COMMIT"
+echo "COSMOS_ICS_COMMIT: $COSMOS_ICS_COMMIT"
+
+# Use either --ics-commit flag for commit ID,
+# or --ics-tag for git tag. Because we can't modify
+# proto-compiler to have smart detection on that.
+
+if [[ "$COSMOS_ICS_COMMIT" =~ ^[a-zA-Z0-9]{40}$ ]]
+then
+    ICS_COMMIT_OPTION="--ics-commit"
+else
+    ICS_COMMIT_OPTION="--ics-tag"
+fi
+
+# If the git directories does not exist, clone them as
+# bare git repositories so that no local modification
+# can be done there.
+
+if [[ ! -e "$COSMOS_ICS_GIT" ]]
+then
+    echo "Cloning intechain-security source code to as bare git repository to $COSMOS_ICS_GIT"
+    git clone --mirror https://github.com/cosmos/interchain-security.git "$COSMOS_ICS_GIT"
+else
+    echo "Using existing intechain-security bare git repository at $COSMOS_ICS_GIT"
+fi
 
 # Use either --sdk-commit flag for commit ID,
 # or --sdk-tag for git tag. Because we can't modify
@@ -66,6 +91,10 @@ fi
 
 # Update the repositories using git fetch. This is so that
 # we keep local copies of the repositories up to sync first.
+pushd "$COSMOS_ICS_GIT"
+git fetch
+popd
+
 pushd "$COSMOS_SDK_GIT"
 git fetch
 popd
@@ -78,6 +107,22 @@ popd
 # actual source files from the bare git repositories.
 # This is so that we do not accidentally use an unclean
 # local copy of the source files to generate the protobuf.
+COSMOS_ICS_DIR=$(mktemp -d /tmp/intechain-security-XXXXXXXX)
+
+pushd "$COSMOS_ICS_DIR"
+git clone "$COSMOS_ICS_GIT" .
+git checkout "$COSMOS_ICS_COMMIT"
+
+# We have to name the commit as a branch because
+# proto-compiler uses the branch name as the commit
+# output. Otherwise it will just output HEAD
+git checkout -b "$COSMOS_ICS_COMMIT"
+
+cd proto
+buf mod update
+buf export -v -o ../proto-include
+popd
+
 COSMOS_SDK_DIR=$(mktemp -d /tmp/cosmos-sdk-XXXXXXXX)
 
 pushd "$COSMOS_SDK_DIR"
@@ -121,11 +166,12 @@ cargo build --locked
 # and once for no-std version with --build-tonic set to false
 
 cargo run --locked -- compile \
+  --ics "$COSMOS_ICS_DIR/proto-include" \
   --sdk "$COSMOS_SDK_DIR/proto-include" \
   --ibc "$IBC_GO_DIR/proto-include" \
   --out ../../src/prost
 
 # Remove the temporary checkouts of the repositories
-
+rm -rf "$COSMOS_ICS_DIR"
 rm -rf "$COSMOS_SDK_DIR"
 rm -rf "$IBC_GO_DIR"
