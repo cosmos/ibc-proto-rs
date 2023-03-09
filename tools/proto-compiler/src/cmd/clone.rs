@@ -20,6 +20,10 @@ pub struct CloneCmd {
     #[argh(option, short = 'i')]
     ibc_go_commit: Option<String>,
 
+    /// commit to checkout for the SDK repo
+    #[argh(option, short = 's')]
+    ics_commit: Option<String>,
+
     /// where to checkout the repository
     #[argh(option, short = 'o')]
     out: PathBuf,
@@ -27,6 +31,7 @@ pub struct CloneCmd {
 
 pub const COSMOS_SDK_URL: &str = "https://github.com/cosmos/cosmos-sdk";
 pub const IBC_GO_URL: &str = "https://github.com/cosmos/ibc-go";
+pub const ICS_URL: &str = "https://github.com/cosmos/interchain-security";
 
 impl CloneCmd {
     pub fn validate(&self) {
@@ -46,6 +51,12 @@ impl CloneCmd {
         let mut ibc_path = self.out.clone();
         ibc_path.push("ibc/");
         ibc_path
+    }
+
+    pub fn ics_subdir(&self) -> PathBuf {
+        let mut ics_path = self.out.clone();
+        ics_path.push("ics/");
+        ics_path
     }
 
     pub fn run(&self) {
@@ -118,6 +129,40 @@ impl CloneCmd {
             None => {
                 println!(
                     "[info ] No `-i`/`--ibc_go_commit` option passed. Skipping the IBC Go repo."
+                )
+            }
+        }
+        println!("[info ] Cloning cosmos/ics repository...");
+
+        match &self.ics_commit {
+            Some(ics_commit) => {
+                let ics_path = self.ics_subdir();
+                let ics_repo = if ics_path.exists() {
+                    println!("[info ] Found ICS source at '{}'", ics_path.display());
+
+                    Repository::open(&ics_path).unwrap_or_else(|e| {
+                        println!("[error] Failed to open repository: {}", e);
+                        process::exit(1)
+                    })
+                } else {
+                    Repository::clone(ICS_URL, &ics_path).unwrap_or_else(|e| {
+                        println!("[error] Failed to clone the ICS repository: {}", e);
+                        process::exit(1)
+                    })
+                };
+
+                println!("[info ] Cloned at '{}'", ics_path.display());
+                checkout_commit(&ics_repo, ics_commit).unwrap_or_else(|e| {
+                    println!(
+                        "[error] Failed to checkout ICS commit {}: {}",
+                        ics_commit, e
+                    );
+                    process::exit(1)
+                });
+            }
+            None => {
+                println!(
+                    "[info ] No `-i`/`--ics_commit` option passed. Skipping the ICS repo."
                 )
             }
         }
