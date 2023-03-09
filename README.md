@@ -27,7 +27,7 @@ You will likely want to look at [scripts/sync-protobuf.sh](scripts/sync-protobuf
 
 ## License
 
-Copyright © 2022 Informal Systems
+Copyright © 2023 Informal Systems
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use the files in this repository except in compliance with the License.
