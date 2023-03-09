@@ -27,7 +27,12 @@ pub struct CompileCmd {
 
 impl CompileCmd {
     pub fn run(&self) {
-        Self::compile_ibc_protos(self.ibc.as_ref(), self.sdk.as_ref(), self.ics.as_ref(), self.out.as_ref());
+        Self::compile_ibc_protos(
+            self.ibc.as_ref(),
+            self.sdk.as_ref(),
+            self.ics.as_ref(),
+            self.out.as_ref(),
+        );
     }
 
     fn compile_ibc_protos(ibc_dir: &Path, sdk_dir: &Path, ics_dir: &Path, out_dir: &Path) {

@@ -161,9 +161,7 @@ impl CloneCmd {
                 });
             }
             None => {
-                println!(
-                    "[info ] No `-i`/`--ics_commit` option passed. Skipping the ICS repo."
-                )
+                println!("[info ] No `-i`/`--ics_commit` option passed. Skipping the ICS repo.")
             }
         }
     }
