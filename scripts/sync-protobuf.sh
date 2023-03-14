@@ -139,6 +139,28 @@ buf mod update
 buf export -v -o ../proto-include
 popd
 
+cat << "EOF" >> "$COSMOS_SDK_DIR/proto-include/cosmos/staking/v1beta1/staking.proto"
+
+import "tendermint/abci/types.proto";
+
+// InfractionType indicates the infraction type a validator commited.
+enum InfractionType {
+  option (gogoproto.goproto_enum_prefix) = false;
+
+  // UNSPECIFIED defines an empty infraction type.
+  INFRACTION_TYPE_UNSPECIFIED = 0 [(gogoproto.enumvalue_customname) = "InfractionEmpty"];
+  // DOUBLE_SIGN defines a validator that double-signs a block.
+  INFRACTION_TYPE_DOUBLE_SIGN = 1 [(gogoproto.enumvalue_customname) = "DoubleSign"];
+  // DOWNTIME defines a validator that missed signing too many blocks.
+  INFRACTION_TYPE_DOWNTIME = 2 [(gogoproto.enumvalue_customname) = "Downtime"];
+}
+
+// ValidatorUpdates defines an array of abci.ValidatorUpdate objects.
+message ValidatorUpdates {
+  repeated tendermint.abci.ValidatorUpdate updates = 1 [(gogoproto.nullable) = false];
+}
+EOF
+
 IBC_GO_DIR=$(mktemp -d /tmp/ibc-go-XXXXXXXX)
 
 pushd "$IBC_GO_DIR"
