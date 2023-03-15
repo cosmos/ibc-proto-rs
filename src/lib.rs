@@ -49,6 +49,11 @@ pub mod cosmos {
             }
         }
     }
+    pub mod evidence {
+        pub mod v1beta1 {
+            include_proto!("cosmos.evidence.v1beta1.rs");
+        }
+    }
     pub mod staking {
         pub mod v1beta1 {
             include_proto!("cosmos.staking.v1beta1.rs");
@@ -214,6 +219,24 @@ pub mod ibc {
 
 pub mod ics23 {
     include_proto!("ics23.rs");
+}
+
+pub mod interchain_security {
+    pub mod ccv {
+        pub mod v1 {
+            include_proto!("interchain_security.ccv.v1.rs");
+        }
+        pub mod provider {
+            pub mod v1 {
+                include_proto!("interchain_security.ccv.provider.v1.rs");
+            }
+        }
+        pub mod consumer {
+            pub mod v1 {
+                include_proto!("interchain_security.ccv.consumer.v1.rs");
+            }
+        }
+    }
 }
 
 pub mod stride {
