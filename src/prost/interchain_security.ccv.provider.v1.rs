@@ -13,6 +13,20 @@ pub struct MsgAssignConsumerKey {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgAssignConsumerKeyResponse {
 }
+/// MsgSubmitConsumerMisbehaviour defines a message that reports a misbehaviour
+/// observed on a consumer chain
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgSubmitConsumerMisbehaviour {
+    #[prost(string, tag="1")]
+    pub submitter: ::prost::alloc::string::String,
+    /// The Misbehaviour of the consumer chain wrapping 
+    /// two conflicting IBC headers 
+    #[prost(message, optional, tag="2")]
+    pub misbehaviour: ::core::option::Option<super::super::super::super::ibc::lightclients::tendermint::v1::Misbehaviour>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgSubmitConsumerMisbehaviourResponse {
+}
 /// Generated client implementations.
 #[cfg(feature = "client")]
 pub mod msg_client {
@@ -106,6 +120,28 @@ pub mod msg_client {
             );
             self.inner.unary(request.into_request(), path, codec).await
         }
+        pub async fn submit_consumer_misbehaviour(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgSubmitConsumerMisbehaviour>,
+        ) -> Result<
+            tonic::Response<super::MsgSubmitConsumerMisbehaviourResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/interchain_security.ccv.provider.v1.Msg/SubmitConsumerMisbehaviour",
+            );
+            self.inner.unary(request.into_request(), path, codec).await
+        }
     }
 }
 /// Generated server implementations.
@@ -120,6 +156,13 @@ pub mod msg_server {
             &self,
             request: tonic::Request<super::MsgAssignConsumerKey>,
         ) -> Result<tonic::Response<super::MsgAssignConsumerKeyResponse>, tonic::Status>;
+        async fn submit_consumer_misbehaviour(
+            &self,
+            request: tonic::Request<super::MsgSubmitConsumerMisbehaviour>,
+        ) -> Result<
+            tonic::Response<super::MsgSubmitConsumerMisbehaviourResponse>,
+            tonic::Status,
+        >;
     }
     /// Msg defines the Msg service.
     #[derive(Debug)]
@@ -208,6 +251,46 @@ pub mod msg_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = AssignConsumerKeySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/interchain_security.ccv.provider.v1.Msg/SubmitConsumerMisbehaviour" => {
+                    #[allow(non_camel_case_types)]
+                    struct SubmitConsumerMisbehaviourSvc<T: Msg>(pub Arc<T>);
+                    impl<
+                        T: Msg,
+                    > tonic::server::UnaryService<super::MsgSubmitConsumerMisbehaviour>
+                    for SubmitConsumerMisbehaviourSvc<T> {
+                        type Response = super::MsgSubmitConsumerMisbehaviourResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgSubmitConsumerMisbehaviour>,
+                        ) -> Self::Future {
+                            let inner = self.0.clone();
+                            let fut = async move {
+                                (*inner).submit_consumer_misbehaviour(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = SubmitConsumerMisbehaviourSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
