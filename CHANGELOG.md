@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## v0.28.0
+
+*March 10th, 2023*
+
+This release updates the `ibc-go` proto files from version `v5.0.0` to `v5.1.0`.
+
+This includes the `memo` field in the following struct:
+
+* `ibc.applications.transfer.v1 MsgTransfer`
+* `ibc.applications.transfer.v2 FungibleTokenPacketData`
+
+As well as the `sequence` field in:
+
+* `ibc.applications.transfer.v1 MsgTransferResponse`
+
+### IMPROVEMENTS
+
+- Update `ibc-go` commit from `v5.0.0` to `v5.1.0`
+([#71](https://github.com/cosmos/ibc-proto-rs/issues/71))
+
 ## v0.27.0
 
 *March 7th, 2023*
