@@ -121,4 +121,5 @@ jobs:
       - uses: Swatinem/rust-cache@v1
       - uses: actions-rs/cargo@v1
         with:
-          command: publish --dry-run
+          command: publish
+          args: --dry-run
