@@ -13,7 +13,7 @@ pub mod msg_client {
         /// Attempt to create a new client by connecting to a given endpoint.
         pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
         where
-            D: std::convert::TryInto<tonic::transport::Endpoint>,
+            D: TryInto<tonic::transport::Endpoint>,
             D::Error: Into<StdError>,
         {
             let conn = tonic::transport::Endpoint::new(dst)?.connect().await?;
@@ -69,6 +69,22 @@ pub mod msg_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
     }
 }
 /// Generated server implementations.
@@ -76,7 +92,7 @@ pub mod msg_client {
 pub mod msg_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
-    ///Generated trait containing gRPC methods that should be implemented for use with MsgServer.
+    /// Generated trait containing gRPC methods that should be implemented for use with MsgServer.
     #[async_trait]
     pub trait Msg: Send + Sync + 'static {}
     /// Msg defines the Msg service.
@@ -85,6 +101,8 @@ pub mod msg_server {
         inner: _Inner<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
     }
     struct _Inner<T>(Arc<T>);
     impl<T: Msg> MsgServer<T> {
@@ -97,6 +115,8 @@ pub mod msg_server {
                 inner,
                 accept_compression_encodings: Default::default(),
                 send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
             }
         }
         pub fn with_interceptor<F>(
@@ -120,6 +140,22 @@ pub mod msg_server {
             self.send_compression_encodings.enable(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
     }
     impl<T, B> tonic::codegen::Service<http::Request<B>> for MsgServer<T>
     where
@@ -133,7 +169,7 @@ pub mod msg_server {
         fn poll_ready(
             &mut self,
             _cx: &mut Context<'_>,
-        ) -> Poll<Result<(), Self::Error>> {
+        ) -> Poll<std::result::Result<(), Self::Error>> {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
@@ -161,12 +197,14 @@ pub mod msg_server {
                 inner,
                 accept_compression_encodings: self.accept_compression_encodings,
                 send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
             }
         }
     }
     impl<T: Msg> Clone for _Inner<T> {
         fn clone(&self) -> Self {
-            Self(self.0.clone())
+            Self(Arc::clone(&self.0))
         }
     }
     impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
@@ -193,7 +231,7 @@ pub mod query_client {
         /// Attempt to create a new client by connecting to a given endpoint.
         pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
         where
-            D: std::convert::TryInto<tonic::transport::Endpoint>,
+            D: TryInto<tonic::transport::Endpoint>,
             D::Error: Into<StdError>,
         {
             let conn = tonic::transport::Endpoint::new(dst)?.connect().await?;
@@ -249,6 +287,22 @@ pub mod query_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
     }
 }
 /// Generated server implementations.
@@ -256,7 +310,7 @@ pub mod query_client {
 pub mod query_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
-    ///Generated trait containing gRPC methods that should be implemented for use with QueryServer.
+    /// Generated trait containing gRPC methods that should be implemented for use with QueryServer.
     #[async_trait]
     pub trait Query: Send + Sync + 'static {}
     /// Query defines the gRPC querier service.
@@ -265,6 +319,8 @@ pub mod query_server {
         inner: _Inner<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
     }
     struct _Inner<T>(Arc<T>);
     impl<T: Query> QueryServer<T> {
@@ -277,6 +333,8 @@ pub mod query_server {
                 inner,
                 accept_compression_encodings: Default::default(),
                 send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
             }
         }
         pub fn with_interceptor<F>(
@@ -300,6 +358,22 @@ pub mod query_server {
             self.send_compression_encodings.enable(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
     }
     impl<T, B> tonic::codegen::Service<http::Request<B>> for QueryServer<T>
     where
@@ -313,7 +387,7 @@ pub mod query_server {
         fn poll_ready(
             &mut self,
             _cx: &mut Context<'_>,
-        ) -> Poll<Result<(), Self::Error>> {
+        ) -> Poll<std::result::Result<(), Self::Error>> {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
@@ -341,12 +415,14 @@ pub mod query_server {
                 inner,
                 accept_compression_encodings: self.accept_compression_encodings,
                 send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
             }
         }
     }
     impl<T: Query> Clone for _Inner<T> {
         fn clone(&self) -> Self {
-            Self(self.0.clone())
+            Self(Arc::clone(&self.0))
         }
     }
     impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
@@ -363,73 +439,86 @@ pub mod query_server {
 /// slashing events) A VSCMatured packet from consumer chain will be sent
 /// asynchronously once unbonding period is over, and this will function as
 /// `UnbondingOver` message for this packet.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ValidatorSetChangePacketData {
-    #[prost(message, repeated, tag="1")]
-    pub validator_updates: ::prost::alloc::vec::Vec<::tendermint_proto::abci::ValidatorUpdate>,
-    #[prost(uint64, tag="2")]
+    #[prost(message, repeated, tag = "1")]
+    pub validator_updates: ::prost::alloc::vec::Vec<
+        ::tendermint_proto::abci::ValidatorUpdate,
+    >,
+    #[prost(uint64, tag = "2")]
     pub valset_update_id: u64,
     /// consensus address of consumer chain validators
     /// successfully slashed on the provider chain
-    #[prost(string, repeated, tag="3")]
+    #[prost(string, repeated, tag = "3")]
     pub slash_acks: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// List of ccv.ValidatorSetChangePacketData.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ValidatorSetChangePackets {
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub list: ::prost::alloc::vec::Vec<ValidatorSetChangePacketData>,
 }
 /// This packet is sent from the consumer chain to the provider chain
 /// to notify that a VSC packet reached maturity on the consumer chain.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct VscMaturedPacketData {
     /// the id of the VSC packet that reached maturity
-    #[prost(uint64, tag="1")]
+    #[prost(uint64, tag = "1")]
     pub valset_update_id: u64,
 }
 /// This packet is sent from the consumer chain to the provider chain
 /// to request the slashing of a validator as a result of an infraction
 /// committed on the consumer chain.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SlashPacketData {
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub validator: ::core::option::Option<::tendermint_proto::abci::Validator>,
     /// map to the infraction block height on the provider
-    #[prost(uint64, tag="2")]
+    #[prost(uint64, tag = "2")]
     pub valset_update_id: u64,
     /// tell if the slashing is for a downtime or a double-signing infraction
-    #[prost(enumeration="super::super::super::cosmos::staking::v1beta1::InfractionType", tag="3")]
+    #[prost(
+        enumeration = "super::super::super::cosmos::staking::v1beta1::InfractionType",
+        tag = "3"
+    )]
     pub infraction: i32,
 }
-/// MaturedUnbondingOps defines a list of ids corresponding to ids of matured unbonding operations. 
+/// MaturedUnbondingOps defines a list of ids corresponding to ids of matured unbonding operations.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MaturedUnbondingOps {
-    #[prost(uint64, repeated, tag="1")]
+    #[prost(uint64, repeated, tag = "1")]
     pub ids: ::prost::alloc::vec::Vec<u64>,
 }
 /// ConsumerPacketData contains a consumer packet data and a type tag
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerPacketData {
-    #[prost(enumeration="ConsumerPacketDataType", tag="1")]
+    #[prost(enumeration = "ConsumerPacketDataType", tag = "1")]
     pub r#type: i32,
-    #[prost(oneof="consumer_packet_data::Data", tags="2, 3")]
+    #[prost(oneof = "consumer_packet_data::Data", tags = "2, 3")]
     pub data: ::core::option::Option<consumer_packet_data::Data>,
 }
 /// Nested message and enum types in `ConsumerPacketData`.
 pub mod consumer_packet_data {
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Data {
-        #[prost(message, tag="2")]
+        #[prost(message, tag = "2")]
         SlashPacketData(super::SlashPacketData),
-        #[prost(message, tag="3")]
+        #[prost(message, tag = "3")]
         VscMaturedPacketData(super::VscMaturedPacketData),
     }
 }
 /// ConsumerPacketDataList is a list of consumer packet data packets.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerPacketDataList {
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub list: ::prost::alloc::vec::Vec<ConsumerPacketData>,
 }
 /// ConsumerPacketType indicates interchain security specific packet types.
@@ -450,9 +539,24 @@ impl ConsumerPacketDataType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ConsumerPacketDataType::ConsumerPacketTypeUnspecified => "CONSUMER_PACKET_TYPE_UNSPECIFIED",
-            ConsumerPacketDataType::ConsumerPacketTypeSlash => "CONSUMER_PACKET_TYPE_SLASH",
+            ConsumerPacketDataType::ConsumerPacketTypeUnspecified => {
+                "CONSUMER_PACKET_TYPE_UNSPECIFIED"
+            }
+            ConsumerPacketDataType::ConsumerPacketTypeSlash => {
+                "CONSUMER_PACKET_TYPE_SLASH"
+            }
             ConsumerPacketDataType::ConsumerPacketTypeVscm => "CONSUMER_PACKET_TYPE_VSCM",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "CONSUMER_PACKET_TYPE_UNSPECIFIED" => {
+                Some(Self::ConsumerPacketTypeUnspecified)
+            }
+            "CONSUMER_PACKET_TYPE_SLASH" => Some(Self::ConsumerPacketTypeSlash),
+            "CONSUMER_PACKET_TYPE_VSCM" => Some(Self::ConsumerPacketTypeVscm),
+            _ => None,
         }
     }
 }

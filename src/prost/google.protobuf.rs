@@ -179,7 +179,17 @@ pub struct FieldDescriptorProto {
 }
 /// Nested message and enum types in `FieldDescriptorProto`.
 pub mod field_descriptor_proto {
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Type {
         /// 0 is reserved for errors.
@@ -267,7 +277,17 @@ pub mod field_descriptor_proto {
             }
         }
     }
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Label {
         /// 0 is reserved for errors
@@ -321,7 +341,9 @@ pub struct EnumDescriptorProto {
     /// by enum values in the same enum declaration. Reserved ranges may not
     /// overlap.
     #[prost(message, repeated, tag = "4")]
-    pub reserved_range: ::prost::alloc::vec::Vec<enum_descriptor_proto::EnumReservedRange>,
+    pub reserved_range: ::prost::alloc::vec::Vec<
+        enum_descriptor_proto::EnumReservedRange,
+    >,
     /// Reserved enum value names, which may not be reused. A given name may only
     /// be reserved once.
     #[prost(string, repeated, tag = "5")]
@@ -405,10 +427,10 @@ pub struct FileOptions {
     /// .proto file will be nested inside the single wrapper outer class.
     #[prost(string, optional, tag = "8")]
     pub java_outer_classname: ::core::option::Option<::prost::alloc::string::String>,
-    /// If set true, then the Java code generator will generate a separate .java
+    /// If enabled, then the Java code generator will generate a separate .java
     /// file for each top-level message, enum, and service defined in the .proto
-    /// file.  Thus, these types will *not* be nested inside the outer class
-    /// named by java_outer_classname.  However, the outer class will still be
+    /// file.  Thus, these types will *not* be nested inside the wrapper class
+    /// named by java_outer_classname.  However, the wrapper class will still be
     /// generated to contain the file's getDescriptor() method as well as any
     /// top-level extensions defined in the file.
     #[prost(bool, optional, tag = "10", default = "false")]
@@ -507,7 +529,17 @@ pub struct FileOptions {
 /// Nested message and enum types in `FileOptions`.
 pub mod file_options {
     /// Generated classes can be optimized for speed or code size.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum OptimizeMode {
         /// Generate complete code for parsing, serialization,
@@ -698,7 +730,17 @@ pub struct FieldOptions {
 }
 /// Nested message and enum types in `FieldOptions`.
 pub mod field_options {
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum CType {
         /// Default mode.
@@ -728,7 +770,17 @@ pub mod field_options {
             }
         }
     }
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum JsType {
         /// Use the default type.
@@ -836,7 +888,17 @@ pub mod method_options {
     /// Is this method side-effect-free (or safe in HTTP parlance), or idempotent,
     /// or neither? HTTP based RPC implementation may choose GET verb for safe
     /// methods, and PUT verb for idempotent methods instead of the default POST.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum IdempotencyLevel {
         IdempotencyUnknown = 0,
@@ -970,8 +1032,8 @@ pub mod source_code_info {
         /// location.
         ///
         /// Each element is a field number or an index.  They form a path from
-        /// the root FileDescriptorProto to the place where the definition.  For
-        /// example, this path:
+        /// the root FileDescriptorProto to the place where the definition occurs.
+        /// For example, this path:
         ///    [ 4, 3, 2, 7, 1 ]
         /// refers to:
         ///    file.message_type(3)  // 4, 3
@@ -1025,13 +1087,13 @@ pub mod source_code_info {
         ///    // Comment attached to baz.
         ///    // Another line attached to baz.
         ///
-        ///    // Comment attached to qux.
+        ///    // Comment attached to moo.
         ///    //
-        ///    // Another line attached to qux.
-        ///    optional double qux = 4;
+        ///    // Another line attached to moo.
+        ///    optional double moo = 4;
         ///
         ///    // Detached comment for corge. This is not leading or trailing comments
-        ///    // to qux or corge because there are blank lines separating it from
+        ///    // to moo or corge because there are blank lines separating it from
         ///    // both.
         ///
         ///    // Detached comment for corge paragraph 2.
@@ -1050,7 +1112,9 @@ pub mod source_code_info {
         #[prost(string, optional, tag = "4")]
         pub trailing_comments: ::core::option::Option<::prost::alloc::string::String>,
         #[prost(string, repeated, tag = "6")]
-        pub leading_detached_comments: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+        pub leading_detached_comments: ::prost::alloc::vec::Vec<
+            ::prost::alloc::string::String,
+        >,
     }
 }
 /// Describes the relationship between generated code and its original source
@@ -1167,7 +1231,8 @@ pub mod generated_code_info {
 ///        "value": "1.212s"
 ///      }
 ///
-#[derive(::serde::Serialize, ::serde::Deserialize, Eq)]
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[derive(Eq)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Any {
@@ -1256,7 +1321,16 @@ pub struct Any {
 ///          .setNanos((int) ((millis % 1000) * 1000000)).build();
 ///
 ///
-/// Example 5: Compute Timestamp from current time in Python.
+/// Example 5: Compute Timestamp from Java `Instant.now()`.
+///
+///      Instant now = Instant.now();
+///
+///      Timestamp timestamp =
+///          Timestamp.newBuilder().setSeconds(now.getEpochSecond())
+///              .setNanos(now.getNano()).build();
+///
+///
+/// Example 6: Compute Timestamp from current time in Python.
 ///
 ///      timestamp = Timestamp()
 ///      timestamp.GetCurrentTime()
@@ -1365,7 +1439,8 @@ pub struct Timestamp {
 /// microsecond should be expressed in JSON format as "3.000001s".
 ///
 ///
-#[derive(::serde::Serialize, ::serde::Deserialize, Eq)]
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[derive(Eq)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Duration {
