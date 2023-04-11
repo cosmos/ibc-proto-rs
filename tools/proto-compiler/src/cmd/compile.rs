@@ -34,6 +34,8 @@ impl CompileCmd {
             eprintln!("[error] failed to patch generated files: {}", e);
             process::exit(1);
         });
+
+        println!("[info ] Done!");
     }
 
     fn compile_ibc_protos(
