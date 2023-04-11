@@ -1,7 +1,7 @@
 use std::path::{Path, PathBuf};
 use std::process;
 
-use similar::{ChangeTag, TextDiff};
+use similar::TextDiff;
 use walkdir::WalkDir;
 
 use argh::FromArgs;
@@ -207,15 +207,7 @@ impl CompileCmd {
                 .replace("DenyList(Validators)", "DenyList(ValidatorsVec)");
 
             let diff = TextDiff::from_lines(&contents, &patched_contents);
-            for change in diff.iter_all_changes() {
-                let sign = match change.tag() {
-                    ChangeTag::Delete => "-",
-                    ChangeTag::Insert => "+",
-                    ChangeTag::Equal => continue,
-                };
-
-                print!("{}{}", sign, change);
-            }
+            println!("{}", diff.unified_diff().context_radius(3));
 
             std::fs::write(&path, patched_contents)?;
         }
