@@ -1,6 +1,7 @@
 use std::path::{Path, PathBuf};
 use std::process;
 
+use similar::TextDiff;
 use walkdir::WalkDir;
 
 use argh::FromArgs;
@@ -23,10 +24,25 @@ pub struct CompileCmd {
 
 impl CompileCmd {
     pub fn run(&self) {
-        Self::compile_ibc_protos(self.ibc.as_ref(), self.sdk.as_ref(), self.out.as_ref());
+        Self::compile_ibc_protos(self.ibc.as_ref(), self.sdk.as_ref(), self.out.as_ref())
+            .unwrap_or_else(|e| {
+                eprintln!("[error] failed to compile protos: {}", e);
+                process::exit(1);
+            });
+
+        Self::patch_generated_files(self.out.as_ref()).unwrap_or_else(|e| {
+            eprintln!("[error] failed to patch generated files: {}", e);
+            process::exit(1);
+        });
+
+        println!("[info ] Done!");
     }
 
-    fn compile_ibc_protos(ibc_dir: &Path, sdk_dir: &Path, out_dir: &Path) {
+    fn compile_ibc_protos(
+        ibc_dir: &Path,
+        sdk_dir: &Path,
+        out_dir: &Path,
+    ) -> Result<(), Box<dyn std::error::Error>> {
         println!(
             "[info ] Compiling IBC .proto files to Rust into '{}'...",
             out_dir.display()
@@ -93,7 +109,7 @@ impl CompileCmd {
         let attrs_jsonschema_str =
             r#"#[cfg_attr(feature = "json-schema", schemars(with = "String"))]"#;
 
-        let compilation = tonic_build::configure()
+        tonic_build::configure()
             .build_client(true)
             .compile_well_known_types(true)
             .client_mod_attribute(".", r#"#[cfg(feature = "client")]"#)
@@ -168,16 +184,36 @@ impl CompileCmd {
             .type_attribute(".cosmos.base.v1beta1", attrs_serde)
             .type_attribute(".cosmos.base.query.v1beta1", attrs_serde)
             .type_attribute(".cosmos.bank.v1beta1", attrs_serde)
-            .compile(&protos, &includes);
+            .compile(&protos, &includes)?;
 
-        match compilation {
-            Ok(_) => {
-                println!("Successfully compiled proto files");
-            }
-            Err(e) => {
-                println!("Failed to compile:{:?}", e.to_string());
-                process::exit(1);
-            }
+        println!("[info ] Protos compiled successfully");
+
+        Ok(())
+    }
+
+    fn patch_generated_files(out_dir: &Path) -> Result<(), Box<dyn std::error::Error>> {
+        println!(
+            "[info ] Patching generated files in '{}'...",
+            out_dir.display()
+        );
+
+        {
+            println!("[info ] Patching cosmos.staking.v1beta1.rs...");
+
+            let path = out_dir.join("cosmos.staking.v1beta1.rs");
+            let contents = std::fs::read_to_string(&path)?;
+
+            let patched_contents = contents
+                .replace("pub struct Validators", "pub struct ValidatorsVec")
+                .replace("AllowList(Validators)", "AllowList(ValidatorsVec)")
+                .replace("DenyList(Validators)", "DenyList(ValidatorsVec)");
+
+            let diff = TextDiff::from_lines(&contents, &patched_contents);
+            println!("{}", diff.unified_diff().context_radius(3));
+
+            std::fs::write(&path, patched_contents)?;
         }
+
+        Ok(())
     }
 }

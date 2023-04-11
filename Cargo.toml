@@ -13,6 +13,12 @@ description  = """
     ibc-proto provides Cosmos SDK & IBC Protocol Buffers definitions
 """
 
+[workspace]
+members = [
+    ".",
+    "tools/proto-compiler"
+]
+
 [lib]
 name = "ibc_proto"
 path = "src/lib.rs"

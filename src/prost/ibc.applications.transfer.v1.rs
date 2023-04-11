@@ -2,41 +2,47 @@
 /// ICS20 enabled chains. See ICS Spec here:
 /// <https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer#data-structures>
 #[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgTransfer {
     /// the port on which the packet will be sent
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub source_port: ::prost::alloc::string::String,
     /// the channel by which the packet will be sent
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub source_channel: ::prost::alloc::string::String,
     /// the tokens to be transferred
-    #[prost(message, optional, tag="3")]
-    pub token: ::core::option::Option<super::super::super::super::cosmos::base::v1beta1::Coin>,
+    #[prost(message, optional, tag = "3")]
+    pub token: ::core::option::Option<
+        super::super::super::super::cosmos::base::v1beta1::Coin,
+    >,
     /// the sender address
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub sender: ::prost::alloc::string::String,
     /// the recipient address on the destination chain
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub receiver: ::prost::alloc::string::String,
     /// Timeout height relative to the current block height.
     /// The timeout is disabled when set to 0.
-    #[prost(message, optional, tag="6")]
-    pub timeout_height: ::core::option::Option<super::super::super::core::client::v1::Height>,
+    #[prost(message, optional, tag = "6")]
+    pub timeout_height: ::core::option::Option<
+        super::super::super::core::client::v1::Height,
+    >,
     /// Timeout timestamp in absolute nanoseconds since unix epoch.
     /// The timeout is disabled when set to 0.
-    #[prost(uint64, tag="7")]
+    #[prost(uint64, tag = "7")]
     pub timeout_timestamp: u64,
     /// optional memo
-    #[prost(string, tag="8")]
+    #[prost(string, tag = "8")]
     pub memo: ::prost::alloc::string::String,
 }
 /// MsgTransferResponse defines the Msg/Transfer response type.
 #[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgTransferResponse {
     /// sequence number of the transfer packet sent
-    #[prost(uint64, tag="1")]
+    #[prost(uint64, tag = "1")]
     pub sequence: u64,
 }
 /// Generated client implementations.
@@ -54,7 +60,7 @@ pub mod msg_client {
         /// Attempt to create a new client by connecting to a given endpoint.
         pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
         where
-            D: std::convert::TryInto<tonic::transport::Endpoint>,
+            D: TryInto<tonic::transport::Endpoint>,
             D::Error: Into<StdError>,
         {
             let conn = tonic::transport::Endpoint::new(dst)?.connect().await?;
@@ -110,11 +116,30 @@ pub mod msg_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Transfer defines a rpc handler method for MsgTransfer.
         pub async fn transfer(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgTransfer>,
-        ) -> Result<tonic::Response<super::MsgTransferResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MsgTransferResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -128,7 +153,10 @@ pub mod msg_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.applications.transfer.v1.Msg/Transfer",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("ibc.applications.transfer.v1.Msg", "Transfer"));
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -137,14 +165,17 @@ pub mod msg_client {
 pub mod msg_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
-    ///Generated trait containing gRPC methods that should be implemented for use with MsgServer.
+    /// Generated trait containing gRPC methods that should be implemented for use with MsgServer.
     #[async_trait]
     pub trait Msg: Send + Sync + 'static {
         /// Transfer defines a rpc handler method for MsgTransfer.
         async fn transfer(
             &self,
             request: tonic::Request<super::MsgTransfer>,
-        ) -> Result<tonic::Response<super::MsgTransferResponse>, tonic::Status>;
+        ) -> std::result::Result<
+            tonic::Response<super::MsgTransferResponse>,
+            tonic::Status,
+        >;
     }
     /// Msg defines the ibc/transfer Msg service.
     #[derive(Debug)]
@@ -152,6 +183,8 @@ pub mod msg_server {
         inner: _Inner<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
     }
     struct _Inner<T>(Arc<T>);
     impl<T: Msg> MsgServer<T> {
@@ -164,6 +197,8 @@ pub mod msg_server {
                 inner,
                 accept_compression_encodings: Default::default(),
                 send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
             }
         }
         pub fn with_interceptor<F>(
@@ -187,6 +222,22 @@ pub mod msg_server {
             self.send_compression_encodings.enable(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
     }
     impl<T, B> tonic::codegen::Service<http::Request<B>> for MsgServer<T>
     where
@@ -200,7 +251,7 @@ pub mod msg_server {
         fn poll_ready(
             &mut self,
             _cx: &mut Context<'_>,
-        ) -> Poll<Result<(), Self::Error>> {
+        ) -> Poll<std::result::Result<(), Self::Error>> {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
@@ -220,13 +271,15 @@ pub mod msg_server {
                             &mut self,
                             request: tonic::Request<super::MsgTransfer>,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).transfer(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -236,6 +289,10 @@ pub mod msg_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -264,12 +321,14 @@ pub mod msg_server {
                 inner,
                 accept_compression_encodings: self.accept_compression_encodings,
                 send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
             }
         }
     }
     impl<T: Msg> Clone for _Inner<T> {
         fn clone(&self) -> Self {
-            Self(self.0.clone())
+            Self(Arc::clone(&self.0))
         }
     }
     impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
@@ -284,14 +343,15 @@ pub mod msg_server {
 /// DenomTrace contains the base denomination for ICS20 fungible tokens and the
 /// source tracing information path.
 #[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DenomTrace {
     /// path defines the chain of port/channel identifiers used for tracing the
     /// source of the fungible token.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub path: ::prost::alloc::string::String,
     /// base denomination of the relayed fungible token.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub base_denom: ::prost::alloc::string::String,
 }
 /// Params defines the set of IBC transfer parameters.
@@ -299,104 +359,118 @@ pub struct DenomTrace {
 /// TransfersEnabled parameter to true and then set the bank module's SendEnabled
 /// parameter for the denomination to false.
 #[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Params {
     /// send_enabled enables or disables all cross-chain token transfers from this
     /// chain.
-    #[prost(bool, tag="1")]
+    #[prost(bool, tag = "1")]
     pub send_enabled: bool,
     /// receive_enabled enables or disables all cross-chain token transfers to this
     /// chain.
-    #[prost(bool, tag="2")]
+    #[prost(bool, tag = "2")]
     pub receive_enabled: bool,
 }
 /// QueryDenomTraceRequest is the request type for the Query/DenomTrace RPC
 /// method
 #[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomTraceRequest {
     /// hash (in hex format) or denom (full denom with ibc prefix) of the denomination trace information.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub hash: ::prost::alloc::string::String,
 }
 /// QueryDenomTraceResponse is the response type for the Query/DenomTrace RPC
 /// method.
 #[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomTraceResponse {
     /// denom_trace returns the requested denomination trace information.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub denom_trace: ::core::option::Option<DenomTrace>,
 }
 /// QueryConnectionsRequest is the request type for the Query/DenomTraces RPC
 /// method
 #[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomTracesRequest {
     /// pagination defines an optional pagination for the request.
-    #[prost(message, optional, tag="1")]
-    pub pagination: ::core::option::Option<super::super::super::super::cosmos::base::query::v1beta1::PageRequest>,
+    #[prost(message, optional, tag = "1")]
+    pub pagination: ::core::option::Option<
+        super::super::super::super::cosmos::base::query::v1beta1::PageRequest,
+    >,
 }
 /// QueryConnectionsResponse is the response type for the Query/DenomTraces RPC
 /// method.
 #[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomTracesResponse {
     /// denom_traces returns all denominations trace information.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub denom_traces: ::prost::alloc::vec::Vec<DenomTrace>,
     /// pagination defines the pagination in the response.
-    #[prost(message, optional, tag="2")]
-    pub pagination: ::core::option::Option<super::super::super::super::cosmos::base::query::v1beta1::PageResponse>,
+    #[prost(message, optional, tag = "2")]
+    pub pagination: ::core::option::Option<
+        super::super::super::super::cosmos::base::query::v1beta1::PageResponse,
+    >,
 }
 /// QueryParamsRequest is the request type for the Query/Params RPC method.
 #[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryParamsRequest {
-}
+pub struct QueryParamsRequest {}
 /// QueryParamsResponse is the response type for the Query/Params RPC method.
 #[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsResponse {
     /// params defines the parameters of the module.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub params: ::core::option::Option<Params>,
 }
 /// QueryDenomHashRequest is the request type for the Query/DenomHash RPC
 /// method
 #[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomHashRequest {
     /// The denomination trace (\[port_id]/[channel_id])+/[denom\]
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub trace: ::prost::alloc::string::String,
 }
 /// QueryDenomHashResponse is the response type for the Query/DenomHash RPC
 /// method.
 #[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomHashResponse {
     /// hash (in hex format) of the denomination trace information.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub hash: ::prost::alloc::string::String,
 }
 /// QueryEscrowAddressRequest is the request type for the EscrowAddress RPC method.
 #[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryEscrowAddressRequest {
     /// unique port identifier
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub port_id: ::prost::alloc::string::String,
     /// unique channel identifier
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub channel_id: ::prost::alloc::string::String,
 }
 /// QueryEscrowAddressResponse is the response type of the EscrowAddress RPC method.
 #[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryEscrowAddressResponse {
     /// the escrow account address
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub escrow_address: ::prost::alloc::string::String,
 }
 /// Generated client implementations.
@@ -414,7 +488,7 @@ pub mod query_client {
         /// Attempt to create a new client by connecting to a given endpoint.
         pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
         where
-            D: std::convert::TryInto<tonic::transport::Endpoint>,
+            D: TryInto<tonic::transport::Endpoint>,
             D::Error: Into<StdError>,
         {
             let conn = tonic::transport::Endpoint::new(dst)?.connect().await?;
@@ -470,11 +544,30 @@ pub mod query_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// DenomTrace queries a denomination trace information.
         pub async fn denom_trace(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryDenomTraceRequest>,
-        ) -> Result<tonic::Response<super::QueryDenomTraceResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::QueryDenomTraceResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -488,13 +581,21 @@ pub mod query_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.applications.transfer.v1.Query/DenomTrace",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("ibc.applications.transfer.v1.Query", "DenomTrace"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// DenomTraces queries all denomination traces.
         pub async fn denom_traces(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryDenomTracesRequest>,
-        ) -> Result<tonic::Response<super::QueryDenomTracesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::QueryDenomTracesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -508,13 +609,21 @@ pub mod query_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.applications.transfer.v1.Query/DenomTraces",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("ibc.applications.transfer.v1.Query", "DenomTraces"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Params queries all parameters of the ibc-transfer module.
         pub async fn params(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryParamsRequest>,
-        ) -> Result<tonic::Response<super::QueryParamsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::QueryParamsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -528,13 +637,19 @@ pub mod query_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.applications.transfer.v1.Query/Params",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("ibc.applications.transfer.v1.Query", "Params"));
+            self.inner.unary(req, path, codec).await
         }
         /// DenomHash queries a denomination hash information.
         pub async fn denom_hash(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryDenomHashRequest>,
-        ) -> Result<tonic::Response<super::QueryDenomHashResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::QueryDenomHashResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -548,13 +663,21 @@ pub mod query_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.applications.transfer.v1.Query/DenomHash",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("ibc.applications.transfer.v1.Query", "DenomHash"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// EscrowAddress returns the escrow address for a particular port and channel id.
         pub async fn escrow_address(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryEscrowAddressRequest>,
-        ) -> Result<tonic::Response<super::QueryEscrowAddressResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::QueryEscrowAddressResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -568,7 +691,15 @@ pub mod query_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.applications.transfer.v1.Query/EscrowAddress",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "ibc.applications.transfer.v1.Query",
+                        "EscrowAddress",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -577,34 +708,49 @@ pub mod query_client {
 pub mod query_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
-    ///Generated trait containing gRPC methods that should be implemented for use with QueryServer.
+    /// Generated trait containing gRPC methods that should be implemented for use with QueryServer.
     #[async_trait]
     pub trait Query: Send + Sync + 'static {
         /// DenomTrace queries a denomination trace information.
         async fn denom_trace(
             &self,
             request: tonic::Request<super::QueryDenomTraceRequest>,
-        ) -> Result<tonic::Response<super::QueryDenomTraceResponse>, tonic::Status>;
+        ) -> std::result::Result<
+            tonic::Response<super::QueryDenomTraceResponse>,
+            tonic::Status,
+        >;
         /// DenomTraces queries all denomination traces.
         async fn denom_traces(
             &self,
             request: tonic::Request<super::QueryDenomTracesRequest>,
-        ) -> Result<tonic::Response<super::QueryDenomTracesResponse>, tonic::Status>;
+        ) -> std::result::Result<
+            tonic::Response<super::QueryDenomTracesResponse>,
+            tonic::Status,
+        >;
         /// Params queries all parameters of the ibc-transfer module.
         async fn params(
             &self,
             request: tonic::Request<super::QueryParamsRequest>,
-        ) -> Result<tonic::Response<super::QueryParamsResponse>, tonic::Status>;
+        ) -> std::result::Result<
+            tonic::Response<super::QueryParamsResponse>,
+            tonic::Status,
+        >;
         /// DenomHash queries a denomination hash information.
         async fn denom_hash(
             &self,
             request: tonic::Request<super::QueryDenomHashRequest>,
-        ) -> Result<tonic::Response<super::QueryDenomHashResponse>, tonic::Status>;
+        ) -> std::result::Result<
+            tonic::Response<super::QueryDenomHashResponse>,
+            tonic::Status,
+        >;
         /// EscrowAddress returns the escrow address for a particular port and channel id.
         async fn escrow_address(
             &self,
             request: tonic::Request<super::QueryEscrowAddressRequest>,
-        ) -> Result<tonic::Response<super::QueryEscrowAddressResponse>, tonic::Status>;
+        ) -> std::result::Result<
+            tonic::Response<super::QueryEscrowAddressResponse>,
+            tonic::Status,
+        >;
     }
     /// Query provides defines the gRPC querier service.
     #[derive(Debug)]
@@ -612,6 +758,8 @@ pub mod query_server {
         inner: _Inner<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
     }
     struct _Inner<T>(Arc<T>);
     impl<T: Query> QueryServer<T> {
@@ -624,6 +772,8 @@ pub mod query_server {
                 inner,
                 accept_compression_encodings: Default::default(),
                 send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
             }
         }
         pub fn with_interceptor<F>(
@@ -647,6 +797,22 @@ pub mod query_server {
             self.send_compression_encodings.enable(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
     }
     impl<T, B> tonic::codegen::Service<http::Request<B>> for QueryServer<T>
     where
@@ -660,7 +826,7 @@ pub mod query_server {
         fn poll_ready(
             &mut self,
             _cx: &mut Context<'_>,
-        ) -> Poll<Result<(), Self::Error>> {
+        ) -> Poll<std::result::Result<(), Self::Error>> {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
@@ -682,13 +848,15 @@ pub mod query_server {
                             &mut self,
                             request: tonic::Request<super::QueryDenomTraceRequest>,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).denom_trace(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -698,6 +866,10 @@ pub mod query_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -720,7 +892,7 @@ pub mod query_server {
                             &mut self,
                             request: tonic::Request<super::QueryDenomTracesRequest>,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).denom_traces(request).await
                             };
@@ -729,6 +901,8 @@ pub mod query_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -738,6 +912,10 @@ pub mod query_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -758,13 +936,15 @@ pub mod query_server {
                             &mut self,
                             request: tonic::Request<super::QueryParamsRequest>,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).params(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -774,6 +954,10 @@ pub mod query_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -796,13 +980,15 @@ pub mod query_server {
                             &mut self,
                             request: tonic::Request<super::QueryDenomHashRequest>,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).denom_hash(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -812,6 +998,10 @@ pub mod query_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -834,7 +1024,7 @@ pub mod query_server {
                             &mut self,
                             request: tonic::Request<super::QueryEscrowAddressRequest>,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).escrow_address(request).await
                             };
@@ -843,6 +1033,8 @@ pub mod query_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -852,6 +1044,10 @@ pub mod query_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -880,12 +1076,14 @@ pub mod query_server {
                 inner,
                 accept_compression_encodings: self.accept_compression_encodings,
                 send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
             }
         }
     }
     impl<T: Query> Clone for _Inner<T> {
         fn clone(&self) -> Self {
-            Self(self.0.clone())
+            Self(Arc::clone(&self.0))
         }
     }
     impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
@@ -899,12 +1097,13 @@ pub mod query_server {
 }
 /// GenesisState defines the ibc-transfer genesis state
 #[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenesisState {
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub port_id: ::prost::alloc::string::String,
-    #[prost(message, repeated, tag="2")]
+    #[prost(message, repeated, tag = "2")]
     pub denom_traces: ::prost::alloc::vec::Vec<DenomTrace>,
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub params: ::core::option::Option<Params>,
 }
