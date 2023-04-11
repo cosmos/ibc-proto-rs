@@ -1,107 +1,127 @@
 /// WeightedVoteOption defines a unit of vote for vote split.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct WeightedVoteOption {
-    #[prost(enumeration="VoteOption", tag="1")]
+    #[prost(enumeration = "VoteOption", tag = "1")]
     pub option: i32,
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub weight: ::prost::alloc::string::String,
 }
 /// Deposit defines an amount deposited by an account address to an active
 /// proposal.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Deposit {
-    #[prost(uint64, tag="1")]
+    #[prost(uint64, tag = "1")]
     pub proposal_id: u64,
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub depositor: ::prost::alloc::string::String,
-    #[prost(message, repeated, tag="3")]
+    #[prost(message, repeated, tag = "3")]
     pub amount: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
 }
 /// Proposal defines the core field members of a governance proposal.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Proposal {
-    #[prost(uint64, tag="1")]
+    #[prost(uint64, tag = "1")]
     pub id: u64,
-    #[prost(message, repeated, tag="2")]
+    #[prost(message, repeated, tag = "2")]
     pub messages: ::prost::alloc::vec::Vec<super::super::super::google::protobuf::Any>,
-    #[prost(enumeration="ProposalStatus", tag="3")]
+    #[prost(enumeration = "ProposalStatus", tag = "3")]
     pub status: i32,
     /// final_tally_result is the final tally result of the proposal. When
     /// querying a proposal via gRPC, this field is not populated until the
     /// proposal's voting period has ended.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub final_tally_result: ::core::option::Option<TallyResult>,
-    #[prost(message, optional, tag="5")]
-    pub submit_time: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
-    #[prost(message, optional, tag="6")]
-    pub deposit_end_time: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
-    #[prost(message, repeated, tag="7")]
+    #[prost(message, optional, tag = "5")]
+    pub submit_time: ::core::option::Option<
+        super::super::super::google::protobuf::Timestamp,
+    >,
+    #[prost(message, optional, tag = "6")]
+    pub deposit_end_time: ::core::option::Option<
+        super::super::super::google::protobuf::Timestamp,
+    >,
+    #[prost(message, repeated, tag = "7")]
     pub total_deposit: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
-    #[prost(message, optional, tag="8")]
-    pub voting_start_time: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
-    #[prost(message, optional, tag="9")]
-    pub voting_end_time: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
+    #[prost(message, optional, tag = "8")]
+    pub voting_start_time: ::core::option::Option<
+        super::super::super::google::protobuf::Timestamp,
+    >,
+    #[prost(message, optional, tag = "9")]
+    pub voting_end_time: ::core::option::Option<
+        super::super::super::google::protobuf::Timestamp,
+    >,
     /// metadata is any arbitrary metadata attached to the proposal.
-    #[prost(string, tag="10")]
+    #[prost(string, tag = "10")]
     pub metadata: ::prost::alloc::string::String,
 }
 /// TallyResult defines a standard tally for a governance proposal.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TallyResult {
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub yes_count: ::prost::alloc::string::String,
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub abstain_count: ::prost::alloc::string::String,
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub no_count: ::prost::alloc::string::String,
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub no_with_veto_count: ::prost::alloc::string::String,
 }
 /// Vote defines a vote on a governance proposal.
 /// A Vote consists of a proposal ID, the voter, and the vote option.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Vote {
-    #[prost(uint64, tag="1")]
+    #[prost(uint64, tag = "1")]
     pub proposal_id: u64,
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub voter: ::prost::alloc::string::String,
-    #[prost(message, repeated, tag="4")]
+    #[prost(message, repeated, tag = "4")]
     pub options: ::prost::alloc::vec::Vec<WeightedVoteOption>,
     /// metadata is any  arbitrary metadata to attached to the vote.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub metadata: ::prost::alloc::string::String,
 }
 /// DepositParams defines the params for deposits on governance proposals.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DepositParams {
     ///   Minimum deposit for a proposal to enter voting period.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub min_deposit: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
     ///   Maximum period for Atom holders to deposit on a proposal. Initial value: 2
     ///   months.
-    #[prost(message, optional, tag="2")]
-    pub max_deposit_period: ::core::option::Option<super::super::super::google::protobuf::Duration>,
+    #[prost(message, optional, tag = "2")]
+    pub max_deposit_period: ::core::option::Option<
+        super::super::super::google::protobuf::Duration,
+    >,
 }
 /// VotingParams defines the params for voting on governance proposals.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct VotingParams {
     ///   Length of the voting period.
-    #[prost(message, optional, tag="1")]
-    pub voting_period: ::core::option::Option<super::super::super::google::protobuf::Duration>,
+    #[prost(message, optional, tag = "1")]
+    pub voting_period: ::core::option::Option<
+        super::super::super::google::protobuf::Duration,
+    >,
 }
 /// TallyParams defines the params for tallying votes on governance proposals.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TallyParams {
     ///   Minimum percentage of total stake needed to vote for a result to be
     ///   considered valid.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub quorum: ::prost::alloc::string::String,
     ///   Minimum proportion of Yes votes for proposal to pass. Default value: 0.5.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub threshold: ::prost::alloc::string::String,
     ///   Minimum value of Veto votes to Total votes ratio for proposal to be
     ///   vetoed. Default value: 1/3.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub veto_threshold: ::prost::alloc::string::String,
 }
 /// VoteOption enumerates the valid vote options for a given governance proposal.
@@ -131,6 +151,17 @@ impl VoteOption {
             VoteOption::Abstain => "VOTE_OPTION_ABSTAIN",
             VoteOption::No => "VOTE_OPTION_NO",
             VoteOption::NoWithVeto => "VOTE_OPTION_NO_WITH_VETO",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "VOTE_OPTION_UNSPECIFIED" => Some(Self::Unspecified),
+            "VOTE_OPTION_YES" => Some(Self::Yes),
+            "VOTE_OPTION_ABSTAIN" => Some(Self::Abstain),
+            "VOTE_OPTION_NO" => Some(Self::No),
+            "VOTE_OPTION_NO_WITH_VETO" => Some(Self::NoWithVeto),
+            _ => None,
         }
     }
 }
@@ -171,88 +202,106 @@ impl ProposalStatus {
             ProposalStatus::Failed => "PROPOSAL_STATUS_FAILED",
         }
     }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "PROPOSAL_STATUS_UNSPECIFIED" => Some(Self::Unspecified),
+            "PROPOSAL_STATUS_DEPOSIT_PERIOD" => Some(Self::DepositPeriod),
+            "PROPOSAL_STATUS_VOTING_PERIOD" => Some(Self::VotingPeriod),
+            "PROPOSAL_STATUS_PASSED" => Some(Self::Passed),
+            "PROPOSAL_STATUS_REJECTED" => Some(Self::Rejected),
+            "PROPOSAL_STATUS_FAILED" => Some(Self::Failed),
+            _ => None,
+        }
+    }
 }
 /// MsgSubmitProposal defines an sdk.Msg type that supports submitting arbitrary
 /// proposal Content.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgSubmitProposal {
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub messages: ::prost::alloc::vec::Vec<super::super::super::google::protobuf::Any>,
-    #[prost(message, repeated, tag="2")]
+    #[prost(message, repeated, tag = "2")]
     pub initial_deposit: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub proposer: ::prost::alloc::string::String,
     /// metadata is any arbitrary metadata attached to the proposal.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub metadata: ::prost::alloc::string::String,
 }
 /// MsgSubmitProposalResponse defines the Msg/SubmitProposal response type.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgSubmitProposalResponse {
-    #[prost(uint64, tag="1")]
+    #[prost(uint64, tag = "1")]
     pub proposal_id: u64,
 }
 /// MsgExecLegacyContent is used to wrap the legacy content field into a message.
 /// This ensures backwards compatibility with v1beta1.MsgSubmitProposal.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgExecLegacyContent {
     /// content is the proposal's content.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub content: ::core::option::Option<super::super::super::google::protobuf::Any>,
     /// authority must be the gov module address.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub authority: ::prost::alloc::string::String,
 }
 /// MsgExecLegacyContentResponse defines the Msg/ExecLegacyContent response type.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgExecLegacyContentResponse {
-}
+pub struct MsgExecLegacyContentResponse {}
 /// MsgVote defines a message to cast a vote.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgVote {
-    #[prost(uint64, tag="1")]
+    #[prost(uint64, tag = "1")]
     pub proposal_id: u64,
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub voter: ::prost::alloc::string::String,
-    #[prost(enumeration="VoteOption", tag="3")]
+    #[prost(enumeration = "VoteOption", tag = "3")]
     pub option: i32,
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub metadata: ::prost::alloc::string::String,
 }
 /// MsgVoteResponse defines the Msg/Vote response type.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgVoteResponse {
-}
+pub struct MsgVoteResponse {}
 /// MsgVoteWeighted defines a message to cast a vote.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgVoteWeighted {
-    #[prost(uint64, tag="1")]
+    #[prost(uint64, tag = "1")]
     pub proposal_id: u64,
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub voter: ::prost::alloc::string::String,
-    #[prost(message, repeated, tag="3")]
+    #[prost(message, repeated, tag = "3")]
     pub options: ::prost::alloc::vec::Vec<WeightedVoteOption>,
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub metadata: ::prost::alloc::string::String,
 }
 /// MsgVoteWeightedResponse defines the Msg/VoteWeighted response type.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgVoteWeightedResponse {
-}
+pub struct MsgVoteWeightedResponse {}
 /// MsgDeposit defines a message to submit a deposit to an existing proposal.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgDeposit {
-    #[prost(uint64, tag="1")]
+    #[prost(uint64, tag = "1")]
     pub proposal_id: u64,
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub depositor: ::prost::alloc::string::String,
-    #[prost(message, repeated, tag="3")]
+    #[prost(message, repeated, tag = "3")]
     pub amount: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
 }
 /// MsgDepositResponse defines the Msg/Deposit response type.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgDepositResponse {
-}
+pub struct MsgDepositResponse {}
 /// Generated client implementations.
 #[cfg(feature = "client")]
 pub mod msg_client {
@@ -268,7 +317,7 @@ pub mod msg_client {
         /// Attempt to create a new client by connecting to a given endpoint.
         pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
         where
-            D: std::convert::TryInto<tonic::transport::Endpoint>,
+            D: TryInto<tonic::transport::Endpoint>,
             D::Error: Into<StdError>,
         {
             let conn = tonic::transport::Endpoint::new(dst)?.connect().await?;
@@ -324,11 +373,30 @@ pub mod msg_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// SubmitProposal defines a method to create new proposal given a content.
         pub async fn submit_proposal(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgSubmitProposal>,
-        ) -> Result<tonic::Response<super::MsgSubmitProposalResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MsgSubmitProposalResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -342,14 +410,17 @@ pub mod msg_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/cosmos.gov.v1.Msg/SubmitProposal",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("cosmos.gov.v1.Msg", "SubmitProposal"));
+            self.inner.unary(req, path, codec).await
         }
         /// ExecLegacyContent defines a Msg to be in included in a MsgSubmitProposal
         /// to execute a legacy content-based proposal.
         pub async fn exec_legacy_content(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgExecLegacyContent>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MsgExecLegacyContentResponse>,
             tonic::Status,
         > {
@@ -366,13 +437,19 @@ pub mod msg_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/cosmos.gov.v1.Msg/ExecLegacyContent",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("cosmos.gov.v1.Msg", "ExecLegacyContent"));
+            self.inner.unary(req, path, codec).await
         }
         /// Vote defines a method to add a vote on a specific proposal.
         pub async fn vote(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgVote>,
-        ) -> Result<tonic::Response<super::MsgVoteResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MsgVoteResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -384,13 +461,18 @@ pub mod msg_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static("/cosmos.gov.v1.Msg/Vote");
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut().insert(GrpcMethod::new("cosmos.gov.v1.Msg", "Vote"));
+            self.inner.unary(req, path, codec).await
         }
         /// VoteWeighted defines a method to add a weighted vote on a specific proposal.
         pub async fn vote_weighted(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgVoteWeighted>,
-        ) -> Result<tonic::Response<super::MsgVoteWeightedResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MsgVoteWeightedResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -404,13 +486,19 @@ pub mod msg_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/cosmos.gov.v1.Msg/VoteWeighted",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("cosmos.gov.v1.Msg", "VoteWeighted"));
+            self.inner.unary(req, path, codec).await
         }
         /// Deposit defines a method to add deposit on a specific proposal.
         pub async fn deposit(
             &mut self,
             request: impl tonic::IntoRequest<super::MsgDeposit>,
-        ) -> Result<tonic::Response<super::MsgDepositResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MsgDepositResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -424,7 +512,9 @@ pub mod msg_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/cosmos.gov.v1.Msg/Deposit",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut().insert(GrpcMethod::new("cosmos.gov.v1.Msg", "Deposit"));
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -433,35 +523,47 @@ pub mod msg_client {
 pub mod msg_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
-    ///Generated trait containing gRPC methods that should be implemented for use with MsgServer.
+    /// Generated trait containing gRPC methods that should be implemented for use with MsgServer.
     #[async_trait]
     pub trait Msg: Send + Sync + 'static {
         /// SubmitProposal defines a method to create new proposal given a content.
         async fn submit_proposal(
             &self,
             request: tonic::Request<super::MsgSubmitProposal>,
-        ) -> Result<tonic::Response<super::MsgSubmitProposalResponse>, tonic::Status>;
+        ) -> std::result::Result<
+            tonic::Response<super::MsgSubmitProposalResponse>,
+            tonic::Status,
+        >;
         /// ExecLegacyContent defines a Msg to be in included in a MsgSubmitProposal
         /// to execute a legacy content-based proposal.
         async fn exec_legacy_content(
             &self,
             request: tonic::Request<super::MsgExecLegacyContent>,
-        ) -> Result<tonic::Response<super::MsgExecLegacyContentResponse>, tonic::Status>;
+        ) -> std::result::Result<
+            tonic::Response<super::MsgExecLegacyContentResponse>,
+            tonic::Status,
+        >;
         /// Vote defines a method to add a vote on a specific proposal.
         async fn vote(
             &self,
             request: tonic::Request<super::MsgVote>,
-        ) -> Result<tonic::Response<super::MsgVoteResponse>, tonic::Status>;
+        ) -> std::result::Result<tonic::Response<super::MsgVoteResponse>, tonic::Status>;
         /// VoteWeighted defines a method to add a weighted vote on a specific proposal.
         async fn vote_weighted(
             &self,
             request: tonic::Request<super::MsgVoteWeighted>,
-        ) -> Result<tonic::Response<super::MsgVoteWeightedResponse>, tonic::Status>;
+        ) -> std::result::Result<
+            tonic::Response<super::MsgVoteWeightedResponse>,
+            tonic::Status,
+        >;
         /// Deposit defines a method to add deposit on a specific proposal.
         async fn deposit(
             &self,
             request: tonic::Request<super::MsgDeposit>,
-        ) -> Result<tonic::Response<super::MsgDepositResponse>, tonic::Status>;
+        ) -> std::result::Result<
+            tonic::Response<super::MsgDepositResponse>,
+            tonic::Status,
+        >;
     }
     /// Msg defines the gov Msg service.
     #[derive(Debug)]
@@ -469,6 +571,8 @@ pub mod msg_server {
         inner: _Inner<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
     }
     struct _Inner<T>(Arc<T>);
     impl<T: Msg> MsgServer<T> {
@@ -481,6 +585,8 @@ pub mod msg_server {
                 inner,
                 accept_compression_encodings: Default::default(),
                 send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
             }
         }
         pub fn with_interceptor<F>(
@@ -504,6 +610,22 @@ pub mod msg_server {
             self.send_compression_encodings.enable(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
     }
     impl<T, B> tonic::codegen::Service<http::Request<B>> for MsgServer<T>
     where
@@ -517,7 +639,7 @@ pub mod msg_server {
         fn poll_ready(
             &mut self,
             _cx: &mut Context<'_>,
-        ) -> Poll<Result<(), Self::Error>> {
+        ) -> Poll<std::result::Result<(), Self::Error>> {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
@@ -537,7 +659,7 @@ pub mod msg_server {
                             &mut self,
                             request: tonic::Request<super::MsgSubmitProposal>,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).submit_proposal(request).await
                             };
@@ -546,6 +668,8 @@ pub mod msg_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -555,6 +679,10 @@ pub mod msg_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -575,7 +703,7 @@ pub mod msg_server {
                             &mut self,
                             request: tonic::Request<super::MsgExecLegacyContent>,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).exec_legacy_content(request).await
                             };
@@ -584,6 +712,8 @@ pub mod msg_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -593,6 +723,10 @@ pub mod msg_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -613,13 +747,15 @@ pub mod msg_server {
                             &mut self,
                             request: tonic::Request<super::MsgVote>,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).vote(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -629,6 +765,10 @@ pub mod msg_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -649,7 +789,7 @@ pub mod msg_server {
                             &mut self,
                             request: tonic::Request<super::MsgVoteWeighted>,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).vote_weighted(request).await
                             };
@@ -658,6 +798,8 @@ pub mod msg_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -667,6 +809,10 @@ pub mod msg_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -687,13 +833,15 @@ pub mod msg_server {
                             &mut self,
                             request: tonic::Request<super::MsgDeposit>,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).deposit(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -703,6 +851,10 @@ pub mod msg_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -731,12 +883,14 @@ pub mod msg_server {
                 inner,
                 accept_compression_encodings: self.accept_compression_encodings,
                 send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
             }
         }
     }
     impl<T: Msg> Clone for _Inner<T> {
         fn clone(&self) -> Self {
-            Self(self.0.clone())
+            Self(Arc::clone(&self.0))
         }
     }
     impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
@@ -749,150 +903,178 @@ pub mod msg_server {
     }
 }
 /// QueryProposalRequest is the request type for the Query/Proposal RPC method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryProposalRequest {
     /// proposal_id defines the unique id of the proposal.
-    #[prost(uint64, tag="1")]
+    #[prost(uint64, tag = "1")]
     pub proposal_id: u64,
 }
 /// QueryProposalResponse is the response type for the Query/Proposal RPC method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryProposalResponse {
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub proposal: ::core::option::Option<Proposal>,
 }
 /// QueryProposalsRequest is the request type for the Query/Proposals RPC method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryProposalsRequest {
     /// proposal_status defines the status of the proposals.
-    #[prost(enumeration="ProposalStatus", tag="1")]
+    #[prost(enumeration = "ProposalStatus", tag = "1")]
     pub proposal_status: i32,
     /// voter defines the voter address for the proposals.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub voter: ::prost::alloc::string::String,
     /// depositor defines the deposit addresses from the proposals.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub depositor: ::prost::alloc::string::String,
     /// pagination defines an optional pagination for the request.
-    #[prost(message, optional, tag="4")]
-    pub pagination: ::core::option::Option<super::super::base::query::v1beta1::PageRequest>,
+    #[prost(message, optional, tag = "4")]
+    pub pagination: ::core::option::Option<
+        super::super::base::query::v1beta1::PageRequest,
+    >,
 }
 /// QueryProposalsResponse is the response type for the Query/Proposals RPC
 /// method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryProposalsResponse {
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub proposals: ::prost::alloc::vec::Vec<Proposal>,
     /// pagination defines the pagination in the response.
-    #[prost(message, optional, tag="2")]
-    pub pagination: ::core::option::Option<super::super::base::query::v1beta1::PageResponse>,
+    #[prost(message, optional, tag = "2")]
+    pub pagination: ::core::option::Option<
+        super::super::base::query::v1beta1::PageResponse,
+    >,
 }
 /// QueryVoteRequest is the request type for the Query/Vote RPC method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryVoteRequest {
     /// proposal_id defines the unique id of the proposal.
-    #[prost(uint64, tag="1")]
+    #[prost(uint64, tag = "1")]
     pub proposal_id: u64,
     /// voter defines the voter address for the proposals.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub voter: ::prost::alloc::string::String,
 }
 /// QueryVoteResponse is the response type for the Query/Vote RPC method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryVoteResponse {
     /// vote defined the queried vote.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub vote: ::core::option::Option<Vote>,
 }
 /// QueryVotesRequest is the request type for the Query/Votes RPC method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryVotesRequest {
     /// proposal_id defines the unique id of the proposal.
-    #[prost(uint64, tag="1")]
+    #[prost(uint64, tag = "1")]
     pub proposal_id: u64,
     /// pagination defines an optional pagination for the request.
-    #[prost(message, optional, tag="2")]
-    pub pagination: ::core::option::Option<super::super::base::query::v1beta1::PageRequest>,
+    #[prost(message, optional, tag = "2")]
+    pub pagination: ::core::option::Option<
+        super::super::base::query::v1beta1::PageRequest,
+    >,
 }
 /// QueryVotesResponse is the response type for the Query/Votes RPC method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryVotesResponse {
     /// votes defined the queried votes.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub votes: ::prost::alloc::vec::Vec<Vote>,
     /// pagination defines the pagination in the response.
-    #[prost(message, optional, tag="2")]
-    pub pagination: ::core::option::Option<super::super::base::query::v1beta1::PageResponse>,
+    #[prost(message, optional, tag = "2")]
+    pub pagination: ::core::option::Option<
+        super::super::base::query::v1beta1::PageResponse,
+    >,
 }
 /// QueryParamsRequest is the request type for the Query/Params RPC method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsRequest {
     /// params_type defines which parameters to query for, can be one of "voting",
     /// "tallying" or "deposit".
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub params_type: ::prost::alloc::string::String,
 }
 /// QueryParamsResponse is the response type for the Query/Params RPC method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsResponse {
     /// voting_params defines the parameters related to voting.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub voting_params: ::core::option::Option<VotingParams>,
     /// deposit_params defines the parameters related to deposit.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub deposit_params: ::core::option::Option<DepositParams>,
     /// tally_params defines the parameters related to tally.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub tally_params: ::core::option::Option<TallyParams>,
 }
 /// QueryDepositRequest is the request type for the Query/Deposit RPC method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDepositRequest {
     /// proposal_id defines the unique id of the proposal.
-    #[prost(uint64, tag="1")]
+    #[prost(uint64, tag = "1")]
     pub proposal_id: u64,
     /// depositor defines the deposit addresses from the proposals.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub depositor: ::prost::alloc::string::String,
 }
 /// QueryDepositResponse is the response type for the Query/Deposit RPC method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDepositResponse {
     /// deposit defines the requested deposit.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub deposit: ::core::option::Option<Deposit>,
 }
 /// QueryDepositsRequest is the request type for the Query/Deposits RPC method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDepositsRequest {
     /// proposal_id defines the unique id of the proposal.
-    #[prost(uint64, tag="1")]
+    #[prost(uint64, tag = "1")]
     pub proposal_id: u64,
     /// pagination defines an optional pagination for the request.
-    #[prost(message, optional, tag="2")]
-    pub pagination: ::core::option::Option<super::super::base::query::v1beta1::PageRequest>,
+    #[prost(message, optional, tag = "2")]
+    pub pagination: ::core::option::Option<
+        super::super::base::query::v1beta1::PageRequest,
+    >,
 }
 /// QueryDepositsResponse is the response type for the Query/Deposits RPC method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDepositsResponse {
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub deposits: ::prost::alloc::vec::Vec<Deposit>,
     /// pagination defines the pagination in the response.
-    #[prost(message, optional, tag="2")]
-    pub pagination: ::core::option::Option<super::super::base::query::v1beta1::PageResponse>,
+    #[prost(message, optional, tag = "2")]
+    pub pagination: ::core::option::Option<
+        super::super::base::query::v1beta1::PageResponse,
+    >,
 }
 /// QueryTallyResultRequest is the request type for the Query/Tally RPC method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryTallyResultRequest {
     /// proposal_id defines the unique id of the proposal.
-    #[prost(uint64, tag="1")]
+    #[prost(uint64, tag = "1")]
     pub proposal_id: u64,
 }
 /// QueryTallyResultResponse is the response type for the Query/Tally RPC method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryTallyResultResponse {
     /// tally defines the requested tally.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub tally: ::core::option::Option<TallyResult>,
 }
 /// Generated client implementations.
@@ -910,7 +1092,7 @@ pub mod query_client {
         /// Attempt to create a new client by connecting to a given endpoint.
         pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
         where
-            D: std::convert::TryInto<tonic::transport::Endpoint>,
+            D: TryInto<tonic::transport::Endpoint>,
             D::Error: Into<StdError>,
         {
             let conn = tonic::transport::Endpoint::new(dst)?.connect().await?;
@@ -966,11 +1148,30 @@ pub mod query_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Proposal queries proposal details based on ProposalID.
         pub async fn proposal(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryProposalRequest>,
-        ) -> Result<tonic::Response<super::QueryProposalResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::QueryProposalResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -984,13 +1185,19 @@ pub mod query_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/cosmos.gov.v1.Query/Proposal",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("cosmos.gov.v1.Query", "Proposal"));
+            self.inner.unary(req, path, codec).await
         }
         /// Proposals queries all proposals based on given status.
         pub async fn proposals(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryProposalsRequest>,
-        ) -> Result<tonic::Response<super::QueryProposalsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::QueryProposalsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1004,13 +1211,19 @@ pub mod query_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/cosmos.gov.v1.Query/Proposals",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("cosmos.gov.v1.Query", "Proposals"));
+            self.inner.unary(req, path, codec).await
         }
         /// Vote queries voted information based on proposalID, voterAddr.
         pub async fn vote(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryVoteRequest>,
-        ) -> Result<tonic::Response<super::QueryVoteResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::QueryVoteResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1022,13 +1235,18 @@ pub mod query_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static("/cosmos.gov.v1.Query/Vote");
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut().insert(GrpcMethod::new("cosmos.gov.v1.Query", "Vote"));
+            self.inner.unary(req, path, codec).await
         }
         /// Votes queries votes of a given proposal.
         pub async fn votes(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryVotesRequest>,
-        ) -> Result<tonic::Response<super::QueryVotesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::QueryVotesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1042,13 +1260,18 @@ pub mod query_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/cosmos.gov.v1.Query/Votes",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut().insert(GrpcMethod::new("cosmos.gov.v1.Query", "Votes"));
+            self.inner.unary(req, path, codec).await
         }
         /// Params queries all parameters of the gov module.
         pub async fn params(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryParamsRequest>,
-        ) -> Result<tonic::Response<super::QueryParamsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::QueryParamsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1062,13 +1285,19 @@ pub mod query_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/cosmos.gov.v1.Query/Params",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("cosmos.gov.v1.Query", "Params"));
+            self.inner.unary(req, path, codec).await
         }
         /// Deposit queries single deposit information based proposalID, depositAddr.
         pub async fn deposit(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryDepositRequest>,
-        ) -> Result<tonic::Response<super::QueryDepositResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::QueryDepositResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1082,13 +1311,19 @@ pub mod query_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/cosmos.gov.v1.Query/Deposit",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("cosmos.gov.v1.Query", "Deposit"));
+            self.inner.unary(req, path, codec).await
         }
         /// Deposits queries all deposits of a single proposal.
         pub async fn deposits(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryDepositsRequest>,
-        ) -> Result<tonic::Response<super::QueryDepositsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::QueryDepositsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1102,13 +1337,19 @@ pub mod query_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/cosmos.gov.v1.Query/Deposits",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("cosmos.gov.v1.Query", "Deposits"));
+            self.inner.unary(req, path, codec).await
         }
         /// TallyResult queries the tally of a proposal vote.
         pub async fn tally_result(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryTallyResultRequest>,
-        ) -> Result<tonic::Response<super::QueryTallyResultResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::QueryTallyResultResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1122,7 +1363,10 @@ pub mod query_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/cosmos.gov.v1.Query/TallyResult",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("cosmos.gov.v1.Query", "TallyResult"));
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -1131,49 +1375,73 @@ pub mod query_client {
 pub mod query_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
-    ///Generated trait containing gRPC methods that should be implemented for use with QueryServer.
+    /// Generated trait containing gRPC methods that should be implemented for use with QueryServer.
     #[async_trait]
     pub trait Query: Send + Sync + 'static {
         /// Proposal queries proposal details based on ProposalID.
         async fn proposal(
             &self,
             request: tonic::Request<super::QueryProposalRequest>,
-        ) -> Result<tonic::Response<super::QueryProposalResponse>, tonic::Status>;
+        ) -> std::result::Result<
+            tonic::Response<super::QueryProposalResponse>,
+            tonic::Status,
+        >;
         /// Proposals queries all proposals based on given status.
         async fn proposals(
             &self,
             request: tonic::Request<super::QueryProposalsRequest>,
-        ) -> Result<tonic::Response<super::QueryProposalsResponse>, tonic::Status>;
+        ) -> std::result::Result<
+            tonic::Response<super::QueryProposalsResponse>,
+            tonic::Status,
+        >;
         /// Vote queries voted information based on proposalID, voterAddr.
         async fn vote(
             &self,
             request: tonic::Request<super::QueryVoteRequest>,
-        ) -> Result<tonic::Response<super::QueryVoteResponse>, tonic::Status>;
+        ) -> std::result::Result<
+            tonic::Response<super::QueryVoteResponse>,
+            tonic::Status,
+        >;
         /// Votes queries votes of a given proposal.
         async fn votes(
             &self,
             request: tonic::Request<super::QueryVotesRequest>,
-        ) -> Result<tonic::Response<super::QueryVotesResponse>, tonic::Status>;
+        ) -> std::result::Result<
+            tonic::Response<super::QueryVotesResponse>,
+            tonic::Status,
+        >;
         /// Params queries all parameters of the gov module.
         async fn params(
             &self,
             request: tonic::Request<super::QueryParamsRequest>,
-        ) -> Result<tonic::Response<super::QueryParamsResponse>, tonic::Status>;
+        ) -> std::result::Result<
+            tonic::Response<super::QueryParamsResponse>,
+            tonic::Status,
+        >;
         /// Deposit queries single deposit information based proposalID, depositAddr.
         async fn deposit(
             &self,
             request: tonic::Request<super::QueryDepositRequest>,
-        ) -> Result<tonic::Response<super::QueryDepositResponse>, tonic::Status>;
+        ) -> std::result::Result<
+            tonic::Response<super::QueryDepositResponse>,
+            tonic::Status,
+        >;
         /// Deposits queries all deposits of a single proposal.
         async fn deposits(
             &self,
             request: tonic::Request<super::QueryDepositsRequest>,
-        ) -> Result<tonic::Response<super::QueryDepositsResponse>, tonic::Status>;
+        ) -> std::result::Result<
+            tonic::Response<super::QueryDepositsResponse>,
+            tonic::Status,
+        >;
         /// TallyResult queries the tally of a proposal vote.
         async fn tally_result(
             &self,
             request: tonic::Request<super::QueryTallyResultRequest>,
-        ) -> Result<tonic::Response<super::QueryTallyResultResponse>, tonic::Status>;
+        ) -> std::result::Result<
+            tonic::Response<super::QueryTallyResultResponse>,
+            tonic::Status,
+        >;
     }
     /// Query defines the gRPC querier service for gov module
     #[derive(Debug)]
@@ -1181,6 +1449,8 @@ pub mod query_server {
         inner: _Inner<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
     }
     struct _Inner<T>(Arc<T>);
     impl<T: Query> QueryServer<T> {
@@ -1193,6 +1463,8 @@ pub mod query_server {
                 inner,
                 accept_compression_encodings: Default::default(),
                 send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
             }
         }
         pub fn with_interceptor<F>(
@@ -1216,6 +1488,22 @@ pub mod query_server {
             self.send_compression_encodings.enable(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
     }
     impl<T, B> tonic::codegen::Service<http::Request<B>> for QueryServer<T>
     where
@@ -1229,7 +1517,7 @@ pub mod query_server {
         fn poll_ready(
             &mut self,
             _cx: &mut Context<'_>,
-        ) -> Poll<Result<(), Self::Error>> {
+        ) -> Poll<std::result::Result<(), Self::Error>> {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
@@ -1251,13 +1539,15 @@ pub mod query_server {
                             &mut self,
                             request: tonic::Request<super::QueryProposalRequest>,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).proposal(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1267,6 +1557,10 @@ pub mod query_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1289,13 +1583,15 @@ pub mod query_server {
                             &mut self,
                             request: tonic::Request<super::QueryProposalsRequest>,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).proposals(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1305,6 +1601,10 @@ pub mod query_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1325,13 +1625,15 @@ pub mod query_server {
                             &mut self,
                             request: tonic::Request<super::QueryVoteRequest>,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).vote(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1341,6 +1643,10 @@ pub mod query_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1361,13 +1667,15 @@ pub mod query_server {
                             &mut self,
                             request: tonic::Request<super::QueryVotesRequest>,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).votes(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1377,6 +1685,10 @@ pub mod query_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1397,13 +1709,15 @@ pub mod query_server {
                             &mut self,
                             request: tonic::Request<super::QueryParamsRequest>,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).params(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1413,6 +1727,10 @@ pub mod query_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1435,13 +1753,15 @@ pub mod query_server {
                             &mut self,
                             request: tonic::Request<super::QueryDepositRequest>,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).deposit(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1451,6 +1771,10 @@ pub mod query_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1473,13 +1797,15 @@ pub mod query_server {
                             &mut self,
                             request: tonic::Request<super::QueryDepositsRequest>,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).deposits(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1489,6 +1815,10 @@ pub mod query_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1511,7 +1841,7 @@ pub mod query_server {
                             &mut self,
                             request: tonic::Request<super::QueryTallyResultRequest>,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).tally_result(request).await
                             };
@@ -1520,6 +1850,8 @@ pub mod query_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1529,6 +1861,10 @@ pub mod query_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1557,12 +1893,14 @@ pub mod query_server {
                 inner,
                 accept_compression_encodings: self.accept_compression_encodings,
                 send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
             }
         }
     }
     impl<T: Query> Clone for _Inner<T> {
         fn clone(&self) -> Self {
-            Self(self.0.clone())
+            Self(Arc::clone(&self.0))
         }
     }
     impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
@@ -1575,27 +1913,28 @@ pub mod query_server {
     }
 }
 /// GenesisState defines the gov module's genesis state.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenesisState {
     /// starting_proposal_id is the ID of the starting proposal.
-    #[prost(uint64, tag="1")]
+    #[prost(uint64, tag = "1")]
     pub starting_proposal_id: u64,
     /// deposits defines all the deposits present at genesis.
-    #[prost(message, repeated, tag="2")]
+    #[prost(message, repeated, tag = "2")]
     pub deposits: ::prost::alloc::vec::Vec<Deposit>,
     /// votes defines all the votes present at genesis.
-    #[prost(message, repeated, tag="3")]
+    #[prost(message, repeated, tag = "3")]
     pub votes: ::prost::alloc::vec::Vec<Vote>,
     /// proposals defines all the proposals present at genesis.
-    #[prost(message, repeated, tag="4")]
+    #[prost(message, repeated, tag = "4")]
     pub proposals: ::prost::alloc::vec::Vec<Proposal>,
     /// params defines all the paramaters of related to deposit.
-    #[prost(message, optional, tag="5")]
+    #[prost(message, optional, tag = "5")]
     pub deposit_params: ::core::option::Option<DepositParams>,
     /// params defines all the paramaters of related to voting.
-    #[prost(message, optional, tag="6")]
+    #[prost(message, optional, tag = "6")]
     pub voting_params: ::core::option::Option<VotingParams>,
     /// params defines all the paramaters of related to tally.
-    #[prost(message, optional, tag="7")]
+    #[prost(message, optional, tag = "7")]
     pub tally_params: ::core::option::Option<TallyParams>,
 }

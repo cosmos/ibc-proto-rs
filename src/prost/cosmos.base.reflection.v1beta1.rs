@@ -1,28 +1,33 @@
 /// ListAllInterfacesRequest is the request type of the ListAllInterfaces RPC.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListAllInterfacesRequest {
-}
+pub struct ListAllInterfacesRequest {}
 /// ListAllInterfacesResponse is the response type of the ListAllInterfaces RPC.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListAllInterfacesResponse {
     /// interface_names is an array of all the registered interfaces.
-    #[prost(string, repeated, tag="1")]
+    #[prost(string, repeated, tag = "1")]
     pub interface_names: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// ListImplementationsRequest is the request type of the ListImplementations
 /// RPC.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListImplementationsRequest {
     /// interface_name defines the interface to query the implementations for.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub interface_name: ::prost::alloc::string::String,
 }
 /// ListImplementationsResponse is the response type of the ListImplementations
 /// RPC.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListImplementationsResponse {
-    #[prost(string, repeated, tag="1")]
-    pub implementation_message_names: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(string, repeated, tag = "1")]
+    pub implementation_message_names: ::prost::alloc::vec::Vec<
+        ::prost::alloc::string::String,
+    >,
 }
 /// Generated client implementations.
 #[cfg(feature = "client")]
@@ -39,7 +44,7 @@ pub mod reflection_service_client {
         /// Attempt to create a new client by connecting to a given endpoint.
         pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
         where
-            D: std::convert::TryInto<tonic::transport::Endpoint>,
+            D: TryInto<tonic::transport::Endpoint>,
             D::Error: Into<StdError>,
         {
             let conn = tonic::transport::Endpoint::new(dst)?.connect().await?;
@@ -95,12 +100,31 @@ pub mod reflection_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// ListAllInterfaces lists all the interfaces registered in the interface
         /// registry.
         pub async fn list_all_interfaces(
             &mut self,
             request: impl tonic::IntoRequest<super::ListAllInterfacesRequest>,
-        ) -> Result<tonic::Response<super::ListAllInterfacesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListAllInterfacesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -114,14 +138,25 @@ pub mod reflection_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/cosmos.base.reflection.v1beta1.ReflectionService/ListAllInterfaces",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "cosmos.base.reflection.v1beta1.ReflectionService",
+                        "ListAllInterfaces",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// ListImplementations list all the concrete types that implement a given
         /// interface.
         pub async fn list_implementations(
             &mut self,
             request: impl tonic::IntoRequest<super::ListImplementationsRequest>,
-        ) -> Result<tonic::Response<super::ListImplementationsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListImplementationsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -135,7 +170,15 @@ pub mod reflection_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/cosmos.base.reflection.v1beta1.ReflectionService/ListImplementations",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "cosmos.base.reflection.v1beta1.ReflectionService",
+                        "ListImplementations",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -144,7 +187,7 @@ pub mod reflection_service_client {
 pub mod reflection_service_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
-    ///Generated trait containing gRPC methods that should be implemented for use with ReflectionServiceServer.
+    /// Generated trait containing gRPC methods that should be implemented for use with ReflectionServiceServer.
     #[async_trait]
     pub trait ReflectionService: Send + Sync + 'static {
         /// ListAllInterfaces lists all the interfaces registered in the interface
@@ -152,13 +195,19 @@ pub mod reflection_service_server {
         async fn list_all_interfaces(
             &self,
             request: tonic::Request<super::ListAllInterfacesRequest>,
-        ) -> Result<tonic::Response<super::ListAllInterfacesResponse>, tonic::Status>;
+        ) -> std::result::Result<
+            tonic::Response<super::ListAllInterfacesResponse>,
+            tonic::Status,
+        >;
         /// ListImplementations list all the concrete types that implement a given
         /// interface.
         async fn list_implementations(
             &self,
             request: tonic::Request<super::ListImplementationsRequest>,
-        ) -> Result<tonic::Response<super::ListImplementationsResponse>, tonic::Status>;
+        ) -> std::result::Result<
+            tonic::Response<super::ListImplementationsResponse>,
+            tonic::Status,
+        >;
     }
     /// ReflectionService defines a service for interface reflection.
     #[derive(Debug)]
@@ -166,6 +215,8 @@ pub mod reflection_service_server {
         inner: _Inner<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
     }
     struct _Inner<T>(Arc<T>);
     impl<T: ReflectionService> ReflectionServiceServer<T> {
@@ -178,6 +229,8 @@ pub mod reflection_service_server {
                 inner,
                 accept_compression_encodings: Default::default(),
                 send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
             }
         }
         pub fn with_interceptor<F>(
@@ -201,6 +254,22 @@ pub mod reflection_service_server {
             self.send_compression_encodings.enable(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
     }
     impl<T, B> tonic::codegen::Service<http::Request<B>> for ReflectionServiceServer<T>
     where
@@ -214,7 +283,7 @@ pub mod reflection_service_server {
         fn poll_ready(
             &mut self,
             _cx: &mut Context<'_>,
-        ) -> Poll<Result<(), Self::Error>> {
+        ) -> Poll<std::result::Result<(), Self::Error>> {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
@@ -236,7 +305,7 @@ pub mod reflection_service_server {
                             &mut self,
                             request: tonic::Request<super::ListAllInterfacesRequest>,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).list_all_interfaces(request).await
                             };
@@ -245,6 +314,8 @@ pub mod reflection_service_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -254,6 +325,10 @@ pub mod reflection_service_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -276,7 +351,7 @@ pub mod reflection_service_server {
                             &mut self,
                             request: tonic::Request<super::ListImplementationsRequest>,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).list_implementations(request).await
                             };
@@ -285,6 +360,8 @@ pub mod reflection_service_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -294,6 +371,10 @@ pub mod reflection_service_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -322,12 +403,14 @@ pub mod reflection_service_server {
                 inner,
                 accept_compression_encodings: self.accept_compression_encodings,
                 send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
             }
         }
     }
     impl<T: ReflectionService> Clone for _Inner<T> {
         fn clone(&self) -> Self {
-            Self(self.0.clone())
+            Self(Arc::clone(&self.0))
         }
     }
     impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
