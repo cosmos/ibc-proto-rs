@@ -12,7 +12,7 @@ pub mod abci_application_client {
         /// Attempt to create a new client by connecting to a given endpoint.
         pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
         where
-            D: std::convert::TryInto<tonic::transport::Endpoint>,
+            D: TryInto<tonic::transport::Endpoint>,
             D::Error: Into<StdError>,
         {
             let conn = tonic::transport::Endpoint::new(dst)?.connect().await?;
@@ -68,10 +68,26 @@ pub mod abci_application_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         pub async fn echo(
             &mut self,
             request: impl tonic::IntoRequest<::tendermint_proto::abci::RequestEcho>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseEcho>,
             tonic::Status,
         > {
@@ -88,12 +104,15 @@ pub mod abci_application_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/tendermint.abci.ABCIApplication/Echo",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("tendermint.abci.ABCIApplication", "Echo"));
+            self.inner.unary(req, path, codec).await
         }
         pub async fn flush(
             &mut self,
             request: impl tonic::IntoRequest<::tendermint_proto::abci::RequestFlush>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseFlush>,
             tonic::Status,
         > {
@@ -110,12 +129,15 @@ pub mod abci_application_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/tendermint.abci.ABCIApplication/Flush",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("tendermint.abci.ABCIApplication", "Flush"));
+            self.inner.unary(req, path, codec).await
         }
         pub async fn info(
             &mut self,
             request: impl tonic::IntoRequest<::tendermint_proto::abci::RequestInfo>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseInfo>,
             tonic::Status,
         > {
@@ -132,12 +154,15 @@ pub mod abci_application_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/tendermint.abci.ABCIApplication/Info",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("tendermint.abci.ABCIApplication", "Info"));
+            self.inner.unary(req, path, codec).await
         }
         pub async fn set_option(
             &mut self,
             request: impl tonic::IntoRequest<::tendermint_proto::abci::RequestSetOption>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseSetOption>,
             tonic::Status,
         > {
@@ -154,12 +179,15 @@ pub mod abci_application_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/tendermint.abci.ABCIApplication/SetOption",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("tendermint.abci.ABCIApplication", "SetOption"));
+            self.inner.unary(req, path, codec).await
         }
         pub async fn deliver_tx(
             &mut self,
             request: impl tonic::IntoRequest<::tendermint_proto::abci::RequestDeliverTx>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseDeliverTx>,
             tonic::Status,
         > {
@@ -176,12 +204,15 @@ pub mod abci_application_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/tendermint.abci.ABCIApplication/DeliverTx",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("tendermint.abci.ABCIApplication", "DeliverTx"));
+            self.inner.unary(req, path, codec).await
         }
         pub async fn check_tx(
             &mut self,
             request: impl tonic::IntoRequest<::tendermint_proto::abci::RequestCheckTx>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseCheckTx>,
             tonic::Status,
         > {
@@ -198,12 +229,15 @@ pub mod abci_application_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/tendermint.abci.ABCIApplication/CheckTx",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("tendermint.abci.ABCIApplication", "CheckTx"));
+            self.inner.unary(req, path, codec).await
         }
         pub async fn query(
             &mut self,
             request: impl tonic::IntoRequest<::tendermint_proto::abci::RequestQuery>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseQuery>,
             tonic::Status,
         > {
@@ -220,12 +254,15 @@ pub mod abci_application_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/tendermint.abci.ABCIApplication/Query",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("tendermint.abci.ABCIApplication", "Query"));
+            self.inner.unary(req, path, codec).await
         }
         pub async fn commit(
             &mut self,
             request: impl tonic::IntoRequest<::tendermint_proto::abci::RequestCommit>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseCommit>,
             tonic::Status,
         > {
@@ -242,12 +279,15 @@ pub mod abci_application_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/tendermint.abci.ABCIApplication/Commit",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("tendermint.abci.ABCIApplication", "Commit"));
+            self.inner.unary(req, path, codec).await
         }
         pub async fn init_chain(
             &mut self,
             request: impl tonic::IntoRequest<::tendermint_proto::abci::RequestInitChain>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseInitChain>,
             tonic::Status,
         > {
@@ -264,12 +304,15 @@ pub mod abci_application_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/tendermint.abci.ABCIApplication/InitChain",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("tendermint.abci.ABCIApplication", "InitChain"));
+            self.inner.unary(req, path, codec).await
         }
         pub async fn begin_block(
             &mut self,
             request: impl tonic::IntoRequest<::tendermint_proto::abci::RequestBeginBlock>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseBeginBlock>,
             tonic::Status,
         > {
@@ -286,12 +329,17 @@ pub mod abci_application_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/tendermint.abci.ABCIApplication/BeginBlock",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("tendermint.abci.ABCIApplication", "BeginBlock"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         pub async fn end_block(
             &mut self,
             request: impl tonic::IntoRequest<::tendermint_proto::abci::RequestEndBlock>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseEndBlock>,
             tonic::Status,
         > {
@@ -308,14 +356,17 @@ pub mod abci_application_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/tendermint.abci.ABCIApplication/EndBlock",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("tendermint.abci.ABCIApplication", "EndBlock"));
+            self.inner.unary(req, path, codec).await
         }
         pub async fn list_snapshots(
             &mut self,
             request: impl tonic::IntoRequest<
                 ::tendermint_proto::abci::RequestListSnapshots,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseListSnapshots>,
             tonic::Status,
         > {
@@ -332,14 +383,19 @@ pub mod abci_application_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/tendermint.abci.ABCIApplication/ListSnapshots",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("tendermint.abci.ABCIApplication", "ListSnapshots"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         pub async fn offer_snapshot(
             &mut self,
             request: impl tonic::IntoRequest<
                 ::tendermint_proto::abci::RequestOfferSnapshot,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseOfferSnapshot>,
             tonic::Status,
         > {
@@ -356,14 +412,19 @@ pub mod abci_application_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/tendermint.abci.ABCIApplication/OfferSnapshot",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("tendermint.abci.ABCIApplication", "OfferSnapshot"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         pub async fn load_snapshot_chunk(
             &mut self,
             request: impl tonic::IntoRequest<
                 ::tendermint_proto::abci::RequestLoadSnapshotChunk,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseLoadSnapshotChunk>,
             tonic::Status,
         > {
@@ -380,14 +441,22 @@ pub mod abci_application_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/tendermint.abci.ABCIApplication/LoadSnapshotChunk",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "tendermint.abci.ABCIApplication",
+                        "LoadSnapshotChunk",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         pub async fn apply_snapshot_chunk(
             &mut self,
             request: impl tonic::IntoRequest<
                 ::tendermint_proto::abci::RequestApplySnapshotChunk,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseApplySnapshotChunk>,
             tonic::Status,
         > {
@@ -404,7 +473,15 @@ pub mod abci_application_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/tendermint.abci.ABCIApplication/ApplySnapshotChunk",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "tendermint.abci.ABCIApplication",
+                        "ApplySnapshotChunk",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -413,111 +490,111 @@ pub mod abci_application_client {
 pub mod abci_application_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
-    ///Generated trait containing gRPC methods that should be implemented for use with AbciApplicationServer.
+    /// Generated trait containing gRPC methods that should be implemented for use with AbciApplicationServer.
     #[async_trait]
     pub trait AbciApplication: Send + Sync + 'static {
         async fn echo(
             &self,
             request: tonic::Request<::tendermint_proto::abci::RequestEcho>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseEcho>,
             tonic::Status,
         >;
         async fn flush(
             &self,
             request: tonic::Request<::tendermint_proto::abci::RequestFlush>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseFlush>,
             tonic::Status,
         >;
         async fn info(
             &self,
             request: tonic::Request<::tendermint_proto::abci::RequestInfo>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseInfo>,
             tonic::Status,
         >;
         async fn set_option(
             &self,
             request: tonic::Request<::tendermint_proto::abci::RequestSetOption>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseSetOption>,
             tonic::Status,
         >;
         async fn deliver_tx(
             &self,
             request: tonic::Request<::tendermint_proto::abci::RequestDeliverTx>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseDeliverTx>,
             tonic::Status,
         >;
         async fn check_tx(
             &self,
             request: tonic::Request<::tendermint_proto::abci::RequestCheckTx>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseCheckTx>,
             tonic::Status,
         >;
         async fn query(
             &self,
             request: tonic::Request<::tendermint_proto::abci::RequestQuery>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseQuery>,
             tonic::Status,
         >;
         async fn commit(
             &self,
             request: tonic::Request<::tendermint_proto::abci::RequestCommit>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseCommit>,
             tonic::Status,
         >;
         async fn init_chain(
             &self,
             request: tonic::Request<::tendermint_proto::abci::RequestInitChain>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseInitChain>,
             tonic::Status,
         >;
         async fn begin_block(
             &self,
             request: tonic::Request<::tendermint_proto::abci::RequestBeginBlock>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseBeginBlock>,
             tonic::Status,
         >;
         async fn end_block(
             &self,
             request: tonic::Request<::tendermint_proto::abci::RequestEndBlock>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseEndBlock>,
             tonic::Status,
         >;
         async fn list_snapshots(
             &self,
             request: tonic::Request<::tendermint_proto::abci::RequestListSnapshots>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseListSnapshots>,
             tonic::Status,
         >;
         async fn offer_snapshot(
             &self,
             request: tonic::Request<::tendermint_proto::abci::RequestOfferSnapshot>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseOfferSnapshot>,
             tonic::Status,
         >;
         async fn load_snapshot_chunk(
             &self,
             request: tonic::Request<::tendermint_proto::abci::RequestLoadSnapshotChunk>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseLoadSnapshotChunk>,
             tonic::Status,
         >;
         async fn apply_snapshot_chunk(
             &self,
             request: tonic::Request<::tendermint_proto::abci::RequestApplySnapshotChunk>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<::tendermint_proto::abci::ResponseApplySnapshotChunk>,
             tonic::Status,
         >;
@@ -527,6 +604,8 @@ pub mod abci_application_server {
         inner: _Inner<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
     }
     struct _Inner<T>(Arc<T>);
     impl<T: AbciApplication> AbciApplicationServer<T> {
@@ -539,6 +618,8 @@ pub mod abci_application_server {
                 inner,
                 accept_compression_encodings: Default::default(),
                 send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
             }
         }
         pub fn with_interceptor<F>(
@@ -562,6 +643,22 @@ pub mod abci_application_server {
             self.send_compression_encodings.enable(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
     }
     impl<T, B> tonic::codegen::Service<http::Request<B>> for AbciApplicationServer<T>
     where
@@ -575,7 +672,7 @@ pub mod abci_application_server {
         fn poll_ready(
             &mut self,
             _cx: &mut Context<'_>,
-        ) -> Poll<Result<(), Self::Error>> {
+        ) -> Poll<std::result::Result<(), Self::Error>> {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
@@ -599,13 +696,15 @@ pub mod abci_application_server {
                                 ::tendermint_proto::abci::RequestEcho,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).echo(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -615,6 +714,10 @@ pub mod abci_application_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -639,13 +742,15 @@ pub mod abci_application_server {
                                 ::tendermint_proto::abci::RequestFlush,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).flush(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -655,6 +760,10 @@ pub mod abci_application_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -679,13 +788,15 @@ pub mod abci_application_server {
                                 ::tendermint_proto::abci::RequestInfo,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).info(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -695,6 +806,10 @@ pub mod abci_application_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -720,13 +835,15 @@ pub mod abci_application_server {
                                 ::tendermint_proto::abci::RequestSetOption,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).set_option(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -736,6 +853,10 @@ pub mod abci_application_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -761,13 +882,15 @@ pub mod abci_application_server {
                                 ::tendermint_proto::abci::RequestDeliverTx,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).deliver_tx(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -777,6 +900,10 @@ pub mod abci_application_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -802,13 +929,15 @@ pub mod abci_application_server {
                                 ::tendermint_proto::abci::RequestCheckTx,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).check_tx(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -818,6 +947,10 @@ pub mod abci_application_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -842,13 +975,15 @@ pub mod abci_application_server {
                                 ::tendermint_proto::abci::RequestQuery,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).query(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -858,6 +993,10 @@ pub mod abci_application_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -883,13 +1022,15 @@ pub mod abci_application_server {
                                 ::tendermint_proto::abci::RequestCommit,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).commit(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -899,6 +1040,10 @@ pub mod abci_application_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -924,13 +1069,15 @@ pub mod abci_application_server {
                                 ::tendermint_proto::abci::RequestInitChain,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).init_chain(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -940,6 +1087,10 @@ pub mod abci_application_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -965,13 +1116,15 @@ pub mod abci_application_server {
                                 ::tendermint_proto::abci::RequestBeginBlock,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).begin_block(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -981,6 +1134,10 @@ pub mod abci_application_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1006,13 +1163,15 @@ pub mod abci_application_server {
                                 ::tendermint_proto::abci::RequestEndBlock,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move { (*inner).end_block(request).await };
                             Box::pin(fut)
                         }
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1022,6 +1181,10 @@ pub mod abci_application_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1047,7 +1210,7 @@ pub mod abci_application_server {
                                 ::tendermint_proto::abci::RequestListSnapshots,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).list_snapshots(request).await
                             };
@@ -1056,6 +1219,8 @@ pub mod abci_application_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1065,6 +1230,10 @@ pub mod abci_application_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1090,7 +1259,7 @@ pub mod abci_application_server {
                                 ::tendermint_proto::abci::RequestOfferSnapshot,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).offer_snapshot(request).await
                             };
@@ -1099,6 +1268,8 @@ pub mod abci_application_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1108,6 +1279,10 @@ pub mod abci_application_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1133,7 +1308,7 @@ pub mod abci_application_server {
                                 ::tendermint_proto::abci::RequestLoadSnapshotChunk,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).load_snapshot_chunk(request).await
                             };
@@ -1142,6 +1317,8 @@ pub mod abci_application_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1151,6 +1328,10 @@ pub mod abci_application_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1176,7 +1357,7 @@ pub mod abci_application_server {
                                 ::tendermint_proto::abci::RequestApplySnapshotChunk,
                             >,
                         ) -> Self::Future {
-                            let inner = self.0.clone();
+                            let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 (*inner).apply_snapshot_chunk(request).await
                             };
@@ -1185,6 +1366,8 @@ pub mod abci_application_server {
                     }
                     let accept_compression_encodings = self.accept_compression_encodings;
                     let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
@@ -1194,6 +1377,10 @@ pub mod abci_application_server {
                             .apply_compression_config(
                                 accept_compression_encodings,
                                 send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
                             );
                         let res = grpc.unary(method, req).await;
                         Ok(res)
@@ -1222,12 +1409,14 @@ pub mod abci_application_server {
                 inner,
                 accept_compression_encodings: self.accept_compression_encodings,
                 send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
             }
         }
     }
     impl<T: AbciApplication> Clone for _Inner<T> {
         fn clone(&self) -> Self {
-            Self(self.0.clone())
+            Self(Arc::clone(&self.0))
         }
     }
     impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
