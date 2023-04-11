@@ -63,7 +63,6 @@ use alloc::vec::Vec;
 use core::fmt::Display;
 
 use bytes::Buf;
-use prost::encoding::encoded_len_varint;
 use prost::Message;
 use subtle_encoding::hex;
 
@@ -145,9 +144,8 @@ where
     }
 
     /// Encodes into a Protobuf-encoded `Vec<u8>`.
-    fn encode_vec(&self) -> Result<Vec<u8>, Error> {
-        let mut wire = Vec::with_capacity(self.encoded_len());
-        self.encode(&mut wire).map(|_| wire)
+    fn encode_vec(&self) -> Vec<u8> {
+        self.clone_into().encode_to_vec()
     }
 
     /// Constructor that attempts to decode a Protobuf-encoded instance from a
@@ -160,11 +158,8 @@ where
     }
 
     /// Encode with a length-delimiter to a `Vec<u8>` Protobuf-encoded message.
-    fn encode_length_delimited_vec(&self) -> Result<Vec<u8>, Error> {
-        let len = self.encoded_len();
-        let lenu64 = len.try_into().map_err(Error::parse_length)?;
-        let mut wire = Vec::with_capacity(len + encoded_len_varint(lenu64));
-        self.encode_length_delimited(&mut wire).map(|_| wire)
+    fn encode_length_delimited_vec(&self) -> Vec<u8> {
+        self.clone_into().encode_length_delimited_to_vec()
     }
 
     /// Constructor that attempts to decode a Protobuf-encoded instance with a
@@ -177,7 +172,7 @@ where
     }
 
     fn encode_to_hex_string(&self) -> String {
-        let buf = self.encode_vec().expect("encoding shouldn't fail");
+        let buf = self.encode_vec();
         let encoded = hex::encode(buf);
         String::from_utf8(encoded).expect("hex-encoded string should always be valid UTF-8")
     }

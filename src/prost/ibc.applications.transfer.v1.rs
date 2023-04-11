@@ -27,11 +27,17 @@ pub struct MsgTransfer {
     /// The timeout is disabled when set to 0.
     #[prost(uint64, tag="7")]
     pub timeout_timestamp: u64,
+    /// optional memo
+    #[prost(string, tag="8")]
+    pub memo: ::prost::alloc::string::String,
 }
 /// MsgTransferResponse defines the Msg/Transfer response type.
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgTransferResponse {
+    /// sequence number of the transfer packet sent
+    #[prost(uint64, tag="1")]
+    pub sequence: u64,
 }
 /// Generated client implementations.
 #[cfg(feature = "client")]
@@ -361,7 +367,7 @@ pub struct QueryParamsResponse {
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomHashRequest {
-    /// The denomination trace `(\[port_id]/[channel_id])+/[denom\]`
+    /// The denomination trace (\[port_id]/[channel_id])+/[denom\]
     #[prost(string, tag="1")]
     pub trace: ::prost::alloc::string::String,
 }

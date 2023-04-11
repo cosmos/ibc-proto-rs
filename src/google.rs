@@ -145,7 +145,7 @@ pub mod protobuf {
     impl Eq for Timestamp {}
 
     #[cfg(feature = "std")]
-    #[allow(clippy::derive_hash_xor_eq)] // Derived logic is correct: comparing the 2 fields for equality
+    #[allow(clippy::derived_hash_with_manual_eq)] // Derived logic is correct: comparing the 2 fields for equality
     impl std::hash::Hash for Timestamp {
         fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
             self.seconds.hash(state);
@@ -195,8 +195,7 @@ pub mod protobuf {
         fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
             write!(
                 f,
-                "{:?} is not representable as a `SystemTime` because it is out of range",
-                self
+                "{self:?} is not representable as a `SystemTime` because it is out of range"
             )
         }
     }
@@ -271,8 +270,10 @@ pub mod protobuf {
 
         #[cfg(feature = "borsh")]
         impl borsh::BorshDeserialize for Any {
-            fn deserialize(buf: &mut &[u8]) -> borsh::maybestd::io::Result<Self> {
-                let inner_any = InnerAny::deserialize(buf)?;
+            fn deserialize_reader<R: borsh::maybestd::io::Read>(
+                reader: &mut R,
+            ) -> borsh::maybestd::io::Result<Self> {
+                let inner_any = InnerAny::deserialize_reader(reader)?;
 
                 Ok(Any {
                     type_url: inner_any.type_url,
@@ -310,7 +311,7 @@ pub mod protobuf {
 
             fn type_info() -> scale_info::Type {
                 scale_info::Type::builder()
-                    .path(scale_info::Path::new("HeaderAttribute", module_path!()))
+                    .path(scale_info::Path::new("Any", "ibc_proto::google::protobuf"))
                     // i128 is chosen before we represent the timestamp is nanoseconds, which is represented as a i128 by Time
                     .composite(
                         scale_info::build::Fields::named()

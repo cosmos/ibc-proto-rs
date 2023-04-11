@@ -2,7 +2,6 @@ use alloc::format;
 use alloc::string::String;
 use core::fmt::Display;
 use core::format_args;
-use core::num::TryFromIntError;
 
 use flex_error::{define_error, DisplayOnly};
 use prost::{DecodeError, EncodeError};
@@ -25,10 +24,6 @@ define_error! {
         DecodeMessage
             [ DisplayOnly<DecodeError> ]
             | _ | { "error decoding buffer into message" },
-
-        ParseLength
-            [ DisplayOnly<TryFromIntError> ]
-            | _ | { "error parsing encoded length" },
     }
 }
 
@@ -38,6 +33,6 @@ impl Error {
         E: Display,
         T: TryFrom<Raw, Error = E>,
     {
-        Error::try_from_protobuf(format!("{}", e))
+        Error::try_from_protobuf(format!("{e}"))
     }
 }

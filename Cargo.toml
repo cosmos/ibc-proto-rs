@@ -1,6 +1,6 @@
 [package]
 name         = "ibc-proto"
-version      = "0.24.0"
+version      = "0.28.0"
 authors      = ["Informal Systems <hello@informal.systems>"]
 edition      = "2021"
 license      = "Apache-2.0"
@@ -34,10 +34,10 @@ flex-error = { version = "0.4.4", default-features = false }
 parity-scale-codec = { version = "3.0.0", default-features = false, features = ["full"], optional = true }
 scale-info = { version = "2.1.2", default-features = false, features = ["derive"], optional = true }
 ## for borsh encode or decode
-borsh = {version = "0.9.3", default-features = false, optional = true }
+borsh = {version = "0.10.0", default-features = false, optional = true }
 
 [dependencies.tendermint-proto]
-version          = "0.28"
+version          = "0.30"
 default-features = false
 
 [features]
