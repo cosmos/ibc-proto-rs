@@ -17,6 +17,10 @@ pub struct CompileCmd {
     /// path to the Cosmos SDK proto files
     sdk: PathBuf,
 
+    #[argh(option, short = 'c')]
+    /// path to the Cosmos ICS proto files
+    ics: PathBuf,
+
     #[argh(option, short = 'o')]
     /// path to output the generated Rust sources into
     out: PathBuf,
@@ -24,11 +28,16 @@ pub struct CompileCmd {
 
 impl CompileCmd {
     pub fn run(&self) {
-        Self::compile_ibc_protos(self.ibc.as_ref(), self.sdk.as_ref(), self.out.as_ref())
-            .unwrap_or_else(|e| {
-                eprintln!("[error] failed to compile protos: {}", e);
-                process::exit(1);
-            });
+        Self::compile_ibc_protos(
+            self.ibc.as_ref(),
+            self.sdk.as_ref(),
+            self.ics.as_ref(),
+            self.out.as_ref(),
+        )
+        .unwrap_or_else(|e| {
+            eprintln!("[error] failed to compile protos: {}", e);
+            process::exit(1);
+        });
 
         Self::patch_generated_files(self.out.as_ref()).unwrap_or_else(|e| {
             eprintln!("[error] failed to patch generated files: {}", e);
@@ -41,6 +50,7 @@ impl CompileCmd {
     fn compile_ibc_protos(
         ibc_dir: &Path,
         sdk_dir: &Path,
+        ics_dir: &Path,
         out_dir: &Path,
     ) -> Result<(), Box<dyn std::error::Error>> {
         println!(
@@ -62,11 +72,15 @@ impl CompileCmd {
             format!("{}/cosmos/bank", sdk_dir.display()),
             format!("{}/cosmos/staking", sdk_dir.display()),
             format!("{}/cosmos/upgrade", sdk_dir.display()),
+            format!("{}/interchain_security/ccv/v1", ics_dir.display()),
+            format!("{}/interchain_security/ccv/provider", ics_dir.display()),
+            format!("{}/interchain_security/ccv/consumer", ics_dir.display()),
         ];
 
         let proto_includes_paths = [
             format!("{}", sdk_dir.display()),
             format!("{}", ibc_dir.display()),
+            format!("{}", ics_dir.display()),
             format!("{}/../../definitions/mock", root),
             format!("{}/../../definitions/stride/interchainquery/v1", root),
         ];

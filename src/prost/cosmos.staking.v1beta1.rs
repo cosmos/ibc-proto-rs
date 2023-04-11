@@ -313,6 +313,13 @@ pub struct Pool {
     #[prost(string, tag = "2")]
     pub bonded_tokens: ::prost::alloc::string::String,
 }
+/// ValidatorUpdates defines an array of abci.ValidatorUpdate objects.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ValidatorUpdates {
+    #[prost(message, repeated, tag = "1")]
+    pub updates: ::prost::alloc::vec::Vec<::tendermint_proto::abci::ValidatorUpdate>,
+}
 /// BondStatus is the status of a validator.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
@@ -346,6 +353,39 @@ impl BondStatus {
             "BOND_STATUS_UNBONDED" => Some(Self::Unbonded),
             "BOND_STATUS_UNBONDING" => Some(Self::Unbonding),
             "BOND_STATUS_BONDED" => Some(Self::Bonded),
+            _ => None,
+        }
+    }
+}
+/// InfractionType indicates the infraction type a validator commited.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum InfractionType {
+    /// UNSPECIFIED defines an empty infraction type.
+    Unspecified = 0,
+    /// DOUBLE_SIGN defines a validator that double-signs a block.
+    DoubleSign = 1,
+    /// DOWNTIME defines a validator that missed signing too many blocks.
+    Downtime = 2,
+}
+impl InfractionType {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            InfractionType::Unspecified => "INFRACTION_TYPE_UNSPECIFIED",
+            InfractionType::DoubleSign => "INFRACTION_TYPE_DOUBLE_SIGN",
+            InfractionType::Downtime => "INFRACTION_TYPE_DOWNTIME",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "INFRACTION_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+            "INFRACTION_TYPE_DOUBLE_SIGN" => Some(Self::DoubleSign),
+            "INFRACTION_TYPE_DOWNTIME" => Some(Self::Downtime),
             _ => None,
         }
     }
