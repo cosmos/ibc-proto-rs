@@ -40,7 +40,7 @@ cargo run -- clone --out /tmp/cosmos --sdk-tag v0.44.3 --ibc-go-commit 7cd110e8e
 To generate the Rust sources from the Protobuf definitions, and copy them to the `src/prost` folder `ibc-proto` crate within the `ibc-rs` project:
 
 ```bash
-cargo run -- compile --sdk /tmp/cosmos/sdk --ibc /tmp/cosmos/ibc --out ../proto/src/prost
+cargo run -- compile --sdk /tmp/cosmos/sdk/proto-include --ibc /tmp/cosmos/ibc/proto-include --out ../proto/src/prost
 ```
 
 Note: the `--ibc` option is not mandatory; if omitted, then the IBC .proto files from the SDK repository will be used
