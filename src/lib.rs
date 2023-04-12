@@ -131,6 +131,11 @@ pub mod cosmos {
             include_proto!("cosmos.gov.v1beta1.rs");
         }
     }
+    pub mod ics23 {
+        pub mod v1 {
+            include_proto!("cosmos.ics23.v1.rs");
+        }
+    }
 }
 
 pub mod ibc {
@@ -197,13 +202,13 @@ pub mod ibc {
     }
     pub mod lightclients {
         pub mod localhost {
-            pub mod v1 {
-                include_proto!("ibc.lightclients.localhost.v1.rs");
+            pub mod v2 {
+                include_proto!("ibc.lightclients.localhost.v2.rs");
             }
         }
         pub mod solomachine {
-            pub mod v1 {
-                include_proto!("ibc.lightclients.solomachine.v1.rs");
+            pub mod v3 {
+                include_proto!("ibc.lightclients.solomachine.v3.rs");
             }
         }
         pub mod tendermint {
@@ -218,7 +223,7 @@ pub mod ibc {
 }
 
 pub mod ics23 {
-    include_proto!("ics23.rs");
+    pub use super::cosmos::ics23::v1::*;
 }
 
 pub mod interchain_security {

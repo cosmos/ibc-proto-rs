@@ -1,6 +1,7 @@
 /// BaseAccount defines a base account type. It contains all the necessary fields
 /// for basic account functionality. Any custom account type should extend this
 /// type for additional functionality (e.g. vesting).
+#[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct BaseAccount {
@@ -14,6 +15,7 @@ pub struct BaseAccount {
     pub sequence: u64,
 }
 /// ModuleAccount defines an account for modules that holds coins on a pool.
+#[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ModuleAccount {
@@ -25,6 +27,7 @@ pub struct ModuleAccount {
     pub permissions: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// Params defines the parameters for the auth module.
+#[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Params {
@@ -42,6 +45,7 @@ pub struct Params {
 /// QueryAccountsRequest is the request type for the Query/Accounts RPC method.
 ///
 /// Since: cosmos-sdk 0.43
+#[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryAccountsRequest {
@@ -54,6 +58,7 @@ pub struct QueryAccountsRequest {
 /// QueryAccountsResponse is the response type for the Query/Accounts RPC method.
 ///
 /// Since: cosmos-sdk 0.43
+#[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryAccountsResponse {
@@ -67,6 +72,7 @@ pub struct QueryAccountsResponse {
     >,
 }
 /// QueryAccountRequest is the request type for the Query/Account RPC method.
+#[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryAccountRequest {
@@ -75,6 +81,7 @@ pub struct QueryAccountRequest {
     pub address: ::prost::alloc::string::String,
 }
 /// QueryAccountResponse is the response type for the Query/Account RPC method.
+#[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryAccountResponse {
@@ -83,10 +90,12 @@ pub struct QueryAccountResponse {
     pub account: ::core::option::Option<super::super::super::google::protobuf::Any>,
 }
 /// QueryParamsRequest is the request type for the Query/Params RPC method.
+#[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsRequest {}
 /// QueryParamsResponse is the response type for the Query/Params RPC method.
+#[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsResponse {
@@ -97,12 +106,14 @@ pub struct QueryParamsResponse {
 /// QueryModuleAccountsRequest is the request type for the Query/ModuleAccounts RPC method.
 ///
 /// Since: cosmos-sdk 0.46
+#[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryModuleAccountsRequest {}
 /// QueryModuleAccountsResponse is the response type for the Query/ModuleAccounts RPC method.
 ///
 /// Since: cosmos-sdk 0.46
+#[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryModuleAccountsResponse {
@@ -110,6 +121,7 @@ pub struct QueryModuleAccountsResponse {
     pub accounts: ::prost::alloc::vec::Vec<super::super::super::google::protobuf::Any>,
 }
 /// QueryModuleAccountByNameRequest is the request type for the Query/ModuleAccountByName RPC method.
+#[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryModuleAccountByNameRequest {
@@ -117,6 +129,7 @@ pub struct QueryModuleAccountByNameRequest {
     pub name: ::prost::alloc::string::String,
 }
 /// QueryModuleAccountByNameResponse is the response type for the Query/ModuleAccountByName RPC method.
+#[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryModuleAccountByNameResponse {
@@ -126,12 +139,14 @@ pub struct QueryModuleAccountByNameResponse {
 /// Bech32PrefixRequest is the request type for Bech32Prefix rpc method.
 ///
 /// Since: cosmos-sdk 0.46
+#[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Bech32PrefixRequest {}
 /// Bech32PrefixResponse is the response type for Bech32Prefix rpc method.
 ///
 /// Since: cosmos-sdk 0.46
+#[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Bech32PrefixResponse {
@@ -141,6 +156,7 @@ pub struct Bech32PrefixResponse {
 /// AddressBytesToStringRequest is the request type for AddressString rpc method.
 ///
 /// Since: cosmos-sdk 0.46
+#[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddressBytesToStringRequest {
@@ -150,6 +166,7 @@ pub struct AddressBytesToStringRequest {
 /// AddressBytesToStringResponse is the response type for AddressString rpc method.
 ///
 /// Since: cosmos-sdk 0.46
+#[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddressBytesToStringResponse {
@@ -159,6 +176,7 @@ pub struct AddressBytesToStringResponse {
 /// AddressStringToBytesRequest is the request type for AccountBytes rpc method.
 ///
 /// Since: cosmos-sdk 0.46
+#[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddressStringToBytesRequest {
@@ -168,6 +186,7 @@ pub struct AddressStringToBytesRequest {
 /// AddressStringToBytesResponse is the response type for AddressBytes rpc method.
 ///
 /// Since: cosmos-sdk 0.46
+#[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddressStringToBytesResponse {
@@ -177,6 +196,7 @@ pub struct AddressStringToBytesResponse {
 /// QueryAccountAddressByIDRequest is the request type for AccountAddressByID rpc method
 ///
 /// Since: cosmos-sdk 0.46.2
+#[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryAccountAddressByIdRequest {
@@ -189,6 +209,7 @@ pub struct QueryAccountAddressByIdRequest {
 /// QueryAccountAddressByIDResponse is the response type for AccountAddressByID rpc method
 ///
 /// Since: cosmos-sdk 0.46.2
+#[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryAccountAddressByIdResponse {
@@ -1163,6 +1184,7 @@ pub mod query_server {
     }
 }
 /// GenesisState defines the auth module's genesis state.
+#[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenesisState {
