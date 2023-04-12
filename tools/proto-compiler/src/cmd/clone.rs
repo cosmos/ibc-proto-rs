@@ -189,7 +189,6 @@ fn checkout_tag(repo: &Repository, tag_name: &str) -> Result<(), git2::Error> {
     // Find a tag with name `tag_name`
     let tag = repo
         .references()?
-        .into_iter()
         .flatten()
         .filter(|r| r.is_tag())
         .flat_map(|r| r.peel_to_tag())
