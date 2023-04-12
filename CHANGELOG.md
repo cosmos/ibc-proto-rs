@@ -1,5 +1,34 @@
 # CHANGELOG
 
+## v0.29.0
+
+*April 12th, 2023*
+
+In this update, Protobuf definitions have been included forInterchain Security v1 CCV within
+the `ibc_proto::interchain_security::ccv` module.
+
+It should also be noted that the return type of `Protobuf::encode{,_length_delimited}_vec`
+has been modified from `Result<Vec<u8>, Error>` to `Vec<u8>`.
+
+Furthermore, the version of `tonic` has been raised from 0.8 to 0.9.
+
+### BREAKING CHANGES
+
+- Remove errors for `encode_vec` and `encode_length_delimited_vec` in
+  `Protobuf` ([#73](https://github.com/cosmos/ibc-proto-rs/issues/73))
+- Update `tonic` to 0.9 and re-generate the protos
+  ([\#79](https://github.com/cosmos/ibc-proto-rs/issues/79))
+
+### FEATURES
+
+- Add Interchain Security v1 CCV Protobuf definitions
+  ([\#76](https://github.com/cosmos/ibc-proto-rs/issues/76))
+
+### BUG FIXES
+
+- Automatically patch the generated Rust code for it to compile
+  ([\#2](https://github.com/cosmos/ibc-proto-rs/issues/2))
+
 ## v0.28.0
 
 *March 10th, 2023*
