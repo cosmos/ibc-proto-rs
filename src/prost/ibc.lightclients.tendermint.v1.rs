@@ -36,7 +36,7 @@ pub struct ClientState {
     /// Proof specifications used in verifying counterparty state
     #[prost(message, repeated, tag = "8")]
     pub proof_specs: ::prost::alloc::vec::Vec<
-        super::super::super::super::ics23::ProofSpec,
+        super::super::super::super::cosmos::ics23::v1::ProofSpec,
     >,
     /// Path at which next upgraded client will be committed.
     /// Each element corresponds to the key for a single CommitmentProof in the
@@ -79,6 +79,8 @@ pub struct ConsensusState {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Misbehaviour {
+    /// ClientID is deprecated
+    #[deprecated]
     #[prost(string, tag = "1")]
     pub client_id: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "2")]

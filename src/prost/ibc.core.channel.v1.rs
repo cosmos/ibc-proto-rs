@@ -164,7 +164,7 @@ pub mod acknowledgement {
     }
 }
 /// State defines if a channel is in one of the following states:
-/// CLOSED, INIT, TRYOPEN, OPEN or UNINITIALIZED.
+/// CLOSED, INIT, TRYOPEN, OPEN, INITUPGRADE, TRYUPGRADE or UNINITIALIZED.
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
@@ -181,6 +181,12 @@ pub enum State {
     /// A channel has been closed and can no longer be used to send or receive
     /// packets.
     Closed = 4,
+    /// A channel has just started the channel upgrade handshake.
+    /// The chain that is proposing the upgrade should set the channel state from OPEN to UPGRADEINIT.
+    Initupgrade = 5,
+    /// A channel has acknowledged the upgrade handshake step on the counterparty chain.
+    /// The counterparty chain that accepts the upgrade should set the channel state from OPEN to UPGRADETRY.
+    Tryupgrade = 6,
 }
 impl State {
     /// String value of the enum field names used in the ProtoBuf definition.
@@ -194,6 +200,8 @@ impl State {
             State::Tryopen => "STATE_TRYOPEN",
             State::Open => "STATE_OPEN",
             State::Closed => "STATE_CLOSED",
+            State::Initupgrade => "STATE_INITUPGRADE",
+            State::Tryupgrade => "STATE_TRYUPGRADE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -204,6 +212,8 @@ impl State {
             "STATE_TRYOPEN" => Some(Self::Tryopen),
             "STATE_OPEN" => Some(Self::Open),
             "STATE_CLOSED" => Some(Self::Closed),
+            "STATE_INITUPGRADE" => Some(Self::Initupgrade),
+            "STATE_TRYUPGRADE" => Some(Self::Tryupgrade),
             _ => None,
         }
     }
@@ -279,6 +289,33 @@ pub struct PacketSequence {
     #[prost(uint64, tag = "3")]
     pub sequence: u64,
 }
+/// UpgradeTimeout defines a type which encapsulates the upgrade timeout values at which the counterparty
+/// must no longer proceed with the upgrade handshake.
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpgradeTimeout {
+    /// block height after which the upgrade times out
+    #[prost(message, optional, tag = "1")]
+    pub timeout_height: ::core::option::Option<super::super::client::v1::Height>,
+    /// block timestamp (in nanoseconds) after which the upgrade times out
+    #[prost(uint64, tag = "2")]
+    pub timeout_timestamp: u64,
+}
+/// ErrorReceipt defines a type which encapsulates the upgrade sequence and error associated with the
+/// upgrade handshake failure. When a channel upgrade handshake is aborted both chains are expected to increment to the
+/// next sequence.
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ErrorReceipt {
+    /// the channel upgrade sequence
+    #[prost(uint64, tag = "1")]
+    pub sequence: u64,
+    /// the error message detailing the cause of failure
+    #[prost(string, tag = "2")]
+    pub error: ::prost::alloc::string::String,
+}
 /// MsgChannelOpenInit defines an sdk.Msg to initialize a channel handshake. It
 /// is called by a relayer on Chain A.
 #[derive(::serde::Serialize, ::serde::Deserialize)]
@@ -334,6 +371,8 @@ pub struct MsgChannelOpenTry {
 pub struct MsgChannelOpenTryResponse {
     #[prost(string, tag = "1")]
     pub version: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub channel_id: ::prost::alloc::string::String,
 }
 /// MsgChannelOpenAck defines a msg sent by a Relayer to Chain A to acknowledge
 /// the change of channel state to TRYOPEN on Chain B.
@@ -521,6 +560,173 @@ pub struct MsgAcknowledgementResponse {
     #[prost(enumeration = "ResponseResultType", tag = "1")]
     pub result: i32,
 }
+/// MsgChannelUpgradeInit defines the request type for the ChannelUpgradeInit rpc
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgChannelUpgradeInit {
+    #[prost(string, tag = "1")]
+    pub port_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub channel_id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "3")]
+    pub proposed_upgrade_channel: ::core::option::Option<Channel>,
+    #[prost(message, optional, tag = "4")]
+    pub timeout_height: ::core::option::Option<super::super::client::v1::Height>,
+    #[prost(uint64, tag = "5")]
+    pub timeout_timestamp: u64,
+    #[prost(string, tag = "6")]
+    pub signer: ::prost::alloc::string::String,
+}
+/// MsgChannelUpgradeInitResponse defines the MsgChannelUpgradeInit response type
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgChannelUpgradeInitResponse {
+    #[prost(string, tag = "1")]
+    pub channel_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub version: ::prost::alloc::string::String,
+    #[prost(uint64, tag = "3")]
+    pub upgrade_sequence: u64,
+}
+/// MsgChannelUpgradeTry defines the request type for the ChannelUpgradeTry rpc
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgChannelUpgradeTry {
+    #[prost(string, tag = "1")]
+    pub port_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub channel_id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "3")]
+    pub counterparty_channel: ::core::option::Option<Channel>,
+    #[prost(uint64, tag = "4")]
+    pub counterparty_sequence: u64,
+    #[prost(message, optional, tag = "5")]
+    pub proposed_upgrade_channel: ::core::option::Option<Channel>,
+    #[prost(message, optional, tag = "6")]
+    pub timeout_height: ::core::option::Option<super::super::client::v1::Height>,
+    #[prost(uint64, tag = "7")]
+    pub timeout_timestamp: u64,
+    #[prost(bytes = "vec", tag = "8")]
+    pub proof_channel: ::prost::alloc::vec::Vec<u8>,
+    #[prost(bytes = "vec", tag = "9")]
+    pub proof_upgrade_timeout: ::prost::alloc::vec::Vec<u8>,
+    #[prost(bytes = "vec", tag = "10")]
+    pub proof_upgrade_sequence: ::prost::alloc::vec::Vec<u8>,
+    #[prost(message, optional, tag = "11")]
+    pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
+    #[prost(string, tag = "12")]
+    pub signer: ::prost::alloc::string::String,
+}
+/// MsgChannelUpgradeTryResponse defines the MsgChannelUpgradeTry response type
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgChannelUpgradeTryResponse {}
+/// MsgChannelUpgradeAck defines the request type for the ChannelUpgradeAck rpc
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgChannelUpgradeAck {
+    #[prost(string, tag = "1")]
+    pub port_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub channel_id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "3")]
+    pub counterparty_channel: ::core::option::Option<Channel>,
+    #[prost(bytes = "vec", tag = "4")]
+    pub proof_channel: ::prost::alloc::vec::Vec<u8>,
+    #[prost(bytes = "vec", tag = "5")]
+    pub proof_upgrade_sequence: ::prost::alloc::vec::Vec<u8>,
+    #[prost(message, optional, tag = "6")]
+    pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
+    #[prost(string, tag = "7")]
+    pub signer: ::prost::alloc::string::String,
+}
+/// MsgChannelUpgradeAckResponse defines MsgChannelUpgradeAck response type
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgChannelUpgradeAckResponse {}
+/// MsgChannelUpgradeConfirm defines the request type for the ChannelUpgradeConfirm rpc
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgChannelUpgradeConfirm {
+    #[prost(string, tag = "1")]
+    pub port_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub channel_id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "3")]
+    pub counterparty_channel: ::core::option::Option<Channel>,
+    #[prost(bytes = "vec", tag = "4")]
+    pub proof_channel: ::prost::alloc::vec::Vec<u8>,
+    #[prost(bytes = "vec", tag = "5")]
+    pub proof_upgrade_error: ::prost::alloc::vec::Vec<u8>,
+    #[prost(bytes = "vec", tag = "6")]
+    pub proof_upgrade_sequence: ::prost::alloc::vec::Vec<u8>,
+    #[prost(message, optional, tag = "7")]
+    pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
+    #[prost(string, tag = "8")]
+    pub signer: ::prost::alloc::string::String,
+}
+/// MsgChannelUpgradeConfirmResponse defines the MsgChannelUpgradeConfirm response type
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgChannelUpgradeConfirmResponse {}
+/// MsgChannelUpgradeTimeout defines the request type for the ChannelUpgradeTimeout rpc
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgChannelUpgradeTimeout {
+    #[prost(string, tag = "1")]
+    pub port_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub channel_id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "3")]
+    pub counterparty_channel: ::core::option::Option<Channel>,
+    #[prost(message, optional, tag = "4")]
+    pub previous_error_receipt: ::core::option::Option<ErrorReceipt>,
+    #[prost(bytes = "vec", tag = "5")]
+    pub proof_channel: ::prost::alloc::vec::Vec<u8>,
+    #[prost(bytes = "vec", tag = "6")]
+    pub proof_error_receipt: ::prost::alloc::vec::Vec<u8>,
+    #[prost(message, optional, tag = "7")]
+    pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
+    #[prost(string, tag = "8")]
+    pub signer: ::prost::alloc::string::String,
+}
+/// MsgChannelUpgradeTimeoutRepsonse defines the MsgChannelUpgradeTimeout response type
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgChannelUpgradeTimeoutResponse {}
+/// MsgChannelUpgradeCancel defines the request type for the ChannelUpgradeCancel rpc
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgChannelUpgradeCancel {
+    #[prost(string, tag = "1")]
+    pub port_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub channel_id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "3")]
+    pub error_receipt: ::core::option::Option<ErrorReceipt>,
+    #[prost(bytes = "vec", tag = "4")]
+    pub proof_error_receipt: ::prost::alloc::vec::Vec<u8>,
+    #[prost(message, optional, tag = "5")]
+    pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
+    #[prost(string, tag = "6")]
+    pub signer: ::prost::alloc::string::String,
+}
+/// MsgChannelUpgradeCancelResponse defines the MsgChannelUpgradeCancel response type
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgChannelUpgradeCancelResponse {}
 /// ResponseResultType defines the possible outcomes of the execution of a message
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -907,6 +1113,170 @@ pub mod msg_client {
                 .insert(GrpcMethod::new("ibc.core.channel.v1.Msg", "Acknowledgement"));
             self.inner.unary(req, path, codec).await
         }
+        /// ChannelUpgradeInit defines a rpc handler method for MsgChannelUpgradeInit.
+        pub async fn channel_upgrade_init(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgChannelUpgradeInit>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgChannelUpgradeInitResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/ibc.core.channel.v1.Msg/ChannelUpgradeInit",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("ibc.core.channel.v1.Msg", "ChannelUpgradeInit"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// ChannelUpgradeTry defines a rpc handler method for MsgChannelUpgradeTry.
+        pub async fn channel_upgrade_try(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgChannelUpgradeTry>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgChannelUpgradeTryResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/ibc.core.channel.v1.Msg/ChannelUpgradeTry",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("ibc.core.channel.v1.Msg", "ChannelUpgradeTry"));
+            self.inner.unary(req, path, codec).await
+        }
+        /// ChannelUpgradeAck defines a rpc handler method for MsgChannelUpgradeAck.
+        pub async fn channel_upgrade_ack(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgChannelUpgradeAck>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgChannelUpgradeAckResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/ibc.core.channel.v1.Msg/ChannelUpgradeAck",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("ibc.core.channel.v1.Msg", "ChannelUpgradeAck"));
+            self.inner.unary(req, path, codec).await
+        }
+        /// ChannelUpgradeConfirm defines a rpc handler method for MsgChannelUpgradeConfirm.
+        pub async fn channel_upgrade_confirm(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgChannelUpgradeConfirm>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgChannelUpgradeConfirmResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/ibc.core.channel.v1.Msg/ChannelUpgradeConfirm",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("ibc.core.channel.v1.Msg", "ChannelUpgradeConfirm"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// ChannelUpgradeTimeout defines a rpc handler method for MsgChannelUpgradeTimeout.
+        pub async fn channel_upgrade_timeout(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgChannelUpgradeTimeout>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgChannelUpgradeTimeoutResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/ibc.core.channel.v1.Msg/ChannelUpgradeTimeout",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("ibc.core.channel.v1.Msg", "ChannelUpgradeTimeout"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// ChannelUpgradeCancel defines a rpc handler method for MsgChannelUpgradeCancel.
+        pub async fn channel_upgrade_cancel(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgChannelUpgradeCancel>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgChannelUpgradeCancelResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/ibc.core.channel.v1.Msg/ChannelUpgradeCancel",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("ibc.core.channel.v1.Msg", "ChannelUpgradeCancel"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
     }
 }
 /// Generated server implementations.
@@ -996,6 +1366,54 @@ pub mod msg_server {
             request: tonic::Request<super::MsgAcknowledgement>,
         ) -> std::result::Result<
             tonic::Response<super::MsgAcknowledgementResponse>,
+            tonic::Status,
+        >;
+        /// ChannelUpgradeInit defines a rpc handler method for MsgChannelUpgradeInit.
+        async fn channel_upgrade_init(
+            &self,
+            request: tonic::Request<super::MsgChannelUpgradeInit>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgChannelUpgradeInitResponse>,
+            tonic::Status,
+        >;
+        /// ChannelUpgradeTry defines a rpc handler method for MsgChannelUpgradeTry.
+        async fn channel_upgrade_try(
+            &self,
+            request: tonic::Request<super::MsgChannelUpgradeTry>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgChannelUpgradeTryResponse>,
+            tonic::Status,
+        >;
+        /// ChannelUpgradeAck defines a rpc handler method for MsgChannelUpgradeAck.
+        async fn channel_upgrade_ack(
+            &self,
+            request: tonic::Request<super::MsgChannelUpgradeAck>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgChannelUpgradeAckResponse>,
+            tonic::Status,
+        >;
+        /// ChannelUpgradeConfirm defines a rpc handler method for MsgChannelUpgradeConfirm.
+        async fn channel_upgrade_confirm(
+            &self,
+            request: tonic::Request<super::MsgChannelUpgradeConfirm>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgChannelUpgradeConfirmResponse>,
+            tonic::Status,
+        >;
+        /// ChannelUpgradeTimeout defines a rpc handler method for MsgChannelUpgradeTimeout.
+        async fn channel_upgrade_timeout(
+            &self,
+            request: tonic::Request<super::MsgChannelUpgradeTimeout>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgChannelUpgradeTimeoutResponse>,
+            tonic::Status,
+        >;
+        /// ChannelUpgradeCancel defines a rpc handler method for MsgChannelUpgradeCancel.
+        async fn channel_upgrade_cancel(
+            &self,
+            request: tonic::Request<super::MsgChannelUpgradeCancel>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgChannelUpgradeCancelResponse>,
             tonic::Status,
         >;
     }
@@ -1519,6 +1937,278 @@ pub mod msg_server {
                     };
                     Box::pin(fut)
                 }
+                "/ibc.core.channel.v1.Msg/ChannelUpgradeInit" => {
+                    #[allow(non_camel_case_types)]
+                    struct ChannelUpgradeInitSvc<T: Msg>(pub Arc<T>);
+                    impl<
+                        T: Msg,
+                    > tonic::server::UnaryService<super::MsgChannelUpgradeInit>
+                    for ChannelUpgradeInitSvc<T> {
+                        type Response = super::MsgChannelUpgradeInitResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgChannelUpgradeInit>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).channel_upgrade_init(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ChannelUpgradeInitSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/ibc.core.channel.v1.Msg/ChannelUpgradeTry" => {
+                    #[allow(non_camel_case_types)]
+                    struct ChannelUpgradeTrySvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgChannelUpgradeTry>
+                    for ChannelUpgradeTrySvc<T> {
+                        type Response = super::MsgChannelUpgradeTryResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgChannelUpgradeTry>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).channel_upgrade_try(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ChannelUpgradeTrySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/ibc.core.channel.v1.Msg/ChannelUpgradeAck" => {
+                    #[allow(non_camel_case_types)]
+                    struct ChannelUpgradeAckSvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgChannelUpgradeAck>
+                    for ChannelUpgradeAckSvc<T> {
+                        type Response = super::MsgChannelUpgradeAckResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgChannelUpgradeAck>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).channel_upgrade_ack(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ChannelUpgradeAckSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/ibc.core.channel.v1.Msg/ChannelUpgradeConfirm" => {
+                    #[allow(non_camel_case_types)]
+                    struct ChannelUpgradeConfirmSvc<T: Msg>(pub Arc<T>);
+                    impl<
+                        T: Msg,
+                    > tonic::server::UnaryService<super::MsgChannelUpgradeConfirm>
+                    for ChannelUpgradeConfirmSvc<T> {
+                        type Response = super::MsgChannelUpgradeConfirmResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgChannelUpgradeConfirm>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).channel_upgrade_confirm(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ChannelUpgradeConfirmSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/ibc.core.channel.v1.Msg/ChannelUpgradeTimeout" => {
+                    #[allow(non_camel_case_types)]
+                    struct ChannelUpgradeTimeoutSvc<T: Msg>(pub Arc<T>);
+                    impl<
+                        T: Msg,
+                    > tonic::server::UnaryService<super::MsgChannelUpgradeTimeout>
+                    for ChannelUpgradeTimeoutSvc<T> {
+                        type Response = super::MsgChannelUpgradeTimeoutResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgChannelUpgradeTimeout>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).channel_upgrade_timeout(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ChannelUpgradeTimeoutSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/ibc.core.channel.v1.Msg/ChannelUpgradeCancel" => {
+                    #[allow(non_camel_case_types)]
+                    struct ChannelUpgradeCancelSvc<T: Msg>(pub Arc<T>);
+                    impl<
+                        T: Msg,
+                    > tonic::server::UnaryService<super::MsgChannelUpgradeCancel>
+                    for ChannelUpgradeCancelSvc<T> {
+                        type Response = super::MsgChannelUpgradeCancelResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgChannelUpgradeCancel>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).channel_upgrade_cancel(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ChannelUpgradeCancelSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
                 _ => {
                     Box::pin(async move {
                         Ok(
@@ -1964,7 +2654,7 @@ pub struct QueryNextSequenceReceiveRequest {
     #[prost(string, tag = "2")]
     pub channel_id: ::prost::alloc::string::String,
 }
-/// QuerySequenceResponse is the request type for the
+/// QuerySequenceResponse is the response type for the
 /// Query/QueryNextSequenceReceiveResponse RPC method
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -1973,6 +2663,52 @@ pub struct QueryNextSequenceReceiveResponse {
     /// next sequence receive number
     #[prost(uint64, tag = "1")]
     pub next_sequence_receive: u64,
+    /// merkle proof of existence
+    #[prost(bytes = "vec", tag = "2")]
+    pub proof: ::prost::alloc::vec::Vec<u8>,
+    /// height at which the proof was retrieved
+    #[prost(message, optional, tag = "3")]
+    pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
+}
+/// QueryUpgradeSequenceRequest is the request type for the QueryUpgradeSequence RPC method
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryUpgradeSequenceRequest {
+    #[prost(string, tag = "1")]
+    pub port_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub channel_id: ::prost::alloc::string::String,
+}
+/// QueryUpgradeSequenceResponse is the response type for the QueryUpgradeSequence RPC method
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryUpgradeSequenceResponse {
+    #[prost(uint64, tag = "1")]
+    pub upgrade_sequence: u64,
+    #[prost(bytes = "vec", tag = "2")]
+    pub proof: ::prost::alloc::vec::Vec<u8>,
+    #[prost(message, optional, tag = "3")]
+    pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
+}
+/// QueryUpgradeErrorRequest is the request type for the Query/QueryUpgradeError RPC method
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryUpgradeErrorRequest {
+    #[prost(string, tag = "1")]
+    pub port_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub channel_id: ::prost::alloc::string::String,
+}
+/// QueryUpgradeErrorResponse is the response type for the Query/QueryUpgradeError RPC method
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryUpgradeErrorResponse {
+    #[prost(message, optional, tag = "1")]
+    pub error_receipt: ::core::option::Option<ErrorReceipt>,
     /// merkle proof of existence
     #[prost(bytes = "vec", tag = "2")]
     pub proof: ::prost::alloc::vec::Vec<u8>,
@@ -2434,6 +3170,58 @@ pub mod query_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+        /// UpgradeSequence returns the upgrade sequence for a given channel.
+        pub async fn upgrade_sequence(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryUpgradeSequenceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryUpgradeSequenceResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/ibc.core.channel.v1.Query/UpgradeSequence",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("ibc.core.channel.v1.Query", "UpgradeSequence"));
+            self.inner.unary(req, path, codec).await
+        }
+        /// UpgradeError returns the error receipt if the upgrade handshake failed.
+        pub async fn upgrade_error(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryUpgradeErrorRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryUpgradeErrorResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/ibc.core.channel.v1.Query/UpgradeError",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("ibc.core.channel.v1.Query", "UpgradeError"));
+            self.inner.unary(req, path, codec).await
+        }
     }
 }
 /// Generated server implementations.
@@ -2554,6 +3342,22 @@ pub mod query_server {
             request: tonic::Request<super::QueryNextSequenceReceiveRequest>,
         ) -> std::result::Result<
             tonic::Response<super::QueryNextSequenceReceiveResponse>,
+            tonic::Status,
+        >;
+        /// UpgradeSequence returns the upgrade sequence for a given channel.
+        async fn upgrade_sequence(
+            &self,
+            request: tonic::Request<super::QueryUpgradeSequenceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryUpgradeSequenceResponse>,
+            tonic::Status,
+        >;
+        /// UpgradeError returns the error receipt if the upgrade handshake failed.
+        async fn upgrade_error(
+            &self,
+            request: tonic::Request<super::QueryUpgradeErrorRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryUpgradeErrorResponse>,
             tonic::Status,
         >;
     }
@@ -3231,6 +4035,98 @@ pub mod query_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = NextSequenceReceiveSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/ibc.core.channel.v1.Query/UpgradeSequence" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpgradeSequenceSvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<super::QueryUpgradeSequenceRequest>
+                    for UpgradeSequenceSvc<T> {
+                        type Response = super::QueryUpgradeSequenceResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryUpgradeSequenceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).upgrade_sequence(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = UpgradeSequenceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/ibc.core.channel.v1.Query/UpgradeError" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpgradeErrorSvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<super::QueryUpgradeErrorRequest>
+                    for UpgradeErrorSvc<T> {
+                        type Response = super::QueryUpgradeErrorResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryUpgradeErrorRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).upgrade_error(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = UpgradeErrorSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
