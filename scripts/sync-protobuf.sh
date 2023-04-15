@@ -52,10 +52,10 @@ fi
 
 if [[ ! -e "$COSMOS_ICS_GIT" ]]
 then
-    echo "Cloning intechain-security source code to as bare git repository to $COSMOS_ICS_GIT"
+    echo "Cloning interchain-security source code to as bare git repository to $COSMOS_ICS_GIT"
     git clone --mirror https://github.com/cosmos/interchain-security.git "$COSMOS_ICS_GIT"
 else
-    echo "Using existing intechain-security bare git repository at $COSMOS_ICS_GIT"
+    echo "Using existing interchain-security bare git repository at $COSMOS_ICS_GIT"
 fi
 
 # Use either --sdk-commit flag for commit ID,
@@ -107,7 +107,7 @@ popd
 # actual source files from the bare git repositories.
 # This is so that we do not accidentally use an unclean
 # local copy of the source files to generate the protobuf.
-COSMOS_ICS_DIR=$(mktemp -d /tmp/intechain-security-XXXXXXXX)
+COSMOS_ICS_DIR=$(mktemp -d /tmp/interchain-security-XXXXXXXX)
 
 pushd "$COSMOS_ICS_DIR"
 git clone "$COSMOS_ICS_GIT" .
