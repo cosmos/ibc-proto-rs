@@ -131,6 +131,9 @@ pub mod cosmos {
             include_proto!("cosmos.gov.v1beta1.rs");
         }
     }
+    pub mod ics23 {
+        pub use ::ics23 as v1;
+    }
 }
 
 pub mod ibc {
@@ -217,9 +220,8 @@ pub mod ibc {
     }
 }
 
-pub mod ics23 {
-    include_proto!("ics23.rs");
-}
+// Re-export `ics23` definitions for backward compatibility
+pub use ::ics23;
 
 pub mod interchain_security {
     pub mod ccv {

@@ -44,15 +44,23 @@ scale-info         = { version = "2.1.2", default-features = false, features = [
 ## for borsh encode or decode
 borsh = { version = "0.10.0", default-features = false, optional = true }
 
+[dependencies.ics23]
+version          = "0.10.0"
+default-features = false
+features         = ["serde"]
+
 [dependencies.tendermint-proto]
 version          = "0.31"
 default-features = false
 
 [features]
 default            = ["std", "client"]
-std                = []
+std                = ["ics23/std", "prost/std", "bytes/std", "subtle-encoding/std", "base64/std", "flex-error/std"]
 client             = ["std", "tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
 json-schema        = ["std", "schemars"]
 server             = ["std", "tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
 parity-scale-codec = ["dep:parity-scale-codec", "dep:scale-info"]
 borsh              = ["dep:borsh"]
+
+[patch.crates-io]
+ics23 = { git = "https://github.com/cosmos/ics23", branch = "romac/serde" }
