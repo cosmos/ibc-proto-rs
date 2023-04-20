@@ -22,6 +22,10 @@ pub struct Channel {
     /// opaque channel version, which is agreed upon during the handshake
     #[prost(string, tag = "5")]
     pub version: ::prost::alloc::string::String,
+    /// upgrade sequence indicates the latest upgrade attempt performed by this channel
+    /// the value of 0 indicates the channel has never been upgraded
+    #[prost(uint64, tag = "6")]
+    pub upgrade_sequence: u64,
 }
 /// IdentifiedChannel defines a channel with additional port and channel
 /// identifier fields.
@@ -289,6 +293,34 @@ pub struct PacketSequence {
     #[prost(uint64, tag = "3")]
     pub sequence: u64,
 }
+/// Upgrade is a verifiable type which contains the relevant information
+/// for an attempted upgrade. It provides the proposed changes to the channel
+/// end, the timeout for this upgrade attempt and the latest packet sequence sent
+/// to allow the counterparty to block sends after the upgrade has started.
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Upgrade {
+    #[prost(message, optional, tag = "1")]
+    pub fields: ::core::option::Option<UpgradeFields>,
+    #[prost(message, optional, tag = "2")]
+    pub timeout: ::core::option::Option<UpgradeTimeout>,
+    #[prost(uint64, tag = "3")]
+    pub latest_sequence_send: u64,
+}
+/// UpgradeFields are the fields in a channel end which may be changed
+/// during a channel upgrade.
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpgradeFields {
+    #[prost(enumeration = "Order", tag = "1")]
+    pub ordering: i32,
+    #[prost(string, repeated, tag = "2")]
+    pub connection_hops: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(string, tag = "3")]
+    pub version: ::prost::alloc::string::String,
+}
 /// UpgradeTimeout defines a type which encapsulates the upgrade timeout values at which the counterparty
 /// must no longer proceed with the upgrade handshake.
 #[derive(::serde::Serialize, ::serde::Deserialize)]
@@ -297,10 +329,10 @@ pub struct PacketSequence {
 pub struct UpgradeTimeout {
     /// block height after which the upgrade times out
     #[prost(message, optional, tag = "1")]
-    pub timeout_height: ::core::option::Option<super::super::client::v1::Height>,
+    pub height: ::core::option::Option<super::super::client::v1::Height>,
     /// block timestamp (in nanoseconds) after which the upgrade times out
     #[prost(uint64, tag = "2")]
-    pub timeout_timestamp: u64,
+    pub timestamp: u64,
 }
 /// ErrorReceipt defines a type which encapsulates the upgrade sequence and error associated with the
 /// upgrade handshake failure. When a channel upgrade handshake is aborted both chains are expected to increment to the
@@ -560,7 +592,7 @@ pub struct MsgAcknowledgementResponse {
     #[prost(enumeration = "ResponseResultType", tag = "1")]
     pub result: i32,
 }
-/// MsgChanelUpgradeInit defines the request type for the ChannelUpgradeInit rpc
+/// MsgChannelUpgradeInit defines the request type for the ChannelUpgradeInit rpc
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -570,19 +602,24 @@ pub struct MsgChannelUpgradeInit {
     #[prost(string, tag = "2")]
     pub channel_id: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "3")]
-    pub proposed_upgrade_channel: ::core::option::Option<Channel>,
+    pub fields: ::core::option::Option<UpgradeFields>,
     #[prost(message, optional, tag = "4")]
-    pub timeout_height: ::core::option::Option<super::super::client::v1::Height>,
-    #[prost(uint64, tag = "5")]
-    pub timeout_timestamp: u64,
-    #[prost(string, tag = "6")]
+    pub timeout: ::core::option::Option<UpgradeTimeout>,
+    #[prost(string, tag = "5")]
     pub signer: ::prost::alloc::string::String,
 }
 /// MsgChannelUpgradeInitResponse defines the MsgChannelUpgradeInit response type
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgChannelUpgradeInitResponse {}
+pub struct MsgChannelUpgradeInitResponse {
+    #[prost(string, tag = "1")]
+    pub channel_id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "2")]
+    pub upgrade: ::core::option::Option<Upgrade>,
+    #[prost(uint64, tag = "3")]
+    pub upgrade_sequence: u64,
+}
 /// MsgChannelUpgradeTry defines the request type for the ChannelUpgradeTry rpc
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -2647,7 +2684,7 @@ pub struct QueryNextSequenceReceiveRequest {
     #[prost(string, tag = "2")]
     pub channel_id: ::prost::alloc::string::String,
 }
-/// QuerySequenceResponse is the request type for the
+/// QuerySequenceResponse is the response type for the
 /// Query/QueryNextSequenceReceiveResponse RPC method
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -2656,6 +2693,52 @@ pub struct QueryNextSequenceReceiveResponse {
     /// next sequence receive number
     #[prost(uint64, tag = "1")]
     pub next_sequence_receive: u64,
+    /// merkle proof of existence
+    #[prost(bytes = "vec", tag = "2")]
+    pub proof: ::prost::alloc::vec::Vec<u8>,
+    /// height at which the proof was retrieved
+    #[prost(message, optional, tag = "3")]
+    pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
+}
+/// QueryUpgradeSequenceRequest is the request type for the QueryUpgradeSequence RPC method
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryUpgradeSequenceRequest {
+    #[prost(string, tag = "1")]
+    pub port_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub channel_id: ::prost::alloc::string::String,
+}
+/// QueryUpgradeSequenceResponse is the response type for the QueryUpgradeSequence RPC method
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryUpgradeSequenceResponse {
+    #[prost(uint64, tag = "1")]
+    pub upgrade_sequence: u64,
+    #[prost(bytes = "vec", tag = "2")]
+    pub proof: ::prost::alloc::vec::Vec<u8>,
+    #[prost(message, optional, tag = "3")]
+    pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
+}
+/// QueryUpgradeErrorRequest is the request type for the Query/QueryUpgradeError RPC method
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryUpgradeErrorRequest {
+    #[prost(string, tag = "1")]
+    pub port_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub channel_id: ::prost::alloc::string::String,
+}
+/// QueryUpgradeErrorResponse is the response type for the Query/QueryUpgradeError RPC method
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryUpgradeErrorResponse {
+    #[prost(message, optional, tag = "1")]
+    pub error_receipt: ::core::option::Option<ErrorReceipt>,
     /// merkle proof of existence
     #[prost(bytes = "vec", tag = "2")]
     pub proof: ::prost::alloc::vec::Vec<u8>,
@@ -3117,6 +3200,58 @@ pub mod query_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+        /// UpgradeSequence returns the upgrade sequence for a given channel.
+        pub async fn upgrade_sequence(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryUpgradeSequenceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryUpgradeSequenceResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/ibc.core.channel.v1.Query/UpgradeSequence",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("ibc.core.channel.v1.Query", "UpgradeSequence"));
+            self.inner.unary(req, path, codec).await
+        }
+        /// UpgradeError returns the error receipt if the upgrade handshake failed.
+        pub async fn upgrade_error(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryUpgradeErrorRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryUpgradeErrorResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/ibc.core.channel.v1.Query/UpgradeError",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("ibc.core.channel.v1.Query", "UpgradeError"));
+            self.inner.unary(req, path, codec).await
+        }
     }
 }
 /// Generated server implementations.
@@ -3237,6 +3372,22 @@ pub mod query_server {
             request: tonic::Request<super::QueryNextSequenceReceiveRequest>,
         ) -> std::result::Result<
             tonic::Response<super::QueryNextSequenceReceiveResponse>,
+            tonic::Status,
+        >;
+        /// UpgradeSequence returns the upgrade sequence for a given channel.
+        async fn upgrade_sequence(
+            &self,
+            request: tonic::Request<super::QueryUpgradeSequenceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryUpgradeSequenceResponse>,
+            tonic::Status,
+        >;
+        /// UpgradeError returns the error receipt if the upgrade handshake failed.
+        async fn upgrade_error(
+            &self,
+            request: tonic::Request<super::QueryUpgradeErrorRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryUpgradeErrorResponse>,
             tonic::Status,
         >;
     }
@@ -3914,6 +4065,98 @@ pub mod query_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = NextSequenceReceiveSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/ibc.core.channel.v1.Query/UpgradeSequence" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpgradeSequenceSvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<super::QueryUpgradeSequenceRequest>
+                    for UpgradeSequenceSvc<T> {
+                        type Response = super::QueryUpgradeSequenceResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryUpgradeSequenceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).upgrade_sequence(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = UpgradeSequenceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/ibc.core.channel.v1.Query/UpgradeError" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpgradeErrorSvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<super::QueryUpgradeErrorRequest>
+                    for UpgradeErrorSvc<T> {
+                        type Response = super::QueryUpgradeErrorResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryUpgradeErrorRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).upgrade_error(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = UpgradeErrorSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
