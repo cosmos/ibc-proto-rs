@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## v0.30.0
+
+*April 20th, 2023*
+
+This release updates `tendermint-proto` to v0.31.
+
+### BREAKING CHANGES
+
+- Update `tendermint-proto` to v0.31.x
+  ([\#90](https://github.com/cosmos/ibc-proto-rs/pull/90))
+
 ## v0.29.0
 
 *April 12th, 2023*
