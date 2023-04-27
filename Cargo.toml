@@ -54,7 +54,7 @@ default-features = false
 
 [features]
 default            = ["std", "client"]
-std                = ["prost/std", "bytes/std", "subtle-encoding/std", "base64/std", "flex-error/std", "ics23/serde"]
+std                = ["prost/std", "bytes/std", "subtle-encoding/std", "base64/std", "flex-error/std", "ics23/std", "ics23/serde"]
 client             = ["std", "tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
 json-schema        = ["std", "schemars"]
 server             = ["std", "tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
