@@ -45,7 +45,7 @@ scale-info         = { version = "2.1.2", default-features = false, features = [
 borsh = { version = "0.10.0", default-features = false, optional = true }
 
 [dependencies.ics23]
-version          = "0.10.0"
+version          = "0.10.1"
 default-features = false
 features         = ["serde"]
 
@@ -61,6 +61,3 @@ json-schema        = ["std", "schemars"]
 server             = ["std", "tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
 parity-scale-codec = ["dep:parity-scale-codec", "dep:scale-info"]
 borsh              = ["dep:borsh"]
-
-[patch.crates-io]
-ics23 = { git = "https://github.com/cosmos/ics23", branch = "master" }
