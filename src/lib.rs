@@ -132,7 +132,7 @@ pub mod cosmos {
         }
     }
     pub mod ics23 {
-        pub use ::ics23 as v1;
+        pub use ics23 as v1;
     }
 }
 
@@ -221,7 +221,7 @@ pub mod ibc {
 }
 
 // Re-export `ics23` definitions for backward compatibility
-pub use ::ics23;
+pub use ics23;
 
 pub mod interchain_security {
     pub mod ccv {
@@ -250,6 +250,7 @@ pub mod stride {
     }
 }
 
+#[cfg(feature = "std")]
 pub(crate) mod base64 {
     use alloc::string::String;
     use alloc::vec::Vec;
