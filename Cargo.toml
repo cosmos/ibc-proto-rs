@@ -44,13 +44,17 @@ scale-info         = { version = "2.1.2", default-features = false, features = [
 ## for borsh encode or decode
 borsh = { version = "0.10.0", default-features = false, optional = true }
 
+[dependencies.ics23]
+version          = "0.10.1"
+default-features = false
+
 [dependencies.tendermint-proto]
 version          = "0.31"
 default-features = false
 
 [features]
 default            = ["std", "client"]
-std                = []
+std                = ["prost/std", "bytes/std", "subtle-encoding/std", "base64/std", "flex-error/std", "ics23/std", "ics23/serde"]
 client             = ["std", "tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
 json-schema        = ["std", "schemars"]
 server             = ["std", "tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
