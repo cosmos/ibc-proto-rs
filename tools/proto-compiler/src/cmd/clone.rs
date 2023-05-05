@@ -12,17 +12,25 @@ pub struct CloneCmd {
     #[argh(option, short = 'c')]
     sdk_commit: Option<String>,
 
-    /// tag to checkout for the IBC-go repo
+    /// tag to checkout for the SDK repo
     #[argh(option, short = 't')]
     sdk_tag: Option<String>,
 
-    /// commit to checkout
+    /// commit to checkout for the IBC-go repo
     #[argh(option, short = 'i')]
     ibc_go_commit: Option<String>,
 
-    /// commit to checkout for the SDK repo
+    /// commit to checkout for the interchain security repo
     #[argh(option, short = 's')]
     ics_commit: Option<String>,
+
+    /// commit to checkout for the SDK repo
+    #[argh(option)]
+    wasmd_commit: Option<String>,
+
+    /// tag to checkout for the SDK repo
+    #[argh(option)]
+    wasmd_tag: Option<String>,
 
     /// where to checkout the repository
     #[argh(option, short = 'o')]
@@ -32,6 +40,7 @@ pub struct CloneCmd {
 pub const COSMOS_SDK_URL: &str = "https://github.com/cosmos/cosmos-sdk";
 pub const IBC_GO_URL: &str = "https://github.com/cosmos/ibc-go";
 pub const ICS_URL: &str = "https://github.com/cosmos/interchain-security";
+pub const WASMD_URL: &str = "https://github.com/CosmWasm/wasmd";
 
 impl CloneCmd {
     pub fn validate(&self) {
@@ -57,6 +66,12 @@ impl CloneCmd {
         let mut ics_path = self.out.clone();
         ics_path.push("ics/");
         ics_path
+    }
+
+    pub fn wasmd_subdir(&self) -> PathBuf {
+        let mut wasmd_path = self.out.clone();
+        wasmd_path.push("wasmd/");
+        wasmd_path
     }
 
     pub fn run(&self) {
@@ -162,6 +177,39 @@ impl CloneCmd {
             }
             None => {
                 println!("[info ] No `-i`/`--ics_commit` option passed. Skipping the ICS repo.")
+            }
+        }
+
+        println!("[info ] Cloning CosmWasm/wasmd repository...");
+
+        match &self.wasmd_commit {
+            Some(wasmd_commit) => {
+                let wasmd_path = self.wasmd_subdir();
+                let wasmd_repo = if wasmd_path.exists() {
+                    println!("[info ] Found Wasmd source at '{}'", wasmd_path.display());
+
+                    Repository::open(&wasmd_path).unwrap_or_else(|e| {
+                        println!("[error] Failed to open repository: {}", e);
+                        process::exit(1)
+                    })
+                } else {
+                    Repository::clone(WASMD_URL, &wasmd_path).unwrap_or_else(|e| {
+                        println!("[error] Failed to clone the Wasmd repository: {}", e);
+                        process::exit(1)
+                    })
+                };
+
+                println!("[info ] Cloned at '{}'", wasmd_path.display());
+                checkout_commit(&wasmd_repo, wasmd_commit).unwrap_or_else(|e| {
+                    println!(
+                        "[error] Failed to checkout ICS commit {}: {}",
+                        wasmd_commit, e
+                    );
+                    process::exit(1)
+                });
+            }
+            None => {
+                println!("[info ] No `-i`/`--wasmd_commit` option passed. Skipping the Wasmd repo.")
             }
         }
     }
