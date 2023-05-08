@@ -1,8 +1,11 @@
 //! Support traits for Cosmos SDK protobufs.
 
-pub use prost::Message;
-
+use crate::alloc::borrow::ToOwned;
 use crate::google::protobuf::Any;
+use alloc::format;
+use alloc::string::String;
+use alloc::vec::Vec;
+pub use prost::Message;
 use prost::{DecodeError, EncodeError};
 use std::str::FromStr;
 
