@@ -11,6 +11,8 @@
 
 pub mod google;
 pub mod protobuf;
+pub mod traits;
+mod type_urls;
 
 extern crate alloc;
 

@@ -1,4 +1,3 @@
-
 //! Support traits for Cosmos SDK protobufs.
 
 pub use prost::Message;
@@ -8,7 +7,13 @@ use prost::{DecodeError, EncodeError};
 use std::str::FromStr;
 
 /// Associate a type URL with a given proto.
-pub trait g: Message {
+pub trait TypeUrl: Message {
+    /// Type URL value
+    const TYPE_URL: &'static str;
+}
+
+/// Associate a type URL with a given proto.
+pub trait Msg: Message {
     /// Type URL value
     const TYPE_URL: &'static str;
 }
