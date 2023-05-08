@@ -31,6 +31,12 @@ pub const COSMOS_SDK_COMMIT: &str = include_str!("COSMOS_SDK_COMMIT");
 /// The version (commit hash) of IBC Go used when generating this library.
 pub const IBC_GO_COMMIT: &str = include_str!("IBC_GO_COMMIT");
 
+/// The version (commit hash) of cosmos ics used when generating this library.
+pub const COSMOS_ICS_COMMIT: &str = include_str!("COSMOS_ICS_COMMIT");
+
+/// The version (commit hash) of cosmwasm/Wasmd ics used when generating this library.
+pub const WASMD_COMMIT: &str = include_str!("WASMD_COMMIT");
+
 pub mod cosmos {
     pub mod auth {
         pub mod v1beta1 {
@@ -237,11 +243,11 @@ pub mod cosmos {
     }
 
     /// Services and tx's for the vesting module.
-        pub mod vesting {
-            pub mod v1beta1 {
-                include_proto!("cosmos.vesting.v1beta1.rs");
-            }
+    pub mod vesting {
+        pub mod v1beta1 {
+            include_proto!("cosmos.vesting.v1beta1.rs");
         }
+    }
 
     pub mod ics23 {
         pub use ics23 as v1;
@@ -260,12 +266,15 @@ pub mod cosmwasm {
     }
 }
 
+/// IBC protobuf definitions.
 pub mod ibc {
     #[deprecated(since = "0.15.0", note = "Use `ibc_proto::ibc::applications` instead")]
     pub mod apps {
         pub use super::applications::*;
     }
+    /// IBC applications.
     pub mod applications {
+        /// Transfer support.
         pub mod transfer {
             pub mod v1 {
                 include_proto!("ibc.applications.transfer.v1.rs");
@@ -279,6 +288,7 @@ pub mod ibc {
                 include_proto!("ibc.applications.fee.v1.rs");
             }
         }
+        /// Interchain accounts support.
         pub mod interchain_accounts {
             pub mod v1 {
                 include_proto!("ibc.applications.interchain_accounts.v1.rs");
@@ -295,33 +305,40 @@ pub mod ibc {
             }
         }
     }
+    /// IBC core.
     pub mod core {
+        /// IBC channels.
         pub mod channel {
             pub mod v1 {
                 include_proto!("ibc.core.channel.v1.rs");
             }
         }
+        /// IBC client.
         pub mod client {
             pub mod v1 {
                 include_proto!("ibc.core.client.v1.rs");
             }
         }
+        /// IBC commitments.
         pub mod commitment {
             pub mod v1 {
                 include_proto!("ibc.core.commitment.v1.rs");
             }
         }
+        /// IBC connections.
         pub mod connection {
             pub mod v1 {
                 include_proto!("ibc.core.connection.v1.rs");
             }
         }
+        /// IBC types.
         pub mod types {
             pub mod v1 {
                 include_proto!("ibc.core.types.v1.rs");
             }
         }
     }
+    /// IBC light clients.
     pub mod lightclients {
         pub mod localhost {
             pub mod v1 {
