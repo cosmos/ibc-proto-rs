@@ -5,17 +5,18 @@ set -eou pipefail
 # syn-protobuf.sh is a bash script to sync the protobuf
 # files using ibc-proto-compiler. This script will checkout
 # the protobuf files from the git versions specified in
-# proto/src/prost/COSMOS_SDK_COMMIT and
-# proto/src/prost/IBC_GO_COMMIT. If you want to sync
+# proto/src/prost/COSMOS_SDK_COMMIT, proto/src/prost/IBC_GO_COMMIT,
+# proto/src/prost/COSMOS_ICS_COMMIT and proto/src/prost/WASMD_CO. If you want to sync
 # the protobuf files to a newer version, modify the
-# corresponding of those 2 files by specifying the commit ID
+# corresponding of those 4 files by specifying the commit ID
 # that you wish to checkout from.
 
 # This script should be run from the root directory of ibc-proto-rs.
 
 # We can specify where to clone the git repositories
 # for cosmos-sdk and ibc-go. By default they are cloned
-# to /tmp/cosmos-sdk.git and /tmp/ibc-go.git.
+# to /tmp/cosmos-sdk.git /tmp/interchain-security.git,
+# /tmp/wasmd.git and /tmp/ibc-go.git.
 # We can override this to existing directories
 # that already have a clone of the repositories,
 # so that there is no need to clone the entire
@@ -26,14 +27,40 @@ CACHE_PATH="${XDG_CACHE_HOME:-$HOME/.cache}"
 COSMOS_SDK_GIT="${COSMOS_SDK_GIT:-$CACHE_PATH/cosmos/cosmos-sdk.git}"
 IBC_GO_GIT="${IBC_GO_GIT:-$CACHE_PATH/ibc-go.git}"
 COSMOS_ICS_GIT="${COSMOS_ICS_GIT:-$CACHE_PATH/cosmos/interchain-security.git}"
+WASMD_GIT="${WASMD_GIT:-$CACHE_PATH/CosmWasm/wasmd.git}"
 
 COSMOS_SDK_COMMIT="$(cat src/COSMOS_SDK_COMMIT)"
 IBC_GO_COMMIT="$(cat src/IBC_GO_COMMIT)"
 COSMOS_ICS_COMMIT="$(cat src/COSMOS_ICS_COMMIT)"
+WASMD_COMMIT="$(cat src/WASMD_COMMIT)"
 
 echo "COSMOS_SDK_COMMIT: $COSMOS_SDK_COMMIT"
 echo "IBC_GO_COMMIT: $IBC_GO_COMMIT"
 echo "COSMOS_ICS_COMMIT: $COSMOS_ICS_COMMIT"
+echo "WASMD_COMMIT: $WASMD_COMMIT"
+
+# Use either --wasmd-commit flag for commit ID,
+# or --wasmd-tag for git tag. Because we can't modify
+# proto-compiler to have smart detection on that.
+
+if [[ "$WASMD_COMMIT" =~ ^[a-zA-Z0-9]{40}$ ]]
+then
+    WASMD_COMMIT_OPTION="--wasmd-commit"
+else
+    WASMD_COMMIT_OPTION="--wasmd-tag"
+fi
+
+# If the git directories does not exist, clone them as
+# bare git repositories so that no local modification
+# can be done there.
+
+if [[ ! -e "$WASMD_GIT" ]]
+then
+    echo "Cloning CosmWasm/wasmd source code to as bare git repository to $WASMD_GIT"
+    git clone --mirror https://github.com/CosmWasm/wasmd.git "$WASMD_GIT"
+else
+    echo "Using existing CosmWasm/wasmd bare git repository at $WASMD_GIT"
+fi
 
 # Use either --ics-commit flag for commit ID,
 # or --ics-tag for git tag. Because we can't modify
@@ -100,6 +127,10 @@ git fetch
 popd
 
 pushd "$IBC_GO_GIT"
+git fetch
+popd
+
+pushd "$WASMD_GIT"
 git fetch
 popd
 
@@ -172,6 +203,27 @@ cd proto
 buf export -v -o ../proto-include
 popd
 
+
+# Create a new temporary directory to check out the
+# actual source files from the bare git repositories.
+# This is so that we do not accidentally use an unclean
+# local copy of the source files to generate the protobuf.
+WASMD_DIR=$(mktemp -d /tmp/wasmd-XXXXXXXX)
+
+pushd "$WASMD_DIR"
+git clone "$WASMD_GIT" .
+git checkout "$WASMD_COMMIT"
+
+# We have to name the commit as a branch because
+# proto-compiler uses the branch name as the commit
+# output. Otherwise it will just output HEAD
+git checkout -b "$WASMD_COMMIT"
+
+cd proto
+buf mod update
+buf export -v -o ../proto-include
+popd
+
 # Remove the existing generated protobuf files
 # so that the newly generated code does not
 # contain removed files.
@@ -191,9 +243,11 @@ cargo run --locked -- compile \
   --ics "$COSMOS_ICS_DIR/proto-include" \
   --sdk "$COSMOS_SDK_DIR/proto-include" \
   --ibc "$IBC_GO_DIR/proto-include" \
+  --wasmd "$WASMD_DIR/proto-include" \
   --out ../../src/prost
 
 # Remove the temporary checkouts of the repositories
 rm -rf "$COSMOS_ICS_DIR"
 rm -rf "$COSMOS_SDK_DIR"
 rm -rf "$IBC_GO_DIR"
+rm -rf "$WASMD_DIR"

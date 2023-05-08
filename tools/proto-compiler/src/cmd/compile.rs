@@ -21,6 +21,10 @@ pub struct CompileCmd {
     /// path to the Cosmos ICS proto files
     ics: PathBuf,
 
+    #[argh(option, short = 'w')]
+    /// path to the Cosmos Wasmd proto files
+    wasmd: PathBuf,
+
     #[argh(option, short = 'o')]
     /// path to output the generated Rust sources into
     out: PathBuf,
@@ -32,6 +36,7 @@ impl CompileCmd {
             self.ibc.as_ref(),
             self.sdk.as_ref(),
             self.ics.as_ref(),
+            self.wasmd.as_ref(),
             self.out.as_ref(),
         )
         .unwrap_or_else(|e| {
@@ -51,6 +56,7 @@ impl CompileCmd {
         ibc_dir: &Path,
         sdk_dir: &Path,
         ics_dir: &Path,
+        wasmd_dir: &Path,
         out_dir: &Path,
     ) -> Result<(), Box<dyn std::error::Error>> {
         println!(
@@ -64,23 +70,46 @@ impl CompileCmd {
         let proto_paths = [
             format!("{}/../../definitions/mock", root),
             format!("{}/../../definitions/stride/interchainquery/v1", root),
+            // ibc-go
             format!("{}/ibc", ibc_dir.display()),
+            // cosmos sdk
+            format!("{}/cosmos/app", sdk_dir.display()),
             format!("{}/cosmos/auth", sdk_dir.display()),
-            format!("{}/cosmos/gov", sdk_dir.display()),
-            format!("{}/cosmos/tx", sdk_dir.display()),
-            format!("{}/cosmos/base", sdk_dir.display()),
+            format!("{}/cosmos/authz", sdk_dir.display()),
             format!("{}/cosmos/bank", sdk_dir.display()),
+            format!("{}/cosmos/base", sdk_dir.display()),
+            format!("{}/cosmos/capability", sdk_dir.display()),
+            format!("{}/cosmos/crisis", sdk_dir.display()),
+            format!("{}/cosmos/crypto", sdk_dir.display()),
+            format!("{}/cosmos/distribution", sdk_dir.display()),
+            format!("{}/cosmos/evidence", sdk_dir.display()),
+            format!("{}/cosmos/feegrant", sdk_dir.display()),
+            format!("{}/cosmos/genutil", sdk_dir.display()),
+            format!("{}/cosmos/gov", sdk_dir.display()),
+            format!("{}/cosmos/group", sdk_dir.display()),
+            format!("{}/cosmos/mint", sdk_dir.display()),
+            format!("{}/cosmos/msg", sdk_dir.display()),
+            format!("{}/cosmos/nft", sdk_dir.display()),
+            format!("{}/cosmos/orm", sdk_dir.display()),
+            format!("{}/cosmos/params", sdk_dir.display()),
+            format!("{}/cosmos/slashing", sdk_dir.display()),
             format!("{}/cosmos/staking", sdk_dir.display()),
+            format!("{}/cosmos/tx", sdk_dir.display()),
             format!("{}/cosmos/upgrade", sdk_dir.display()),
+            format!("{}/cosmos/vesting", sdk_dir.display()),
+            // ics
             format!("{}/interchain_security/ccv/v1", ics_dir.display()),
             format!("{}/interchain_security/ccv/provider", ics_dir.display()),
             format!("{}/interchain_security/ccv/consumer", ics_dir.display()),
+            // wasmd
+            format!("{}/cosmwasm/wasm", wasmd_dir.display()),
         ];
 
         let proto_includes_paths = [
             format!("{}", sdk_dir.display()),
             format!("{}", ibc_dir.display()),
             format!("{}", ics_dir.display()),
+            format!("{}", wasmd_dir.display()),
             format!("{}/../../definitions/mock", root),
             format!("{}/../../definitions/stride/interchainquery/v1", root),
         ];
