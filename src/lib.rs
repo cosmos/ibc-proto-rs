@@ -244,7 +244,7 @@ pub mod cosmos {
     }
 
     pub mod ics23 {
-         pub use ics23 as v1;
+        pub use ics23 as v1;
     }
 }
 
