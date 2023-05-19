@@ -1,28 +1,21 @@
-/// MsgSubmitEvidence represents a message that supports submitting arbitrary
-/// Evidence of misbehavior such as equivocation or counterfactual signing.
+/// MsgUnjail defines the Msg/Unjail request type
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgSubmitEvidence {
+pub struct MsgUnjail {
     #[prost(string, tag = "1")]
-    pub submitter: ::prost::alloc::string::String,
-    #[prost(message, optional, tag = "2")]
-    pub evidence: ::core::option::Option<super::super::super::google::protobuf::Any>,
+    pub validator_addr: ::prost::alloc::string::String,
 }
-/// MsgSubmitEvidenceResponse defines the Msg/SubmitEvidence response type.
+/// MsgUnjailResponse defines the Msg/Unjail response type
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgSubmitEvidenceResponse {
-    /// hash defines the hash of the evidence.
-    #[prost(bytes = "vec", tag = "4")]
-    pub hash: ::prost::alloc::vec::Vec<u8>,
-}
+pub struct MsgUnjailResponse {}
 /// Generated client implementations.
 #[cfg(feature = "client")]
 pub mod msg_client {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
     use tonic::codegen::http::Uri;
-    /// Msg defines the evidence Msg service.
+    /// Msg defines the slashing Msg service.
     #[derive(Debug, Clone)]
     pub struct MsgClient<T> {
         inner: tonic::client::Grpc<T>,
@@ -103,13 +96,14 @@ pub mod msg_client {
             self.inner = self.inner.max_encoding_message_size(limit);
             self
         }
-        /// SubmitEvidence submits an arbitrary Evidence of misbehavior such as equivocation or
-        /// counterfactual signing.
-        pub async fn submit_evidence(
+        /// Unjail defines a method for unjailing a jailed validator, thus returning
+        /// them into the bonded validator set, so they can begin receiving provisions
+        /// and rewards again.
+        pub async fn unjail(
             &mut self,
-            request: impl tonic::IntoRequest<super::MsgSubmitEvidence>,
+            request: impl tonic::IntoRequest<super::MsgUnjail>,
         ) -> std::result::Result<
-            tonic::Response<super::MsgSubmitEvidenceResponse>,
+            tonic::Response<super::MsgUnjailResponse>,
             tonic::Status,
         > {
             self.inner
@@ -123,13 +117,11 @@ pub mod msg_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.evidence.v1beta1.Msg/SubmitEvidence",
+                "/cosmos.slashing.v1beta1.Msg/Unjail",
             );
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(
-                    GrpcMethod::new("cosmos.evidence.v1beta1.Msg", "SubmitEvidence"),
-                );
+                .insert(GrpcMethod::new("cosmos.slashing.v1beta1.Msg", "Unjail"));
             self.inner.unary(req, path, codec).await
         }
     }
@@ -142,17 +134,18 @@ pub mod msg_server {
     /// Generated trait containing gRPC methods that should be implemented for use with MsgServer.
     #[async_trait]
     pub trait Msg: Send + Sync + 'static {
-        /// SubmitEvidence submits an arbitrary Evidence of misbehavior such as equivocation or
-        /// counterfactual signing.
-        async fn submit_evidence(
+        /// Unjail defines a method for unjailing a jailed validator, thus returning
+        /// them into the bonded validator set, so they can begin receiving provisions
+        /// and rewards again.
+        async fn unjail(
             &self,
-            request: tonic::Request<super::MsgSubmitEvidence>,
+            request: tonic::Request<super::MsgUnjail>,
         ) -> std::result::Result<
-            tonic::Response<super::MsgSubmitEvidenceResponse>,
+            tonic::Response<super::MsgUnjailResponse>,
             tonic::Status,
         >;
     }
-    /// Msg defines the evidence Msg service.
+    /// Msg defines the slashing Msg service.
     #[derive(Debug)]
     pub struct MsgServer<T: Msg> {
         inner: _Inner<T>,
@@ -232,24 +225,22 @@ pub mod msg_server {
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
             let inner = self.inner.clone();
             match req.uri().path() {
-                "/cosmos.evidence.v1beta1.Msg/SubmitEvidence" => {
+                "/cosmos.slashing.v1beta1.Msg/Unjail" => {
                     #[allow(non_camel_case_types)]
-                    struct SubmitEvidenceSvc<T: Msg>(pub Arc<T>);
-                    impl<T: Msg> tonic::server::UnaryService<super::MsgSubmitEvidence>
-                    for SubmitEvidenceSvc<T> {
-                        type Response = super::MsgSubmitEvidenceResponse;
+                    struct UnjailSvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgUnjail>
+                    for UnjailSvc<T> {
+                        type Response = super::MsgUnjailResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
                         >;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::MsgSubmitEvidence>,
+                            request: tonic::Request<super::MsgUnjail>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                (*inner).submit_evidence(request).await
-                            };
+                            let fut = async move { (*inner).unjail(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -260,7 +251,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = SubmitEvidenceSvc(inner);
+                        let method = UnjailSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -314,59 +305,102 @@ pub mod msg_server {
         }
     }
     impl<T: Msg> tonic::server::NamedService for MsgServer<T> {
-        const NAME: &'static str = "cosmos.evidence.v1beta1.Msg";
+        const NAME: &'static str = "cosmos.slashing.v1beta1.Msg";
     }
 }
-/// Equivocation implements the Evidence interface and defines evidence of double
-/// signing misbehavior.
+/// ValidatorSigningInfo defines a validator's signing info for monitoring their
+/// liveness activity.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Equivocation {
-    #[prost(int64, tag = "1")]
-    pub height: i64,
-    #[prost(message, optional, tag = "2")]
-    pub time: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
+pub struct ValidatorSigningInfo {
+    #[prost(string, tag = "1")]
+    pub address: ::prost::alloc::string::String,
+    /// Height at which validator was first a candidate OR was unjailed
+    #[prost(int64, tag = "2")]
+    pub start_height: i64,
+    /// Index which is incremented each time the validator was a bonded
+    /// in a block and may have signed a precommit or not. This in conjunction with the
+    /// `SignedBlocksWindow` param determines the index in the `MissedBlocksBitArray`.
     #[prost(int64, tag = "3")]
-    pub power: i64,
-    #[prost(string, tag = "4")]
-    pub consensus_address: ::prost::alloc::string::String,
+    pub index_offset: i64,
+    /// Timestamp until which the validator is jailed due to liveness downtime.
+    #[prost(message, optional, tag = "4")]
+    pub jailed_until: ::core::option::Option<
+        super::super::super::google::protobuf::Timestamp,
+    >,
+    /// Whether or not a validator has been tombstoned (killed out of validator set). It is set
+    /// once the validator commits an equivocation or for any other configured misbehiavor.
+    #[prost(bool, tag = "5")]
+    pub tombstoned: bool,
+    /// A counter kept to avoid unnecessary array reads.
+    /// Note that `Sum(MissedBlocksBitArray)` always equals `MissedBlocksCounter`.
+    #[prost(int64, tag = "6")]
+    pub missed_blocks_counter: i64,
 }
-/// QueryEvidenceRequest is the request type for the Query/Evidence RPC method.
+/// Params represents the parameters used for by the slashing module.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryEvidenceRequest {
-    /// evidence_hash defines the hash of the requested evidence.
-    #[prost(bytes = "vec", tag = "1")]
-    pub evidence_hash: ::prost::alloc::vec::Vec<u8>,
+pub struct Params {
+    #[prost(int64, tag = "1")]
+    pub signed_blocks_window: i64,
+    #[prost(bytes = "vec", tag = "2")]
+    pub min_signed_per_window: ::prost::alloc::vec::Vec<u8>,
+    #[prost(message, optional, tag = "3")]
+    pub downtime_jail_duration: ::core::option::Option<
+        super::super::super::google::protobuf::Duration,
+    >,
+    #[prost(bytes = "vec", tag = "4")]
+    pub slash_fraction_double_sign: ::prost::alloc::vec::Vec<u8>,
+    #[prost(bytes = "vec", tag = "5")]
+    pub slash_fraction_downtime: ::prost::alloc::vec::Vec<u8>,
 }
-/// QueryEvidenceResponse is the response type for the Query/Evidence RPC method.
+/// QueryParamsRequest is the request type for the Query/Params RPC method
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryEvidenceResponse {
-    /// evidence returns the requested evidence.
+pub struct QueryParamsRequest {}
+/// QueryParamsResponse is the response type for the Query/Params RPC method
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryParamsResponse {
     #[prost(message, optional, tag = "1")]
-    pub evidence: ::core::option::Option<super::super::super::google::protobuf::Any>,
+    pub params: ::core::option::Option<Params>,
 }
-/// QueryEvidenceRequest is the request type for the Query/AllEvidence RPC
-/// method.
+/// QuerySigningInfoRequest is the request type for the Query/SigningInfo RPC
+/// method
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryAllEvidenceRequest {
-    /// pagination defines an optional pagination for the request.
+pub struct QuerySigningInfoRequest {
+    /// cons_address is the address to query signing info of
+    #[prost(string, tag = "1")]
+    pub cons_address: ::prost::alloc::string::String,
+}
+/// QuerySigningInfoResponse is the response type for the Query/SigningInfo RPC
+/// method
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QuerySigningInfoResponse {
+    /// val_signing_info is the signing info of requested val cons address
+    #[prost(message, optional, tag = "1")]
+    pub val_signing_info: ::core::option::Option<ValidatorSigningInfo>,
+}
+/// QuerySigningInfosRequest is the request type for the Query/SigningInfos RPC
+/// method
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QuerySigningInfosRequest {
     #[prost(message, optional, tag = "1")]
     pub pagination: ::core::option::Option<
         super::super::base::query::v1beta1::PageRequest,
     >,
 }
-/// QueryAllEvidenceResponse is the response type for the Query/AllEvidence RPC
-/// method.
+/// QuerySigningInfosResponse is the response type for the Query/SigningInfos RPC
+/// method
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryAllEvidenceResponse {
-    /// evidence returns all evidences.
+pub struct QuerySigningInfosResponse {
+    /// info is the signing info of all validators
     #[prost(message, repeated, tag = "1")]
-    pub evidence: ::prost::alloc::vec::Vec<super::super::super::google::protobuf::Any>,
-    /// pagination defines the pagination in the response.
+    pub info: ::prost::alloc::vec::Vec<ValidatorSigningInfo>,
     #[prost(message, optional, tag = "2")]
     pub pagination: ::core::option::Option<
         super::super::base::query::v1beta1::PageResponse,
@@ -378,7 +412,7 @@ pub mod query_client {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
     use tonic::codegen::http::Uri;
-    /// Query defines the gRPC querier service.
+    /// Query provides defines the gRPC querier service
     #[derive(Debug, Clone)]
     pub struct QueryClient<T> {
         inner: tonic::client::Grpc<T>,
@@ -459,12 +493,12 @@ pub mod query_client {
             self.inner = self.inner.max_encoding_message_size(limit);
             self
         }
-        /// Evidence queries evidence based on evidence hash.
-        pub async fn evidence(
+        /// Params queries the parameters of slashing module
+        pub async fn params(
             &mut self,
-            request: impl tonic::IntoRequest<super::QueryEvidenceRequest>,
+            request: impl tonic::IntoRequest<super::QueryParamsRequest>,
         ) -> std::result::Result<
-            tonic::Response<super::QueryEvidenceResponse>,
+            tonic::Response<super::QueryParamsResponse>,
             tonic::Status,
         > {
             self.inner
@@ -478,19 +512,19 @@ pub mod query_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.evidence.v1beta1.Query/Evidence",
+                "/cosmos.slashing.v1beta1.Query/Params",
             );
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("cosmos.evidence.v1beta1.Query", "Evidence"));
+                .insert(GrpcMethod::new("cosmos.slashing.v1beta1.Query", "Params"));
             self.inner.unary(req, path, codec).await
         }
-        /// AllEvidence queries all evidence.
-        pub async fn all_evidence(
+        /// SigningInfo queries the signing info of given cons address
+        pub async fn signing_info(
             &mut self,
-            request: impl tonic::IntoRequest<super::QueryAllEvidenceRequest>,
+            request: impl tonic::IntoRequest<super::QuerySigningInfoRequest>,
         ) -> std::result::Result<
-            tonic::Response<super::QueryAllEvidenceResponse>,
+            tonic::Response<super::QuerySigningInfoResponse>,
             tonic::Status,
         > {
             self.inner
@@ -504,11 +538,39 @@ pub mod query_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.evidence.v1beta1.Query/AllEvidence",
+                "/cosmos.slashing.v1beta1.Query/SigningInfo",
             );
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("cosmos.evidence.v1beta1.Query", "AllEvidence"));
+                .insert(GrpcMethod::new("cosmos.slashing.v1beta1.Query", "SigningInfo"));
+            self.inner.unary(req, path, codec).await
+        }
+        /// SigningInfos queries signing info of all validators
+        pub async fn signing_infos(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QuerySigningInfosRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QuerySigningInfosResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.slashing.v1beta1.Query/SigningInfos",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("cosmos.slashing.v1beta1.Query", "SigningInfos"),
+                );
             self.inner.unary(req, path, codec).await
         }
     }
@@ -521,24 +583,32 @@ pub mod query_server {
     /// Generated trait containing gRPC methods that should be implemented for use with QueryServer.
     #[async_trait]
     pub trait Query: Send + Sync + 'static {
-        /// Evidence queries evidence based on evidence hash.
-        async fn evidence(
+        /// Params queries the parameters of slashing module
+        async fn params(
             &self,
-            request: tonic::Request<super::QueryEvidenceRequest>,
+            request: tonic::Request<super::QueryParamsRequest>,
         ) -> std::result::Result<
-            tonic::Response<super::QueryEvidenceResponse>,
+            tonic::Response<super::QueryParamsResponse>,
             tonic::Status,
         >;
-        /// AllEvidence queries all evidence.
-        async fn all_evidence(
+        /// SigningInfo queries the signing info of given cons address
+        async fn signing_info(
             &self,
-            request: tonic::Request<super::QueryAllEvidenceRequest>,
+            request: tonic::Request<super::QuerySigningInfoRequest>,
         ) -> std::result::Result<
-            tonic::Response<super::QueryAllEvidenceResponse>,
+            tonic::Response<super::QuerySigningInfoResponse>,
+            tonic::Status,
+        >;
+        /// SigningInfos queries signing info of all validators
+        async fn signing_infos(
+            &self,
+            request: tonic::Request<super::QuerySigningInfosRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QuerySigningInfosResponse>,
             tonic::Status,
         >;
     }
-    /// Query defines the gRPC querier service.
+    /// Query provides defines the gRPC querier service
     #[derive(Debug)]
     pub struct QueryServer<T: Query> {
         inner: _Inner<T>,
@@ -618,24 +688,22 @@ pub mod query_server {
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
             let inner = self.inner.clone();
             match req.uri().path() {
-                "/cosmos.evidence.v1beta1.Query/Evidence" => {
+                "/cosmos.slashing.v1beta1.Query/Params" => {
                     #[allow(non_camel_case_types)]
-                    struct EvidenceSvc<T: Query>(pub Arc<T>);
-                    impl<
-                        T: Query,
-                    > tonic::server::UnaryService<super::QueryEvidenceRequest>
-                    for EvidenceSvc<T> {
-                        type Response = super::QueryEvidenceResponse;
+                    struct ParamsSvc<T: Query>(pub Arc<T>);
+                    impl<T: Query> tonic::server::UnaryService<super::QueryParamsRequest>
+                    for ParamsSvc<T> {
+                        type Response = super::QueryParamsResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
                         >;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::QueryEvidenceRequest>,
+                            request: tonic::Request<super::QueryParamsRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).evidence(request).await };
+                            let fut = async move { (*inner).params(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -646,7 +714,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = EvidenceSvc(inner);
+                        let method = ParamsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -662,25 +730,25 @@ pub mod query_server {
                     };
                     Box::pin(fut)
                 }
-                "/cosmos.evidence.v1beta1.Query/AllEvidence" => {
+                "/cosmos.slashing.v1beta1.Query/SigningInfo" => {
                     #[allow(non_camel_case_types)]
-                    struct AllEvidenceSvc<T: Query>(pub Arc<T>);
+                    struct SigningInfoSvc<T: Query>(pub Arc<T>);
                     impl<
                         T: Query,
-                    > tonic::server::UnaryService<super::QueryAllEvidenceRequest>
-                    for AllEvidenceSvc<T> {
-                        type Response = super::QueryAllEvidenceResponse;
+                    > tonic::server::UnaryService<super::QuerySigningInfoRequest>
+                    for SigningInfoSvc<T> {
+                        type Response = super::QuerySigningInfoResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
                         >;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::QueryAllEvidenceRequest>,
+                            request: tonic::Request<super::QuerySigningInfoRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).all_evidence(request).await
+                                (*inner).signing_info(request).await
                             };
                             Box::pin(fut)
                         }
@@ -692,7 +760,53 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = AllEvidenceSvc(inner);
+                        let method = SigningInfoSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/cosmos.slashing.v1beta1.Query/SigningInfos" => {
+                    #[allow(non_camel_case_types)]
+                    struct SigningInfosSvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<super::QuerySigningInfosRequest>
+                    for SigningInfosSvc<T> {
+                        type Response = super::QuerySigningInfosResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QuerySigningInfosRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).signing_infos(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = SigningInfosSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -746,14 +860,56 @@ pub mod query_server {
         }
     }
     impl<T: Query> tonic::server::NamedService for QueryServer<T> {
-        const NAME: &'static str = "cosmos.evidence.v1beta1.Query";
+        const NAME: &'static str = "cosmos.slashing.v1beta1.Query";
     }
 }
-/// GenesisState defines the evidence module's genesis state.
+/// GenesisState defines the slashing module's genesis state.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenesisState {
-    /// evidence defines all the evidence at genesis.
-    #[prost(message, repeated, tag = "1")]
-    pub evidence: ::prost::alloc::vec::Vec<super::super::super::google::protobuf::Any>,
+    /// params defines all the paramaters of related to deposit.
+    #[prost(message, optional, tag = "1")]
+    pub params: ::core::option::Option<Params>,
+    /// signing_infos represents a map between validator addresses and their
+    /// signing infos.
+    #[prost(message, repeated, tag = "2")]
+    pub signing_infos: ::prost::alloc::vec::Vec<SigningInfo>,
+    /// missed_blocks represents a map between validator addresses and their
+    /// missed blocks.
+    #[prost(message, repeated, tag = "3")]
+    pub missed_blocks: ::prost::alloc::vec::Vec<ValidatorMissedBlocks>,
+}
+/// SigningInfo stores validator signing info of corresponding address.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SigningInfo {
+    /// address is the validator address.
+    #[prost(string, tag = "1")]
+    pub address: ::prost::alloc::string::String,
+    /// validator_signing_info represents the signing info of this validator.
+    #[prost(message, optional, tag = "2")]
+    pub validator_signing_info: ::core::option::Option<ValidatorSigningInfo>,
+}
+/// ValidatorMissedBlocks contains array of missed blocks of corresponding
+/// address.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ValidatorMissedBlocks {
+    /// address is the validator address.
+    #[prost(string, tag = "1")]
+    pub address: ::prost::alloc::string::String,
+    /// missed_blocks is an array of missed blocks by the validator.
+    #[prost(message, repeated, tag = "2")]
+    pub missed_blocks: ::prost::alloc::vec::Vec<MissedBlock>,
+}
+/// MissedBlock contains height and missed status as boolean.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MissedBlock {
+    /// index is the height at which the block was missed.
+    #[prost(int64, tag = "1")]
+    pub index: i64,
+    /// missed is the missed status.
+    #[prost(bool, tag = "2")]
+    pub missed: bool,
 }
