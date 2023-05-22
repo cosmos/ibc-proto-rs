@@ -10,6 +10,7 @@ pub struct InterchainAccount {
     pub account_owner: ::prost::alloc::string::String,
 }
 /// InterchainAccountPacketData is comprised of a raw transaction, type of transaction and optional memo field.
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct InterchainAccountPacketData {
