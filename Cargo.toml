@@ -42,7 +42,8 @@ parity-scale-codec = { version = "3.0.0", default-features = false, features = [
 scale-info         = { version = "2.1.2", default-features = false, features = ["derive"], optional = true }
 
 ## for borsh encode or decode
-borsh = { version = "0.10.0", default-features = false, optional = true }
+## need tracking anchor-lang and near-sdk-rs borsh version
+borsh = { version = "0.9", default-features = false, optional = true }
 
 [dependencies.ics23]
 version          = "0.10.1"
