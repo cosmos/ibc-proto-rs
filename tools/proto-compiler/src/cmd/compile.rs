@@ -180,10 +180,17 @@ impl CompileCmd {
                 ".ibc.applications.interchain_accounts.controller.v1",
                 attrs_serde,
             )
-            .type_attribute(".cosmos.upgrade.v1beta1", attrs_serde)
+            .type_attribute(
+                ".ibc.applications.interchain_accounts.genesis.v1",
+                attrs_serde,
+            )
+            .type_attribute(".ibc.applications.interchain_accounts.host.v1", attrs_serde)
+            .type_attribute(".ibc.applications.interchain_accounts.v1", attrs_serde)
+            .type_attribute(".cosmos.auth.v1beta1", attrs_serde)
+            .type_attribute(".cosmos.bank.v1beta1", attrs_serde)
             .type_attribute(".cosmos.base.v1beta1", attrs_serde)
             .type_attribute(".cosmos.base.query.v1beta1", attrs_serde)
-            .type_attribute(".cosmos.bank.v1beta1", attrs_serde)
+            .type_attribute(".cosmos.upgrade.v1beta1", attrs_serde)
             .compile(&protos, &includes)?;
 
         println!("[info ] Protos compiled successfully");

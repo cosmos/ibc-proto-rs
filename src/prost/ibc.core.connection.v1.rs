@@ -1000,6 +1000,20 @@ pub struct QueryConnectionConsensusStateResponse {
     #[prost(message, optional, tag = "4")]
     pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
 }
+/// QueryConnectionParamsRequest is the request type for the Query/ConnectionParams RPC method.
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryConnectionParamsRequest {}
+/// QueryConnectionParamsResponse is the response type for the Query/ConnectionParams RPC method.
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryConnectionParamsResponse {
+    /// params defines the parameters of the module.
+    #[prost(message, optional, tag = "1")]
+    pub params: ::core::option::Option<Params>,
+}
 /// Generated client implementations.
 #[cfg(feature = "client")]
 pub mod query_client {
@@ -1232,6 +1246,34 @@ pub mod query_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+        /// ConnectionParams queries all parameters of the ibc connection submodule.
+        pub async fn connection_params(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryConnectionParamsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryConnectionParamsResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/ibc.core.connection.v1.Query/ConnectionParams",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("ibc.core.connection.v1.Query", "ConnectionParams"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
     }
 }
 /// Generated server implementations.
@@ -1283,6 +1325,14 @@ pub mod query_server {
             request: tonic::Request<super::QueryConnectionConsensusStateRequest>,
         ) -> std::result::Result<
             tonic::Response<super::QueryConnectionConsensusStateResponse>,
+            tonic::Status,
+        >;
+        /// ConnectionParams queries all parameters of the ibc connection submodule.
+        async fn connection_params(
+            &self,
+            request: tonic::Request<super::QueryConnectionParamsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryConnectionParamsResponse>,
             tonic::Status,
         >;
     }
@@ -1583,6 +1633,52 @@ pub mod query_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = ConnectionConsensusStateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/ibc.core.connection.v1.Query/ConnectionParams" => {
+                    #[allow(non_camel_case_types)]
+                    struct ConnectionParamsSvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<super::QueryConnectionParamsRequest>
+                    for ConnectionParamsSvc<T> {
+                        type Response = super::QueryConnectionParamsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryConnectionParamsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).connection_params(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ConnectionParamsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
