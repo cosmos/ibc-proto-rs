@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## v0.32.0
+
+*June 14th, 2023*
+
+This release updates the `ibc-go` proto files from version `v5.1.0` to `v6.2.0` which includes the ICA Protobuf definitions.
+
+The version of `borsh` has been downgraded from `v0.10.0` to `v0.9` in order to match `near-sdk-rs` and Solana smart contract frame `anchor`.
+
+### BUG FIXES
+
+- Downgrade `borsh` version from `v0.10.0` to `v0.9`
+  ([#106](https://github.com/cosmos/ibc-proto-rs/pull/104))
+
+### IMPROVEMENTS
+
+- Update `ibc-go` commit from `v5.1.0` to `v6.2.0`
+  ([#106](https://github.com/cosmos/ibc-proto-rs/issues/106))
+
 ## v0.31.0
 
 *May 31st, 2023*
