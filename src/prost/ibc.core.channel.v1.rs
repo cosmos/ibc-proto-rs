@@ -26,6 +26,9 @@ pub struct Channel {
     /// the value of 0 indicates the channel has never been upgraded
     #[prost(uint64, tag = "6")]
     pub upgrade_sequence: u64,
+    /// flush status indicates the current status of inflight packet flushing on the channel end
+    #[prost(enumeration = "FlushStatus", tag = "7")]
+    pub flush_status: i32,
 }
 /// IdentifiedChannel defines a channel with additional port and channel
 /// identifier fields.
@@ -167,6 +170,20 @@ pub mod acknowledgement {
         Error(::prost::alloc::string::String),
     }
 }
+/// Timeout defines an execution deadline structure for 04-channel handlers.
+/// This includes packet lifecycle handlers as well as the upgrade handshake handlers.
+/// A valid Timeout contains either one or both of a timestamp and block height (sequence).
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Timeout {
+    /// block height after which the packet or upgrade times out
+    #[prost(message, optional, tag = "1")]
+    pub height: ::core::option::Option<super::super::client::v1::Height>,
+    /// block timestamp (in nanoseconds) after which the packet or upgrade times out
+    #[prost(uint64, tag = "2")]
+    pub timestamp: u64,
+}
 /// State defines if a channel is in one of the following states:
 /// CLOSED, INIT, TRYOPEN, OPEN, INITUPGRADE, TRYUPGRADE or UNINITIALIZED.
 #[derive(::serde::Serialize, ::serde::Deserialize)]
@@ -191,6 +208,9 @@ pub enum State {
     /// A channel has acknowledged the upgrade handshake step on the counterparty chain.
     /// The counterparty chain that accepts the upgrade should set the channel state from OPEN to UPGRADETRY.
     Tryupgrade = 6,
+    /// A channel has verified the counterparty chain is in UPGRADETRY.
+    /// However, there are still in-flight packets on both ends waiting to be flushed before it can move to OPEN.
+    Ackupgrade = 7,
 }
 impl State {
     /// String value of the enum field names used in the ProtoBuf definition.
@@ -206,6 +226,7 @@ impl State {
             State::Closed => "STATE_CLOSED",
             State::Initupgrade => "STATE_INITUPGRADE",
             State::Tryupgrade => "STATE_TRYUPGRADE",
+            State::Ackupgrade => "STATE_ACKUPGRADE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -218,6 +239,41 @@ impl State {
             "STATE_CLOSED" => Some(Self::Closed),
             "STATE_INITUPGRADE" => Some(Self::Initupgrade),
             "STATE_TRYUPGRADE" => Some(Self::Tryupgrade),
+            "STATE_ACKUPGRADE" => Some(Self::Ackupgrade),
+            _ => None,
+        }
+    }
+}
+/// FlushStatus defines the status of a channel end pertaining to in-flight packets during an upgrade handshake.
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum FlushStatus {
+    /// Default status, the channel is not in an upgrade handshake
+    NotinflushUnspecified = 0,
+    /// The channel end is flushing in-flight packets
+    Flushing = 1,
+    /// There are no in-flight packets left and the channel end is ready to move to OPEN
+    Flushcomplete = 2,
+}
+impl FlushStatus {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            FlushStatus::NotinflushUnspecified => "FLUSH_STATUS_NOTINFLUSH_UNSPECIFIED",
+            FlushStatus::Flushing => "FLUSH_STATUS_FLUSHING",
+            FlushStatus::Flushcomplete => "FLUSH_STATUS_FLUSHCOMPLETE",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "FLUSH_STATUS_NOTINFLUSH_UNSPECIFIED" => Some(Self::NotinflushUnspecified),
+            "FLUSH_STATUS_FLUSHING" => Some(Self::Flushing),
+            "FLUSH_STATUS_FLUSHCOMPLETE" => Some(Self::Flushcomplete),
             _ => None,
         }
     }
@@ -304,7 +360,7 @@ pub struct Upgrade {
     #[prost(message, optional, tag = "1")]
     pub fields: ::core::option::Option<UpgradeFields>,
     #[prost(message, optional, tag = "2")]
-    pub timeout: ::core::option::Option<UpgradeTimeout>,
+    pub timeout: ::core::option::Option<Timeout>,
     #[prost(uint64, tag = "3")]
     pub latest_sequence_send: u64,
 }
@@ -321,19 +377,6 @@ pub struct UpgradeFields {
     #[prost(string, tag = "3")]
     pub version: ::prost::alloc::string::String,
 }
-/// UpgradeTimeout defines a type which encapsulates the upgrade timeout values at which the counterparty
-/// must no longer proceed with the upgrade handshake.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpgradeTimeout {
-    /// block height after which the upgrade times out
-    #[prost(message, optional, tag = "1")]
-    pub height: ::core::option::Option<super::super::client::v1::Height>,
-    /// block timestamp (in nanoseconds) after which the upgrade times out
-    #[prost(uint64, tag = "2")]
-    pub timestamp: u64,
-}
 /// ErrorReceipt defines a type which encapsulates the upgrade sequence and error associated with the
 /// upgrade handshake failure. When a channel upgrade handshake is aborted both chains are expected to increment to the
 /// next sequence.
@@ -346,7 +389,7 @@ pub struct ErrorReceipt {
     pub sequence: u64,
     /// the error message detailing the cause of failure
     #[prost(string, tag = "2")]
-    pub error: ::prost::alloc::string::String,
+    pub message: ::prost::alloc::string::String,
 }
 /// MsgChannelOpenInit defines an sdk.Msg to initialize a channel handshake. It
 /// is called by a relayer on Chain A.
@@ -604,7 +647,7 @@ pub struct MsgChannelUpgradeInit {
     #[prost(message, optional, tag = "3")]
     pub fields: ::core::option::Option<UpgradeFields>,
     #[prost(message, optional, tag = "4")]
-    pub timeout: ::core::option::Option<UpgradeTimeout>,
+    pub timeout: ::core::option::Option<Timeout>,
     #[prost(string, tag = "5")]
     pub signer: ::prost::alloc::string::String,
 }
@@ -634,7 +677,7 @@ pub struct MsgChannelUpgradeTry {
         ::prost::alloc::string::String,
     >,
     #[prost(message, optional, tag = "4")]
-    pub upgrade_timeout: ::core::option::Option<UpgradeTimeout>,
+    pub upgrade_timeout: ::core::option::Option<Timeout>,
     #[prost(message, optional, tag = "5")]
     pub counterparty_proposed_upgrade: ::core::option::Option<Upgrade>,
     #[prost(uint64, tag = "6")]
@@ -655,9 +698,11 @@ pub struct MsgChannelUpgradeTry {
 pub struct MsgChannelUpgradeTryResponse {
     #[prost(string, tag = "1")]
     pub channel_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub version: ::prost::alloc::string::String,
-    #[prost(enumeration = "ResponseResultType", tag = "3")]
+    #[prost(message, optional, tag = "2")]
+    pub upgrade: ::core::option::Option<Upgrade>,
+    #[prost(uint64, tag = "3")]
+    pub upgrade_sequence: u64,
+    #[prost(enumeration = "ResponseResultType", tag = "4")]
     pub result: i32,
 }
 /// MsgChannelUpgradeAck defines the request type for the ChannelUpgradeAck rpc
@@ -669,49 +714,50 @@ pub struct MsgChannelUpgradeAck {
     pub port_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub channel_id: ::prost::alloc::string::String,
-    #[prost(message, optional, tag = "3")]
-    pub counterparty_channel: ::core::option::Option<Channel>,
-    #[prost(bytes = "vec", tag = "4")]
-    pub proof_channel: ::prost::alloc::vec::Vec<u8>,
+    #[prost(enumeration = "FlushStatus", tag = "3")]
+    pub counterparty_flush_status: i32,
+    #[prost(message, optional, tag = "4")]
+    pub counterparty_upgrade: ::core::option::Option<Upgrade>,
     #[prost(bytes = "vec", tag = "5")]
-    pub proof_upgrade_sequence: ::prost::alloc::vec::Vec<u8>,
-    #[prost(message, optional, tag = "6")]
+    pub proof_channel: ::prost::alloc::vec::Vec<u8>,
+    #[prost(bytes = "vec", tag = "6")]
+    pub proof_upgrade: ::prost::alloc::vec::Vec<u8>,
+    #[prost(message, optional, tag = "7")]
     pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
-    #[prost(string, tag = "7")]
+    #[prost(string, tag = "8")]
     pub signer: ::prost::alloc::string::String,
 }
 /// MsgChannelUpgradeAckResponse defines MsgChannelUpgradeAck response type
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgChannelUpgradeAckResponse {}
-/// MsgChannelUpgradeConfirm defines the request type for the ChannelUpgradeConfirm rpc
+pub struct MsgChannelUpgradeAckResponse {
+    #[prost(enumeration = "ResponseResultType", tag = "1")]
+    pub result: i32,
+}
+/// MsgChannelUpgradeOpen defines the request type for the ChannelUpgradeOpen rpc
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgChannelUpgradeConfirm {
+pub struct MsgChannelUpgradeOpen {
     #[prost(string, tag = "1")]
     pub port_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub channel_id: ::prost::alloc::string::String,
-    #[prost(message, optional, tag = "3")]
-    pub counterparty_channel: ::core::option::Option<Channel>,
+    #[prost(enumeration = "State", tag = "3")]
+    pub counterparty_channel_state: i32,
     #[prost(bytes = "vec", tag = "4")]
     pub proof_channel: ::prost::alloc::vec::Vec<u8>,
-    #[prost(bytes = "vec", tag = "5")]
-    pub proof_upgrade_error: ::prost::alloc::vec::Vec<u8>,
-    #[prost(bytes = "vec", tag = "6")]
-    pub proof_upgrade_sequence: ::prost::alloc::vec::Vec<u8>,
-    #[prost(message, optional, tag = "7")]
+    #[prost(message, optional, tag = "5")]
     pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
-    #[prost(string, tag = "8")]
+    #[prost(string, tag = "6")]
     pub signer: ::prost::alloc::string::String,
 }
-/// MsgChannelUpgradeConfirmResponse defines the MsgChannelUpgradeConfirm response type
+/// MsgChannelUpgradeOpenResponse defines the MsgChannelUpgradeOpen response type
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgChannelUpgradeConfirmResponse {}
+pub struct MsgChannelUpgradeOpenResponse {}
 /// MsgChannelUpgradeTimeout defines the request type for the ChannelUpgradeTimeout rpc
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -738,7 +784,10 @@ pub struct MsgChannelUpgradeTimeout {
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgChannelUpgradeTimeoutResponse {}
+pub struct MsgChannelUpgradeTimeoutResponse {
+    #[prost(enumeration = "ResponseResultType", tag = "1")]
+    pub result: i32,
+}
 /// MsgChannelUpgradeCancel defines the request type for the ChannelUpgradeCancel rpc
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -1232,12 +1281,12 @@ pub mod msg_client {
                 .insert(GrpcMethod::new("ibc.core.channel.v1.Msg", "ChannelUpgradeAck"));
             self.inner.unary(req, path, codec).await
         }
-        /// ChannelUpgradeConfirm defines a rpc handler method for MsgChannelUpgradeConfirm.
-        pub async fn channel_upgrade_confirm(
+        /// ChannelUpgradeOpen defines a rpc handler method for MsgChannelUpgradeOpen.
+        pub async fn channel_upgrade_open(
             &mut self,
-            request: impl tonic::IntoRequest<super::MsgChannelUpgradeConfirm>,
+            request: impl tonic::IntoRequest<super::MsgChannelUpgradeOpen>,
         ) -> std::result::Result<
-            tonic::Response<super::MsgChannelUpgradeConfirmResponse>,
+            tonic::Response<super::MsgChannelUpgradeOpenResponse>,
             tonic::Status,
         > {
             self.inner
@@ -1251,12 +1300,12 @@ pub mod msg_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/ibc.core.channel.v1.Msg/ChannelUpgradeConfirm",
+                "/ibc.core.channel.v1.Msg/ChannelUpgradeOpen",
             );
             let mut req = request.into_request();
             req.extensions_mut()
                 .insert(
-                    GrpcMethod::new("ibc.core.channel.v1.Msg", "ChannelUpgradeConfirm"),
+                    GrpcMethod::new("ibc.core.channel.v1.Msg", "ChannelUpgradeOpen"),
                 );
             self.inner.unary(req, path, codec).await
         }
@@ -1431,12 +1480,12 @@ pub mod msg_server {
             tonic::Response<super::MsgChannelUpgradeAckResponse>,
             tonic::Status,
         >;
-        /// ChannelUpgradeConfirm defines a rpc handler method for MsgChannelUpgradeConfirm.
-        async fn channel_upgrade_confirm(
+        /// ChannelUpgradeOpen defines a rpc handler method for MsgChannelUpgradeOpen.
+        async fn channel_upgrade_open(
             &self,
-            request: tonic::Request<super::MsgChannelUpgradeConfirm>,
+            request: tonic::Request<super::MsgChannelUpgradeOpen>,
         ) -> std::result::Result<
-            tonic::Response<super::MsgChannelUpgradeConfirmResponse>,
+            tonic::Response<super::MsgChannelUpgradeOpenResponse>,
             tonic::Status,
         >;
         /// ChannelUpgradeTimeout defines a rpc handler method for MsgChannelUpgradeTimeout.
@@ -2110,25 +2159,25 @@ pub mod msg_server {
                     };
                     Box::pin(fut)
                 }
-                "/ibc.core.channel.v1.Msg/ChannelUpgradeConfirm" => {
+                "/ibc.core.channel.v1.Msg/ChannelUpgradeOpen" => {
                     #[allow(non_camel_case_types)]
-                    struct ChannelUpgradeConfirmSvc<T: Msg>(pub Arc<T>);
+                    struct ChannelUpgradeOpenSvc<T: Msg>(pub Arc<T>);
                     impl<
                         T: Msg,
-                    > tonic::server::UnaryService<super::MsgChannelUpgradeConfirm>
-                    for ChannelUpgradeConfirmSvc<T> {
-                        type Response = super::MsgChannelUpgradeConfirmResponse;
+                    > tonic::server::UnaryService<super::MsgChannelUpgradeOpen>
+                    for ChannelUpgradeOpenSvc<T> {
+                        type Response = super::MsgChannelUpgradeOpenResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
                         >;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::MsgChannelUpgradeConfirm>,
+                            request: tonic::Request<super::MsgChannelUpgradeOpen>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).channel_upgrade_confirm(request).await
+                                (*inner).channel_upgrade_open(request).await
                             };
                             Box::pin(fut)
                         }
@@ -2140,7 +2189,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = ChannelUpgradeConfirmSvc(inner);
+                        let method = ChannelUpgradeOpenSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
