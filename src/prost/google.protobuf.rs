@@ -1231,7 +1231,7 @@ pub mod generated_code_info {
 ///        "value": "1.212s"
 ///      }
 ///
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[derive(Eq)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1363,7 +1363,7 @@ pub struct Any {
 /// ) to obtain a formatter capable of generating timestamps in this format.
 ///
 ///
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Timestamp {
@@ -1439,7 +1439,7 @@ pub struct Timestamp {
 /// microsecond should be expressed in JSON format as "3.000001s".
 ///
 ///
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[derive(Eq)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]

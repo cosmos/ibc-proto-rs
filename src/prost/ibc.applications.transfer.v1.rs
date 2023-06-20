@@ -1,7 +1,7 @@
 /// MsgTransfer defines a msg to transfer fungible tokens (i.e Coins) between
 /// ICS20 enabled chains. See ICS Spec here:
 /// <https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer#data-structures>
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgTransfer {
@@ -37,7 +37,7 @@ pub struct MsgTransfer {
     pub memo: ::prost::alloc::string::String,
 }
 /// MsgTransferResponse defines the Msg/Transfer response type.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgTransferResponse {
@@ -342,7 +342,7 @@ pub mod msg_server {
 }
 /// DenomTrace contains the base denomination for ICS20 fungible tokens and the
 /// source tracing information path.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DenomTrace {
@@ -358,7 +358,7 @@ pub struct DenomTrace {
 /// NOTE: To prevent a single token from being transferred, set the
 /// TransfersEnabled parameter to true and then set the bank module's SendEnabled
 /// parameter for the denomination to false.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Params {
@@ -373,7 +373,7 @@ pub struct Params {
 }
 /// QueryDenomTraceRequest is the request type for the Query/DenomTrace RPC
 /// method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomTraceRequest {
@@ -383,7 +383,7 @@ pub struct QueryDenomTraceRequest {
 }
 /// QueryDenomTraceResponse is the response type for the Query/DenomTrace RPC
 /// method.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomTraceResponse {
@@ -393,7 +393,7 @@ pub struct QueryDenomTraceResponse {
 }
 /// QueryConnectionsRequest is the request type for the Query/DenomTraces RPC
 /// method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomTracesRequest {
@@ -405,7 +405,7 @@ pub struct QueryDenomTracesRequest {
 }
 /// QueryConnectionsResponse is the response type for the Query/DenomTraces RPC
 /// method.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomTracesResponse {
@@ -419,12 +419,12 @@ pub struct QueryDenomTracesResponse {
     >,
 }
 /// QueryParamsRequest is the request type for the Query/Params RPC method.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsRequest {}
 /// QueryParamsResponse is the response type for the Query/Params RPC method.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsResponse {
@@ -434,7 +434,7 @@ pub struct QueryParamsResponse {
 }
 /// QueryDenomHashRequest is the request type for the Query/DenomHash RPC
 /// method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomHashRequest {
@@ -444,7 +444,7 @@ pub struct QueryDenomHashRequest {
 }
 /// QueryDenomHashResponse is the response type for the Query/DenomHash RPC
 /// method.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomHashResponse {
@@ -453,7 +453,7 @@ pub struct QueryDenomHashResponse {
     pub hash: ::prost::alloc::string::String,
 }
 /// QueryEscrowAddressRequest is the request type for the EscrowAddress RPC method.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryEscrowAddressRequest {
@@ -465,7 +465,7 @@ pub struct QueryEscrowAddressRequest {
     pub channel_id: ::prost::alloc::string::String,
 }
 /// QueryEscrowAddressResponse is the response type of the EscrowAddress RPC method.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryEscrowAddressResponse {
@@ -1095,8 +1095,38 @@ pub mod query_server {
         const NAME: &'static str = "ibc.applications.transfer.v1.Query";
     }
 }
+/// Allocation defines the spend limit for a particular port and channel
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Allocation {
+    /// the port on which the packet will be sent
+    #[prost(string, tag = "1")]
+    pub source_port: ::prost::alloc::string::String,
+    /// the channel by which the packet will be sent
+    #[prost(string, tag = "2")]
+    pub source_channel: ::prost::alloc::string::String,
+    /// spend limitation on the channel
+    #[prost(message, repeated, tag = "3")]
+    pub spend_limit: ::prost::alloc::vec::Vec<
+        super::super::super::super::cosmos::base::v1beta1::Coin,
+    >,
+    /// allow list of receivers, an empty allow list permits any receiver address
+    #[prost(string, repeated, tag = "4")]
+    pub allow_list: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// TransferAuthorization allows the grantee to spend up to spend_limit coins from
+/// the granter's account for ibc transfer on a specific channel
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct TransferAuthorization {
+    /// port and channel amounts
+    #[prost(message, repeated, tag = "1")]
+    pub allocations: ::prost::alloc::vec::Vec<Allocation>,
+}
 /// GenesisState defines the ibc-transfer genesis state
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenesisState {

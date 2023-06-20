@@ -113,15 +113,21 @@ impl CompileCmd {
         // List available paths for dependencies
         let includes: Vec<PathBuf> = proto_includes_paths.iter().map(PathBuf::from).collect();
 
-        let attrs_serde = r#"#[derive(::serde::Serialize, ::serde::Deserialize)]"#;
-        let attrs_jsonschema =
-            r#"#[cfg_attr(feature = "json-schema", derive(::schemars::JsonSchema))]"#;
+        // We can only enable JSON serialization when the `std` feature is enabled,
+        // as it is currently required by `ics23` for it to implement JSON serialization
+        // let attrs_serde = r#"#[derive(::serde::Serialize, ::serde::Deserialize)]"#;
+        // let attrs_serde_default = r#"#[serde(default)]"#;
+        // let attrs_jsonschema =
+        //     r#"#[cfg_attr(feature = "json-schema", derive(::schemars::JsonSchema))]"#;
+
+        let attrs_jsonschema = r#"#[cfg_attr(all(feature = "json-schema", feature = "std"), derive(::schemars::JsonSchema))]"#;
         let attrs_ord = "#[derive(Eq, PartialOrd, Ord)]";
         let attrs_eq = "#[derive(Eq)]";
-        let attrs_serde_default = r#"#[serde(default)]"#;
-        let attrs_serde_base64 = r#"#[serde(with = "crate::base64")]"#;
-        let attrs_jsonschema_str =
-            r#"#[cfg_attr(feature = "json-schema", schemars(with = "String"))]"#;
+        let attrs_serde =
+            r#"#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]"#;
+        let attrs_serde_default = r#"#[cfg_attr(feature = "std", serde(default))]"#;
+        let attrs_serde_base64 = r#"#[cfg_attr(feature = "std", serde(with = "crate::base64"))]"#;
+        let attrs_jsonschema_str = r#"#[cfg_attr(all(feature = "json-schema", feature = "std"), schemars(with = "String"))]"#;
 
         tonic_build::configure()
             .build_client(true)
@@ -131,6 +137,7 @@ impl CompileCmd {
             .server_mod_attribute(".", r#"#[cfg(feature = "server")]"#)
             .out_dir(out_dir)
             .extern_path(".tendermint", "::tendermint_proto")
+            .extern_path(".ics23", "::ics23")
             .type_attribute(".google.protobuf.Any", attrs_serde)
             .type_attribute(".google.protobuf.Any", attrs_eq)
             .type_attribute(".google.protobuf.Timestamp", attrs_serde)
@@ -173,31 +180,17 @@ impl CompileCmd {
                 ".ibc.applications.interchain_accounts.controller.v1",
                 attrs_serde,
             )
-            .type_attribute(".ics23", attrs_serde)
-            .type_attribute(".ics23.LeafOp", attrs_eq)
-            .type_attribute(".ics23.LeafOp", attrs_jsonschema)
-            .field_attribute(".ics23.LeafOp.prehash_key", attrs_serde_default)
-            .field_attribute(".ics23.LeafOp.prefix", attrs_serde_base64)
-            .field_attribute(".ics23.LeafOp.prefix", attrs_jsonschema_str)
-            .type_attribute(".ics23.InnerOp", attrs_jsonschema)
-            .field_attribute(".ics23.InnerOp.prefix", attrs_serde_base64)
-            .field_attribute(".ics23.InnerOp.prefix", attrs_jsonschema_str)
-            .field_attribute(".ics23.InnerOp.suffix", attrs_serde_base64)
-            .field_attribute(".ics23.InnerOp.suffix", attrs_jsonschema_str)
-            .type_attribute(".ics23.InnerOp", attrs_eq)
-            .type_attribute(".ics23.ProofSpec", attrs_eq)
-            .type_attribute(".ics23.ProofSpec", attrs_jsonschema)
-            .field_attribute(".ics23.ProofSpec.max_depth", attrs_serde_default)
-            .field_attribute(".ics23.ProofSpec.min_depth", attrs_serde_default)
-            .type_attribute(".ics23.InnerSpec", attrs_eq)
-            .type_attribute(".ics23.InnerSpec", attrs_jsonschema)
-            .field_attribute(".ics23.InnerSpec.empty_child", attrs_serde_default)
-            .field_attribute(".ics23.InnerSpec.empty_child", attrs_serde_base64)
-            .field_attribute(".ics23.InnerSpec.empty_child", attrs_jsonschema_str)
-            .type_attribute(".cosmos.upgrade.v1beta1", attrs_serde)
+            .type_attribute(
+                ".ibc.applications.interchain_accounts.genesis.v1",
+                attrs_serde,
+            )
+            .type_attribute(".ibc.applications.interchain_accounts.host.v1", attrs_serde)
+            .type_attribute(".ibc.applications.interchain_accounts.v1", attrs_serde)
+            .type_attribute(".cosmos.auth.v1beta1", attrs_serde)
+            .type_attribute(".cosmos.bank.v1beta1", attrs_serde)
             .type_attribute(".cosmos.base.v1beta1", attrs_serde)
             .type_attribute(".cosmos.base.query.v1beta1", attrs_serde)
-            .type_attribute(".cosmos.bank.v1beta1", attrs_serde)
+            .type_attribute(".cosmos.upgrade.v1beta1", attrs_serde)
             .compile(&protos, &includes)?;
 
         println!("[info ] Protos compiled successfully");

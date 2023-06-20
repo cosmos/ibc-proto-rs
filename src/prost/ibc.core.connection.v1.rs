@@ -2,8 +2,11 @@
 /// separate one.
 /// NOTE: there must only be 2 defined ConnectionEnds to establish
 /// a connection between two chains.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
-#[cfg_attr(feature = "json-schema", derive(::schemars::JsonSchema))]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(
+    all(feature = "json-schema", feature = "std"),
+    derive(::schemars::JsonSchema)
+)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConnectionEnd {
@@ -28,7 +31,7 @@ pub struct ConnectionEnd {
 }
 /// IdentifiedConnection defines a connection with additional connection
 /// identifier field.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct IdentifiedConnection {
@@ -53,8 +56,11 @@ pub struct IdentifiedConnection {
     pub delay_period: u64,
 }
 /// Counterparty defines the counterparty chain associated with a connection end.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
-#[cfg_attr(feature = "json-schema", derive(::schemars::JsonSchema))]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(
+    all(feature = "json-schema", feature = "std"),
+    derive(::schemars::JsonSchema)
+)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Counterparty {
@@ -71,7 +77,7 @@ pub struct Counterparty {
     pub prefix: ::core::option::Option<super::super::commitment::v1::MerklePrefix>,
 }
 /// ClientPaths define all the connection paths for a client state.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ClientPaths {
@@ -80,7 +86,7 @@ pub struct ClientPaths {
     pub paths: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// ConnectionPaths define all the connection paths for a given client state.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConnectionPaths {
@@ -93,8 +99,11 @@ pub struct ConnectionPaths {
 }
 /// Version defines the versioning scheme used to negotiate the IBC verison in
 /// the connection handshake.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
-#[cfg_attr(feature = "json-schema", derive(::schemars::JsonSchema))]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(
+    all(feature = "json-schema", feature = "std"),
+    derive(::schemars::JsonSchema)
+)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Version {
@@ -106,7 +115,7 @@ pub struct Version {
     pub features: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// Params defines the set of Connection parameters.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Params {
@@ -118,7 +127,7 @@ pub struct Params {
 }
 /// State defines if a connection is in one of the following states:
 /// INIT, TRYOPEN, OPEN or UNINITIALIZED.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum State {
@@ -157,7 +166,7 @@ impl State {
     }
 }
 /// GenesisState defines the ibc connection submodule's genesis state.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenesisState {
@@ -173,7 +182,7 @@ pub struct GenesisState {
 }
 /// MsgConnectionOpenInit defines the msg sent by an account on Chain A to
 /// initialize a connection with Chain B.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgConnectionOpenInit {
@@ -190,13 +199,13 @@ pub struct MsgConnectionOpenInit {
 }
 /// MsgConnectionOpenInitResponse defines the Msg/ConnectionOpenInit response
 /// type.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgConnectionOpenInitResponse {}
 /// MsgConnectionOpenTry defines a msg sent by a Relayer to try to open a
 /// connection on Chain B.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgConnectionOpenTry {
@@ -234,13 +243,13 @@ pub struct MsgConnectionOpenTry {
     pub signer: ::prost::alloc::string::String,
 }
 /// MsgConnectionOpenTryResponse defines the Msg/ConnectionOpenTry response type.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgConnectionOpenTryResponse {}
 /// MsgConnectionOpenAck defines a msg sent by a Relayer to Chain A to
 /// acknowledge the change of connection state to TRYOPEN on Chain B.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgConnectionOpenAck {
@@ -272,13 +281,13 @@ pub struct MsgConnectionOpenAck {
     pub signer: ::prost::alloc::string::String,
 }
 /// MsgConnectionOpenAckResponse defines the Msg/ConnectionOpenAck response type.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgConnectionOpenAckResponse {}
 /// MsgConnectionOpenConfirm defines a msg sent by a Relayer to Chain B to
 /// acknowledge the change of connection state to OPEN on Chain A.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgConnectionOpenConfirm {
@@ -294,7 +303,7 @@ pub struct MsgConnectionOpenConfirm {
 }
 /// MsgConnectionOpenConfirmResponse defines the Msg/ConnectionOpenConfirm
 /// response type.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgConnectionOpenConfirmResponse {}
@@ -848,7 +857,7 @@ pub mod msg_server {
 }
 /// QueryConnectionRequest is the request type for the Query/Connection RPC
 /// method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConnectionRequest {
@@ -859,7 +868,7 @@ pub struct QueryConnectionRequest {
 /// QueryConnectionResponse is the response type for the Query/Connection RPC
 /// method. Besides the connection end, it includes a proof and the height from
 /// which the proof was retrieved.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConnectionResponse {
@@ -875,7 +884,7 @@ pub struct QueryConnectionResponse {
 }
 /// QueryConnectionsRequest is the request type for the Query/Connections RPC
 /// method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConnectionsRequest {
@@ -886,7 +895,7 @@ pub struct QueryConnectionsRequest {
 }
 /// QueryConnectionsResponse is the response type for the Query/Connections RPC
 /// method.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConnectionsResponse {
@@ -904,7 +913,7 @@ pub struct QueryConnectionsResponse {
 }
 /// QueryClientConnectionsRequest is the request type for the
 /// Query/ClientConnections RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryClientConnectionsRequest {
@@ -914,7 +923,7 @@ pub struct QueryClientConnectionsRequest {
 }
 /// QueryClientConnectionsResponse is the response type for the
 /// Query/ClientConnections RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryClientConnectionsResponse {
@@ -930,7 +939,7 @@ pub struct QueryClientConnectionsResponse {
 }
 /// QueryConnectionClientStateRequest is the request type for the
 /// Query/ConnectionClientState RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConnectionClientStateRequest {
@@ -940,7 +949,7 @@ pub struct QueryConnectionClientStateRequest {
 }
 /// QueryConnectionClientStateResponse is the response type for the
 /// Query/ConnectionClientState RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConnectionClientStateResponse {
@@ -958,7 +967,7 @@ pub struct QueryConnectionClientStateResponse {
 }
 /// QueryConnectionConsensusStateRequest is the request type for the
 /// Query/ConnectionConsensusState RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConnectionConsensusStateRequest {
@@ -972,7 +981,7 @@ pub struct QueryConnectionConsensusStateRequest {
 }
 /// QueryConnectionConsensusStateResponse is the response type for the
 /// Query/ConnectionConsensusState RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConnectionConsensusStateResponse {
@@ -990,6 +999,20 @@ pub struct QueryConnectionConsensusStateResponse {
     /// height at which the proof was retrieved
     #[prost(message, optional, tag = "4")]
     pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
+}
+/// QueryConnectionParamsRequest is the request type for the Query/ConnectionParams RPC method.
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryConnectionParamsRequest {}
+/// QueryConnectionParamsResponse is the response type for the Query/ConnectionParams RPC method.
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryConnectionParamsResponse {
+    /// params defines the parameters of the module.
+    #[prost(message, optional, tag = "1")]
+    pub params: ::core::option::Option<Params>,
 }
 /// Generated client implementations.
 #[cfg(feature = "client")]
@@ -1223,6 +1246,34 @@ pub mod query_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+        /// ConnectionParams queries all parameters of the ibc connection submodule.
+        pub async fn connection_params(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryConnectionParamsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryConnectionParamsResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/ibc.core.connection.v1.Query/ConnectionParams",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("ibc.core.connection.v1.Query", "ConnectionParams"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
     }
 }
 /// Generated server implementations.
@@ -1274,6 +1325,14 @@ pub mod query_server {
             request: tonic::Request<super::QueryConnectionConsensusStateRequest>,
         ) -> std::result::Result<
             tonic::Response<super::QueryConnectionConsensusStateResponse>,
+            tonic::Status,
+        >;
+        /// ConnectionParams queries all parameters of the ibc connection submodule.
+        async fn connection_params(
+            &self,
+            request: tonic::Request<super::QueryConnectionParamsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryConnectionParamsResponse>,
             tonic::Status,
         >;
     }
@@ -1574,6 +1633,52 @@ pub mod query_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = ConnectionConsensusStateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/ibc.core.connection.v1.Query/ConnectionParams" => {
+                    #[allow(non_camel_case_types)]
+                    struct ConnectionParamsSvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<super::QueryConnectionParamsRequest>
+                    for ConnectionParamsSvc<T> {
+                        type Response = super::QueryConnectionParamsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryConnectionParamsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).connection_params(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ConnectionParamsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
