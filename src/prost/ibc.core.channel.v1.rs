@@ -1,8 +1,11 @@
 /// Channel defines pipeline for exactly-once packet delivery between specific
 /// modules on separate blockchains, which has at least one end capable of
 /// sending packets and one end capable of receiving packets.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
-#[cfg_attr(feature = "json-schema", derive(::schemars::JsonSchema))]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(
+    all(feature = "json-schema", feature = "std"),
+    derive(::schemars::JsonSchema)
+)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Channel {
@@ -22,10 +25,17 @@ pub struct Channel {
     /// opaque channel version, which is agreed upon during the handshake
     #[prost(string, tag = "5")]
     pub version: ::prost::alloc::string::String,
+    /// upgrade sequence indicates the latest upgrade attempt performed by this channel
+    /// the value of 0 indicates the channel has never been upgraded
+    #[prost(uint64, tag = "6")]
+    pub upgrade_sequence: u64,
+    /// flush status indicates the current status of inflight packet flushing on the channel end
+    #[prost(enumeration = "FlushStatus", tag = "7")]
+    pub flush_status: i32,
 }
 /// IdentifiedChannel defines a channel with additional port and channel
 /// identifier fields.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct IdentifiedChannel {
@@ -53,8 +63,11 @@ pub struct IdentifiedChannel {
     pub channel_id: ::prost::alloc::string::String,
 }
 /// Counterparty defines a channel end counterparty
-#[derive(::serde::Serialize, ::serde::Deserialize)]
-#[cfg_attr(feature = "json-schema", derive(::schemars::JsonSchema))]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(
+    all(feature = "json-schema", feature = "std"),
+    derive(::schemars::JsonSchema)
+)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Counterparty {
@@ -66,7 +79,7 @@ pub struct Counterparty {
     pub channel_id: ::prost::alloc::string::String,
 }
 /// Packet defines a type that carries data across different chains through IBC
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Packet {
@@ -101,7 +114,7 @@ pub struct Packet {
 /// packet commitments, acknowledgements, and receipts.
 /// Caller is responsible for knowing the context necessary to interpret this
 /// state as a commitment, acknowledgement, or a receipt.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PacketState {
@@ -121,7 +134,7 @@ pub struct PacketState {
 /// PacketId is an identifer for a unique Packet
 /// Source chains refer to packets by source port/channel
 /// Destination chains refer to packets by destination port/channel
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PacketId {
@@ -142,7 +155,7 @@ pub struct PacketId {
 /// The first byte of any message with this format will be the non-ASCII values
 /// `0xaa` (result) or `0xb2` (error). Implemented as defined by ICS:
 /// <https://github.com/cosmos/ibc/tree/master/spec/core/ics-004-channel-and-packet-semantics#acknowledgement-envelope>
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Acknowledgement {
@@ -153,7 +166,7 @@ pub struct Acknowledgement {
 /// Nested message and enum types in `Acknowledgement`.
 pub mod acknowledgement {
     /// response contains either a result or an error and must be non-empty
-    #[derive(::serde::Serialize, ::serde::Deserialize)]
+    #[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Response {
@@ -163,9 +176,23 @@ pub mod acknowledgement {
         Error(::prost::alloc::string::String),
     }
 }
+/// Timeout defines an execution deadline structure for 04-channel handlers.
+/// This includes packet lifecycle handlers as well as the upgrade handshake handlers.
+/// A valid Timeout contains either one or both of a timestamp and block height (sequence).
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Timeout {
+    /// block height after which the packet or upgrade times out
+    #[prost(message, optional, tag = "1")]
+    pub height: ::core::option::Option<super::super::client::v1::Height>,
+    /// block timestamp (in nanoseconds) after which the packet or upgrade times out
+    #[prost(uint64, tag = "2")]
+    pub timestamp: u64,
+}
 /// State defines if a channel is in one of the following states:
 /// CLOSED, INIT, TRYOPEN, OPEN, INITUPGRADE, TRYUPGRADE or UNINITIALIZED.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum State {
@@ -187,6 +214,9 @@ pub enum State {
     /// A channel has acknowledged the upgrade handshake step on the counterparty chain.
     /// The counterparty chain that accepts the upgrade should set the channel state from OPEN to UPGRADETRY.
     Tryupgrade = 6,
+    /// A channel has verified the counterparty chain is in UPGRADETRY.
+    /// However, there are still in-flight packets on both ends waiting to be flushed before it can move to OPEN.
+    Ackupgrade = 7,
 }
 impl State {
     /// String value of the enum field names used in the ProtoBuf definition.
@@ -202,6 +232,7 @@ impl State {
             State::Closed => "STATE_CLOSED",
             State::Initupgrade => "STATE_INITUPGRADE",
             State::Tryupgrade => "STATE_TRYUPGRADE",
+            State::Ackupgrade => "STATE_ACKUPGRADE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -214,12 +245,47 @@ impl State {
             "STATE_CLOSED" => Some(Self::Closed),
             "STATE_INITUPGRADE" => Some(Self::Initupgrade),
             "STATE_TRYUPGRADE" => Some(Self::Tryupgrade),
+            "STATE_ACKUPGRADE" => Some(Self::Ackupgrade),
+            _ => None,
+        }
+    }
+}
+/// FlushStatus defines the status of a channel end pertaining to in-flight packets during an upgrade handshake.
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum FlushStatus {
+    /// Default status, the channel is not in an upgrade handshake
+    NotinflushUnspecified = 0,
+    /// The channel end is flushing in-flight packets
+    Flushing = 1,
+    /// There are no in-flight packets left and the channel end is ready to move to OPEN
+    Flushcomplete = 2,
+}
+impl FlushStatus {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            FlushStatus::NotinflushUnspecified => "FLUSH_STATUS_NOTINFLUSH_UNSPECIFIED",
+            FlushStatus::Flushing => "FLUSH_STATUS_FLUSHING",
+            FlushStatus::Flushcomplete => "FLUSH_STATUS_FLUSHCOMPLETE",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "FLUSH_STATUS_NOTINFLUSH_UNSPECIFIED" => Some(Self::NotinflushUnspecified),
+            "FLUSH_STATUS_FLUSHING" => Some(Self::Flushing),
+            "FLUSH_STATUS_FLUSHCOMPLETE" => Some(Self::Flushcomplete),
             _ => None,
         }
     }
 }
 /// Order defines if a channel is ORDERED or UNORDERED
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum Order {
@@ -254,7 +320,7 @@ impl Order {
     }
 }
 /// GenesisState defines the ibc channel submodule's genesis state.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenesisState {
@@ -278,7 +344,7 @@ pub struct GenesisState {
 }
 /// PacketSequence defines the genesis type necessary to retrieve and store
 /// next send and receive sequences.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PacketSequence {
@@ -289,18 +355,33 @@ pub struct PacketSequence {
     #[prost(uint64, tag = "3")]
     pub sequence: u64,
 }
-/// UpgradeTimeout defines a type which encapsulates the upgrade timeout values at which the counterparty
-/// must no longer proceed with the upgrade handshake.
+/// Upgrade is a verifiable type which contains the relevant information
+/// for an attempted upgrade. It provides the proposed changes to the channel
+/// end, the timeout for this upgrade attempt and the latest packet sequence sent
+/// to allow the counterparty to block sends after the upgrade has started.
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpgradeTimeout {
-    /// block height after which the upgrade times out
+pub struct Upgrade {
     #[prost(message, optional, tag = "1")]
-    pub timeout_height: ::core::option::Option<super::super::client::v1::Height>,
-    /// block timestamp (in nanoseconds) after which the upgrade times out
-    #[prost(uint64, tag = "2")]
-    pub timeout_timestamp: u64,
+    pub fields: ::core::option::Option<UpgradeFields>,
+    #[prost(message, optional, tag = "2")]
+    pub timeout: ::core::option::Option<Timeout>,
+    #[prost(uint64, tag = "3")]
+    pub latest_sequence_send: u64,
+}
+/// UpgradeFields are the fields in a channel end which may be changed
+/// during a channel upgrade.
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpgradeFields {
+    #[prost(enumeration = "Order", tag = "1")]
+    pub ordering: i32,
+    #[prost(string, repeated, tag = "2")]
+    pub connection_hops: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(string, tag = "3")]
+    pub version: ::prost::alloc::string::String,
 }
 /// ErrorReceipt defines a type which encapsulates the upgrade sequence and error associated with the
 /// upgrade handshake failure. When a channel upgrade handshake is aborted both chains are expected to increment to the
@@ -314,11 +395,11 @@ pub struct ErrorReceipt {
     pub sequence: u64,
     /// the error message detailing the cause of failure
     #[prost(string, tag = "2")]
-    pub error: ::prost::alloc::string::String,
+    pub message: ::prost::alloc::string::String,
 }
 /// MsgChannelOpenInit defines an sdk.Msg to initialize a channel handshake. It
 /// is called by a relayer on Chain A.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgChannelOpenInit {
@@ -330,7 +411,7 @@ pub struct MsgChannelOpenInit {
     pub signer: ::prost::alloc::string::String,
 }
 /// MsgChannelOpenInitResponse defines the Msg/ChannelOpenInit response type.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgChannelOpenInitResponse {
@@ -342,7 +423,7 @@ pub struct MsgChannelOpenInitResponse {
 /// MsgChannelOpenInit defines a msg sent by a Relayer to try to open a channel
 /// on Chain B. The version field within the Channel field has been deprecated. Its
 /// value will be ignored by core IBC.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgChannelOpenTry {
@@ -365,7 +446,7 @@ pub struct MsgChannelOpenTry {
     pub signer: ::prost::alloc::string::String,
 }
 /// MsgChannelOpenTryResponse defines the Msg/ChannelOpenTry response type.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgChannelOpenTryResponse {
@@ -376,7 +457,7 @@ pub struct MsgChannelOpenTryResponse {
 }
 /// MsgChannelOpenAck defines a msg sent by a Relayer to Chain A to acknowledge
 /// the change of channel state to TRYOPEN on Chain B.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgChannelOpenAck {
@@ -396,13 +477,13 @@ pub struct MsgChannelOpenAck {
     pub signer: ::prost::alloc::string::String,
 }
 /// MsgChannelOpenAckResponse defines the Msg/ChannelOpenAck response type.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgChannelOpenAckResponse {}
 /// MsgChannelOpenConfirm defines a msg sent by a Relayer to Chain B to
 /// acknowledge the change of channel state to OPEN on Chain A.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgChannelOpenConfirm {
@@ -419,13 +500,13 @@ pub struct MsgChannelOpenConfirm {
 }
 /// MsgChannelOpenConfirmResponse defines the Msg/ChannelOpenConfirm response
 /// type.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgChannelOpenConfirmResponse {}
 /// MsgChannelCloseInit defines a msg sent by a Relayer to Chain A
 /// to close a channel with Chain B.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgChannelCloseInit {
@@ -437,13 +518,13 @@ pub struct MsgChannelCloseInit {
     pub signer: ::prost::alloc::string::String,
 }
 /// MsgChannelCloseInitResponse defines the Msg/ChannelCloseInit response type.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgChannelCloseInitResponse {}
 /// MsgChannelCloseConfirm defines a msg sent by a Relayer to Chain B
 /// to acknowledge the change of channel state to CLOSED on Chain A.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgChannelCloseConfirm {
@@ -460,12 +541,12 @@ pub struct MsgChannelCloseConfirm {
 }
 /// MsgChannelCloseConfirmResponse defines the Msg/ChannelCloseConfirm response
 /// type.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgChannelCloseConfirmResponse {}
 /// MsgRecvPacket receives incoming IBC packet
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgRecvPacket {
@@ -479,7 +560,7 @@ pub struct MsgRecvPacket {
     pub signer: ::prost::alloc::string::String,
 }
 /// MsgRecvPacketResponse defines the Msg/RecvPacket response type.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgRecvPacketResponse {
@@ -487,7 +568,7 @@ pub struct MsgRecvPacketResponse {
     pub result: i32,
 }
 /// MsgTimeout receives timed-out packet
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgTimeout {
@@ -503,7 +584,7 @@ pub struct MsgTimeout {
     pub signer: ::prost::alloc::string::String,
 }
 /// MsgTimeoutResponse defines the Msg/Timeout response type.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgTimeoutResponse {
@@ -511,7 +592,7 @@ pub struct MsgTimeoutResponse {
     pub result: i32,
 }
 /// MsgTimeoutOnClose timed-out packet upon counterparty channel closure.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgTimeoutOnClose {
@@ -529,7 +610,7 @@ pub struct MsgTimeoutOnClose {
     pub signer: ::prost::alloc::string::String,
 }
 /// MsgTimeoutOnCloseResponse defines the Msg/TimeoutOnClose response type.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgTimeoutOnCloseResponse {
@@ -537,7 +618,7 @@ pub struct MsgTimeoutOnCloseResponse {
     pub result: i32,
 }
 /// MsgAcknowledgement receives incoming IBC acknowledgement
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgAcknowledgement {
@@ -553,14 +634,14 @@ pub struct MsgAcknowledgement {
     pub signer: ::prost::alloc::string::String,
 }
 /// MsgAcknowledgementResponse defines the Msg/Acknowledgement response type.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgAcknowledgementResponse {
     #[prost(enumeration = "ResponseResultType", tag = "1")]
     pub result: i32,
 }
-/// MsgChanelUpgradeInit defines the request type for the ChannelUpgradeInit rpc
+/// MsgChannelUpgradeInit defines the request type for the ChannelUpgradeInit rpc
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -570,19 +651,24 @@ pub struct MsgChannelUpgradeInit {
     #[prost(string, tag = "2")]
     pub channel_id: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "3")]
-    pub proposed_upgrade_channel: ::core::option::Option<Channel>,
+    pub fields: ::core::option::Option<UpgradeFields>,
     #[prost(message, optional, tag = "4")]
-    pub timeout_height: ::core::option::Option<super::super::client::v1::Height>,
-    #[prost(uint64, tag = "5")]
-    pub timeout_timestamp: u64,
-    #[prost(string, tag = "6")]
+    pub timeout: ::core::option::Option<Timeout>,
+    #[prost(string, tag = "5")]
     pub signer: ::prost::alloc::string::String,
 }
 /// MsgChannelUpgradeInitResponse defines the MsgChannelUpgradeInit response type
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgChannelUpgradeInitResponse {}
+pub struct MsgChannelUpgradeInitResponse {
+    #[prost(string, tag = "1")]
+    pub channel_id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "2")]
+    pub upgrade: ::core::option::Option<Upgrade>,
+    #[prost(uint64, tag = "3")]
+    pub upgrade_sequence: u64,
+}
 /// MsgChannelUpgradeTry defines the request type for the ChannelUpgradeTry rpc
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -592,32 +678,39 @@ pub struct MsgChannelUpgradeTry {
     pub port_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub channel_id: ::prost::alloc::string::String,
-    #[prost(message, optional, tag = "3")]
-    pub counterparty_channel: ::core::option::Option<Channel>,
-    #[prost(uint64, tag = "4")]
-    pub counterparty_sequence: u64,
+    #[prost(string, repeated, tag = "3")]
+    pub proposed_upgrade_connection_hops: ::prost::alloc::vec::Vec<
+        ::prost::alloc::string::String,
+    >,
+    #[prost(message, optional, tag = "4")]
+    pub upgrade_timeout: ::core::option::Option<Timeout>,
     #[prost(message, optional, tag = "5")]
-    pub proposed_upgrade_channel: ::core::option::Option<Channel>,
-    #[prost(message, optional, tag = "6")]
-    pub timeout_height: ::core::option::Option<super::super::client::v1::Height>,
-    #[prost(uint64, tag = "7")]
-    pub timeout_timestamp: u64,
-    #[prost(bytes = "vec", tag = "8")]
+    pub counterparty_proposed_upgrade: ::core::option::Option<Upgrade>,
+    #[prost(uint64, tag = "6")]
+    pub counterparty_upgrade_sequence: u64,
+    #[prost(bytes = "vec", tag = "7")]
     pub proof_channel: ::prost::alloc::vec::Vec<u8>,
-    #[prost(bytes = "vec", tag = "9")]
-    pub proof_upgrade_timeout: ::prost::alloc::vec::Vec<u8>,
-    #[prost(bytes = "vec", tag = "10")]
-    pub proof_upgrade_sequence: ::prost::alloc::vec::Vec<u8>,
-    #[prost(message, optional, tag = "11")]
+    #[prost(bytes = "vec", tag = "8")]
+    pub proof_upgrade: ::prost::alloc::vec::Vec<u8>,
+    #[prost(message, optional, tag = "9")]
     pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
-    #[prost(string, tag = "12")]
+    #[prost(string, tag = "10")]
     pub signer: ::prost::alloc::string::String,
 }
 /// MsgChannelUpgradeTryResponse defines the MsgChannelUpgradeTry response type
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgChannelUpgradeTryResponse {}
+pub struct MsgChannelUpgradeTryResponse {
+    #[prost(string, tag = "1")]
+    pub channel_id: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "2")]
+    pub upgrade: ::core::option::Option<Upgrade>,
+    #[prost(uint64, tag = "3")]
+    pub upgrade_sequence: u64,
+    #[prost(enumeration = "ResponseResultType", tag = "4")]
+    pub result: i32,
+}
 /// MsgChannelUpgradeAck defines the request type for the ChannelUpgradeAck rpc
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -627,49 +720,50 @@ pub struct MsgChannelUpgradeAck {
     pub port_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub channel_id: ::prost::alloc::string::String,
-    #[prost(message, optional, tag = "3")]
-    pub counterparty_channel: ::core::option::Option<Channel>,
-    #[prost(bytes = "vec", tag = "4")]
-    pub proof_channel: ::prost::alloc::vec::Vec<u8>,
+    #[prost(enumeration = "FlushStatus", tag = "3")]
+    pub counterparty_flush_status: i32,
+    #[prost(message, optional, tag = "4")]
+    pub counterparty_upgrade: ::core::option::Option<Upgrade>,
     #[prost(bytes = "vec", tag = "5")]
-    pub proof_upgrade_sequence: ::prost::alloc::vec::Vec<u8>,
-    #[prost(message, optional, tag = "6")]
+    pub proof_channel: ::prost::alloc::vec::Vec<u8>,
+    #[prost(bytes = "vec", tag = "6")]
+    pub proof_upgrade: ::prost::alloc::vec::Vec<u8>,
+    #[prost(message, optional, tag = "7")]
     pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
-    #[prost(string, tag = "7")]
+    #[prost(string, tag = "8")]
     pub signer: ::prost::alloc::string::String,
 }
 /// MsgChannelUpgradeAckResponse defines MsgChannelUpgradeAck response type
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgChannelUpgradeAckResponse {}
-/// MsgChannelUpgradeConfirm defines the request type for the ChannelUpgradeConfirm rpc
+pub struct MsgChannelUpgradeAckResponse {
+    #[prost(enumeration = "ResponseResultType", tag = "1")]
+    pub result: i32,
+}
+/// MsgChannelUpgradeOpen defines the request type for the ChannelUpgradeOpen rpc
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgChannelUpgradeConfirm {
+pub struct MsgChannelUpgradeOpen {
     #[prost(string, tag = "1")]
     pub port_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub channel_id: ::prost::alloc::string::String,
-    #[prost(message, optional, tag = "3")]
-    pub counterparty_channel: ::core::option::Option<Channel>,
+    #[prost(enumeration = "State", tag = "3")]
+    pub counterparty_channel_state: i32,
     #[prost(bytes = "vec", tag = "4")]
     pub proof_channel: ::prost::alloc::vec::Vec<u8>,
-    #[prost(bytes = "vec", tag = "5")]
-    pub proof_upgrade_error: ::prost::alloc::vec::Vec<u8>,
-    #[prost(bytes = "vec", tag = "6")]
-    pub proof_upgrade_sequence: ::prost::alloc::vec::Vec<u8>,
-    #[prost(message, optional, tag = "7")]
+    #[prost(message, optional, tag = "5")]
     pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
-    #[prost(string, tag = "8")]
+    #[prost(string, tag = "6")]
     pub signer: ::prost::alloc::string::String,
 }
-/// MsgChannelUpgradeConfirmResponse defines the MsgChannelUpgradeConfirm response type
+/// MsgChannelUpgradeOpenResponse defines the MsgChannelUpgradeOpen response type
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgChannelUpgradeConfirmResponse {}
+pub struct MsgChannelUpgradeOpenResponse {}
 /// MsgChannelUpgradeTimeout defines the request type for the ChannelUpgradeTimeout rpc
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -696,7 +790,10 @@ pub struct MsgChannelUpgradeTimeout {
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgChannelUpgradeTimeoutResponse {}
+pub struct MsgChannelUpgradeTimeoutResponse {
+    #[prost(enumeration = "ResponseResultType", tag = "1")]
+    pub result: i32,
+}
 /// MsgChannelUpgradeCancel defines the request type for the ChannelUpgradeCancel rpc
 #[derive(::serde::Serialize, ::serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -721,7 +818,7 @@ pub struct MsgChannelUpgradeCancel {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgChannelUpgradeCancelResponse {}
 /// ResponseResultType defines the possible outcomes of the execution of a message
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum ResponseResultType {
@@ -731,6 +828,8 @@ pub enum ResponseResultType {
     Noop = 1,
     /// The message was executed successfully
     Success = 2,
+    /// The message was executed unsuccessfully
+    Failure = 3,
 }
 impl ResponseResultType {
     /// String value of the enum field names used in the ProtoBuf definition.
@@ -742,6 +841,7 @@ impl ResponseResultType {
             ResponseResultType::Unspecified => "RESPONSE_RESULT_TYPE_UNSPECIFIED",
             ResponseResultType::Noop => "RESPONSE_RESULT_TYPE_NOOP",
             ResponseResultType::Success => "RESPONSE_RESULT_TYPE_SUCCESS",
+            ResponseResultType::Failure => "RESPONSE_RESULT_TYPE_FAILURE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -750,6 +850,7 @@ impl ResponseResultType {
             "RESPONSE_RESULT_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
             "RESPONSE_RESULT_TYPE_NOOP" => Some(Self::Noop),
             "RESPONSE_RESULT_TYPE_SUCCESS" => Some(Self::Success),
+            "RESPONSE_RESULT_TYPE_FAILURE" => Some(Self::Failure),
             _ => None,
         }
     }
@@ -1186,12 +1287,12 @@ pub mod msg_client {
                 .insert(GrpcMethod::new("ibc.core.channel.v1.Msg", "ChannelUpgradeAck"));
             self.inner.unary(req, path, codec).await
         }
-        /// ChannelUpgradeConfirm defines a rpc handler method for MsgChannelUpgradeConfirm.
-        pub async fn channel_upgrade_confirm(
+        /// ChannelUpgradeOpen defines a rpc handler method for MsgChannelUpgradeOpen.
+        pub async fn channel_upgrade_open(
             &mut self,
-            request: impl tonic::IntoRequest<super::MsgChannelUpgradeConfirm>,
+            request: impl tonic::IntoRequest<super::MsgChannelUpgradeOpen>,
         ) -> std::result::Result<
-            tonic::Response<super::MsgChannelUpgradeConfirmResponse>,
+            tonic::Response<super::MsgChannelUpgradeOpenResponse>,
             tonic::Status,
         > {
             self.inner
@@ -1205,12 +1306,12 @@ pub mod msg_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/ibc.core.channel.v1.Msg/ChannelUpgradeConfirm",
+                "/ibc.core.channel.v1.Msg/ChannelUpgradeOpen",
             );
             let mut req = request.into_request();
             req.extensions_mut()
                 .insert(
-                    GrpcMethod::new("ibc.core.channel.v1.Msg", "ChannelUpgradeConfirm"),
+                    GrpcMethod::new("ibc.core.channel.v1.Msg", "ChannelUpgradeOpen"),
                 );
             self.inner.unary(req, path, codec).await
         }
@@ -1385,12 +1486,12 @@ pub mod msg_server {
             tonic::Response<super::MsgChannelUpgradeAckResponse>,
             tonic::Status,
         >;
-        /// ChannelUpgradeConfirm defines a rpc handler method for MsgChannelUpgradeConfirm.
-        async fn channel_upgrade_confirm(
+        /// ChannelUpgradeOpen defines a rpc handler method for MsgChannelUpgradeOpen.
+        async fn channel_upgrade_open(
             &self,
-            request: tonic::Request<super::MsgChannelUpgradeConfirm>,
+            request: tonic::Request<super::MsgChannelUpgradeOpen>,
         ) -> std::result::Result<
-            tonic::Response<super::MsgChannelUpgradeConfirmResponse>,
+            tonic::Response<super::MsgChannelUpgradeOpenResponse>,
             tonic::Status,
         >;
         /// ChannelUpgradeTimeout defines a rpc handler method for MsgChannelUpgradeTimeout.
@@ -2064,25 +2165,25 @@ pub mod msg_server {
                     };
                     Box::pin(fut)
                 }
-                "/ibc.core.channel.v1.Msg/ChannelUpgradeConfirm" => {
+                "/ibc.core.channel.v1.Msg/ChannelUpgradeOpen" => {
                     #[allow(non_camel_case_types)]
-                    struct ChannelUpgradeConfirmSvc<T: Msg>(pub Arc<T>);
+                    struct ChannelUpgradeOpenSvc<T: Msg>(pub Arc<T>);
                     impl<
                         T: Msg,
-                    > tonic::server::UnaryService<super::MsgChannelUpgradeConfirm>
-                    for ChannelUpgradeConfirmSvc<T> {
-                        type Response = super::MsgChannelUpgradeConfirmResponse;
+                    > tonic::server::UnaryService<super::MsgChannelUpgradeOpen>
+                    for ChannelUpgradeOpenSvc<T> {
+                        type Response = super::MsgChannelUpgradeOpenResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
                         >;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::MsgChannelUpgradeConfirm>,
+                            request: tonic::Request<super::MsgChannelUpgradeOpen>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).channel_upgrade_confirm(request).await
+                                (*inner).channel_upgrade_open(request).await
                             };
                             Box::pin(fut)
                         }
@@ -2094,7 +2195,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = ChannelUpgradeConfirmSvc(inner);
+                        let method = ChannelUpgradeOpenSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -2244,7 +2345,7 @@ pub mod msg_server {
     }
 }
 /// QueryChannelRequest is the request type for the Query/Channel RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryChannelRequest {
@@ -2258,7 +2359,7 @@ pub struct QueryChannelRequest {
 /// QueryChannelResponse is the response type for the Query/Channel RPC method.
 /// Besides the Channel end, it includes a proof and the height from which the
 /// proof was retrieved.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryChannelResponse {
@@ -2273,7 +2374,7 @@ pub struct QueryChannelResponse {
     pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
 }
 /// QueryChannelsRequest is the request type for the Query/Channels RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryChannelsRequest {
@@ -2284,7 +2385,7 @@ pub struct QueryChannelsRequest {
     >,
 }
 /// QueryChannelsResponse is the response type for the Query/Channels RPC method.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryChannelsResponse {
@@ -2302,7 +2403,7 @@ pub struct QueryChannelsResponse {
 }
 /// QueryConnectionChannelsRequest is the request type for the
 /// Query/QueryConnectionChannels RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConnectionChannelsRequest {
@@ -2317,7 +2418,7 @@ pub struct QueryConnectionChannelsRequest {
 }
 /// QueryConnectionChannelsResponse is the Response type for the
 /// Query/QueryConnectionChannels RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConnectionChannelsResponse {
@@ -2335,7 +2436,7 @@ pub struct QueryConnectionChannelsResponse {
 }
 /// QueryChannelClientStateRequest is the request type for the Query/ClientState
 /// RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryChannelClientStateRequest {
@@ -2348,7 +2449,7 @@ pub struct QueryChannelClientStateRequest {
 }
 /// QueryChannelClientStateResponse is the Response type for the
 /// Query/QueryChannelClientState RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryChannelClientStateResponse {
@@ -2366,7 +2467,7 @@ pub struct QueryChannelClientStateResponse {
 }
 /// QueryChannelConsensusStateRequest is the request type for the
 /// Query/ConsensusState RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryChannelConsensusStateRequest {
@@ -2385,7 +2486,7 @@ pub struct QueryChannelConsensusStateRequest {
 }
 /// QueryChannelClientStateResponse is the Response type for the
 /// Query/QueryChannelClientState RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryChannelConsensusStateResponse {
@@ -2406,7 +2507,7 @@ pub struct QueryChannelConsensusStateResponse {
 }
 /// QueryPacketCommitmentRequest is the request type for the
 /// Query/PacketCommitment RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryPacketCommitmentRequest {
@@ -2423,7 +2524,7 @@ pub struct QueryPacketCommitmentRequest {
 /// QueryPacketCommitmentResponse defines the client query response for a packet
 /// which also includes a proof and the height from which the proof was
 /// retrieved
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryPacketCommitmentResponse {
@@ -2439,7 +2540,7 @@ pub struct QueryPacketCommitmentResponse {
 }
 /// QueryPacketCommitmentsRequest is the request type for the
 /// Query/QueryPacketCommitments RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryPacketCommitmentsRequest {
@@ -2457,7 +2558,7 @@ pub struct QueryPacketCommitmentsRequest {
 }
 /// QueryPacketCommitmentsResponse is the request type for the
 /// Query/QueryPacketCommitments RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryPacketCommitmentsResponse {
@@ -2474,7 +2575,7 @@ pub struct QueryPacketCommitmentsResponse {
 }
 /// QueryPacketReceiptRequest is the request type for the
 /// Query/PacketReceipt RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryPacketReceiptRequest {
@@ -2491,7 +2592,7 @@ pub struct QueryPacketReceiptRequest {
 /// QueryPacketReceiptResponse defines the client query response for a packet
 /// receipt which also includes a proof, and the height from which the proof was
 /// retrieved
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryPacketReceiptResponse {
@@ -2507,7 +2608,7 @@ pub struct QueryPacketReceiptResponse {
 }
 /// QueryPacketAcknowledgementRequest is the request type for the
 /// Query/PacketAcknowledgement RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryPacketAcknowledgementRequest {
@@ -2524,7 +2625,7 @@ pub struct QueryPacketAcknowledgementRequest {
 /// QueryPacketAcknowledgementResponse defines the client query response for a
 /// packet which also includes a proof and the height from which the
 /// proof was retrieved
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryPacketAcknowledgementResponse {
@@ -2540,7 +2641,7 @@ pub struct QueryPacketAcknowledgementResponse {
 }
 /// QueryPacketAcknowledgementsRequest is the request type for the
 /// Query/QueryPacketCommitments RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryPacketAcknowledgementsRequest {
@@ -2561,7 +2662,7 @@ pub struct QueryPacketAcknowledgementsRequest {
 }
 /// QueryPacketAcknowledgemetsResponse is the request type for the
 /// Query/QueryPacketAcknowledgements RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryPacketAcknowledgementsResponse {
@@ -2578,7 +2679,7 @@ pub struct QueryPacketAcknowledgementsResponse {
 }
 /// QueryUnreceivedPacketsRequest is the request type for the
 /// Query/UnreceivedPackets RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryUnreceivedPacketsRequest {
@@ -2594,7 +2695,7 @@ pub struct QueryUnreceivedPacketsRequest {
 }
 /// QueryUnreceivedPacketsResponse is the response type for the
 /// Query/UnreceivedPacketCommitments RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryUnreceivedPacketsResponse {
@@ -2607,7 +2708,7 @@ pub struct QueryUnreceivedPacketsResponse {
 }
 /// QueryUnreceivedAcks is the request type for the
 /// Query/UnreceivedAcks RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryUnreceivedAcksRequest {
@@ -2623,7 +2724,7 @@ pub struct QueryUnreceivedAcksRequest {
 }
 /// QueryUnreceivedAcksResponse is the response type for the
 /// Query/UnreceivedAcks RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryUnreceivedAcksResponse {
@@ -2636,7 +2737,7 @@ pub struct QueryUnreceivedAcksResponse {
 }
 /// QueryNextSequenceReceiveRequest is the request type for the
 /// Query/QueryNextSequenceReceiveRequest RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryNextSequenceReceiveRequest {
@@ -2649,13 +2750,61 @@ pub struct QueryNextSequenceReceiveRequest {
 }
 /// QuerySequenceResponse is the request type for the
 /// Query/QueryNextSequenceReceiveResponse RPC method
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryNextSequenceReceiveResponse {
     /// next sequence receive number
     #[prost(uint64, tag = "1")]
     pub next_sequence_receive: u64,
+    /// merkle proof of existence
+    #[prost(bytes = "vec", tag = "2")]
+    pub proof: ::prost::alloc::vec::Vec<u8>,
+    /// height at which the proof was retrieved
+    #[prost(message, optional, tag = "3")]
+    pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
+}
+/// QueryUpgradeErrorRequest is the request type for the Query/QueryUpgradeError RPC method
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryUpgradeErrorRequest {
+    #[prost(string, tag = "1")]
+    pub port_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub channel_id: ::prost::alloc::string::String,
+}
+/// QueryUpgradeErrorResponse is the response type for the Query/QueryUpgradeError RPC method
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryUpgradeErrorResponse {
+    #[prost(message, optional, tag = "1")]
+    pub error_receipt: ::core::option::Option<ErrorReceipt>,
+    /// merkle proof of existence
+    #[prost(bytes = "vec", tag = "2")]
+    pub proof: ::prost::alloc::vec::Vec<u8>,
+    /// height at which the proof was retrieved
+    #[prost(message, optional, tag = "3")]
+    pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
+}
+/// QueryUpgradeRequest is the request type for the QueryUpgradeRequest RPC method
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryUpgradeRequest {
+    #[prost(string, tag = "1")]
+    pub port_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub channel_id: ::prost::alloc::string::String,
+}
+/// QueryUpgradeResponse is the response type for the QueryUpgradeResponse RPC method
+#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryUpgradeResponse {
+    #[prost(message, optional, tag = "1")]
+    pub upgrade: ::core::option::Option<Upgrade>,
     /// merkle proof of existence
     #[prost(bytes = "vec", tag = "2")]
     pub proof: ::prost::alloc::vec::Vec<u8>,
@@ -3117,6 +3266,58 @@ pub mod query_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+        /// UpgradeError returns the error receipt if the upgrade handshake failed.
+        pub async fn upgrade_error(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryUpgradeErrorRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryUpgradeErrorResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/ibc.core.channel.v1.Query/UpgradeError",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("ibc.core.channel.v1.Query", "UpgradeError"));
+            self.inner.unary(req, path, codec).await
+        }
+        /// Upgrade returns the upgrade for a given port and channel id.
+        pub async fn upgrade(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryUpgradeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryUpgradeResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/ibc.core.channel.v1.Query/Upgrade",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("ibc.core.channel.v1.Query", "Upgrade"));
+            self.inner.unary(req, path, codec).await
+        }
     }
 }
 /// Generated server implementations.
@@ -3237,6 +3438,22 @@ pub mod query_server {
             request: tonic::Request<super::QueryNextSequenceReceiveRequest>,
         ) -> std::result::Result<
             tonic::Response<super::QueryNextSequenceReceiveResponse>,
+            tonic::Status,
+        >;
+        /// UpgradeError returns the error receipt if the upgrade handshake failed.
+        async fn upgrade_error(
+            &self,
+            request: tonic::Request<super::QueryUpgradeErrorRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryUpgradeErrorResponse>,
+            tonic::Status,
+        >;
+        /// Upgrade returns the upgrade for a given port and channel id.
+        async fn upgrade(
+            &self,
+            request: tonic::Request<super::QueryUpgradeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryUpgradeResponse>,
             tonic::Status,
         >;
     }
@@ -3914,6 +4131,96 @@ pub mod query_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = NextSequenceReceiveSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/ibc.core.channel.v1.Query/UpgradeError" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpgradeErrorSvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<super::QueryUpgradeErrorRequest>
+                    for UpgradeErrorSvc<T> {
+                        type Response = super::QueryUpgradeErrorResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryUpgradeErrorRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).upgrade_error(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = UpgradeErrorSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/ibc.core.channel.v1.Query/Upgrade" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpgradeSvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<super::QueryUpgradeRequest>
+                    for UpgradeSvc<T> {
+                        type Response = super::QueryUpgradeResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryUpgradeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move { (*inner).upgrade(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = UpgradeSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
