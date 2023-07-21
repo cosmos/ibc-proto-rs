@@ -1,28 +1,44 @@
-/// MsgSubmitEvidence represents a message that supports submitting arbitrary
-/// Evidence of misbehavior such as equivocation or counterfactual signing.
+/// MsgGrantAllowance adds permission for Grantee to spend up to Allowance
+/// of fees from the account of Granter.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgSubmitEvidence {
+pub struct MsgGrantAllowance {
+    /// granter is the address of the user granting an allowance of their funds.
     #[prost(string, tag = "1")]
-    pub submitter: ::prost::alloc::string::String,
-    #[prost(message, optional, tag = "2")]
-    pub evidence: ::core::option::Option<super::super::super::google::protobuf::Any>,
+    pub granter: ::prost::alloc::string::String,
+    /// grantee is the address of the user being granted an allowance of another user's funds.
+    #[prost(string, tag = "2")]
+    pub grantee: ::prost::alloc::string::String,
+    /// allowance can be any of basic, periodic, allowed fee allowance.
+    #[prost(message, optional, tag = "3")]
+    pub allowance: ::core::option::Option<super::super::super::google::protobuf::Any>,
 }
-/// MsgSubmitEvidenceResponse defines the Msg/SubmitEvidence response type.
+/// MsgGrantAllowanceResponse defines the Msg/GrantAllowanceResponse response type.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgSubmitEvidenceResponse {
-    /// hash defines the hash of the evidence.
-    #[prost(bytes = "vec", tag = "4")]
-    pub hash: ::prost::alloc::vec::Vec<u8>,
+pub struct MsgGrantAllowanceResponse {}
+/// MsgRevokeAllowance removes any existing Allowance from Granter to Grantee.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgRevokeAllowance {
+    /// granter is the address of the user granting an allowance of their funds.
+    #[prost(string, tag = "1")]
+    pub granter: ::prost::alloc::string::String,
+    /// grantee is the address of the user being granted an allowance of another user's funds.
+    #[prost(string, tag = "2")]
+    pub grantee: ::prost::alloc::string::String,
 }
+/// MsgRevokeAllowanceResponse defines the Msg/RevokeAllowanceResponse response type.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgRevokeAllowanceResponse {}
 /// Generated client implementations.
 #[cfg(feature = "client")]
 pub mod msg_client {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
     use tonic::codegen::http::Uri;
-    /// Msg defines the evidence Msg service.
+    /// Msg defines the feegrant msg service.
     #[derive(Debug, Clone)]
     pub struct MsgClient<T> {
         inner: tonic::client::Grpc<T>,
@@ -103,13 +119,13 @@ pub mod msg_client {
             self.inner = self.inner.max_encoding_message_size(limit);
             self
         }
-        /// SubmitEvidence submits an arbitrary Evidence of misbehavior such as equivocation or
-        /// counterfactual signing.
-        pub async fn submit_evidence(
+        /// GrantAllowance grants fee allowance to the grantee on the granter's
+        /// account with the provided expiration time.
+        pub async fn grant_allowance(
             &mut self,
-            request: impl tonic::IntoRequest<super::MsgSubmitEvidence>,
+            request: impl tonic::IntoRequest<super::MsgGrantAllowance>,
         ) -> std::result::Result<
-            tonic::Response<super::MsgSubmitEvidenceResponse>,
+            tonic::Response<super::MsgGrantAllowanceResponse>,
             tonic::Status,
         > {
             self.inner
@@ -123,12 +139,41 @@ pub mod msg_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.evidence.v1beta1.Msg/SubmitEvidence",
+                "/cosmos.feegrant.v1beta1.Msg/GrantAllowance",
             );
             let mut req = request.into_request();
             req.extensions_mut()
                 .insert(
-                    GrpcMethod::new("cosmos.evidence.v1beta1.Msg", "SubmitEvidence"),
+                    GrpcMethod::new("cosmos.feegrant.v1beta1.Msg", "GrantAllowance"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// RevokeAllowance revokes any fee allowance of granter's account that
+        /// has been granted to the grantee.
+        pub async fn revoke_allowance(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgRevokeAllowance>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgRevokeAllowanceResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.feegrant.v1beta1.Msg/RevokeAllowance",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("cosmos.feegrant.v1beta1.Msg", "RevokeAllowance"),
                 );
             self.inner.unary(req, path, codec).await
         }
@@ -142,17 +187,26 @@ pub mod msg_server {
     /// Generated trait containing gRPC methods that should be implemented for use with MsgServer.
     #[async_trait]
     pub trait Msg: Send + Sync + 'static {
-        /// SubmitEvidence submits an arbitrary Evidence of misbehavior such as equivocation or
-        /// counterfactual signing.
-        async fn submit_evidence(
+        /// GrantAllowance grants fee allowance to the grantee on the granter's
+        /// account with the provided expiration time.
+        async fn grant_allowance(
             &self,
-            request: tonic::Request<super::MsgSubmitEvidence>,
+            request: tonic::Request<super::MsgGrantAllowance>,
         ) -> std::result::Result<
-            tonic::Response<super::MsgSubmitEvidenceResponse>,
+            tonic::Response<super::MsgGrantAllowanceResponse>,
+            tonic::Status,
+        >;
+        /// RevokeAllowance revokes any fee allowance of granter's account that
+        /// has been granted to the grantee.
+        async fn revoke_allowance(
+            &self,
+            request: tonic::Request<super::MsgRevokeAllowance>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgRevokeAllowanceResponse>,
             tonic::Status,
         >;
     }
-    /// Msg defines the evidence Msg service.
+    /// Msg defines the feegrant msg service.
     #[derive(Debug)]
     pub struct MsgServer<T: Msg> {
         inner: _Inner<T>,
@@ -232,23 +286,23 @@ pub mod msg_server {
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
             let inner = self.inner.clone();
             match req.uri().path() {
-                "/cosmos.evidence.v1beta1.Msg/SubmitEvidence" => {
+                "/cosmos.feegrant.v1beta1.Msg/GrantAllowance" => {
                     #[allow(non_camel_case_types)]
-                    struct SubmitEvidenceSvc<T: Msg>(pub Arc<T>);
-                    impl<T: Msg> tonic::server::UnaryService<super::MsgSubmitEvidence>
-                    for SubmitEvidenceSvc<T> {
-                        type Response = super::MsgSubmitEvidenceResponse;
+                    struct GrantAllowanceSvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgGrantAllowance>
+                    for GrantAllowanceSvc<T> {
+                        type Response = super::MsgGrantAllowanceResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
                         >;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::MsgSubmitEvidence>,
+                            request: tonic::Request<super::MsgGrantAllowance>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).submit_evidence(request).await
+                                (*inner).grant_allowance(request).await
                             };
                             Box::pin(fut)
                         }
@@ -260,7 +314,51 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = SubmitEvidenceSvc(inner);
+                        let method = GrantAllowanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/cosmos.feegrant.v1beta1.Msg/RevokeAllowance" => {
+                    #[allow(non_camel_case_types)]
+                    struct RevokeAllowanceSvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgRevokeAllowance>
+                    for RevokeAllowanceSvc<T> {
+                        type Response = super::MsgRevokeAllowanceResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgRevokeAllowance>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).revoke_allowance(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = RevokeAllowanceSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -314,59 +412,145 @@ pub mod msg_server {
         }
     }
     impl<T: Msg> tonic::server::NamedService for MsgServer<T> {
-        const NAME: &'static str = "cosmos.evidence.v1beta1.Msg";
+        const NAME: &'static str = "cosmos.feegrant.v1beta1.Msg";
     }
 }
-/// Equivocation implements the Evidence interface and defines evidence of double
-/// signing misbehavior.
+/// BasicAllowance implements Allowance with a one-time grant of coins
+/// that optionally expires. The grantee can use up to SpendLimit to cover fees.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Equivocation {
-    #[prost(int64, tag = "1")]
-    pub height: i64,
+pub struct BasicAllowance {
+    /// spend_limit specifies the maximum amount of coins that can be spent
+    /// by this allowance and will be updated as coins are spent. If it is
+    /// empty, there is no spend limit and any amount of coins can be spent.
+    #[prost(message, repeated, tag = "1")]
+    pub spend_limit: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
+    /// expiration specifies an optional time when this allowance expires
     #[prost(message, optional, tag = "2")]
-    pub time: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
-    #[prost(int64, tag = "3")]
-    pub power: i64,
-    #[prost(string, tag = "4")]
-    pub consensus_address: ::prost::alloc::string::String,
+    pub expiration: ::core::option::Option<
+        super::super::super::google::protobuf::Timestamp,
+    >,
 }
-/// QueryEvidenceRequest is the request type for the Query/Evidence RPC method.
+/// PeriodicAllowance extends Allowance to allow for both a maximum cap,
+/// as well as a limit per time period.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryEvidenceRequest {
-    /// evidence_hash defines the hash of the requested evidence.
-    #[prost(bytes = "vec", tag = "1")]
-    pub evidence_hash: ::prost::alloc::vec::Vec<u8>,
-}
-/// QueryEvidenceResponse is the response type for the Query/Evidence RPC method.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryEvidenceResponse {
-    /// evidence returns the requested evidence.
+pub struct PeriodicAllowance {
+    /// basic specifies a struct of `BasicAllowance`
     #[prost(message, optional, tag = "1")]
-    pub evidence: ::core::option::Option<super::super::super::google::protobuf::Any>,
+    pub basic: ::core::option::Option<BasicAllowance>,
+    /// period specifies the time duration in which period_spend_limit coins can
+    /// be spent before that allowance is reset
+    #[prost(message, optional, tag = "2")]
+    pub period: ::core::option::Option<super::super::super::google::protobuf::Duration>,
+    /// period_spend_limit specifies the maximum number of coins that can be spent
+    /// in the period
+    #[prost(message, repeated, tag = "3")]
+    pub period_spend_limit: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
+    /// period_can_spend is the number of coins left to be spent before the period_reset time
+    #[prost(message, repeated, tag = "4")]
+    pub period_can_spend: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
+    /// period_reset is the time at which this period resets and a new one begins,
+    /// it is calculated from the start time of the first transaction after the
+    /// last period ended
+    #[prost(message, optional, tag = "5")]
+    pub period_reset: ::core::option::Option<
+        super::super::super::google::protobuf::Timestamp,
+    >,
 }
-/// QueryEvidenceRequest is the request type for the Query/AllEvidence RPC
-/// method.
+/// AllowedMsgAllowance creates allowance only for specified message types.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryAllEvidenceRequest {
-    /// pagination defines an optional pagination for the request.
+pub struct AllowedMsgAllowance {
+    /// allowance can be any of basic and periodic fee allowance.
     #[prost(message, optional, tag = "1")]
+    pub allowance: ::core::option::Option<super::super::super::google::protobuf::Any>,
+    /// allowed_messages are the messages for which the grantee has the access.
+    #[prost(string, repeated, tag = "2")]
+    pub allowed_messages: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// Grant is stored in the KVStore to record a grant with full context
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Grant {
+    /// granter is the address of the user granting an allowance of their funds.
+    #[prost(string, tag = "1")]
+    pub granter: ::prost::alloc::string::String,
+    /// grantee is the address of the user being granted an allowance of another user's funds.
+    #[prost(string, tag = "2")]
+    pub grantee: ::prost::alloc::string::String,
+    /// allowance can be any of basic, periodic, allowed fee allowance.
+    #[prost(message, optional, tag = "3")]
+    pub allowance: ::core::option::Option<super::super::super::google::protobuf::Any>,
+}
+/// QueryAllowanceRequest is the request type for the Query/Allowance RPC method.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryAllowanceRequest {
+    /// granter is the address of the user granting an allowance of their funds.
+    #[prost(string, tag = "1")]
+    pub granter: ::prost::alloc::string::String,
+    /// grantee is the address of the user being granted an allowance of another user's funds.
+    #[prost(string, tag = "2")]
+    pub grantee: ::prost::alloc::string::String,
+}
+/// QueryAllowanceResponse is the response type for the Query/Allowance RPC method.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryAllowanceResponse {
+    /// allowance is a allowance granted for grantee by granter.
+    #[prost(message, optional, tag = "1")]
+    pub allowance: ::core::option::Option<Grant>,
+}
+/// QueryAllowancesRequest is the request type for the Query/Allowances RPC method.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryAllowancesRequest {
+    #[prost(string, tag = "1")]
+    pub grantee: ::prost::alloc::string::String,
+    /// pagination defines an pagination for the request.
+    #[prost(message, optional, tag = "2")]
     pub pagination: ::core::option::Option<
         super::super::base::query::v1beta1::PageRequest,
     >,
 }
-/// QueryAllEvidenceResponse is the response type for the Query/AllEvidence RPC
-/// method.
+/// QueryAllowancesResponse is the response type for the Query/Allowances RPC method.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryAllEvidenceResponse {
-    /// evidence returns all evidences.
+pub struct QueryAllowancesResponse {
+    /// allowances are allowance's granted for grantee by granter.
     #[prost(message, repeated, tag = "1")]
-    pub evidence: ::prost::alloc::vec::Vec<super::super::super::google::protobuf::Any>,
-    /// pagination defines the pagination in the response.
+    pub allowances: ::prost::alloc::vec::Vec<Grant>,
+    /// pagination defines an pagination for the response.
+    #[prost(message, optional, tag = "2")]
+    pub pagination: ::core::option::Option<
+        super::super::base::query::v1beta1::PageResponse,
+    >,
+}
+/// QueryAllowancesByGranterRequest is the request type for the Query/AllowancesByGranter RPC method.
+///
+/// Since: cosmos-sdk 0.46
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryAllowancesByGranterRequest {
+    #[prost(string, tag = "1")]
+    pub granter: ::prost::alloc::string::String,
+    /// pagination defines an pagination for the request.
+    #[prost(message, optional, tag = "2")]
+    pub pagination: ::core::option::Option<
+        super::super::base::query::v1beta1::PageRequest,
+    >,
+}
+/// QueryAllowancesByGranterResponse is the response type for the Query/AllowancesByGranter RPC method.
+///
+/// Since: cosmos-sdk 0.46
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryAllowancesByGranterResponse {
+    /// allowances that have been issued by the granter.
+    #[prost(message, repeated, tag = "1")]
+    pub allowances: ::prost::alloc::vec::Vec<Grant>,
+    /// pagination defines an pagination for the response.
     #[prost(message, optional, tag = "2")]
     pub pagination: ::core::option::Option<
         super::super::base::query::v1beta1::PageResponse,
@@ -459,12 +643,12 @@ pub mod query_client {
             self.inner = self.inner.max_encoding_message_size(limit);
             self
         }
-        /// Evidence queries evidence based on evidence hash.
-        pub async fn evidence(
+        /// Allowance returns fee granted to the grantee by the granter.
+        pub async fn allowance(
             &mut self,
-            request: impl tonic::IntoRequest<super::QueryEvidenceRequest>,
+            request: impl tonic::IntoRequest<super::QueryAllowanceRequest>,
         ) -> std::result::Result<
-            tonic::Response<super::QueryEvidenceResponse>,
+            tonic::Response<super::QueryAllowanceResponse>,
             tonic::Status,
         > {
             self.inner
@@ -478,19 +662,19 @@ pub mod query_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.evidence.v1beta1.Query/Evidence",
+                "/cosmos.feegrant.v1beta1.Query/Allowance",
             );
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("cosmos.evidence.v1beta1.Query", "Evidence"));
+                .insert(GrpcMethod::new("cosmos.feegrant.v1beta1.Query", "Allowance"));
             self.inner.unary(req, path, codec).await
         }
-        /// AllEvidence queries all evidence.
-        pub async fn all_evidence(
+        /// Allowances returns all the grants for address.
+        pub async fn allowances(
             &mut self,
-            request: impl tonic::IntoRequest<super::QueryAllEvidenceRequest>,
+            request: impl tonic::IntoRequest<super::QueryAllowancesRequest>,
         ) -> std::result::Result<
-            tonic::Response<super::QueryAllEvidenceResponse>,
+            tonic::Response<super::QueryAllowancesResponse>,
             tonic::Status,
         > {
             self.inner
@@ -504,11 +688,44 @@ pub mod query_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.evidence.v1beta1.Query/AllEvidence",
+                "/cosmos.feegrant.v1beta1.Query/Allowances",
             );
             let mut req = request.into_request();
             req.extensions_mut()
-                .insert(GrpcMethod::new("cosmos.evidence.v1beta1.Query", "AllEvidence"));
+                .insert(GrpcMethod::new("cosmos.feegrant.v1beta1.Query", "Allowances"));
+            self.inner.unary(req, path, codec).await
+        }
+        /// AllowancesByGranter returns all the grants given by an address
+        ///
+        /// Since: cosmos-sdk 0.46
+        pub async fn allowances_by_granter(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryAllowancesByGranterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryAllowancesByGranterResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.feegrant.v1beta1.Query/AllowancesByGranter",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "cosmos.feegrant.v1beta1.Query",
+                        "AllowancesByGranter",
+                    ),
+                );
             self.inner.unary(req, path, codec).await
         }
     }
@@ -521,20 +738,30 @@ pub mod query_server {
     /// Generated trait containing gRPC methods that should be implemented for use with QueryServer.
     #[async_trait]
     pub trait Query: Send + Sync + 'static {
-        /// Evidence queries evidence based on evidence hash.
-        async fn evidence(
+        /// Allowance returns fee granted to the grantee by the granter.
+        async fn allowance(
             &self,
-            request: tonic::Request<super::QueryEvidenceRequest>,
+            request: tonic::Request<super::QueryAllowanceRequest>,
         ) -> std::result::Result<
-            tonic::Response<super::QueryEvidenceResponse>,
+            tonic::Response<super::QueryAllowanceResponse>,
             tonic::Status,
         >;
-        /// AllEvidence queries all evidence.
-        async fn all_evidence(
+        /// Allowances returns all the grants for address.
+        async fn allowances(
             &self,
-            request: tonic::Request<super::QueryAllEvidenceRequest>,
+            request: tonic::Request<super::QueryAllowancesRequest>,
         ) -> std::result::Result<
-            tonic::Response<super::QueryAllEvidenceResponse>,
+            tonic::Response<super::QueryAllowancesResponse>,
+            tonic::Status,
+        >;
+        /// AllowancesByGranter returns all the grants given by an address
+        ///
+        /// Since: cosmos-sdk 0.46
+        async fn allowances_by_granter(
+            &self,
+            request: tonic::Request<super::QueryAllowancesByGranterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryAllowancesByGranterResponse>,
             tonic::Status,
         >;
     }
@@ -618,24 +845,24 @@ pub mod query_server {
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
             let inner = self.inner.clone();
             match req.uri().path() {
-                "/cosmos.evidence.v1beta1.Query/Evidence" => {
+                "/cosmos.feegrant.v1beta1.Query/Allowance" => {
                     #[allow(non_camel_case_types)]
-                    struct EvidenceSvc<T: Query>(pub Arc<T>);
+                    struct AllowanceSvc<T: Query>(pub Arc<T>);
                     impl<
                         T: Query,
-                    > tonic::server::UnaryService<super::QueryEvidenceRequest>
-                    for EvidenceSvc<T> {
-                        type Response = super::QueryEvidenceResponse;
+                    > tonic::server::UnaryService<super::QueryAllowanceRequest>
+                    for AllowanceSvc<T> {
+                        type Response = super::QueryAllowanceResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
                         >;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::QueryEvidenceRequest>,
+                            request: tonic::Request<super::QueryAllowanceRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).evidence(request).await };
+                            let fut = async move { (*inner).allowance(request).await };
                             Box::pin(fut)
                         }
                     }
@@ -646,7 +873,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = EvidenceSvc(inner);
+                        let method = AllowanceSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -662,25 +889,71 @@ pub mod query_server {
                     };
                     Box::pin(fut)
                 }
-                "/cosmos.evidence.v1beta1.Query/AllEvidence" => {
+                "/cosmos.feegrant.v1beta1.Query/Allowances" => {
                     #[allow(non_camel_case_types)]
-                    struct AllEvidenceSvc<T: Query>(pub Arc<T>);
+                    struct AllowancesSvc<T: Query>(pub Arc<T>);
                     impl<
                         T: Query,
-                    > tonic::server::UnaryService<super::QueryAllEvidenceRequest>
-                    for AllEvidenceSvc<T> {
-                        type Response = super::QueryAllEvidenceResponse;
+                    > tonic::server::UnaryService<super::QueryAllowancesRequest>
+                    for AllowancesSvc<T> {
+                        type Response = super::QueryAllowancesResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
                         >;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::QueryAllEvidenceRequest>,
+                            request: tonic::Request<super::QueryAllowancesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move { (*inner).allowances(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = AllowancesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/cosmos.feegrant.v1beta1.Query/AllowancesByGranter" => {
+                    #[allow(non_camel_case_types)]
+                    struct AllowancesByGranterSvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<super::QueryAllowancesByGranterRequest>
+                    for AllowancesByGranterSvc<T> {
+                        type Response = super::QueryAllowancesByGranterResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::QueryAllowancesByGranterRequest,
+                            >,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).all_evidence(request).await
+                                (*inner).allowances_by_granter(request).await
                             };
                             Box::pin(fut)
                         }
@@ -692,7 +965,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let inner = inner.0;
-                        let method = AllEvidenceSvc(inner);
+                        let method = AllowancesByGranterSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -746,14 +1019,13 @@ pub mod query_server {
         }
     }
     impl<T: Query> tonic::server::NamedService for QueryServer<T> {
-        const NAME: &'static str = "cosmos.evidence.v1beta1.Query";
+        const NAME: &'static str = "cosmos.feegrant.v1beta1.Query";
     }
 }
-/// GenesisState defines the evidence module's genesis state.
+/// GenesisState contains a set of fee allowances, persisted from the store
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenesisState {
-    /// evidence defines all the evidence at genesis.
     #[prost(message, repeated, tag = "1")]
-    pub evidence: ::prost::alloc::vec::Vec<super::super::super::google::protobuf::Any>,
+    pub allowances: ::prost::alloc::vec::Vec<Grant>,
 }
