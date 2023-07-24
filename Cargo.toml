@@ -50,7 +50,7 @@ version          = "0.10.1"
 default-features = false
 
 [dependencies.tendermint-proto]
-version          = "0.32"
+version          = "0.33"
 default-features = false
 
 [features]
