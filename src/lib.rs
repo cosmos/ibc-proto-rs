@@ -254,7 +254,6 @@ pub mod stride {
     }
 }
 
-#[cfg(feature = "std")]
 pub(crate) mod base64 {
     use alloc::string::String;
     use alloc::vec::Vec;
