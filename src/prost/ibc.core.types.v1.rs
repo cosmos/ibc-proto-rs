@@ -1,5 +1,5 @@
 /// GenesisState defines the ibc module's genesis state.
-#[derive(::serde::Serialize, ::serde::Deserialize)]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenesisState {

@@ -113,16 +113,16 @@ impl CompileCmd {
         // List available paths for dependencies
         let includes: Vec<PathBuf> = proto_includes_paths.iter().map(PathBuf::from).collect();
 
-        let attrs_serde = r#"#[derive(::serde::Serialize, ::serde::Deserialize)]"#;
-        let attrs_serde_default = r#"#[serde(default)]"#;
-        let attrs_jsonschema =
-            r#"#[cfg_attr(feature = "json-schema", derive(::schemars::JsonSchema))]"#;
+        let attrs_serde =
+            r#"#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]"#;
+        let attrs_serde_default = r#"#[cfg_attr(feature = "serde", serde(default))]"#;
+        let attrs_jsonschema = r#"#[cfg_attr(all(feature = "json-schema", feature = "serde"), derive(::schemars::JsonSchema))]"#;
 
         let attrs_ord = "#[derive(Eq, PartialOrd, Ord)]";
         let attrs_eq = "#[derive(Eq)]";
-        let attrs_serde_base64 = r#"#[serde(with = "crate::base64")]"#;
-        let attrs_jsonschema_str =
-            r#"#[cfg_attr(feature = "json-schema", schemars(with = "String"))]"#;
+        let attrs_serde_base64 = r#"#[cfg_attr(feature = "serde", serde(with = "crate::base64"))]"#;
+        let attrs_jsonschema_str = r#"#[cfg_attr(all(feature = "json-schema", feature = "serde"), schemars(with = "String"))]"#;
+
         tonic_build::configure()
             .build_client(true)
             .compile_well_known_types(true)
