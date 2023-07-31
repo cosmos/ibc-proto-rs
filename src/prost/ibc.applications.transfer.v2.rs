@@ -19,6 +19,6 @@ pub struct FungibleTokenPacketData {
     pub receiver: ::prost::alloc::string::String,
     /// optional memo
     #[prost(string, tag = "5")]
-    #[cfg_attr(feature = "std", serde(default))]
+    #[cfg_attr(feature = "serde", serde(default))]
     pub memo: ::prost::alloc::string::String,
 }

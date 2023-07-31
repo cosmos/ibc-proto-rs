@@ -34,7 +34,7 @@ pub struct MsgTransfer {
     pub timeout_timestamp: u64,
     /// optional memo
     #[prost(string, tag = "8")]
-    #[cfg_attr(feature = "std", serde(default))]
+    #[cfg_attr(feature = "serde", serde(default))]
     pub memo: ::prost::alloc::string::String,
 }
 /// MsgTransferResponse defines the Msg/Transfer response type.
