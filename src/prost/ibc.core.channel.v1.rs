@@ -208,15 +208,19 @@ pub enum State {
     /// A channel has been closed and can no longer be used to send or receive
     /// packets.
     Closed = 4,
+    /// A channel has just accepted the upgrade handshake attempt and is flushing in-flight packets.
+    Flushing = 5,
+    /// A channel has just completed flushing any in-flight packets.
+    Flushcomplete = 6,
     /// A channel has just started the channel upgrade handshake.
     /// The chain that is proposing the upgrade should set the channel state from OPEN to UPGRADEINIT.
-    Initupgrade = 5,
+    Initupgrade = 7,
     /// A channel has acknowledged the upgrade handshake step on the counterparty chain.
     /// The counterparty chain that accepts the upgrade should set the channel state from OPEN to UPGRADETRY.
-    Tryupgrade = 6,
+    Tryupgrade = 8,
     /// A channel has verified the counterparty chain is in UPGRADETRY.
     /// However, there are still in-flight packets on both ends waiting to be flushed before it can move to OPEN.
-    Ackupgrade = 7,
+    Ackupgrade = 9,
 }
 impl State {
     /// String value of the enum field names used in the ProtoBuf definition.
@@ -230,6 +234,8 @@ impl State {
             State::Tryopen => "STATE_TRYOPEN",
             State::Open => "STATE_OPEN",
             State::Closed => "STATE_CLOSED",
+            State::Flushing => "STATE_FLUSHING",
+            State::Flushcomplete => "STATE_FLUSHCOMPLETE",
             State::Initupgrade => "STATE_INITUPGRADE",
             State::Tryupgrade => "STATE_TRYUPGRADE",
             State::Ackupgrade => "STATE_ACKUPGRADE",
@@ -243,6 +249,8 @@ impl State {
             "STATE_TRYOPEN" => Some(Self::Tryopen),
             "STATE_OPEN" => Some(Self::Open),
             "STATE_CLOSED" => Some(Self::Closed),
+            "STATE_FLUSHING" => Some(Self::Flushing),
+            "STATE_FLUSHCOMPLETE" => Some(Self::Flushcomplete),
             "STATE_INITUPGRADE" => Some(Self::Initupgrade),
             "STATE_TRYUPGRADE" => Some(Self::Tryupgrade),
             "STATE_ACKUPGRADE" => Some(Self::Ackupgrade),
