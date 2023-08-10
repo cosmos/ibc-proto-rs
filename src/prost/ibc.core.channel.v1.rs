@@ -169,6 +169,20 @@ pub mod acknowledgement {
         Error(::prost::alloc::string::String),
     }
 }
+/// Timeout defines an execution deadline structure for 04-channel handlers.
+/// This includes packet lifecycle handlers as well as the upgrade handshake handlers.
+/// A valid Timeout contains either one or both of a timestamp and block height (sequence).
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Timeout {
+    /// block height after which the packet or upgrade times out
+    #[prost(message, optional, tag = "1")]
+    pub height: ::core::option::Option<super::super::client::v1::Height>,
+    /// block timestamp (in nanoseconds) after which the packet or upgrade times out
+    #[prost(uint64, tag = "2")]
+    pub timestamp: u64,
+}
 /// State defines if a channel is in one of the following states:
 /// CLOSED, INIT, TRYOPEN, OPEN or UNINITIALIZED.
 #[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
@@ -340,6 +354,8 @@ pub struct MsgChannelOpenTry {
 pub struct MsgChannelOpenTryResponse {
     #[prost(string, tag = "1")]
     pub version: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub channel_id: ::prost::alloc::string::String,
 }
 /// MsgChannelOpenAck defines a msg sent by a Relayer to Chain A to acknowledge
 /// the change of channel state to TRYOPEN on Chain B.
@@ -1986,6 +2002,35 @@ pub struct QueryNextSequenceReceiveResponse {
     #[prost(message, optional, tag = "3")]
     pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
 }
+/// QueryNextSequenceSendRequest is the request type for the
+/// Query/QueryNextSequenceSend RPC method
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryNextSequenceSendRequest {
+    /// port unique identifier
+    #[prost(string, tag = "1")]
+    pub port_id: ::prost::alloc::string::String,
+    /// channel unique identifier
+    #[prost(string, tag = "2")]
+    pub channel_id: ::prost::alloc::string::String,
+}
+/// QueryNextSequenceSendResponse is the request type for the
+/// Query/QueryNextSequenceSend RPC method
+#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryNextSequenceSendResponse {
+    /// next sequence send number
+    #[prost(uint64, tag = "1")]
+    pub next_sequence_send: u64,
+    /// merkle proof of existence
+    #[prost(bytes = "vec", tag = "2")]
+    pub proof: ::prost::alloc::vec::Vec<u8>,
+    /// height at which the proof was retrieved
+    #[prost(message, optional, tag = "3")]
+    pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
+}
 /// Generated client implementations.
 #[cfg(feature = "client")]
 pub mod query_client {
@@ -2440,6 +2485,34 @@ pub mod query_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+        /// NextSequenceSend returns the next send sequence for a given channel.
+        pub async fn next_sequence_send(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryNextSequenceSendRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryNextSequenceSendResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/ibc.core.channel.v1.Query/NextSequenceSend",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("ibc.core.channel.v1.Query", "NextSequenceSend"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
     }
 }
 /// Generated server implementations.
@@ -2560,6 +2633,14 @@ pub mod query_server {
             request: tonic::Request<super::QueryNextSequenceReceiveRequest>,
         ) -> std::result::Result<
             tonic::Response<super::QueryNextSequenceReceiveResponse>,
+            tonic::Status,
+        >;
+        /// NextSequenceSend returns the next send sequence for a given channel.
+        async fn next_sequence_send(
+            &self,
+            request: tonic::Request<super::QueryNextSequenceSendRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryNextSequenceSendResponse>,
             tonic::Status,
         >;
     }
@@ -3237,6 +3318,52 @@ pub mod query_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = NextSequenceReceiveSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/ibc.core.channel.v1.Query/NextSequenceSend" => {
+                    #[allow(non_camel_case_types)]
+                    struct NextSequenceSendSvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<super::QueryNextSequenceSendRequest>
+                    for NextSequenceSendSvc<T> {
+                        type Response = super::QueryNextSequenceSendResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryNextSequenceSendRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).next_sequence_send(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = NextSequenceSendSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
