@@ -183,9 +183,14 @@ cargo run --locked -- compile \
   --ibc "$IBC_GO_DIR/proto-include" \
   --out ../../src/prost
 
+cd ../..
+
 # Remove generated ICS23 code because it is not used,
 # we instead re-exports the `ics23` crate type definitions.
-rm -f ../../src/prost/cosmos.ics23.v1.rs
+rm -f src/prost/cosmos.ics23.v1.rs
+
+# The Tendermint ABCI protos are unused from within ibc-proto
+rm -f src/prost/tendermint.abci.rs
 
 # Remove the temporary checkouts of the repositories
 rm -rf "$COSMOS_ICS_DIR"
