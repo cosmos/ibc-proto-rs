@@ -1,0 +1,31 @@
+# Attempts to perform a release when a particular tag is pushed.
+# This assumes that the CRATES_TOKEN secret has been set and contains 
+# a crates.io API token with which we can publish our crates to crates.io.
+name: Release
+
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"             # e.g. v0.26.0, v1.0.0
+      - "v[0-9]+.[0-9]+.[0-9]+-pre.[0-9]+"  # e.g. v0.26.0-pre.1
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: taiki-e/create-gh-release-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish:
+    name: Publish to crates.io
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+      - name: Publish crate
+        run: |
+          cargo publish --token ${{ secrets.CRATES_TOKEN }}
