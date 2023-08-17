@@ -36,6 +36,11 @@ pub const IBC_GO_COMMIT: &str = include_str!("IBC_GO_COMMIT");
 pub const FILE_DESCRIPTOR_SET: &[u8] = include_bytes!("prost/proto_descriptor.bin");
 
 pub mod cosmos {
+    pub mod app {
+        pub mod v1alpha1 {
+            include_proto!("cosmos.app.v1alpha1.rs");
+        }
+    }
     pub mod auth {
         pub mod v1beta1 {
             include_proto!("cosmos.auth.v1beta1.rs");
@@ -52,6 +57,11 @@ pub mod cosmos {
                 pub code_hash: ::prost::alloc::vec::Vec<u8>,
             }
         }
+        pub mod module {
+            pub mod v1 {
+                include_proto!("cosmos.auth.module.v1.rs");
+            }
+        }
     }
     pub mod evidence {
         pub mod v1beta1 {
@@ -62,21 +72,26 @@ pub mod cosmos {
         pub mod v1beta1 {
             include_proto!("cosmos.staking.v1beta1.rs");
         }
+        pub mod module {
+            pub mod v1 {
+                include_proto!("cosmos.staking.module.v1.rs");
+            }
+        }
     }
     pub mod bank {
         pub mod v1beta1 {
             include_proto!("cosmos.bank.v1beta1.rs");
+        }
+        pub mod module {
+            pub mod v1 {
+                include_proto!("cosmos.bank.module.v1.rs");
+            }
         }
     }
     pub mod base {
         pub mod abci {
             pub mod v1beta1 {
                 include_proto!("cosmos.base.abci.v1beta1.rs");
-            }
-        }
-        pub mod kv {
-            pub mod v1beta1 {
-                include_proto!("cosmos.base.kv.v1beta1.rs");
             }
         }
         pub mod node {
@@ -92,11 +107,6 @@ pub mod cosmos {
         pub mod reflection {
             pub mod v1beta1 {
                 include_proto!("cosmos.base.reflection.v1beta1.rs");
-            }
-        }
-        pub mod store {
-            pub mod v1beta1 {
-                include_proto!("cosmos.base.store.v1beta1.rs");
             }
         }
         pub mod v1beta1 {
@@ -116,6 +126,11 @@ pub mod cosmos {
         }
     }
     pub mod tx {
+        pub mod config {
+            pub mod v1 {
+                include_proto!("cosmos.tx.config.v1.rs");
+            }
+        }
         pub mod signing {
             pub mod v1beta1 {
                 include_proto!("cosmos.tx.signing.v1beta1.rs");
@@ -129,10 +144,20 @@ pub mod cosmos {
         pub mod v1beta1 {
             include_proto!("cosmos.upgrade.v1beta1.rs");
         }
+        pub mod module {
+            pub mod v1 {
+                include_proto!("cosmos.upgrade.module.v1.rs");
+            }
+        }
     }
     pub mod gov {
         pub mod v1beta1 {
             include_proto!("cosmos.gov.v1beta1.rs");
+        }
+        pub mod module {
+            pub mod v1 {
+                include_proto!("cosmos.gov.module.v1.rs");
+            }
         }
     }
     pub mod ics23 {
@@ -204,13 +229,13 @@ pub mod ibc {
     }
     pub mod lightclients {
         pub mod localhost {
-            pub mod v1 {
-                include_proto!("ibc.lightclients.localhost.v1.rs");
+            pub mod v2 {
+                include_proto!("ibc.lightclients.localhost.v2.rs");
             }
         }
         pub mod solomachine {
-            pub mod v1 {
-                include_proto!("ibc.lightclients.solomachine.v1.rs");
+            pub mod v3 {
+                include_proto!("ibc.lightclients.solomachine.v3.rs");
             }
         }
         pub mod tendermint {

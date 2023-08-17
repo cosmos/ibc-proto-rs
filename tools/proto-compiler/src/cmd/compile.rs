@@ -189,10 +189,16 @@ impl CompileCmd {
             )
             .type_attribute(".ibc.applications.interchain_accounts.host.v1", attrs_serde)
             .type_attribute(".ibc.applications.interchain_accounts.v1", attrs_serde)
+            .type_attribute(".ibc.lightclients.tendermint.v1", attrs_serde)
+            .type_attribute(".ibc.lightclients.localhost.v2", attrs_serde)
+            .type_attribute(".ibc.lightclients.solomachine.v3", attrs_serde)
+            .type_attribute(".cosmos.app.v1alpha1", attrs_serde)
             .type_attribute(".cosmos.auth.v1beta1", attrs_serde)
             .type_attribute(".cosmos.bank.v1beta1", attrs_serde)
             .type_attribute(".cosmos.base.v1beta1", attrs_serde)
             .type_attribute(".cosmos.base.query.v1beta1", attrs_serde)
+            .type_attribute(".cosmos.config.v1", attrs_serde)
+            .type_attribute(".cosmos.tx.config.v1", attrs_serde)
             .type_attribute(".cosmos.upgrade.v1beta1", attrs_serde)
             .compile(&protos, &includes)?;
 

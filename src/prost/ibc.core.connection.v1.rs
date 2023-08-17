@@ -241,6 +241,9 @@ pub struct MsgConnectionOpenTry {
     pub consensus_height: ::core::option::Option<super::super::client::v1::Height>,
     #[prost(string, tag = "12")]
     pub signer: ::prost::alloc::string::String,
+    /// optional proof data for host state machines that are unable to introspect their own consensus state
+    #[prost(bytes = "vec", tag = "13")]
+    pub host_consensus_state_proof: ::prost::alloc::vec::Vec<u8>,
 }
 /// MsgConnectionOpenTryResponse defines the Msg/ConnectionOpenTry response type.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
@@ -279,6 +282,9 @@ pub struct MsgConnectionOpenAck {
     pub consensus_height: ::core::option::Option<super::super::client::v1::Height>,
     #[prost(string, tag = "10")]
     pub signer: ::prost::alloc::string::String,
+    /// optional proof data for host state machines that are unable to introspect their own consensus state
+    #[prost(bytes = "vec", tag = "11")]
+    pub host_consensus_state_proof: ::prost::alloc::vec::Vec<u8>,
 }
 /// MsgConnectionOpenAckResponse defines the Msg/ConnectionOpenAck response type.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
@@ -307,6 +313,25 @@ pub struct MsgConnectionOpenConfirm {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgConnectionOpenConfirmResponse {}
+/// MsgUpdateParams defines the sdk.Msg type to update the connection parameters.
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgUpdateParams {
+    /// authority is the address that controls the module (defaults to x/gov unless overwritten).
+    #[prost(string, tag = "1")]
+    pub authority: ::prost::alloc::string::String,
+    /// params defines the connection parameters to update.
+    ///
+    /// NOTE: All parameters must be supplied.
+    #[prost(message, optional, tag = "2")]
+    pub params: ::core::option::Option<Params>,
+}
+/// MsgUpdateParamsResponse defines the MsgUpdateParams response type.
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgUpdateParamsResponse {}
 /// Generated client implementations.
 #[cfg(feature = "client")]
 pub mod msg_client {
@@ -510,6 +535,38 @@ pub mod msg_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+        /// UpdateConnectionParams defines a rpc handler method for
+        /// MsgUpdateParams.
+        pub async fn update_connection_params(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgUpdateParams>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgUpdateParamsResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/ibc.core.connection.v1.Msg/UpdateConnectionParams",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "ibc.core.connection.v1.Msg",
+                        "UpdateConnectionParams",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
     }
 }
 /// Generated server implementations.
@@ -551,6 +608,15 @@ pub mod msg_server {
             request: tonic::Request<super::MsgConnectionOpenConfirm>,
         ) -> std::result::Result<
             tonic::Response<super::MsgConnectionOpenConfirmResponse>,
+            tonic::Status,
+        >;
+        /// UpdateConnectionParams defines a rpc handler method for
+        /// MsgUpdateParams.
+        async fn update_connection_params(
+            &self,
+            request: tonic::Request<super::MsgUpdateParams>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgUpdateParamsResponse>,
             tonic::Status,
         >;
     }
@@ -799,6 +865,50 @@ pub mod msg_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = ConnectionOpenConfirmSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/ibc.core.connection.v1.Msg/UpdateConnectionParams" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateConnectionParamsSvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgUpdateParams>
+                    for UpdateConnectionParamsSvc<T> {
+                        type Response = super::MsgUpdateParamsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgUpdateParams>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).update_connection_params(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = UpdateConnectionParamsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
