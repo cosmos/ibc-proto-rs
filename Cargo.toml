@@ -8,7 +8,7 @@ repository   = "https://github.com/cosmos/ibc-proto-rs"
 readme       = "README.md"
 categories   = ["cryptography::cryptocurrencies", "encoding", "no-std"]
 keywords     = ["blockchain", "cosmos", "tendermint", "ibc", "proto"]
-exclude      = ["definitions", "tools"]
+exclude      = ["definitions", "tools", ".changelog", ".github"]
 description  = """
     ibc-proto provides Cosmos SDK & IBC Protocol Buffers definitions
 """
