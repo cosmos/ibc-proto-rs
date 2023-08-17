@@ -1,4 +1,5 @@
 /// ModuleDescriptor describes an app module.
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ModuleDescriptor {
@@ -24,6 +25,7 @@ pub struct ModuleDescriptor {
     pub can_migrate_from: ::prost::alloc::vec::Vec<MigrateFromInfo>,
 }
 /// PackageReference is a reference to a protobuf package used by a module.
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PackageReference {
@@ -70,6 +72,7 @@ pub struct PackageReference {
 }
 /// MigrateFromInfo is information on a module version that a newer module
 /// can migrate from.
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MigrateFromInfo {

@@ -1,5 +1,6 @@
 /// ClientState from Tendermint tracks the current validator set, latest height,
 /// and a possible frozen height.
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ClientState {
@@ -57,6 +58,7 @@ pub struct ClientState {
     pub allow_update_after_misbehaviour: bool,
 }
 /// ConsensusState defines the consensus state from Tendermint.
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsensusState {
@@ -76,6 +78,7 @@ pub struct ConsensusState {
 }
 /// Misbehaviour is a wrapper over two conflicting Headers
 /// that implements Misbehaviour interface expected by ICS-02
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Misbehaviour {
@@ -100,6 +103,7 @@ pub struct Misbehaviour {
 /// current time in order to correctly verify, and the TrustedValidators must
 /// hash to TrustedConsensusState.NextValidatorsHash since that is the last
 /// trusted validator set at the TrustedHeight.
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Header {
@@ -118,6 +122,7 @@ pub struct Header {
 }
 /// Fraction defines the protobuf message type for tmmath.Fraction that only
 /// supports positive values.
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Fraction {
