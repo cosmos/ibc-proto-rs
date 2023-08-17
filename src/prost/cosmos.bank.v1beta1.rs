@@ -1,5 +1,5 @@
 /// Params defines the parameters for the bank module.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Params {
@@ -16,7 +16,7 @@ pub struct Params {
 }
 /// SendEnabled maps coin denom to a send_enabled status (whether a denom is
 /// sendable).
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SendEnabled {
@@ -26,7 +26,7 @@ pub struct SendEnabled {
     pub enabled: bool,
 }
 /// Input models transaction input.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Input {
@@ -36,7 +36,7 @@ pub struct Input {
     pub coins: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
 }
 /// Output models transaction outputs.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Output {
@@ -48,7 +48,7 @@ pub struct Output {
 /// Supply represents a struct that passively keeps track of the total supply
 /// amounts in the network.
 /// This message is deprecated now that supply is indexed by denom.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Supply {
@@ -57,7 +57,7 @@ pub struct Supply {
 }
 /// DenomUnit represents a struct that describes a given
 /// denomination unit of the basic token.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DenomUnit {
@@ -77,7 +77,7 @@ pub struct DenomUnit {
 }
 /// Metadata represents a struct that describes
 /// a basic token.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Metadata {
@@ -117,7 +117,7 @@ pub struct Metadata {
     pub uri_hash: ::prost::alloc::string::String,
 }
 /// MsgSend represents a message to send coins from one account to another.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgSend {
@@ -129,12 +129,12 @@ pub struct MsgSend {
     pub amount: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
 }
 /// MsgSendResponse defines the Msg/Send response type.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgSendResponse {}
 /// MsgMultiSend represents an arbitrary multi-in, multi-out send message.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgMultiSend {
@@ -146,14 +146,14 @@ pub struct MsgMultiSend {
     pub outputs: ::prost::alloc::vec::Vec<Output>,
 }
 /// MsgMultiSendResponse defines the Msg/MultiSend response type.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgMultiSendResponse {}
 /// MsgUpdateParams is the Msg/UpdateParams request type.
 ///
 /// Since: cosmos-sdk 0.47
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgUpdateParams {
@@ -170,7 +170,7 @@ pub struct MsgUpdateParams {
 /// MsgUpdateParams message.
 ///
 /// Since: cosmos-sdk 0.47
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgUpdateParamsResponse {}
@@ -181,7 +181,7 @@ pub struct MsgUpdateParamsResponse {}
 /// message are left unchanged.
 ///
 /// Since: cosmos-sdk 0.47
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgSetSendEnabled {
@@ -201,7 +201,7 @@ pub struct MsgSetSendEnabled {
 /// MsgSetSendEnabledResponse defines the Msg/SetSendEnabled response type.
 ///
 /// Since: cosmos-sdk 0.47
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgSetSendEnabledResponse {}
@@ -746,7 +746,7 @@ pub mod msg_server {
     }
 }
 /// QueryBalanceRequest is the request type for the Query/Balance RPC method.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryBalanceRequest {
@@ -758,7 +758,7 @@ pub struct QueryBalanceRequest {
     pub denom: ::prost::alloc::string::String,
 }
 /// QueryBalanceResponse is the response type for the Query/Balance RPC method.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryBalanceResponse {
@@ -767,7 +767,7 @@ pub struct QueryBalanceResponse {
     pub balance: ::core::option::Option<super::super::base::v1beta1::Coin>,
 }
 /// QueryBalanceRequest is the request type for the Query/AllBalances RPC method.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryAllBalancesRequest {
@@ -787,7 +787,7 @@ pub struct QueryAllBalancesRequest {
 }
 /// QueryAllBalancesResponse is the response type for the Query/AllBalances RPC
 /// method.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryAllBalancesResponse {
@@ -804,7 +804,7 @@ pub struct QueryAllBalancesResponse {
 /// an account's spendable balances.
 ///
 /// Since: cosmos-sdk 0.46
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QuerySpendableBalancesRequest {
@@ -821,7 +821,7 @@ pub struct QuerySpendableBalancesRequest {
 /// an account's spendable balances.
 ///
 /// Since: cosmos-sdk 0.46
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QuerySpendableBalancesResponse {
@@ -838,7 +838,7 @@ pub struct QuerySpendableBalancesResponse {
 /// querying an account's spendable balance for a specific denom.
 ///
 /// Since: cosmos-sdk 0.47
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QuerySpendableBalanceByDenomRequest {
@@ -853,7 +853,7 @@ pub struct QuerySpendableBalanceByDenomRequest {
 /// querying an account's spendable balance for a specific denom.
 ///
 /// Since: cosmos-sdk 0.47
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QuerySpendableBalanceByDenomResponse {
@@ -863,7 +863,7 @@ pub struct QuerySpendableBalanceByDenomResponse {
 }
 /// QueryTotalSupplyRequest is the request type for the Query/TotalSupply RPC
 /// method.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryTotalSupplyRequest {
@@ -877,7 +877,7 @@ pub struct QueryTotalSupplyRequest {
 }
 /// QueryTotalSupplyResponse is the response type for the Query/TotalSupply RPC
 /// method
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryTotalSupplyResponse {
@@ -893,7 +893,7 @@ pub struct QueryTotalSupplyResponse {
     >,
 }
 /// QuerySupplyOfRequest is the request type for the Query/SupplyOf RPC method.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QuerySupplyOfRequest {
@@ -902,7 +902,7 @@ pub struct QuerySupplyOfRequest {
     pub denom: ::prost::alloc::string::String,
 }
 /// QuerySupplyOfResponse is the response type for the Query/SupplyOf RPC method.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QuerySupplyOfResponse {
@@ -911,12 +911,12 @@ pub struct QuerySupplyOfResponse {
     pub amount: ::core::option::Option<super::super::base::v1beta1::Coin>,
 }
 /// QueryParamsRequest defines the request type for querying x/bank parameters.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsRequest {}
 /// QueryParamsResponse defines the response type for querying x/bank parameters.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsResponse {
@@ -925,7 +925,7 @@ pub struct QueryParamsResponse {
     pub params: ::core::option::Option<Params>,
 }
 /// QueryDenomsMetadataRequest is the request type for the Query/DenomsMetadata RPC method.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomsMetadataRequest {
@@ -937,7 +937,7 @@ pub struct QueryDenomsMetadataRequest {
 }
 /// QueryDenomsMetadataResponse is the response type for the Query/DenomsMetadata RPC
 /// method.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomsMetadataResponse {
@@ -951,7 +951,7 @@ pub struct QueryDenomsMetadataResponse {
     >,
 }
 /// QueryDenomMetadataRequest is the request type for the Query/DenomMetadata RPC method.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomMetadataRequest {
@@ -961,7 +961,7 @@ pub struct QueryDenomMetadataRequest {
 }
 /// QueryDenomMetadataResponse is the response type for the Query/DenomMetadata RPC
 /// method.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomMetadataResponse {
@@ -971,7 +971,7 @@ pub struct QueryDenomMetadataResponse {
 }
 /// QueryDenomMetadataByQueryStringRequest is the request type for the Query/DenomMetadata RPC method.
 /// Identical with QueryDenomMetadataRequest but receives denom as query string.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomMetadataByQueryStringRequest {
@@ -981,7 +981,7 @@ pub struct QueryDenomMetadataByQueryStringRequest {
 }
 /// QueryDenomMetadataByQueryStringResponse is the response type for the Query/DenomMetadata RPC
 /// method. Identical with QueryDenomMetadataResponse but receives denom as query string in request.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomMetadataByQueryStringResponse {
@@ -992,7 +992,7 @@ pub struct QueryDenomMetadataByQueryStringResponse {
 /// QueryDenomOwnersRequest defines the request type for the DenomOwners RPC query,
 /// which queries for a paginated set of all account holders of a particular
 /// denomination.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomOwnersRequest {
@@ -1010,7 +1010,7 @@ pub struct QueryDenomOwnersRequest {
 /// balance of the denominated token.
 ///
 /// Since: cosmos-sdk 0.46
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DenomOwner {
@@ -1024,7 +1024,7 @@ pub struct DenomOwner {
 /// QueryDenomOwnersResponse defines the RPC response of a DenomOwners RPC query.
 ///
 /// Since: cosmos-sdk 0.46
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomOwnersResponse {
@@ -1039,7 +1039,7 @@ pub struct QueryDenomOwnersResponse {
 /// QuerySendEnabledRequest defines the RPC request for looking up SendEnabled entries.
 ///
 /// Since: cosmos-sdk 0.47
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QuerySendEnabledRequest {
@@ -1056,7 +1056,7 @@ pub struct QuerySendEnabledRequest {
 /// QuerySendEnabledResponse defines the RPC response of a SendEnable query.
 ///
 /// Since: cosmos-sdk 0.47
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QuerySendEnabledResponse {
@@ -2332,7 +2332,7 @@ pub mod query_server {
 /// the granter's account.
 ///
 /// Since: cosmos-sdk 0.43
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SendAuthorization {
@@ -2346,7 +2346,7 @@ pub struct SendAuthorization {
     pub allow_list: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// GenesisState defines the bank module's genesis state.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenesisState {
@@ -2371,7 +2371,7 @@ pub struct GenesisState {
 }
 /// Balance defines an account address and balance pair used in the bank module's
 /// genesis state.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Balance {

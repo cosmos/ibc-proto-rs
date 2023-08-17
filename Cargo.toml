@@ -1,6 +1,6 @@
 [package]
 name         = "ibc-proto"
-version      = "0.32.1"
+version      = "0.33.0"
 authors      = ["Informal Systems <hello@informal.systems>"]
 edition      = "2021"
 license      = "Apache-2.0"
@@ -45,9 +45,7 @@ scale-info         = { version = "2.1.2", default-features = false, features = [
 ## need tracking anchor-lang and near-sdk-rs borsh version
 borsh = { version = "0.9", default-features = false, optional = true }
 
-[dependencies.ics23]
-version          = "0.10.1"
-default-features = false
+ics23 = { version = "0.10.2" , default-features = false }
 
 [dependencies.tendermint-proto]
 version          = "0.33"
@@ -55,7 +53,8 @@ default-features = false
 
 [features]
 default            = ["std", "client"]
-std                = ["prost/std", "bytes/std", "subtle-encoding/std", "base64/std", "flex-error/std", "ics23/std", "ics23/serde"]
+std                = ["prost/std", "bytes/std", "subtle-encoding/std", "base64/std", "flex-error/std", "ics23/std"]
+serde              = ["ics23/serde"]
 client             = ["std", "tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
 json-schema        = ["std", "schemars"]
 server             = ["std", "tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]

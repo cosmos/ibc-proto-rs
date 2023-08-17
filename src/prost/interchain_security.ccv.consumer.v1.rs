@@ -95,6 +95,18 @@ pub struct MaturingVscPacket {
         super::super::super::super::google::protobuf::Timestamp,
     >,
 }
+/// A record storing the state of a slash packet sent to the provider chain
+/// which may bounce back and forth until handled by the provider.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SlashRecord {
+    #[prost(bool, tag = "1")]
+    pub waiting_on_reply: bool,
+    #[prost(message, optional, tag = "2")]
+    pub send_time: ::core::option::Option<
+        super::super::super::super::google::protobuf::Timestamp,
+    >,
+}
 /// GenesisState defines the CCV consumer chain genesis state
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]

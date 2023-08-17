@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.33.0
+
+*Aug 14th, 2023*
+
+This release bumps `tendermint-rs` to `0.33.0`.
+
 ## v0.32.1
 
 *July 31st, 2023*
