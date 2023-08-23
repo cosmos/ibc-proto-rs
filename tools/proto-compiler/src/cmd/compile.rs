@@ -136,6 +136,7 @@ impl CompileCmd {
             .build_server(true)
             .server_mod_attribute(".", r#"#[cfg(feature = "server")]"#)
             .out_dir(out_dir)
+            .file_descriptor_set_path(out_dir.join("proto_descriptor.bin"))
             .extern_path(".tendermint", "::tendermint_proto")
             .extern_path(".ics23", "::ics23")
             .type_attribute(".google.protobuf.Any", attrs_serde)
@@ -175,7 +176,15 @@ impl CompileCmd {
             .type_attribute(".ibc.core.connection.v1.Version", attrs_jsonschema)
             .type_attribute(".ibc.core.types.v1", attrs_serde)
             .type_attribute(".ibc.applications.transfer.v1", attrs_serde)
+            .field_attribute(
+                ".ibc.applications.transfer.v1.MsgTransfer.memo",
+                attrs_serde_default,
+            )
             .type_attribute(".ibc.applications.transfer.v2", attrs_serde)
+            .field_attribute(
+                ".ibc.applications.transfer.v2.FungibleTokenPacketData.memo",
+                attrs_serde_default,
+            )
             .type_attribute(
                 ".ibc.applications.interchain_accounts.controller.v1",
                 attrs_serde,
