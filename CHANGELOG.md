@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.34.1
+
+*August 29th, 2023*
+
+This release updates the `borsh` dependency to v0.10.
+
 ## v0.34.0
 
 *August 17th, 2023*
