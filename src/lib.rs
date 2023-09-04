@@ -31,6 +31,10 @@ pub const COSMOS_SDK_COMMIT: &str = include_str!("COSMOS_SDK_COMMIT");
 /// The version (commit hash) of IBC Go used when generating this library.
 pub const IBC_GO_COMMIT: &str = include_str!("IBC_GO_COMMIT");
 
+/// File descriptor set of compiled proto.
+#[cfg(feature = "proto-descriptor")]
+pub const FILE_DESCRIPTOR_SET: &[u8] = include_bytes!("prost/proto_descriptor.bin");
+
 pub mod cosmos {
     pub mod auth {
         pub mod v1beta1 {

@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## v0.32.1
+
+*July 31st, 2023*
+
+This release includes default `serde` value for token transfer memos and fixes
+the issue with deserialization of `MsgTransfer` and `FungibleTokenPacketData`
+types when no memo is present.
+
+### BUG FIXES
+
+- Fix token transfer deserialization for cases with no memo by deriving
+  `Default` serde for the memo field in `MsgTransfer` and
+  `FungibleTokenPacketData` types.
+  ([#119](https://github.com/cosmos/ibc-proto-rs/pull/119))
+
 ## v0.32.0
 
 *June 14th, 2023*
