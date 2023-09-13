@@ -205,6 +205,25 @@ pub struct MsgSetSendEnabled {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgSetSendEnabledResponse {}
+/// MsgBurn defines a message for burning coins.
+///
+/// Since: cosmos-sdk 0.51
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgBurn {
+    #[prost(string, tag = "1")]
+    pub from_address: ::prost::alloc::string::String,
+    #[prost(message, repeated, tag = "2")]
+    pub amount: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
+}
+/// MsgBurnResponse defines the Msg/Burn response type.
+///
+/// Since: cosmos-sdk 0.51
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgBurnResponse {}
 /// Generated client implementations.
 #[cfg(feature = "client")]
 pub mod msg_client {
@@ -344,6 +363,34 @@ pub mod msg_client {
                 .insert(GrpcMethod::new("cosmos.bank.v1beta1.Msg", "MultiSend"));
             self.inner.unary(req, path, codec).await
         }
+        /// Burn defines a method for burning coins by an account.
+        ///
+        /// Since: cosmos-sdk 0.51
+        pub async fn burn(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgBurn>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgBurnResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.bank.v1beta1.Msg/Burn",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("cosmos.bank.v1beta1.Msg", "Burn"));
+            self.inner.unary(req, path, codec).await
+        }
         /// UpdateParams defines a governance operation for updating the x/bank module parameters.
         /// The authority is defined in the keeper.
         ///
@@ -427,6 +474,13 @@ pub mod msg_server {
             tonic::Response<super::MsgMultiSendResponse>,
             tonic::Status,
         >;
+        /// Burn defines a method for burning coins by an account.
+        ///
+        /// Since: cosmos-sdk 0.51
+        async fn burn(
+            &self,
+            request: tonic::Request<super::MsgBurn>,
+        ) -> std::result::Result<tonic::Response<super::MsgBurnResponse>, tonic::Status>;
         /// UpdateParams defines a governance operation for updating the x/bank module parameters.
         /// The authority is defined in the keeper.
         ///
@@ -601,6 +655,48 @@ pub mod msg_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = MultiSendSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/cosmos.bank.v1beta1.Msg/Burn" => {
+                    #[allow(non_camel_case_types)]
+                    struct BurnSvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgBurn>
+                    for BurnSvc<T> {
+                        type Response = super::MsgBurnResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgBurn>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move { (*inner).burn(request).await };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = BurnSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

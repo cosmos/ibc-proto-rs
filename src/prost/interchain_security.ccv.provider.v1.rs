@@ -16,22 +16,6 @@ pub struct MsgAssignConsumerKey {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgAssignConsumerKeyResponse {}
-/// MsgRegisterConsumerRewardDenom allows an account to register
-/// a consumer reward denom, i.e., add it to the list of denoms
-/// accepted by the provider as rewards.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgRegisterConsumerRewardDenom {
-    #[prost(string, tag = "1")]
-    pub denom: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub depositor: ::prost::alloc::string::String,
-}
-/// MsgRegisterConsumerRewardDenomResponse defines the
-/// Msg/RegisterConsumerRewardDenom response type.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgRegisterConsumerRewardDenomResponse {}
 /// Generated client implementations.
 #[cfg(feature = "client")]
 pub mod msg_client {
@@ -149,36 +133,6 @@ pub mod msg_client {
                 );
             self.inner.unary(req, path, codec).await
         }
-        pub async fn register_consumer_reward_denom(
-            &mut self,
-            request: impl tonic::IntoRequest<super::MsgRegisterConsumerRewardDenom>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgRegisterConsumerRewardDenomResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/interchain_security.ccv.provider.v1.Msg/RegisterConsumerRewardDenom",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "interchain_security.ccv.provider.v1.Msg",
-                        "RegisterConsumerRewardDenom",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
     }
 }
 /// Generated server implementations.
@@ -194,13 +148,6 @@ pub mod msg_server {
             request: tonic::Request<super::MsgAssignConsumerKey>,
         ) -> std::result::Result<
             tonic::Response<super::MsgAssignConsumerKeyResponse>,
-            tonic::Status,
-        >;
-        async fn register_consumer_reward_denom(
-            &self,
-            request: tonic::Request<super::MsgRegisterConsumerRewardDenom>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgRegisterConsumerRewardDenomResponse>,
             tonic::Status,
         >;
     }
@@ -313,54 +260,6 @@ pub mod msg_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = AssignConsumerKeySvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/interchain_security.ccv.provider.v1.Msg/RegisterConsumerRewardDenom" => {
-                    #[allow(non_camel_case_types)]
-                    struct RegisterConsumerRewardDenomSvc<T: Msg>(pub Arc<T>);
-                    impl<
-                        T: Msg,
-                    > tonic::server::UnaryService<super::MsgRegisterConsumerRewardDenom>
-                    for RegisterConsumerRewardDenomSvc<T> {
-                        type Response = super::MsgRegisterConsumerRewardDenomResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<
-                                super::MsgRegisterConsumerRewardDenom,
-                            >,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                (*inner).register_consumer_reward_denom(request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = RegisterConsumerRewardDenomSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -523,6 +422,10 @@ pub struct ConsumerRemovalProposal {
         super::super::super::super::google::protobuf::Timestamp,
     >,
 }
+/// EquivocationProposal is a governance proposal on the provider chain to
+/// punish a validator for equivocation on a consumer chain.
+///
+/// This type is only used internally to the consumer CCV module.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EquivocationProposal {
@@ -537,6 +440,24 @@ pub struct EquivocationProposal {
     pub equivocations: ::prost::alloc::vec::Vec<
         super::super::super::super::cosmos::evidence::v1beta1::Equivocation,
     >,
+}
+/// ChangeRewardDenomsProposal is a governance proposal on the provider chain to
+/// mutate the set of denoms accepted by the provider as rewards.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ChangeRewardDenomsProposal {
+    /// the title of the proposal
+    #[prost(string, tag = "1")]
+    pub title: ::prost::alloc::string::String,
+    /// the description of the proposal
+    #[prost(string, tag = "2")]
+    pub description: ::prost::alloc::string::String,
+    /// the list of consumer reward denoms to add
+    #[prost(string, repeated, tag = "3")]
+    pub denoms_to_add: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// the list of consumer reward denoms to remove
+    #[prost(string, repeated, tag = "4")]
+    pub denoms_to_remove: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// A persisted queue entry indicating that a slash packet data instance needs to
 /// be handled. This type belongs in the "global" queue, to coordinate slash
@@ -616,16 +537,8 @@ pub struct Params {
         super::super::super::super::cosmos::base::v1beta1::Coin,
     >,
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct HandshakeMetadata {
-    #[prost(string, tag = "1")]
-    pub provider_fee_pool_addr: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub version: ::prost::alloc::string::String,
-}
 /// SlashAcks contains cons addresses of consumer chain validators
-/// successfully slashed on the provider chain
+/// successfully slashed on the provider chain.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SlashAcks {
@@ -706,6 +619,21 @@ pub struct VscSendTimestamp {
         super::super::super::super::google::protobuf::Timestamp,
     >,
 }
+/// ValidatorSetChangePackets is a pb list of ccv.ValidatorSetChangePacketData.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ValidatorSetChangePackets {
+    #[prost(message, repeated, tag = "1")]
+    pub list: ::prost::alloc::vec::Vec<super::super::v1::ValidatorSetChangePacketData>,
+}
+/// MaturedUnbondingOps defines a list of ids corresponding to ids of matured
+/// unbonding operations.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MaturedUnbondingOps {
+    #[prost(uint64, repeated, tag = "1")]
+    pub ids: ::prost::alloc::vec::Vec<u64>,
+}
 /// ExportedVscSendTimestamps is VscSendTimestamp with chainID info for exporting to genesis
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -773,7 +701,7 @@ pub struct QueryConsumerGenesisRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsumerGenesisResponse {
     #[prost(message, optional, tag = "1")]
-    pub genesis_state: ::core::option::Option<super::super::consumer::v1::GenesisState>,
+    pub genesis_state: ::core::option::Option<super::super::v1::GenesisState>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1960,9 +1888,7 @@ pub struct GenesisState {
     pub unbonding_ops: ::prost::alloc::vec::Vec<UnbondingOp>,
     /// empty for a new chain
     #[prost(message, optional, tag = "4")]
-    pub mature_unbonding_ops: ::core::option::Option<
-        super::super::v1::MaturedUnbondingOps,
-    >,
+    pub mature_unbonding_ops: ::core::option::Option<MaturedUnbondingOps>,
     /// empty for a new chain
     #[prost(message, repeated, tag = "5")]
     pub valset_update_id_to_height: ::prost::alloc::vec::Vec<ValsetUpdateIdToHeight>,
@@ -1988,7 +1914,9 @@ pub struct GenesisState {
     #[prost(message, repeated, tag = "13")]
     pub exported_vsc_send_timestamps: ::prost::alloc::vec::Vec<ExportedVscSendTimestamp>,
 }
-/// consumer chain
+/// The provider CCV module's knowledge of consumer state.
+///
+/// Note this type is only used internally to the provider CCV module.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerState {
@@ -2006,9 +1934,7 @@ pub struct ConsumerState {
     pub initial_height: u64,
     /// ConsumerGenesis defines the initial consumer chain genesis states
     #[prost(message, optional, tag = "5")]
-    pub consumer_genesis: ::core::option::Option<
-        super::super::consumer::v1::GenesisState,
-    >,
+    pub consumer_genesis: ::core::option::Option<super::super::v1::GenesisState>,
     /// PendingValsetChanges defines the pending validator set changes for the
     /// consumer chain
     #[prost(message, repeated, tag = "6")]

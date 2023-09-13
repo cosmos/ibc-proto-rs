@@ -66,7 +66,8 @@ pub struct Proposal {
         super::super::super::google::protobuf::Timestamp,
     >,
     /// metadata is any arbitrary metadata attached to the proposal.
-    /// the recommended format of the metadata is to be found here: <https://docs.cosmos.network/v0.47/modules/gov#proposal-3>
+    /// the recommended format of the metadata is to be found here:
+    /// <https://docs.cosmos.network/v0.47/modules/gov#proposal-3>
     #[prost(string, tag = "10")]
     pub metadata: ::prost::alloc::string::String,
     /// title is the title of the proposal
