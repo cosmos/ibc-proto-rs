@@ -1,76 +1,9 @@
-/// Params defines the parameters for CCV consumer module
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Params {
-    /// TODO: Remove enabled flag and find a better way to setup integration tests
-    /// See: <https://github.com/cosmos/interchain-security/issues/339>
-    #[prost(bool, tag = "1")]
-    pub enabled: bool,
-    /// /////////////////////
-    /// Distribution Params
-    /// Number of blocks between ibc-token-transfers from the consumer chain to
-    /// the provider chain. Note that at this transmission event a fraction of
-    /// the accumulated tokens are divided and sent consumer redistribution
-    /// address.
-    #[prost(int64, tag = "2")]
-    pub blocks_per_distribution_transmission: i64,
-    /// Channel, and provider-chain receiving address to send distribution token
-    /// transfers over. These parameters is auto-set during the consumer <->
-    /// provider handshake procedure.
-    #[prost(string, tag = "3")]
-    pub distribution_transmission_channel: ::prost::alloc::string::String,
-    #[prost(string, tag = "4")]
-    pub provider_fee_pool_addr_str: ::prost::alloc::string::String,
-    /// Sent CCV related IBC packets will timeout after this duration
-    #[prost(message, optional, tag = "5")]
-    pub ccv_timeout_period: ::core::option::Option<
-        super::super::super::super::google::protobuf::Duration,
-    >,
-    /// Sent transfer related IBC packets will timeout after this duration
-    #[prost(message, optional, tag = "6")]
-    pub transfer_timeout_period: ::core::option::Option<
-        super::super::super::super::google::protobuf::Duration,
-    >,
-    /// The fraction of tokens allocated to the consumer redistribution address
-    /// during distribution events. The fraction is a string representing a
-    /// decimal number. For example "0.75" would represent 75%.
-    #[prost(string, tag = "7")]
-    pub consumer_redistribution_fraction: ::prost::alloc::string::String,
-    /// The number of historical info entries to persist in store.
-    /// This param is a part of the cosmos sdk staking module. In the case of
-    /// a ccv enabled consumer chain, the ccv module acts as the staking module.
-    #[prost(int64, tag = "8")]
-    pub historical_entries: i64,
-    /// Unbonding period for the consumer,
-    /// which should be smaller than that of the provider in general.
-    #[prost(message, optional, tag = "9")]
-    pub unbonding_period: ::core::option::Option<
-        super::super::super::super::google::protobuf::Duration,
-    >,
-    /// The threshold for the percentage of validators at the bottom of the set who
-    /// can opt out of running the consumer chain without being punished. For
-    /// example, a value of 0.05 means that the validators in the bottom 5% of the
-    /// set can opt out
-    #[prost(string, tag = "10")]
-    pub soft_opt_out_threshold: ::prost::alloc::string::String,
-    /// Reward denoms. These are the denominations which are allowed to be sent to
-    /// the provider as rewards.
-    #[prost(string, repeated, tag = "11")]
-    pub reward_denoms: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// Provider-originated reward denoms. These are denoms coming from the
-    /// provider which are allowed to be used as rewards. e.g. "uatom"
-    #[prost(string, repeated, tag = "12")]
-    pub provider_reward_denoms: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-}
-/// LastTransmissionBlockHeight is the last time validator holding
-/// pools were transmitted to the provider chain
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LastTransmissionBlockHeight {
-    #[prost(int64, tag = "1")]
-    pub height: i64,
-}
-/// CrossChainValidator defines the validators for CCV consumer module
+/// CrossChainValidator defines the type used to store validator information internal
+/// to the consumer CCV module.  Note one cross chain validator entry is persisted for
+/// each consumer validator, where incoming VSC packets update this data, which is eventually
+/// forwarded to comet for consumer chain consensus.
+///
+/// Note this type is only used internally to the consumer CCV module.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CrossChainValidator {
@@ -84,19 +17,10 @@ pub struct CrossChainValidator {
         super::super::super::super::google::protobuf::Any,
     >,
 }
-/// MaturingVSCPacket contains the maturing time of a received VSCPacket
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MaturingVscPacket {
-    #[prost(uint64, tag = "1")]
-    pub vsc_id: u64,
-    #[prost(message, optional, tag = "2")]
-    pub maturity_time: ::core::option::Option<
-        super::super::super::super::google::protobuf::Timestamp,
-    >,
-}
 /// A record storing the state of a slash packet sent to the provider chain
 /// which may bounce back and forth until handled by the provider.
+///
+/// Note this type is only used internally to the consumer CCV module.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SlashRecord {
@@ -106,77 +30,6 @@ pub struct SlashRecord {
     pub send_time: ::core::option::Option<
         super::super::super::super::google::protobuf::Timestamp,
     >,
-}
-/// GenesisState defines the CCV consumer chain genesis state
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GenesisState {
-    #[prost(message, optional, tag = "1")]
-    pub params: ::core::option::Option<Params>,
-    /// empty for a new chain, filled in on restart.
-    #[prost(string, tag = "2")]
-    pub provider_client_id: ::prost::alloc::string::String,
-    /// empty for a new chain, filled in on restart.
-    #[prost(string, tag = "3")]
-    pub provider_channel_id: ::prost::alloc::string::String,
-    /// true for new chain GenesisState, false for chain restart.
-    #[prost(bool, tag = "4")]
-    pub new_chain: bool,
-    /// ProviderClientState filled in on new chain, nil on restart.
-    #[prost(message, optional, tag = "5")]
-    pub provider_client_state: ::core::option::Option<
-        super::super::super::super::ibc::lightclients::tendermint::v1::ClientState,
-    >,
-    /// ProviderConsensusState filled in on new chain, nil on restart.
-    #[prost(message, optional, tag = "6")]
-    pub provider_consensus_state: ::core::option::Option<
-        super::super::super::super::ibc::lightclients::tendermint::v1::ConsensusState,
-    >,
-    /// MaturingPackets nil on new chain, filled in on restart.
-    #[prost(message, repeated, tag = "7")]
-    pub maturing_packets: ::prost::alloc::vec::Vec<MaturingVscPacket>,
-    /// InitialValset filled in on new chain and on restart.
-    #[prost(message, repeated, tag = "8")]
-    pub initial_val_set: ::prost::alloc::vec::Vec<
-        ::tendermint_proto::abci::ValidatorUpdate,
-    >,
-    /// HeightToValsetUpdateId nil on new chain, filled in on restart.
-    #[prost(message, repeated, tag = "9")]
-    pub height_to_valset_update_id: ::prost::alloc::vec::Vec<HeightToValsetUpdateId>,
-    /// OutstandingDowntimes nil on new chain, filled  in on restart.
-    #[prost(message, repeated, tag = "10")]
-    pub outstanding_downtime_slashing: ::prost::alloc::vec::Vec<OutstandingDowntime>,
-    /// PendingConsumerPackets nil on new chain, filled in on restart.
-    #[prost(message, optional, tag = "11")]
-    pub pending_consumer_packets: ::core::option::Option<
-        super::super::v1::ConsumerPacketDataList,
-    >,
-    /// LastTransmissionBlockHeight nil on new chain, filled in on restart.
-    #[prost(message, optional, tag = "12")]
-    pub last_transmission_block_height: ::core::option::Option<
-        LastTransmissionBlockHeight,
-    >,
-    /// flag indicating whether the consumer CCV module starts in
-    #[prost(bool, tag = "13")]
-    pub pre_ccv: bool,
-}
-/// HeightValsetUpdateID defines the genesis information for the mapping
-/// of each block height to a valset update id
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct HeightToValsetUpdateId {
-    #[prost(uint64, tag = "1")]
-    pub height: u64,
-    #[prost(uint64, tag = "2")]
-    pub valset_update_id: u64,
-}
-/// OutstandingDowntime defines the genesis information for each validator
-/// flagged with an outstanding downtime slashing.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct OutstandingDowntime {
-    #[prost(string, tag = "1")]
-    pub validator_consensus_address: ::prost::alloc::string::String,
 }
 /// NextFeeDistributionEstimate holds information about next fee distribution
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -222,7 +75,7 @@ pub struct QueryParamsRequest {}
 pub struct QueryParamsResponse {
     /// params holds all the parameters of this module.
     #[prost(message, optional, tag = "1")]
-    pub params: ::core::option::Option<Params>,
+    pub params: ::core::option::Option<super::super::v1::Params>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]

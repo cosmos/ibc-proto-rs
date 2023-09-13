@@ -318,9 +318,9 @@ pub struct MsgConnectionOpenConfirmResponse {}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgUpdateParams {
-    /// authority is the address that controls the module (defaults to x/gov unless overwritten).
+    /// signer address (it may be the the address that controls the module, which defaults to x/gov unless overwritten).
     #[prost(string, tag = "1")]
-    pub authority: ::prost::alloc::string::String,
+    pub signer: ::prost::alloc::string::String,
     /// params defines the connection parameters to update.
     ///
     /// NOTE: All parameters must be supplied.

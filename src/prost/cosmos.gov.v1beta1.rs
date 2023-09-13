@@ -1177,6 +1177,7 @@ pub mod query_client {
             self.inner.unary(req, path, codec).await
         }
         /// Vote queries voted information based on proposalID, voterAddr.
+        /// Due to how we handle state, this query would error for proposals that has already been finished.
         pub async fn vote(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryVoteRequest>,
@@ -1359,6 +1360,7 @@ pub mod query_server {
             tonic::Status,
         >;
         /// Vote queries voted information based on proposalID, voterAddr.
+        /// Due to how we handle state, this query would error for proposals that has already been finished.
         async fn vote(
             &self,
             request: tonic::Request<super::QueryVoteRequest>,
