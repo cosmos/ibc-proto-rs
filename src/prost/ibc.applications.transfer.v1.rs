@@ -1,34 +1,3 @@
-/// DenomTrace contains the base denomination for ICS20 fungible tokens and the
-/// source tracing information path.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DenomTrace {
-    /// path defines the chain of port/channel identifiers used for tracing the
-    /// source of the fungible token.
-    #[prost(string, tag = "1")]
-    pub path: ::prost::alloc::string::String,
-    /// base denomination of the relayed fungible token.
-    #[prost(string, tag = "2")]
-    pub base_denom: ::prost::alloc::string::String,
-}
-/// Params defines the set of IBC transfer parameters.
-/// NOTE: To prevent a single token from being transferred, set the
-/// TransfersEnabled parameter to true and then set the bank module's SendEnabled
-/// parameter for the denomination to false.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Params {
-    /// send_enabled enables or disables all cross-chain token transfers from this
-    /// chain.
-    #[prost(bool, tag = "1")]
-    pub send_enabled: bool,
-    /// receive_enabled enables or disables all cross-chain token transfers to this
-    /// chain.
-    #[prost(bool, tag = "2")]
-    pub receive_enabled: bool,
-}
 /// MsgTransfer defines a msg to transfer fungible tokens (i.e Coins) between
 /// ICS20 enabled chains. See ICS Spec here:
 /// <https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer#data-structures>
@@ -77,26 +46,6 @@ pub struct MsgTransferResponse {
     #[prost(uint64, tag = "1")]
     pub sequence: u64,
 }
-/// MsgUpdateParams is the Msg/UpdateParams request type.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgUpdateParams {
-    /// authority is the address that controls the module (defaults to x/gov unless overwritten).
-    #[prost(string, tag = "1")]
-    pub authority: ::prost::alloc::string::String,
-    /// params defines the transfer parameters to update.
-    ///
-    /// NOTE: All parameters must be supplied.
-    #[prost(message, optional, tag = "2")]
-    pub params: ::core::option::Option<Params>,
-}
-/// MsgUpdateParamsResponse defines the response structure for executing a
-/// MsgUpdateParams message.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgUpdateParamsResponse {}
 /// Generated client implementations.
 #[cfg(feature = "client")]
 pub mod msg_client {
@@ -210,34 +159,6 @@ pub mod msg_client {
                 .insert(GrpcMethod::new("ibc.applications.transfer.v1.Msg", "Transfer"));
             self.inner.unary(req, path, codec).await
         }
-        /// UpdateParams defines a rpc handler for MsgUpdateParams.
-        pub async fn update_params(
-            &mut self,
-            request: impl tonic::IntoRequest<super::MsgUpdateParams>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgUpdateParamsResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/ibc.applications.transfer.v1.Msg/UpdateParams",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new("ibc.applications.transfer.v1.Msg", "UpdateParams"),
-                );
-            self.inner.unary(req, path, codec).await
-        }
     }
 }
 /// Generated server implementations.
@@ -254,14 +175,6 @@ pub mod msg_server {
             request: tonic::Request<super::MsgTransfer>,
         ) -> std::result::Result<
             tonic::Response<super::MsgTransferResponse>,
-            tonic::Status,
-        >;
-        /// UpdateParams defines a rpc handler for MsgUpdateParams.
-        async fn update_params(
-            &self,
-            request: tonic::Request<super::MsgUpdateParams>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgUpdateParamsResponse>,
             tonic::Status,
         >;
     }
@@ -387,50 +300,6 @@ pub mod msg_server {
                     };
                     Box::pin(fut)
                 }
-                "/ibc.applications.transfer.v1.Msg/UpdateParams" => {
-                    #[allow(non_camel_case_types)]
-                    struct UpdateParamsSvc<T: Msg>(pub Arc<T>);
-                    impl<T: Msg> tonic::server::UnaryService<super::MsgUpdateParams>
-                    for UpdateParamsSvc<T> {
-                        type Response = super::MsgUpdateParamsResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::MsgUpdateParams>,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                (*inner).update_params(request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = UpdateParamsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
                 _ => {
                     Box::pin(async move {
                         Ok(
@@ -471,6 +340,37 @@ pub mod msg_server {
     impl<T: Msg> tonic::server::NamedService for MsgServer<T> {
         const NAME: &'static str = "ibc.applications.transfer.v1.Msg";
     }
+}
+/// DenomTrace contains the base denomination for ICS20 fungible tokens and the
+/// source tracing information path.
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DenomTrace {
+    /// path defines the chain of port/channel identifiers used for tracing the
+    /// source of the fungible token.
+    #[prost(string, tag = "1")]
+    pub path: ::prost::alloc::string::String,
+    /// base denomination of the relayed fungible token.
+    #[prost(string, tag = "2")]
+    pub base_denom: ::prost::alloc::string::String,
+}
+/// Params defines the set of IBC transfer parameters.
+/// NOTE: To prevent a single token from being transferred, set the
+/// TransfersEnabled parameter to true and then set the bank module's SendEnabled
+/// parameter for the denomination to false.
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Params {
+    /// send_enabled enables or disables all cross-chain token transfers from this
+    /// chain.
+    #[prost(bool, tag = "1")]
+    pub send_enabled: bool,
+    /// receive_enabled enables or disables all cross-chain token transfers to this
+    /// chain.
+    #[prost(bool, tag = "2")]
+    pub receive_enabled: bool,
 }
 /// QueryDenomTraceRequest is the request type for the Query/DenomTrace RPC
 /// method

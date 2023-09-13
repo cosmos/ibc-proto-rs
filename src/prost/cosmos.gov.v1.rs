@@ -66,7 +66,6 @@ pub struct Proposal {
         super::super::super::google::protobuf::Timestamp,
     >,
     /// metadata is any arbitrary metadata attached to the proposal.
-    /// the recommended format of the metadata is to be found here: <https://docs.cosmos.network/v0.47/modules/gov#proposal-3>
     #[prost(string, tag = "10")]
     pub metadata: ::prost::alloc::string::String,
     /// title is the title of the proposal
@@ -79,21 +78,11 @@ pub struct Proposal {
     /// Since: cosmos-sdk 0.47
     #[prost(string, tag = "12")]
     pub summary: ::prost::alloc::string::String,
-    /// proposer is the address of the proposal sumbitter
+    /// Proposer is the address of the proposal sumbitter
     ///
     /// Since: cosmos-sdk 0.47
     #[prost(string, tag = "13")]
     pub proposer: ::prost::alloc::string::String,
-    /// expedited defines if the proposal is expedited
-    ///
-    /// Since: cosmos-sdk 0.50
-    #[prost(bool, tag = "14")]
-    pub expedited: bool,
-    /// failed_reason defines the reason why the proposal failed
-    ///
-    /// Since: cosmos-sdk 0.50
-    #[prost(string, tag = "15")]
-    pub failed_reason: ::prost::alloc::string::String,
 }
 /// TallyResult defines a standard tally for a governance proposal.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -126,8 +115,7 @@ pub struct Vote {
     /// options is the weighted vote options.
     #[prost(message, repeated, tag = "4")]
     pub options: ::prost::alloc::vec::Vec<WeightedVoteOption>,
-    /// metadata is any arbitrary metadata attached to the vote.
-    /// the recommended format of the metadata is to be found here: <https://docs.cosmos.network/v0.47/modules/gov#vote-5>
+    /// metadata is any  arbitrary metadata to attached to the vote.
     #[prost(string, tag = "5")]
     pub metadata: ::prost::alloc::string::String,
 }
@@ -205,34 +193,6 @@ pub struct Params {
     ///   The ratio representing the proportion of the deposit value that must be paid at proposal submission.
     #[prost(string, tag = "7")]
     pub min_initial_deposit_ratio: ::prost::alloc::string::String,
-    /// The cancel ratio which will not be returned back to the depositors when a proposal is cancelled.
-    ///
-    /// Since: cosmos-sdk 0.50
-    #[prost(string, tag = "8")]
-    pub proposal_cancel_ratio: ::prost::alloc::string::String,
-    /// The address which will receive (proposal_cancel_ratio * deposit) proposal deposits.
-    /// If empty, the (proposal_cancel_ratio * deposit) proposal deposits will be burned.
-    ///
-    /// Since: cosmos-sdk 0.50
-    #[prost(string, tag = "9")]
-    pub proposal_cancel_dest: ::prost::alloc::string::String,
-    /// Duration of the voting period of an expedited proposal.
-    ///
-    /// Since: cosmos-sdk 0.50
-    #[prost(message, optional, tag = "10")]
-    pub expedited_voting_period: ::core::option::Option<
-        super::super::super::google::protobuf::Duration,
-    >,
-    /// Minimum proportion of Yes votes for proposal to pass. Default value: 0.67.
-    ///
-    /// Since: cosmos-sdk 0.50
-    #[prost(string, tag = "11")]
-    pub expedited_threshold: ::prost::alloc::string::String,
-    ///   Minimum expedited deposit for a proposal to enter voting period.
-    #[prost(message, repeated, tag = "12")]
-    pub expedited_min_deposit: ::prost::alloc::vec::Vec<
-        super::super::base::v1beta1::Coin,
-    >,
     /// burn deposits if a proposal does not meet quorum
     #[prost(bool, tag = "13")]
     pub burn_vote_quorum: bool,
@@ -361,11 +321,6 @@ pub struct MsgSubmitProposal {
     /// Since: cosmos-sdk 0.47
     #[prost(string, tag = "6")]
     pub summary: ::prost::alloc::string::String,
-    /// expedited defines if the proposal is expedited or not
-    ///
-    /// Since: cosmos-sdk 0.50
-    #[prost(bool, tag = "7")]
-    pub expedited: bool,
 }
 /// MsgSubmitProposalResponse defines the Msg/SubmitProposal response type.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -473,38 +428,6 @@ pub struct MsgUpdateParams {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgUpdateParamsResponse {}
-/// MsgCancelProposal is the Msg/CancelProposal request type.
-///
-/// Since: cosmos-sdk 0.50
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgCancelProposal {
-    /// proposal_id defines the unique id of the proposal.
-    #[prost(uint64, tag = "1")]
-    pub proposal_id: u64,
-    /// proposer is the account address of the proposer.
-    #[prost(string, tag = "2")]
-    pub proposer: ::prost::alloc::string::String,
-}
-/// MsgCancelProposalResponse defines the response structure for executing a
-/// MsgCancelProposal message.
-///
-/// Since: cosmos-sdk 0.50
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgCancelProposalResponse {
-    /// proposal_id defines the unique id of the proposal.
-    #[prost(uint64, tag = "1")]
-    pub proposal_id: u64,
-    /// canceled_time is the time when proposal is canceled.
-    #[prost(message, optional, tag = "2")]
-    pub canceled_time: ::core::option::Option<
-        super::super::super::google::protobuf::Timestamp,
-    >,
-    /// canceled_height defines the block height at which the proposal is canceled.
-    #[prost(uint64, tag = "3")]
-    pub canceled_height: u64,
-}
 /// Generated client implementations.
 #[cfg(feature = "client")]
 pub mod msg_client {
@@ -748,34 +671,6 @@ pub mod msg_client {
                 .insert(GrpcMethod::new("cosmos.gov.v1.Msg", "UpdateParams"));
             self.inner.unary(req, path, codec).await
         }
-        /// CancelProposal defines a method to cancel governance proposal
-        ///
-        /// Since: cosmos-sdk 0.50
-        pub async fn cancel_proposal(
-            &mut self,
-            request: impl tonic::IntoRequest<super::MsgCancelProposal>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgCancelProposalResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.gov.v1.Msg/CancelProposal",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("cosmos.gov.v1.Msg", "CancelProposal"));
-            self.inner.unary(req, path, codec).await
-        }
     }
 }
 /// Generated server implementations.
@@ -833,16 +728,6 @@ pub mod msg_server {
             request: tonic::Request<super::MsgUpdateParams>,
         ) -> std::result::Result<
             tonic::Response<super::MsgUpdateParamsResponse>,
-            tonic::Status,
-        >;
-        /// CancelProposal defines a method to cancel governance proposal
-        ///
-        /// Since: cosmos-sdk 0.50
-        async fn cancel_proposal(
-            &self,
-            request: tonic::Request<super::MsgCancelProposal>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgCancelProposalResponse>,
             tonic::Status,
         >;
     }
@@ -1186,50 +1071,6 @@ pub mod msg_server {
                     };
                     Box::pin(fut)
                 }
-                "/cosmos.gov.v1.Msg/CancelProposal" => {
-                    #[allow(non_camel_case_types)]
-                    struct CancelProposalSvc<T: Msg>(pub Arc<T>);
-                    impl<T: Msg> tonic::server::UnaryService<super::MsgCancelProposal>
-                    for CancelProposalSvc<T> {
-                        type Response = super::MsgCancelProposalResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::MsgCancelProposal>,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                (*inner).cancel_proposal(request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = CancelProposalSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
                 _ => {
                     Box::pin(async move {
                         Ok(
@@ -1270,17 +1111,6 @@ pub mod msg_server {
     impl<T: Msg> tonic::server::NamedService for MsgServer<T> {
         const NAME: &'static str = "cosmos.gov.v1.Msg";
     }
-}
-/// QueryConstitutionRequest is the request type for the Query/Constitution RPC method
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryConstitutionRequest {}
-/// QueryConstitutionResponse is the response type for the Query/Constitution RPC method
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryConstitutionResponse {
-    #[prost(string, tag = "1")]
-    pub constitution: ::prost::alloc::string::String,
 }
 /// QueryProposalRequest is the request type for the Query/Proposal RPC method.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -1558,32 +1388,6 @@ pub mod query_client {
             self.inner = self.inner.max_encoding_message_size(limit);
             self
         }
-        /// Constitution queries the chain's constitution.
-        pub async fn constitution(
-            &mut self,
-            request: impl tonic::IntoRequest<super::QueryConstitutionRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::QueryConstitutionResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.gov.v1.Query/Constitution",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("cosmos.gov.v1.Query", "Constitution"));
-            self.inner.unary(req, path, codec).await
-        }
         /// Proposal queries proposal details based on ProposalID.
         pub async fn proposal(
             &mut self,
@@ -1710,7 +1514,7 @@ pub mod query_client {
                 .insert(GrpcMethod::new("cosmos.gov.v1.Query", "Params"));
             self.inner.unary(req, path, codec).await
         }
-        /// Deposit queries single deposit information based on proposalID, depositAddr.
+        /// Deposit queries single deposit information based proposalID, depositAddr.
         pub async fn deposit(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryDepositRequest>,
@@ -1798,14 +1602,6 @@ pub mod query_server {
     /// Generated trait containing gRPC methods that should be implemented for use with QueryServer.
     #[async_trait]
     pub trait Query: Send + Sync + 'static {
-        /// Constitution queries the chain's constitution.
-        async fn constitution(
-            &self,
-            request: tonic::Request<super::QueryConstitutionRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::QueryConstitutionResponse>,
-            tonic::Status,
-        >;
         /// Proposal queries proposal details based on ProposalID.
         async fn proposal(
             &self,
@@ -1846,7 +1642,7 @@ pub mod query_server {
             tonic::Response<super::QueryParamsResponse>,
             tonic::Status,
         >;
-        /// Deposit queries single deposit information based on proposalID, depositAddr.
+        /// Deposit queries single deposit information based proposalID, depositAddr.
         async fn deposit(
             &self,
             request: tonic::Request<super::QueryDepositRequest>,
@@ -1951,52 +1747,6 @@ pub mod query_server {
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
             let inner = self.inner.clone();
             match req.uri().path() {
-                "/cosmos.gov.v1.Query/Constitution" => {
-                    #[allow(non_camel_case_types)]
-                    struct ConstitutionSvc<T: Query>(pub Arc<T>);
-                    impl<
-                        T: Query,
-                    > tonic::server::UnaryService<super::QueryConstitutionRequest>
-                    for ConstitutionSvc<T> {
-                        type Response = super::QueryConstitutionResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::QueryConstitutionRequest>,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                (*inner).constitution(request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = ConstitutionSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
                 "/cosmos.gov.v1.Query/Proposal" => {
                     #[allow(non_camel_case_types)]
                     struct ProposalSvc<T: Query>(pub Arc<T>);
@@ -2422,12 +2172,4 @@ pub struct GenesisState {
     /// Since: cosmos-sdk 0.47
     #[prost(message, optional, tag = "8")]
     pub params: ::core::option::Option<Params>,
-    /// The constitution allows builders to lay a foundation and define purpose.
-    /// This is an immutable string set in genesis.
-    /// There are no amendments, to go outside of scope, just fork.
-    /// constitution is an immutable string in genesis for a chain builder to lay out their vision, ideas and ideals.
-    ///
-    /// Since: cosmos-sdk 0.50
-    #[prost(string, tag = "9")]
-    pub constitution: ::prost::alloc::string::String,
 }

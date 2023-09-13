@@ -292,9 +292,6 @@ pub struct AuxSignerData {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetTxsEventRequest {
     /// events is the list of transaction event type.
-    /// Deprecated post v0.47.x: use query instead, which should contain a valid
-    /// events query.
-    #[deprecated]
     #[prost(string, repeated, tag = "1")]
     pub events: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// pagination defines a pagination for the request.
@@ -306,20 +303,13 @@ pub struct GetTxsEventRequest {
     >,
     #[prost(enumeration = "OrderBy", tag = "3")]
     pub order_by: i32,
-    /// page is the page number to query, starts at 1. If not provided, will
-    /// default to first page.
+    /// page is the page number to query, starts at 1. If not provided, will default to first page.
     #[prost(uint64, tag = "4")]
     pub page: u64,
     /// limit is the total number of results to be returned in the result page.
     /// If left empty it will default to a value to be set by each app.
     #[prost(uint64, tag = "5")]
     pub limit: u64,
-    /// query defines the transaction event query that is proxied to Tendermint's
-    /// TxSearch RPC method. The query must be valid.
-    ///
-    /// Since cosmos-sdk 0.50
-    #[prost(string, tag = "6")]
-    pub query: ::prost::alloc::string::String,
 }
 /// GetTxsEventResponse is the response type for the Service.TxsByEvents
 /// RPC method.
@@ -433,8 +423,7 @@ pub struct GetBlockWithTxsRequest {
         super::super::base::query::v1beta1::PageRequest,
     >,
 }
-/// GetBlockWithTxsResponse is the response type for the Service.GetBlockWithTxs
-/// method.
+/// GetBlockWithTxsResponse is the response type for the Service.GetBlockWithTxs method.
 ///
 /// Since: cosmos-sdk 0.45.2
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -541,8 +530,7 @@ pub struct TxDecodeAminoResponse {
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum OrderBy {
-    /// ORDER_BY_UNSPECIFIED specifies an unknown sorting order. OrderBy defaults
-    /// to ASC in this case.
+    /// ORDER_BY_UNSPECIFIED specifies an unknown sorting order. OrderBy defaults to ASC in this case.
     Unspecified = 0,
     /// ORDER_BY_ASC defines ascending order
     Asc = 1,
@@ -571,8 +559,7 @@ impl OrderBy {
         }
     }
 }
-/// BroadcastMode specifies the broadcast mode for the TxService.Broadcast RPC
-/// method.
+/// BroadcastMode specifies the broadcast mode for the TxService.Broadcast RPC method.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum BroadcastMode {
@@ -581,11 +568,11 @@ pub enum BroadcastMode {
     /// DEPRECATED: use BROADCAST_MODE_SYNC instead,
     /// BROADCAST_MODE_BLOCK is not supported by the SDK from v0.47.x onwards.
     Block = 1,
-    /// BROADCAST_MODE_SYNC defines a tx broadcasting mode where the client waits
-    /// for a CheckTx execution response only.
+    /// BROADCAST_MODE_SYNC defines a tx broadcasting mode where the client waits for
+    /// a CheckTx execution response only.
     Sync = 2,
-    /// BROADCAST_MODE_ASYNC defines a tx broadcasting mode where the client
-    /// returns immediately.
+    /// BROADCAST_MODE_ASYNC defines a tx broadcasting mode where the client returns
+    /// immediately.
     Async = 3,
 }
 impl BroadcastMode {

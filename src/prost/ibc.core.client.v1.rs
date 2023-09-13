@@ -143,9 +143,7 @@ pub struct GenesisState {
     pub clients_metadata: ::prost::alloc::vec::Vec<IdentifiedGenesisMetadata>,
     #[prost(message, optional, tag = "4")]
     pub params: ::core::option::Option<Params>,
-    /// Deprecated: create_localhost has been deprecated.
-    /// The localhost client is automatically created at genesis.
-    #[deprecated]
+    /// create localhost on initialization
     #[prost(bool, tag = "5")]
     pub create_localhost: bool,
     /// the sequence for the next generated client identifier
@@ -261,20 +259,23 @@ pub struct MsgUpgradeClient {
 pub struct MsgUpgradeClientResponse {}
 /// MsgSubmitMisbehaviour defines an sdk.Msg type that submits Evidence for
 /// light client misbehaviour.
-/// This message has been deprecated. Use MsgUpdateClient instead.
+/// Warning: DEPRECATED
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgSubmitMisbehaviour {
     /// client unique identifier
+    #[deprecated]
     #[prost(string, tag = "1")]
     pub client_id: ::prost::alloc::string::String,
     /// misbehaviour used for freezing the light client
+    #[deprecated]
     #[prost(message, optional, tag = "2")]
     pub misbehaviour: ::core::option::Option<
         super::super::super::super::google::protobuf::Any,
     >,
     /// signer address
+    #[deprecated]
     #[prost(string, tag = "3")]
     pub signer: ::prost::alloc::string::String,
 }
@@ -284,25 +285,6 @@ pub struct MsgSubmitMisbehaviour {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgSubmitMisbehaviourResponse {}
-/// MsgUpdateParams defines the sdk.Msg type to update the client parameters.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgUpdateParams {
-    /// authority is the address of the governance account.
-    #[prost(string, tag = "1")]
-    pub authority: ::prost::alloc::string::String,
-    /// params defines the client parameters to update.
-    ///
-    /// NOTE: All parameters must be supplied.
-    #[prost(message, optional, tag = "2")]
-    pub params: ::core::option::Option<Params>,
-}
-/// MsgUpdateParamsResponse defines the MsgUpdateParams response type.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgUpdateParamsResponse {}
 /// Generated client implementations.
 #[cfg(feature = "client")]
 pub mod msg_client {
@@ -494,32 +476,6 @@ pub mod msg_client {
                 .insert(GrpcMethod::new("ibc.core.client.v1.Msg", "SubmitMisbehaviour"));
             self.inner.unary(req, path, codec).await
         }
-        /// UpdateClientParams defines a rpc handler method for MsgUpdateParams.
-        pub async fn update_client_params(
-            &mut self,
-            request: impl tonic::IntoRequest<super::MsgUpdateParams>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgUpdateParamsResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/ibc.core.client.v1.Msg/UpdateClientParams",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("ibc.core.client.v1.Msg", "UpdateClientParams"));
-            self.inner.unary(req, path, codec).await
-        }
     }
 }
 /// Generated server implementations.
@@ -560,14 +516,6 @@ pub mod msg_server {
             request: tonic::Request<super::MsgSubmitMisbehaviour>,
         ) -> std::result::Result<
             tonic::Response<super::MsgSubmitMisbehaviourResponse>,
-            tonic::Status,
-        >;
-        /// UpdateClientParams defines a rpc handler method for MsgUpdateParams.
-        async fn update_client_params(
-            &self,
-            request: tonic::Request<super::MsgUpdateParams>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgUpdateParamsResponse>,
             tonic::Status,
         >;
     }
@@ -814,50 +762,6 @@ pub mod msg_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = SubmitMisbehaviourSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/ibc.core.client.v1.Msg/UpdateClientParams" => {
-                    #[allow(non_camel_case_types)]
-                    struct UpdateClientParamsSvc<T: Msg>(pub Arc<T>);
-                    impl<T: Msg> tonic::server::UnaryService<super::MsgUpdateParams>
-                    for UpdateClientParamsSvc<T> {
-                        type Response = super::MsgUpdateParamsResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::MsgUpdateParams>,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                (*inner).update_client_params(request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = UpdateClientParamsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
