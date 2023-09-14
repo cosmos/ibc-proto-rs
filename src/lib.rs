@@ -229,6 +229,9 @@ pub mod ibc {
     }
     pub mod lightclients {
         pub mod localhost {
+            pub mod v1 {
+                include_proto!("ibc.lightclients.localhost.v1.rs");
+            }
             pub mod v2 {
                 include_proto!("ibc.lightclients.localhost.v2.rs");
             }
