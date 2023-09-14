@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## v0.35.0
+
+*September 14th, 2023*
+
+This release updates the IBC-Go protos to v7.3.0, the Cosmos SDK protos to v0.47.5,
+and the Interchain Security protos to v3.1.0.
+
+It also adds back the `ibc.lightclients.localhost.v1` proto definition that was
+removed in IBC-Go v7.0.0, for users which may need to interact with v1 localhost clients.
+
+### FEATURES
+
+- Bump ibc-go to v7.3.0, Cosmos SDK to 0.47.5 and Interchain Security to v3.1.0
+  ([\#140](https://github.com/cosmos/ibc-proto-rs/pull/140))
+- Add proto definition for `ibc.lightclients.localhost.v1`
+  ([\#143](https://github.com/cosmos/ibc-proto-rs/pull/143))
+
 ## v0.34.1
 
 *August 29th, 2023*
