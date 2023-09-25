@@ -10,6 +10,20 @@ pub struct HistoricalInfo {
     #[prost(message, repeated, tag = "2")]
     pub valset: ::prost::alloc::vec::Vec<Validator>,
 }
+/// Historical contains a set of minimum values needed for evaluating historical validator sets and blocks.
+/// It is stored as part of staking module's state, which persists the `n` most
+/// recent HistoricalInfo
+/// (`n` is set by the staking module's `historical_entries` parameter).
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct HistoricalRecord {
+    #[prost(bytes = "vec", tag = "1")]
+    pub apphash: ::prost::alloc::vec::Vec<u8>,
+    #[prost(message, optional, tag = "2")]
+    pub time: ::core::option::Option<super::super::super::google::protobuf::Timestamp>,
+    #[prost(bytes = "vec", tag = "3")]
+    pub validators_hash: ::prost::alloc::vec::Vec<u8>,
+}
 /// CommissionRates defines the initial commission rates to be used for creating
 /// a validator.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -1676,8 +1690,11 @@ pub struct QueryHistoricalInfoRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryHistoricalInfoResponse {
     /// hist defines the historical info at the given height.
+    #[deprecated]
     #[prost(message, optional, tag = "1")]
     pub hist: ::core::option::Option<HistoricalInfo>,
+    #[prost(message, optional, tag = "2")]
+    pub historical_record: ::core::option::Option<HistoricalRecord>,
 }
 /// QueryPoolRequest is request type for the Query/Pool RPC method.
 #[allow(clippy::derive_partial_eq_without_eq)]

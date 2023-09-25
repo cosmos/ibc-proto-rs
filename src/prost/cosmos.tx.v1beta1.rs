@@ -83,12 +83,8 @@ pub struct SignDocDirectAux {
     /// sequence is the sequence number of the signing account.
     #[prost(uint64, tag = "5")]
     pub sequence: u64,
-    /// Tip is the optional tip used for transactions fees paid in another denom.
-    /// It should be left empty if the signer is not the tipper for this
-    /// transaction.
-    ///
-    /// This field is ignored if the chain didn't enable tips, i.e. didn't add the
-    /// `TipDecorator` in its posthandler.
+    /// tips have been depreacted and should not be used
+    #[deprecated]
     #[prost(message, optional, tag = "6")]
     pub tip: ::core::option::Option<Tip>,
 }
@@ -152,6 +148,7 @@ pub struct AuthInfo {
     /// `TipDecorator` in its posthandler.
     ///
     /// Since: cosmos-sdk 0.46
+    #[deprecated]
     #[prost(message, optional, tag = "3")]
     pub tip: ::core::option::Option<Tip>,
 }
@@ -292,13 +289,13 @@ pub struct AuxSignerData {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetTxsEventRequest {
     /// events is the list of transaction event type.
-    /// Deprecated post v0.47.x: use query instead, which should contain a valid
+    /// Deprecated: post v0.47.x use query instead, which should contain a valid
     /// events query.
     #[deprecated]
     #[prost(string, repeated, tag = "1")]
     pub events: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// pagination defines a pagination for the request.
-    /// Deprecated post v0.46.x: use page and limit instead.
+    /// Deprecated: post v0.46.x use page and limit instead.
     #[deprecated]
     #[prost(message, optional, tag = "2")]
     pub pagination: ::core::option::Option<
@@ -335,7 +332,7 @@ pub struct GetTxsEventResponse {
         super::super::base::abci::v1beta1::TxResponse,
     >,
     /// pagination defines a pagination for the response.
-    /// Deprecated post v0.46.x: use total instead.
+    /// Deprecated: post v0.46.x use total instead.
     #[deprecated]
     #[prost(message, optional, tag = "3")]
     pub pagination: ::core::option::Option<
@@ -578,7 +575,7 @@ impl OrderBy {
 pub enum BroadcastMode {
     /// zero-value for mode ordering
     Unspecified = 0,
-    /// DEPRECATED: use BROADCAST_MODE_SYNC instead,
+    /// Deprecated: use BROADCAST_MODE_SYNC instead,
     /// BROADCAST_MODE_BLOCK is not supported by the SDK from v0.47.x onwards.
     Block = 1,
     /// BROADCAST_MODE_SYNC defines a tx broadcasting mode where the client waits

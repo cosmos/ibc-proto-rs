@@ -61,7 +61,7 @@ pub struct MsgSendTxResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgUpdateParams {
-    /// signer address (it may be the the address that controls the module, which defaults to x/gov unless overwritten).
+    /// signer address
     #[prost(string, tag = "1")]
     pub signer: ::prost::alloc::string::String,
     /// params defines the 27-interchain-accounts/controller parameters to update.

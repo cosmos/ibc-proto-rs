@@ -701,7 +701,7 @@ pub struct QueryConsumerGenesisRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsumerGenesisResponse {
     #[prost(message, optional, tag = "1")]
-    pub genesis_state: ::core::option::Option<super::super::v1::GenesisState>,
+    pub genesis_state: ::core::option::Option<super::super::v1::ConsumerGenesisState>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1934,7 +1934,7 @@ pub struct ConsumerState {
     pub initial_height: u64,
     /// ConsumerGenesis defines the initial consumer chain genesis states
     #[prost(message, optional, tag = "5")]
-    pub consumer_genesis: ::core::option::Option<super::super::v1::GenesisState>,
+    pub consumer_genesis: ::core::option::Option<super::super::v1::ConsumerGenesisState>,
     /// PendingValsetChanges defines the pending validator set changes for the
     /// consumer chain
     #[prost(message, repeated, tag = "6")]

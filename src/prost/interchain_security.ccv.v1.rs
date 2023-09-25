@@ -182,15 +182,14 @@ impl InfractionType {
         }
     }
 }
-/// Params defines the parameters for CCV consumer module.
+/// ConsumerParams defines the parameters for CCV consumer module.
 ///
 /// Note this type is referenced in both the consumer and provider CCV modules,
 /// and persisted on the provider, see MakeConsumerGenesis and SetConsumerGenesis.
 ///
-/// TODO: Rename to ConsumerParams. See <https://github.com/cosmos/interchain-security/issues/1206>
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Params {
+pub struct ConsumerParams {
     /// TODO: Remove enabled flag and find a better way to setup integration tests
     /// See: <https://github.com/cosmos/interchain-security/issues/339>
     #[prost(bool, tag = "1")]
@@ -251,24 +250,22 @@ pub struct Params {
     #[prost(string, repeated, tag = "12")]
     pub provider_reward_denoms: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
-/// GenesisState defines the CCV consumer chain genesis state.
+/// ConsumerGenesisState defines the CCV consumer chain genesis state.
 ///
 /// Note this type is referenced in both the consumer and provider CCV modules,
 /// and persisted on the provider, see MakeConsumerGenesis and SetConsumerGenesis.
-///
-/// TODO: Rename to ConsumerGenesisState. See <https://github.com/cosmos/interchain-security/issues/1206>
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GenesisState {
+pub struct ConsumerGenesisState {
     #[prost(message, optional, tag = "1")]
-    pub params: ::core::option::Option<Params>,
+    pub params: ::core::option::Option<ConsumerParams>,
     /// empty for a new chain, filled in on restart.
     #[prost(string, tag = "2")]
     pub provider_client_id: ::prost::alloc::string::String,
     /// empty for a new chain, filled in on restart.
     #[prost(string, tag = "3")]
     pub provider_channel_id: ::prost::alloc::string::String,
-    /// true for new chain GenesisState, false for chain restart.
+    /// true for new chain, false for chain restart.
     #[prost(bool, tag = "4")]
     pub new_chain: bool,
     /// ProviderClientState filled in on new chain, nil on restart.

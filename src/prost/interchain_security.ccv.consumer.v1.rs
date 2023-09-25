@@ -75,7 +75,7 @@ pub struct QueryParamsRequest {}
 pub struct QueryParamsResponse {
     /// params holds all the parameters of this module.
     #[prost(message, optional, tag = "1")]
-    pub params: ::core::option::Option<super::super::v1::Params>,
+    pub params: ::core::option::Option<super::super::v1::ConsumerParams>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]

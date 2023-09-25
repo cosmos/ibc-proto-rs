@@ -41,53 +41,6 @@ pub struct ClientConsensusStates {
     #[prost(message, repeated, tag = "2")]
     pub consensus_states: ::prost::alloc::vec::Vec<ConsensusStateWithHeight>,
 }
-/// ClientUpdateProposal is a governance proposal. If it passes, the substitute
-/// client's latest consensus state is copied over to the subject client. The proposal
-/// handler may fail if the subject and the substitute do not match in client and
-/// chain parameters (with exception to latest height, frozen height, and chain-id).
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ClientUpdateProposal {
-    /// the title of the update proposal
-    #[prost(string, tag = "1")]
-    pub title: ::prost::alloc::string::String,
-    /// the description of the proposal
-    #[prost(string, tag = "2")]
-    pub description: ::prost::alloc::string::String,
-    /// the client identifier for the client to be updated if the proposal passes
-    #[prost(string, tag = "3")]
-    pub subject_client_id: ::prost::alloc::string::String,
-    /// the substitute client identifier for the client standing in for the subject
-    /// client
-    #[prost(string, tag = "4")]
-    pub substitute_client_id: ::prost::alloc::string::String,
-}
-/// UpgradeProposal is a gov Content type for initiating an IBC breaking
-/// upgrade.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpgradeProposal {
-    #[prost(string, tag = "1")]
-    pub title: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub description: ::prost::alloc::string::String,
-    #[prost(message, optional, tag = "3")]
-    pub plan: ::core::option::Option<
-        super::super::super::super::cosmos::upgrade::v1beta1::Plan,
-    >,
-    /// An UpgradedClientState must be provided to perform an IBC breaking upgrade.
-    /// This will make the chain commit to the correct upgraded (self) client state
-    /// before the upgrade occurs, so that connecting chains can verify that the
-    /// new upgraded client is valid by verifying a proof on the previous version
-    /// of the chain. This will allow IBC connections to persist smoothly across
-    /// planned chain upgrades
-    #[prost(message, optional, tag = "4")]
-    pub upgraded_client_state: ::core::option::Option<
-        super::super::super::super::google::protobuf::Any,
-    >,
-}
 /// Height is a monotonically increasing data type
 /// that can be compared against another Height for the purposes of updating and
 /// freezing clients
@@ -126,6 +79,57 @@ pub struct Params {
     /// of this client will be disabled until it is added again to the list.
     #[prost(string, repeated, tag = "1")]
     pub allowed_clients: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// ClientUpdateProposal is a legacy governance proposal. If it passes, the substitute
+/// client's latest consensus state is copied over to the subject client. The proposal
+/// handler may fail if the subject and the substitute do not match in client and
+/// chain parameters (with exception to latest height, frozen height, and chain-id).
+///
+/// Deprecated: Please use MsgRecoverClient in favour of this message type.
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ClientUpdateProposal {
+    /// the title of the update proposal
+    #[prost(string, tag = "1")]
+    pub title: ::prost::alloc::string::String,
+    /// the description of the proposal
+    #[prost(string, tag = "2")]
+    pub description: ::prost::alloc::string::String,
+    /// the client identifier for the client to be updated if the proposal passes
+    #[prost(string, tag = "3")]
+    pub subject_client_id: ::prost::alloc::string::String,
+    /// the substitute client identifier for the client standing in for the subject
+    /// client
+    #[prost(string, tag = "4")]
+    pub substitute_client_id: ::prost::alloc::string::String,
+}
+/// UpgradeProposal is a gov Content type for initiating an IBC breaking
+/// upgrade.
+///
+/// Deprecated: Please use MsgIBCSoftwareUpgrade in favour of this message type.
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpgradeProposal {
+    #[prost(string, tag = "1")]
+    pub title: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub description: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "3")]
+    pub plan: ::core::option::Option<
+        super::super::super::super::cosmos::upgrade::v1beta1::Plan,
+    >,
+    /// An UpgradedClientState must be provided to perform an IBC breaking upgrade.
+    /// This will make the chain commit to the correct upgraded (self) client state
+    /// before the upgrade occurs, so that connecting chains can verify that the
+    /// new upgraded client is valid by verifying a proof on the previous version
+    /// of the chain. This will allow IBC connections to persist smoothly across
+    /// planned chain upgrades
+    #[prost(message, optional, tag = "4")]
+    pub upgraded_client_state: ::core::option::Option<
+        super::super::super::super::google::protobuf::Any,
+    >,
 }
 /// GenesisState defines the ibc client submodule's genesis state.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
@@ -284,12 +288,63 @@ pub struct MsgSubmitMisbehaviour {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgSubmitMisbehaviourResponse {}
+/// MsgRecoverClient defines the message used to recover a frozen or expired client.
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgRecoverClient {
+    /// the client identifier for the client to be updated if the proposal passes
+    #[prost(string, tag = "1")]
+    pub subject_client_id: ::prost::alloc::string::String,
+    /// the substitute client identifier for the client which will replace the subject
+    /// client
+    #[prost(string, tag = "2")]
+    pub substitute_client_id: ::prost::alloc::string::String,
+    /// signer address
+    #[prost(string, tag = "3")]
+    pub signer: ::prost::alloc::string::String,
+}
+/// MsgRecoverClientResponse defines the Msg/RecoverClient response type.
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgRecoverClientResponse {}
+/// MsgIBCSoftwareUpgrade defines the message used to schedule an upgrade of an IBC client using a v1 governance proposal
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgIbcSoftwareUpgrade {
+    #[prost(message, optional, tag = "1")]
+    pub plan: ::core::option::Option<
+        super::super::super::super::cosmos::upgrade::v1beta1::Plan,
+    >,
+    /// An UpgradedClientState must be provided to perform an IBC breaking upgrade.
+    /// This will make the chain commit to the correct upgraded (self) client state
+    /// before the upgrade occurs, so that connecting chains can verify that the
+    /// new upgraded client is valid by verifying a proof on the previous version
+    /// of the chain. This will allow IBC connections to persist smoothly across
+    /// planned chain upgrades. Correspondingly, the UpgradedClientState field has been
+    /// deprecated in the Cosmos SDK to allow for this logic to exist solely in
+    /// the 02-client module.
+    #[prost(message, optional, tag = "2")]
+    pub upgraded_client_state: ::core::option::Option<
+        super::super::super::super::google::protobuf::Any,
+    >,
+    /// signer address
+    #[prost(string, tag = "3")]
+    pub signer: ::prost::alloc::string::String,
+}
+/// MsgIBCSoftwareUpgradeResponse defines the Msg/IBCSoftwareUpgrade response type.
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgIbcSoftwareUpgradeResponse {}
 /// MsgUpdateParams defines the sdk.Msg type to update the client parameters.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgUpdateParams {
-    /// signer address (it may be the the address that controls the module, which defaults to x/gov unless overwritten).
+    /// signer address
     #[prost(string, tag = "1")]
     pub signer: ::prost::alloc::string::String,
     /// params defines the client parameters to update.
@@ -494,6 +549,58 @@ pub mod msg_client {
                 .insert(GrpcMethod::new("ibc.core.client.v1.Msg", "SubmitMisbehaviour"));
             self.inner.unary(req, path, codec).await
         }
+        /// RecoverClient defines a rpc handler method for MsgRecoverClient.
+        pub async fn recover_client(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgRecoverClient>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgRecoverClientResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/ibc.core.client.v1.Msg/RecoverClient",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("ibc.core.client.v1.Msg", "RecoverClient"));
+            self.inner.unary(req, path, codec).await
+        }
+        /// IBCSoftwareUpgrade defines a rpc handler method for MsgIBCSoftwareUpgrade.
+        pub async fn ibc_software_upgrade(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgIbcSoftwareUpgrade>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgIbcSoftwareUpgradeResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/ibc.core.client.v1.Msg/IBCSoftwareUpgrade",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("ibc.core.client.v1.Msg", "IBCSoftwareUpgrade"));
+            self.inner.unary(req, path, codec).await
+        }
         /// UpdateClientParams defines a rpc handler method for MsgUpdateParams.
         pub async fn update_client_params(
             &mut self,
@@ -560,6 +667,22 @@ pub mod msg_server {
             request: tonic::Request<super::MsgSubmitMisbehaviour>,
         ) -> std::result::Result<
             tonic::Response<super::MsgSubmitMisbehaviourResponse>,
+            tonic::Status,
+        >;
+        /// RecoverClient defines a rpc handler method for MsgRecoverClient.
+        async fn recover_client(
+            &self,
+            request: tonic::Request<super::MsgRecoverClient>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgRecoverClientResponse>,
+            tonic::Status,
+        >;
+        /// IBCSoftwareUpgrade defines a rpc handler method for MsgIBCSoftwareUpgrade.
+        async fn ibc_software_upgrade(
+            &self,
+            request: tonic::Request<super::MsgIbcSoftwareUpgrade>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgIbcSoftwareUpgradeResponse>,
             tonic::Status,
         >;
         /// UpdateClientParams defines a rpc handler method for MsgUpdateParams.
@@ -814,6 +937,96 @@ pub mod msg_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = SubmitMisbehaviourSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/ibc.core.client.v1.Msg/RecoverClient" => {
+                    #[allow(non_camel_case_types)]
+                    struct RecoverClientSvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgRecoverClient>
+                    for RecoverClientSvc<T> {
+                        type Response = super::MsgRecoverClientResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgRecoverClient>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).recover_client(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = RecoverClientSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/ibc.core.client.v1.Msg/IBCSoftwareUpgrade" => {
+                    #[allow(non_camel_case_types)]
+                    struct IBCSoftwareUpgradeSvc<T: Msg>(pub Arc<T>);
+                    impl<
+                        T: Msg,
+                    > tonic::server::UnaryService<super::MsgIbcSoftwareUpgrade>
+                    for IBCSoftwareUpgradeSvc<T> {
+                        type Response = super::MsgIbcSoftwareUpgradeResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgIbcSoftwareUpgrade>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).ibc_software_upgrade(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = IBCSoftwareUpgradeSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
