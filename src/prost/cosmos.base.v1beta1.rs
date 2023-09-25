@@ -2,7 +2,7 @@
 ///
 /// NOTE: The amount field is an Int which implements the custom method
 /// signatures required by gogoproto.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Coin {
@@ -15,7 +15,7 @@ pub struct Coin {
 ///
 /// NOTE: The amount field is an Dec which implements the custom method
 /// signatures required by gogoproto.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DecCoin {
@@ -23,20 +23,4 @@ pub struct DecCoin {
     pub denom: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub amount: ::prost::alloc::string::String,
-}
-/// IntProto defines a Protobuf wrapper around an Int object.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct IntProto {
-    #[prost(string, tag = "1")]
-    pub int: ::prost::alloc::string::String,
-}
-/// DecProto defines a Protobuf wrapper around a Dec object.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DecProto {
-    #[prost(string, tag = "1")]
-    pub dec: ::prost::alloc::string::String,
 }

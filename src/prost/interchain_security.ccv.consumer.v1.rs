@@ -2,7 +2,7 @@
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Params {
-    /// TODO: Remove enabled flag and find a better way to setup e2e tests
+    /// TODO: Remove enabled flag and find a better way to setup integration tests
     /// See: <https://github.com/cosmos/interchain-security/issues/339>
     #[prost(bool, tag = "1")]
     pub enabled: bool,
@@ -47,6 +47,20 @@ pub struct Params {
     pub unbonding_period: ::core::option::Option<
         super::super::super::super::google::protobuf::Duration,
     >,
+    /// The threshold for the percentage of validators at the bottom of the set who
+    /// can opt out of running the consumer chain without being punished. For
+    /// example, a value of 0.05 means that the validators in the bottom 5% of the
+    /// set can opt out
+    #[prost(string, tag = "10")]
+    pub soft_opt_out_threshold: ::prost::alloc::string::String,
+    /// Reward denoms. These are the denominations which are allowed to be sent to
+    /// the provider as rewards.
+    #[prost(string, repeated, tag = "11")]
+    pub reward_denoms: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// Provider-originated reward denoms. These are denoms coming from the
+    /// provider which are allowed to be used as rewards. e.g. "uatom"
+    #[prost(string, repeated, tag = "12")]
+    pub provider_reward_denoms: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// LastTransmissionBlockHeight is the last time validator holding
 /// pools were transmitted to the provider chain
@@ -78,6 +92,18 @@ pub struct MaturingVscPacket {
     pub vsc_id: u64,
     #[prost(message, optional, tag = "2")]
     pub maturity_time: ::core::option::Option<
+        super::super::super::super::google::protobuf::Timestamp,
+    >,
+}
+/// A record storing the state of a slash packet sent to the provider chain
+/// which may bounce back and forth until handled by the provider.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SlashRecord {
+    #[prost(bool, tag = "1")]
+    pub waiting_on_reply: bool,
+    #[prost(message, optional, tag = "2")]
+    pub send_time: ::core::option::Option<
         super::super::super::super::google::protobuf::Timestamp,
     >,
 }
@@ -130,6 +156,9 @@ pub struct GenesisState {
     pub last_transmission_block_height: ::core::option::Option<
         LastTransmissionBlockHeight,
     >,
+    /// flag indicating whether the consumer CCV module starts in
+    #[prost(bool, tag = "13")]
+    pub pre_ccv: bool,
 }
 /// HeightValsetUpdateID defines the genesis information for the mapping
 /// of each block height to a valset update id
@@ -194,6 +223,29 @@ pub struct QueryParamsResponse {
     /// params holds all the parameters of this module.
     #[prost(message, optional, tag = "1")]
     pub params: ::core::option::Option<Params>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryProviderInfoRequest {}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryProviderInfoResponse {
+    #[prost(message, optional, tag = "1")]
+    pub consumer: ::core::option::Option<ChainInfo>,
+    #[prost(message, optional, tag = "2")]
+    pub provider: ::core::option::Option<ChainInfo>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ChainInfo {
+    #[prost(string, tag = "1")]
+    pub chain_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub client_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub connection_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "4")]
+    pub channel_id: ::prost::alloc::string::String,
 }
 /// Generated client implementations.
 #[cfg(feature = "client")]
@@ -346,6 +398,36 @@ pub mod query_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+        pub async fn query_provider_info(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryProviderInfoRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryProviderInfoResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/interchain_security.ccv.consumer.v1.Query/QueryProviderInfo",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "interchain_security.ccv.consumer.v1.Query",
+                        "QueryProviderInfo",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
     }
 }
 /// Generated server implementations.
@@ -371,6 +453,13 @@ pub mod query_server {
             request: tonic::Request<super::QueryParamsRequest>,
         ) -> std::result::Result<
             tonic::Response<super::QueryParamsResponse>,
+            tonic::Status,
+        >;
+        async fn query_provider_info(
+            &self,
+            request: tonic::Request<super::QueryProviderInfoRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryProviderInfoResponse>,
             tonic::Status,
         >;
     }
@@ -531,6 +620,52 @@ pub mod query_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = QueryParamsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/interchain_security.ccv.consumer.v1.Query/QueryProviderInfo" => {
+                    #[allow(non_camel_case_types)]
+                    struct QueryProviderInfoSvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<super::QueryProviderInfoRequest>
+                    for QueryProviderInfoSvc<T> {
+                        type Response = super::QueryProviderInfoResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryProviderInfoRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).query_provider_info(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = QueryProviderInfoSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

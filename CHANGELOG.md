@@ -1,5 +1,34 @@
 # CHANGELOG
 
+## v0.34.0
+
+*August 17th, 2023*
+ 
+This release updates the Cosmos SDK protos to v0.47.3 and IBC-Go protos to v7.2.0.
+ 
+Additionally, it restore `no_std` support for JSON serialization via `serde`.
+Previously, `Serialize` and `Deserialize` instances were only derived when
+the `std` feature was enabled, but that is no longer required.
+ 
+As such, they now require the `serde` feature to be enabled, independently of
+whether or not the `std` feature is enabled.
+ 
+### BUG FIXES
+ 
+- Restore `no_std` support for JSON serialization
+  ([\#98](https://github.com/cosmos/ibc-proto-rs/issues/98))
+ 
+### FEATURES
+ 
+- Update Cosmos SDK protos to v0.47.3 and IBC-Go protos to v7.2.0
+  ([\#129](https://github.com/cosmos/ibc-proto-rs/issues/129))
+
+## v0.33.0
+
+*Aug 16th, 2023*
+
+This release bumps `tendermint-rs` to `0.33.0`.
+
 ## v0.32.1
 
 *July 31st, 2023*
