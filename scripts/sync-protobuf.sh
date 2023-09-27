@@ -111,11 +111,7 @@ COSMOS_ICS_DIR=$(mktemp -d /tmp/interchain-security-XXXXXXXX)
 
 pushd "$COSMOS_ICS_DIR"
 git clone "$COSMOS_ICS_GIT" .
-
-# We have to name the commit as a branch because
-# proto-compiler uses the branch name as the commit
-# output. Otherwise it will just output HEAD
-git switch -c "$COSMOS_ICS_COMMIT"
+git checkout -b "$COSMOS_ICS_COMMIT" "$COSMOS_ICS_COMMIT"
 
 cd proto
 buf mod update
@@ -126,11 +122,7 @@ COSMOS_SDK_DIR=$(mktemp -d /tmp/cosmos-sdk-XXXXXXXX)
 
 pushd "$COSMOS_SDK_DIR"
 git clone "$COSMOS_SDK_GIT" .
-
-# We have to name the commit as a branch because
-# proto-compiler uses the branch name as the commit
-# output. Otherwise it will just output HEAD
-git switch -c "$COSMOS_SDK_COMMIT"
+git checkout -b "$COSMOS_SDK_COMMIT" "$COSMOS_SDK_COMMIT"
 
 cd proto
 buf mod update
@@ -156,7 +148,7 @@ IBC_GO_DIR=$(mktemp -d /tmp/ibc-go-XXXXXXXX)
 
 pushd "$IBC_GO_DIR"
 git clone "$IBC_GO_GIT" .
-git switch -c "$IBC_GO_COMMIT"
+git checkout -b "$IBC_GO_COMMIT" "$IBC_GO_COMMIT"
 
 cd proto
 buf export -v -o ../proto-include
