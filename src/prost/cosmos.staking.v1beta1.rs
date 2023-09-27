@@ -167,10 +167,10 @@ pub struct DvvTriplets {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Delegation {
-    /// delegator_address is the encoded address of the delegator.
+    /// delegator_address is the bech32-encoded address of the delegator.
     #[prost(string, tag = "1")]
     pub delegator_address: ::prost::alloc::string::String,
-    /// validator_address is the encoded address of the validator.
+    /// validator_address is the bech32-encoded address of the validator.
     #[prost(string, tag = "2")]
     pub validator_address: ::prost::alloc::string::String,
     /// shares define the delegation shares received.
@@ -182,10 +182,10 @@ pub struct Delegation {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UnbondingDelegation {
-    /// delegator_address is the encoded address of the delegator.
+    /// delegator_address is the bech32-encoded address of the delegator.
     #[prost(string, tag = "1")]
     pub delegator_address: ::prost::alloc::string::String,
-    /// validator_address is the encoded address of the validator.
+    /// validator_address is the bech32-encoded address of the validator.
     #[prost(string, tag = "2")]
     pub validator_address: ::prost::alloc::string::String,
     /// entries are the unbonding delegation entries.
@@ -452,10 +452,6 @@ pub struct MsgCreateValidator {
     pub commission: ::core::option::Option<CommissionRates>,
     #[prost(string, tag = "3")]
     pub min_self_delegation: ::prost::alloc::string::String,
-    /// Deprecated: Use of Delegator Address in MsgCreateValidator is deprecated.
-    /// The validator address bytes and delegator address bytes refer to the same account while creating validator (defer
-    /// only in bech32 notation).
-    #[deprecated]
     #[prost(string, tag = "4")]
     pub delegator_address: ::prost::alloc::string::String,
     #[prost(string, tag = "5")]
@@ -549,11 +545,6 @@ pub struct MsgUndelegateResponse {
     pub completion_time: ::core::option::Option<
         super::super::super::google::protobuf::Timestamp,
     >,
-    /// amount returns the amount of undelegated coins
-    ///
-    /// Since: cosmos-sdk 0.50
-    #[prost(message, optional, tag = "2")]
-    pub amount: ::core::option::Option<super::super::base::v1beta1::Coin>,
 }
 /// MsgCancelUnbondingDelegation defines the SDK message for performing a cancel unbonding delegation for delegator
 ///
@@ -3189,8 +3180,6 @@ pub enum AuthorizationType {
     Undelegate = 2,
     /// AUTHORIZATION_TYPE_REDELEGATE defines an authorization type for Msg/BeginRedelegate
     Redelegate = 3,
-    /// AUTHORIZATION_TYPE_CANCEL_UNBONDING_DELEGATION defines an authorization type for Msg/MsgCancelUnbondingDelegation
-    CancelUnbondingDelegation = 4,
 }
 impl AuthorizationType {
     /// String value of the enum field names used in the ProtoBuf definition.
@@ -3203,9 +3192,6 @@ impl AuthorizationType {
             AuthorizationType::Delegate => "AUTHORIZATION_TYPE_DELEGATE",
             AuthorizationType::Undelegate => "AUTHORIZATION_TYPE_UNDELEGATE",
             AuthorizationType::Redelegate => "AUTHORIZATION_TYPE_REDELEGATE",
-            AuthorizationType::CancelUnbondingDelegation => {
-                "AUTHORIZATION_TYPE_CANCEL_UNBONDING_DELEGATION"
-            }
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3215,9 +3201,6 @@ impl AuthorizationType {
             "AUTHORIZATION_TYPE_DELEGATE" => Some(Self::Delegate),
             "AUTHORIZATION_TYPE_UNDELEGATE" => Some(Self::Undelegate),
             "AUTHORIZATION_TYPE_REDELEGATE" => Some(Self::Redelegate),
-            "AUTHORIZATION_TYPE_CANCEL_UNBONDING_DELEGATION" => {
-                Some(Self::CancelUnbondingDelegation)
-            }
             _ => None,
         }
     }
@@ -3237,7 +3220,7 @@ pub struct GenesisState {
     /// of the last-block's bonded validators.
     #[prost(message, repeated, tag = "3")]
     pub last_validator_powers: ::prost::alloc::vec::Vec<LastValidatorPower>,
-    /// validators defines the validator set at genesis.
+    /// delegations defines the validator set at genesis.
     #[prost(message, repeated, tag = "4")]
     pub validators: ::prost::alloc::vec::Vec<Validator>,
     /// delegations defines the delegations active at genesis.
@@ -3249,7 +3232,6 @@ pub struct GenesisState {
     /// redelegations defines the redelegations active at genesis.
     #[prost(message, repeated, tag = "7")]
     pub redelegations: ::prost::alloc::vec::Vec<Redelegation>,
-    /// exported defines a bool to identify whether the chain dealing with exported or initialized genesis.
     #[prost(bool, tag = "8")]
     pub exported: bool,
 }

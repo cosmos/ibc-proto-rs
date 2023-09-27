@@ -338,7 +338,7 @@ pub mod msg_client {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
     use tonic::codegen::http::Uri;
-    /// Msg defines the gov Msg service.
+    /// Msg defines the bank Msg service.
     #[derive(Debug, Clone)]
     pub struct MsgClient<T> {
         inner: tonic::client::Grpc<T>,
@@ -567,7 +567,7 @@ pub mod msg_server {
             tonic::Status,
         >;
     }
-    /// Msg defines the gov Msg service.
+    /// Msg defines the bank Msg service.
     #[derive(Debug)]
     pub struct MsgServer<T: Msg> {
         inner: _Inner<T>,
@@ -1177,7 +1177,6 @@ pub mod query_client {
             self.inner.unary(req, path, codec).await
         }
         /// Vote queries voted information based on proposalID, voterAddr.
-        /// Due to how we handle state, this query would error for proposals that has already been finished.
         pub async fn vote(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryVoteRequest>,
@@ -1255,7 +1254,7 @@ pub mod query_client {
                 .insert(GrpcMethod::new("cosmos.gov.v1beta1.Query", "Params"));
             self.inner.unary(req, path, codec).await
         }
-        /// Deposit queries single deposit information based on proposalID, depositor address.
+        /// Deposit queries single deposit information based proposalID, depositAddr.
         pub async fn deposit(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryDepositRequest>,
@@ -1360,7 +1359,6 @@ pub mod query_server {
             tonic::Status,
         >;
         /// Vote queries voted information based on proposalID, voterAddr.
-        /// Due to how we handle state, this query would error for proposals that has already been finished.
         async fn vote(
             &self,
             request: tonic::Request<super::QueryVoteRequest>,
@@ -1384,7 +1382,7 @@ pub mod query_server {
             tonic::Response<super::QueryParamsResponse>,
             tonic::Status,
         >;
-        /// Deposit queries single deposit information based on proposalID, depositor address.
+        /// Deposit queries single deposit information based proposalID, depositAddr.
         async fn deposit(
             &self,
             request: tonic::Request<super::QueryDepositRequest>,
@@ -1894,13 +1892,13 @@ pub struct GenesisState {
     /// proposals defines all the proposals present at genesis.
     #[prost(message, repeated, tag = "4")]
     pub proposals: ::prost::alloc::vec::Vec<Proposal>,
-    /// deposit_params defines all the parameters related to deposit.
+    /// params defines all the parameters of related to deposit.
     #[prost(message, optional, tag = "5")]
     pub deposit_params: ::core::option::Option<DepositParams>,
-    /// voting_params defines all the parameters related to voting.
+    /// params defines all the parameters of related to voting.
     #[prost(message, optional, tag = "6")]
     pub voting_params: ::core::option::Option<VotingParams>,
-    /// tally_params defines all the parameters related to tally.
+    /// params defines all the parameters of related to tally.
     #[prost(message, optional, tag = "7")]
     pub tally_params: ::core::option::Option<TallyParams>,
 }
