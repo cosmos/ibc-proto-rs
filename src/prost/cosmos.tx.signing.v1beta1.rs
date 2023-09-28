@@ -94,13 +94,12 @@ pub enum SignMode {
     Direct = 1,
     /// SIGN_MODE_TEXTUAL is a future signing mode that will verify some
     /// human-readable textual representation on top of the binary representation
-    /// from SIGN_MODE_DIRECT. It is currently experimental, and should be used
-    /// for testing purposes only, until Textual is fully released. Please follow
-    /// the tracking issue <https://github.com/cosmos/cosmos-sdk/issues/11970.>
+    /// from SIGN_MODE_DIRECT. It is currently not supported.
     Textual = 2,
     /// SIGN_MODE_DIRECT_AUX specifies a signing mode which uses
     /// SignDocDirectAux. As opposed to SIGN_MODE_DIRECT, this sign mode does not
-    /// require signers signing over other signers' `signer_info`.
+    /// require signers signing over other signers' `signer_info`. It also allows
+    /// for adding Tips in transactions.
     ///
     /// Since: cosmos-sdk 0.46
     DirectAux = 3,
@@ -117,11 +116,6 @@ pub enum SignMode {
     /// EIP-191 in the future.
     ///
     /// Since: cosmos-sdk 0.45.2
-    /// Deprecated: post 0.47.x Sign mode refers to a method of encoding string data for
-    /// signing, but in the SDK, it also refers to how to encode a transaction into a string.
-    /// This opens the possibility for additional EIP191 sign modes, like SIGN_MODE_EIP_191_TEXTUAL,
-    /// SIGN_MODE_EIP_191_LEGACY_JSON, and more.
-    /// Each new EIP191 sign mode should be accompanied by an associated ADR.
     Eip191 = 191,
 }
 impl SignMode {
