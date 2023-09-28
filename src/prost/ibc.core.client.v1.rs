@@ -615,7 +615,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).create_client(request).await
+                                <T as Msg>::create_client(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -659,7 +659,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).update_client(request).await
+                                <T as Msg>::update_client(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -703,7 +703,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).upgrade_client(request).await
+                                <T as Msg>::upgrade_client(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -749,7 +749,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).submit_misbehaviour(request).await
+                                <T as Msg>::submit_misbehaviour(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1556,7 +1556,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).client_state(request).await
+                                <T as Query>::client_state(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1602,7 +1602,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).client_states(request).await
+                                <T as Query>::client_states(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1648,7 +1648,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).consensus_state(request).await
+                                <T as Query>::consensus_state(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1694,7 +1694,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).consensus_states(request).await
+                                <T as Query>::consensus_states(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1743,7 +1743,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).consensus_state_heights(request).await
+                                <T as Query>::consensus_state_heights(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1789,7 +1789,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).client_status(request).await
+                                <T as Query>::client_status(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1835,7 +1835,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).client_params(request).await
+                                <T as Query>::client_params(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1883,7 +1883,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).upgraded_client_state(request).await
+                                <T as Query>::upgraded_client_state(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1932,7 +1932,8 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).upgraded_consensus_state(request).await
+                                <T as Query>::upgraded_consensus_state(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }

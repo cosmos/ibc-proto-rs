@@ -504,7 +504,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).register_payee(request).await
+                                <T as Msg>::register_payee(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -550,7 +550,8 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).register_counterparty_payee(request).await
+                                <T as Msg>::register_counterparty_payee(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -594,7 +595,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).pay_packet_fee(request).await
+                                <T as Msg>::pay_packet_fee(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -638,7 +639,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).pay_packet_fee_async(request).await
+                                <T as Msg>::pay_packet_fee_async(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1572,7 +1573,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).incentivized_packets(request).await
+                                <T as Query>::incentivized_packets(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1620,7 +1621,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).incentivized_packet(request).await
+                                <T as Query>::incentivized_packet(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1669,7 +1670,11 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).incentivized_packets_for_channel(request).await
+                                <T as Query>::incentivized_packets_for_channel(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1715,7 +1720,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).total_recv_fees(request).await
+                                <T as Query>::total_recv_fees(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1761,7 +1766,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).total_ack_fees(request).await
+                                <T as Query>::total_ack_fees(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1807,7 +1812,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).total_timeout_fees(request).await
+                                <T as Query>::total_timeout_fees(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1850,7 +1855,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryPayeeRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).payee(request).await };
+                            let fut = async move {
+                                <T as Query>::payee(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1895,7 +1902,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).counterparty_payee(request).await
+                                <T as Query>::counterparty_payee(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1943,7 +1950,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).fee_enabled_channels(request).await
+                                <T as Query>::fee_enabled_channels(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1989,7 +1996,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).fee_enabled_channel(request).await
+                                <T as Query>::fee_enabled_channel(&inner, request).await
                             };
                             Box::pin(fut)
                         }

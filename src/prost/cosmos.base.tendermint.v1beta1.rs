@@ -766,7 +766,7 @@ pub mod service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_node_info(request).await
+                                <T as Service>::get_node_info(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -811,7 +811,9 @@ pub mod service_server {
                             request: tonic::Request<super::GetSyncingRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).get_syncing(request).await };
+                            let fut = async move {
+                                <T as Service>::get_syncing(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -856,7 +858,7 @@ pub mod service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_latest_block(request).await
+                                <T as Service>::get_latest_block(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -902,7 +904,7 @@ pub mod service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_block_by_height(request).await
+                                <T as Service>::get_block_by_height(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -948,7 +950,8 @@ pub mod service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_latest_validator_set(request).await
+                                <T as Service>::get_latest_validator_set(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -996,7 +999,8 @@ pub mod service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_validator_set_by_height(request).await
+                                <T as Service>::get_validator_set_by_height(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1039,7 +1043,9 @@ pub mod service_server {
                             request: tonic::Request<super::AbciQueryRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).abci_query(request).await };
+                            let fut = async move {
+                                <T as Service>::abci_query(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }

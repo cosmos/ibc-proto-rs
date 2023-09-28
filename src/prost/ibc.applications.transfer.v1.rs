@@ -273,7 +273,9 @@ pub mod msg_server {
                             request: tonic::Request<super::MsgTransfer>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).transfer(request).await };
+                            let fut = async move {
+                                <T as Msg>::transfer(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -439,7 +441,7 @@ pub struct QueryParamsResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomHashRequest {
-    /// The denomination trace `(\[port_id]/[channel_id])+/[denom\]`
+    /// The denomination trace (\[port_id\]/[channel_id])+/\[denom\]
     #[prost(string, tag = "1")]
     pub trace: ::prost::alloc::string::String,
 }
@@ -907,7 +909,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryDenomTraceRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).denom_trace(request).await };
+                            let fut = async move {
+                                <T as Query>::denom_trace(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -952,7 +956,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).denom_traces(request).await
+                                <T as Query>::denom_traces(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -995,7 +999,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryParamsRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).params(request).await };
+                            let fut = async move {
+                                <T as Query>::params(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1039,7 +1045,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryDenomHashRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).denom_hash(request).await };
+                            let fut = async move {
+                                <T as Query>::denom_hash(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1084,7 +1092,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).escrow_address(request).await
+                                <T as Query>::escrow_address(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1132,7 +1140,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).total_escrow_for_denom(request).await
+                                <T as Query>::total_escrow_for_denom(&inner, request).await
                             };
                             Box::pin(fut)
                         }

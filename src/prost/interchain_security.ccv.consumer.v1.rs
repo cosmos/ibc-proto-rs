@@ -491,7 +491,8 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).query_next_fee_distribution(request).await
+                                <T as Query>::query_next_fee_distribution(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -535,7 +536,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).query_params(request).await
+                                <T as Query>::query_params(&inner, request).await
                             };
                             Box::pin(fut)
                         }

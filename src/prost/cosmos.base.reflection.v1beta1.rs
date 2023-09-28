@@ -307,7 +307,11 @@ pub mod reflection_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_all_interfaces(request).await
+                                <T as ReflectionService>::list_all_interfaces(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -353,7 +357,11 @@ pub mod reflection_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).list_implementations(request).await
+                                <T as ReflectionService>::list_implementations(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
