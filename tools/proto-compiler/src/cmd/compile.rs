@@ -215,21 +215,39 @@ impl CompileCmd {
             out_dir.display()
         );
 
-        {
-            println!("[info ] Patching cosmos.staking.v1beta1.rs...");
+        const PATCHES: &[(&str, &[(&str, &str)])] = &[
+            (
+                "cosmos.staking.v1beta1.rs",
+                &[
+                    ("pub struct Validators", "pub struct ValidatorsVec"),
+                    ("AllowList(Validators)", "AllowList(ValidatorsVec)"),
+                    ("DenyList(Validators)", "DenyList(ValidatorsVec)"),
+                ],
+            ),
+            (
+                "ibc.applications.transfer.v1.rs",
+                &[(
+                    "The denomination trace (\\[port_id]/[channel_id])+/[denom\\]",
+                    "The denomination trace `(\\[port_id]/[channel_id])+/[denom\\]`",
+                )],
+            ),
+        ];
 
-            let path = out_dir.join("cosmos.staking.v1beta1.rs");
-            let contents = std::fs::read_to_string(&path)?;
+        for (file, patches) in PATCHES {
+            println!("[info ] Patching {file}...");
 
-            let patched_contents = contents
-                .replace("pub struct Validators", "pub struct ValidatorsVec")
-                .replace("AllowList(Validators)", "AllowList(ValidatorsVec)")
-                .replace("DenyList(Validators)", "DenyList(ValidatorsVec)");
+            let path = out_dir.join(file);
+            let original = std::fs::read_to_string(&path)?;
+            let mut patched = original.clone();
 
-            let diff = TextDiff::from_lines(&contents, &patched_contents);
+            for (before, after) in patches.iter() {
+                patched = patched.replace(before, after);
+            }
+
+            let diff = TextDiff::from_lines(&original, &patched);
             println!("{}", diff.unified_diff().context_radius(3));
 
-            std::fs::write(&path, patched_contents)?;
+            std::fs::write(&path, patched)?;
         }
 
         Ok(())
