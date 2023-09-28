@@ -70,6 +70,7 @@ impl CompileCmd {
             format!("{}/cosmos/gov", sdk_dir.display()),
             format!("{}/cosmos/tx", sdk_dir.display()),
             format!("{}/cosmos/base", sdk_dir.display()),
+            format!("{}/cosmos/crypto", sdk_dir.display()),
             format!("{}/cosmos/bank", sdk_dir.display()),
             format!("{}/cosmos/staking", sdk_dir.display()),
             format!("{}/cosmos/upgrade", sdk_dir.display()),

@@ -133,6 +133,26 @@ pub mod cosmos {
             pub mod v1beta1 {
                 include_proto!("cosmos.crypto.multisig.v1beta1.rs");
             }
+            include_proto!("cosmos.crypto.multisig.rs");
+        }
+        pub mod ed25519 {
+            include_proto!("cosmos.crypto.ed25519.rs");
+        }
+        pub mod secp256k1 {
+            include_proto!("cosmos.crypto.secp256k1.rs");
+        }
+        pub mod secp256r1 {
+            include_proto!("cosmos.crypto.secp256r1.rs");
+        }
+        pub mod keyring {
+            pub mod v1 {
+                include_proto!("cosmos.crypto.keyring.v1.rs");
+            }
+        }
+        pub mod hd {
+            pub mod v1 {
+                include_proto!("cosmos.crypto.hd.v1.rs");
+            }
         }
     }
     pub mod tx {
