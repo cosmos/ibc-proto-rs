@@ -28,7 +28,7 @@ doctest = false
 all-features = true
 
 [dependencies]
-prost           = { version = "0.12", default-features = false }
+prost           = { version = "0.12", default-features = false, features = ["prost-derive"] }
 bytes           = { version = "1.2",  default-features = false }
 tonic           = { version = "0.10",  default-features = false, optional = true }
 serde           = { version = "1.0",  default-features = false }
@@ -61,3 +61,7 @@ server             = ["std", "tonic", "tonic/codegen", "tonic/transport", "tonic
 parity-scale-codec = ["dep:parity-scale-codec", "dep:scale-info"]
 borsh              = ["dep:borsh"]
 proto-descriptor   = []
+
+[patch.crates-io]
+tendermint-proto = { git = "https://github.com/informalsystems/tendermint-rs", branch = "main" }
+ics23 = { git = "https://github.com/cosmos/ics23", branch = "romac/prost-0.12" }
