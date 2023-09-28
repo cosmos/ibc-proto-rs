@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v0.36.1
+
+*September 28th, 2023*
+
+This release adds Protobuf definitions from the `cosmos.crypto.*` package.
+
+### FEATURES
+
+- Add Protobuf definitions from `cosmos.crypto.*` ([\#149](https://github.com/cosmos/ibc-proto-rs/pull/149))
+
 ## v0.36.0
 
 *September 28th, 2023*
