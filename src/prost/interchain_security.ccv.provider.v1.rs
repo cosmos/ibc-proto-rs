@@ -27,11 +27,50 @@ pub struct MsgRegisterConsumerRewardDenom {
     #[prost(string, tag = "2")]
     pub depositor: ::prost::alloc::string::String,
 }
-/// MsgRegisterConsumerRewardDenomResponse defines the
-/// Msg/RegisterConsumerRewardDenom response type.
+/// MsgRegisterConsumerRewardDenomResponse defines the Msg/RegisterConsumerRewardDenom response type.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgRegisterConsumerRewardDenomResponse {}
+/// MsgSubmitConsumerMisbehaviour defines a message that reports a misbehaviour
+/// observed on a consumer chain
+/// Note that the misbheaviour' headers must contain the same trusted states
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgSubmitConsumerMisbehaviour {
+    #[prost(string, tag = "1")]
+    pub submitter: ::prost::alloc::string::String,
+    /// The Misbehaviour of the consumer chain wrapping
+    /// two conflicting IBC headers
+    #[prost(message, optional, tag = "2")]
+    pub misbehaviour: ::core::option::Option<
+        super::super::super::super::ibc::lightclients::tendermint::v1::Misbehaviour,
+    >,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgSubmitConsumerMisbehaviourResponse {}
+/// MsgSubmitConsumerDoubleVoting defines a message that reports an equivocation
+/// observed on a consumer chain
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgSubmitConsumerDoubleVoting {
+    #[prost(string, tag = "1")]
+    pub submitter: ::prost::alloc::string::String,
+    /// The equivocation of the consumer chain wrapping
+    /// an evidence of a validator that signed two conflicting votes
+    #[prost(message, optional, tag = "2")]
+    pub duplicate_vote_evidence: ::core::option::Option<
+        ::tendermint_proto::types::DuplicateVoteEvidence,
+    >,
+    /// The light client header of the infraction block
+    #[prost(message, optional, tag = "3")]
+    pub infraction_block_header: ::core::option::Option<
+        super::super::super::super::ibc::lightclients::tendermint::v1::Header,
+    >,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgSubmitConsumerDoubleVotingResponse {}
 /// Generated client implementations.
 #[cfg(feature = "client")]
 pub mod msg_client {
@@ -179,6 +218,66 @@ pub mod msg_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+        pub async fn submit_consumer_misbehaviour(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgSubmitConsumerMisbehaviour>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgSubmitConsumerMisbehaviourResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/interchain_security.ccv.provider.v1.Msg/SubmitConsumerMisbehaviour",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "interchain_security.ccv.provider.v1.Msg",
+                        "SubmitConsumerMisbehaviour",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn submit_consumer_double_voting(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgSubmitConsumerDoubleVoting>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgSubmitConsumerDoubleVotingResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/interchain_security.ccv.provider.v1.Msg/SubmitConsumerDoubleVoting",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "interchain_security.ccv.provider.v1.Msg",
+                        "SubmitConsumerDoubleVoting",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
     }
 }
 /// Generated server implementations.
@@ -201,6 +300,20 @@ pub mod msg_server {
             request: tonic::Request<super::MsgRegisterConsumerRewardDenom>,
         ) -> std::result::Result<
             tonic::Response<super::MsgRegisterConsumerRewardDenomResponse>,
+            tonic::Status,
+        >;
+        async fn submit_consumer_misbehaviour(
+            &self,
+            request: tonic::Request<super::MsgSubmitConsumerMisbehaviour>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgSubmitConsumerMisbehaviourResponse>,
+            tonic::Status,
+        >;
+        async fn submit_consumer_double_voting(
+            &self,
+            request: tonic::Request<super::MsgSubmitConsumerDoubleVoting>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgSubmitConsumerDoubleVotingResponse>,
             tonic::Status,
         >;
     }
@@ -376,6 +489,98 @@ pub mod msg_server {
                     };
                     Box::pin(fut)
                 }
+                "/interchain_security.ccv.provider.v1.Msg/SubmitConsumerMisbehaviour" => {
+                    #[allow(non_camel_case_types)]
+                    struct SubmitConsumerMisbehaviourSvc<T: Msg>(pub Arc<T>);
+                    impl<
+                        T: Msg,
+                    > tonic::server::UnaryService<super::MsgSubmitConsumerMisbehaviour>
+                    for SubmitConsumerMisbehaviourSvc<T> {
+                        type Response = super::MsgSubmitConsumerMisbehaviourResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgSubmitConsumerMisbehaviour>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).submit_consumer_misbehaviour(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = SubmitConsumerMisbehaviourSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/interchain_security.ccv.provider.v1.Msg/SubmitConsumerDoubleVoting" => {
+                    #[allow(non_camel_case_types)]
+                    struct SubmitConsumerDoubleVotingSvc<T: Msg>(pub Arc<T>);
+                    impl<
+                        T: Msg,
+                    > tonic::server::UnaryService<super::MsgSubmitConsumerDoubleVoting>
+                    for SubmitConsumerDoubleVotingSvc<T> {
+                        type Response = super::MsgSubmitConsumerDoubleVotingResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgSubmitConsumerDoubleVoting>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                (*inner).submit_consumer_double_voting(request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = SubmitConsumerDoubleVotingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
                 _ => {
                     Box::pin(async move {
                         Ok(
@@ -417,11 +622,9 @@ pub mod msg_server {
         const NAME: &'static str = "interchain_security.ccv.provider.v1.Msg";
     }
 }
-/// ConsumerAdditionProposal is a governance proposal on the provider chain to
-/// spawn a new consumer chain. If it passes, then all validators on the provider
-/// chain are expected to validate the consumer chain at spawn time or get
-/// slashed. It is recommended that spawn time occurs after the proposal end
-/// time.
+/// ConsumerAdditionProposal is a governance proposal on the provider chain to spawn a new consumer chain.
+/// If it passes, then all validators on the provider chain are expected to validate the consumer chain at spawn time
+/// or get slashed. It is recommended that spawn time occurs after the proposal end time.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerAdditionProposal {
@@ -431,30 +634,26 @@ pub struct ConsumerAdditionProposal {
     /// the description of the proposal
     #[prost(string, tag = "2")]
     pub description: ::prost::alloc::string::String,
-    /// the proposed chain-id of the new consumer chain, must be different from all
-    /// other consumer chain ids of the executing provider chain.
+    /// the proposed chain-id of the new consumer chain, must be different from all other consumer chain ids of the executing
+    /// provider chain.
     #[prost(string, tag = "3")]
     pub chain_id: ::prost::alloc::string::String,
     /// the proposed initial height of new consumer chain.
-    /// For a completely new chain, this will be {0,1}. However, it may be
-    /// different if this is a chain that is converting to a consumer chain.
+    /// For a completely new chain, this will be {0,1}. However, it may be different if this is a chain that is converting to a consumer chain.
     #[prost(message, optional, tag = "4")]
     pub initial_height: ::core::option::Option<
         super::super::super::super::ibc::core::client::v1::Height,
     >,
-    /// The hash of the consumer chain genesis state without the consumer CCV
-    /// module genesis params. It is used for off-chain confirmation of
-    /// genesis.json validity by validators and other parties.
+    /// The hash of the consumer chain genesis state without the consumer CCV module genesis params.
+    /// It is used for off-chain confirmation of genesis.json validity by validators and other parties.
     #[prost(bytes = "vec", tag = "5")]
     pub genesis_hash: ::prost::alloc::vec::Vec<u8>,
-    /// The hash of the consumer chain binary that should be run by validators on
-    /// chain initialization. It is used for off-chain confirmation of binary
-    /// validity by validators and other parties.
+    /// The hash of the consumer chain binary that should be run by validators on chain initialization.
+    /// It is used for off-chain confirmation of binary validity by validators and other parties.
     #[prost(bytes = "vec", tag = "6")]
     pub binary_hash: ::prost::alloc::vec::Vec<u8>,
-    /// spawn time is the time on the provider chain at which the consumer chain
-    /// genesis is finalized and all validators will be responsible for starting
-    /// their consumer chain validator node.
+    /// spawn time is the time on the provider chain at which the consumer chain genesis is finalized and all validators
+    /// will be responsible for starting their consumer chain validator node.
     #[prost(message, optional, tag = "7")]
     pub spawn_time: ::core::option::Option<
         super::super::super::super::google::protobuf::Timestamp,
@@ -480,10 +679,8 @@ pub struct ConsumerAdditionProposal {
     /// decimal number. For example "0.75" would represent 75%.
     #[prost(string, tag = "11")]
     pub consumer_redistribution_fraction: ::prost::alloc::string::String,
-    /// BlocksPerDistributionTransmission is the number of blocks between
-    /// ibc-token-transfers from the consumer chain to the provider chain. On
-    /// sending transmission event, `consumer_redistribution_fraction` of the
-    /// accumulated tokens are sent to the consumer redistribution address.
+    /// BlocksPerDistributionTransmission is the number of blocks between ibc-token-transfers from the consumer chain to the provider chain.
+    /// On sending transmission event, `consumer_redistribution_fraction` of the accumulated tokens are sent to the consumer redistribution address.
     #[prost(int64, tag = "12")]
     pub blocks_per_distribution_transmission: i64,
     /// The number of historical info entries to persist in store.
@@ -494,16 +691,15 @@ pub struct ConsumerAdditionProposal {
     /// The ID of a token transfer channel used for the Reward Distribution
     /// sub-protocol. If DistributionTransmissionChannel == "", a new transfer
     /// channel is created on top of the same connection as the CCV channel.
-    /// Note that transfer_channel_id is the ID of the channel end on the consumer
-    /// chain. it is most relevant for chains performing a sovereign to consumer
-    /// changeover in order to maintan the existing ibc transfer channel
+    /// Note that transfer_channel_id is the ID of the channel end on the consumer chain.
+    /// it is most relevant for chains performing a sovereign to consumer changeover
+    /// in order to maintan the existing ibc transfer channel
     #[prost(string, tag = "14")]
     pub distribution_transmission_channel: ::prost::alloc::string::String,
 }
-/// ConsumerRemovalProposal is a governance proposal on the provider chain to
-/// remove (and stop) a consumer chain. If it passes, all the consumer chain's
-/// state is removed from the provider chain. The outstanding unbonding operation
-/// funds are released.
+/// ConsumerRemovalProposal is a governance proposal on the provider chain to remove (and stop) a consumer chain.
+/// If it passes, all the consumer chain's state is removed from the provider chain. The outstanding unbonding
+/// operation funds are released.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerRemovalProposal {
@@ -516,8 +712,7 @@ pub struct ConsumerRemovalProposal {
     /// the chain-id of the consumer chain to be stopped
     #[prost(string, tag = "3")]
     pub chain_id: ::prost::alloc::string::String,
-    /// the time on the provider chain at which all validators are responsible to
-    /// stop their consumer chain validator node
+    /// the time on the provider chain at which all validators are responsible to stop their consumer chain validator node
     #[prost(message, optional, tag = "4")]
     pub stop_time: ::core::option::Option<
         super::super::super::super::google::protobuf::Timestamp,
@@ -538,9 +733,8 @@ pub struct EquivocationProposal {
         super::super::super::super::cosmos::evidence::v1beta1::Equivocation,
     >,
 }
-/// A persisted queue entry indicating that a slash packet data instance needs to
-/// be handled. This type belongs in the "global" queue, to coordinate slash
-/// packet handling times between consumers.
+/// A persisted queue entry indicating that a slash packet data instance needs to be handled.
+/// This type belongs in the "global" queue, to coordinate slash packet handling times between consumers.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GlobalSlashEntry {
@@ -560,8 +754,7 @@ pub struct GlobalSlashEntry {
     /// The provider's consensus address of the validator being slashed.
     /// This field is used to obtain validator power in HandleThrottleQueues.
     ///
-    /// This field is not used in the store key, but is persisted in value bytes,
-    /// see QueueGlobalSlashEntry.
+    /// This field is not used in the store key, but is persisted in value bytes, see QueueGlobalSlashEntry.
     #[prost(bytes = "vec", tag = "4")]
     pub provider_val_cons_addr: ::prost::alloc::vec::Vec<u8>,
 }
@@ -573,8 +766,7 @@ pub struct Params {
     pub template_client: ::core::option::Option<
         super::super::super::super::ibc::lightclients::tendermint::v1::ClientState,
     >,
-    /// TrustingPeriodFraction is used to compute the consumer and provider IBC
-    /// client's TrustingPeriod from the chain defined UnbondingPeriod
+    /// TrustingPeriodFraction is used to compute the consumer and provider IBC client's TrustingPeriod from the chain defined UnbondingPeriod
     #[prost(string, tag = "2")]
     pub trusting_period_fraction: ::prost::alloc::string::String,
     /// Sent IBC packets will timeout after this duration
@@ -582,8 +774,7 @@ pub struct Params {
     pub ccv_timeout_period: ::core::option::Option<
         super::super::super::super::google::protobuf::Duration,
     >,
-    /// The channel initialization (IBC channel opening handshake) will timeout
-    /// after this duration
+    /// The channel initialization (IBC channel opening handshake) will timeout after this duration
     #[prost(message, optional, tag = "4")]
     pub init_timeout_period: ::core::option::Option<
         super::super::super::super::google::protobuf::Duration,
@@ -601,9 +792,8 @@ pub struct Params {
     pub slash_meter_replenish_period: ::core::option::Option<
         super::super::super::super::google::protobuf::Duration,
     >,
-    /// The fraction of total voting power that is replenished to the slash meter
-    /// every replenish period. This param also serves as a maximum fraction of
-    /// total voting power that the slash meter can hold.
+    /// The fraction of total voting power that is replenished to the slash meter every replenish period.
+    /// This param also serves as a maximum fraction of total voting power that the slash meter can hold.
     #[prost(string, tag = "7")]
     pub slash_meter_replenish_fraction: ::prost::alloc::string::String,
     /// The maximum amount of throttled slash or vsc matured packets
@@ -632,8 +822,7 @@ pub struct SlashAcks {
     #[prost(string, repeated, tag = "1")]
     pub addresses: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
-/// ConsumerAdditionProposals holds pending governance proposals on the provider
-/// chain to spawn a new chain.
+/// ConsumerAdditionProposals holds pending governance proposals on the provider chain to spawn a new chain.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerAdditionProposals {
@@ -641,8 +830,7 @@ pub struct ConsumerAdditionProposals {
     #[prost(message, repeated, tag = "1")]
     pub pending: ::prost::alloc::vec::Vec<ConsumerAdditionProposal>,
 }
-/// ConsumerRemovalProposals holds pending governance proposals on the provider
-/// chain to remove (and stop) a consumer chain.
+/// ConsumerRemovalProposals holds pending governance proposals on the provider chain to remove (and stop) a consumer chain.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerRemovalProposals {
@@ -717,8 +905,7 @@ pub struct KeyAssignmentReplacement {
     pub power: i64,
 }
 /// Used to serialize the ValidatorConsumerPubKey index from key assignment
-/// ValidatorConsumerPubKey: (chainID, providerAddr consAddr) -> consumerKey
-/// tmprotocrypto.PublicKey
+/// ValidatorConsumerPubKey: (chainID, providerAddr consAddr) -> consumerKey tmprotocrypto.PublicKey
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ValidatorConsumerPubKey {
@@ -730,8 +917,7 @@ pub struct ValidatorConsumerPubKey {
     pub consumer_key: ::core::option::Option<::tendermint_proto::crypto::PublicKey>,
 }
 /// Used to serialize the ValidatorConsumerAddr index from key assignment
-/// ValidatorByConsumerAddr: (chainID, consumerAddr consAddr) -> providerAddr
-/// consAddr
+/// ValidatorByConsumerAddr: (chainID, consumerAddr consAddr) -> providerAddr consAddr
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ValidatorByConsumerAddr {
@@ -844,12 +1030,11 @@ pub struct QueryThrottleStateResponse {
     /// current slash_meter state
     #[prost(int64, tag = "1")]
     pub slash_meter: i64,
-    /// allowance of voting power units (int) that the slash meter is given per
-    /// replenish period this also serves as the max value for the meter.
+    /// allowance of voting power units (int) that the slash meter is given per replenish period
+    /// this also serves as the max value for the meter.
     #[prost(int64, tag = "2")]
     pub slash_meter_allowance: i64,
-    /// next time the slash meter could potentially be replenished, iff it's not
-    /// full
+    /// next time the slash meter could potentially be replenished, iff it's not full
     #[prost(message, optional, tag = "3")]
     pub next_replenish_candidate: ::core::option::Option<
         super::super::super::super::google::protobuf::Timestamp,
@@ -874,8 +1059,7 @@ pub struct QueryThrottledConsumerPacketDataResponse {
     #[prost(message, repeated, tag = "3")]
     pub packet_data_instances: ::prost::alloc::vec::Vec<ThrottledPacketDataWrapper>,
 }
-/// A query wrapper type for the global entry and data relevant to a throttled
-/// slash packet.
+/// A query wrapper type for the global entry and data relevant to a throttled slash packet.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ThrottledSlashPacket {
@@ -884,8 +1068,7 @@ pub struct ThrottledSlashPacket {
     #[prost(message, optional, tag = "2")]
     pub data: ::core::option::Option<super::super::v1::SlashPacketData>,
 }
-/// ThrottledPacketDataWrapper contains either SlashPacketData or
-/// VSCMaturedPacketData
+/// ThrottledPacketDataWrapper contains either SlashPacketData or VSCMaturedPacketData
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ThrottledPacketDataWrapper {
@@ -1192,8 +1375,7 @@ pub mod query_client {
                 );
             self.inner.unary(req, path, codec).await
         }
-        /// QueryThrottleState returns the main on-chain state relevant to currently
-        /// throttled slash packets
+        /// QueryThrottleState returns the main on-chain state relevant to currently throttled slash packets
         pub async fn query_throttle_state(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryThrottleStateRequest>,
@@ -1224,8 +1406,8 @@ pub mod query_client {
                 );
             self.inner.unary(req, path, codec).await
         }
-        /// QueryThrottledConsumerPacketData returns a list of pending packet data
-        /// instances (slash packet and vsc matured) for a single consumer chain
+        /// QueryThrottledConsumerPacketData returns a list of pending packet data instances
+        /// (slash packet and vsc matured) for a single consumer chain
         pub async fn query_throttled_consumer_packet_data(
             &mut self,
             request: impl tonic::IntoRequest<
@@ -1258,8 +1440,7 @@ pub mod query_client {
                 );
             self.inner.unary(req, path, codec).await
         }
-        /// QueryRegisteredConsumerRewardDenoms returns a list of consumer reward
-        /// denoms that are registered
+        /// QueryRegisteredConsumerRewardDenoms returns a list of consumer reward denoms that are registered
         pub async fn query_registered_consumer_reward_denoms(
             &mut self,
             request: impl tonic::IntoRequest<
@@ -1354,8 +1535,7 @@ pub mod query_server {
             tonic::Response<super::QueryValidatorProviderAddrResponse>,
             tonic::Status,
         >;
-        /// QueryThrottleState returns the main on-chain state relevant to currently
-        /// throttled slash packets
+        /// QueryThrottleState returns the main on-chain state relevant to currently throttled slash packets
         async fn query_throttle_state(
             &self,
             request: tonic::Request<super::QueryThrottleStateRequest>,
@@ -1363,8 +1543,8 @@ pub mod query_server {
             tonic::Response<super::QueryThrottleStateResponse>,
             tonic::Status,
         >;
-        /// QueryThrottledConsumerPacketData returns a list of pending packet data
-        /// instances (slash packet and vsc matured) for a single consumer chain
+        /// QueryThrottledConsumerPacketData returns a list of pending packet data instances
+        /// (slash packet and vsc matured) for a single consumer chain
         async fn query_throttled_consumer_packet_data(
             &self,
             request: tonic::Request<super::QueryThrottledConsumerPacketDataRequest>,
@@ -1372,8 +1552,7 @@ pub mod query_server {
             tonic::Response<super::QueryThrottledConsumerPacketDataResponse>,
             tonic::Status,
         >;
-        /// QueryRegisteredConsumerRewardDenoms returns a list of consumer reward
-        /// denoms that are registered
+        /// QueryRegisteredConsumerRewardDenoms returns a list of consumer reward denoms that are registered
         async fn query_registered_consumer_reward_denoms(
             &self,
             request: tonic::Request<super::QueryRegisteredConsumerRewardDenomsRequest>,
@@ -1996,16 +2175,14 @@ pub struct ConsumerState {
     pub consumer_genesis: ::core::option::Option<
         super::super::consumer::v1::GenesisState,
     >,
-    /// PendingValsetChanges defines the pending validator set changes for the
-    /// consumer chain
+    /// PendingValsetChanges defines the pending validator set changes for the consumer chain
     #[prost(message, repeated, tag = "6")]
     pub pending_valset_changes: ::prost::alloc::vec::Vec<
         super::super::v1::ValidatorSetChangePacketData,
     >,
     #[prost(string, repeated, tag = "7")]
     pub slash_downtime_ack: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// UnbondingOpsIndex defines the unbonding operations waiting on this consumer
-    /// chain
+    /// UnbondingOpsIndex defines the unbonding operations waiting on this consumer chain
     #[prost(message, repeated, tag = "8")]
     pub unbonding_ops_index: ::prost::alloc::vec::Vec<VscUnbondingOps>,
 }

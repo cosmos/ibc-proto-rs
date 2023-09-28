@@ -163,13 +163,13 @@ mkdir -p src/prost
 
 cd tools/proto-compiler
 
-cargo build --locked
+cargo build
 
 # Run the proto-compiler twice,
 # once for std version with --build-tonic set to true
 # and once for no-std version with --build-tonic set to false
 
-cargo run --locked -- compile \
+cargo run -- compile \
   --ics "$COSMOS_ICS_DIR/proto-include" \
   --sdk "$COSMOS_SDK_DIR/proto-include" \
   --ibc "$IBC_GO_DIR/proto-include" \
