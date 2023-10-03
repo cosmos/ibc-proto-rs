@@ -45,7 +45,7 @@ scale-info         = { version = "2.1.2", default-features = false, features = [
 ## need tracking anchor-lang and near-sdk-rs borsh version
 borsh = { version = "0.10", default-features = false, optional = true }
 
-ics23 = { version = "0.10.2" , default-features = false }
+ics23 = { version = "0.10.3" , default-features = false }
 
 [dependencies.tendermint-proto]
 version          = "0.34"
@@ -61,7 +61,3 @@ server             = ["std", "tonic", "tonic/codegen", "tonic/transport", "tonic
 parity-scale-codec = ["dep:parity-scale-codec", "dep:scale-info"]
 borsh              = ["dep:borsh"]
 proto-descriptor   = []
-
-[patch.crates-io]
-# tendermint-proto = { git = "https://github.com/informalsystems/tendermint-rs", branch = "main" }
-ics23 = { git = "https://github.com/cosmos/ics23", branch = "romac/prost-0.12" }
