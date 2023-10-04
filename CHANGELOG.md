@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## v0.37.0
+
+*October 4th, 2023*
+
+This release updates `prost` to v0.12 and `tonic` to v0.10,
+and makes `serde` an optional dependency, now only enabled with the `serde` feature.
+
+### FEATURES
+
+- Update `prost` to v0.12 and `tonic` to v0.10
+  ([\#145](https://github.com/cosmos/ibc-proto-rs/issues/145))
+
+### IMPROVEMENTS
+
+- Make `serde` an optional dependency, now only enabled with the `serde` feature
+  ([\#152](https://github.com/cosmos/ibc-proto-rs/pull/152))
+
 ## v0.36.1
 
 *September 28th, 2023*
