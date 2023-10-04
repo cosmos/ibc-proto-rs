@@ -31,6 +31,9 @@ pub const COSMOS_SDK_COMMIT: &str = include_str!("COSMOS_SDK_COMMIT");
 /// The version (commit hash) of IBC Go used when generating this library.
 pub const IBC_GO_COMMIT: &str = include_str!("IBC_GO_COMMIT");
 
+/// The version (commit hash) of Interchain Security used when generating this library.
+pub const INTERCHAIN_SECURITY_COMMIT: &str = include_str!("COSMOS_ICS_COMMIT");
+
 /// File descriptor set of compiled proto.
 #[cfg(feature = "proto-descriptor")]
 pub const FILE_DESCRIPTOR_SET: &[u8] = include_bytes!("prost/proto_descriptor.bin");
