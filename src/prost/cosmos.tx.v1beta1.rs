@@ -1112,7 +1112,9 @@ pub mod service_server {
                             request: tonic::Request<super::SimulateRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).simulate(request).await };
+                            let fut = async move {
+                                <T as Service>::simulate(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1154,7 +1156,9 @@ pub mod service_server {
                             request: tonic::Request<super::GetTxRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).get_tx(request).await };
+                            let fut = async move {
+                                <T as Service>::get_tx(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1199,7 +1203,7 @@ pub mod service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).broadcast_tx(request).await
+                                <T as Service>::broadcast_tx(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1245,7 +1249,7 @@ pub mod service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_txs_event(request).await
+                                <T as Service>::get_txs_event(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1291,7 +1295,7 @@ pub mod service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_block_with_txs(request).await
+                                <T as Service>::get_block_with_txs(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1334,7 +1338,9 @@ pub mod service_server {
                             request: tonic::Request<super::TxDecodeRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).tx_decode(request).await };
+                            let fut = async move {
+                                <T as Service>::tx_decode(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1376,7 +1382,9 @@ pub mod service_server {
                             request: tonic::Request<super::TxEncodeRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).tx_encode(request).await };
+                            let fut = async move {
+                                <T as Service>::tx_encode(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1421,7 +1429,7 @@ pub mod service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).tx_encode_amino(request).await
+                                <T as Service>::tx_encode_amino(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1467,7 +1475,7 @@ pub mod service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).tx_decode_amino(request).await
+                                <T as Service>::tx_decode_amino(&inner, request).await
                             };
                             Box::pin(fut)
                         }

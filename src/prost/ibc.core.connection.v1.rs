@@ -658,7 +658,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).connection_open_init(request).await
+                                <T as Msg>::connection_open_init(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -702,7 +702,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).connection_open_try(request).await
+                                <T as Msg>::connection_open_try(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -746,7 +746,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).connection_open_ack(request).await
+                                <T as Msg>::connection_open_ack(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -792,7 +792,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).connection_open_confirm(request).await
+                                <T as Msg>::connection_open_confirm(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1439,7 +1439,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryConnectionRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).connection(request).await };
+                            let fut = async move {
+                                <T as Query>::connection(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1483,7 +1485,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryConnectionsRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).connections(request).await };
+                            let fut = async move {
+                                <T as Query>::connections(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1528,7 +1532,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).client_connections(request).await
+                                <T as Query>::client_connections(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1577,7 +1581,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).connection_client_state(request).await
+                                <T as Query>::connection_client_state(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1626,7 +1630,8 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).connection_consensus_state(request).await
+                                <T as Query>::connection_consensus_state(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1672,7 +1677,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).connection_params(request).await
+                                <T as Query>::connection_params(&inner, request).await
                             };
                             Box::pin(fut)
                         }

@@ -255,7 +255,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).submit_query_response(request).await
+                                <T as Msg>::submit_query_response(&inner, request).await
                             };
                             Box::pin(fut)
                         }
