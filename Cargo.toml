@@ -31,7 +31,7 @@ all-features = true
 prost           = { version = "0.11", default-features = false }
 bytes           = { version = "1.2",  default-features = false }
 tonic           = { version = "0.9",  default-features = false, optional = true }
-serde           = { version = "1.0",  default-features = false }
+serde           = { version = "1.0",  default-features = false, optional = true }
 schemars        = { version = "0.8",  optional = true }
 subtle-encoding = { version = "0.5",  default-features = false }
 base64          = { version = "0.21", default-features = false, features = ["alloc"] }
@@ -54,7 +54,7 @@ default-features = false
 [features]
 default            = ["std", "client"]
 std                = ["prost/std", "bytes/std", "subtle-encoding/std", "base64/std", "flex-error/std", "ics23/std"]
-serde              = ["ics23/serde"]
+serde              = ["dep:serde", "ics23/serde"]
 client             = ["std", "tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
 json-schema        = ["std", "schemars"]
 server             = ["std", "tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
