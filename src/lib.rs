@@ -66,11 +66,6 @@ pub mod cosmos {
             }
         }
     }
-    pub mod evidence {
-        pub mod v1beta1 {
-            include_proto!("cosmos.evidence.v1beta1.rs");
-        }
-    }
     pub mod staking {
         pub mod v1beta1 {
             include_proto!("cosmos.staking.v1beta1.rs");
