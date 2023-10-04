@@ -36,16 +36,15 @@ schemars        = { version = "0.8",  optional = true }
 subtle-encoding = { version = "0.5",  default-features = false }
 base64          = { version = "0.21", default-features = false, features = ["alloc"] }
 flex-error      = { version = "0.4",  default-features = false }
+ics23           = { version = "0.10.2" , default-features = false }
 
-## for codec encode or decode
+## Optional: enabled with `features = ["parity-scale-codec"]`
 parity-scale-codec = { version = "3.0.0", default-features = false, features = ["full"],   optional = true }
 scale-info         = { version = "2.1.2", default-features = false, features = ["derive"], optional = true }
 
-## for borsh encode or decode
-## need tracking anchor-lang and near-sdk-rs borsh version
+## Optional: enabled with `features = ["borsh"]`
+## Need tracking anchor-lang and near-sdk-rs borsh version
 borsh = { version = "0.10", default-features = false, optional = true }
-
-ics23 = { version = "0.10.2" , default-features = false }
 
 [dependencies.tendermint-proto]
 version          = "0.33"
@@ -55,9 +54,9 @@ default-features = false
 default            = ["std", "client"]
 std                = ["prost/std", "bytes/std", "subtle-encoding/std", "base64/std", "flex-error/std", "ics23/std"]
 serde              = ["dep:serde", "ics23/serde"]
-client             = ["std", "tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
-json-schema        = ["std", "schemars"]
-server             = ["std", "tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
+client             = ["std", "dep:tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
+json-schema        = ["std", "serde", "dep:schemars"]
+server             = ["std", "dep:tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
 parity-scale-codec = ["dep:parity-scale-codec", "dep:scale-info"]
 borsh              = ["dep:borsh"]
 proto-descriptor   = []
