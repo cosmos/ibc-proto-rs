@@ -228,8 +228,8 @@ impl CompileCmd {
             (
                 "ibc.applications.transfer.v1.rs",
                 &[(
-                    "The denomination trace (\\[port_id]/[channel_id])+/[denom\\]",
-                    "The denomination trace `(\\[port_id]/[channel_id])+/[denom\\]`",
+                    "The denomination trace (\\[port_id\\]/[channel_id])+/\\[denom\\]",
+                    "The denomination trace `([port_id]/[channel_id])+/[denom]`",
                 )],
             ),
         ];

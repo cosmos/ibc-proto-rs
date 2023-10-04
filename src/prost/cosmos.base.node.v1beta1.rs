@@ -230,7 +230,9 @@ pub mod service_server {
                             request: tonic::Request<super::ConfigRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).config(request).await };
+                            let fut = async move {
+                                <T as Service>::config(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }

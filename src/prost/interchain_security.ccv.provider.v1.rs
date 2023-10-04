@@ -300,7 +300,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).assign_consumer_key(request).await
+                                <T as Msg>::assign_consumer_key(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -348,7 +348,8 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).register_consumer_reward_denom(request).await
+                                <T as Msg>::register_consumer_reward_denom(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1479,7 +1480,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).query_consumer_genesis(request).await
+                                <T as Query>::query_consumer_genesis(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1525,7 +1526,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).query_consumer_chains(request).await
+                                <T as Query>::query_consumer_chains(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1574,7 +1575,8 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).query_consumer_chain_starts(request).await
+                                <T as Query>::query_consumer_chain_starts(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1623,7 +1625,8 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).query_consumer_chain_stops(request).await
+                                <T as Query>::query_consumer_chain_stops(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1672,7 +1675,8 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).query_validator_consumer_addr(request).await
+                                <T as Query>::query_validator_consumer_addr(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1721,7 +1725,8 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).query_validator_provider_addr(request).await
+                                <T as Query>::query_validator_provider_addr(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1767,7 +1772,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).query_throttle_state(request).await
+                                <T as Query>::query_throttle_state(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1816,7 +1821,11 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).query_throttled_consumer_packet_data(request).await
+                                <T as Query>::query_throttled_consumer_packet_data(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1865,8 +1874,10 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner)
-                                    .query_registered_consumer_reward_denoms(request)
+                                <T as Query>::query_registered_consumer_reward_denoms(
+                                        &inner,
+                                        request,
+                                    )
                                     .await
                             };
                             Box::pin(fut)

@@ -1048,7 +1048,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).create_validator(request).await
+                                <T as Msg>::create_validator(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1092,7 +1092,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).edit_validator(request).await
+                                <T as Msg>::edit_validator(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1135,7 +1135,9 @@ pub mod msg_server {
                             request: tonic::Request<super::MsgDelegate>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).delegate(request).await };
+                            let fut = async move {
+                                <T as Msg>::delegate(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1178,7 +1180,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).begin_redelegate(request).await
+                                <T as Msg>::begin_redelegate(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1221,7 +1223,9 @@ pub mod msg_server {
                             request: tonic::Request<super::MsgUndelegate>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).undelegate(request).await };
+                            let fut = async move {
+                                <T as Msg>::undelegate(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1266,7 +1270,8 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).cancel_unbonding_delegation(request).await
+                                <T as Msg>::cancel_unbonding_delegation(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -1310,7 +1315,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).update_params(request).await
+                                <T as Msg>::update_params(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2455,7 +2460,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryValidatorsRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).validators(request).await };
+                            let fut = async move {
+                                <T as Query>::validators(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2499,7 +2506,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryValidatorRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).validator(request).await };
+                            let fut = async move {
+                                <T as Query>::validator(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2547,7 +2556,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).validator_delegations(request).await
+                                <T as Query>::validator_delegations(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2596,7 +2605,11 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).validator_unbonding_delegations(request).await
+                                <T as Query>::validator_unbonding_delegations(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -2641,7 +2654,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryDelegationRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).delegation(request).await };
+                            let fut = async move {
+                                <T as Query>::delegation(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2688,7 +2703,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).unbonding_delegation(request).await
+                                <T as Query>::unbonding_delegation(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2737,7 +2752,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).delegator_delegations(request).await
+                                <T as Query>::delegator_delegations(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2786,7 +2801,11 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).delegator_unbonding_delegations(request).await
+                                <T as Query>::delegator_unbonding_delegations(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -2832,7 +2851,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).redelegations(request).await
+                                <T as Query>::redelegations(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2880,7 +2899,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).delegator_validators(request).await
+                                <T as Query>::delegator_validators(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2928,7 +2947,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).delegator_validator(request).await
+                                <T as Query>::delegator_validator(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2974,7 +2993,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).historical_info(request).await
+                                <T as Query>::historical_info(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -3017,7 +3036,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryPoolRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).pool(request).await };
+                            let fut = async move {
+                                <T as Query>::pool(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -3059,7 +3080,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryParamsRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).params(request).await };
+                            let fut = async move {
+                                <T as Query>::params(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }

@@ -1103,7 +1103,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).channel_open_init(request).await
+                                <T as Msg>::channel_open_init(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1147,7 +1147,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).channel_open_try(request).await
+                                <T as Msg>::channel_open_try(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1191,7 +1191,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).channel_open_ack(request).await
+                                <T as Msg>::channel_open_ack(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1237,7 +1237,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).channel_open_confirm(request).await
+                                <T as Msg>::channel_open_confirm(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1281,7 +1281,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).channel_close_init(request).await
+                                <T as Msg>::channel_close_init(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1327,7 +1327,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).channel_close_confirm(request).await
+                                <T as Msg>::channel_close_confirm(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1370,7 +1370,9 @@ pub mod msg_server {
                             request: tonic::Request<super::MsgRecvPacket>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).recv_packet(request).await };
+                            let fut = async move {
+                                <T as Msg>::recv_packet(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1412,7 +1414,9 @@ pub mod msg_server {
                             request: tonic::Request<super::MsgTimeout>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).timeout(request).await };
+                            let fut = async move {
+                                <T as Msg>::timeout(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1455,7 +1459,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).timeout_on_close(request).await
+                                <T as Msg>::timeout_on_close(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1499,7 +1503,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).acknowledgement(request).await
+                                <T as Msg>::acknowledgement(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2662,7 +2666,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryChannelRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).channel(request).await };
+                            let fut = async move {
+                                <T as Query>::channel(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2706,7 +2712,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryChannelsRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).channels(request).await };
+                            let fut = async move {
+                                <T as Query>::channels(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -2753,7 +2761,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).connection_channels(request).await
+                                <T as Query>::connection_channels(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2801,7 +2809,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).channel_client_state(request).await
+                                <T as Query>::channel_client_state(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2850,7 +2858,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).channel_consensus_state(request).await
+                                <T as Query>::channel_consensus_state(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2896,7 +2904,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).packet_commitment(request).await
+                                <T as Query>::packet_commitment(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2942,7 +2950,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).packet_commitments(request).await
+                                <T as Query>::packet_commitments(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -2988,7 +2996,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).packet_receipt(request).await
+                                <T as Query>::packet_receipt(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -3037,7 +3045,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).packet_acknowledgement(request).await
+                                <T as Query>::packet_acknowledgement(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -3086,7 +3094,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).packet_acknowledgements(request).await
+                                <T as Query>::packet_acknowledgements(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -3132,7 +3140,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).unreceived_packets(request).await
+                                <T as Query>::unreceived_packets(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -3178,7 +3186,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).unreceived_acks(request).await
+                                <T as Query>::unreceived_acks(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -3226,7 +3234,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).next_sequence_receive(request).await
+                                <T as Query>::next_sequence_receive(&inner, request).await
                             };
                             Box::pin(fut)
                         }

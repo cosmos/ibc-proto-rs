@@ -320,7 +320,8 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).register_interchain_account(request).await
+                                <T as Msg>::register_interchain_account(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -363,7 +364,9 @@ pub mod msg_server {
                             request: tonic::Request<super::MsgSendTx>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).send_tx(request).await };
+                            let fut = async move {
+                                <T as Msg>::send_tx(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -747,7 +750,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).interchain_account(request).await
+                                <T as Query>::interchain_account(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -790,7 +793,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryParamsRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).params(request).await };
+                            let fut = async move {
+                                <T as Query>::params(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }

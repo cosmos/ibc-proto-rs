@@ -315,7 +315,7 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).update_params(request).await
+                                <T as Msg>::update_params(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1165,7 +1165,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryAccountsRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).accounts(request).await };
+                            let fut = async move {
+                                <T as Query>::accounts(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1209,7 +1211,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryAccountRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).account(request).await };
+                            let fut = async move {
+                                <T as Query>::account(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1256,7 +1260,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).account_address_by_id(request).await
+                                <T as Query>::account_address_by_id(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1299,7 +1303,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryParamsRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).params(request).await };
+                            let fut = async move {
+                                <T as Query>::params(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1344,7 +1350,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).module_accounts(request).await
+                                <T as Query>::module_accounts(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1392,7 +1398,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).module_account_by_name(request).await
+                                <T as Query>::module_account_by_name(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1438,7 +1444,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).bech32_prefix(request).await
+                                <T as Query>::bech32_prefix(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1484,7 +1490,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).address_bytes_to_string(request).await
+                                <T as Query>::address_bytes_to_string(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1530,7 +1536,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).address_string_to_bytes(request).await
+                                <T as Query>::address_string_to_bytes(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1576,7 +1582,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).account_info(request).await
+                                <T as Query>::account_info(&inner, request).await
                             };
                             Box::pin(fut)
                         }
