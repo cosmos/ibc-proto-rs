@@ -32,7 +32,7 @@ pub const COSMOS_SDK_COMMIT: &str = include_str!("COSMOS_SDK_COMMIT");
 pub const IBC_GO_COMMIT: &str = include_str!("IBC_GO_COMMIT");
 
 /// The version (commit hash) of Interchain Security used when generating this library.
-pub const INTERCHAIN_SECURITY_COMMIT: &str = include_str!("COSMOS_ICS_COMMIT");
+pub const INTERCHAIN_SECURITY_COMMIT: &str = include_str!("INTERCHAIN_SECURITY_COMMIT");
 
 /// File descriptor set of compiled proto.
 #[cfg(feature = "proto-descriptor")]
