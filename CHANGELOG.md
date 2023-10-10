@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## v0.37.1
+
+*October 10th, 2023*
+
+This releases adds `JsonSchema` derivation for the `Any` type.
+
+### FEATURES
+
+- Implement `JsonSchema` for the `Any` type
+  ([#156](https://github.com/cosmos/ibc-proto-rs/issues/156))
+
 ## v0.37.0
 
 *October 4th, 2023*
