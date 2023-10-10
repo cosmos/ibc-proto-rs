@@ -1,5 +1,6 @@
 /// ClientState from Tendermint tracks the current validator set, latest height,
 /// and a possible frozen height.
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ClientState {
@@ -35,13 +36,15 @@ pub struct ClientState {
     >,
     /// Proof specifications used in verifying counterparty state
     #[prost(message, repeated, tag = "8")]
-    pub proof_specs: ::prost::alloc::vec::Vec<::ics23::ProofSpec>,
+    pub proof_specs: ::prost::alloc::vec::Vec<
+        super::super::super::super::cosmos::ics23::v1::ProofSpec,
+    >,
     /// Path at which next upgraded client will be committed.
     /// Each element corresponds to the key for a single CommitmentProof in the
     /// chained proof. NOTE: ClientState must stored under
     /// `{upgradePath}/{upgradeHeight}/clientState` ConsensusState must be stored
     /// under `{upgradepath}/{upgradeHeight}/consensusState` For SDK chains using
-    /// the default upgrade module, upgrade_path should be []string{"upgrade",
+    /// the default upgrade module, upgrade_path should be \[\]string{"upgrade",
     /// "upgradedIBCState"}`
     #[prost(string, repeated, tag = "9")]
     pub upgrade_path: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
@@ -55,6 +58,7 @@ pub struct ClientState {
     pub allow_update_after_misbehaviour: bool,
 }
 /// ConsensusState defines the consensus state from Tendermint.
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsensusState {
@@ -74,9 +78,12 @@ pub struct ConsensusState {
 }
 /// Misbehaviour is a wrapper over two conflicting Headers
 /// that implements Misbehaviour interface expected by ICS-02
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Misbehaviour {
+    /// ClientID is deprecated
+    #[deprecated]
     #[prost(string, tag = "1")]
     pub client_id: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "2")]
@@ -96,6 +103,7 @@ pub struct Misbehaviour {
 /// current time in order to correctly verify, and the TrustedValidators must
 /// hash to TrustedConsensusState.NextValidatorsHash since that is the last
 /// trusted validator set at the TrustedHeight.
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Header {
@@ -114,6 +122,7 @@ pub struct Header {
 }
 /// Fraction defines the protobuf message type for tmmath.Fraction that only
 /// supports positive values.
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Fraction {

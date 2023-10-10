@@ -1,7 +1,7 @@
 /// MsgTransfer defines a msg to transfer fungible tokens (i.e Coins) between
 /// ICS20 enabled chains. See ICS Spec here:
 /// <https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer#data-structures>
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgTransfer {
@@ -34,11 +34,11 @@ pub struct MsgTransfer {
     pub timeout_timestamp: u64,
     /// optional memo
     #[prost(string, tag = "8")]
-    #[cfg_attr(feature = "std", serde(default))]
+    #[cfg_attr(feature = "serde", serde(default))]
     pub memo: ::prost::alloc::string::String,
 }
 /// MsgTransferResponse defines the Msg/Transfer response type.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgTransferResponse {
@@ -273,7 +273,9 @@ pub mod msg_server {
                             request: tonic::Request<super::MsgTransfer>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).transfer(request).await };
+                            let fut = async move {
+                                <T as Msg>::transfer(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -343,7 +345,7 @@ pub mod msg_server {
 }
 /// DenomTrace contains the base denomination for ICS20 fungible tokens and the
 /// source tracing information path.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DenomTrace {
@@ -359,7 +361,7 @@ pub struct DenomTrace {
 /// NOTE: To prevent a single token from being transferred, set the
 /// TransfersEnabled parameter to true and then set the bank module's SendEnabled
 /// parameter for the denomination to false.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Params {
@@ -374,7 +376,7 @@ pub struct Params {
 }
 /// QueryDenomTraceRequest is the request type for the Query/DenomTrace RPC
 /// method
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomTraceRequest {
@@ -384,7 +386,7 @@ pub struct QueryDenomTraceRequest {
 }
 /// QueryDenomTraceResponse is the response type for the Query/DenomTrace RPC
 /// method.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomTraceResponse {
@@ -394,7 +396,7 @@ pub struct QueryDenomTraceResponse {
 }
 /// QueryConnectionsRequest is the request type for the Query/DenomTraces RPC
 /// method
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomTracesRequest {
@@ -406,7 +408,7 @@ pub struct QueryDenomTracesRequest {
 }
 /// QueryConnectionsResponse is the response type for the Query/DenomTraces RPC
 /// method.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomTracesResponse {
@@ -420,12 +422,12 @@ pub struct QueryDenomTracesResponse {
     >,
 }
 /// QueryParamsRequest is the request type for the Query/Params RPC method.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsRequest {}
 /// QueryParamsResponse is the response type for the Query/Params RPC method.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsResponse {
@@ -435,17 +437,17 @@ pub struct QueryParamsResponse {
 }
 /// QueryDenomHashRequest is the request type for the Query/DenomHash RPC
 /// method
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomHashRequest {
-    /// The denomination trace (\[port_id]/[channel_id])+/[denom\]
+    /// The denomination trace `([port_id]/[channel_id])+/[denom]`
     #[prost(string, tag = "1")]
     pub trace: ::prost::alloc::string::String,
 }
 /// QueryDenomHashResponse is the response type for the Query/DenomHash RPC
 /// method.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryDenomHashResponse {
@@ -454,7 +456,7 @@ pub struct QueryDenomHashResponse {
     pub hash: ::prost::alloc::string::String,
 }
 /// QueryEscrowAddressRequest is the request type for the EscrowAddress RPC method.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryEscrowAddressRequest {
@@ -466,13 +468,31 @@ pub struct QueryEscrowAddressRequest {
     pub channel_id: ::prost::alloc::string::String,
 }
 /// QueryEscrowAddressResponse is the response type of the EscrowAddress RPC method.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryEscrowAddressResponse {
     /// the escrow account address
     #[prost(string, tag = "1")]
     pub escrow_address: ::prost::alloc::string::String,
+}
+/// QueryTotalEscrowForDenomRequest is the request type for TotalEscrowForDenom RPC method.
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryTotalEscrowForDenomRequest {
+    #[prost(string, tag = "1")]
+    pub denom: ::prost::alloc::string::String,
+}
+/// QueryTotalEscrowForDenomResponse is the response type for TotalEscrowForDenom RPC method.
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryTotalEscrowForDenomResponse {
+    #[prost(message, optional, tag = "1")]
+    pub amount: ::core::option::Option<
+        super::super::super::super::cosmos::base::v1beta1::Coin,
+    >,
 }
 /// Generated client implementations.
 #[cfg(feature = "client")]
@@ -702,6 +722,37 @@ pub mod query_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+        /// TotalEscrowForDenom returns the total amount of tokens in escrow based on the denom.
+        pub async fn total_escrow_for_denom(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryTotalEscrowForDenomRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryTotalEscrowForDenomResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/ibc.applications.transfer.v1.Query/TotalEscrowForDenom",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "ibc.applications.transfer.v1.Query",
+                        "TotalEscrowForDenom",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
     }
 }
 /// Generated server implementations.
@@ -750,6 +801,14 @@ pub mod query_server {
             request: tonic::Request<super::QueryEscrowAddressRequest>,
         ) -> std::result::Result<
             tonic::Response<super::QueryEscrowAddressResponse>,
+            tonic::Status,
+        >;
+        /// TotalEscrowForDenom returns the total amount of tokens in escrow based on the denom.
+        async fn total_escrow_for_denom(
+            &self,
+            request: tonic::Request<super::QueryTotalEscrowForDenomRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryTotalEscrowForDenomResponse>,
             tonic::Status,
         >;
     }
@@ -850,7 +909,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryDenomTraceRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).denom_trace(request).await };
+                            let fut = async move {
+                                <T as Query>::denom_trace(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -895,7 +956,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).denom_traces(request).await
+                                <T as Query>::denom_traces(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -938,7 +999,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryParamsRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).params(request).await };
+                            let fut = async move {
+                                <T as Query>::params(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -982,7 +1045,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryDenomHashRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).denom_hash(request).await };
+                            let fut = async move {
+                                <T as Query>::denom_hash(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -1027,7 +1092,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).escrow_address(request).await
+                                <T as Query>::escrow_address(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1040,6 +1105,54 @@ pub mod query_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = EscrowAddressSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/ibc.applications.transfer.v1.Query/TotalEscrowForDenom" => {
+                    #[allow(non_camel_case_types)]
+                    struct TotalEscrowForDenomSvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<super::QueryTotalEscrowForDenomRequest>
+                    for TotalEscrowForDenomSvc<T> {
+                        type Response = super::QueryTotalEscrowForDenomResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::QueryTotalEscrowForDenomRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Query>::total_escrow_for_denom(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = TotalEscrowForDenomSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -1097,7 +1210,7 @@ pub mod query_server {
     }
 }
 /// Allocation defines the spend limit for a particular port and channel
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Allocation {
@@ -1118,7 +1231,7 @@ pub struct Allocation {
 }
 /// TransferAuthorization allows the grantee to spend up to spend_limit coins from
 /// the granter's account for ibc transfer on a specific channel
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TransferAuthorization {
@@ -1127,7 +1240,7 @@ pub struct TransferAuthorization {
     pub allocations: ::prost::alloc::vec::Vec<Allocation>,
 }
 /// GenesisState defines the ibc-transfer genesis state
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenesisState {
@@ -1137,4 +1250,10 @@ pub struct GenesisState {
     pub denom_traces: ::prost::alloc::vec::Vec<DenomTrace>,
     #[prost(message, optional, tag = "3")]
     pub params: ::core::option::Option<Params>,
+    /// total_escrowed contains the total amount of tokens escrowed
+    /// by the transfer module
+    #[prost(message, repeated, tag = "4")]
+    pub total_escrowed: ::prost::alloc::vec::Vec<
+        super::super::super::super::cosmos::base::v1beta1::Coin,
+    >,
 }

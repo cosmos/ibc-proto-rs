@@ -1,6 +1,6 @@
 [package]
 name         = "ibc-proto"
-version      = "0.33.0"
+version      = "0.37.0"
 authors      = ["Informal Systems <hello@informal.systems>"]
 edition      = "2021"
 license      = "Apache-2.0"
@@ -8,7 +8,7 @@ repository   = "https://github.com/cosmos/ibc-proto-rs"
 readme       = "README.md"
 categories   = ["cryptography::cryptocurrencies", "encoding", "no-std"]
 keywords     = ["blockchain", "cosmos", "tendermint", "ibc", "proto"]
-exclude      = ["definitions", "tools"]
+exclude      = ["definitions", "tools", ".changelog", ".github"]
 description  = """
     ibc-proto provides Cosmos SDK & IBC Protocol Buffers definitions
 """
@@ -28,37 +28,35 @@ doctest = false
 all-features = true
 
 [dependencies]
-prost           = { version = "0.11", default-features = false }
+prost           = { version = "0.12", default-features = false, features = ["prost-derive"] }
 bytes           = { version = "1.2",  default-features = false }
-tonic           = { version = "0.9",  default-features = false, optional = true }
-serde           = { version = "1.0",  default-features = false }
+tonic           = { version = "0.10",  default-features = false, optional = true }
+serde           = { version = "1.0",  default-features = false, optional = true }
 schemars        = { version = "0.8",  optional = true }
 subtle-encoding = { version = "0.5",  default-features = false }
 base64          = { version = "0.21", default-features = false, features = ["alloc"] }
 flex-error      = { version = "0.4",  default-features = false }
+ics23           = { version = "0.11.0", default-features = false }
 
-## for codec encode or decode
+## Optional: enabled by the `parity-scale-codec` feature
 parity-scale-codec = { version = "3.0.0", default-features = false, features = ["full"],   optional = true }
 scale-info         = { version = "2.1.2", default-features = false, features = ["derive"], optional = true }
 
-## for borsh encode or decode
-## need tracking anchor-lang and near-sdk-rs borsh version
-borsh = { version = "0.9", default-features = false, optional = true }
-
-[dependencies.ics23]
-version          = "0.10.1"
-default-features = false
+## Optional: enabled by the `borsh` feature
+## For borsh encode or decode, needs to track `anchor-lang` and `near-sdk-rs` borsh version
+borsh = { version = "0.10", default-features = false, optional = true }
 
 [dependencies.tendermint-proto]
-version          = "0.33"
+version          = "0.34"
 default-features = false
 
 [features]
 default            = ["std", "client"]
-std                = ["prost/std", "bytes/std", "subtle-encoding/std", "base64/std", "flex-error/std", "ics23/std", "ics23/serde"]
-client             = ["std", "tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
-json-schema        = ["std", "schemars"]
-server             = ["std", "tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
+std                = ["prost/std", "bytes/std", "subtle-encoding/std", "base64/std", "flex-error/std", "ics23/std"]
+serde              = ["dep:serde", "ics23/serde"]
+client             = ["std", "dep:tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
+json-schema        = ["std", "serde", "dep:schemars"]
+server             = ["std", "dep:tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
 parity-scale-codec = ["dep:parity-scale-codec", "dep:scale-info"]
 borsh              = ["dep:borsh"]
 proto-descriptor   = []

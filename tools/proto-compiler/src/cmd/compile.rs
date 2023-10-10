@@ -63,12 +63,14 @@ impl CompileCmd {
         // Paths
         let proto_paths = [
             format!("{}/../../definitions/mock", root),
+            format!("{}/../../definitions/ibc/lightclients/localhost/v1", root),
             format!("{}/../../definitions/stride/interchainquery/v1", root),
             format!("{}/ibc", ibc_dir.display()),
             format!("{}/cosmos/auth", sdk_dir.display()),
             format!("{}/cosmos/gov", sdk_dir.display()),
             format!("{}/cosmos/tx", sdk_dir.display()),
             format!("{}/cosmos/base", sdk_dir.display()),
+            format!("{}/cosmos/crypto", sdk_dir.display()),
             format!("{}/cosmos/bank", sdk_dir.display()),
             format!("{}/cosmos/staking", sdk_dir.display()),
             format!("{}/cosmos/upgrade", sdk_dir.display()),
@@ -82,6 +84,7 @@ impl CompileCmd {
             format!("{}", ibc_dir.display()),
             format!("{}", ics_dir.display()),
             format!("{}/../../definitions/mock", root),
+            format!("{}/../../definitions/ibc/lightclients/localhost/v1", root),
             format!("{}/../../definitions/stride/interchainquery/v1", root),
         ];
 
@@ -113,21 +116,15 @@ impl CompileCmd {
         // List available paths for dependencies
         let includes: Vec<PathBuf> = proto_includes_paths.iter().map(PathBuf::from).collect();
 
-        // We can only enable JSON serialization when the `std` feature is enabled,
-        // as it is currently required by `ics23` for it to implement JSON serialization
-        // let attrs_serde = r#"#[derive(::serde::Serialize, ::serde::Deserialize)]"#;
-        // let attrs_serde_default = r#"#[serde(default)]"#;
-        // let attrs_jsonschema =
-        //     r#"#[cfg_attr(feature = "json-schema", derive(::schemars::JsonSchema))]"#;
+        let attrs_serde =
+            r#"#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]"#;
+        let attrs_serde_default = r#"#[cfg_attr(feature = "serde", serde(default))]"#;
+        let attrs_jsonschema = r#"#[cfg_attr(all(feature = "json-schema", feature = "serde"), derive(::schemars::JsonSchema))]"#;
 
-        let attrs_jsonschema = r#"#[cfg_attr(all(feature = "json-schema", feature = "std"), derive(::schemars::JsonSchema))]"#;
         let attrs_ord = "#[derive(Eq, PartialOrd, Ord)]";
         let attrs_eq = "#[derive(Eq)]";
-        let attrs_serde =
-            r#"#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]"#;
-        let attrs_serde_default = r#"#[cfg_attr(feature = "std", serde(default))]"#;
-        let attrs_serde_base64 = r#"#[cfg_attr(feature = "std", serde(with = "crate::base64"))]"#;
-        let attrs_jsonschema_str = r#"#[cfg_attr(all(feature = "json-schema", feature = "std"), schemars(with = "String"))]"#;
+        let attrs_serde_base64 = r#"#[cfg_attr(feature = "serde", serde(with = "crate::base64"))]"#;
+        let attrs_jsonschema_str = r#"#[cfg_attr(all(feature = "json-schema", feature = "serde"), schemars(with = "String"))]"#;
 
         tonic_build::configure()
             .build_client(true)
@@ -195,10 +192,16 @@ impl CompileCmd {
             )
             .type_attribute(".ibc.applications.interchain_accounts.host.v1", attrs_serde)
             .type_attribute(".ibc.applications.interchain_accounts.v1", attrs_serde)
+            .type_attribute(".ibc.lightclients.tendermint.v1", attrs_serde)
+            .type_attribute(".ibc.lightclients.localhost.v2", attrs_serde)
+            .type_attribute(".ibc.lightclients.solomachine.v3", attrs_serde)
+            .type_attribute(".cosmos.app.v1alpha1", attrs_serde)
             .type_attribute(".cosmos.auth.v1beta1", attrs_serde)
             .type_attribute(".cosmos.bank.v1beta1", attrs_serde)
             .type_attribute(".cosmos.base.v1beta1", attrs_serde)
             .type_attribute(".cosmos.base.query.v1beta1", attrs_serde)
+            .type_attribute(".cosmos.config.v1", attrs_serde)
+            .type_attribute(".cosmos.tx.config.v1", attrs_serde)
             .type_attribute(".cosmos.upgrade.v1beta1", attrs_serde)
             .compile(&protos, &includes)?;
 
@@ -213,21 +216,39 @@ impl CompileCmd {
             out_dir.display()
         );
 
-        {
-            println!("[info ] Patching cosmos.staking.v1beta1.rs...");
+        const PATCHES: &[(&str, &[(&str, &str)])] = &[
+            (
+                "cosmos.staking.v1beta1.rs",
+                &[
+                    ("pub struct Validators", "pub struct ValidatorsVec"),
+                    ("AllowList(Validators)", "AllowList(ValidatorsVec)"),
+                    ("DenyList(Validators)", "DenyList(ValidatorsVec)"),
+                ],
+            ),
+            (
+                "ibc.applications.transfer.v1.rs",
+                &[(
+                    "The denomination trace (\\[port_id\\]/[channel_id])+/\\[denom\\]",
+                    "The denomination trace `([port_id]/[channel_id])+/[denom]`",
+                )],
+            ),
+        ];
 
-            let path = out_dir.join("cosmos.staking.v1beta1.rs");
-            let contents = std::fs::read_to_string(&path)?;
+        for (file, patches) in PATCHES {
+            println!("[info ] Patching {file}...");
 
-            let patched_contents = contents
-                .replace("pub struct Validators", "pub struct ValidatorsVec")
-                .replace("AllowList(Validators)", "AllowList(ValidatorsVec)")
-                .replace("DenyList(Validators)", "DenyList(ValidatorsVec)");
+            let path = out_dir.join(file);
+            let original = std::fs::read_to_string(&path)?;
+            let mut patched = original.clone();
 
-            let diff = TextDiff::from_lines(&contents, &patched_contents);
+            for (before, after) in patches.iter() {
+                patched = patched.replace(before, after);
+            }
+
+            let diff = TextDiff::from_lines(&original, &patched);
             println!("{}", diff.unified_diff().context_radius(3));
 
-            std::fs::write(&path, patched_contents)?;
+            std::fs::write(&path, patched)?;
         }
 
         Ok(())

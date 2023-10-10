@@ -1,8 +1,98 @@
 # CHANGELOG
 
+## v0.37.0
+
+*October 4th, 2023*
+
+This release updates `prost` to v0.12 and `tonic` to v0.10,
+and makes `serde` an optional dependency, now only enabled with the `serde` feature.
+
+### FEATURES
+
+- Update `prost` to v0.12 and `tonic` to v0.10
+  ([\#145](https://github.com/cosmos/ibc-proto-rs/issues/145))
+
+### IMPROVEMENTS
+
+- Make `serde` an optional dependency, now only enabled with the `serde` feature
+  ([\#152](https://github.com/cosmos/ibc-proto-rs/pull/152))
+
+## v0.36.1
+
+*September 28th, 2023*
+
+This release adds Protobuf definitions from the `cosmos.crypto.*` package.
+
+### FEATURES
+
+- Add Protobuf definitions from `cosmos.crypto.*` ([\#149](https://github.com/cosmos/ibc-proto-rs/pull/149))
+
+## v0.36.0
+
+*September 28th, 2023*
+
+Warning: This release downgrades the Protobuf definitions for IBC-Go, Cosmos SDK, and Interchain Security.
+
+### BREAKING CHANGES
+
+- Since ibc-proto v0.34.0, the script in charge of generating the Rust proto definitions
+  has been mistakenly checking out their latest version instead of the one
+  specified in the corresponding `src/*_COMMIT` file. This has now been fixed
+  and the protos have therefore been downgraded to their proper versions:
+  * IBC-Go: v7.3.0,
+  * Cosmos SDK: v0.47.5 
+  * Interchain Security: v3.1.0
+  ([\#147](https://github.com/cosmos/ibc-proto-rs/pull/147))
+
+## v0.35.0
+
+*September 14th, 2023*
+
+This release updates the IBC-Go protos to v7.3.0, the Cosmos SDK protos to v0.47.5,
+and the Interchain Security protos to v3.1.0.
+
+It also adds back the `ibc.lightclients.localhost.v1` proto definition that was
+removed in IBC-Go v7.0.0, for users which may need to interact with v1 localhost clients.
+
+### FEATURES
+
+- Bump ibc-go to v7.3.0, Cosmos SDK to 0.47.5 and Interchain Security to v3.1.0
+  ([\#140](https://github.com/cosmos/ibc-proto-rs/pull/140))
+- Add proto definition for `ibc.lightclients.localhost.v1`
+  ([\#143](https://github.com/cosmos/ibc-proto-rs/pull/143))
+
+## v0.34.1
+
+*August 29th, 2023*
+
+This release updates the `borsh` dependency to v0.10.
+
+## v0.34.0
+
+*August 17th, 2023*
+ 
+This release updates the Cosmos SDK protos to v0.47.3 and IBC-Go protos to v7.2.0.
+ 
+Additionally, it restore `no_std` support for JSON serialization via `serde`.
+Previously, `Serialize` and `Deserialize` instances were only derived when
+the `std` feature was enabled, but that is no longer required.
+ 
+As such, they now require the `serde` feature to be enabled, independently of
+whether or not the `std` feature is enabled.
+ 
+### BUG FIXES
+ 
+- Restore `no_std` support for JSON serialization
+  ([\#98](https://github.com/cosmos/ibc-proto-rs/issues/98))
+ 
+### FEATURES
+ 
+- Update Cosmos SDK protos to v0.47.3 and IBC-Go protos to v7.2.0
+  ([\#129](https://github.com/cosmos/ibc-proto-rs/issues/129))
+
 ## v0.33.0
 
-*Aug 14th, 2023*
+*Aug 16th, 2023*
 
 This release bumps `tendermint-rs` to `0.33.0`.
 

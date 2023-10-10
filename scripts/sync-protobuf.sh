@@ -111,12 +111,7 @@ COSMOS_ICS_DIR=$(mktemp -d /tmp/interchain-security-XXXXXXXX)
 
 pushd "$COSMOS_ICS_DIR"
 git clone "$COSMOS_ICS_GIT" .
-git checkout "$COSMOS_ICS_COMMIT"
-
-# We have to name the commit as a branch because
-# proto-compiler uses the branch name as the commit
-# output. Otherwise it will just output HEAD
-git checkout -b "$COSMOS_ICS_COMMIT"
+git checkout -b "$COSMOS_ICS_COMMIT" "$COSMOS_ICS_COMMIT"
 
 cd proto
 buf mod update
@@ -127,12 +122,7 @@ COSMOS_SDK_DIR=$(mktemp -d /tmp/cosmos-sdk-XXXXXXXX)
 
 pushd "$COSMOS_SDK_DIR"
 git clone "$COSMOS_SDK_GIT" .
-git checkout "$COSMOS_SDK_COMMIT"
-
-# We have to name the commit as a branch because
-# proto-compiler uses the branch name as the commit
-# output. Otherwise it will just output HEAD
-git checkout -b "$COSMOS_SDK_COMMIT"
+git checkout -b "$COSMOS_SDK_COMMIT" "$COSMOS_SDK_COMMIT"
 
 cd proto
 buf mod update
@@ -140,8 +130,6 @@ buf export -v -o ../proto-include
 popd
 
 cat << "EOF" >> "$COSMOS_SDK_DIR/proto-include/cosmos/staking/v1beta1/staking.proto"
-
-import "tendermint/abci/types.proto";
 
 // InfractionType indicates the infraction type a validator commited.
 enum InfractionType {
@@ -154,19 +142,13 @@ enum InfractionType {
   // DOWNTIME defines a validator that missed signing too many blocks.
   INFRACTION_TYPE_DOWNTIME = 2 [(gogoproto.enumvalue_customname) = "Downtime"];
 }
-
-// ValidatorUpdates defines an array of abci.ValidatorUpdate objects.
-message ValidatorUpdates {
-  repeated tendermint.abci.ValidatorUpdate updates = 1 [(gogoproto.nullable) = false];
-}
 EOF
 
 IBC_GO_DIR=$(mktemp -d /tmp/ibc-go-XXXXXXXX)
 
 pushd "$IBC_GO_DIR"
 git clone "$IBC_GO_GIT" .
-git checkout "$IBC_GO_COMMIT"
-git checkout -b "$IBC_GO_COMMIT"
+git checkout -b "$IBC_GO_COMMIT" "$IBC_GO_COMMIT"
 
 cd proto
 buf export -v -o ../proto-include
@@ -192,6 +174,15 @@ cargo run --locked -- compile \
   --sdk "$COSMOS_SDK_DIR/proto-include" \
   --ibc "$IBC_GO_DIR/proto-include" \
   --out ../../src/prost
+
+cd ../..
+
+# Remove generated ICS23 code because it is not used,
+# we instead re-exports the `ics23` crate type definitions.
+rm -f src/prost/cosmos.ics23.v1.rs
+
+# The Tendermint ABCI protos are unused from within ibc-proto
+rm -f src/prost/tendermint.abci.rs
 
 # Remove the temporary checkouts of the repositories
 rm -rf "$COSMOS_ICS_DIR"

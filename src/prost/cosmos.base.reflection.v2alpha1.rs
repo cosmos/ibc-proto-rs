@@ -682,7 +682,11 @@ pub mod reflection_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_authn_descriptor(request).await
+                                <T as ReflectionService>::get_authn_descriptor(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -728,7 +732,11 @@ pub mod reflection_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_chain_descriptor(request).await
+                                <T as ReflectionService>::get_chain_descriptor(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -774,7 +782,11 @@ pub mod reflection_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_codec_descriptor(request).await
+                                <T as ReflectionService>::get_codec_descriptor(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -825,7 +837,11 @@ pub mod reflection_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_configuration_descriptor(request).await
+                                <T as ReflectionService>::get_configuration_descriptor(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -876,7 +892,11 @@ pub mod reflection_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_query_services_descriptor(request).await
+                                <T as ReflectionService>::get_query_services_descriptor(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -922,7 +942,8 @@ pub mod reflection_service_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).get_tx_descriptor(request).await
+                                <T as ReflectionService>::get_tx_descriptor(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }

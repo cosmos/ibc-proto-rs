@@ -1,5 +1,5 @@
-/// MsgRegisterInterchainAccount defines the payload for Msg/MsgRegisterInterchainAccount
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+/// MsgRegisterInterchainAccount defines the payload for Msg/RegisterAccount
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgRegisterInterchainAccount {
@@ -10,16 +10,18 @@ pub struct MsgRegisterInterchainAccount {
     #[prost(string, tag = "3")]
     pub version: ::prost::alloc::string::String,
 }
-/// MsgRegisterInterchainAccountResponse defines the response for Msg/MsgRegisterInterchainAccountResponse
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+/// MsgRegisterInterchainAccountResponse defines the response for Msg/RegisterAccount
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgRegisterInterchainAccountResponse {
     #[prost(string, tag = "1")]
     pub channel_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub port_id: ::prost::alloc::string::String,
 }
 /// MsgSendTx defines the payload for Msg/SendTx
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgSendTx {
@@ -37,7 +39,7 @@ pub struct MsgSendTx {
     pub relative_timeout: u64,
 }
 /// MsgSendTxResponse defines the response for MsgSendTx
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgSendTxResponse {
@@ -318,7 +320,8 @@ pub mod msg_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).register_interchain_account(request).await
+                                <T as Msg>::register_interchain_account(&inner, request)
+                                    .await
                             };
                             Box::pin(fut)
                         }
@@ -361,7 +364,9 @@ pub mod msg_server {
                             request: tonic::Request<super::MsgSendTx>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).send_tx(request).await };
+                            let fut = async move {
+                                <T as Msg>::send_tx(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
@@ -431,7 +436,7 @@ pub mod msg_server {
 }
 /// Params defines the set of on-chain interchain accounts parameters.
 /// The following parameters may be used to disable the controller submodule.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Params {
@@ -440,7 +445,7 @@ pub struct Params {
     pub controller_enabled: bool,
 }
 /// QueryInterchainAccountRequest is the request type for the Query/InterchainAccount RPC method.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryInterchainAccountRequest {
@@ -450,7 +455,7 @@ pub struct QueryInterchainAccountRequest {
     pub connection_id: ::prost::alloc::string::String,
 }
 /// QueryInterchainAccountResponse the response type for the Query/InterchainAccount RPC method.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryInterchainAccountResponse {
@@ -458,12 +463,12 @@ pub struct QueryInterchainAccountResponse {
     pub address: ::prost::alloc::string::String,
 }
 /// QueryParamsRequest is the request type for the Query/Params RPC method.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsRequest {}
 /// QueryParamsResponse is the response type for the Query/Params RPC method.
-#[cfg_attr(feature = "std", derive(::serde::Serialize, ::serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsResponse {
@@ -745,7 +750,7 @@ pub mod query_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                (*inner).interchain_account(request).await
+                                <T as Query>::interchain_account(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -788,7 +793,9 @@ pub mod query_server {
                             request: tonic::Request<super::QueryParamsRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
-                            let fut = async move { (*inner).params(request).await };
+                            let fut = async move {
+                                <T as Query>::params(&inner, request).await
+                            };
                             Box::pin(fut)
                         }
                     }
