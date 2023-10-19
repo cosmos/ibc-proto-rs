@@ -85,7 +85,7 @@ jobs:
           override: true
       - uses: taiki-e/install-action@cargo-hack
       - uses: Swatinem/rust-cache@v1
-      - run: cargo hack clippy --feature-powerset --no-dev-deps
+      - run: cargo hack check --feature-powerset --no-dev-deps
 
   test-stable:
     runs-on: ubuntu-latest

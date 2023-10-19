@@ -1237,7 +1237,7 @@ pub mod uninterpreted_option {
     /// The name of the uninterpreted option.  Each string represents a segment in
     /// a dot-separated name.  is_extension is true iff a segment represents an
     /// extension (denoted with parentheses in options specs in .proto files).
-    /// E.g.,{ ["foo", false], ["bar.baz", true], ["moo", false] } represents
+    /// E.g.,{ \["foo", false\], \["bar.baz", true\], \["moo", false\] } represents
     /// "foo.(bar.baz).moo".
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1535,11 +1535,11 @@ pub struct SourceCodeInfo {
     ///    a       bc     de  f  ghi
     /// We have the following locations:
     ///    span   path               represents
-    ///    [a,i)  [ 4, 0, 2, 0 ]     The whole field definition.
-    ///    [a,b)  [ 4, 0, 2, 0, 4 ]  The label (optional).
-    ///    [c,d)  [ 4, 0, 2, 0, 5 ]  The type (string).
-    ///    [e,f)  [ 4, 0, 2, 0, 1 ]  The name (foo).
-    ///    [g,h)  [ 4, 0, 2, 0, 3 ]  The number (1).
+    ///    \[a,i)  [ 4, 0, 2, 0 \]     The whole field definition.
+    ///    \[a,b)  [ 4, 0, 2, 0, 4 \]  The label (optional).
+    ///    \[c,d)  [ 4, 0, 2, 0, 5 \]  The type (string).
+    ///    \[e,f)  [ 4, 0, 2, 0, 1 \]  The name (foo).
+    ///    \[g,h)  [ 4, 0, 2, 0, 3 \]  The number (1).
     ///
     /// Notes:
     /// - A location may refer to a repeated field itself (i.e. not to any
@@ -1577,7 +1577,7 @@ pub mod source_code_info {
         /// Each element is a field number or an index.  They form a path from
         /// the root FileDescriptorProto to the place where the definition occurs.
         /// For example, this path:
-        ///    [ 4, 3, 2, 7, 1 ]
+        ///    \[ 4, 3, 2, 7, 1 \]
         /// refers to:
         ///    file.message_type(3)  // 4, 3
         ///        .field(7)         // 2, 7
@@ -1591,7 +1591,7 @@ pub mod source_code_info {
         ///
         /// Thus, the above path gives the location of a field name.  If we removed
         /// the last element:
-        ///    [ 4, 3, 2, 7 ]
+        ///    \[ 4, 3, 2, 7 \]
         /// this path refers to the whole field declaration (from the beginning
         /// of the label to the terminating semicolon).
         #[prost(int32, repeated, tag = "1")]
@@ -1822,7 +1822,7 @@ pub mod generated_code_info {
 /// If the embedded message type is well-known and has a custom JSON
 /// representation, that representation will be embedded adding a field
 /// `value` which holds the custom JSON in addition to the `@type`
-/// field. Example (for message \[google.protobuf.Duration][\]):
+/// field. Example (for message [google.protobuf.Duration][]):
 ///
 ///      {
 ///        "@type": "type.googleapis.com/google.protobuf.Duration",
@@ -1831,6 +1831,10 @@ pub mod generated_code_info {
 ///
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[derive(Eq)]
+#[cfg_attr(
+    all(feature = "json-schema", feature = "serde"),
+    derive(::schemars::JsonSchema)
+)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Any {
@@ -1847,7 +1851,7 @@ pub struct Any {
     /// server that maps type URLs to message definitions as follows:
     ///
     /// * If no scheme is provided, `https` is assumed.
-    /// * An HTTP GET on the URL must yield a \[google.protobuf.Type][\]
+    /// * An HTTP GET on the URL must yield a [google.protobuf.Type][]
     ///    value in binary format, or produce an error.
     /// * Applications are allowed to cache lookup results based on the
     ///    URL, or have them precompiled into a binary to avoid any
@@ -1950,12 +1954,12 @@ pub struct Any {
 ///
 /// In JavaScript, one can convert a Date object to this format using the
 /// standard
-/// \[toISOString()\](<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString>)
+/// [toISOString()](<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString>)
 /// method. In Python, a standard `datetime.datetime` object can be converted
 /// to this format using
-/// \[`strftime`\](<https://docs.python.org/2/library/time.html#time.strftime>) with
+/// [`strftime`](<https://docs.python.org/2/library/time.html#time.strftime>) with
 /// the time format spec '%Y-%m-%dT%H:%M:%S.%fZ'. Likewise, in Java, one can use
-/// the Joda Time's \[`ISODateTimeFormat.dateTime()`\](
+/// the Joda Time's [`ISODateTimeFormat.dateTime()`](
 /// <http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime(>)
 /// ) to obtain a formatter capable of generating timestamps in this format.
 ///

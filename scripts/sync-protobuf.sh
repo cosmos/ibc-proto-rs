@@ -181,6 +181,10 @@ cd ../..
 # we instead re-exports the `ics23` crate type definitions.
 rm -f src/prost/cosmos.ics23.v1.rs
 
+# Remove `cosmos.base.store` module as it does not compile
+# out of the box and we do not have a use for it at the moment.
+rm -f src/prost/cosmos.base.store.v1beta1.rs
+
 # The Tendermint ABCI protos are unused from within ibc-proto
 rm -f src/prost/tendermint.abci.rs
 

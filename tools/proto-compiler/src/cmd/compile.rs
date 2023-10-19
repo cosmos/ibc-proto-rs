@@ -138,6 +138,7 @@ impl CompileCmd {
             .extern_path(".ics23", "::ics23")
             .type_attribute(".google.protobuf.Any", attrs_serde)
             .type_attribute(".google.protobuf.Any", attrs_eq)
+            .type_attribute(".google.protobuf.Any", attrs_jsonschema)
             .type_attribute(".google.protobuf.Timestamp", attrs_serde)
             .type_attribute(".google.protobuf.Duration", attrs_serde)
             .type_attribute(".google.protobuf.Duration", attrs_eq)
@@ -228,8 +229,8 @@ impl CompileCmd {
             (
                 "ibc.applications.transfer.v1.rs",
                 &[(
-                    "The denomination trace (\\[port_id]/[channel_id])+/[denom\\]",
-                    "The denomination trace `(\\[port_id]/[channel_id])+/[denom\\]`",
+                    "The denomination trace (\\[port_id\\]/[channel_id])+/\\[denom\\]",
+                    "The denomination trace `([port_id]/[channel_id])+/[denom]`",
                 )],
             ),
         ];
