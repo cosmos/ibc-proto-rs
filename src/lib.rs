@@ -10,7 +10,8 @@
 #![forbid(unsafe_code)]
 
 pub mod google;
-pub mod protobuf;
+
+pub use tendermint_proto::Protobuf;
 
 extern crate alloc;
 
@@ -30,6 +31,9 @@ pub const COSMOS_SDK_COMMIT: &str = include_str!("COSMOS_SDK_COMMIT");
 
 /// The version (commit hash) of IBC Go used when generating this library.
 pub const IBC_GO_COMMIT: &str = include_str!("IBC_GO_COMMIT");
+
+/// The version (commit hash) of Interchain Security used when generating this library.
+pub const INTERCHAIN_SECURITY_COMMIT: &str = include_str!("INTERCHAIN_SECURITY_COMMIT");
 
 /// File descriptor set of compiled proto.
 #[cfg(feature = "proto-descriptor")]
@@ -61,11 +65,6 @@ pub mod cosmos {
             pub mod v1 {
                 include_proto!("cosmos.auth.module.v1.rs");
             }
-        }
-    }
-    pub mod evidence {
-        pub mod v1beta1 {
-            include_proto!("cosmos.evidence.v1beta1.rs");
         }
     }
     pub mod staking {
