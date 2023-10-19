@@ -10,7 +10,8 @@
 #![forbid(unsafe_code)]
 
 pub mod google;
-pub mod protobuf;
+
+pub use tendermint_proto::Protobuf;
 
 extern crate alloc;
 
