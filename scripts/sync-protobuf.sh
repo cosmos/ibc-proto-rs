@@ -29,17 +29,17 @@ COSMOS_ICS_GIT="${COSMOS_ICS_GIT:-$CACHE_PATH/cosmos/interchain-security.git}"
 
 COSMOS_SDK_COMMIT="$(cat src/COSMOS_SDK_COMMIT)"
 IBC_GO_COMMIT="$(cat src/IBC_GO_COMMIT)"
-COSMOS_ICS_COMMIT="$(cat src/COSMOS_ICS_COMMIT)"
+INTERCHAIN_SECURITY_COMMIT="$(cat src/INTERCHAIN_SECURITY_COMMIT)"
 
 echo "COSMOS_SDK_COMMIT: $COSMOS_SDK_COMMIT"
 echo "IBC_GO_COMMIT: $IBC_GO_COMMIT"
-echo "COSMOS_ICS_COMMIT: $COSMOS_ICS_COMMIT"
+echo "INTERCHAIN_SECURITY_COMMIT: $INTERCHAIN_SECURITY_COMMIT"
 
 # Use either --ics-commit flag for commit ID,
 # or --ics-tag for git tag. Because we can't modify
 # proto-compiler to have smart detection on that.
 
-if [[ "$COSMOS_ICS_COMMIT" =~ ^[a-zA-Z0-9]{40}$ ]]
+if [[ "$INTERCHAIN_SECURITY_COMMIT" =~ ^[a-zA-Z0-9]{40}$ ]]
 then
     ICS_COMMIT_OPTION="--ics-commit"
 else
@@ -111,7 +111,7 @@ COSMOS_ICS_DIR=$(mktemp -d /tmp/interchain-security-XXXXXXXX)
 
 pushd "$COSMOS_ICS_DIR"
 git clone "$COSMOS_ICS_GIT" .
-git checkout -b "$COSMOS_ICS_COMMIT" "$COSMOS_ICS_COMMIT"
+git checkout -b "$INTERCHAIN_SECURITY_COMMIT" "$INTERCHAIN_SECURITY_COMMIT"
 
 cd proto
 buf mod update
@@ -163,13 +163,13 @@ mkdir -p src/prost
 
 cd tools/proto-compiler
 
-cargo build --locked
+cargo build
 
 # Run the proto-compiler twice,
 # once for std version with --build-tonic set to true
 # and once for no-std version with --build-tonic set to false
 
-cargo run --locked -- compile \
+cargo run -- compile \
   --ics "$COSMOS_ICS_DIR/proto-include" \
   --sdk "$COSMOS_SDK_DIR/proto-include" \
   --ibc "$IBC_GO_DIR/proto-include" \
