@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## v0.38.0
+
+*October 19th, 2023*
+
+This release contains a breaking change, where the `Protobuf` trait is not
+object-safe any longer, but rather re-exported from the `tendermint-proto` crate.
+
+It also updates the Interchain Security protos to include misbehaviour-related messages.
+
+### BREAKING CHANGES
+
+- Switch from using object safe `Protobuf` definitions and re-export
+ `Protobuf` from `tendermint-proto` crate` instead.
+ ([#116](https://github.com/cosmos/ibc-proto-rs/issues/116))
+
+### FEATURES
+
+- Update CCV provider protos to include misbehaviour-related messages
+  ([\#113](https://github.com/cosmos/ibc-proto-rs/issues/113))
+
 ## v0.37.1
 
 *October 10th, 2023*
