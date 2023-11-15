@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v0.39.0
+
+*November 15th, 2023*
+
+This release updates the ibc-go version used for the ibc protos to version v8.0.0
+which contains the new messages `MsgRecoverClient` and `MsgIBCSoftwareUpgrade`.
+
+### FEATURES
+
+- Bump ibc-go to v8.0.0
+  ([\#161](https://github.com/cosmos/ibc-proto-rs/pull/161))
+
 ## v0.38.0
 
 *October 19th, 2023*
