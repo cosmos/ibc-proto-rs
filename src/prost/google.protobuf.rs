@@ -1,3 +1,129 @@
+/// `Any` contains an arbitrary serialized protocol buffer message along with a
+/// URL that describes the type of the serialized message.
+///
+/// Protobuf library provides support to pack/unpack Any values in the form
+/// of utility functions or additional generated methods of the Any type.
+///
+/// Example 1: Pack and unpack a message in C++.
+///
+///      Foo foo = ...;
+///      Any any;
+///      any.PackFrom(foo);
+///      ...
+///      if (any.UnpackTo(&foo)) {
+///        ...
+///      }
+///
+/// Example 2: Pack and unpack a message in Java.
+///
+///      Foo foo = ...;
+///      Any any = Any.pack(foo);
+///      ...
+///      if (any.is(Foo.class)) {
+///        foo = any.unpack(Foo.class);
+///      }
+///
+/// Example 3: Pack and unpack a message in Python.
+///
+///      foo = Foo(...)
+///      any = Any()
+///      any.Pack(foo)
+///      ...
+///      if any.Is(Foo.DESCRIPTOR):
+///        any.Unpack(foo)
+///        ...
+///
+/// Example 4: Pack and unpack a message in Go
+///
+///       foo := &pb.Foo{...}
+///       any, err := anypb.New(foo)
+///       if err != nil {
+///         ...
+///       }
+///       ...
+///       foo := &pb.Foo{}
+///       if err := any.UnmarshalTo(foo); err != nil {
+///         ...
+///       }
+///
+/// The pack methods provided by protobuf library will by default use
+/// 'type.googleapis.com/full.type.name' as the type URL and the unpack
+/// methods only use the fully qualified type name after the last '/'
+/// in the type URL, for example "foo.bar.com/x/y.z" will yield type
+/// name "y.z".
+///
+///
+/// JSON
+///
+/// The JSON representation of an `Any` value uses the regular
+/// representation of the deserialized, embedded message, with an
+/// additional field `@type` which contains the type URL. Example:
+///
+///      package google.profile;
+///      message Person {
+///        string first_name = 1;
+///        string last_name = 2;
+///      }
+///
+///      {
+///        "@type": "type.googleapis.com/google.profile.Person",
+///        "firstName": <string>,
+///        "lastName": <string>
+///      }
+///
+/// If the embedded message type is well-known and has a custom JSON
+/// representation, that representation will be embedded adding a field
+/// `value` which holds the custom JSON in addition to the `@type`
+/// field. Example (for message [google.protobuf.Duration][]):
+///
+///      {
+///        "@type": "type.googleapis.com/google.protobuf.Duration",
+///        "value": "1.212s"
+///      }
+///
+#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
+#[derive(Eq)]
+#[cfg_attr(
+    all(feature = "json-schema", feature = "serde"),
+    derive(::schemars::JsonSchema)
+)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Any {
+    /// A URL/resource name that uniquely identifies the type of the serialized
+    /// protocol buffer message. This string must contain at least
+    /// one "/" character. The last segment of the URL's path must represent
+    /// the fully qualified name of the type (as in
+    /// `path/google.protobuf.Duration`). The name should be in a canonical form
+    /// (e.g., leading "." is not accepted).
+    ///
+    /// In practice, teams usually precompile into the binary all types that they
+    /// expect it to use in the context of Any. However, for URLs which use the
+    /// scheme `http`, `https`, or no scheme, one can optionally set up a type
+    /// server that maps type URLs to message definitions as follows:
+    ///
+    /// * If no scheme is provided, `https` is assumed.
+    /// * An HTTP GET on the URL must yield a [google.protobuf.Type][]
+    ///    value in binary format, or produce an error.
+    /// * Applications are allowed to cache lookup results based on the
+    ///    URL, or have them precompiled into a binary to avoid any
+    ///    lookup. Therefore, binary compatibility needs to be preserved
+    ///    on changes to types. (Use versioned type names to manage
+    ///    breaking changes.)
+    ///
+    /// Note: this functionality is not currently available in the official
+    /// protobuf release, and it is not used for type URLs beginning with
+    /// type.googleapis.com.
+    ///
+    /// Schemes other than `http`, `https` (or the empty scheme) might be
+    /// used with implementation specific semantics.
+    ///
+    #[prost(string, tag = "1")]
+    pub type_url: ::prost::alloc::string::String,
+    /// Must be a valid serialized protocol buffer of the above specified type.
+    #[prost(bytes = "vec", tag = "2")]
+    pub value: ::prost::alloc::vec::Vec<u8>,
+}
 /// The protocol compiler can output a FileDescriptorSet containing the .proto
 /// files it parses.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -44,14 +170,9 @@ pub struct FileDescriptorProto {
     #[prost(message, optional, tag = "9")]
     pub source_code_info: ::core::option::Option<SourceCodeInfo>,
     /// The syntax of the proto file.
-    /// The supported values are "proto2", "proto3", and "editions".
-    ///
-    /// If `edition` is present, this value must be "editions".
+    /// The supported values are "proto2" and "proto3".
     #[prost(string, optional, tag = "12")]
     pub syntax: ::core::option::Option<::prost::alloc::string::String>,
-    /// The edition of the proto file, which is an opaque string.
-    #[prost(string, optional, tag = "13")]
-    pub edition: ::core::option::Option<::prost::alloc::string::String>,
 }
 /// Describes a message type.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -114,90 +235,6 @@ pub struct ExtensionRangeOptions {
     /// The parser stores options it doesn't recognize here. See above.
     #[prost(message, repeated, tag = "999")]
     pub uninterpreted_option: ::prost::alloc::vec::Vec<UninterpretedOption>,
-    /// For external users: DO NOT USE. We are in the process of open sourcing
-    /// extension declaration and executing internal cleanups before it can be
-    /// used externally.
-    #[prost(message, repeated, tag = "2")]
-    pub declaration: ::prost::alloc::vec::Vec<extension_range_options::Declaration>,
-    /// Any features defined in the specific edition.
-    #[prost(message, optional, tag = "50")]
-    pub features: ::core::option::Option<FeatureSet>,
-    /// The verification state of the range.
-    /// TODO(b/278783756): flip the default to DECLARATION once all empty ranges
-    /// are marked as UNVERIFIED.
-    #[prost(
-        enumeration = "extension_range_options::VerificationState",
-        optional,
-        tag = "3",
-        default = "Unverified"
-    )]
-    pub verification: ::core::option::Option<i32>,
-}
-/// Nested message and enum types in `ExtensionRangeOptions`.
-pub mod extension_range_options {
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct Declaration {
-        /// The extension number declared within the extension range.
-        #[prost(int32, optional, tag = "1")]
-        pub number: ::core::option::Option<i32>,
-        /// The fully-qualified name of the extension field. There must be a leading
-        /// dot in front of the full name.
-        #[prost(string, optional, tag = "2")]
-        pub full_name: ::core::option::Option<::prost::alloc::string::String>,
-        /// The fully-qualified type name of the extension field. Unlike
-        /// Metadata.type, Declaration.type must have a leading dot for messages
-        /// and enums.
-        #[prost(string, optional, tag = "3")]
-        pub r#type: ::core::option::Option<::prost::alloc::string::String>,
-        /// If true, indicates that the number is reserved in the extension range,
-        /// and any extension field with the number will fail to compile. Set this
-        /// when a declared extension field is deleted.
-        #[prost(bool, optional, tag = "5")]
-        pub reserved: ::core::option::Option<bool>,
-        /// If true, indicates that the extension must be defined as repeated.
-        /// Otherwise the extension must be defined as optional.
-        #[prost(bool, optional, tag = "6")]
-        pub repeated: ::core::option::Option<bool>,
-    }
-    /// The verification state of the extension range.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum VerificationState {
-        /// All the extensions of the range must be declared.
-        Declaration = 0,
-        Unverified = 1,
-    }
-    impl VerificationState {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                VerificationState::Declaration => "DECLARATION",
-                VerificationState::Unverified => "UNVERIFIED",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "DECLARATION" => Some(Self::Declaration),
-                "UNVERIFIED" => Some(Self::Unverified),
-                _ => None,
-            }
-        }
-    }
 }
 /// Describes a field within a message.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -610,9 +647,6 @@ pub struct FileOptions {
     /// determining the ruby package.
     #[prost(string, optional, tag = "45")]
     pub ruby_package: ::core::option::Option<::prost::alloc::string::String>,
-    /// Any features defined in the specific edition.
-    #[prost(message, optional, tag = "50")]
-    pub features: ::core::option::Option<FeatureSet>,
     /// The parser stores options it doesn't recognize here.
     /// See the documentation for the "Options" section above.
     #[prost(message, repeated, tag = "999")]
@@ -700,10 +734,6 @@ pub struct MessageOptions {
     /// this is a formalization for deprecating messages.
     #[prost(bool, optional, tag = "3", default = "false")]
     pub deprecated: ::core::option::Option<bool>,
-    /// NOTE: Do not set the option in .proto files. Always use the maps syntax
-    /// instead. The option should only be implicitly set by the proto compiler
-    /// parser.
-    ///
     /// Whether the message is an automatically generated map entry type for the
     /// maps field.
     ///
@@ -721,24 +751,12 @@ pub struct MessageOptions {
     /// use a native map in the target language to hold the keys and values.
     /// The reflection APIs in such implementations still need to work as
     /// if the field is a repeated message field.
+    ///
+    /// NOTE: Do not set the option in .proto files. Always use the maps syntax
+    /// instead. The option should only be implicitly set by the proto compiler
+    /// parser.
     #[prost(bool, optional, tag = "7")]
     pub map_entry: ::core::option::Option<bool>,
-    /// Enable the legacy handling of JSON field name conflicts.  This lowercases
-    /// and strips underscored from the fields before comparison in proto3 only.
-    /// The new behavior takes `json_name` into account and applies to proto2 as
-    /// well.
-    ///
-    /// This should only be used as a temporary measure against broken builds due
-    /// to the change in behavior for JSON field name conflicts.
-    ///
-    /// TODO(b/261750190) This is legacy behavior we plan to remove once downstream
-    /// teams have had time to migrate.
-    #[deprecated]
-    #[prost(bool, optional, tag = "11")]
-    pub deprecated_legacy_json_field_conflicts: ::core::option::Option<bool>,
-    /// Any features defined in the specific edition.
-    #[prost(message, optional, tag = "12")]
-    pub features: ::core::option::Option<FeatureSet>,
     /// The parser stores options it doesn't recognize here. See above.
     #[prost(message, repeated, tag = "999")]
     pub uninterpreted_option: ::prost::alloc::vec::Vec<UninterpretedOption>,
@@ -748,10 +766,8 @@ pub struct MessageOptions {
 pub struct FieldOptions {
     /// The ctype option instructs the C++ code generator to use a different
     /// representation of the field than it normally would.  See the specific
-    /// options below.  This option is only implemented to support use of
-    /// \[ctype=CORD\] and \[ctype=STRING\] (the default) on non-repeated fields of
-    /// type "bytes" in the open source release -- sorry, we'll try to include
-    /// other types in a future version!
+    /// options below.  This option is not yet implemented in the open source
+    /// release -- sorry, we'll try to include it in a future version!
     #[prost(
         enumeration = "field_options::CType",
         optional,
@@ -801,6 +817,7 @@ pub struct FieldOptions {
     /// call from multiple threads concurrently, while non-const methods continue
     /// to require exclusive access.
     ///
+    ///
     /// Note that implementations may choose not to check required fields within
     /// a lazy sub-message.  That is, calling IsInitialized() on the outer message
     /// may return true even if the inner message has missing required fields.
@@ -812,8 +829,11 @@ pub struct FieldOptions {
     /// check its required fields, regardless of whether or not the message has
     /// been parsed.
     ///
-    /// As of May 2022, lazy verifies the contents of the byte stream during
-    /// parsing.  An invalid byte stream will cause the overall parsing to fail.
+    /// As of 2021, lazy does no correctness checks on the byte stream during
+    /// parsing.  This may lead to crashes if and when an invalid byte stream is
+    /// finally parsed upon access.
+    ///
+    /// TODO(b/211906113):  Enable validation on lazy fields.
     #[prost(bool, optional, tag = "5", default = "false")]
     pub lazy: ::core::option::Option<bool>,
     /// unverified_lazy does no correctness checks on the byte stream. This should
@@ -830,39 +850,12 @@ pub struct FieldOptions {
     /// For Google-internal migration only. Do not use.
     #[prost(bool, optional, tag = "10", default = "false")]
     pub weak: ::core::option::Option<bool>,
-    /// Indicate that the field value should not be printed out when using debug
-    /// formats, e.g. when the field contains sensitive credentials.
-    #[prost(bool, optional, tag = "16", default = "false")]
-    pub debug_redact: ::core::option::Option<bool>,
-    #[prost(enumeration = "field_options::OptionRetention", optional, tag = "17")]
-    pub retention: ::core::option::Option<i32>,
-    #[prost(
-        enumeration = "field_options::OptionTargetType",
-        repeated,
-        packed = "false",
-        tag = "19"
-    )]
-    pub targets: ::prost::alloc::vec::Vec<i32>,
-    #[prost(message, repeated, tag = "20")]
-    pub edition_defaults: ::prost::alloc::vec::Vec<field_options::EditionDefault>,
-    /// Any features defined in the specific edition.
-    #[prost(message, optional, tag = "21")]
-    pub features: ::core::option::Option<FeatureSet>,
     /// The parser stores options it doesn't recognize here. See above.
     #[prost(message, repeated, tag = "999")]
     pub uninterpreted_option: ::prost::alloc::vec::Vec<UninterpretedOption>,
 }
 /// Nested message and enum types in `FieldOptions`.
 pub mod field_options {
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct EditionDefault {
-        #[prost(string, optional, tag = "1")]
-        pub edition: ::core::option::Option<::prost::alloc::string::String>,
-        /// Textproto value.
-        #[prost(string, optional, tag = "2")]
-        pub value: ::core::option::Option<::prost::alloc::string::String>,
-    }
     #[derive(
         Clone,
         Copy,
@@ -878,12 +871,6 @@ pub mod field_options {
     pub enum CType {
         /// Default mode.
         String = 0,
-        /// The option \[ctype=CORD\] may be applied to a non-repeated field of type
-        /// "bytes". It indicates that in C++, the data should be stored in a Cord
-        /// instead of a string.  For very large strings, this may reduce memory
-        /// fragmentation. It may also allow better performance when parsing from a
-        /// Cord, or when parsing with aliasing enabled, as the parsed Cord may then
-        /// alias the original buffer.
         Cord = 1,
         StringPiece = 2,
     }
@@ -951,121 +938,10 @@ pub mod field_options {
             }
         }
     }
-    /// If set to RETENTION_SOURCE, the option will be omitted from the binary.
-    /// Note: as of January 2023, support for this is in progress and does not yet
-    /// have an effect (b/264593489).
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum OptionRetention {
-        RetentionUnknown = 0,
-        RetentionRuntime = 1,
-        RetentionSource = 2,
-    }
-    impl OptionRetention {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                OptionRetention::RetentionUnknown => "RETENTION_UNKNOWN",
-                OptionRetention::RetentionRuntime => "RETENTION_RUNTIME",
-                OptionRetention::RetentionSource => "RETENTION_SOURCE",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "RETENTION_UNKNOWN" => Some(Self::RetentionUnknown),
-                "RETENTION_RUNTIME" => Some(Self::RetentionRuntime),
-                "RETENTION_SOURCE" => Some(Self::RetentionSource),
-                _ => None,
-            }
-        }
-    }
-    /// This indicates the types of entities that the field may apply to when used
-    /// as an option. If it is unset, then the field may be freely used as an
-    /// option on any kind of entity. Note: as of January 2023, support for this is
-    /// in progress and does not yet have an effect (b/264593489).
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum OptionTargetType {
-        TargetTypeUnknown = 0,
-        TargetTypeFile = 1,
-        TargetTypeExtensionRange = 2,
-        TargetTypeMessage = 3,
-        TargetTypeField = 4,
-        TargetTypeOneof = 5,
-        TargetTypeEnum = 6,
-        TargetTypeEnumEntry = 7,
-        TargetTypeService = 8,
-        TargetTypeMethod = 9,
-    }
-    impl OptionTargetType {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                OptionTargetType::TargetTypeUnknown => "TARGET_TYPE_UNKNOWN",
-                OptionTargetType::TargetTypeFile => "TARGET_TYPE_FILE",
-                OptionTargetType::TargetTypeExtensionRange => {
-                    "TARGET_TYPE_EXTENSION_RANGE"
-                }
-                OptionTargetType::TargetTypeMessage => "TARGET_TYPE_MESSAGE",
-                OptionTargetType::TargetTypeField => "TARGET_TYPE_FIELD",
-                OptionTargetType::TargetTypeOneof => "TARGET_TYPE_ONEOF",
-                OptionTargetType::TargetTypeEnum => "TARGET_TYPE_ENUM",
-                OptionTargetType::TargetTypeEnumEntry => "TARGET_TYPE_ENUM_ENTRY",
-                OptionTargetType::TargetTypeService => "TARGET_TYPE_SERVICE",
-                OptionTargetType::TargetTypeMethod => "TARGET_TYPE_METHOD",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "TARGET_TYPE_UNKNOWN" => Some(Self::TargetTypeUnknown),
-                "TARGET_TYPE_FILE" => Some(Self::TargetTypeFile),
-                "TARGET_TYPE_EXTENSION_RANGE" => Some(Self::TargetTypeExtensionRange),
-                "TARGET_TYPE_MESSAGE" => Some(Self::TargetTypeMessage),
-                "TARGET_TYPE_FIELD" => Some(Self::TargetTypeField),
-                "TARGET_TYPE_ONEOF" => Some(Self::TargetTypeOneof),
-                "TARGET_TYPE_ENUM" => Some(Self::TargetTypeEnum),
-                "TARGET_TYPE_ENUM_ENTRY" => Some(Self::TargetTypeEnumEntry),
-                "TARGET_TYPE_SERVICE" => Some(Self::TargetTypeService),
-                "TARGET_TYPE_METHOD" => Some(Self::TargetTypeMethod),
-                _ => None,
-            }
-        }
-    }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct OneofOptions {
-    /// Any features defined in the specific edition.
-    #[prost(message, optional, tag = "1")]
-    pub features: ::core::option::Option<FeatureSet>,
     /// The parser stores options it doesn't recognize here. See above.
     #[prost(message, repeated, tag = "999")]
     pub uninterpreted_option: ::prost::alloc::vec::Vec<UninterpretedOption>,
@@ -1083,18 +959,6 @@ pub struct EnumOptions {
     /// is a formalization for deprecating enums.
     #[prost(bool, optional, tag = "3", default = "false")]
     pub deprecated: ::core::option::Option<bool>,
-    /// Enable the legacy handling of JSON field name conflicts.  This lowercases
-    /// and strips underscored from the fields before comparison in proto3 only.
-    /// The new behavior takes `json_name` into account and applies to proto2 as
-    /// well.
-    /// TODO(b/261750190) Remove this legacy behavior once downstream teams have
-    /// had time to migrate.
-    #[deprecated]
-    #[prost(bool, optional, tag = "6")]
-    pub deprecated_legacy_json_field_conflicts: ::core::option::Option<bool>,
-    /// Any features defined in the specific edition.
-    #[prost(message, optional, tag = "7")]
-    pub features: ::core::option::Option<FeatureSet>,
     /// The parser stores options it doesn't recognize here. See above.
     #[prost(message, repeated, tag = "999")]
     pub uninterpreted_option: ::prost::alloc::vec::Vec<UninterpretedOption>,
@@ -1108,14 +972,6 @@ pub struct EnumValueOptions {
     /// this is a formalization for deprecating enum values.
     #[prost(bool, optional, tag = "1", default = "false")]
     pub deprecated: ::core::option::Option<bool>,
-    /// Any features defined in the specific edition.
-    #[prost(message, optional, tag = "2")]
-    pub features: ::core::option::Option<FeatureSet>,
-    /// Indicate that fields annotated with this enum value should not be printed
-    /// out when using debug formats, e.g. when the field contains sensitive
-    /// credentials.
-    #[prost(bool, optional, tag = "3", default = "false")]
-    pub debug_redact: ::core::option::Option<bool>,
     /// The parser stores options it doesn't recognize here. See above.
     #[prost(message, repeated, tag = "999")]
     pub uninterpreted_option: ::prost::alloc::vec::Vec<UninterpretedOption>,
@@ -1123,9 +979,6 @@ pub struct EnumValueOptions {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ServiceOptions {
-    /// Any features defined in the specific edition.
-    #[prost(message, optional, tag = "34")]
-    pub features: ::core::option::Option<FeatureSet>,
     /// Is this service deprecated?
     /// Depending on the target platform, this can emit Deprecated annotations
     /// for the service, or it will be completely ignored; in the very least,
@@ -1152,9 +1005,6 @@ pub struct MethodOptions {
         default = "IdempotencyUnknown"
     )]
     pub idempotency_level: ::core::option::Option<i32>,
-    /// Any features defined in the specific edition.
-    #[prost(message, optional, tag = "35")]
-    pub features: ::core::option::Option<FeatureSet>,
     /// The parser stores options it doesn't recognize here. See above.
     #[prost(message, repeated, tag = "999")]
     pub uninterpreted_option: ::prost::alloc::vec::Vec<UninterpretedOption>,
@@ -1246,273 +1096,6 @@ pub mod uninterpreted_option {
         pub name_part: ::prost::alloc::string::String,
         #[prost(bool, required, tag = "2")]
         pub is_extension: bool,
-    }
-}
-/// TODO(b/274655146) Enums in C++ gencode (and potentially other languages) are
-/// not well scoped.  This means that each of the feature enums below can clash
-/// with each other.  The short names we've chosen maximize call-site
-/// readability, but leave us very open to this scenario.  A future feature will
-/// be designed and implemented to handle this, hopefully before we ever hit a
-/// conflict here.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct FeatureSet {
-    #[prost(enumeration = "feature_set::FieldPresence", optional, tag = "1")]
-    pub field_presence: ::core::option::Option<i32>,
-    #[prost(enumeration = "feature_set::EnumType", optional, tag = "2")]
-    pub enum_type: ::core::option::Option<i32>,
-    #[prost(enumeration = "feature_set::RepeatedFieldEncoding", optional, tag = "3")]
-    pub repeated_field_encoding: ::core::option::Option<i32>,
-    #[prost(enumeration = "feature_set::StringFieldValidation", optional, tag = "4")]
-    pub string_field_validation: ::core::option::Option<i32>,
-    #[prost(enumeration = "feature_set::MessageEncoding", optional, tag = "5")]
-    pub message_encoding: ::core::option::Option<i32>,
-    #[prost(enumeration = "feature_set::JsonFormat", optional, tag = "6")]
-    pub json_format: ::core::option::Option<i32>,
-    #[prost(message, optional, boxed, tag = "999")]
-    pub raw_features: ::core::option::Option<::prost::alloc::boxed::Box<FeatureSet>>,
-}
-/// Nested message and enum types in `FeatureSet`.
-pub mod feature_set {
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum FieldPresence {
-        Unknown = 0,
-        Explicit = 1,
-        Implicit = 2,
-        LegacyRequired = 3,
-    }
-    impl FieldPresence {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                FieldPresence::Unknown => "FIELD_PRESENCE_UNKNOWN",
-                FieldPresence::Explicit => "EXPLICIT",
-                FieldPresence::Implicit => "IMPLICIT",
-                FieldPresence::LegacyRequired => "LEGACY_REQUIRED",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "FIELD_PRESENCE_UNKNOWN" => Some(Self::Unknown),
-                "EXPLICIT" => Some(Self::Explicit),
-                "IMPLICIT" => Some(Self::Implicit),
-                "LEGACY_REQUIRED" => Some(Self::LegacyRequired),
-                _ => None,
-            }
-        }
-    }
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum EnumType {
-        Unknown = 0,
-        Open = 1,
-        Closed = 2,
-    }
-    impl EnumType {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                EnumType::Unknown => "ENUM_TYPE_UNKNOWN",
-                EnumType::Open => "OPEN",
-                EnumType::Closed => "CLOSED",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "ENUM_TYPE_UNKNOWN" => Some(Self::Unknown),
-                "OPEN" => Some(Self::Open),
-                "CLOSED" => Some(Self::Closed),
-                _ => None,
-            }
-        }
-    }
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum RepeatedFieldEncoding {
-        Unknown = 0,
-        Packed = 1,
-        Expanded = 2,
-    }
-    impl RepeatedFieldEncoding {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                RepeatedFieldEncoding::Unknown => "REPEATED_FIELD_ENCODING_UNKNOWN",
-                RepeatedFieldEncoding::Packed => "PACKED",
-                RepeatedFieldEncoding::Expanded => "EXPANDED",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "REPEATED_FIELD_ENCODING_UNKNOWN" => Some(Self::Unknown),
-                "PACKED" => Some(Self::Packed),
-                "EXPANDED" => Some(Self::Expanded),
-                _ => None,
-            }
-        }
-    }
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum StringFieldValidation {
-        Unknown = 0,
-        Mandatory = 1,
-        Hint = 2,
-        None = 3,
-    }
-    impl StringFieldValidation {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                StringFieldValidation::Unknown => "STRING_FIELD_VALIDATION_UNKNOWN",
-                StringFieldValidation::Mandatory => "MANDATORY",
-                StringFieldValidation::Hint => "HINT",
-                StringFieldValidation::None => "NONE",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "STRING_FIELD_VALIDATION_UNKNOWN" => Some(Self::Unknown),
-                "MANDATORY" => Some(Self::Mandatory),
-                "HINT" => Some(Self::Hint),
-                "NONE" => Some(Self::None),
-                _ => None,
-            }
-        }
-    }
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum MessageEncoding {
-        Unknown = 0,
-        LengthPrefixed = 1,
-        Delimited = 2,
-    }
-    impl MessageEncoding {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                MessageEncoding::Unknown => "MESSAGE_ENCODING_UNKNOWN",
-                MessageEncoding::LengthPrefixed => "LENGTH_PREFIXED",
-                MessageEncoding::Delimited => "DELIMITED",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "MESSAGE_ENCODING_UNKNOWN" => Some(Self::Unknown),
-                "LENGTH_PREFIXED" => Some(Self::LengthPrefixed),
-                "DELIMITED" => Some(Self::Delimited),
-                _ => None,
-            }
-        }
-    }
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum JsonFormat {
-        Unknown = 0,
-        Allow = 1,
-        LegacyBestEffort = 2,
-    }
-    impl JsonFormat {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                JsonFormat::Unknown => "JSON_FORMAT_UNKNOWN",
-                JsonFormat::Allow => "ALLOW",
-                JsonFormat::LegacyBestEffort => "LEGACY_BEST_EFFORT",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "JSON_FORMAT_UNKNOWN" => Some(Self::Unknown),
-                "ALLOW" => Some(Self::Allow),
-                "LEGACY_BEST_EFFORT" => Some(Self::LegacyBestEffort),
-                _ => None,
-            }
-        }
     }
 }
 /// Encapsulates information about the original source file from which a
@@ -1688,190 +1271,11 @@ pub mod generated_code_info {
         #[prost(int32, optional, tag = "3")]
         pub begin: ::core::option::Option<i32>,
         /// Identifies the ending offset in bytes in the generated code that
-        /// relates to the identified object. The end offset should be one past
+        /// relates to the identified offset. The end offset should be one past
         /// the last relevant byte (so the length of the text = end - begin).
         #[prost(int32, optional, tag = "4")]
         pub end: ::core::option::Option<i32>,
-        #[prost(enumeration = "annotation::Semantic", optional, tag = "5")]
-        pub semantic: ::core::option::Option<i32>,
     }
-    /// Nested message and enum types in `Annotation`.
-    pub mod annotation {
-        /// Represents the identified object's effect on the element in the original
-        /// .proto file.
-        #[derive(
-            Clone,
-            Copy,
-            Debug,
-            PartialEq,
-            Eq,
-            Hash,
-            PartialOrd,
-            Ord,
-            ::prost::Enumeration
-        )]
-        #[repr(i32)]
-        pub enum Semantic {
-            /// There is no effect or the effect is indescribable.
-            None = 0,
-            /// The element is set or otherwise mutated.
-            Set = 1,
-            /// An alias to the element is returned.
-            Alias = 2,
-        }
-        impl Semantic {
-            /// String value of the enum field names used in the ProtoBuf definition.
-            ///
-            /// The values are not transformed in any way and thus are considered stable
-            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-            pub fn as_str_name(&self) -> &'static str {
-                match self {
-                    Semantic::None => "NONE",
-                    Semantic::Set => "SET",
-                    Semantic::Alias => "ALIAS",
-                }
-            }
-            /// Creates an enum from field names used in the ProtoBuf definition.
-            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-                match value {
-                    "NONE" => Some(Self::None),
-                    "SET" => Some(Self::Set),
-                    "ALIAS" => Some(Self::Alias),
-                    _ => None,
-                }
-            }
-        }
-    }
-}
-/// `Any` contains an arbitrary serialized protocol buffer message along with a
-/// URL that describes the type of the serialized message.
-///
-/// Protobuf library provides support to pack/unpack Any values in the form
-/// of utility functions or additional generated methods of the Any type.
-///
-/// Example 1: Pack and unpack a message in C++.
-///
-///      Foo foo = ...;
-///      Any any;
-///      any.PackFrom(foo);
-///      ...
-///      if (any.UnpackTo(&foo)) {
-///        ...
-///      }
-///
-/// Example 2: Pack and unpack a message in Java.
-///
-///      Foo foo = ...;
-///      Any any = Any.pack(foo);
-///      ...
-///      if (any.is(Foo.class)) {
-///        foo = any.unpack(Foo.class);
-///      }
-///      // or ...
-///      if (any.isSameTypeAs(Foo.getDefaultInstance())) {
-///        foo = any.unpack(Foo.getDefaultInstance());
-///      }
-///
-///   Example 3: Pack and unpack a message in Python.
-///
-///      foo = Foo(...)
-///      any = Any()
-///      any.Pack(foo)
-///      ...
-///      if any.Is(Foo.DESCRIPTOR):
-///        any.Unpack(foo)
-///        ...
-///
-///   Example 4: Pack and unpack a message in Go
-///
-///       foo := &pb.Foo{...}
-///       any, err := anypb.New(foo)
-///       if err != nil {
-///         ...
-///       }
-///       ...
-///       foo := &pb.Foo{}
-///       if err := any.UnmarshalTo(foo); err != nil {
-///         ...
-///       }
-///
-/// The pack methods provided by protobuf library will by default use
-/// 'type.googleapis.com/full.type.name' as the type URL and the unpack
-/// methods only use the fully qualified type name after the last '/'
-/// in the type URL, for example "foo.bar.com/x/y.z" will yield type
-/// name "y.z".
-///
-/// JSON
-/// ====
-/// The JSON representation of an `Any` value uses the regular
-/// representation of the deserialized, embedded message, with an
-/// additional field `@type` which contains the type URL. Example:
-///
-///      package google.profile;
-///      message Person {
-///        string first_name = 1;
-///        string last_name = 2;
-///      }
-///
-///      {
-///        "@type": "type.googleapis.com/google.profile.Person",
-///        "firstName": <string>,
-///        "lastName": <string>
-///      }
-///
-/// If the embedded message type is well-known and has a custom JSON
-/// representation, that representation will be embedded adding a field
-/// `value` which holds the custom JSON in addition to the `@type`
-/// field. Example (for message [google.protobuf.Duration][]):
-///
-///      {
-///        "@type": "type.googleapis.com/google.protobuf.Duration",
-///        "value": "1.212s"
-///      }
-///
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
-#[derive(Eq)]
-#[cfg_attr(
-    all(feature = "json-schema", feature = "serde"),
-    derive(::schemars::JsonSchema)
-)]
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Any {
-    /// A URL/resource name that uniquely identifies the type of the serialized
-    /// protocol buffer message. This string must contain at least
-    /// one "/" character. The last segment of the URL's path must represent
-    /// the fully qualified name of the type (as in
-    /// `path/google.protobuf.Duration`). The name should be in a canonical form
-    /// (e.g., leading "." is not accepted).
-    ///
-    /// In practice, teams usually precompile into the binary all types that they
-    /// expect it to use in the context of Any. However, for URLs which use the
-    /// scheme `http`, `https`, or no scheme, one can optionally set up a type
-    /// server that maps type URLs to message definitions as follows:
-    ///
-    /// * If no scheme is provided, `https` is assumed.
-    /// * An HTTP GET on the URL must yield a [google.protobuf.Type][]
-    ///    value in binary format, or produce an error.
-    /// * Applications are allowed to cache lookup results based on the
-    ///    URL, or have them precompiled into a binary to avoid any
-    ///    lookup. Therefore, binary compatibility needs to be preserved
-    ///    on changes to types. (Use versioned type names to manage
-    ///    breaking changes.)
-    ///
-    /// Note: this functionality is not currently available in the official
-    /// protobuf release, and it is not used for type URLs beginning with
-    /// type.googleapis.com. As of May 2023, there are no widely used type server
-    /// implementations and no plans to implement one.
-    ///
-    /// Schemes other than `http`, `https` (or the empty scheme) might be
-    /// used with implementation specific semantics.
-    ///
-    #[prost(string, tag = "1")]
-    pub type_url: ::prost::alloc::string::String,
-    /// Must be a valid serialized protocol buffer of the above specified type.
-    #[prost(bytes = "vec", tag = "2")]
-    pub value: ::prost::alloc::vec::Vec<u8>,
 }
 /// A Timestamp represents a point in time independent of any time zone or local
 /// calendar, encoded as a count of seconds and fractions of seconds at
@@ -1923,6 +1327,7 @@ pub struct Any {
 ///      Timestamp timestamp = Timestamp.newBuilder().setSeconds(millis / 1000)
 ///          .setNanos((int) ((millis % 1000) * 1000000)).build();
 ///
+///
 /// Example 5: Compute Timestamp from Java `Instant.now()`.
 ///
 ///      Instant now = Instant.now();
@@ -1930,6 +1335,7 @@ pub struct Any {
 ///      Timestamp timestamp =
 ///          Timestamp.newBuilder().setSeconds(now.getEpochSecond())
 ///              .setNanos(now.getNano()).build();
+///
 ///
 /// Example 6: Compute Timestamp from current time in Python.
 ///
@@ -1960,8 +1366,9 @@ pub struct Any {
 /// [`strftime`](<https://docs.python.org/2/library/time.html#time.strftime>) with
 /// the time format spec '%Y-%m-%dT%H:%M:%S.%fZ'. Likewise, in Java, one can use
 /// the Joda Time's [`ISODateTimeFormat.dateTime()`](
-/// <http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime(>)
+/// <http://www.joda.org/joda-time/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime%2D%2D>
 /// ) to obtain a formatter capable of generating timestamps in this format.
+///
 ///
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -2037,6 +1444,7 @@ pub struct Timestamp {
 /// encoded in JSON format as "3s", while 3 seconds and 1 nanosecond should
 /// be expressed in JSON format as "3.000000001s", and 3 seconds and 1
 /// microsecond should be expressed in JSON format as "3.000001s".
+///
 ///
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[derive(Eq)]
