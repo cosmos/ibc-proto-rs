@@ -16,6 +16,13 @@ pub struct ClientState {
     #[prost(bool, tag = "4")]
     pub allow_update_after_proposal: bool,
 }
+impl ::prost::Name for ClientState {
+    const NAME: &'static str = "ClientState";
+    const PACKAGE: &'static str = "ibc.lightclients.solomachine.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.lightclients.solomachine.v2.{}", Self::NAME)
+    }
+}
 /// ConsensusState defines a solo machine consensus state. The sequence of a
 /// consensus state is contained in the "height" key used in storing the
 /// consensus state.
@@ -35,6 +42,13 @@ pub struct ConsensusState {
     #[prost(uint64, tag = "3")]
     pub timestamp: u64,
 }
+impl ::prost::Name for ConsensusState {
+    const NAME: &'static str = "ConsensusState";
+    const PACKAGE: &'static str = "ibc.lightclients.solomachine.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.lightclients.solomachine.v2.{}", Self::NAME)
+    }
+}
 /// Header defines a solo machine consensus header
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -53,6 +67,13 @@ pub struct Header {
     #[prost(string, tag = "5")]
     pub new_diversifier: ::prost::alloc::string::String,
 }
+impl ::prost::Name for Header {
+    const NAME: &'static str = "Header";
+    const PACKAGE: &'static str = "ibc.lightclients.solomachine.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.lightclients.solomachine.v2.{}", Self::NAME)
+    }
+}
 /// Misbehaviour defines misbehaviour for a solo machine which consists
 /// of a sequence and two signatures over different messages at that sequence.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -66,6 +87,13 @@ pub struct Misbehaviour {
     pub signature_one: ::core::option::Option<SignatureAndData>,
     #[prost(message, optional, tag = "4")]
     pub signature_two: ::core::option::Option<SignatureAndData>,
+}
+impl ::prost::Name for Misbehaviour {
+    const NAME: &'static str = "Misbehaviour";
+    const PACKAGE: &'static str = "ibc.lightclients.solomachine.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.lightclients.solomachine.v2.{}", Self::NAME)
+    }
 }
 /// SignatureAndData contains a signature and the data signed over to create that
 /// signature.
@@ -81,6 +109,13 @@ pub struct SignatureAndData {
     #[prost(uint64, tag = "4")]
     pub timestamp: u64,
 }
+impl ::prost::Name for SignatureAndData {
+    const NAME: &'static str = "SignatureAndData";
+    const PACKAGE: &'static str = "ibc.lightclients.solomachine.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.lightclients.solomachine.v2.{}", Self::NAME)
+    }
+}
 /// TimestampedSignatureData contains the signature data and the timestamp of the
 /// signature.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -90,6 +125,13 @@ pub struct TimestampedSignatureData {
     pub signature_data: ::prost::alloc::vec::Vec<u8>,
     #[prost(uint64, tag = "2")]
     pub timestamp: u64,
+}
+impl ::prost::Name for TimestampedSignatureData {
+    const NAME: &'static str = "TimestampedSignatureData";
+    const PACKAGE: &'static str = "ibc.lightclients.solomachine.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.lightclients.solomachine.v2.{}", Self::NAME)
+    }
 }
 /// SignBytes defines the signed bytes used for signature verification.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -108,6 +150,13 @@ pub struct SignBytes {
     #[prost(bytes = "vec", tag = "5")]
     pub data: ::prost::alloc::vec::Vec<u8>,
 }
+impl ::prost::Name for SignBytes {
+    const NAME: &'static str = "SignBytes";
+    const PACKAGE: &'static str = "ibc.lightclients.solomachine.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.lightclients.solomachine.v2.{}", Self::NAME)
+    }
+}
 /// HeaderData returns the SignBytes data for update verification.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -121,6 +170,13 @@ pub struct HeaderData {
     #[prost(string, tag = "2")]
     pub new_diversifier: ::prost::alloc::string::String,
 }
+impl ::prost::Name for HeaderData {
+    const NAME: &'static str = "HeaderData";
+    const PACKAGE: &'static str = "ibc.lightclients.solomachine.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.lightclients.solomachine.v2.{}", Self::NAME)
+    }
+}
 /// ClientStateData returns the SignBytes data for client state verification.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -131,6 +187,13 @@ pub struct ClientStateData {
     pub client_state: ::core::option::Option<
         super::super::super::super::google::protobuf::Any,
     >,
+}
+impl ::prost::Name for ClientStateData {
+    const NAME: &'static str = "ClientStateData";
+    const PACKAGE: &'static str = "ibc.lightclients.solomachine.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.lightclients.solomachine.v2.{}", Self::NAME)
+    }
 }
 /// ConsensusStateData returns the SignBytes data for consensus state
 /// verification.
@@ -144,6 +207,13 @@ pub struct ConsensusStateData {
         super::super::super::super::google::protobuf::Any,
     >,
 }
+impl ::prost::Name for ConsensusStateData {
+    const NAME: &'static str = "ConsensusStateData";
+    const PACKAGE: &'static str = "ibc.lightclients.solomachine.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.lightclients.solomachine.v2.{}", Self::NAME)
+    }
+}
 /// ConnectionStateData returns the SignBytes data for connection state
 /// verification.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -156,6 +226,13 @@ pub struct ConnectionStateData {
         super::super::super::core::connection::v1::ConnectionEnd,
     >,
 }
+impl ::prost::Name for ConnectionStateData {
+    const NAME: &'static str = "ConnectionStateData";
+    const PACKAGE: &'static str = "ibc.lightclients.solomachine.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.lightclients.solomachine.v2.{}", Self::NAME)
+    }
+}
 /// ChannelStateData returns the SignBytes data for channel state
 /// verification.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -165,6 +242,13 @@ pub struct ChannelStateData {
     pub path: ::prost::alloc::vec::Vec<u8>,
     #[prost(message, optional, tag = "2")]
     pub channel: ::core::option::Option<super::super::super::core::channel::v1::Channel>,
+}
+impl ::prost::Name for ChannelStateData {
+    const NAME: &'static str = "ChannelStateData";
+    const PACKAGE: &'static str = "ibc.lightclients.solomachine.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.lightclients.solomachine.v2.{}", Self::NAME)
+    }
 }
 /// PacketCommitmentData returns the SignBytes data for packet commitment
 /// verification.
@@ -176,6 +260,13 @@ pub struct PacketCommitmentData {
     #[prost(bytes = "vec", tag = "2")]
     pub commitment: ::prost::alloc::vec::Vec<u8>,
 }
+impl ::prost::Name for PacketCommitmentData {
+    const NAME: &'static str = "PacketCommitmentData";
+    const PACKAGE: &'static str = "ibc.lightclients.solomachine.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.lightclients.solomachine.v2.{}", Self::NAME)
+    }
+}
 /// PacketAcknowledgementData returns the SignBytes data for acknowledgement
 /// verification.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -186,6 +277,13 @@ pub struct PacketAcknowledgementData {
     #[prost(bytes = "vec", tag = "2")]
     pub acknowledgement: ::prost::alloc::vec::Vec<u8>,
 }
+impl ::prost::Name for PacketAcknowledgementData {
+    const NAME: &'static str = "PacketAcknowledgementData";
+    const PACKAGE: &'static str = "ibc.lightclients.solomachine.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.lightclients.solomachine.v2.{}", Self::NAME)
+    }
+}
 /// PacketReceiptAbsenceData returns the SignBytes data for
 /// packet receipt absence verification.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -193,6 +291,13 @@ pub struct PacketAcknowledgementData {
 pub struct PacketReceiptAbsenceData {
     #[prost(bytes = "vec", tag = "1")]
     pub path: ::prost::alloc::vec::Vec<u8>,
+}
+impl ::prost::Name for PacketReceiptAbsenceData {
+    const NAME: &'static str = "PacketReceiptAbsenceData";
+    const PACKAGE: &'static str = "ibc.lightclients.solomachine.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.lightclients.solomachine.v2.{}", Self::NAME)
+    }
 }
 /// NextSequenceRecvData returns the SignBytes data for verification of the next
 /// sequence to be received.
@@ -203,6 +308,13 @@ pub struct NextSequenceRecvData {
     pub path: ::prost::alloc::vec::Vec<u8>,
     #[prost(uint64, tag = "2")]
     pub next_seq_recv: u64,
+}
+impl ::prost::Name for NextSequenceRecvData {
+    const NAME: &'static str = "NextSequenceRecvData";
+    const PACKAGE: &'static str = "ibc.lightclients.solomachine.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.lightclients.solomachine.v2.{}", Self::NAME)
+    }
 }
 /// DataType defines the type of solo machine proof being created. This is done
 /// to preserve uniqueness of different data sign byte encodings.

@@ -2,12 +2,26 @@
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConfigRequest {}
+impl ::prost::Name for ConfigRequest {
+    const NAME: &'static str = "ConfigRequest";
+    const PACKAGE: &'static str = "cosmos.base.node.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.node.v1beta1.{}", Self::NAME)
+    }
+}
 /// ConfigResponse defines the response structure for the Config gRPC query.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConfigResponse {
     #[prost(string, tag = "1")]
     pub minimum_gas_price: ::prost::alloc::string::String,
+}
+impl ::prost::Name for ConfigResponse {
+    const NAME: &'static str = "ConfigResponse";
+    const PACKAGE: &'static str = "cosmos.base.node.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.node.v1beta1.{}", Self::NAME)
+    }
 }
 /// Generated client implementations.
 #[cfg(feature = "client")]
