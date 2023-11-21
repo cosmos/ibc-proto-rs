@@ -226,6 +226,10 @@ impl CompileCmd {
                 "cosmos.staking.v1beta1.rs",
                 &[
                     ("pub struct Validators", "pub struct ValidatorsVec"),
+                    (
+                        "impl ::prost::Name for Validators {",
+                        "impl ::prost::Name for ValidatorsVec {",
+                    ),
                     ("AllowList(Validators)", "AllowList(ValidatorsVec)"),
                     ("DenyList(Validators)", "DenyList(ValidatorsVec)"),
                 ],
