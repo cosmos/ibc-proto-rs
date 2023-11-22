@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## v0.39.1
+
+*November 22nd, 2023*
+
+### FEATURES
+
+- Derive the `prost::Name` trait for all Protobuf messages
+  ([\#163](https://github.com/cosmos/ibc-proto-rs/pull/163))
+
 ## v0.39.0
 
 *November 15th, 2023*
