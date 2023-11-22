@@ -11,6 +11,15 @@ pub struct Params {
     #[prost(string, repeated, tag = "2")]
     pub allow_messages: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
+impl ::prost::Name for Params {
+    const NAME: &'static str = "Params";
+    const PACKAGE: &'static str = "ibc.applications.interchain_accounts.host.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!(
+            "ibc.applications.interchain_accounts.host.v1.{}", Self::NAME
+        )
+    }
+}
 /// MsgUpdateParams defines the payload for Msg/UpdateParams
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -25,11 +34,29 @@ pub struct MsgUpdateParams {
     #[prost(message, optional, tag = "2")]
     pub params: ::core::option::Option<Params>,
 }
+impl ::prost::Name for MsgUpdateParams {
+    const NAME: &'static str = "MsgUpdateParams";
+    const PACKAGE: &'static str = "ibc.applications.interchain_accounts.host.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!(
+            "ibc.applications.interchain_accounts.host.v1.{}", Self::NAME
+        )
+    }
+}
 /// MsgUpdateParamsResponse defines the response for Msg/UpdateParams
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgUpdateParamsResponse {}
+impl ::prost::Name for MsgUpdateParamsResponse {
+    const NAME: &'static str = "MsgUpdateParamsResponse";
+    const PACKAGE: &'static str = "ibc.applications.interchain_accounts.host.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!(
+            "ibc.applications.interchain_accounts.host.v1.{}", Self::NAME
+        )
+    }
+}
 /// Generated client implementations.
 #[cfg(feature = "client")]
 pub mod msg_client {
@@ -337,6 +364,15 @@ pub mod msg_server {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsRequest {}
+impl ::prost::Name for QueryParamsRequest {
+    const NAME: &'static str = "QueryParamsRequest";
+    const PACKAGE: &'static str = "ibc.applications.interchain_accounts.host.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!(
+            "ibc.applications.interchain_accounts.host.v1.{}", Self::NAME
+        )
+    }
+}
 /// QueryParamsResponse is the response type for the Query/Params RPC method.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -345,6 +381,15 @@ pub struct QueryParamsResponse {
     /// params defines the parameters of the module.
     #[prost(message, optional, tag = "1")]
     pub params: ::core::option::Option<Params>,
+}
+impl ::prost::Name for QueryParamsResponse {
+    const NAME: &'static str = "QueryParamsResponse";
+    const PACKAGE: &'static str = "ibc.applications.interchain_accounts.host.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!(
+            "ibc.applications.interchain_accounts.host.v1.{}", Self::NAME
+        )
+    }
 }
 /// Generated client implementations.
 #[cfg(feature = "client")]

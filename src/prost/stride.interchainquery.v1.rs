@@ -15,11 +15,25 @@ pub struct MsgSubmitQueryResponse {
     #[prost(string, tag = "6")]
     pub from_address: ::prost::alloc::string::String,
 }
+impl ::prost::Name for MsgSubmitQueryResponse {
+    const NAME: &'static str = "MsgSubmitQueryResponse";
+    const PACKAGE: &'static str = "stride.interchainquery.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("stride.interchainquery.v1.{}", Self::NAME)
+    }
+}
 /// MsgSubmitQueryResponseResponse defines the MsgSubmitQueryResponse response
 /// type.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgSubmitQueryResponseResponse {}
+impl ::prost::Name for MsgSubmitQueryResponseResponse {
+    const NAME: &'static str = "MsgSubmitQueryResponseResponse";
+    const PACKAGE: &'static str = "stride.interchainquery.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("stride.interchainquery.v1.{}", Self::NAME)
+    }
+}
 /// Generated client implementations.
 #[cfg(feature = "client")]
 pub mod msg_client {

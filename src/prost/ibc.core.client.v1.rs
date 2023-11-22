@@ -13,6 +13,13 @@ pub struct IdentifiedClientState {
         super::super::super::super::google::protobuf::Any,
     >,
 }
+impl ::prost::Name for IdentifiedClientState {
+    const NAME: &'static str = "IdentifiedClientState";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// ConsensusStateWithHeight defines a consensus state with an additional height
 /// field.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
@@ -28,6 +35,13 @@ pub struct ConsensusStateWithHeight {
         super::super::super::super::google::protobuf::Any,
     >,
 }
+impl ::prost::Name for ConsensusStateWithHeight {
+    const NAME: &'static str = "ConsensusStateWithHeight";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// ClientConsensusStates defines all the stored consensus states for a given
 /// client.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
@@ -40,6 +54,13 @@ pub struct ClientConsensusStates {
     /// consensus states and their heights associated with the client
     #[prost(message, repeated, tag = "2")]
     pub consensus_states: ::prost::alloc::vec::Vec<ConsensusStateWithHeight>,
+}
+impl ::prost::Name for ClientConsensusStates {
+    const NAME: &'static str = "ClientConsensusStates";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
 }
 /// Height is a monotonically increasing data type
 /// that can be compared against another Height for the purposes of updating and
@@ -69,6 +90,13 @@ pub struct Height {
     #[cfg_attr(feature = "serde", serde(default))]
     pub revision_height: u64,
 }
+impl ::prost::Name for Height {
+    const NAME: &'static str = "Height";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// Params defines the set of IBC light client parameters.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -79,6 +107,13 @@ pub struct Params {
     /// of this client will be disabled until it is added again to the list.
     #[prost(string, repeated, tag = "1")]
     pub allowed_clients: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+impl ::prost::Name for Params {
+    const NAME: &'static str = "Params";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
 }
 /// ClientUpdateProposal is a legacy governance proposal. If it passes, the substitute
 /// client's latest consensus state is copied over to the subject client. The proposal
@@ -103,6 +138,13 @@ pub struct ClientUpdateProposal {
     /// client
     #[prost(string, tag = "4")]
     pub substitute_client_id: ::prost::alloc::string::String,
+}
+impl ::prost::Name for ClientUpdateProposal {
+    const NAME: &'static str = "ClientUpdateProposal";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
 }
 /// UpgradeProposal is a gov Content type for initiating an IBC breaking
 /// upgrade.
@@ -131,6 +173,13 @@ pub struct UpgradeProposal {
         super::super::super::super::google::protobuf::Any,
     >,
 }
+impl ::prost::Name for UpgradeProposal {
+    const NAME: &'static str = "UpgradeProposal";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// GenesisState defines the ibc client submodule's genesis state.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -156,6 +205,13 @@ pub struct GenesisState {
     #[prost(uint64, tag = "6")]
     pub next_client_sequence: u64,
 }
+impl ::prost::Name for GenesisState {
+    const NAME: &'static str = "GenesisState";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// GenesisMetadata defines the genesis type for metadata that clients may return
 /// with ExportMetadata
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
@@ -169,6 +225,13 @@ pub struct GenesisMetadata {
     #[prost(bytes = "vec", tag = "2")]
     pub value: ::prost::alloc::vec::Vec<u8>,
 }
+impl ::prost::Name for GenesisMetadata {
+    const NAME: &'static str = "GenesisMetadata";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// IdentifiedGenesisMetadata has the client metadata with the corresponding
 /// client id.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
@@ -179,6 +242,13 @@ pub struct IdentifiedGenesisMetadata {
     pub client_id: ::prost::alloc::string::String,
     #[prost(message, repeated, tag = "2")]
     pub client_metadata: ::prost::alloc::vec::Vec<GenesisMetadata>,
+}
+impl ::prost::Name for IdentifiedGenesisMetadata {
+    const NAME: &'static str = "IdentifiedGenesisMetadata";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
 }
 /// MsgCreateClient defines a message to create an IBC client
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
@@ -200,11 +270,25 @@ pub struct MsgCreateClient {
     #[prost(string, tag = "3")]
     pub signer: ::prost::alloc::string::String,
 }
+impl ::prost::Name for MsgCreateClient {
+    const NAME: &'static str = "MsgCreateClient";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// MsgCreateClientResponse defines the Msg/CreateClient response type.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgCreateClientResponse {}
+impl ::prost::Name for MsgCreateClientResponse {
+    const NAME: &'static str = "MsgCreateClientResponse";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// MsgUpdateClient defines an sdk.Msg to update a IBC client state using
 /// the given client message.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
@@ -223,11 +307,25 @@ pub struct MsgUpdateClient {
     #[prost(string, tag = "3")]
     pub signer: ::prost::alloc::string::String,
 }
+impl ::prost::Name for MsgUpdateClient {
+    const NAME: &'static str = "MsgUpdateClient";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// MsgUpdateClientResponse defines the Msg/UpdateClient response type.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgUpdateClientResponse {}
+impl ::prost::Name for MsgUpdateClientResponse {
+    const NAME: &'static str = "MsgUpdateClientResponse";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// MsgUpgradeClient defines an sdk.Msg to upgrade an IBC client to a new client
 /// state
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
@@ -258,11 +356,25 @@ pub struct MsgUpgradeClient {
     #[prost(string, tag = "6")]
     pub signer: ::prost::alloc::string::String,
 }
+impl ::prost::Name for MsgUpgradeClient {
+    const NAME: &'static str = "MsgUpgradeClient";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// MsgUpgradeClientResponse defines the Msg/UpgradeClient response type.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgUpgradeClientResponse {}
+impl ::prost::Name for MsgUpgradeClientResponse {
+    const NAME: &'static str = "MsgUpgradeClientResponse";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// MsgSubmitMisbehaviour defines an sdk.Msg type that submits Evidence for
 /// light client misbehaviour.
 /// This message has been deprecated. Use MsgUpdateClient instead.
@@ -282,12 +394,26 @@ pub struct MsgSubmitMisbehaviour {
     #[prost(string, tag = "3")]
     pub signer: ::prost::alloc::string::String,
 }
+impl ::prost::Name for MsgSubmitMisbehaviour {
+    const NAME: &'static str = "MsgSubmitMisbehaviour";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// MsgSubmitMisbehaviourResponse defines the Msg/SubmitMisbehaviour response
 /// type.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgSubmitMisbehaviourResponse {}
+impl ::prost::Name for MsgSubmitMisbehaviourResponse {
+    const NAME: &'static str = "MsgSubmitMisbehaviourResponse";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// MsgRecoverClient defines the message used to recover a frozen or expired client.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -304,11 +430,25 @@ pub struct MsgRecoverClient {
     #[prost(string, tag = "3")]
     pub signer: ::prost::alloc::string::String,
 }
+impl ::prost::Name for MsgRecoverClient {
+    const NAME: &'static str = "MsgRecoverClient";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// MsgRecoverClientResponse defines the Msg/RecoverClient response type.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgRecoverClientResponse {}
+impl ::prost::Name for MsgRecoverClientResponse {
+    const NAME: &'static str = "MsgRecoverClientResponse";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// MsgIBCSoftwareUpgrade defines the message used to schedule an upgrade of an IBC client using a v1 governance proposal
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -334,11 +474,25 @@ pub struct MsgIbcSoftwareUpgrade {
     #[prost(string, tag = "3")]
     pub signer: ::prost::alloc::string::String,
 }
+impl ::prost::Name for MsgIbcSoftwareUpgrade {
+    const NAME: &'static str = "MsgIBCSoftwareUpgrade";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// MsgIBCSoftwareUpgradeResponse defines the Msg/IBCSoftwareUpgrade response type.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgIbcSoftwareUpgradeResponse {}
+impl ::prost::Name for MsgIbcSoftwareUpgradeResponse {
+    const NAME: &'static str = "MsgIBCSoftwareUpgradeResponse";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// MsgUpdateParams defines the sdk.Msg type to update the client parameters.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -353,11 +507,25 @@ pub struct MsgUpdateParams {
     #[prost(message, optional, tag = "2")]
     pub params: ::core::option::Option<Params>,
 }
+impl ::prost::Name for MsgUpdateParams {
+    const NAME: &'static str = "MsgUpdateParams";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// MsgUpdateParamsResponse defines the MsgUpdateParams response type.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgUpdateParamsResponse {}
+impl ::prost::Name for MsgUpdateParamsResponse {
+    const NAME: &'static str = "MsgUpdateParamsResponse";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// Generated client implementations.
 #[cfg(feature = "client")]
 pub mod msg_client {
@@ -1137,6 +1305,13 @@ pub struct QueryClientStateRequest {
     #[prost(string, tag = "1")]
     pub client_id: ::prost::alloc::string::String,
 }
+impl ::prost::Name for QueryClientStateRequest {
+    const NAME: &'static str = "QueryClientStateRequest";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// QueryClientStateResponse is the response type for the Query/ClientState RPC
 /// method. Besides the client state, it includes a proof and the height from
 /// which the proof was retrieved.
@@ -1156,6 +1331,13 @@ pub struct QueryClientStateResponse {
     #[prost(message, optional, tag = "3")]
     pub proof_height: ::core::option::Option<Height>,
 }
+impl ::prost::Name for QueryClientStateResponse {
+    const NAME: &'static str = "QueryClientStateResponse";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// QueryClientStatesRequest is the request type for the Query/ClientStates RPC
 /// method
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
@@ -1167,6 +1349,13 @@ pub struct QueryClientStatesRequest {
     pub pagination: ::core::option::Option<
         super::super::super::super::cosmos::base::query::v1beta1::PageRequest,
     >,
+}
+impl ::prost::Name for QueryClientStatesRequest {
+    const NAME: &'static str = "QueryClientStatesRequest";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
 }
 /// QueryClientStatesResponse is the response type for the Query/ClientStates RPC
 /// method.
@@ -1182,6 +1371,13 @@ pub struct QueryClientStatesResponse {
     pub pagination: ::core::option::Option<
         super::super::super::super::cosmos::base::query::v1beta1::PageResponse,
     >,
+}
+impl ::prost::Name for QueryClientStatesResponse {
+    const NAME: &'static str = "QueryClientStatesResponse";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
 }
 /// QueryConsensusStateRequest is the request type for the Query/ConsensusState
 /// RPC method. Besides the consensus state, it includes a proof and the height
@@ -1204,6 +1400,13 @@ pub struct QueryConsensusStateRequest {
     #[prost(bool, tag = "4")]
     pub latest_height: bool,
 }
+impl ::prost::Name for QueryConsensusStateRequest {
+    const NAME: &'static str = "QueryConsensusStateRequest";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// QueryConsensusStateResponse is the response type for the Query/ConsensusState
 /// RPC method
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
@@ -1222,6 +1425,13 @@ pub struct QueryConsensusStateResponse {
     #[prost(message, optional, tag = "3")]
     pub proof_height: ::core::option::Option<Height>,
 }
+impl ::prost::Name for QueryConsensusStateResponse {
+    const NAME: &'static str = "QueryConsensusStateResponse";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// QueryConsensusStatesRequest is the request type for the Query/ConsensusStates
 /// RPC method.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
@@ -1236,6 +1446,13 @@ pub struct QueryConsensusStatesRequest {
     pub pagination: ::core::option::Option<
         super::super::super::super::cosmos::base::query::v1beta1::PageRequest,
     >,
+}
+impl ::prost::Name for QueryConsensusStatesRequest {
+    const NAME: &'static str = "QueryConsensusStatesRequest";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
 }
 /// QueryConsensusStatesResponse is the response type for the
 /// Query/ConsensusStates RPC method
@@ -1252,6 +1469,13 @@ pub struct QueryConsensusStatesResponse {
         super::super::super::super::cosmos::base::query::v1beta1::PageResponse,
     >,
 }
+impl ::prost::Name for QueryConsensusStatesResponse {
+    const NAME: &'static str = "QueryConsensusStatesResponse";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// QueryConsensusStateHeightsRequest is the request type for Query/ConsensusStateHeights
 /// RPC method.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
@@ -1266,6 +1490,13 @@ pub struct QueryConsensusStateHeightsRequest {
     pub pagination: ::core::option::Option<
         super::super::super::super::cosmos::base::query::v1beta1::PageRequest,
     >,
+}
+impl ::prost::Name for QueryConsensusStateHeightsRequest {
+    const NAME: &'static str = "QueryConsensusStateHeightsRequest";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
 }
 /// QueryConsensusStateHeightsResponse is the response type for the
 /// Query/ConsensusStateHeights RPC method
@@ -1282,6 +1513,13 @@ pub struct QueryConsensusStateHeightsResponse {
         super::super::super::super::cosmos::base::query::v1beta1::PageResponse,
     >,
 }
+impl ::prost::Name for QueryConsensusStateHeightsResponse {
+    const NAME: &'static str = "QueryConsensusStateHeightsResponse";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// QueryClientStatusRequest is the request type for the Query/ClientStatus RPC
 /// method
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
@@ -1292,6 +1530,13 @@ pub struct QueryClientStatusRequest {
     #[prost(string, tag = "1")]
     pub client_id: ::prost::alloc::string::String,
 }
+impl ::prost::Name for QueryClientStatusRequest {
+    const NAME: &'static str = "QueryClientStatusRequest";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// QueryClientStatusResponse is the response type for the Query/ClientStatus RPC
 /// method. It returns the current status of the IBC client.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
@@ -1301,12 +1546,26 @@ pub struct QueryClientStatusResponse {
     #[prost(string, tag = "1")]
     pub status: ::prost::alloc::string::String,
 }
+impl ::prost::Name for QueryClientStatusResponse {
+    const NAME: &'static str = "QueryClientStatusResponse";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// QueryClientParamsRequest is the request type for the Query/ClientParams RPC
 /// method.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryClientParamsRequest {}
+impl ::prost::Name for QueryClientParamsRequest {
+    const NAME: &'static str = "QueryClientParamsRequest";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// QueryClientParamsResponse is the response type for the Query/ClientParams RPC
 /// method.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
@@ -1317,12 +1576,26 @@ pub struct QueryClientParamsResponse {
     #[prost(message, optional, tag = "1")]
     pub params: ::core::option::Option<Params>,
 }
+impl ::prost::Name for QueryClientParamsResponse {
+    const NAME: &'static str = "QueryClientParamsResponse";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// QueryUpgradedClientStateRequest is the request type for the
 /// Query/UpgradedClientState RPC method
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryUpgradedClientStateRequest {}
+impl ::prost::Name for QueryUpgradedClientStateRequest {
+    const NAME: &'static str = "QueryUpgradedClientStateRequest";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// QueryUpgradedClientStateResponse is the response type for the
 /// Query/UpgradedClientState RPC method.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
@@ -1335,12 +1608,26 @@ pub struct QueryUpgradedClientStateResponse {
         super::super::super::super::google::protobuf::Any,
     >,
 }
+impl ::prost::Name for QueryUpgradedClientStateResponse {
+    const NAME: &'static str = "QueryUpgradedClientStateResponse";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// QueryUpgradedConsensusStateRequest is the request type for the
 /// Query/UpgradedConsensusState RPC method
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryUpgradedConsensusStateRequest {}
+impl ::prost::Name for QueryUpgradedConsensusStateRequest {
+    const NAME: &'static str = "QueryUpgradedConsensusStateRequest";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
+}
 /// QueryUpgradedConsensusStateResponse is the response type for the
 /// Query/UpgradedConsensusState RPC method.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
@@ -1352,6 +1639,13 @@ pub struct QueryUpgradedConsensusStateResponse {
     pub upgraded_consensus_state: ::core::option::Option<
         super::super::super::super::google::protobuf::Any,
     >,
+}
+impl ::prost::Name for QueryUpgradedConsensusStateResponse {
+    const NAME: &'static str = "QueryUpgradedConsensusStateResponse";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+    }
 }
 /// Generated client implementations.
 #[cfg(feature = "client")]

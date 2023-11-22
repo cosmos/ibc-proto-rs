@@ -10,6 +10,13 @@ pub struct InterchainAccount {
     #[prost(string, tag = "2")]
     pub account_owner: ::prost::alloc::string::String,
 }
+impl ::prost::Name for InterchainAccount {
+    const NAME: &'static str = "InterchainAccount";
+    const PACKAGE: &'static str = "ibc.applications.interchain_accounts.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.applications.interchain_accounts.v1.{}", Self::NAME)
+    }
+}
 /// InterchainAccountPacketData is comprised of a raw transaction, type of transaction and optional memo field.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -22,6 +29,13 @@ pub struct InterchainAccountPacketData {
     #[prost(string, tag = "3")]
     pub memo: ::prost::alloc::string::String,
 }
+impl ::prost::Name for InterchainAccountPacketData {
+    const NAME: &'static str = "InterchainAccountPacketData";
+    const PACKAGE: &'static str = "ibc.applications.interchain_accounts.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.applications.interchain_accounts.v1.{}", Self::NAME)
+    }
+}
 /// CosmosTx contains a list of sdk.Msg's. It should be used when sending transactions to an SDK host chain.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -31,6 +45,13 @@ pub struct CosmosTx {
     pub messages: ::prost::alloc::vec::Vec<
         super::super::super::super::google::protobuf::Any,
     >,
+}
+impl ::prost::Name for CosmosTx {
+    const NAME: &'static str = "CosmosTx";
+    const PACKAGE: &'static str = "ibc.applications.interchain_accounts.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.applications.interchain_accounts.v1.{}", Self::NAME)
+    }
 }
 /// Type defines a classification of message issued from a controller chain to its associated interchain accounts
 /// host
@@ -88,4 +109,11 @@ pub struct Metadata {
     /// tx_type defines the type of transactions the interchain account can execute
     #[prost(string, tag = "6")]
     pub tx_type: ::prost::alloc::string::String,
+}
+impl ::prost::Name for Metadata {
+    const NAME: &'static str = "Metadata";
+    const PACKAGE: &'static str = "ibc.applications.interchain_accounts.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.applications.interchain_accounts.v1.{}", Self::NAME)
+    }
 }

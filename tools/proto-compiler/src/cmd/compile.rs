@@ -126,6 +126,10 @@ impl CompileCmd {
         let attrs_serde_base64 = r#"#[cfg_attr(feature = "serde", serde(with = "crate::base64"))]"#;
         let attrs_jsonschema_str = r#"#[cfg_attr(all(feature = "json-schema", feature = "serde"), schemars(with = "String"))]"#;
 
+        // Automatically derive a `prost::Name` implementation.
+        let mut config = prost_build::Config::new();
+        config.enable_type_names();
+
         tonic_build::configure()
             .build_client(true)
             .compile_well_known_types(true)
@@ -204,7 +208,7 @@ impl CompileCmd {
             .type_attribute(".cosmos.config.v1", attrs_serde)
             .type_attribute(".cosmos.tx.config.v1", attrs_serde)
             .type_attribute(".cosmos.upgrade.v1beta1", attrs_serde)
-            .compile(&protos, &includes)?;
+            .compile_with_config(config, &protos, &includes)?;
 
         println!("[info ] Protos compiled successfully");
 
@@ -222,6 +226,10 @@ impl CompileCmd {
                 "cosmos.staking.v1beta1.rs",
                 &[
                     ("pub struct Validators", "pub struct ValidatorsVec"),
+                    (
+                        "impl ::prost::Name for Validators {",
+                        "impl ::prost::Name for ValidatorsVec {",
+                    ),
                     ("AllowList(Validators)", "AllowList(ValidatorsVec)"),
                     ("DenyList(Validators)", "DenyList(ValidatorsVec)"),
                 ],
