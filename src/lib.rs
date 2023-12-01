@@ -180,6 +180,9 @@ pub mod cosmos {
         }
     }
     pub mod gov {
+        pub mod v1 {
+            include_proto!("cosmos.gov.v1.rs");
+        }
         pub mod v1beta1 {
             include_proto!("cosmos.gov.v1beta1.rs");
         }
