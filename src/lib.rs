@@ -241,6 +241,7 @@ pub mod ibc {
         pub mod client {
             pub mod v1 {
                 include_proto!("ibc.core.client.v1.rs");
+                include_proto!("ibc.core.client.v1.serde.rs");
             }
         }
         pub mod commitment {
@@ -314,25 +315,25 @@ pub mod stride {
     }
 }
 
-#[cfg(feature = "serde")]
-pub(crate) mod base64 {
-    use alloc::string::String;
-    use alloc::vec::Vec;
-
-    use base64::prelude::*;
-    use serde::{Deserialize, Deserializer, Serialize, Serializer};
-
-    pub fn serialize<S: Serializer>(bytes: &[u8], serializer: S) -> Result<S::Ok, S::Error> {
-        let encoded = BASE64_STANDARD.encode(bytes);
-        String::serialize(&encoded, serializer)
-    }
-
-    pub fn deserialize<'de, D: Deserializer<'de>>(deserializer: D) -> Result<Vec<u8>, D::Error> {
-        let base64 = String::deserialize(deserializer)?;
-        let bytes = BASE64_STANDARD
-            .decode(base64.as_bytes())
-            .map_err(serde::de::Error::custom)?;
-
-        Ok(bytes)
-    }
-}
+// #[cfg(feature = "serde")]
+// pub(crate) mod base64 {
+//     use alloc::string::String;
+//     use alloc::vec::Vec;
+//
+//     use base64::prelude::*;
+//     use serde::{Deserialize, Deserializer, Serialize, Serializer};
+//
+//     pub fn serialize<S: Serializer>(bytes: &[u8], serializer: S) -> Result<S::Ok, S::Error> {
+//         let encoded = BASE64_STANDARD.encode(bytes);
+//         String::serialize(&encoded, serializer)
+//     }
+//
+//     pub fn deserialize<'de, D: Deserializer<'de>>(deserializer: D) -> Result<Vec<u8>, D::Error> {
+//         let base64 = String::deserialize(deserializer)?;
+//         let bytes = BASE64_STANDARD
+//             .decode(base64.as_bytes())
+//             .map_err(serde::de::Error::custom)?;
+//
+//         Ok(bytes)
+//     }
+// }
