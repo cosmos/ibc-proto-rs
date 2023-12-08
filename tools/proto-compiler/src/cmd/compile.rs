@@ -44,6 +44,12 @@ impl CompileCmd {
             process::exit(1);
         });
 
+        Self::build_pbjson_impls(self.out.as_ref())
+            .unwrap_or_else(|e| {
+                eprintln!("[error] failed to build pbjson impls: {}", e);
+                process::exit(1);
+            });
+
         println!("[info ] Done!");
     }
 
@@ -125,7 +131,7 @@ impl CompileCmd {
         tonic_build::configure()
             .build_client(true)
             .compile_well_known_types(true)
-            .extern_path(".google.protobuf", "::pbjson_types")
+            // .extern_path(".google.protobuf", "::pbjson_types")
             .client_mod_attribute(".", r#"#[cfg(feature = "client")]"#)
             .build_server(true)
             .server_mod_attribute(".", r#"#[cfg(feature = "server")]"#)
@@ -135,16 +141,20 @@ impl CompileCmd {
             .extern_path(".ics23", "::ics23")
             .compile_with_config(config, &protos, &includes)?;
 
+        println!("[info ] Protos compiled successfully");
 
+        Ok(())
+    }
+
+    fn build_pbjson_impls(out_dir: &Path) -> Result<(), Box<dyn std::error::Error>> {
         println!("[info] Building pbjson Serialize, Deserialize impls...");
-        let descriptor_set = std::fs::read(descriptor_set_path.clone())?;
+        let descriptor_set_path = out_dir.join("proto_descriptor.bin");
+        let descriptor_set = std::fs::read(descriptor_set_path)?;
 
         pbjson_build::Builder::new()
             .register_descriptors(&descriptor_set)?
             .out_dir(&out_dir)
-            .build(&[".ibc"])?;
-
-        println!("[info ] Protos compiled successfully");
+            .build(&[".ibc", ".cosmos", ".interchain_security", ".stride", ".google"])?;
 
         Ok(())
     }
