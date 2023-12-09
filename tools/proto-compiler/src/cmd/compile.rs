@@ -44,6 +44,7 @@ impl CompileCmd {
             process::exit(1);
         });
 
+        // TODO: put behind feature flag?
         Self::build_pbjson_impls(self.out.as_ref())
             .unwrap_or_else(|e| {
                 eprintln!("[error] failed to build pbjson impls: {}", e);
@@ -131,7 +132,8 @@ impl CompileCmd {
         tonic_build::configure()
             .build_client(true)
             .compile_well_known_types(true)
-            // .extern_path(".google.protobuf", "::pbjson_types")
+            // Manual impl in google.rs
+            // .extern_path(".google.protobuf", "::pbjson_types") ❌
             .client_mod_attribute(".", r#"#[cfg(feature = "client")]"#)
             .build_server(true)
             .server_mod_attribute(".", r#"#[cfg(feature = "server")]"#)
@@ -154,6 +156,20 @@ impl CompileCmd {
         pbjson_build::Builder::new()
             .register_descriptors(&descriptor_set)?
             .out_dir(&out_dir)
+            .exclude([
+                // The validator patch is not compatible with protojson builds
+                ".cosmos.staking.v1beta1.StakeAuthorization",
+                ".cosmos.staking.v1beta1.ValidatorUpdates",
+                // TODO: Figure this out and comment back in the `include_proto!()` in lib.rs
+                //       Tendermint proto does not have serde serialization
+                ".cosmos.base.abci.v1beta1",
+                ".cosmos.tx.v1beta1",
+                ".cosmos.base.tendermint.v1beta1",
+                ".interchain_security.ccv.v1",
+                ".interchain_security.ccv.provider.v1",
+                ".interchain_security.ccv.consumer.v1",
+                ".stride.interchainquery.v1",
+            ])
             .build(&[".ibc", ".cosmos", ".interchain_security", ".stride", ".google"])?;
 
         Ok(())

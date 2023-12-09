@@ -98,7 +98,7 @@ pub mod cosmos {
         pub mod abci {
             pub mod v1beta1 {
                 include_proto!("cosmos.base.abci.v1beta1.rs");
-                include_proto!("cosmos.base.abci.v1beta1.serde.rs");
+                // include_proto!("cosmos.base.abci.v1beta1.serde.rs");
             }
         }
         pub mod node {
@@ -126,7 +126,7 @@ pub mod cosmos {
         pub mod tendermint {
             pub mod v1beta1 {
                 include_proto!("cosmos.base.tendermint.v1beta1.rs");
-                include_proto!("cosmos.base.tendermint.v1beta1.serde.rs");
+                // include_proto!("cosmos.base.tendermint.v1beta1.serde.rs");
             }
         }
         pub mod kv {
@@ -191,7 +191,7 @@ pub mod cosmos {
         }
         pub mod v1beta1 {
             include_proto!("cosmos.tx.v1beta1.rs");
-            include_proto!("cosmos.tx.v1beta1.serde.rs");
+            // include_proto!("cosmos.tx.v1beta1.serde.rs");
         }
     }
     pub mod upgrade {
@@ -338,18 +338,18 @@ pub mod interchain_security {
         #[allow(clippy::match_single_binding)]
         pub mod v1 {
             include_proto!("interchain_security.ccv.v1.rs");
-            include_proto!("interchain_security.ccv.v1.serde.rs");
+            // include_proto!("interchain_security.ccv.v1.serde.rs");
         }
         pub mod provider {
             pub mod v1 {
                 include_proto!("interchain_security.ccv.provider.v1.rs");
-                include_proto!("interchain_security.ccv.provider.v1.serde.rs");
+                // include_proto!("interchain_security.ccv.provider.v1.serde.rs");
             }
         }
         pub mod consumer {
             pub mod v1 {
                 include_proto!("interchain_security.ccv.consumer.v1.rs");
-                include_proto!("interchain_security.ccv.consumer.v1.serde.rs");
+                // include_proto!("interchain_security.ccv.consumer.v1.serde.rs");
             }
         }
     }
@@ -359,30 +359,7 @@ pub mod stride {
     pub mod interchainquery {
         pub mod v1 {
             include_proto!("stride.interchainquery.v1.rs");
-            include_proto!("stride.interchainquery.v1.serde.rs");
+            // include_proto!("stride.interchainquery.v1.serde.rs");
         }
     }
 }
-
-// #[cfg(feature = "serde")]
-// pub(crate) mod base64 {
-//     use alloc::string::String;
-//     use alloc::vec::Vec;
-//
-//     use base64::prelude::*;
-//     use serde::{Deserialize, Deserializer, Serialize, Serializer};
-//
-//     pub fn serialize<S: Serializer>(bytes: &[u8], serializer: S) -> Result<S::Ok, S::Error> {
-//         let encoded = BASE64_STANDARD.encode(bytes);
-//         String::serialize(&encoded, serializer)
-//     }
-//
-//     pub fn deserialize<'de, D: Deserializer<'de>>(deserializer: D) -> Result<Vec<u8>, D::Error> {
-//         let base64 = String::deserialize(deserializer)?;
-//         let bytes = BASE64_STANDARD
-//             .decode(base64.as_bytes())
-//             .map_err(serde::de::Error::custom)?;
-//
-//         Ok(bytes)
-//     }
-// }
