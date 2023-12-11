@@ -45,11 +45,10 @@ impl CompileCmd {
         });
 
         // TODO: put behind feature flag?
-        Self::build_pbjson_impls(self.out.as_ref())
-            .unwrap_or_else(|e| {
-                eprintln!("[error] failed to build pbjson impls: {}", e);
-                process::exit(1);
-            });
+        Self::build_pbjson_impls(self.out.as_ref()).unwrap_or_else(|e| {
+            eprintln!("[error] failed to build pbjson impls: {}", e);
+            process::exit(1);
+        });
 
         println!("[info ] Done!");
     }
@@ -170,7 +169,13 @@ impl CompileCmd {
                 ".interchain_security.ccv.consumer.v1",
                 ".stride.interchainquery.v1",
             ])
-            .build(&[".ibc", ".cosmos", ".interchain_security", ".stride", ".google"])?;
+            .build(&[
+                ".ibc",
+                ".cosmos",
+                ".interchain_security",
+                ".stride",
+                ".google",
+            ])?;
 
         Ok(())
     }

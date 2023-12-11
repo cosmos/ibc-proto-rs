@@ -1,7 +1,8 @@
 use ibc_proto::ibc::core::client::v1::Height;
 
+#[cfg(feature = "serde")]
 #[test]
-fn test_proto_json_camelcase() {
+fn test_proto_json_deserialization() {
     let data = r#"
         { "revisionNumber": "5", "revisionHeight": "3928271" }
     "#;
