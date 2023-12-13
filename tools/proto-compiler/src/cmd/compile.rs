@@ -121,6 +121,9 @@ impl CompileCmd {
         // List available paths for dependencies
         let includes: Vec<PathBuf> = proto_includes_paths.iter().map(PathBuf::from).collect();
 
+        let attrs_ord = "#[derive(Eq, PartialOrd, Ord)]";
+        let attrs_eq = "#[derive(Eq)]";
+
         // Automatically derive a `prost::Name` implementation.
         let mut config = prost_build::Config::new();
         config.enable_type_names();
@@ -135,6 +138,9 @@ impl CompileCmd {
             .file_descriptor_set_path(out_dir.join("proto_descriptor.bin"))
             .extern_path(".tendermint", "::tendermint_proto")
             .extern_path(".ics23", "::ics23")
+            .type_attribute(".google.protobuf.Any", attrs_eq)
+            .type_attribute(".google.protobuf.Duration", attrs_eq)
+            .type_attribute(".ibc.core.client.v1.Height", attrs_ord)
             .compile_with_config(config, &protos, &includes)?;
 
         println!("[info ] Protos compiled successfully");

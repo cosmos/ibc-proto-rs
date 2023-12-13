@@ -69,6 +69,7 @@ impl ::prost::Name for ClientConsensusStates {
 /// breaking changes In these cases, the RevisionNumber is incremented so that
 /// height continues to be monitonically increasing even as the RevisionHeight
 /// gets reset
+#[derive(Eq, PartialOrd, Ord)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Height {

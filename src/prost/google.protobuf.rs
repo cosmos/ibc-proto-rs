@@ -81,6 +81,7 @@
 ///        "value": "1.212s"
 ///      }
 ///
+#[derive(Eq)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Any {
@@ -1642,6 +1643,7 @@ impl ::prost::Name for Timestamp {
 /// microsecond should be expressed in JSON format as "3.000001s".
 ///
 ///
+#[derive(Eq)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Duration {
