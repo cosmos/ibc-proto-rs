@@ -1,3 +1,4 @@
+#[cfg(feature = "serde")]
 use ibc_proto::ibc::core::client::v1::Height;
 
 #[cfg(feature = "serde")]

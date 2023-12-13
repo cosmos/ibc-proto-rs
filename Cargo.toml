@@ -37,7 +37,6 @@ base64          = { version = "0.21", default-features = false, features = ["all
 flex-error      = { version = "0.4",  default-features = false }
 ics23           = { version = "0.11.0", default-features = false }
 pbjson          = { version = "0.6.0", default-features = false }
-pbjson-types    = { version = "0.6.0", default-features = false }
 
 ## Optional: enabled by the `parity-scale-codec` feature
 parity-scale-codec = { version = "3.0.0", default-features = false, features = ["full"],   optional = true }

@@ -44,7 +44,6 @@ impl CompileCmd {
             process::exit(1);
         });
 
-        // TODO: put behind feature flag?
         Self::build_pbjson_impls(self.out.as_ref()).unwrap_or_else(|e| {
             eprintln!("[error] failed to build pbjson impls: {}", e);
             process::exit(1);
@@ -126,18 +125,14 @@ impl CompileCmd {
         let mut config = prost_build::Config::new();
         config.enable_type_names();
 
-        let descriptor_set_path = out_dir.join("proto_descriptor.bin");
-
         tonic_build::configure()
             .build_client(true)
             .compile_well_known_types(true)
-            // Manual impl in google.rs
-            // .extern_path(".google.protobuf", "::pbjson_types") ❌
             .client_mod_attribute(".", r#"#[cfg(feature = "client")]"#)
             .build_server(true)
             .server_mod_attribute(".", r#"#[cfg(feature = "server")]"#)
             .out_dir(out_dir)
-            .file_descriptor_set_path(descriptor_set_path.clone())
+            .file_descriptor_set_path(out_dir.join("proto_descriptor.bin"))
             .extern_path(".tendermint", "::tendermint_proto")
             .extern_path(".ics23", "::ics23")
             .compile_with_config(config, &protos, &includes)?;
@@ -159,8 +154,8 @@ impl CompileCmd {
                 // The validator patch is not compatible with protojson builds
                 ".cosmos.staking.v1beta1.StakeAuthorization",
                 ".cosmos.staking.v1beta1.ValidatorUpdates",
-                // TODO: Figure this out and comment back in the `include_proto!()` in lib.rs
-                //       Tendermint proto does not have serde serialization
+                // TODO: These have dependencies on tendermint-proto, which does not implement protojson.
+                //       After it's implemented there, we can delete these exclusions.
                 ".cosmos.base.abci.v1beta1",
                 ".cosmos.tx.v1beta1",
                 ".cosmos.base.tendermint.v1beta1",
