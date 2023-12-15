@@ -7,10 +7,11 @@ publish      = false
 rust-version = "1.60"
 
 [dependencies]
-git2        = "0.18"
-prost-build = "0.12"
-walkdir     = "2.3"
-argh        = "0.1"
-tonic       = "0.10"
-tonic-build = "0.10"
-similar     = "2.2"
+git2         = "0.18"
+prost-build  = "0.12"
+walkdir      = "2.3"
+argh         = "0.1"
+tonic        = "0.10"
+tonic-build  = "0.10"
+similar      = "2.2"
+pbjson-build = "0.6"

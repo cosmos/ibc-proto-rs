@@ -32,11 +32,11 @@ prost           = { version = "0.12.3", default-features = false, features = ["p
 bytes           = { version = "1.2",  default-features = false }
 tonic           = { version = "0.10",  default-features = false, optional = true }
 serde           = { version = "1.0",  default-features = false, optional = true }
-schemars        = { version = "0.8",  optional = true }
 subtle-encoding = { version = "0.5",  default-features = false }
 base64          = { version = "0.21", default-features = false, features = ["alloc"] }
 flex-error      = { version = "0.4",  default-features = false }
 ics23           = { version = "0.11.0", default-features = false }
+pbjson          = { version = "0.6.0", default-features = false }
 
 ## Optional: enabled by the `parity-scale-codec` feature
 parity-scale-codec = { version = "3.0.0", default-features = false, features = ["full"],   optional = true }
@@ -50,12 +50,14 @@ borsh = { version = "0.10", default-features = false, optional = true }
 version          = "0.34"
 default-features = false
 
+[dev-dependencies]
+serde_json = "1.0.107"
+
 [features]
 default            = ["std", "client"]
 std                = ["prost/std", "bytes/std", "subtle-encoding/std", "base64/std", "flex-error/std", "ics23/std"]
 serde              = ["dep:serde", "ics23/serde"]
 client             = ["std", "dep:tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
-json-schema        = ["std", "serde", "dep:schemars"]
 server             = ["std", "dep:tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
 parity-scale-codec = ["dep:parity-scale-codec", "dep:scale-info"]
 borsh              = ["dep:borsh"]

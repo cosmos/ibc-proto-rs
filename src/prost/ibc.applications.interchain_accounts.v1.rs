@@ -1,5 +1,4 @@
 /// An InterchainAccount is defined as a BaseAccount & the address of the account owner on the controller chain
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct InterchainAccount {
@@ -18,7 +17,6 @@ impl ::prost::Name for InterchainAccount {
     }
 }
 /// InterchainAccountPacketData is comprised of a raw transaction, type of transaction and optional memo field.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct InterchainAccountPacketData {
@@ -37,7 +35,6 @@ impl ::prost::Name for InterchainAccountPacketData {
     }
 }
 /// CosmosTx contains a list of sdk.Msg's. It should be used when sending transactions to an SDK host chain.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CosmosTx {
@@ -55,7 +52,6 @@ impl ::prost::Name for CosmosTx {
 }
 /// Type defines a classification of message issued from a controller chain to its associated interchain accounts
 /// host
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum Type {
@@ -86,7 +82,6 @@ impl Type {
 }
 /// Metadata defines a set of protocol specific data encoded into the ICS27 channel version bytestring
 /// See ICS004: <https://github.com/cosmos/ibc/tree/master/spec/core/ics-004-channel-and-packet-semantics#Versioning>
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Metadata {
