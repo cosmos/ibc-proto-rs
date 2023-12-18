@@ -1,6 +1,6 @@
 impl serde::Serialize for Metadata {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -11,14 +11,14 @@ impl serde::Serialize for Metadata {
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.snapshots.v1beta1.Metadata", len)?;
         if !self.chunk_hashes.is_empty() {
-            struct_ser.serialize_field("chunkHashes", &self.chunk_hashes.iter().map(pbjson::private::base64::encode).collect::<Vec<_>>())?;
+            struct_ser.serialize_field("chunkHashes", &self.chunk_hashes.iter().map(pbjson::private::base64::encode).collect::<::alloc::vec::Vec<_>>())?;
         }
         struct_ser.end()
     }
 }
 impl<'de> serde::Deserialize<'de> for Metadata {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -32,7 +32,7 @@ impl<'de> serde::Deserialize<'de> for Metadata {
             ChunkHashes,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -41,12 +41,12 @@ impl<'de> serde::Deserialize<'de> for Metadata {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -63,23 +63,23 @@ impl<'de> serde::Deserialize<'de> for Metadata {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = Metadata;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.base.snapshots.v1beta1.Metadata")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<Metadata, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<Metadata, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut chunk_hashes__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::ChunkHashes => {
                             if chunk_hashes__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("chunkHashes"));
                             }
                             chunk_hashes__ = 
-                                Some(map_.next_value::<Vec<::pbjson::private::BytesDeserialize<_>>>()?
+                                Some(map.next_value::<::alloc::vec::Vec<::pbjson::private::BytesDeserialize<_>>>()?
                                     .into_iter().map(|x| x.0).collect())
                             ;
                         }
@@ -95,7 +95,7 @@ impl<'de> serde::Deserialize<'de> for Metadata {
 }
 impl serde::Serialize for Snapshot {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -118,8 +118,7 @@ impl serde::Serialize for Snapshot {
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.snapshots.v1beta1.Snapshot", len)?;
         if self.height != 0 {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("height", ToString::to_string(&self.height).as_str())?;
+            struct_ser.serialize_field("height", ::alloc::string::ToString::to_string(&self.height).as_str())?;
         }
         if self.format != 0 {
             struct_ser.serialize_field("format", &self.format)?;
@@ -128,7 +127,6 @@ impl serde::Serialize for Snapshot {
             struct_ser.serialize_field("chunks", &self.chunks)?;
         }
         if !self.hash.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("hash", pbjson::private::base64::encode(&self.hash).as_str())?;
         }
         if let Some(v) = self.metadata.as_ref() {
@@ -139,7 +137,7 @@ impl serde::Serialize for Snapshot {
 }
 impl<'de> serde::Deserialize<'de> for Snapshot {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -160,7 +158,7 @@ impl<'de> serde::Deserialize<'de> for Snapshot {
             Metadata,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -169,12 +167,12 @@ impl<'de> serde::Deserialize<'de> for Snapshot {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -195,11 +193,11 @@ impl<'de> serde::Deserialize<'de> for Snapshot {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = Snapshot;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.base.snapshots.v1beta1.Snapshot")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<Snapshot, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<Snapshot, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -208,14 +206,14 @@ impl<'de> serde::Deserialize<'de> for Snapshot {
                 let mut chunks__ = None;
                 let mut hash__ = None;
                 let mut metadata__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Height => {
                             if height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("height"));
                             }
                             height__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Format => {
@@ -223,7 +221,7 @@ impl<'de> serde::Deserialize<'de> for Snapshot {
                                 return Err(serde::de::Error::duplicate_field("format"));
                             }
                             format__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Chunks => {
@@ -231,7 +229,7 @@ impl<'de> serde::Deserialize<'de> for Snapshot {
                                 return Err(serde::de::Error::duplicate_field("chunks"));
                             }
                             chunks__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Hash => {
@@ -239,14 +237,14 @@ impl<'de> serde::Deserialize<'de> for Snapshot {
                                 return Err(serde::de::Error::duplicate_field("hash"));
                             }
                             hash__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Metadata => {
                             if metadata__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("metadata"));
                             }
-                            metadata__ = map_.next_value()?;
+                            metadata__ = map.next_value()?;
                         }
                     }
                 }
@@ -264,7 +262,7 @@ impl<'de> serde::Deserialize<'de> for Snapshot {
 }
 impl serde::Serialize for SnapshotExtensionMeta {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -288,7 +286,7 @@ impl serde::Serialize for SnapshotExtensionMeta {
 }
 impl<'de> serde::Deserialize<'de> for SnapshotExtensionMeta {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -303,7 +301,7 @@ impl<'de> serde::Deserialize<'de> for SnapshotExtensionMeta {
             Format,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -312,12 +310,12 @@ impl<'de> serde::Deserialize<'de> for SnapshotExtensionMeta {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -335,30 +333,30 @@ impl<'de> serde::Deserialize<'de> for SnapshotExtensionMeta {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = SnapshotExtensionMeta;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.base.snapshots.v1beta1.SnapshotExtensionMeta")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<SnapshotExtensionMeta, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<SnapshotExtensionMeta, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut name__ = None;
                 let mut format__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Name => {
                             if name__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("name"));
                             }
-                            name__ = Some(map_.next_value()?);
+                            name__ = Some(map.next_value()?);
                         }
                         GeneratedField::Format => {
                             if format__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("format"));
                             }
                             format__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -374,7 +372,7 @@ impl<'de> serde::Deserialize<'de> for SnapshotExtensionMeta {
 }
 impl serde::Serialize for SnapshotExtensionPayload {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -385,7 +383,6 @@ impl serde::Serialize for SnapshotExtensionPayload {
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.snapshots.v1beta1.SnapshotExtensionPayload", len)?;
         if !self.payload.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("payload", pbjson::private::base64::encode(&self.payload).as_str())?;
         }
         struct_ser.end()
@@ -393,7 +390,7 @@ impl serde::Serialize for SnapshotExtensionPayload {
 }
 impl<'de> serde::Deserialize<'de> for SnapshotExtensionPayload {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -406,7 +403,7 @@ impl<'de> serde::Deserialize<'de> for SnapshotExtensionPayload {
             Payload,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -415,12 +412,12 @@ impl<'de> serde::Deserialize<'de> for SnapshotExtensionPayload {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -437,23 +434,23 @@ impl<'de> serde::Deserialize<'de> for SnapshotExtensionPayload {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = SnapshotExtensionPayload;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.base.snapshots.v1beta1.SnapshotExtensionPayload")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<SnapshotExtensionPayload, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<SnapshotExtensionPayload, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut payload__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Payload => {
                             if payload__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("payload"));
                             }
                             payload__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -468,7 +465,7 @@ impl<'de> serde::Deserialize<'de> for SnapshotExtensionPayload {
 }
 impl serde::Serialize for SnapshotIavlItem {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -488,16 +485,13 @@ impl serde::Serialize for SnapshotIavlItem {
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.snapshots.v1beta1.SnapshotIAVLItem", len)?;
         if !self.key.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("key", pbjson::private::base64::encode(&self.key).as_str())?;
         }
         if !self.value.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("value", pbjson::private::base64::encode(&self.value).as_str())?;
         }
         if self.version != 0 {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("version", ToString::to_string(&self.version).as_str())?;
+            struct_ser.serialize_field("version", ::alloc::string::ToString::to_string(&self.version).as_str())?;
         }
         if self.height != 0 {
             struct_ser.serialize_field("height", &self.height)?;
@@ -507,7 +501,7 @@ impl serde::Serialize for SnapshotIavlItem {
 }
 impl<'de> serde::Deserialize<'de> for SnapshotIavlItem {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -526,7 +520,7 @@ impl<'de> serde::Deserialize<'de> for SnapshotIavlItem {
             Height,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -535,12 +529,12 @@ impl<'de> serde::Deserialize<'de> for SnapshotIavlItem {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -560,11 +554,11 @@ impl<'de> serde::Deserialize<'de> for SnapshotIavlItem {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = SnapshotIavlItem;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.base.snapshots.v1beta1.SnapshotIAVLItem")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<SnapshotIavlItem, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<SnapshotIavlItem, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -572,14 +566,14 @@ impl<'de> serde::Deserialize<'de> for SnapshotIavlItem {
                 let mut value__ = None;
                 let mut version__ = None;
                 let mut height__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Key => {
                             if key__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("key"));
                             }
                             key__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Value => {
@@ -587,7 +581,7 @@ impl<'de> serde::Deserialize<'de> for SnapshotIavlItem {
                                 return Err(serde::de::Error::duplicate_field("value"));
                             }
                             value__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Version => {
@@ -595,7 +589,7 @@ impl<'de> serde::Deserialize<'de> for SnapshotIavlItem {
                                 return Err(serde::de::Error::duplicate_field("version"));
                             }
                             version__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Height => {
@@ -603,7 +597,7 @@ impl<'de> serde::Deserialize<'de> for SnapshotIavlItem {
                                 return Err(serde::de::Error::duplicate_field("height"));
                             }
                             height__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -621,7 +615,7 @@ impl<'de> serde::Deserialize<'de> for SnapshotIavlItem {
 }
 impl serde::Serialize for SnapshotItem {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -658,7 +652,7 @@ impl serde::Serialize for SnapshotItem {
 }
 impl<'de> serde::Deserialize<'de> for SnapshotItem {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -682,7 +676,7 @@ impl<'de> serde::Deserialize<'de> for SnapshotItem {
             Schema,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -691,12 +685,12 @@ impl<'de> serde::Deserialize<'de> for SnapshotItem {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -718,57 +712,57 @@ impl<'de> serde::Deserialize<'de> for SnapshotItem {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = SnapshotItem;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.base.snapshots.v1beta1.SnapshotItem")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<SnapshotItem, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<SnapshotItem, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut item__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Store => {
                             if item__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("store"));
                             }
-                            item__ = map_.next_value::<::std::option::Option<_>>()?.map(snapshot_item::Item::Store)
+                            item__ = map.next_value::<::core::option::Option<_>>()?.map(snapshot_item::Item::Store)
 ;
                         }
                         GeneratedField::Iavl => {
                             if item__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("iavl"));
                             }
-                            item__ = map_.next_value::<::std::option::Option<_>>()?.map(snapshot_item::Item::Iavl)
+                            item__ = map.next_value::<::core::option::Option<_>>()?.map(snapshot_item::Item::Iavl)
 ;
                         }
                         GeneratedField::Extension => {
                             if item__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("extension"));
                             }
-                            item__ = map_.next_value::<::std::option::Option<_>>()?.map(snapshot_item::Item::Extension)
+                            item__ = map.next_value::<::core::option::Option<_>>()?.map(snapshot_item::Item::Extension)
 ;
                         }
                         GeneratedField::ExtensionPayload => {
                             if item__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("extensionPayload"));
                             }
-                            item__ = map_.next_value::<::std::option::Option<_>>()?.map(snapshot_item::Item::ExtensionPayload)
+                            item__ = map.next_value::<::core::option::Option<_>>()?.map(snapshot_item::Item::ExtensionPayload)
 ;
                         }
                         GeneratedField::Kv => {
                             if item__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("kv"));
                             }
-                            item__ = map_.next_value::<::std::option::Option<_>>()?.map(snapshot_item::Item::Kv)
+                            item__ = map.next_value::<::core::option::Option<_>>()?.map(snapshot_item::Item::Kv)
 ;
                         }
                         GeneratedField::Schema => {
                             if item__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("schema"));
                             }
-                            item__ = map_.next_value::<::std::option::Option<_>>()?.map(snapshot_item::Item::Schema)
+                            item__ = map.next_value::<::core::option::Option<_>>()?.map(snapshot_item::Item::Schema)
 ;
                         }
                     }
@@ -783,7 +777,7 @@ impl<'de> serde::Deserialize<'de> for SnapshotItem {
 }
 impl serde::Serialize for SnapshotKvItem {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -797,11 +791,9 @@ impl serde::Serialize for SnapshotKvItem {
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.snapshots.v1beta1.SnapshotKVItem", len)?;
         if !self.key.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("key", pbjson::private::base64::encode(&self.key).as_str())?;
         }
         if !self.value.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("value", pbjson::private::base64::encode(&self.value).as_str())?;
         }
         struct_ser.end()
@@ -809,7 +801,7 @@ impl serde::Serialize for SnapshotKvItem {
 }
 impl<'de> serde::Deserialize<'de> for SnapshotKvItem {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -824,7 +816,7 @@ impl<'de> serde::Deserialize<'de> for SnapshotKvItem {
             Value,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -833,12 +825,12 @@ impl<'de> serde::Deserialize<'de> for SnapshotKvItem {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -856,24 +848,24 @@ impl<'de> serde::Deserialize<'de> for SnapshotKvItem {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = SnapshotKvItem;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.base.snapshots.v1beta1.SnapshotKVItem")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<SnapshotKvItem, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<SnapshotKvItem, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut key__ = None;
                 let mut value__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Key => {
                             if key__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("key"));
                             }
                             key__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Value => {
@@ -881,7 +873,7 @@ impl<'de> serde::Deserialize<'de> for SnapshotKvItem {
                                 return Err(serde::de::Error::duplicate_field("value"));
                             }
                             value__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -897,7 +889,7 @@ impl<'de> serde::Deserialize<'de> for SnapshotKvItem {
 }
 impl serde::Serialize for SnapshotSchema {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -908,14 +900,14 @@ impl serde::Serialize for SnapshotSchema {
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.snapshots.v1beta1.SnapshotSchema", len)?;
         if !self.keys.is_empty() {
-            struct_ser.serialize_field("keys", &self.keys.iter().map(pbjson::private::base64::encode).collect::<Vec<_>>())?;
+            struct_ser.serialize_field("keys", &self.keys.iter().map(pbjson::private::base64::encode).collect::<::alloc::vec::Vec<_>>())?;
         }
         struct_ser.end()
     }
 }
 impl<'de> serde::Deserialize<'de> for SnapshotSchema {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -928,7 +920,7 @@ impl<'de> serde::Deserialize<'de> for SnapshotSchema {
             Keys,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -937,12 +929,12 @@ impl<'de> serde::Deserialize<'de> for SnapshotSchema {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -959,23 +951,23 @@ impl<'de> serde::Deserialize<'de> for SnapshotSchema {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = SnapshotSchema;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.base.snapshots.v1beta1.SnapshotSchema")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<SnapshotSchema, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<SnapshotSchema, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut keys__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Keys => {
                             if keys__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("keys"));
                             }
                             keys__ = 
-                                Some(map_.next_value::<Vec<::pbjson::private::BytesDeserialize<_>>>()?
+                                Some(map.next_value::<::alloc::vec::Vec<::pbjson::private::BytesDeserialize<_>>>()?
                                     .into_iter().map(|x| x.0).collect())
                             ;
                         }
@@ -991,7 +983,7 @@ impl<'de> serde::Deserialize<'de> for SnapshotSchema {
 }
 impl serde::Serialize for SnapshotStoreItem {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1009,7 +1001,7 @@ impl serde::Serialize for SnapshotStoreItem {
 }
 impl<'de> serde::Deserialize<'de> for SnapshotStoreItem {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1022,7 +1014,7 @@ impl<'de> serde::Deserialize<'de> for SnapshotStoreItem {
             Name,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1031,12 +1023,12 @@ impl<'de> serde::Deserialize<'de> for SnapshotStoreItem {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1053,22 +1045,22 @@ impl<'de> serde::Deserialize<'de> for SnapshotStoreItem {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = SnapshotStoreItem;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.base.snapshots.v1beta1.SnapshotStoreItem")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<SnapshotStoreItem, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<SnapshotStoreItem, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut name__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Name => {
                             if name__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("name"));
                             }
-                            name__ = Some(map_.next_value()?);
+                            name__ = Some(map.next_value()?);
                         }
                     }
                 }

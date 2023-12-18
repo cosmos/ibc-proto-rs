@@ -1,6 +1,6 @@
 impl serde::Serialize for SignMode {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -17,7 +17,7 @@ impl serde::Serialize for SignMode {
 }
 impl<'de> serde::Deserialize<'de> for SignMode {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -35,35 +35,37 @@ impl<'de> serde::Deserialize<'de> for SignMode {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = SignMode;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 write!(formatter, "expected one of: {:?}", &FIELDS)
             }
 
-            fn visit_i64<E>(self, v: i64) -> std::result::Result<Self::Value, E>
+            fn visit_i64<E>(self, v: i64) -> core::result::Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
+                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(|x| x.try_into().ok())
+                    .and_then(SignMode::from_i32)
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
             }
 
-            fn visit_u64<E>(self, v: u64) -> std::result::Result<Self::Value, E>
+            fn visit_u64<E>(self, v: u64) -> core::result::Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
+                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(|x| x.try_into().ok())
+                    .and_then(SignMode::from_i32)
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
             }
 
-            fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+            fn visit_str<E>(self, value: &str) -> core::result::Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
@@ -83,7 +85,7 @@ impl<'de> serde::Deserialize<'de> for SignMode {
 }
 impl serde::Serialize for SignatureDescriptor {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -106,15 +108,14 @@ impl serde::Serialize for SignatureDescriptor {
             struct_ser.serialize_field("data", v)?;
         }
         if self.sequence != 0 {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("sequence", ToString::to_string(&self.sequence).as_str())?;
+            struct_ser.serialize_field("sequence", ::alloc::string::ToString::to_string(&self.sequence).as_str())?;
         }
         struct_ser.end()
     }
 }
 impl<'de> serde::Deserialize<'de> for SignatureDescriptor {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -132,7 +133,7 @@ impl<'de> serde::Deserialize<'de> for SignatureDescriptor {
             Sequence,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -141,12 +142,12 @@ impl<'de> serde::Deserialize<'de> for SignatureDescriptor {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -165,37 +166,37 @@ impl<'de> serde::Deserialize<'de> for SignatureDescriptor {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = SignatureDescriptor;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.signing.v1beta1.SignatureDescriptor")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<SignatureDescriptor, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<SignatureDescriptor, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut public_key__ = None;
                 let mut data__ = None;
                 let mut sequence__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::PublicKey => {
                             if public_key__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("publicKey"));
                             }
-                            public_key__ = map_.next_value()?;
+                            public_key__ = map.next_value()?;
                         }
                         GeneratedField::Data => {
                             if data__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("data"));
                             }
-                            data__ = map_.next_value()?;
+                            data__ = map.next_value()?;
                         }
                         GeneratedField::Sequence => {
                             if sequence__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sequence"));
                             }
                             sequence__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -212,7 +213,7 @@ impl<'de> serde::Deserialize<'de> for SignatureDescriptor {
 }
 impl serde::Serialize for signature_descriptor::Data {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -237,7 +238,7 @@ impl serde::Serialize for signature_descriptor::Data {
 }
 impl<'de> serde::Deserialize<'de> for signature_descriptor::Data {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -252,7 +253,7 @@ impl<'de> serde::Deserialize<'de> for signature_descriptor::Data {
             Multi,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -261,12 +262,12 @@ impl<'de> serde::Deserialize<'de> for signature_descriptor::Data {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -284,29 +285,29 @@ impl<'de> serde::Deserialize<'de> for signature_descriptor::Data {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = signature_descriptor::Data;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.signing.v1beta1.SignatureDescriptor.Data")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<signature_descriptor::Data, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<signature_descriptor::Data, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut sum__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Single => {
                             if sum__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("single"));
                             }
-                            sum__ = map_.next_value::<::std::option::Option<_>>()?.map(signature_descriptor::data::Sum::Single)
+                            sum__ = map.next_value::<::core::option::Option<_>>()?.map(signature_descriptor::data::Sum::Single)
 ;
                         }
                         GeneratedField::Multi => {
                             if sum__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("multi"));
                             }
-                            sum__ = map_.next_value::<::std::option::Option<_>>()?.map(signature_descriptor::data::Sum::Multi)
+                            sum__ = map.next_value::<::core::option::Option<_>>()?.map(signature_descriptor::data::Sum::Multi)
 ;
                         }
                     }
@@ -321,7 +322,7 @@ impl<'de> serde::Deserialize<'de> for signature_descriptor::Data {
 }
 impl serde::Serialize for signature_descriptor::data::Multi {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -345,7 +346,7 @@ impl serde::Serialize for signature_descriptor::data::Multi {
 }
 impl<'de> serde::Deserialize<'de> for signature_descriptor::data::Multi {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -360,7 +361,7 @@ impl<'de> serde::Deserialize<'de> for signature_descriptor::data::Multi {
             Signatures,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -369,12 +370,12 @@ impl<'de> serde::Deserialize<'de> for signature_descriptor::data::Multi {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -392,29 +393,29 @@ impl<'de> serde::Deserialize<'de> for signature_descriptor::data::Multi {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = signature_descriptor::data::Multi;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Multi")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<signature_descriptor::data::Multi, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<signature_descriptor::data::Multi, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut bitarray__ = None;
                 let mut signatures__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Bitarray => {
                             if bitarray__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("bitarray"));
                             }
-                            bitarray__ = map_.next_value()?;
+                            bitarray__ = map.next_value()?;
                         }
                         GeneratedField::Signatures => {
                             if signatures__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signatures"));
                             }
-                            signatures__ = Some(map_.next_value()?);
+                            signatures__ = Some(map.next_value()?);
                         }
                     }
                 }
@@ -429,7 +430,7 @@ impl<'de> serde::Deserialize<'de> for signature_descriptor::data::Multi {
 }
 impl serde::Serialize for signature_descriptor::data::Single {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -443,12 +444,11 @@ impl serde::Serialize for signature_descriptor::data::Single {
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Single", len)?;
         if self.mode != 0 {
-            let v = SignMode::try_from(self.mode)
-                .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", self.mode)))?;
+            let v = SignMode::from_i32(self.mode)
+                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.mode)))?;
             struct_ser.serialize_field("mode", &v)?;
         }
         if !self.signature.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("signature", pbjson::private::base64::encode(&self.signature).as_str())?;
         }
         struct_ser.end()
@@ -456,7 +456,7 @@ impl serde::Serialize for signature_descriptor::data::Single {
 }
 impl<'de> serde::Deserialize<'de> for signature_descriptor::data::Single {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -471,7 +471,7 @@ impl<'de> serde::Deserialize<'de> for signature_descriptor::data::Single {
             Signature,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -480,12 +480,12 @@ impl<'de> serde::Deserialize<'de> for signature_descriptor::data::Single {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -503,30 +503,30 @@ impl<'de> serde::Deserialize<'de> for signature_descriptor::data::Single {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = signature_descriptor::data::Single;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Single")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<signature_descriptor::data::Single, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<signature_descriptor::data::Single, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut mode__ = None;
                 let mut signature__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Mode => {
                             if mode__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("mode"));
                             }
-                            mode__ = Some(map_.next_value::<SignMode>()? as i32);
+                            mode__ = Some(map.next_value::<SignMode>()? as i32);
                         }
                         GeneratedField::Signature => {
                             if signature__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signature"));
                             }
                             signature__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -542,7 +542,7 @@ impl<'de> serde::Deserialize<'de> for signature_descriptor::data::Single {
 }
 impl serde::Serialize for SignatureDescriptors {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -560,7 +560,7 @@ impl serde::Serialize for SignatureDescriptors {
 }
 impl<'de> serde::Deserialize<'de> for SignatureDescriptors {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -573,7 +573,7 @@ impl<'de> serde::Deserialize<'de> for SignatureDescriptors {
             Signatures,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -582,12 +582,12 @@ impl<'de> serde::Deserialize<'de> for SignatureDescriptors {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -604,22 +604,22 @@ impl<'de> serde::Deserialize<'de> for SignatureDescriptors {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = SignatureDescriptors;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.tx.signing.v1beta1.SignatureDescriptors")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<SignatureDescriptors, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<SignatureDescriptors, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut signatures__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Signatures => {
                             if signatures__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signatures"));
                             }
-                            signatures__ = Some(map_.next_value()?);
+                            signatures__ = Some(map.next_value()?);
                         }
                     }
                 }

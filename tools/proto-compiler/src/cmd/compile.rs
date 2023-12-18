@@ -121,6 +121,9 @@ impl CompileCmd {
         // List available paths for dependencies
         let includes: Vec<PathBuf> = proto_includes_paths.iter().map(PathBuf::from).collect();
 
+        let attrs_jsonschema = r#"#[cfg_attr(all(feature = "json-schema", feature = "serde"), derive(::schemars::JsonSchema))]"#;
+        let attrs_jsonschema_str = r#"#[cfg_attr(all(feature = "json-schema", feature = "serde"), schemars(with = "String"))]"#;
+
         let attrs_ord = "#[derive(Eq, PartialOrd, Ord)]";
         let attrs_eq = "#[derive(Eq)]";
 
@@ -139,8 +142,25 @@ impl CompileCmd {
             .extern_path(".tendermint", "::tendermint_proto")
             .extern_path(".ics23", "::ics23")
             .type_attribute(".google.protobuf.Any", attrs_eq)
+            .type_attribute(".google.protobuf.Any", attrs_jsonschema)
             .type_attribute(".google.protobuf.Duration", attrs_eq)
             .type_attribute(".ibc.core.client.v1.Height", attrs_ord)
+            .type_attribute(".ibc.core.client.v1.Height", attrs_jsonschema)
+            .type_attribute(".ibc.core.commitment.v1.MerkleRoot", attrs_jsonschema)
+            .field_attribute(
+                ".ibc.core.commitment.v1.MerkleRoot.hash",
+                attrs_jsonschema_str,
+            )
+            .type_attribute(".ibc.core.commitment.v1.MerklePrefix", attrs_jsonschema)
+            .field_attribute(
+                ".ibc.core.commitment.v1.MerklePrefix.key_prefix",
+                attrs_jsonschema_str,
+            )
+            .type_attribute(".ibc.core.channel.v1.Channel", attrs_jsonschema)
+            .type_attribute(".ibc.core.channel.v1.Counterparty", attrs_jsonschema)
+            .type_attribute(".ibc.core.connection.v1.ConnectionEnd", attrs_jsonschema)
+            .type_attribute(".ibc.core.connection.v1.Counterparty", attrs_jsonschema)
+            .type_attribute(".ibc.core.connection.v1.Version", attrs_jsonschema)
             .compile_with_config(config, &protos, &includes)?;
 
         println!("[info ] Protos compiled successfully");

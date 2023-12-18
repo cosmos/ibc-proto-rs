@@ -1,6 +1,6 @@
 impl serde::Serialize for MigrateFromInfo {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -18,7 +18,7 @@ impl serde::Serialize for MigrateFromInfo {
 }
 impl<'de> serde::Deserialize<'de> for MigrateFromInfo {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -31,7 +31,7 @@ impl<'de> serde::Deserialize<'de> for MigrateFromInfo {
             Module,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -40,12 +40,12 @@ impl<'de> serde::Deserialize<'de> for MigrateFromInfo {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -62,22 +62,22 @@ impl<'de> serde::Deserialize<'de> for MigrateFromInfo {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MigrateFromInfo;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.app.v1alpha1.MigrateFromInfo")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MigrateFromInfo, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<MigrateFromInfo, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut module__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Module => {
                             if module__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("module"));
                             }
-                            module__ = Some(map_.next_value()?);
+                            module__ = Some(map.next_value()?);
                         }
                     }
                 }
@@ -91,7 +91,7 @@ impl<'de> serde::Deserialize<'de> for MigrateFromInfo {
 }
 impl serde::Serialize for ModuleDescriptor {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -121,7 +121,7 @@ impl serde::Serialize for ModuleDescriptor {
 }
 impl<'de> serde::Deserialize<'de> for ModuleDescriptor {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -141,7 +141,7 @@ impl<'de> serde::Deserialize<'de> for ModuleDescriptor {
             CanMigrateFrom,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -150,12 +150,12 @@ impl<'de> serde::Deserialize<'de> for ModuleDescriptor {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -174,36 +174,36 @@ impl<'de> serde::Deserialize<'de> for ModuleDescriptor {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = ModuleDescriptor;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.app.v1alpha1.ModuleDescriptor")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<ModuleDescriptor, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<ModuleDescriptor, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut go_import__ = None;
                 let mut use_package__ = None;
                 let mut can_migrate_from__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::GoImport => {
                             if go_import__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("goImport"));
                             }
-                            go_import__ = Some(map_.next_value()?);
+                            go_import__ = Some(map.next_value()?);
                         }
                         GeneratedField::UsePackage => {
                             if use_package__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("usePackage"));
                             }
-                            use_package__ = Some(map_.next_value()?);
+                            use_package__ = Some(map.next_value()?);
                         }
                         GeneratedField::CanMigrateFrom => {
                             if can_migrate_from__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("canMigrateFrom"));
                             }
-                            can_migrate_from__ = Some(map_.next_value()?);
+                            can_migrate_from__ = Some(map.next_value()?);
                         }
                     }
                 }
@@ -219,7 +219,7 @@ impl<'de> serde::Deserialize<'de> for ModuleDescriptor {
 }
 impl serde::Serialize for PackageReference {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -243,7 +243,7 @@ impl serde::Serialize for PackageReference {
 }
 impl<'de> serde::Deserialize<'de> for PackageReference {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -258,7 +258,7 @@ impl<'de> serde::Deserialize<'de> for PackageReference {
             Revision,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -267,12 +267,12 @@ impl<'de> serde::Deserialize<'de> for PackageReference {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -290,30 +290,30 @@ impl<'de> serde::Deserialize<'de> for PackageReference {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = PackageReference;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct cosmos.app.v1alpha1.PackageReference")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<PackageReference, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<PackageReference, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut name__ = None;
                 let mut revision__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Name => {
                             if name__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("name"));
                             }
-                            name__ = Some(map_.next_value()?);
+                            name__ = Some(map.next_value()?);
                         }
                         GeneratedField::Revision => {
                             if revision__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("revision"));
                             }
                             revision__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }

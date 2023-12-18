@@ -1,6 +1,10 @@
 /// Channel defines pipeline for exactly-once packet delivery between specific
 /// modules on separate blockchains, which has at least one end capable of
 /// sending packets and one end capable of receiving packets.
+#[cfg_attr(
+    all(feature = "json-schema", feature = "serde"),
+    derive(::schemars::JsonSchema)
+)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Channel {
@@ -64,6 +68,10 @@ impl ::prost::Name for IdentifiedChannel {
     }
 }
 /// Counterparty defines a channel end counterparty
+#[cfg_attr(
+    all(feature = "json-schema", feature = "serde"),
+    derive(::schemars::JsonSchema)
+)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Counterparty {

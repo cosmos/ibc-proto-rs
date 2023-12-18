@@ -1,6 +1,6 @@
 impl serde::Serialize for CustomHttpPattern {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -24,7 +24,7 @@ impl serde::Serialize for CustomHttpPattern {
 }
 impl<'de> serde::Deserialize<'de> for CustomHttpPattern {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -39,7 +39,7 @@ impl<'de> serde::Deserialize<'de> for CustomHttpPattern {
             Path,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -48,12 +48,12 @@ impl<'de> serde::Deserialize<'de> for CustomHttpPattern {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -71,29 +71,29 @@ impl<'de> serde::Deserialize<'de> for CustomHttpPattern {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = CustomHttpPattern;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct google.api.CustomHttpPattern")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<CustomHttpPattern, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<CustomHttpPattern, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut kind__ = None;
                 let mut path__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Kind => {
                             if kind__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("kind"));
                             }
-                            kind__ = Some(map_.next_value()?);
+                            kind__ = Some(map.next_value()?);
                         }
                         GeneratedField::Path => {
                             if path__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("path"));
                             }
-                            path__ = Some(map_.next_value()?);
+                            path__ = Some(map.next_value()?);
                         }
                     }
                 }
@@ -108,7 +108,7 @@ impl<'de> serde::Deserialize<'de> for CustomHttpPattern {
 }
 impl serde::Serialize for Http {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -132,7 +132,7 @@ impl serde::Serialize for Http {
 }
 impl<'de> serde::Deserialize<'de> for Http {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -148,7 +148,7 @@ impl<'de> serde::Deserialize<'de> for Http {
             FullyDecodeReservedExpansion,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -157,12 +157,12 @@ impl<'de> serde::Deserialize<'de> for Http {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -180,29 +180,29 @@ impl<'de> serde::Deserialize<'de> for Http {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = Http;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct google.api.Http")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<Http, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<Http, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut rules__ = None;
                 let mut fully_decode_reserved_expansion__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Rules => {
                             if rules__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("rules"));
                             }
-                            rules__ = Some(map_.next_value()?);
+                            rules__ = Some(map.next_value()?);
                         }
                         GeneratedField::FullyDecodeReservedExpansion => {
                             if fully_decode_reserved_expansion__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("fullyDecodeReservedExpansion"));
                             }
-                            fully_decode_reserved_expansion__ = Some(map_.next_value()?);
+                            fully_decode_reserved_expansion__ = Some(map.next_value()?);
                         }
                     }
                 }
@@ -217,7 +217,7 @@ impl<'de> serde::Deserialize<'de> for Http {
 }
 impl serde::Serialize for HttpRule {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -278,7 +278,7 @@ impl serde::Serialize for HttpRule {
 }
 impl<'de> serde::Deserialize<'de> for HttpRule {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -311,7 +311,7 @@ impl<'de> serde::Deserialize<'de> for HttpRule {
             Custom,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -320,12 +320,12 @@ impl<'de> serde::Deserialize<'de> for HttpRule {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -351,11 +351,11 @@ impl<'de> serde::Deserialize<'de> for HttpRule {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = HttpRule;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct google.api.HttpRule")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<HttpRule, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<HttpRule, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -364,67 +364,67 @@ impl<'de> serde::Deserialize<'de> for HttpRule {
                 let mut response_body__ = None;
                 let mut additional_bindings__ = None;
                 let mut pattern__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Selector => {
                             if selector__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("selector"));
                             }
-                            selector__ = Some(map_.next_value()?);
+                            selector__ = Some(map.next_value()?);
                         }
                         GeneratedField::Body => {
                             if body__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("body"));
                             }
-                            body__ = Some(map_.next_value()?);
+                            body__ = Some(map.next_value()?);
                         }
                         GeneratedField::ResponseBody => {
                             if response_body__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("responseBody"));
                             }
-                            response_body__ = Some(map_.next_value()?);
+                            response_body__ = Some(map.next_value()?);
                         }
                         GeneratedField::AdditionalBindings => {
                             if additional_bindings__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("additionalBindings"));
                             }
-                            additional_bindings__ = Some(map_.next_value()?);
+                            additional_bindings__ = Some(map.next_value()?);
                         }
                         GeneratedField::Get => {
                             if pattern__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("get"));
                             }
-                            pattern__ = map_.next_value::<::std::option::Option<_>>()?.map(http_rule::Pattern::Get);
+                            pattern__ = map.next_value::<::core::option::Option<_>>()?.map(http_rule::Pattern::Get);
                         }
                         GeneratedField::Put => {
                             if pattern__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("put"));
                             }
-                            pattern__ = map_.next_value::<::std::option::Option<_>>()?.map(http_rule::Pattern::Put);
+                            pattern__ = map.next_value::<::core::option::Option<_>>()?.map(http_rule::Pattern::Put);
                         }
                         GeneratedField::Post => {
                             if pattern__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("post"));
                             }
-                            pattern__ = map_.next_value::<::std::option::Option<_>>()?.map(http_rule::Pattern::Post);
+                            pattern__ = map.next_value::<::core::option::Option<_>>()?.map(http_rule::Pattern::Post);
                         }
                         GeneratedField::Delete => {
                             if pattern__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("delete"));
                             }
-                            pattern__ = map_.next_value::<::std::option::Option<_>>()?.map(http_rule::Pattern::Delete);
+                            pattern__ = map.next_value::<::core::option::Option<_>>()?.map(http_rule::Pattern::Delete);
                         }
                         GeneratedField::Patch => {
                             if pattern__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("patch"));
                             }
-                            pattern__ = map_.next_value::<::std::option::Option<_>>()?.map(http_rule::Pattern::Patch);
+                            pattern__ = map.next_value::<::core::option::Option<_>>()?.map(http_rule::Pattern::Patch);
                         }
                         GeneratedField::Custom => {
                             if pattern__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("custom"));
                             }
-                            pattern__ = map_.next_value::<::std::option::Option<_>>()?.map(http_rule::Pattern::Custom)
+                            pattern__ = map.next_value::<::core::option::Option<_>>()?.map(http_rule::Pattern::Custom)
 ;
                         }
                     }

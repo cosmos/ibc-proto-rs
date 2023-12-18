@@ -1,9 +1,17 @@
 /// MerkleRoot defines a merkle root hash.
 /// In the Cosmos SDK, the AppHash of a block header becomes the root.
+#[cfg_attr(
+    all(feature = "json-schema", feature = "serde"),
+    derive(::schemars::JsonSchema)
+)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MerkleRoot {
     #[prost(bytes = "vec", tag = "1")]
+    #[cfg_attr(
+        all(feature = "json-schema", feature = "serde"),
+        schemars(with = "String")
+    )]
     pub hash: ::prost::alloc::vec::Vec<u8>,
 }
 impl ::prost::Name for MerkleRoot {
@@ -16,10 +24,18 @@ impl ::prost::Name for MerkleRoot {
 /// MerklePrefix is merkle path prefixed to the key.
 /// The constructed key from the Path and the key will be append(Path.KeyPath,
 /// append(Path.KeyPrefix, key...))
+#[cfg_attr(
+    all(feature = "json-schema", feature = "serde"),
+    derive(::schemars::JsonSchema)
+)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MerklePrefix {
     #[prost(bytes = "vec", tag = "1")]
+    #[cfg_attr(
+        all(feature = "json-schema", feature = "serde"),
+        schemars(with = "String")
+    )]
     pub key_prefix: ::prost::alloc::vec::Vec<u8>,
 }
 impl ::prost::Name for MerklePrefix {
