@@ -1,6 +1,6 @@
 impl serde::Serialize for ClientState {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -78,7 +78,7 @@ impl serde::Serialize for ClientState {
 }
 impl<'de> serde::Deserialize<'de> for ClientState {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -122,7 +122,7 @@ impl<'de> serde::Deserialize<'de> for ClientState {
             AllowUpdateAfterMisbehaviour,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -131,12 +131,12 @@ impl<'de> serde::Deserialize<'de> for ClientState {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -163,11 +163,11 @@ impl<'de> serde::Deserialize<'de> for ClientState {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = ClientState;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.lightclients.tendermint.v1.ClientState")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<ClientState, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<ClientState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -182,73 +182,73 @@ impl<'de> serde::Deserialize<'de> for ClientState {
                 let mut upgrade_path__ = None;
                 let mut allow_update_after_expiry__ = None;
                 let mut allow_update_after_misbehaviour__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::ChainId => {
                             if chain_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("chainId"));
                             }
-                            chain_id__ = Some(map_.next_value()?);
+                            chain_id__ = Some(map.next_value()?);
                         }
                         GeneratedField::TrustLevel => {
                             if trust_level__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("trustLevel"));
                             }
-                            trust_level__ = map_.next_value()?;
+                            trust_level__ = map.next_value()?;
                         }
                         GeneratedField::TrustingPeriod => {
                             if trusting_period__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("trustingPeriod"));
                             }
-                            trusting_period__ = map_.next_value()?;
+                            trusting_period__ = map.next_value()?;
                         }
                         GeneratedField::UnbondingPeriod => {
                             if unbonding_period__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("unbondingPeriod"));
                             }
-                            unbonding_period__ = map_.next_value()?;
+                            unbonding_period__ = map.next_value()?;
                         }
                         GeneratedField::MaxClockDrift => {
                             if max_clock_drift__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("maxClockDrift"));
                             }
-                            max_clock_drift__ = map_.next_value()?;
+                            max_clock_drift__ = map.next_value()?;
                         }
                         GeneratedField::FrozenHeight => {
                             if frozen_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("frozenHeight"));
                             }
-                            frozen_height__ = map_.next_value()?;
+                            frozen_height__ = map.next_value()?;
                         }
                         GeneratedField::LatestHeight => {
                             if latest_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("latestHeight"));
                             }
-                            latest_height__ = map_.next_value()?;
+                            latest_height__ = map.next_value()?;
                         }
                         GeneratedField::ProofSpecs => {
                             if proof_specs__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofSpecs"));
                             }
-                            proof_specs__ = Some(map_.next_value()?);
+                            proof_specs__ = Some(map.next_value()?);
                         }
                         GeneratedField::UpgradePath => {
                             if upgrade_path__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("upgradePath"));
                             }
-                            upgrade_path__ = Some(map_.next_value()?);
+                            upgrade_path__ = Some(map.next_value()?);
                         }
                         GeneratedField::AllowUpdateAfterExpiry => {
                             if allow_update_after_expiry__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("allowUpdateAfterExpiry"));
                             }
-                            allow_update_after_expiry__ = Some(map_.next_value()?);
+                            allow_update_after_expiry__ = Some(map.next_value()?);
                         }
                         GeneratedField::AllowUpdateAfterMisbehaviour => {
                             if allow_update_after_misbehaviour__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("allowUpdateAfterMisbehaviour"));
                             }
-                            allow_update_after_misbehaviour__ = Some(map_.next_value()?);
+                            allow_update_after_misbehaviour__ = Some(map.next_value()?);
                         }
                     }
                 }
@@ -272,7 +272,7 @@ impl<'de> serde::Deserialize<'de> for ClientState {
 }
 impl serde::Serialize for ConsensusState {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -295,7 +295,6 @@ impl serde::Serialize for ConsensusState {
             struct_ser.serialize_field("root", v)?;
         }
         if !self.next_validators_hash.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("nextValidatorsHash", pbjson::private::base64::encode(&self.next_validators_hash).as_str())?;
         }
         struct_ser.end()
@@ -303,7 +302,7 @@ impl serde::Serialize for ConsensusState {
 }
 impl<'de> serde::Deserialize<'de> for ConsensusState {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -321,7 +320,7 @@ impl<'de> serde::Deserialize<'de> for ConsensusState {
             NextValidatorsHash,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -330,12 +329,12 @@ impl<'de> serde::Deserialize<'de> for ConsensusState {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -354,37 +353,37 @@ impl<'de> serde::Deserialize<'de> for ConsensusState {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = ConsensusState;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.lightclients.tendermint.v1.ConsensusState")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<ConsensusState, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<ConsensusState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut timestamp__ = None;
                 let mut root__ = None;
                 let mut next_validators_hash__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Timestamp => {
                             if timestamp__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("timestamp"));
                             }
-                            timestamp__ = map_.next_value()?;
+                            timestamp__ = map.next_value()?;
                         }
                         GeneratedField::Root => {
                             if root__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("root"));
                             }
-                            root__ = map_.next_value()?;
+                            root__ = map.next_value()?;
                         }
                         GeneratedField::NextValidatorsHash => {
                             if next_validators_hash__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("nextValidatorsHash"));
                             }
                             next_validators_hash__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -401,7 +400,7 @@ impl<'de> serde::Deserialize<'de> for ConsensusState {
 }
 impl serde::Serialize for Fraction {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -415,19 +414,17 @@ impl serde::Serialize for Fraction {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.tendermint.v1.Fraction", len)?;
         if self.numerator != 0 {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("numerator", ToString::to_string(&self.numerator).as_str())?;
+            struct_ser.serialize_field("numerator", ::alloc::string::ToString::to_string(&self.numerator).as_str())?;
         }
         if self.denominator != 0 {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("denominator", ToString::to_string(&self.denominator).as_str())?;
+            struct_ser.serialize_field("denominator", ::alloc::string::ToString::to_string(&self.denominator).as_str())?;
         }
         struct_ser.end()
     }
 }
 impl<'de> serde::Deserialize<'de> for Fraction {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -442,7 +439,7 @@ impl<'de> serde::Deserialize<'de> for Fraction {
             Denominator,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -451,12 +448,12 @@ impl<'de> serde::Deserialize<'de> for Fraction {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -474,24 +471,24 @@ impl<'de> serde::Deserialize<'de> for Fraction {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = Fraction;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.lightclients.tendermint.v1.Fraction")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<Fraction, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<Fraction, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut numerator__ = None;
                 let mut denominator__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Numerator => {
                             if numerator__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("numerator"));
                             }
                             numerator__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Denominator => {
@@ -499,7 +496,7 @@ impl<'de> serde::Deserialize<'de> for Fraction {
                                 return Err(serde::de::Error::duplicate_field("denominator"));
                             }
                             denominator__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -515,7 +512,7 @@ impl<'de> serde::Deserialize<'de> for Fraction {
 }
 impl serde::Serialize for Header {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -551,7 +548,7 @@ impl serde::Serialize for Header {
 }
 impl<'de> serde::Deserialize<'de> for Header {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -574,7 +571,7 @@ impl<'de> serde::Deserialize<'de> for Header {
             TrustedValidators,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -583,12 +580,12 @@ impl<'de> serde::Deserialize<'de> for Header {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -608,11 +605,11 @@ impl<'de> serde::Deserialize<'de> for Header {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = Header;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.lightclients.tendermint.v1.Header")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<Header, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<Header, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -620,31 +617,31 @@ impl<'de> serde::Deserialize<'de> for Header {
                 let mut validator_set__ = None;
                 let mut trusted_height__ = None;
                 let mut trusted_validators__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::SignedHeader => {
                             if signed_header__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signedHeader"));
                             }
-                            signed_header__ = map_.next_value()?;
+                            signed_header__ = map.next_value()?;
                         }
                         GeneratedField::ValidatorSet => {
                             if validator_set__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("validatorSet"));
                             }
-                            validator_set__ = map_.next_value()?;
+                            validator_set__ = map.next_value()?;
                         }
                         GeneratedField::TrustedHeight => {
                             if trusted_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("trustedHeight"));
                             }
-                            trusted_height__ = map_.next_value()?;
+                            trusted_height__ = map.next_value()?;
                         }
                         GeneratedField::TrustedValidators => {
                             if trusted_validators__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("trustedValidators"));
                             }
-                            trusted_validators__ = map_.next_value()?;
+                            trusted_validators__ = map.next_value()?;
                         }
                     }
                 }
@@ -661,7 +658,7 @@ impl<'de> serde::Deserialize<'de> for Header {
 }
 impl serde::Serialize for Misbehaviour {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -691,7 +688,7 @@ impl serde::Serialize for Misbehaviour {
 }
 impl<'de> serde::Deserialize<'de> for Misbehaviour {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -711,7 +708,7 @@ impl<'de> serde::Deserialize<'de> for Misbehaviour {
             Header2,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -720,12 +717,12 @@ impl<'de> serde::Deserialize<'de> for Misbehaviour {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -744,36 +741,36 @@ impl<'de> serde::Deserialize<'de> for Misbehaviour {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = Misbehaviour;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.lightclients.tendermint.v1.Misbehaviour")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<Misbehaviour, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<Misbehaviour, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut client_id__ = None;
                 let mut header_1__ = None;
                 let mut header_2__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::ClientId => {
                             if client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientId"));
                             }
-                            client_id__ = Some(map_.next_value()?);
+                            client_id__ = Some(map.next_value()?);
                         }
                         GeneratedField::Header1 => {
                             if header_1__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("header1"));
                             }
-                            header_1__ = map_.next_value()?;
+                            header_1__ = map.next_value()?;
                         }
                         GeneratedField::Header2 => {
                             if header_2__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("header2"));
                             }
-                            header_2__ = map_.next_value()?;
+                            header_2__ = map.next_value()?;
                         }
                     }
                 }

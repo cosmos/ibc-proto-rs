@@ -1,6 +1,6 @@
 impl serde::Serialize for MerklePath {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -18,7 +18,7 @@ impl serde::Serialize for MerklePath {
 }
 impl<'de> serde::Deserialize<'de> for MerklePath {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -32,7 +32,7 @@ impl<'de> serde::Deserialize<'de> for MerklePath {
             KeyPath,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -41,12 +41,12 @@ impl<'de> serde::Deserialize<'de> for MerklePath {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -63,22 +63,22 @@ impl<'de> serde::Deserialize<'de> for MerklePath {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MerklePath;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.commitment.v1.MerklePath")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MerklePath, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<MerklePath, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut key_path__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::KeyPath => {
                             if key_path__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("keyPath"));
                             }
-                            key_path__ = Some(map_.next_value()?);
+                            key_path__ = Some(map.next_value()?);
                         }
                     }
                 }
@@ -92,7 +92,7 @@ impl<'de> serde::Deserialize<'de> for MerklePath {
 }
 impl serde::Serialize for MerklePrefix {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -103,7 +103,6 @@ impl serde::Serialize for MerklePrefix {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.commitment.v1.MerklePrefix", len)?;
         if !self.key_prefix.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("keyPrefix", pbjson::private::base64::encode(&self.key_prefix).as_str())?;
         }
         struct_ser.end()
@@ -111,7 +110,7 @@ impl serde::Serialize for MerklePrefix {
 }
 impl<'de> serde::Deserialize<'de> for MerklePrefix {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -125,7 +124,7 @@ impl<'de> serde::Deserialize<'de> for MerklePrefix {
             KeyPrefix,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -134,12 +133,12 @@ impl<'de> serde::Deserialize<'de> for MerklePrefix {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -156,23 +155,23 @@ impl<'de> serde::Deserialize<'de> for MerklePrefix {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MerklePrefix;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.commitment.v1.MerklePrefix")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MerklePrefix, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<MerklePrefix, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut key_prefix__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::KeyPrefix => {
                             if key_prefix__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("keyPrefix"));
                             }
                             key_prefix__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -187,7 +186,7 @@ impl<'de> serde::Deserialize<'de> for MerklePrefix {
 }
 impl serde::Serialize for MerkleProof {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -205,7 +204,7 @@ impl serde::Serialize for MerkleProof {
 }
 impl<'de> serde::Deserialize<'de> for MerkleProof {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -218,7 +217,7 @@ impl<'de> serde::Deserialize<'de> for MerkleProof {
             Proofs,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -227,12 +226,12 @@ impl<'de> serde::Deserialize<'de> for MerkleProof {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -249,22 +248,22 @@ impl<'de> serde::Deserialize<'de> for MerkleProof {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MerkleProof;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.commitment.v1.MerkleProof")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MerkleProof, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<MerkleProof, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut proofs__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Proofs => {
                             if proofs__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofs"));
                             }
-                            proofs__ = Some(map_.next_value()?);
+                            proofs__ = Some(map.next_value()?);
                         }
                     }
                 }
@@ -278,7 +277,7 @@ impl<'de> serde::Deserialize<'de> for MerkleProof {
 }
 impl serde::Serialize for MerkleRoot {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -289,7 +288,6 @@ impl serde::Serialize for MerkleRoot {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.commitment.v1.MerkleRoot", len)?;
         if !self.hash.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("hash", pbjson::private::base64::encode(&self.hash).as_str())?;
         }
         struct_ser.end()
@@ -297,7 +295,7 @@ impl serde::Serialize for MerkleRoot {
 }
 impl<'de> serde::Deserialize<'de> for MerkleRoot {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -310,7 +308,7 @@ impl<'de> serde::Deserialize<'de> for MerkleRoot {
             Hash,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -319,12 +317,12 @@ impl<'de> serde::Deserialize<'de> for MerkleRoot {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -341,23 +339,23 @@ impl<'de> serde::Deserialize<'de> for MerkleRoot {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MerkleRoot;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.commitment.v1.MerkleRoot")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MerkleRoot, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<MerkleRoot, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut hash__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Hash => {
                             if hash__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("hash"));
                             }
                             hash__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }

@@ -1,6 +1,6 @@
 impl serde::Serialize for ClientPaths {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -18,7 +18,7 @@ impl serde::Serialize for ClientPaths {
 }
 impl<'de> serde::Deserialize<'de> for ClientPaths {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -31,7 +31,7 @@ impl<'de> serde::Deserialize<'de> for ClientPaths {
             Paths,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -40,12 +40,12 @@ impl<'de> serde::Deserialize<'de> for ClientPaths {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -62,22 +62,22 @@ impl<'de> serde::Deserialize<'de> for ClientPaths {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = ClientPaths;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.ClientPaths")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<ClientPaths, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<ClientPaths, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut paths__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Paths => {
                             if paths__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("paths"));
                             }
-                            paths__ = Some(map_.next_value()?);
+                            paths__ = Some(map.next_value()?);
                         }
                     }
                 }
@@ -91,7 +91,7 @@ impl<'de> serde::Deserialize<'de> for ClientPaths {
 }
 impl serde::Serialize for ConnectionEnd {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -120,23 +120,22 @@ impl serde::Serialize for ConnectionEnd {
             struct_ser.serialize_field("versions", &self.versions)?;
         }
         if self.state != 0 {
-            let v = State::try_from(self.state)
-                .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", self.state)))?;
+            let v = State::from_i32(self.state)
+                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.state)))?;
             struct_ser.serialize_field("state", &v)?;
         }
         if let Some(v) = self.counterparty.as_ref() {
             struct_ser.serialize_field("counterparty", v)?;
         }
         if self.delay_period != 0 {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("delayPeriod", ToString::to_string(&self.delay_period).as_str())?;
+            struct_ser.serialize_field("delayPeriod", ::alloc::string::ToString::to_string(&self.delay_period).as_str())?;
         }
         struct_ser.end()
     }
 }
 impl<'de> serde::Deserialize<'de> for ConnectionEnd {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -159,7 +158,7 @@ impl<'de> serde::Deserialize<'de> for ConnectionEnd {
             DelayPeriod,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -168,12 +167,12 @@ impl<'de> serde::Deserialize<'de> for ConnectionEnd {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -194,11 +193,11 @@ impl<'de> serde::Deserialize<'de> for ConnectionEnd {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = ConnectionEnd;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.ConnectionEnd")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<ConnectionEnd, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<ConnectionEnd, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -207,38 +206,38 @@ impl<'de> serde::Deserialize<'de> for ConnectionEnd {
                 let mut state__ = None;
                 let mut counterparty__ = None;
                 let mut delay_period__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::ClientId => {
                             if client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientId"));
                             }
-                            client_id__ = Some(map_.next_value()?);
+                            client_id__ = Some(map.next_value()?);
                         }
                         GeneratedField::Versions => {
                             if versions__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("versions"));
                             }
-                            versions__ = Some(map_.next_value()?);
+                            versions__ = Some(map.next_value()?);
                         }
                         GeneratedField::State => {
                             if state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("state"));
                             }
-                            state__ = Some(map_.next_value::<State>()? as i32);
+                            state__ = Some(map.next_value::<State>()? as i32);
                         }
                         GeneratedField::Counterparty => {
                             if counterparty__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("counterparty"));
                             }
-                            counterparty__ = map_.next_value()?;
+                            counterparty__ = map.next_value()?;
                         }
                         GeneratedField::DelayPeriod => {
                             if delay_period__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("delayPeriod"));
                             }
                             delay_period__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -257,7 +256,7 @@ impl<'de> serde::Deserialize<'de> for ConnectionEnd {
 }
 impl serde::Serialize for ConnectionPaths {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -281,7 +280,7 @@ impl serde::Serialize for ConnectionPaths {
 }
 impl<'de> serde::Deserialize<'de> for ConnectionPaths {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -297,7 +296,7 @@ impl<'de> serde::Deserialize<'de> for ConnectionPaths {
             Paths,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -306,12 +305,12 @@ impl<'de> serde::Deserialize<'de> for ConnectionPaths {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -329,29 +328,29 @@ impl<'de> serde::Deserialize<'de> for ConnectionPaths {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = ConnectionPaths;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.ConnectionPaths")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<ConnectionPaths, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<ConnectionPaths, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut client_id__ = None;
                 let mut paths__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::ClientId => {
                             if client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientId"));
                             }
-                            client_id__ = Some(map_.next_value()?);
+                            client_id__ = Some(map.next_value()?);
                         }
                         GeneratedField::Paths => {
                             if paths__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("paths"));
                             }
-                            paths__ = Some(map_.next_value()?);
+                            paths__ = Some(map.next_value()?);
                         }
                     }
                 }
@@ -366,7 +365,7 @@ impl<'de> serde::Deserialize<'de> for ConnectionPaths {
 }
 impl serde::Serialize for Counterparty {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -396,7 +395,7 @@ impl serde::Serialize for Counterparty {
 }
 impl<'de> serde::Deserialize<'de> for Counterparty {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -415,7 +414,7 @@ impl<'de> serde::Deserialize<'de> for Counterparty {
             Prefix,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -424,12 +423,12 @@ impl<'de> serde::Deserialize<'de> for Counterparty {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -448,36 +447,36 @@ impl<'de> serde::Deserialize<'de> for Counterparty {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = Counterparty;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.Counterparty")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<Counterparty, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<Counterparty, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut client_id__ = None;
                 let mut connection_id__ = None;
                 let mut prefix__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::ClientId => {
                             if client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientId"));
                             }
-                            client_id__ = Some(map_.next_value()?);
+                            client_id__ = Some(map.next_value()?);
                         }
                         GeneratedField::ConnectionId => {
                             if connection_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("connectionId"));
                             }
-                            connection_id__ = Some(map_.next_value()?);
+                            connection_id__ = Some(map.next_value()?);
                         }
                         GeneratedField::Prefix => {
                             if prefix__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("prefix"));
                             }
-                            prefix__ = map_.next_value()?;
+                            prefix__ = map.next_value()?;
                         }
                     }
                 }
@@ -493,7 +492,7 @@ impl<'de> serde::Deserialize<'de> for Counterparty {
 }
 impl serde::Serialize for GenesisState {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -519,8 +518,7 @@ impl serde::Serialize for GenesisState {
             struct_ser.serialize_field("clientConnectionPaths", &self.client_connection_paths)?;
         }
         if self.next_connection_sequence != 0 {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("nextConnectionSequence", ToString::to_string(&self.next_connection_sequence).as_str())?;
+            struct_ser.serialize_field("nextConnectionSequence", ::alloc::string::ToString::to_string(&self.next_connection_sequence).as_str())?;
         }
         if let Some(v) = self.params.as_ref() {
             struct_ser.serialize_field("params", v)?;
@@ -530,7 +528,7 @@ impl serde::Serialize for GenesisState {
 }
 impl<'de> serde::Deserialize<'de> for GenesisState {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -551,7 +549,7 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
             Params,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -560,12 +558,12 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -585,11 +583,11 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = GenesisState;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.GenesisState")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<GenesisState, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<GenesisState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -597,33 +595,33 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                 let mut client_connection_paths__ = None;
                 let mut next_connection_sequence__ = None;
                 let mut params__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Connections => {
                             if connections__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("connections"));
                             }
-                            connections__ = Some(map_.next_value()?);
+                            connections__ = Some(map.next_value()?);
                         }
                         GeneratedField::ClientConnectionPaths => {
                             if client_connection_paths__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientConnectionPaths"));
                             }
-                            client_connection_paths__ = Some(map_.next_value()?);
+                            client_connection_paths__ = Some(map.next_value()?);
                         }
                         GeneratedField::NextConnectionSequence => {
                             if next_connection_sequence__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("nextConnectionSequence"));
                             }
                             next_connection_sequence__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Params => {
                             if params__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("params"));
                             }
-                            params__ = map_.next_value()?;
+                            params__ = map.next_value()?;
                         }
                     }
                 }
@@ -640,7 +638,7 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
 }
 impl serde::Serialize for IdentifiedConnection {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -675,23 +673,22 @@ impl serde::Serialize for IdentifiedConnection {
             struct_ser.serialize_field("versions", &self.versions)?;
         }
         if self.state != 0 {
-            let v = State::try_from(self.state)
-                .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", self.state)))?;
+            let v = State::from_i32(self.state)
+                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.state)))?;
             struct_ser.serialize_field("state", &v)?;
         }
         if let Some(v) = self.counterparty.as_ref() {
             struct_ser.serialize_field("counterparty", v)?;
         }
         if self.delay_period != 0 {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("delayPeriod", ToString::to_string(&self.delay_period).as_str())?;
+            struct_ser.serialize_field("delayPeriod", ::alloc::string::ToString::to_string(&self.delay_period).as_str())?;
         }
         struct_ser.end()
     }
 }
 impl<'de> serde::Deserialize<'de> for IdentifiedConnection {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -716,7 +713,7 @@ impl<'de> serde::Deserialize<'de> for IdentifiedConnection {
             DelayPeriod,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -725,12 +722,12 @@ impl<'de> serde::Deserialize<'de> for IdentifiedConnection {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -752,11 +749,11 @@ impl<'de> serde::Deserialize<'de> for IdentifiedConnection {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = IdentifiedConnection;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.IdentifiedConnection")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<IdentifiedConnection, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<IdentifiedConnection, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -766,44 +763,44 @@ impl<'de> serde::Deserialize<'de> for IdentifiedConnection {
                 let mut state__ = None;
                 let mut counterparty__ = None;
                 let mut delay_period__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Id => {
                             if id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("id"));
                             }
-                            id__ = Some(map_.next_value()?);
+                            id__ = Some(map.next_value()?);
                         }
                         GeneratedField::ClientId => {
                             if client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientId"));
                             }
-                            client_id__ = Some(map_.next_value()?);
+                            client_id__ = Some(map.next_value()?);
                         }
                         GeneratedField::Versions => {
                             if versions__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("versions"));
                             }
-                            versions__ = Some(map_.next_value()?);
+                            versions__ = Some(map.next_value()?);
                         }
                         GeneratedField::State => {
                             if state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("state"));
                             }
-                            state__ = Some(map_.next_value::<State>()? as i32);
+                            state__ = Some(map.next_value::<State>()? as i32);
                         }
                         GeneratedField::Counterparty => {
                             if counterparty__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("counterparty"));
                             }
-                            counterparty__ = map_.next_value()?;
+                            counterparty__ = map.next_value()?;
                         }
                         GeneratedField::DelayPeriod => {
                             if delay_period__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("delayPeriod"));
                             }
                             delay_period__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -823,7 +820,7 @@ impl<'de> serde::Deserialize<'de> for IdentifiedConnection {
 }
 impl serde::Serialize for MsgConnectionOpenAck {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -879,15 +876,12 @@ impl serde::Serialize for MsgConnectionOpenAck {
             struct_ser.serialize_field("proofHeight", v)?;
         }
         if !self.proof_try.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proofTry", pbjson::private::base64::encode(&self.proof_try).as_str())?;
         }
         if !self.proof_client.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proofClient", pbjson::private::base64::encode(&self.proof_client).as_str())?;
         }
         if !self.proof_consensus.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proofConsensus", pbjson::private::base64::encode(&self.proof_consensus).as_str())?;
         }
         if let Some(v) = self.consensus_height.as_ref() {
@@ -897,7 +891,6 @@ impl serde::Serialize for MsgConnectionOpenAck {
             struct_ser.serialize_field("signer", &self.signer)?;
         }
         if !self.host_consensus_state_proof.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("hostConsensusStateProof", pbjson::private::base64::encode(&self.host_consensus_state_proof).as_str())?;
         }
         struct_ser.end()
@@ -905,7 +898,7 @@ impl serde::Serialize for MsgConnectionOpenAck {
 }
 impl<'de> serde::Deserialize<'de> for MsgConnectionOpenAck {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -947,7 +940,7 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenAck {
             HostConsensusStateProof,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -956,12 +949,12 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenAck {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -988,11 +981,11 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenAck {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgConnectionOpenAck;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.MsgConnectionOpenAck")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgConnectionOpenAck, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgConnectionOpenAck, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -1007,44 +1000,44 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenAck {
                 let mut consensus_height__ = None;
                 let mut signer__ = None;
                 let mut host_consensus_state_proof__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::ConnectionId => {
                             if connection_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("connectionId"));
                             }
-                            connection_id__ = Some(map_.next_value()?);
+                            connection_id__ = Some(map.next_value()?);
                         }
                         GeneratedField::CounterpartyConnectionId => {
                             if counterparty_connection_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("counterpartyConnectionId"));
                             }
-                            counterparty_connection_id__ = Some(map_.next_value()?);
+                            counterparty_connection_id__ = Some(map.next_value()?);
                         }
                         GeneratedField::Version => {
                             if version__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("version"));
                             }
-                            version__ = map_.next_value()?;
+                            version__ = map.next_value()?;
                         }
                         GeneratedField::ClientState => {
                             if client_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientState"));
                             }
-                            client_state__ = map_.next_value()?;
+                            client_state__ = map.next_value()?;
                         }
                         GeneratedField::ProofHeight => {
                             if proof_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofHeight"));
                             }
-                            proof_height__ = map_.next_value()?;
+                            proof_height__ = map.next_value()?;
                         }
                         GeneratedField::ProofTry => {
                             if proof_try__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofTry"));
                             }
                             proof_try__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofClient => {
@@ -1052,7 +1045,7 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenAck {
                                 return Err(serde::de::Error::duplicate_field("proofClient"));
                             }
                             proof_client__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofConsensus => {
@@ -1060,27 +1053,27 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenAck {
                                 return Err(serde::de::Error::duplicate_field("proofConsensus"));
                             }
                             proof_consensus__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ConsensusHeight => {
                             if consensus_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("consensusHeight"));
                             }
-                            consensus_height__ = map_.next_value()?;
+                            consensus_height__ = map.next_value()?;
                         }
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map_.next_value()?);
+                            signer__ = Some(map.next_value()?);
                         }
                         GeneratedField::HostConsensusStateProof => {
                             if host_consensus_state_proof__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("hostConsensusStateProof"));
                             }
                             host_consensus_state_proof__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -1105,7 +1098,7 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenAck {
 }
 impl serde::Serialize for MsgConnectionOpenAckResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1117,7 +1110,7 @@ impl serde::Serialize for MsgConnectionOpenAckResponse {
 }
 impl<'de> serde::Deserialize<'de> for MsgConnectionOpenAckResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1128,7 +1121,7 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenAckResponse {
         enum GeneratedField {
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1137,12 +1130,12 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenAckResponse {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1156,16 +1149,16 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenAckResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgConnectionOpenAckResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.MsgConnectionOpenAckResponse")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgConnectionOpenAckResponse, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgConnectionOpenAckResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map_.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
+                while map.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(MsgConnectionOpenAckResponse {
                 })
@@ -1176,7 +1169,7 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenAckResponse {
 }
 impl serde::Serialize for MsgConnectionOpenConfirm {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1199,7 +1192,6 @@ impl serde::Serialize for MsgConnectionOpenConfirm {
             struct_ser.serialize_field("connectionId", &self.connection_id)?;
         }
         if !self.proof_ack.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proofAck", pbjson::private::base64::encode(&self.proof_ack).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -1213,7 +1205,7 @@ impl serde::Serialize for MsgConnectionOpenConfirm {
 }
 impl<'de> serde::Deserialize<'de> for MsgConnectionOpenConfirm {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1235,7 +1227,7 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenConfirm {
             Signer,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1244,12 +1236,12 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenConfirm {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1269,11 +1261,11 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenConfirm {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgConnectionOpenConfirm;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.MsgConnectionOpenConfirm")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgConnectionOpenConfirm, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgConnectionOpenConfirm, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -1281,33 +1273,33 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenConfirm {
                 let mut proof_ack__ = None;
                 let mut proof_height__ = None;
                 let mut signer__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::ConnectionId => {
                             if connection_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("connectionId"));
                             }
-                            connection_id__ = Some(map_.next_value()?);
+                            connection_id__ = Some(map.next_value()?);
                         }
                         GeneratedField::ProofAck => {
                             if proof_ack__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofAck"));
                             }
                             proof_ack__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofHeight => {
                             if proof_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofHeight"));
                             }
-                            proof_height__ = map_.next_value()?;
+                            proof_height__ = map.next_value()?;
                         }
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map_.next_value()?);
+                            signer__ = Some(map.next_value()?);
                         }
                     }
                 }
@@ -1324,7 +1316,7 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenConfirm {
 }
 impl serde::Serialize for MsgConnectionOpenConfirmResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1336,7 +1328,7 @@ impl serde::Serialize for MsgConnectionOpenConfirmResponse {
 }
 impl<'de> serde::Deserialize<'de> for MsgConnectionOpenConfirmResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1347,7 +1339,7 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenConfirmResponse {
         enum GeneratedField {
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1356,12 +1348,12 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenConfirmResponse {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1375,16 +1367,16 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenConfirmResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgConnectionOpenConfirmResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.MsgConnectionOpenConfirmResponse")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgConnectionOpenConfirmResponse, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgConnectionOpenConfirmResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map_.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
+                while map.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(MsgConnectionOpenConfirmResponse {
                 })
@@ -1395,7 +1387,7 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenConfirmResponse {
 }
 impl serde::Serialize for MsgConnectionOpenInit {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1427,8 +1419,7 @@ impl serde::Serialize for MsgConnectionOpenInit {
             struct_ser.serialize_field("version", v)?;
         }
         if self.delay_period != 0 {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("delayPeriod", ToString::to_string(&self.delay_period).as_str())?;
+            struct_ser.serialize_field("delayPeriod", ::alloc::string::ToString::to_string(&self.delay_period).as_str())?;
         }
         if !self.signer.is_empty() {
             struct_ser.serialize_field("signer", &self.signer)?;
@@ -1438,7 +1429,7 @@ impl serde::Serialize for MsgConnectionOpenInit {
 }
 impl<'de> serde::Deserialize<'de> for MsgConnectionOpenInit {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1461,7 +1452,7 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenInit {
             Signer,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1470,12 +1461,12 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenInit {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1496,11 +1487,11 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenInit {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgConnectionOpenInit;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.MsgConnectionOpenInit")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgConnectionOpenInit, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgConnectionOpenInit, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -1509,39 +1500,39 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenInit {
                 let mut version__ = None;
                 let mut delay_period__ = None;
                 let mut signer__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::ClientId => {
                             if client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientId"));
                             }
-                            client_id__ = Some(map_.next_value()?);
+                            client_id__ = Some(map.next_value()?);
                         }
                         GeneratedField::Counterparty => {
                             if counterparty__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("counterparty"));
                             }
-                            counterparty__ = map_.next_value()?;
+                            counterparty__ = map.next_value()?;
                         }
                         GeneratedField::Version => {
                             if version__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("version"));
                             }
-                            version__ = map_.next_value()?;
+                            version__ = map.next_value()?;
                         }
                         GeneratedField::DelayPeriod => {
                             if delay_period__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("delayPeriod"));
                             }
                             delay_period__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map_.next_value()?);
+                            signer__ = Some(map.next_value()?);
                         }
                     }
                 }
@@ -1559,7 +1550,7 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenInit {
 }
 impl serde::Serialize for MsgConnectionOpenInitResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1571,7 +1562,7 @@ impl serde::Serialize for MsgConnectionOpenInitResponse {
 }
 impl<'de> serde::Deserialize<'de> for MsgConnectionOpenInitResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1582,7 +1573,7 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenInitResponse {
         enum GeneratedField {
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1591,12 +1582,12 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenInitResponse {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1610,16 +1601,16 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenInitResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgConnectionOpenInitResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.MsgConnectionOpenInitResponse")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgConnectionOpenInitResponse, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgConnectionOpenInitResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map_.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
+                while map.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(MsgConnectionOpenInitResponse {
                 })
@@ -1630,7 +1621,7 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenInitResponse {
 }
 impl serde::Serialize for MsgConnectionOpenTry {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1689,8 +1680,7 @@ impl serde::Serialize for MsgConnectionOpenTry {
             struct_ser.serialize_field("counterparty", v)?;
         }
         if self.delay_period != 0 {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("delayPeriod", ToString::to_string(&self.delay_period).as_str())?;
+            struct_ser.serialize_field("delayPeriod", ::alloc::string::ToString::to_string(&self.delay_period).as_str())?;
         }
         if !self.counterparty_versions.is_empty() {
             struct_ser.serialize_field("counterpartyVersions", &self.counterparty_versions)?;
@@ -1699,15 +1689,12 @@ impl serde::Serialize for MsgConnectionOpenTry {
             struct_ser.serialize_field("proofHeight", v)?;
         }
         if !self.proof_init.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proofInit", pbjson::private::base64::encode(&self.proof_init).as_str())?;
         }
         if !self.proof_client.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proofClient", pbjson::private::base64::encode(&self.proof_client).as_str())?;
         }
         if !self.proof_consensus.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proofConsensus", pbjson::private::base64::encode(&self.proof_consensus).as_str())?;
         }
         if let Some(v) = self.consensus_height.as_ref() {
@@ -1717,7 +1704,6 @@ impl serde::Serialize for MsgConnectionOpenTry {
             struct_ser.serialize_field("signer", &self.signer)?;
         }
         if !self.host_consensus_state_proof.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("hostConsensusStateProof", pbjson::private::base64::encode(&self.host_consensus_state_proof).as_str())?;
         }
         struct_ser.end()
@@ -1725,7 +1711,7 @@ impl serde::Serialize for MsgConnectionOpenTry {
 }
 impl<'de> serde::Deserialize<'de> for MsgConnectionOpenTry {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1773,7 +1759,7 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenTry {
             HostConsensusStateProof,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1782,12 +1768,12 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenTry {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1816,11 +1802,11 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenTry {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgConnectionOpenTry;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.MsgConnectionOpenTry")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgConnectionOpenTry, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgConnectionOpenTry, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -1837,58 +1823,58 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenTry {
                 let mut consensus_height__ = None;
                 let mut signer__ = None;
                 let mut host_consensus_state_proof__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::ClientId => {
                             if client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientId"));
                             }
-                            client_id__ = Some(map_.next_value()?);
+                            client_id__ = Some(map.next_value()?);
                         }
                         GeneratedField::PreviousConnectionId => {
                             if previous_connection_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("previousConnectionId"));
                             }
-                            previous_connection_id__ = Some(map_.next_value()?);
+                            previous_connection_id__ = Some(map.next_value()?);
                         }
                         GeneratedField::ClientState => {
                             if client_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientState"));
                             }
-                            client_state__ = map_.next_value()?;
+                            client_state__ = map.next_value()?;
                         }
                         GeneratedField::Counterparty => {
                             if counterparty__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("counterparty"));
                             }
-                            counterparty__ = map_.next_value()?;
+                            counterparty__ = map.next_value()?;
                         }
                         GeneratedField::DelayPeriod => {
                             if delay_period__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("delayPeriod"));
                             }
                             delay_period__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::CounterpartyVersions => {
                             if counterparty_versions__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("counterpartyVersions"));
                             }
-                            counterparty_versions__ = Some(map_.next_value()?);
+                            counterparty_versions__ = Some(map.next_value()?);
                         }
                         GeneratedField::ProofHeight => {
                             if proof_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofHeight"));
                             }
-                            proof_height__ = map_.next_value()?;
+                            proof_height__ = map.next_value()?;
                         }
                         GeneratedField::ProofInit => {
                             if proof_init__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofInit"));
                             }
                             proof_init__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofClient => {
@@ -1896,7 +1882,7 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenTry {
                                 return Err(serde::de::Error::duplicate_field("proofClient"));
                             }
                             proof_client__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofConsensus => {
@@ -1904,27 +1890,27 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenTry {
                                 return Err(serde::de::Error::duplicate_field("proofConsensus"));
                             }
                             proof_consensus__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ConsensusHeight => {
                             if consensus_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("consensusHeight"));
                             }
-                            consensus_height__ = map_.next_value()?;
+                            consensus_height__ = map.next_value()?;
                         }
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map_.next_value()?);
+                            signer__ = Some(map.next_value()?);
                         }
                         GeneratedField::HostConsensusStateProof => {
                             if host_consensus_state_proof__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("hostConsensusStateProof"));
                             }
                             host_consensus_state_proof__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -1951,7 +1937,7 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenTry {
 }
 impl serde::Serialize for MsgConnectionOpenTryResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1963,7 +1949,7 @@ impl serde::Serialize for MsgConnectionOpenTryResponse {
 }
 impl<'de> serde::Deserialize<'de> for MsgConnectionOpenTryResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1974,7 +1960,7 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenTryResponse {
         enum GeneratedField {
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1983,12 +1969,12 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenTryResponse {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -2002,16 +1988,16 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenTryResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgConnectionOpenTryResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.MsgConnectionOpenTryResponse")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgConnectionOpenTryResponse, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgConnectionOpenTryResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map_.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
+                while map.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(MsgConnectionOpenTryResponse {
                 })
@@ -2022,7 +2008,7 @@ impl<'de> serde::Deserialize<'de> for MsgConnectionOpenTryResponse {
 }
 impl serde::Serialize for MsgUpdateParams {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -2046,7 +2032,7 @@ impl serde::Serialize for MsgUpdateParams {
 }
 impl<'de> serde::Deserialize<'de> for MsgUpdateParams {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -2061,7 +2047,7 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateParams {
             Params,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -2070,12 +2056,12 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateParams {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -2093,29 +2079,29 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateParams {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgUpdateParams;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.MsgUpdateParams")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgUpdateParams, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgUpdateParams, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut signer__ = None;
                 let mut params__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map_.next_value()?);
+                            signer__ = Some(map.next_value()?);
                         }
                         GeneratedField::Params => {
                             if params__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("params"));
                             }
-                            params__ = map_.next_value()?;
+                            params__ = map.next_value()?;
                         }
                     }
                 }
@@ -2130,7 +2116,7 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateParams {
 }
 impl serde::Serialize for MsgUpdateParamsResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -2142,7 +2128,7 @@ impl serde::Serialize for MsgUpdateParamsResponse {
 }
 impl<'de> serde::Deserialize<'de> for MsgUpdateParamsResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -2153,7 +2139,7 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateParamsResponse {
         enum GeneratedField {
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -2162,12 +2148,12 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateParamsResponse {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -2181,16 +2167,16 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateParamsResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = MsgUpdateParamsResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.MsgUpdateParamsResponse")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<MsgUpdateParamsResponse, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgUpdateParamsResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map_.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
+                while map.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(MsgUpdateParamsResponse {
                 })
@@ -2201,7 +2187,7 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateParamsResponse {
 }
 impl serde::Serialize for Params {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -2212,15 +2198,14 @@ impl serde::Serialize for Params {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.connection.v1.Params", len)?;
         if self.max_expected_time_per_block != 0 {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("maxExpectedTimePerBlock", ToString::to_string(&self.max_expected_time_per_block).as_str())?;
+            struct_ser.serialize_field("maxExpectedTimePerBlock", ::alloc::string::ToString::to_string(&self.max_expected_time_per_block).as_str())?;
         }
         struct_ser.end()
     }
 }
 impl<'de> serde::Deserialize<'de> for Params {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -2234,7 +2219,7 @@ impl<'de> serde::Deserialize<'de> for Params {
             MaxExpectedTimePerBlock,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -2243,12 +2228,12 @@ impl<'de> serde::Deserialize<'de> for Params {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -2265,23 +2250,23 @@ impl<'de> serde::Deserialize<'de> for Params {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = Params;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.Params")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<Params, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<Params, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut max_expected_time_per_block__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::MaxExpectedTimePerBlock => {
                             if max_expected_time_per_block__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("maxExpectedTimePerBlock"));
                             }
                             max_expected_time_per_block__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -2296,7 +2281,7 @@ impl<'de> serde::Deserialize<'de> for Params {
 }
 impl serde::Serialize for QueryClientConnectionsRequest {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -2314,7 +2299,7 @@ impl serde::Serialize for QueryClientConnectionsRequest {
 }
 impl<'de> serde::Deserialize<'de> for QueryClientConnectionsRequest {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -2328,7 +2313,7 @@ impl<'de> serde::Deserialize<'de> for QueryClientConnectionsRequest {
             ClientId,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -2337,12 +2322,12 @@ impl<'de> serde::Deserialize<'de> for QueryClientConnectionsRequest {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -2359,22 +2344,22 @@ impl<'de> serde::Deserialize<'de> for QueryClientConnectionsRequest {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryClientConnectionsRequest;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.QueryClientConnectionsRequest")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryClientConnectionsRequest, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryClientConnectionsRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut client_id__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::ClientId => {
                             if client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientId"));
                             }
-                            client_id__ = Some(map_.next_value()?);
+                            client_id__ = Some(map.next_value()?);
                         }
                     }
                 }
@@ -2388,7 +2373,7 @@ impl<'de> serde::Deserialize<'de> for QueryClientConnectionsRequest {
 }
 impl serde::Serialize for QueryClientConnectionsResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -2408,7 +2393,6 @@ impl serde::Serialize for QueryClientConnectionsResponse {
             struct_ser.serialize_field("connectionPaths", &self.connection_paths)?;
         }
         if !self.proof.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proof", pbjson::private::base64::encode(&self.proof).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -2419,7 +2403,7 @@ impl serde::Serialize for QueryClientConnectionsResponse {
 }
 impl<'de> serde::Deserialize<'de> for QueryClientConnectionsResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -2438,7 +2422,7 @@ impl<'de> serde::Deserialize<'de> for QueryClientConnectionsResponse {
             ProofHeight,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -2447,12 +2431,12 @@ impl<'de> serde::Deserialize<'de> for QueryClientConnectionsResponse {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -2471,38 +2455,38 @@ impl<'de> serde::Deserialize<'de> for QueryClientConnectionsResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryClientConnectionsResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.QueryClientConnectionsResponse")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryClientConnectionsResponse, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryClientConnectionsResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut connection_paths__ = None;
                 let mut proof__ = None;
                 let mut proof_height__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::ConnectionPaths => {
                             if connection_paths__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("connectionPaths"));
                             }
-                            connection_paths__ = Some(map_.next_value()?);
+                            connection_paths__ = Some(map.next_value()?);
                         }
                         GeneratedField::Proof => {
                             if proof__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proof"));
                             }
                             proof__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofHeight => {
                             if proof_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofHeight"));
                             }
-                            proof_height__ = map_.next_value()?;
+                            proof_height__ = map.next_value()?;
                         }
                     }
                 }
@@ -2518,7 +2502,7 @@ impl<'de> serde::Deserialize<'de> for QueryClientConnectionsResponse {
 }
 impl serde::Serialize for QueryConnectionClientStateRequest {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -2536,7 +2520,7 @@ impl serde::Serialize for QueryConnectionClientStateRequest {
 }
 impl<'de> serde::Deserialize<'de> for QueryConnectionClientStateRequest {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -2550,7 +2534,7 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionClientStateRequest {
             ConnectionId,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -2559,12 +2543,12 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionClientStateRequest {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -2581,22 +2565,22 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionClientStateRequest {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryConnectionClientStateRequest;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.QueryConnectionClientStateRequest")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryConnectionClientStateRequest, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryConnectionClientStateRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut connection_id__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::ConnectionId => {
                             if connection_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("connectionId"));
                             }
-                            connection_id__ = Some(map_.next_value()?);
+                            connection_id__ = Some(map.next_value()?);
                         }
                     }
                 }
@@ -2610,7 +2594,7 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionClientStateRequest {
 }
 impl serde::Serialize for QueryConnectionClientStateResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -2630,7 +2614,6 @@ impl serde::Serialize for QueryConnectionClientStateResponse {
             struct_ser.serialize_field("identifiedClientState", v)?;
         }
         if !self.proof.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proof", pbjson::private::base64::encode(&self.proof).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -2641,7 +2624,7 @@ impl serde::Serialize for QueryConnectionClientStateResponse {
 }
 impl<'de> serde::Deserialize<'de> for QueryConnectionClientStateResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -2660,7 +2643,7 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionClientStateResponse {
             ProofHeight,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -2669,12 +2652,12 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionClientStateResponse {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -2693,38 +2676,38 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionClientStateResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryConnectionClientStateResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.QueryConnectionClientStateResponse")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryConnectionClientStateResponse, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryConnectionClientStateResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut identified_client_state__ = None;
                 let mut proof__ = None;
                 let mut proof_height__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::IdentifiedClientState => {
                             if identified_client_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("identifiedClientState"));
                             }
-                            identified_client_state__ = map_.next_value()?;
+                            identified_client_state__ = map.next_value()?;
                         }
                         GeneratedField::Proof => {
                             if proof__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proof"));
                             }
                             proof__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofHeight => {
                             if proof_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofHeight"));
                             }
-                            proof_height__ = map_.next_value()?;
+                            proof_height__ = map.next_value()?;
                         }
                     }
                 }
@@ -2740,7 +2723,7 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionClientStateResponse {
 }
 impl serde::Serialize for QueryConnectionConsensusStateRequest {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -2760,19 +2743,17 @@ impl serde::Serialize for QueryConnectionConsensusStateRequest {
             struct_ser.serialize_field("connectionId", &self.connection_id)?;
         }
         if self.revision_number != 0 {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("revisionNumber", ToString::to_string(&self.revision_number).as_str())?;
+            struct_ser.serialize_field("revisionNumber", ::alloc::string::ToString::to_string(&self.revision_number).as_str())?;
         }
         if self.revision_height != 0 {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("revisionHeight", ToString::to_string(&self.revision_height).as_str())?;
+            struct_ser.serialize_field("revisionHeight", ::alloc::string::ToString::to_string(&self.revision_height).as_str())?;
         }
         struct_ser.end()
     }
 }
 impl<'de> serde::Deserialize<'de> for QueryConnectionConsensusStateRequest {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -2792,7 +2773,7 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionConsensusStateRequest {
             RevisionHeight,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -2801,12 +2782,12 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionConsensusStateRequest {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -2825,31 +2806,31 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionConsensusStateRequest {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryConnectionConsensusStateRequest;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.QueryConnectionConsensusStateRequest")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryConnectionConsensusStateRequest, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryConnectionConsensusStateRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut connection_id__ = None;
                 let mut revision_number__ = None;
                 let mut revision_height__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::ConnectionId => {
                             if connection_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("connectionId"));
                             }
-                            connection_id__ = Some(map_.next_value()?);
+                            connection_id__ = Some(map.next_value()?);
                         }
                         GeneratedField::RevisionNumber => {
                             if revision_number__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("revisionNumber"));
                             }
                             revision_number__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::RevisionHeight => {
@@ -2857,7 +2838,7 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionConsensusStateRequest {
                                 return Err(serde::de::Error::duplicate_field("revisionHeight"));
                             }
                             revision_height__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -2874,7 +2855,7 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionConsensusStateRequest {
 }
 impl serde::Serialize for QueryConnectionConsensusStateResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -2900,7 +2881,6 @@ impl serde::Serialize for QueryConnectionConsensusStateResponse {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
         if !self.proof.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proof", pbjson::private::base64::encode(&self.proof).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -2911,7 +2891,7 @@ impl serde::Serialize for QueryConnectionConsensusStateResponse {
 }
 impl<'de> serde::Deserialize<'de> for QueryConnectionConsensusStateResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -2933,7 +2913,7 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionConsensusStateResponse {
             ProofHeight,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -2942,12 +2922,12 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionConsensusStateResponse {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -2967,11 +2947,11 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionConsensusStateResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryConnectionConsensusStateResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.QueryConnectionConsensusStateResponse")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryConnectionConsensusStateResponse, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryConnectionConsensusStateResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -2979,33 +2959,33 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionConsensusStateResponse {
                 let mut client_id__ = None;
                 let mut proof__ = None;
                 let mut proof_height__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::ConsensusState => {
                             if consensus_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("consensusState"));
                             }
-                            consensus_state__ = map_.next_value()?;
+                            consensus_state__ = map.next_value()?;
                         }
                         GeneratedField::ClientId => {
                             if client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientId"));
                             }
-                            client_id__ = Some(map_.next_value()?);
+                            client_id__ = Some(map.next_value()?);
                         }
                         GeneratedField::Proof => {
                             if proof__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proof"));
                             }
                             proof__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofHeight => {
                             if proof_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofHeight"));
                             }
-                            proof_height__ = map_.next_value()?;
+                            proof_height__ = map.next_value()?;
                         }
                     }
                 }
@@ -3022,7 +3002,7 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionConsensusStateResponse {
 }
 impl serde::Serialize for QueryConnectionParamsRequest {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -3034,7 +3014,7 @@ impl serde::Serialize for QueryConnectionParamsRequest {
 }
 impl<'de> serde::Deserialize<'de> for QueryConnectionParamsRequest {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -3045,7 +3025,7 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionParamsRequest {
         enum GeneratedField {
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -3054,12 +3034,12 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionParamsRequest {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -3073,16 +3053,16 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionParamsRequest {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryConnectionParamsRequest;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.QueryConnectionParamsRequest")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryConnectionParamsRequest, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryConnectionParamsRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map_.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
+                while map.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(QueryConnectionParamsRequest {
                 })
@@ -3093,7 +3073,7 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionParamsRequest {
 }
 impl serde::Serialize for QueryConnectionParamsResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -3111,7 +3091,7 @@ impl serde::Serialize for QueryConnectionParamsResponse {
 }
 impl<'de> serde::Deserialize<'de> for QueryConnectionParamsResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -3124,7 +3104,7 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionParamsResponse {
             Params,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -3133,12 +3113,12 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionParamsResponse {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -3155,22 +3135,22 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionParamsResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryConnectionParamsResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.QueryConnectionParamsResponse")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryConnectionParamsResponse, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryConnectionParamsResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut params__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Params => {
                             if params__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("params"));
                             }
-                            params__ = map_.next_value()?;
+                            params__ = map.next_value()?;
                         }
                     }
                 }
@@ -3184,7 +3164,7 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionParamsResponse {
 }
 impl serde::Serialize for QueryConnectionRequest {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -3202,7 +3182,7 @@ impl serde::Serialize for QueryConnectionRequest {
 }
 impl<'de> serde::Deserialize<'de> for QueryConnectionRequest {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -3216,7 +3196,7 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionRequest {
             ConnectionId,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -3225,12 +3205,12 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionRequest {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -3247,22 +3227,22 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionRequest {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryConnectionRequest;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.QueryConnectionRequest")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryConnectionRequest, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryConnectionRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut connection_id__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::ConnectionId => {
                             if connection_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("connectionId"));
                             }
-                            connection_id__ = Some(map_.next_value()?);
+                            connection_id__ = Some(map.next_value()?);
                         }
                     }
                 }
@@ -3276,7 +3256,7 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionRequest {
 }
 impl serde::Serialize for QueryConnectionResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -3296,7 +3276,6 @@ impl serde::Serialize for QueryConnectionResponse {
             struct_ser.serialize_field("connection", v)?;
         }
         if !self.proof.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proof", pbjson::private::base64::encode(&self.proof).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -3307,7 +3286,7 @@ impl serde::Serialize for QueryConnectionResponse {
 }
 impl<'de> serde::Deserialize<'de> for QueryConnectionResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -3325,7 +3304,7 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionResponse {
             ProofHeight,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -3334,12 +3313,12 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionResponse {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -3358,38 +3337,38 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryConnectionResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.QueryConnectionResponse")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryConnectionResponse, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryConnectionResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut connection__ = None;
                 let mut proof__ = None;
                 let mut proof_height__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Connection => {
                             if connection__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("connection"));
                             }
-                            connection__ = map_.next_value()?;
+                            connection__ = map.next_value()?;
                         }
                         GeneratedField::Proof => {
                             if proof__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proof"));
                             }
                             proof__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofHeight => {
                             if proof_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofHeight"));
                             }
-                            proof_height__ = map_.next_value()?;
+                            proof_height__ = map.next_value()?;
                         }
                     }
                 }
@@ -3405,7 +3384,7 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionResponse {
 }
 impl serde::Serialize for QueryConnectionsRequest {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -3423,7 +3402,7 @@ impl serde::Serialize for QueryConnectionsRequest {
 }
 impl<'de> serde::Deserialize<'de> for QueryConnectionsRequest {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -3436,7 +3415,7 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionsRequest {
             Pagination,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -3445,12 +3424,12 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionsRequest {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -3467,22 +3446,22 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionsRequest {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryConnectionsRequest;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.QueryConnectionsRequest")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryConnectionsRequest, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryConnectionsRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut pagination__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map_.next_value()?;
+                            pagination__ = map.next_value()?;
                         }
                     }
                 }
@@ -3496,7 +3475,7 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionsRequest {
 }
 impl serde::Serialize for QueryConnectionsResponse {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -3526,7 +3505,7 @@ impl serde::Serialize for QueryConnectionsResponse {
 }
 impl<'de> serde::Deserialize<'de> for QueryConnectionsResponse {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -3543,7 +3522,7 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionsResponse {
             Height,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -3552,12 +3531,12 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionsResponse {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -3576,36 +3555,36 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionsResponse {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = QueryConnectionsResponse;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.QueryConnectionsResponse")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<QueryConnectionsResponse, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryConnectionsResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut connections__ = None;
                 let mut pagination__ = None;
                 let mut height__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Connections => {
                             if connections__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("connections"));
                             }
-                            connections__ = Some(map_.next_value()?);
+                            connections__ = Some(map.next_value()?);
                         }
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map_.next_value()?;
+                            pagination__ = map.next_value()?;
                         }
                         GeneratedField::Height => {
                             if height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("height"));
                             }
-                            height__ = map_.next_value()?;
+                            height__ = map.next_value()?;
                         }
                     }
                 }
@@ -3621,7 +3600,7 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionsResponse {
 }
 impl serde::Serialize for State {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -3636,7 +3615,7 @@ impl serde::Serialize for State {
 }
 impl<'de> serde::Deserialize<'de> for State {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -3652,35 +3631,37 @@ impl<'de> serde::Deserialize<'de> for State {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = State;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 write!(formatter, "expected one of: {:?}", &FIELDS)
             }
 
-            fn visit_i64<E>(self, v: i64) -> std::result::Result<Self::Value, E>
+            fn visit_i64<E>(self, v: i64) -> core::result::Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
+                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(|x| x.try_into().ok())
+                    .and_then(State::from_i32)
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
             }
 
-            fn visit_u64<E>(self, v: u64) -> std::result::Result<Self::Value, E>
+            fn visit_u64<E>(self, v: u64) -> core::result::Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
+                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(|x| x.try_into().ok())
+                    .and_then(State::from_i32)
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
             }
 
-            fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+            fn visit_str<E>(self, value: &str) -> core::result::Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
@@ -3698,7 +3679,7 @@ impl<'de> serde::Deserialize<'de> for State {
 }
 impl serde::Serialize for Version {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -3722,7 +3703,7 @@ impl serde::Serialize for Version {
 }
 impl<'de> serde::Deserialize<'de> for Version {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -3737,7 +3718,7 @@ impl<'de> serde::Deserialize<'de> for Version {
             Features,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -3746,12 +3727,12 @@ impl<'de> serde::Deserialize<'de> for Version {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -3769,29 +3750,29 @@ impl<'de> serde::Deserialize<'de> for Version {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = Version;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.core.connection.v1.Version")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<Version, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<Version, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut identifier__ = None;
                 let mut features__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Identifier => {
                             if identifier__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("identifier"));
                             }
-                            identifier__ = Some(map_.next_value()?);
+                            identifier__ = Some(map.next_value()?);
                         }
                         GeneratedField::Features => {
                             if features__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("features"));
                             }
-                            features__ = Some(map_.next_value()?);
+                            features__ = Some(map.next_value()?);
                         }
                     }
                 }

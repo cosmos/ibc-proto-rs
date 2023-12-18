@@ -1,6 +1,6 @@
 impl serde::Serialize for ChannelStateData {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -14,7 +14,6 @@ impl serde::Serialize for ChannelStateData {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.ChannelStateData", len)?;
         if !self.path.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("path", pbjson::private::base64::encode(&self.path).as_str())?;
         }
         if let Some(v) = self.channel.as_ref() {
@@ -25,7 +24,7 @@ impl serde::Serialize for ChannelStateData {
 }
 impl<'de> serde::Deserialize<'de> for ChannelStateData {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -40,7 +39,7 @@ impl<'de> serde::Deserialize<'de> for ChannelStateData {
             Channel,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -49,12 +48,12 @@ impl<'de> serde::Deserialize<'de> for ChannelStateData {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -72,31 +71,31 @@ impl<'de> serde::Deserialize<'de> for ChannelStateData {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = ChannelStateData;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.lightclients.solomachine.v2.ChannelStateData")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<ChannelStateData, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<ChannelStateData, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut path__ = None;
                 let mut channel__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Path => {
                             if path__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("path"));
                             }
                             path__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Channel => {
                             if channel__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channel"));
                             }
-                            channel__ = map_.next_value()?;
+                            channel__ = map.next_value()?;
                         }
                     }
                 }
@@ -111,7 +110,7 @@ impl<'de> serde::Deserialize<'de> for ChannelStateData {
 }
 impl serde::Serialize for ClientState {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -131,8 +130,7 @@ impl serde::Serialize for ClientState {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.ClientState", len)?;
         if self.sequence != 0 {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("sequence", ToString::to_string(&self.sequence).as_str())?;
+            struct_ser.serialize_field("sequence", ::alloc::string::ToString::to_string(&self.sequence).as_str())?;
         }
         if self.is_frozen {
             struct_ser.serialize_field("isFrozen", &self.is_frozen)?;
@@ -148,7 +146,7 @@ impl serde::Serialize for ClientState {
 }
 impl<'de> serde::Deserialize<'de> for ClientState {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -170,7 +168,7 @@ impl<'de> serde::Deserialize<'de> for ClientState {
             AllowUpdateAfterProposal,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -179,12 +177,12 @@ impl<'de> serde::Deserialize<'de> for ClientState {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -204,11 +202,11 @@ impl<'de> serde::Deserialize<'de> for ClientState {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = ClientState;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.lightclients.solomachine.v2.ClientState")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<ClientState, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<ClientState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -216,33 +214,33 @@ impl<'de> serde::Deserialize<'de> for ClientState {
                 let mut is_frozen__ = None;
                 let mut consensus_state__ = None;
                 let mut allow_update_after_proposal__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Sequence => {
                             if sequence__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sequence"));
                             }
                             sequence__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::IsFrozen => {
                             if is_frozen__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("isFrozen"));
                             }
-                            is_frozen__ = Some(map_.next_value()?);
+                            is_frozen__ = Some(map.next_value()?);
                         }
                         GeneratedField::ConsensusState => {
                             if consensus_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("consensusState"));
                             }
-                            consensus_state__ = map_.next_value()?;
+                            consensus_state__ = map.next_value()?;
                         }
                         GeneratedField::AllowUpdateAfterProposal => {
                             if allow_update_after_proposal__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("allowUpdateAfterProposal"));
                             }
-                            allow_update_after_proposal__ = Some(map_.next_value()?);
+                            allow_update_after_proposal__ = Some(map.next_value()?);
                         }
                     }
                 }
@@ -259,7 +257,7 @@ impl<'de> serde::Deserialize<'de> for ClientState {
 }
 impl serde::Serialize for ClientStateData {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -273,7 +271,6 @@ impl serde::Serialize for ClientStateData {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.ClientStateData", len)?;
         if !self.path.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("path", pbjson::private::base64::encode(&self.path).as_str())?;
         }
         if let Some(v) = self.client_state.as_ref() {
@@ -284,7 +281,7 @@ impl serde::Serialize for ClientStateData {
 }
 impl<'de> serde::Deserialize<'de> for ClientStateData {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -300,7 +297,7 @@ impl<'de> serde::Deserialize<'de> for ClientStateData {
             ClientState,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -309,12 +306,12 @@ impl<'de> serde::Deserialize<'de> for ClientStateData {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -332,31 +329,31 @@ impl<'de> serde::Deserialize<'de> for ClientStateData {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = ClientStateData;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.lightclients.solomachine.v2.ClientStateData")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<ClientStateData, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<ClientStateData, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut path__ = None;
                 let mut client_state__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Path => {
                             if path__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("path"));
                             }
                             path__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ClientState => {
                             if client_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientState"));
                             }
-                            client_state__ = map_.next_value()?;
+                            client_state__ = map.next_value()?;
                         }
                     }
                 }
@@ -371,7 +368,7 @@ impl<'de> serde::Deserialize<'de> for ClientStateData {
 }
 impl serde::Serialize for ConnectionStateData {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -385,7 +382,6 @@ impl serde::Serialize for ConnectionStateData {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.ConnectionStateData", len)?;
         if !self.path.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("path", pbjson::private::base64::encode(&self.path).as_str())?;
         }
         if let Some(v) = self.connection.as_ref() {
@@ -396,7 +392,7 @@ impl serde::Serialize for ConnectionStateData {
 }
 impl<'de> serde::Deserialize<'de> for ConnectionStateData {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -411,7 +407,7 @@ impl<'de> serde::Deserialize<'de> for ConnectionStateData {
             Connection,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -420,12 +416,12 @@ impl<'de> serde::Deserialize<'de> for ConnectionStateData {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -443,31 +439,31 @@ impl<'de> serde::Deserialize<'de> for ConnectionStateData {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = ConnectionStateData;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.lightclients.solomachine.v2.ConnectionStateData")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<ConnectionStateData, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<ConnectionStateData, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut path__ = None;
                 let mut connection__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Path => {
                             if path__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("path"));
                             }
                             path__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Connection => {
                             if connection__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("connection"));
                             }
-                            connection__ = map_.next_value()?;
+                            connection__ = map.next_value()?;
                         }
                     }
                 }
@@ -482,7 +478,7 @@ impl<'de> serde::Deserialize<'de> for ConnectionStateData {
 }
 impl serde::Serialize for ConsensusState {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -505,15 +501,14 @@ impl serde::Serialize for ConsensusState {
             struct_ser.serialize_field("diversifier", &self.diversifier)?;
         }
         if self.timestamp != 0 {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("timestamp", ToString::to_string(&self.timestamp).as_str())?;
+            struct_ser.serialize_field("timestamp", ::alloc::string::ToString::to_string(&self.timestamp).as_str())?;
         }
         struct_ser.end()
     }
 }
 impl<'de> serde::Deserialize<'de> for ConsensusState {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -531,7 +526,7 @@ impl<'de> serde::Deserialize<'de> for ConsensusState {
             Timestamp,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -540,12 +535,12 @@ impl<'de> serde::Deserialize<'de> for ConsensusState {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -564,37 +559,37 @@ impl<'de> serde::Deserialize<'de> for ConsensusState {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = ConsensusState;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.lightclients.solomachine.v2.ConsensusState")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<ConsensusState, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<ConsensusState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut public_key__ = None;
                 let mut diversifier__ = None;
                 let mut timestamp__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::PublicKey => {
                             if public_key__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("publicKey"));
                             }
-                            public_key__ = map_.next_value()?;
+                            public_key__ = map.next_value()?;
                         }
                         GeneratedField::Diversifier => {
                             if diversifier__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("diversifier"));
                             }
-                            diversifier__ = Some(map_.next_value()?);
+                            diversifier__ = Some(map.next_value()?);
                         }
                         GeneratedField::Timestamp => {
                             if timestamp__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("timestamp"));
                             }
                             timestamp__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -611,7 +606,7 @@ impl<'de> serde::Deserialize<'de> for ConsensusState {
 }
 impl serde::Serialize for ConsensusStateData {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -625,7 +620,6 @@ impl serde::Serialize for ConsensusStateData {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.ConsensusStateData", len)?;
         if !self.path.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("path", pbjson::private::base64::encode(&self.path).as_str())?;
         }
         if let Some(v) = self.consensus_state.as_ref() {
@@ -636,7 +630,7 @@ impl serde::Serialize for ConsensusStateData {
 }
 impl<'de> serde::Deserialize<'de> for ConsensusStateData {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -652,7 +646,7 @@ impl<'de> serde::Deserialize<'de> for ConsensusStateData {
             ConsensusState,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -661,12 +655,12 @@ impl<'de> serde::Deserialize<'de> for ConsensusStateData {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -684,31 +678,31 @@ impl<'de> serde::Deserialize<'de> for ConsensusStateData {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = ConsensusStateData;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.lightclients.solomachine.v2.ConsensusStateData")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<ConsensusStateData, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<ConsensusStateData, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut path__ = None;
                 let mut consensus_state__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Path => {
                             if path__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("path"));
                             }
                             path__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ConsensusState => {
                             if consensus_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("consensusState"));
                             }
-                            consensus_state__ = map_.next_value()?;
+                            consensus_state__ = map.next_value()?;
                         }
                     }
                 }
@@ -723,7 +717,7 @@ impl<'de> serde::Deserialize<'de> for ConsensusStateData {
 }
 impl serde::Serialize for DataType {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -744,7 +738,7 @@ impl serde::Serialize for DataType {
 }
 impl<'de> serde::Deserialize<'de> for DataType {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -766,35 +760,37 @@ impl<'de> serde::Deserialize<'de> for DataType {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = DataType;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 write!(formatter, "expected one of: {:?}", &FIELDS)
             }
 
-            fn visit_i64<E>(self, v: i64) -> std::result::Result<Self::Value, E>
+            fn visit_i64<E>(self, v: i64) -> core::result::Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
+                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(|x| x.try_into().ok())
+                    .and_then(DataType::from_i32)
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
             }
 
-            fn visit_u64<E>(self, v: u64) -> std::result::Result<Self::Value, E>
+            fn visit_u64<E>(self, v: u64) -> core::result::Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
+                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(|x| x.try_into().ok())
+                    .and_then(DataType::from_i32)
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
             }
 
-            fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+            fn visit_str<E>(self, value: &str) -> core::result::Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
@@ -818,7 +814,7 @@ impl<'de> serde::Deserialize<'de> for DataType {
 }
 impl serde::Serialize for Header {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -841,15 +837,12 @@ impl serde::Serialize for Header {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.Header", len)?;
         if self.sequence != 0 {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("sequence", ToString::to_string(&self.sequence).as_str())?;
+            struct_ser.serialize_field("sequence", ::alloc::string::ToString::to_string(&self.sequence).as_str())?;
         }
         if self.timestamp != 0 {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("timestamp", ToString::to_string(&self.timestamp).as_str())?;
+            struct_ser.serialize_field("timestamp", ::alloc::string::ToString::to_string(&self.timestamp).as_str())?;
         }
         if !self.signature.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("signature", pbjson::private::base64::encode(&self.signature).as_str())?;
         }
         if let Some(v) = self.new_public_key.as_ref() {
@@ -863,7 +856,7 @@ impl serde::Serialize for Header {
 }
 impl<'de> serde::Deserialize<'de> for Header {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -886,7 +879,7 @@ impl<'de> serde::Deserialize<'de> for Header {
             NewDiversifier,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -895,12 +888,12 @@ impl<'de> serde::Deserialize<'de> for Header {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -921,11 +914,11 @@ impl<'de> serde::Deserialize<'de> for Header {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = Header;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.lightclients.solomachine.v2.Header")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<Header, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<Header, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -934,14 +927,14 @@ impl<'de> serde::Deserialize<'de> for Header {
                 let mut signature__ = None;
                 let mut new_public_key__ = None;
                 let mut new_diversifier__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Sequence => {
                             if sequence__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sequence"));
                             }
                             sequence__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Timestamp => {
@@ -949,7 +942,7 @@ impl<'de> serde::Deserialize<'de> for Header {
                                 return Err(serde::de::Error::duplicate_field("timestamp"));
                             }
                             timestamp__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Signature => {
@@ -957,20 +950,20 @@ impl<'de> serde::Deserialize<'de> for Header {
                                 return Err(serde::de::Error::duplicate_field("signature"));
                             }
                             signature__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::NewPublicKey => {
                             if new_public_key__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("newPublicKey"));
                             }
-                            new_public_key__ = map_.next_value()?;
+                            new_public_key__ = map.next_value()?;
                         }
                         GeneratedField::NewDiversifier => {
                             if new_diversifier__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("newDiversifier"));
                             }
-                            new_diversifier__ = Some(map_.next_value()?);
+                            new_diversifier__ = Some(map.next_value()?);
                         }
                     }
                 }
@@ -988,7 +981,7 @@ impl<'de> serde::Deserialize<'de> for Header {
 }
 impl serde::Serialize for HeaderData {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1012,7 +1005,7 @@ impl serde::Serialize for HeaderData {
 }
 impl<'de> serde::Deserialize<'de> for HeaderData {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1029,7 +1022,7 @@ impl<'de> serde::Deserialize<'de> for HeaderData {
             NewDiversifier,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1038,12 +1031,12 @@ impl<'de> serde::Deserialize<'de> for HeaderData {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1061,29 +1054,29 @@ impl<'de> serde::Deserialize<'de> for HeaderData {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = HeaderData;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.lightclients.solomachine.v2.HeaderData")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<HeaderData, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<HeaderData, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut new_pub_key__ = None;
                 let mut new_diversifier__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::NewPubKey => {
                             if new_pub_key__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("newPubKey"));
                             }
-                            new_pub_key__ = map_.next_value()?;
+                            new_pub_key__ = map.next_value()?;
                         }
                         GeneratedField::NewDiversifier => {
                             if new_diversifier__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("newDiversifier"));
                             }
-                            new_diversifier__ = Some(map_.next_value()?);
+                            new_diversifier__ = Some(map.next_value()?);
                         }
                     }
                 }
@@ -1098,7 +1091,7 @@ impl<'de> serde::Deserialize<'de> for HeaderData {
 }
 impl serde::Serialize for Misbehaviour {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1121,8 +1114,7 @@ impl serde::Serialize for Misbehaviour {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
         if self.sequence != 0 {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("sequence", ToString::to_string(&self.sequence).as_str())?;
+            struct_ser.serialize_field("sequence", ::alloc::string::ToString::to_string(&self.sequence).as_str())?;
         }
         if let Some(v) = self.signature_one.as_ref() {
             struct_ser.serialize_field("signatureOne", v)?;
@@ -1135,7 +1127,7 @@ impl serde::Serialize for Misbehaviour {
 }
 impl<'de> serde::Deserialize<'de> for Misbehaviour {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1157,7 +1149,7 @@ impl<'de> serde::Deserialize<'de> for Misbehaviour {
             SignatureTwo,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1166,12 +1158,12 @@ impl<'de> serde::Deserialize<'de> for Misbehaviour {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1191,11 +1183,11 @@ impl<'de> serde::Deserialize<'de> for Misbehaviour {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = Misbehaviour;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.lightclients.solomachine.v2.Misbehaviour")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<Misbehaviour, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<Misbehaviour, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -1203,33 +1195,33 @@ impl<'de> serde::Deserialize<'de> for Misbehaviour {
                 let mut sequence__ = None;
                 let mut signature_one__ = None;
                 let mut signature_two__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::ClientId => {
                             if client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientId"));
                             }
-                            client_id__ = Some(map_.next_value()?);
+                            client_id__ = Some(map.next_value()?);
                         }
                         GeneratedField::Sequence => {
                             if sequence__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sequence"));
                             }
                             sequence__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::SignatureOne => {
                             if signature_one__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signatureOne"));
                             }
-                            signature_one__ = map_.next_value()?;
+                            signature_one__ = map.next_value()?;
                         }
                         GeneratedField::SignatureTwo => {
                             if signature_two__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signatureTwo"));
                             }
-                            signature_two__ = map_.next_value()?;
+                            signature_two__ = map.next_value()?;
                         }
                     }
                 }
@@ -1246,7 +1238,7 @@ impl<'de> serde::Deserialize<'de> for Misbehaviour {
 }
 impl serde::Serialize for NextSequenceRecvData {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1260,19 +1252,17 @@ impl serde::Serialize for NextSequenceRecvData {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.NextSequenceRecvData", len)?;
         if !self.path.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("path", pbjson::private::base64::encode(&self.path).as_str())?;
         }
         if self.next_seq_recv != 0 {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("nextSeqRecv", ToString::to_string(&self.next_seq_recv).as_str())?;
+            struct_ser.serialize_field("nextSeqRecv", ::alloc::string::ToString::to_string(&self.next_seq_recv).as_str())?;
         }
         struct_ser.end()
     }
 }
 impl<'de> serde::Deserialize<'de> for NextSequenceRecvData {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1288,7 +1278,7 @@ impl<'de> serde::Deserialize<'de> for NextSequenceRecvData {
             NextSeqRecv,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1297,12 +1287,12 @@ impl<'de> serde::Deserialize<'de> for NextSequenceRecvData {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1320,24 +1310,24 @@ impl<'de> serde::Deserialize<'de> for NextSequenceRecvData {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = NextSequenceRecvData;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.lightclients.solomachine.v2.NextSequenceRecvData")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<NextSequenceRecvData, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<NextSequenceRecvData, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut path__ = None;
                 let mut next_seq_recv__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Path => {
                             if path__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("path"));
                             }
                             path__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::NextSeqRecv => {
@@ -1345,7 +1335,7 @@ impl<'de> serde::Deserialize<'de> for NextSequenceRecvData {
                                 return Err(serde::de::Error::duplicate_field("nextSeqRecv"));
                             }
                             next_seq_recv__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -1361,7 +1351,7 @@ impl<'de> serde::Deserialize<'de> for NextSequenceRecvData {
 }
 impl serde::Serialize for PacketAcknowledgementData {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1375,11 +1365,9 @@ impl serde::Serialize for PacketAcknowledgementData {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.PacketAcknowledgementData", len)?;
         if !self.path.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("path", pbjson::private::base64::encode(&self.path).as_str())?;
         }
         if !self.acknowledgement.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("acknowledgement", pbjson::private::base64::encode(&self.acknowledgement).as_str())?;
         }
         struct_ser.end()
@@ -1387,7 +1375,7 @@ impl serde::Serialize for PacketAcknowledgementData {
 }
 impl<'de> serde::Deserialize<'de> for PacketAcknowledgementData {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1402,7 +1390,7 @@ impl<'de> serde::Deserialize<'de> for PacketAcknowledgementData {
             Acknowledgement,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1411,12 +1399,12 @@ impl<'de> serde::Deserialize<'de> for PacketAcknowledgementData {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1434,24 +1422,24 @@ impl<'de> serde::Deserialize<'de> for PacketAcknowledgementData {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = PacketAcknowledgementData;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.lightclients.solomachine.v2.PacketAcknowledgementData")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<PacketAcknowledgementData, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<PacketAcknowledgementData, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut path__ = None;
                 let mut acknowledgement__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Path => {
                             if path__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("path"));
                             }
                             path__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Acknowledgement => {
@@ -1459,7 +1447,7 @@ impl<'de> serde::Deserialize<'de> for PacketAcknowledgementData {
                                 return Err(serde::de::Error::duplicate_field("acknowledgement"));
                             }
                             acknowledgement__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -1475,7 +1463,7 @@ impl<'de> serde::Deserialize<'de> for PacketAcknowledgementData {
 }
 impl serde::Serialize for PacketCommitmentData {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1489,11 +1477,9 @@ impl serde::Serialize for PacketCommitmentData {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.PacketCommitmentData", len)?;
         if !self.path.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("path", pbjson::private::base64::encode(&self.path).as_str())?;
         }
         if !self.commitment.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("commitment", pbjson::private::base64::encode(&self.commitment).as_str())?;
         }
         struct_ser.end()
@@ -1501,7 +1487,7 @@ impl serde::Serialize for PacketCommitmentData {
 }
 impl<'de> serde::Deserialize<'de> for PacketCommitmentData {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1516,7 +1502,7 @@ impl<'de> serde::Deserialize<'de> for PacketCommitmentData {
             Commitment,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1525,12 +1511,12 @@ impl<'de> serde::Deserialize<'de> for PacketCommitmentData {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1548,24 +1534,24 @@ impl<'de> serde::Deserialize<'de> for PacketCommitmentData {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = PacketCommitmentData;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.lightclients.solomachine.v2.PacketCommitmentData")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<PacketCommitmentData, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<PacketCommitmentData, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut path__ = None;
                 let mut commitment__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Path => {
                             if path__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("path"));
                             }
                             path__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Commitment => {
@@ -1573,7 +1559,7 @@ impl<'de> serde::Deserialize<'de> for PacketCommitmentData {
                                 return Err(serde::de::Error::duplicate_field("commitment"));
                             }
                             commitment__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -1589,7 +1575,7 @@ impl<'de> serde::Deserialize<'de> for PacketCommitmentData {
 }
 impl serde::Serialize for PacketReceiptAbsenceData {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1600,7 +1586,6 @@ impl serde::Serialize for PacketReceiptAbsenceData {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.PacketReceiptAbsenceData", len)?;
         if !self.path.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("path", pbjson::private::base64::encode(&self.path).as_str())?;
         }
         struct_ser.end()
@@ -1608,7 +1593,7 @@ impl serde::Serialize for PacketReceiptAbsenceData {
 }
 impl<'de> serde::Deserialize<'de> for PacketReceiptAbsenceData {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1621,7 +1606,7 @@ impl<'de> serde::Deserialize<'de> for PacketReceiptAbsenceData {
             Path,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1630,12 +1615,12 @@ impl<'de> serde::Deserialize<'de> for PacketReceiptAbsenceData {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1652,23 +1637,23 @@ impl<'de> serde::Deserialize<'de> for PacketReceiptAbsenceData {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = PacketReceiptAbsenceData;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.lightclients.solomachine.v2.PacketReceiptAbsenceData")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<PacketReceiptAbsenceData, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<PacketReceiptAbsenceData, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut path__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Path => {
                             if path__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("path"));
                             }
                             path__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -1683,7 +1668,7 @@ impl<'de> serde::Deserialize<'de> for PacketReceiptAbsenceData {
 }
 impl serde::Serialize for SignBytes {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1706,23 +1691,20 @@ impl serde::Serialize for SignBytes {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.SignBytes", len)?;
         if self.sequence != 0 {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("sequence", ToString::to_string(&self.sequence).as_str())?;
+            struct_ser.serialize_field("sequence", ::alloc::string::ToString::to_string(&self.sequence).as_str())?;
         }
         if self.timestamp != 0 {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("timestamp", ToString::to_string(&self.timestamp).as_str())?;
+            struct_ser.serialize_field("timestamp", ::alloc::string::ToString::to_string(&self.timestamp).as_str())?;
         }
         if !self.diversifier.is_empty() {
             struct_ser.serialize_field("diversifier", &self.diversifier)?;
         }
         if self.data_type != 0 {
-            let v = DataType::try_from(self.data_type)
-                .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", self.data_type)))?;
+            let v = DataType::from_i32(self.data_type)
+                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.data_type)))?;
             struct_ser.serialize_field("dataType", &v)?;
         }
         if !self.data.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("data", pbjson::private::base64::encode(&self.data).as_str())?;
         }
         struct_ser.end()
@@ -1730,7 +1712,7 @@ impl serde::Serialize for SignBytes {
 }
 impl<'de> serde::Deserialize<'de> for SignBytes {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1752,7 +1734,7 @@ impl<'de> serde::Deserialize<'de> for SignBytes {
             Data,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1761,12 +1743,12 @@ impl<'de> serde::Deserialize<'de> for SignBytes {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1787,11 +1769,11 @@ impl<'de> serde::Deserialize<'de> for SignBytes {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = SignBytes;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.lightclients.solomachine.v2.SignBytes")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<SignBytes, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<SignBytes, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -1800,14 +1782,14 @@ impl<'de> serde::Deserialize<'de> for SignBytes {
                 let mut diversifier__ = None;
                 let mut data_type__ = None;
                 let mut data__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Sequence => {
                             if sequence__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sequence"));
                             }
                             sequence__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Timestamp => {
@@ -1815,27 +1797,27 @@ impl<'de> serde::Deserialize<'de> for SignBytes {
                                 return Err(serde::de::Error::duplicate_field("timestamp"));
                             }
                             timestamp__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Diversifier => {
                             if diversifier__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("diversifier"));
                             }
-                            diversifier__ = Some(map_.next_value()?);
+                            diversifier__ = Some(map.next_value()?);
                         }
                         GeneratedField::DataType => {
                             if data_type__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("dataType"));
                             }
-                            data_type__ = Some(map_.next_value::<DataType>()? as i32);
+                            data_type__ = Some(map.next_value::<DataType>()? as i32);
                         }
                         GeneratedField::Data => {
                             if data__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("data"));
                             }
                             data__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -1854,7 +1836,7 @@ impl<'de> serde::Deserialize<'de> for SignBytes {
 }
 impl serde::Serialize for SignatureAndData {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -1874,28 +1856,25 @@ impl serde::Serialize for SignatureAndData {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.SignatureAndData", len)?;
         if !self.signature.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("signature", pbjson::private::base64::encode(&self.signature).as_str())?;
         }
         if self.data_type != 0 {
-            let v = DataType::try_from(self.data_type)
-                .map_err(|_| serde::ser::Error::custom(format!("Invalid variant {}", self.data_type)))?;
+            let v = DataType::from_i32(self.data_type)
+                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.data_type)))?;
             struct_ser.serialize_field("dataType", &v)?;
         }
         if !self.data.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("data", pbjson::private::base64::encode(&self.data).as_str())?;
         }
         if self.timestamp != 0 {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("timestamp", ToString::to_string(&self.timestamp).as_str())?;
+            struct_ser.serialize_field("timestamp", ::alloc::string::ToString::to_string(&self.timestamp).as_str())?;
         }
         struct_ser.end()
     }
 }
 impl<'de> serde::Deserialize<'de> for SignatureAndData {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -1915,7 +1894,7 @@ impl<'de> serde::Deserialize<'de> for SignatureAndData {
             Timestamp,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -1924,12 +1903,12 @@ impl<'de> serde::Deserialize<'de> for SignatureAndData {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -1949,11 +1928,11 @@ impl<'de> serde::Deserialize<'de> for SignatureAndData {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = SignatureAndData;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.lightclients.solomachine.v2.SignatureAndData")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<SignatureAndData, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<SignatureAndData, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -1961,28 +1940,28 @@ impl<'de> serde::Deserialize<'de> for SignatureAndData {
                 let mut data_type__ = None;
                 let mut data__ = None;
                 let mut timestamp__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Signature => {
                             if signature__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signature"));
                             }
                             signature__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::DataType => {
                             if data_type__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("dataType"));
                             }
-                            data_type__ = Some(map_.next_value::<DataType>()? as i32);
+                            data_type__ = Some(map.next_value::<DataType>()? as i32);
                         }
                         GeneratedField::Data => {
                             if data__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("data"));
                             }
                             data__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Timestamp => {
@@ -1990,7 +1969,7 @@ impl<'de> serde::Deserialize<'de> for SignatureAndData {
                                 return Err(serde::de::Error::duplicate_field("timestamp"));
                             }
                             timestamp__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -2008,7 +1987,7 @@ impl<'de> serde::Deserialize<'de> for SignatureAndData {
 }
 impl serde::Serialize for TimestampedSignatureData {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -2022,19 +2001,17 @@ impl serde::Serialize for TimestampedSignatureData {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.TimestampedSignatureData", len)?;
         if !self.signature_data.is_empty() {
-            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("signatureData", pbjson::private::base64::encode(&self.signature_data).as_str())?;
         }
         if self.timestamp != 0 {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("timestamp", ToString::to_string(&self.timestamp).as_str())?;
+            struct_ser.serialize_field("timestamp", ::alloc::string::ToString::to_string(&self.timestamp).as_str())?;
         }
         struct_ser.end()
     }
 }
 impl<'de> serde::Deserialize<'de> for TimestampedSignatureData {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -2050,7 +2027,7 @@ impl<'de> serde::Deserialize<'de> for TimestampedSignatureData {
             Timestamp,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -2059,12 +2036,12 @@ impl<'de> serde::Deserialize<'de> for TimestampedSignatureData {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -2082,24 +2059,24 @@ impl<'de> serde::Deserialize<'de> for TimestampedSignatureData {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = TimestampedSignatureData;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.lightclients.solomachine.v2.TimestampedSignatureData")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<TimestampedSignatureData, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<TimestampedSignatureData, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut signature_data__ = None;
                 let mut timestamp__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::SignatureData => {
                             if signature_data__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signatureData"));
                             }
                             signature_data__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Timestamp => {
@@ -2107,7 +2084,7 @@ impl<'de> serde::Deserialize<'de> for TimestampedSignatureData {
                                 return Err(serde::de::Error::duplicate_field("timestamp"));
                             }
                             timestamp__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }

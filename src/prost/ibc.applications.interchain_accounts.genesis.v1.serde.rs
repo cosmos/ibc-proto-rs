@@ -1,6 +1,6 @@
 impl serde::Serialize for ActiveChannel {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -36,7 +36,7 @@ impl serde::Serialize for ActiveChannel {
 }
 impl<'de> serde::Deserialize<'de> for ActiveChannel {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -59,7 +59,7 @@ impl<'de> serde::Deserialize<'de> for ActiveChannel {
             IsMiddlewareEnabled,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -68,12 +68,12 @@ impl<'de> serde::Deserialize<'de> for ActiveChannel {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -93,11 +93,11 @@ impl<'de> serde::Deserialize<'de> for ActiveChannel {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = ActiveChannel;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.applications.interchain_accounts.genesis.v1.ActiveChannel")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<ActiveChannel, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<ActiveChannel, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -105,31 +105,31 @@ impl<'de> serde::Deserialize<'de> for ActiveChannel {
                 let mut port_id__ = None;
                 let mut channel_id__ = None;
                 let mut is_middleware_enabled__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::ConnectionId => {
                             if connection_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("connectionId"));
                             }
-                            connection_id__ = Some(map_.next_value()?);
+                            connection_id__ = Some(map.next_value()?);
                         }
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map_.next_value()?);
+                            port_id__ = Some(map.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map_.next_value()?);
+                            channel_id__ = Some(map.next_value()?);
                         }
                         GeneratedField::IsMiddlewareEnabled => {
                             if is_middleware_enabled__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("isMiddlewareEnabled"));
                             }
-                            is_middleware_enabled__ = Some(map_.next_value()?);
+                            is_middleware_enabled__ = Some(map.next_value()?);
                         }
                     }
                 }
@@ -146,7 +146,7 @@ impl<'de> serde::Deserialize<'de> for ActiveChannel {
 }
 impl serde::Serialize for ControllerGenesisState {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -182,7 +182,7 @@ impl serde::Serialize for ControllerGenesisState {
 }
 impl<'de> serde::Deserialize<'de> for ControllerGenesisState {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -203,7 +203,7 @@ impl<'de> serde::Deserialize<'de> for ControllerGenesisState {
             Params,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -212,12 +212,12 @@ impl<'de> serde::Deserialize<'de> for ControllerGenesisState {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -237,11 +237,11 @@ impl<'de> serde::Deserialize<'de> for ControllerGenesisState {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = ControllerGenesisState;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.applications.interchain_accounts.genesis.v1.ControllerGenesisState")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<ControllerGenesisState, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<ControllerGenesisState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -249,31 +249,31 @@ impl<'de> serde::Deserialize<'de> for ControllerGenesisState {
                 let mut interchain_accounts__ = None;
                 let mut ports__ = None;
                 let mut params__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::ActiveChannels => {
                             if active_channels__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("activeChannels"));
                             }
-                            active_channels__ = Some(map_.next_value()?);
+                            active_channels__ = Some(map.next_value()?);
                         }
                         GeneratedField::InterchainAccounts => {
                             if interchain_accounts__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("interchainAccounts"));
                             }
-                            interchain_accounts__ = Some(map_.next_value()?);
+                            interchain_accounts__ = Some(map.next_value()?);
                         }
                         GeneratedField::Ports => {
                             if ports__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("ports"));
                             }
-                            ports__ = Some(map_.next_value()?);
+                            ports__ = Some(map.next_value()?);
                         }
                         GeneratedField::Params => {
                             if params__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("params"));
                             }
-                            params__ = map_.next_value()?;
+                            params__ = map.next_value()?;
                         }
                     }
                 }
@@ -290,7 +290,7 @@ impl<'de> serde::Deserialize<'de> for ControllerGenesisState {
 }
 impl serde::Serialize for GenesisState {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -314,7 +314,7 @@ impl serde::Serialize for GenesisState {
 }
 impl<'de> serde::Deserialize<'de> for GenesisState {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -331,7 +331,7 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
             HostGenesisState,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -340,12 +340,12 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -363,29 +363,29 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = GenesisState;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.applications.interchain_accounts.genesis.v1.GenesisState")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<GenesisState, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<GenesisState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut controller_genesis_state__ = None;
                 let mut host_genesis_state__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::ControllerGenesisState => {
                             if controller_genesis_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("controllerGenesisState"));
                             }
-                            controller_genesis_state__ = map_.next_value()?;
+                            controller_genesis_state__ = map.next_value()?;
                         }
                         GeneratedField::HostGenesisState => {
                             if host_genesis_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("hostGenesisState"));
                             }
-                            host_genesis_state__ = map_.next_value()?;
+                            host_genesis_state__ = map.next_value()?;
                         }
                     }
                 }
@@ -400,7 +400,7 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
 }
 impl serde::Serialize for HostGenesisState {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -436,7 +436,7 @@ impl serde::Serialize for HostGenesisState {
 }
 impl<'de> serde::Deserialize<'de> for HostGenesisState {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -457,7 +457,7 @@ impl<'de> serde::Deserialize<'de> for HostGenesisState {
             Params,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -466,12 +466,12 @@ impl<'de> serde::Deserialize<'de> for HostGenesisState {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -491,11 +491,11 @@ impl<'de> serde::Deserialize<'de> for HostGenesisState {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = HostGenesisState;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.applications.interchain_accounts.genesis.v1.HostGenesisState")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<HostGenesisState, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<HostGenesisState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -503,31 +503,31 @@ impl<'de> serde::Deserialize<'de> for HostGenesisState {
                 let mut interchain_accounts__ = None;
                 let mut port__ = None;
                 let mut params__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::ActiveChannels => {
                             if active_channels__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("activeChannels"));
                             }
-                            active_channels__ = Some(map_.next_value()?);
+                            active_channels__ = Some(map.next_value()?);
                         }
                         GeneratedField::InterchainAccounts => {
                             if interchain_accounts__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("interchainAccounts"));
                             }
-                            interchain_accounts__ = Some(map_.next_value()?);
+                            interchain_accounts__ = Some(map.next_value()?);
                         }
                         GeneratedField::Port => {
                             if port__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("port"));
                             }
-                            port__ = Some(map_.next_value()?);
+                            port__ = Some(map.next_value()?);
                         }
                         GeneratedField::Params => {
                             if params__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("params"));
                             }
-                            params__ = map_.next_value()?;
+                            params__ = map.next_value()?;
                         }
                     }
                 }
@@ -544,7 +544,7 @@ impl<'de> serde::Deserialize<'de> for HostGenesisState {
 }
 impl serde::Serialize for RegisteredInterchainAccount {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -574,7 +574,7 @@ impl serde::Serialize for RegisteredInterchainAccount {
 }
 impl<'de> serde::Deserialize<'de> for RegisteredInterchainAccount {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -594,7 +594,7 @@ impl<'de> serde::Deserialize<'de> for RegisteredInterchainAccount {
             AccountAddress,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -603,12 +603,12 @@ impl<'de> serde::Deserialize<'de> for RegisteredInterchainAccount {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -627,36 +627,36 @@ impl<'de> serde::Deserialize<'de> for RegisteredInterchainAccount {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = RegisteredInterchainAccount;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.applications.interchain_accounts.genesis.v1.RegisteredInterchainAccount")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<RegisteredInterchainAccount, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<RegisteredInterchainAccount, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut connection_id__ = None;
                 let mut port_id__ = None;
                 let mut account_address__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::ConnectionId => {
                             if connection_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("connectionId"));
                             }
-                            connection_id__ = Some(map_.next_value()?);
+                            connection_id__ = Some(map.next_value()?);
                         }
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map_.next_value()?);
+                            port_id__ = Some(map.next_value()?);
                         }
                         GeneratedField::AccountAddress => {
                             if account_address__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("accountAddress"));
                             }
-                            account_address__ = Some(map_.next_value()?);
+                            account_address__ = Some(map.next_value()?);
                         }
                     }
                 }

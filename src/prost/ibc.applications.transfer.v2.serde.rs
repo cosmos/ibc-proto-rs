@@ -1,6 +1,6 @@
 impl serde::Serialize for FungibleTokenPacketData {
     #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
@@ -42,7 +42,7 @@ impl serde::Serialize for FungibleTokenPacketData {
 }
 impl<'de> serde::Deserialize<'de> for FungibleTokenPacketData {
     #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
@@ -63,7 +63,7 @@ impl<'de> serde::Deserialize<'de> for FungibleTokenPacketData {
             Memo,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<GeneratedField, D::Error>
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
@@ -72,12 +72,12 @@ impl<'de> serde::Deserialize<'de> for FungibleTokenPacketData {
                 impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
                     type Value = GeneratedField;
 
-                    fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                         write!(formatter, "expected one of: {:?}", &FIELDS)
                     }
 
                     #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> std::result::Result<GeneratedField, E>
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
                     where
                         E: serde::de::Error,
                     {
@@ -98,11 +98,11 @@ impl<'de> serde::Deserialize<'de> for FungibleTokenPacketData {
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
             type Value = FungibleTokenPacketData;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 formatter.write_str("struct ibc.applications.transfer.v2.FungibleTokenPacketData")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> std::result::Result<FungibleTokenPacketData, V::Error>
+            fn visit_map<V>(self, mut map: V) -> core::result::Result<FungibleTokenPacketData, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -111,37 +111,37 @@ impl<'de> serde::Deserialize<'de> for FungibleTokenPacketData {
                 let mut sender__ = None;
                 let mut receiver__ = None;
                 let mut memo__ = None;
-                while let Some(k) = map_.next_key()? {
+                while let Some(k) = map.next_key()? {
                     match k {
                         GeneratedField::Denom => {
                             if denom__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("denom"));
                             }
-                            denom__ = Some(map_.next_value()?);
+                            denom__ = Some(map.next_value()?);
                         }
                         GeneratedField::Amount => {
                             if amount__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("amount"));
                             }
-                            amount__ = Some(map_.next_value()?);
+                            amount__ = Some(map.next_value()?);
                         }
                         GeneratedField::Sender => {
                             if sender__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sender"));
                             }
-                            sender__ = Some(map_.next_value()?);
+                            sender__ = Some(map.next_value()?);
                         }
                         GeneratedField::Receiver => {
                             if receiver__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("receiver"));
                             }
-                            receiver__ = Some(map_.next_value()?);
+                            receiver__ = Some(map.next_value()?);
                         }
                         GeneratedField::Memo => {
                             if memo__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("memo"));
                             }
-                            memo__ = Some(map_.next_value()?);
+                            memo__ = Some(map.next_value()?);
                         }
                     }
                 }
