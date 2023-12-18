@@ -70,6 +70,10 @@ impl ::prost::Name for ClientConsensusStates {
 /// height continues to be monitonically increasing even as the RevisionHeight
 /// gets reset
 #[derive(Eq, PartialOrd, Ord)]
+#[cfg_attr(
+    all(feature = "json-schema", feature = "serde"),
+    derive(::schemars::JsonSchema)
+)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Height {
