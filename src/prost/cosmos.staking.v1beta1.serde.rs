@@ -164,10 +164,10 @@ impl serde::Serialize for Commission {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.commission_rates.is_some() {
+        if true {
             len += 1;
         }
-        if self.update_time.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.Commission", len)?;
@@ -274,23 +274,23 @@ impl serde::Serialize for CommissionRates {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.rate.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.max_rate.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.max_change_rate.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.CommissionRates", len)?;
-        if !self.rate.is_empty() {
+        if true {
             struct_ser.serialize_field("rate", &self.rate)?;
         }
-        if !self.max_rate.is_empty() {
+        if true {
             struct_ser.serialize_field("maxRate", &self.max_rate)?;
         }
-        if !self.max_change_rate.is_empty() {
+        if true {
             struct_ser.serialize_field("maxChangeRate", &self.max_change_rate)?;
         }
         struct_ser.end()
@@ -401,17 +401,17 @@ impl serde::Serialize for DvPair {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.delegator_address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.validator_address.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.DVPair", len)?;
-        if !self.delegator_address.is_empty() {
+        if true {
             struct_ser.serialize_field("delegatorAddress", &self.delegator_address)?;
         }
-        if !self.validator_address.is_empty() {
+        if true {
             struct_ser.serialize_field("validatorAddress", &self.validator_address)?;
         }
         struct_ser.end()
@@ -511,11 +511,11 @@ impl serde::Serialize for DvPairs {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.pairs.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.DVPairs", len)?;
-        if !self.pairs.is_empty() {
+        if true {
             struct_ser.serialize_field("pairs", &self.pairs)?;
         }
         struct_ser.end()
@@ -602,23 +602,23 @@ impl serde::Serialize for DvvTriplet {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.delegator_address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.validator_src_address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.validator_dst_address.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.DVVTriplet", len)?;
-        if !self.delegator_address.is_empty() {
+        if true {
             struct_ser.serialize_field("delegatorAddress", &self.delegator_address)?;
         }
-        if !self.validator_src_address.is_empty() {
+        if true {
             struct_ser.serialize_field("validatorSrcAddress", &self.validator_src_address)?;
         }
-        if !self.validator_dst_address.is_empty() {
+        if true {
             struct_ser.serialize_field("validatorDstAddress", &self.validator_dst_address)?;
         }
         struct_ser.end()
@@ -730,11 +730,11 @@ impl serde::Serialize for DvvTriplets {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.triplets.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.DVVTriplets", len)?;
-        if !self.triplets.is_empty() {
+        if true {
             struct_ser.serialize_field("triplets", &self.triplets)?;
         }
         struct_ser.end()
@@ -821,23 +821,23 @@ impl serde::Serialize for Delegation {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.delegator_address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.validator_address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.shares.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.Delegation", len)?;
-        if !self.delegator_address.is_empty() {
+        if true {
             struct_ser.serialize_field("delegatorAddress", &self.delegator_address)?;
         }
-        if !self.validator_address.is_empty() {
+        if true {
             struct_ser.serialize_field("validatorAddress", &self.validator_address)?;
         }
-        if !self.shares.is_empty() {
+        if true {
             struct_ser.serialize_field("shares", &self.shares)?;
         }
         struct_ser.end()
@@ -948,10 +948,10 @@ impl serde::Serialize for DelegationResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.delegation.is_some() {
+        if true {
             len += 1;
         }
-        if self.balance.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.DelegationResponse", len)?;
@@ -1056,35 +1056,35 @@ impl serde::Serialize for Description {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.moniker.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.identity.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.website.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.security_contact.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.details.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.Description", len)?;
-        if !self.moniker.is_empty() {
+        if true {
             struct_ser.serialize_field("moniker", &self.moniker)?;
         }
-        if !self.identity.is_empty() {
+        if true {
             struct_ser.serialize_field("identity", &self.identity)?;
         }
-        if !self.website.is_empty() {
+        if true {
             struct_ser.serialize_field("website", &self.website)?;
         }
-        if !self.security_contact.is_empty() {
+        if true {
             struct_ser.serialize_field("securityContact", &self.security_contact)?;
         }
-        if !self.details.is_empty() {
+        if true {
             struct_ser.serialize_field("details", &self.details)?;
         }
         struct_ser.end()
@@ -1216,53 +1216,53 @@ impl serde::Serialize for GenesisState {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.params.is_some() {
+        if true {
             len += 1;
         }
-        if !self.last_total_power.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.last_validator_powers.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.validators.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.delegations.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.unbonding_delegations.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.redelegations.is_empty() {
+        if true {
             len += 1;
         }
-        if self.exported {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.GenesisState", len)?;
         if let Some(v) = self.params.as_ref() {
             struct_ser.serialize_field("params", v)?;
         }
-        if !self.last_total_power.is_empty() {
+        if true {
             struct_ser.serialize_field("lastTotalPower", pbjson::private::base64::encode(&self.last_total_power).as_str())?;
         }
-        if !self.last_validator_powers.is_empty() {
+        if true {
             struct_ser.serialize_field("lastValidatorPowers", &self.last_validator_powers)?;
         }
-        if !self.validators.is_empty() {
+        if true {
             struct_ser.serialize_field("validators", &self.validators)?;
         }
-        if !self.delegations.is_empty() {
+        if true {
             struct_ser.serialize_field("delegations", &self.delegations)?;
         }
-        if !self.unbonding_delegations.is_empty() {
+        if true {
             struct_ser.serialize_field("unbondingDelegations", &self.unbonding_delegations)?;
         }
-        if !self.redelegations.is_empty() {
+        if true {
             struct_ser.serialize_field("redelegations", &self.redelegations)?;
         }
-        if self.exported {
+        if true {
             struct_ser.serialize_field("exported", &self.exported)?;
         }
         struct_ser.end()
@@ -1431,17 +1431,17 @@ impl serde::Serialize for HistoricalInfo {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.header.is_some() {
+        if true {
             len += 1;
         }
-        if !self.valset.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.HistoricalInfo", len)?;
         if let Some(v) = self.header.as_ref() {
             struct_ser.serialize_field("header", v)?;
         }
-        if !self.valset.is_empty() {
+        if true {
             struct_ser.serialize_field("valset", &self.valset)?;
         }
         struct_ser.end()
@@ -1691,17 +1691,17 @@ impl serde::Serialize for LastValidatorPower {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.address.is_empty() {
+        if true {
             len += 1;
         }
-        if self.power != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.LastValidatorPower", len)?;
-        if !self.address.is_empty() {
+        if true {
             struct_ser.serialize_field("address", &self.address)?;
         }
-        if self.power != 0 {
+        if true {
             struct_ser.serialize_field("power", ::alloc::string::ToString::to_string(&self.power).as_str())?;
         }
         struct_ser.end()
@@ -1801,26 +1801,26 @@ impl serde::Serialize for MsgBeginRedelegate {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.delegator_address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.validator_src_address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.validator_dst_address.is_empty() {
+        if true {
             len += 1;
         }
-        if self.amount.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.MsgBeginRedelegate", len)?;
-        if !self.delegator_address.is_empty() {
+        if true {
             struct_ser.serialize_field("delegatorAddress", &self.delegator_address)?;
         }
-        if !self.validator_src_address.is_empty() {
+        if true {
             struct_ser.serialize_field("validatorSrcAddress", &self.validator_src_address)?;
         }
-        if !self.validator_dst_address.is_empty() {
+        if true {
             struct_ser.serialize_field("validatorDstAddress", &self.validator_dst_address)?;
         }
         if let Some(v) = self.amount.as_ref() {
@@ -1946,7 +1946,7 @@ impl serde::Serialize for MsgBeginRedelegateResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.completion_time.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.MsgBeginRedelegateResponse", len)?;
@@ -2038,29 +2038,29 @@ impl serde::Serialize for MsgCancelUnbondingDelegation {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.delegator_address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.validator_address.is_empty() {
+        if true {
             len += 1;
         }
-        if self.amount.is_some() {
+        if true {
             len += 1;
         }
-        if self.creation_height != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.MsgCancelUnbondingDelegation", len)?;
-        if !self.delegator_address.is_empty() {
+        if true {
             struct_ser.serialize_field("delegatorAddress", &self.delegator_address)?;
         }
-        if !self.validator_address.is_empty() {
+        if true {
             struct_ser.serialize_field("validatorAddress", &self.validator_address)?;
         }
         if let Some(v) = self.amount.as_ref() {
             struct_ser.serialize_field("amount", v)?;
         }
-        if self.creation_height != 0 {
+        if true {
             struct_ser.serialize_field("creationHeight", ::alloc::string::ToString::to_string(&self.creation_height).as_str())?;
         }
         struct_ser.end()
@@ -2256,25 +2256,25 @@ impl serde::Serialize for MsgCreateValidator {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.description.is_some() {
+        if true {
             len += 1;
         }
-        if self.commission.is_some() {
+        if true {
             len += 1;
         }
-        if !self.min_self_delegation.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.delegator_address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.validator_address.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pubkey.is_some() {
+        if true {
             len += 1;
         }
-        if self.value.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.MsgCreateValidator", len)?;
@@ -2284,13 +2284,13 @@ impl serde::Serialize for MsgCreateValidator {
         if let Some(v) = self.commission.as_ref() {
             struct_ser.serialize_field("commission", v)?;
         }
-        if !self.min_self_delegation.is_empty() {
+        if true {
             struct_ser.serialize_field("minSelfDelegation", &self.min_self_delegation)?;
         }
-        if !self.delegator_address.is_empty() {
+        if true {
             struct_ser.serialize_field("delegatorAddress", &self.delegator_address)?;
         }
-        if !self.validator_address.is_empty() {
+        if true {
             struct_ser.serialize_field("validatorAddress", &self.validator_address)?;
         }
         if let Some(v) = self.pubkey.as_ref() {
@@ -2523,20 +2523,20 @@ impl serde::Serialize for MsgDelegate {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.delegator_address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.validator_address.is_empty() {
+        if true {
             len += 1;
         }
-        if self.amount.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.MsgDelegate", len)?;
-        if !self.delegator_address.is_empty() {
+        if true {
             struct_ser.serialize_field("delegatorAddress", &self.delegator_address)?;
         }
-        if !self.validator_address.is_empty() {
+        if true {
             struct_ser.serialize_field("validatorAddress", &self.validator_address)?;
         }
         if let Some(v) = self.amount.as_ref() {
@@ -2721,29 +2721,29 @@ impl serde::Serialize for MsgEditValidator {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.description.is_some() {
+        if true {
             len += 1;
         }
-        if !self.validator_address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.commission_rate.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.min_self_delegation.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.MsgEditValidator", len)?;
         if let Some(v) = self.description.as_ref() {
             struct_ser.serialize_field("description", v)?;
         }
-        if !self.validator_address.is_empty() {
+        if true {
             struct_ser.serialize_field("validatorAddress", &self.validator_address)?;
         }
-        if !self.commission_rate.is_empty() {
+        if true {
             struct_ser.serialize_field("commissionRate", &self.commission_rate)?;
         }
-        if !self.min_self_delegation.is_empty() {
+        if true {
             struct_ser.serialize_field("minSelfDelegation", &self.min_self_delegation)?;
         }
         struct_ser.end()
@@ -2937,20 +2937,20 @@ impl serde::Serialize for MsgUndelegate {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.delegator_address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.validator_address.is_empty() {
+        if true {
             len += 1;
         }
-        if self.amount.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.MsgUndelegate", len)?;
-        if !self.delegator_address.is_empty() {
+        if true {
             struct_ser.serialize_field("delegatorAddress", &self.delegator_address)?;
         }
-        if !self.validator_address.is_empty() {
+        if true {
             struct_ser.serialize_field("validatorAddress", &self.validator_address)?;
         }
         if let Some(v) = self.amount.as_ref() {
@@ -3064,7 +3064,7 @@ impl serde::Serialize for MsgUndelegateResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.completion_time.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.MsgUndelegateResponse", len)?;
@@ -3156,14 +3156,14 @@ impl serde::Serialize for MsgUpdateParams {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.authority.is_empty() {
+        if true {
             len += 1;
         }
-        if self.params.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.MsgUpdateParams", len)?;
-        if !self.authority.is_empty() {
+        if true {
             struct_ser.serialize_field("authority", &self.authority)?;
         }
         if let Some(v) = self.params.as_ref() {
@@ -3335,41 +3335,41 @@ impl serde::Serialize for Params {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.unbonding_time.is_some() {
+        if true {
             len += 1;
         }
-        if self.max_validators != 0 {
+        if true {
             len += 1;
         }
-        if self.max_entries != 0 {
+        if true {
             len += 1;
         }
-        if self.historical_entries != 0 {
+        if true {
             len += 1;
         }
-        if !self.bond_denom.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.min_commission_rate.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.Params", len)?;
         if let Some(v) = self.unbonding_time.as_ref() {
             struct_ser.serialize_field("unbondingTime", v)?;
         }
-        if self.max_validators != 0 {
+        if true {
             struct_ser.serialize_field("maxValidators", &self.max_validators)?;
         }
-        if self.max_entries != 0 {
+        if true {
             struct_ser.serialize_field("maxEntries", &self.max_entries)?;
         }
-        if self.historical_entries != 0 {
+        if true {
             struct_ser.serialize_field("historicalEntries", &self.historical_entries)?;
         }
-        if !self.bond_denom.is_empty() {
+        if true {
             struct_ser.serialize_field("bondDenom", &self.bond_denom)?;
         }
-        if !self.min_commission_rate.is_empty() {
+        if true {
             struct_ser.serialize_field("minCommissionRate", &self.min_commission_rate)?;
         }
         struct_ser.end()
@@ -3523,17 +3523,17 @@ impl serde::Serialize for Pool {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.not_bonded_tokens.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.bonded_tokens.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.Pool", len)?;
-        if !self.not_bonded_tokens.is_empty() {
+        if true {
             struct_ser.serialize_field("notBondedTokens", &self.not_bonded_tokens)?;
         }
-        if !self.bonded_tokens.is_empty() {
+        if true {
             struct_ser.serialize_field("bondedTokens", &self.bonded_tokens)?;
         }
         struct_ser.end()
@@ -3633,17 +3633,17 @@ impl serde::Serialize for QueryDelegationRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.delegator_addr.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.validator_addr.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryDelegationRequest", len)?;
-        if !self.delegator_addr.is_empty() {
+        if true {
             struct_ser.serialize_field("delegatorAddr", &self.delegator_addr)?;
         }
-        if !self.validator_addr.is_empty() {
+        if true {
             struct_ser.serialize_field("validatorAddr", &self.validator_addr)?;
         }
         struct_ser.end()
@@ -3743,7 +3743,7 @@ impl serde::Serialize for QueryDelegationResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.delegation_response.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryDelegationResponse", len)?;
@@ -3835,14 +3835,14 @@ impl serde::Serialize for QueryDelegatorDelegationsRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.delegator_addr.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryDelegatorDelegationsRequest", len)?;
-        if !self.delegator_addr.is_empty() {
+        if true {
             struct_ser.serialize_field("delegatorAddr", &self.delegator_addr)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -3944,14 +3944,14 @@ impl serde::Serialize for QueryDelegatorDelegationsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.delegation_responses.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryDelegatorDelegationsResponse", len)?;
-        if !self.delegation_responses.is_empty() {
+        if true {
             struct_ser.serialize_field("delegationResponses", &self.delegation_responses)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -4053,14 +4053,14 @@ impl serde::Serialize for QueryDelegatorUnbondingDelegationsRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.delegator_addr.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryDelegatorUnbondingDelegationsRequest", len)?;
-        if !self.delegator_addr.is_empty() {
+        if true {
             struct_ser.serialize_field("delegatorAddr", &self.delegator_addr)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -4162,14 +4162,14 @@ impl serde::Serialize for QueryDelegatorUnbondingDelegationsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.unbonding_responses.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryDelegatorUnbondingDelegationsResponse", len)?;
-        if !self.unbonding_responses.is_empty() {
+        if true {
             struct_ser.serialize_field("unbondingResponses", &self.unbonding_responses)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -4271,17 +4271,17 @@ impl serde::Serialize for QueryDelegatorValidatorRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.delegator_addr.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.validator_addr.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryDelegatorValidatorRequest", len)?;
-        if !self.delegator_addr.is_empty() {
+        if true {
             struct_ser.serialize_field("delegatorAddr", &self.delegator_addr)?;
         }
-        if !self.validator_addr.is_empty() {
+        if true {
             struct_ser.serialize_field("validatorAddr", &self.validator_addr)?;
         }
         struct_ser.end()
@@ -4381,7 +4381,7 @@ impl serde::Serialize for QueryDelegatorValidatorResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.validator.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryDelegatorValidatorResponse", len)?;
@@ -4472,14 +4472,14 @@ impl serde::Serialize for QueryDelegatorValidatorsRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.delegator_addr.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryDelegatorValidatorsRequest", len)?;
-        if !self.delegator_addr.is_empty() {
+        if true {
             struct_ser.serialize_field("delegatorAddr", &self.delegator_addr)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -4581,14 +4581,14 @@ impl serde::Serialize for QueryDelegatorValidatorsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.validators.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryDelegatorValidatorsResponse", len)?;
-        if !self.validators.is_empty() {
+        if true {
             struct_ser.serialize_field("validators", &self.validators)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -4689,11 +4689,11 @@ impl serde::Serialize for QueryHistoricalInfoRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.height != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryHistoricalInfoRequest", len)?;
-        if self.height != 0 {
+        if true {
             struct_ser.serialize_field("height", ::alloc::string::ToString::to_string(&self.height).as_str())?;
         }
         struct_ser.end()
@@ -4782,7 +4782,7 @@ impl serde::Serialize for QueryHistoricalInfoResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.hist.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryHistoricalInfoResponse", len)?;
@@ -4944,7 +4944,7 @@ impl serde::Serialize for QueryParamsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.params.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryParamsResponse", len)?;
@@ -5106,7 +5106,7 @@ impl serde::Serialize for QueryPoolResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.pool.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryPoolResponse", len)?;
@@ -5197,26 +5197,26 @@ impl serde::Serialize for QueryRedelegationsRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.delegator_addr.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.src_validator_addr.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.dst_validator_addr.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryRedelegationsRequest", len)?;
-        if !self.delegator_addr.is_empty() {
+        if true {
             struct_ser.serialize_field("delegatorAddr", &self.delegator_addr)?;
         }
-        if !self.src_validator_addr.is_empty() {
+        if true {
             struct_ser.serialize_field("srcValidatorAddr", &self.src_validator_addr)?;
         }
-        if !self.dst_validator_addr.is_empty() {
+        if true {
             struct_ser.serialize_field("dstValidatorAddr", &self.dst_validator_addr)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -5342,14 +5342,14 @@ impl serde::Serialize for QueryRedelegationsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.redelegation_responses.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryRedelegationsResponse", len)?;
-        if !self.redelegation_responses.is_empty() {
+        if true {
             struct_ser.serialize_field("redelegationResponses", &self.redelegation_responses)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -5451,17 +5451,17 @@ impl serde::Serialize for QueryUnbondingDelegationRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.delegator_addr.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.validator_addr.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryUnbondingDelegationRequest", len)?;
-        if !self.delegator_addr.is_empty() {
+        if true {
             struct_ser.serialize_field("delegatorAddr", &self.delegator_addr)?;
         }
-        if !self.validator_addr.is_empty() {
+        if true {
             struct_ser.serialize_field("validatorAddr", &self.validator_addr)?;
         }
         struct_ser.end()
@@ -5561,7 +5561,7 @@ impl serde::Serialize for QueryUnbondingDelegationResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.unbond.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryUnbondingDelegationResponse", len)?;
@@ -5652,14 +5652,14 @@ impl serde::Serialize for QueryValidatorDelegationsRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.validator_addr.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryValidatorDelegationsRequest", len)?;
-        if !self.validator_addr.is_empty() {
+        if true {
             struct_ser.serialize_field("validatorAddr", &self.validator_addr)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -5761,14 +5761,14 @@ impl serde::Serialize for QueryValidatorDelegationsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.delegation_responses.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryValidatorDelegationsResponse", len)?;
-        if !self.delegation_responses.is_empty() {
+        if true {
             struct_ser.serialize_field("delegationResponses", &self.delegation_responses)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -5870,11 +5870,11 @@ impl serde::Serialize for QueryValidatorRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.validator_addr.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryValidatorRequest", len)?;
-        if !self.validator_addr.is_empty() {
+        if true {
             struct_ser.serialize_field("validatorAddr", &self.validator_addr)?;
         }
         struct_ser.end()
@@ -5962,7 +5962,7 @@ impl serde::Serialize for QueryValidatorResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.validator.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryValidatorResponse", len)?;
@@ -6053,14 +6053,14 @@ impl serde::Serialize for QueryValidatorUnbondingDelegationsRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.validator_addr.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryValidatorUnbondingDelegationsRequest", len)?;
-        if !self.validator_addr.is_empty() {
+        if true {
             struct_ser.serialize_field("validatorAddr", &self.validator_addr)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -6162,14 +6162,14 @@ impl serde::Serialize for QueryValidatorUnbondingDelegationsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.unbonding_responses.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryValidatorUnbondingDelegationsResponse", len)?;
-        if !self.unbonding_responses.is_empty() {
+        if true {
             struct_ser.serialize_field("unbondingResponses", &self.unbonding_responses)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -6271,14 +6271,14 @@ impl serde::Serialize for QueryValidatorsRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.status.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryValidatorsRequest", len)?;
-        if !self.status.is_empty() {
+        if true {
             struct_ser.serialize_field("status", &self.status)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -6379,14 +6379,14 @@ impl serde::Serialize for QueryValidatorsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.validators.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.QueryValidatorsResponse", len)?;
-        if !self.validators.is_empty() {
+        if true {
             struct_ser.serialize_field("validators", &self.validators)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -6487,29 +6487,29 @@ impl serde::Serialize for Redelegation {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.delegator_address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.validator_src_address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.validator_dst_address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.entries.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.Redelegation", len)?;
-        if !self.delegator_address.is_empty() {
+        if true {
             struct_ser.serialize_field("delegatorAddress", &self.delegator_address)?;
         }
-        if !self.validator_src_address.is_empty() {
+        if true {
             struct_ser.serialize_field("validatorSrcAddress", &self.validator_src_address)?;
         }
-        if !self.validator_dst_address.is_empty() {
+        if true {
             struct_ser.serialize_field("validatorDstAddress", &self.validator_dst_address)?;
         }
-        if !self.entries.is_empty() {
+        if true {
             struct_ser.serialize_field("entries", &self.entries)?;
         }
         struct_ser.end()
@@ -6632,41 +6632,41 @@ impl serde::Serialize for RedelegationEntry {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.creation_height != 0 {
+        if true {
             len += 1;
         }
-        if self.completion_time.is_some() {
+        if true {
             len += 1;
         }
-        if !self.initial_balance.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.shares_dst.is_empty() {
+        if true {
             len += 1;
         }
-        if self.unbonding_id != 0 {
+        if true {
             len += 1;
         }
-        if self.unbonding_on_hold_ref_count != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.RedelegationEntry", len)?;
-        if self.creation_height != 0 {
+        if true {
             struct_ser.serialize_field("creationHeight", ::alloc::string::ToString::to_string(&self.creation_height).as_str())?;
         }
         if let Some(v) = self.completion_time.as_ref() {
             struct_ser.serialize_field("completionTime", v)?;
         }
-        if !self.initial_balance.is_empty() {
+        if true {
             struct_ser.serialize_field("initialBalance", &self.initial_balance)?;
         }
-        if !self.shares_dst.is_empty() {
+        if true {
             struct_ser.serialize_field("sharesDst", &self.shares_dst)?;
         }
-        if self.unbonding_id != 0 {
+        if true {
             struct_ser.serialize_field("unbondingId", ::alloc::string::ToString::to_string(&self.unbonding_id).as_str())?;
         }
-        if self.unbonding_on_hold_ref_count != 0 {
+        if true {
             struct_ser.serialize_field("unbondingOnHoldRefCount", ::alloc::string::ToString::to_string(&self.unbonding_on_hold_ref_count).as_str())?;
         }
         struct_ser.end()
@@ -6820,17 +6820,17 @@ impl serde::Serialize for RedelegationEntryResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.redelegation_entry.is_some() {
+        if true {
             len += 1;
         }
-        if !self.balance.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.RedelegationEntryResponse", len)?;
         if let Some(v) = self.redelegation_entry.as_ref() {
             struct_ser.serialize_field("redelegationEntry", v)?;
         }
-        if !self.balance.is_empty() {
+        if true {
             struct_ser.serialize_field("balance", &self.balance)?;
         }
         struct_ser.end()
@@ -6929,17 +6929,17 @@ impl serde::Serialize for RedelegationResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.redelegation.is_some() {
+        if true {
             len += 1;
         }
-        if !self.entries.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.RedelegationResponse", len)?;
         if let Some(v) = self.redelegation.as_ref() {
             struct_ser.serialize_field("redelegation", v)?;
         }
-        if !self.entries.is_empty() {
+        if true {
             struct_ser.serialize_field("entries", &self.entries)?;
         }
         struct_ser.end()
@@ -7037,23 +7037,23 @@ impl serde::Serialize for UnbondingDelegation {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.delegator_address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.validator_address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.entries.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.UnbondingDelegation", len)?;
-        if !self.delegator_address.is_empty() {
+        if true {
             struct_ser.serialize_field("delegatorAddress", &self.delegator_address)?;
         }
-        if !self.validator_address.is_empty() {
+        if true {
             struct_ser.serialize_field("validatorAddress", &self.validator_address)?;
         }
-        if !self.entries.is_empty() {
+        if true {
             struct_ser.serialize_field("entries", &self.entries)?;
         }
         struct_ser.end()
@@ -7164,41 +7164,41 @@ impl serde::Serialize for UnbondingDelegationEntry {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.creation_height != 0 {
+        if true {
             len += 1;
         }
-        if self.completion_time.is_some() {
+        if true {
             len += 1;
         }
-        if !self.initial_balance.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.balance.is_empty() {
+        if true {
             len += 1;
         }
-        if self.unbonding_id != 0 {
+        if true {
             len += 1;
         }
-        if self.unbonding_on_hold_ref_count != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.UnbondingDelegationEntry", len)?;
-        if self.creation_height != 0 {
+        if true {
             struct_ser.serialize_field("creationHeight", ::alloc::string::ToString::to_string(&self.creation_height).as_str())?;
         }
         if let Some(v) = self.completion_time.as_ref() {
             struct_ser.serialize_field("completionTime", v)?;
         }
-        if !self.initial_balance.is_empty() {
+        if true {
             struct_ser.serialize_field("initialBalance", &self.initial_balance)?;
         }
-        if !self.balance.is_empty() {
+        if true {
             struct_ser.serialize_field("balance", &self.balance)?;
         }
-        if self.unbonding_id != 0 {
+        if true {
             struct_ser.serialize_field("unbondingId", ::alloc::string::ToString::to_string(&self.unbonding_id).as_str())?;
         }
-        if self.unbonding_on_hold_ref_count != 0 {
+        if true {
             struct_ser.serialize_field("unbondingOnHoldRefCount", ::alloc::string::ToString::to_string(&self.unbonding_on_hold_ref_count).as_str())?;
         }
         struct_ser.end()
@@ -7351,11 +7351,11 @@ impl serde::Serialize for ValAddresses {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.addresses.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.ValAddresses", len)?;
-        if !self.addresses.is_empty() {
+        if true {
             struct_ser.serialize_field("addresses", &self.addresses)?;
         }
         struct_ser.end()
@@ -7442,70 +7442,70 @@ impl serde::Serialize for Validator {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.operator_address.is_empty() {
+        if true {
             len += 1;
         }
-        if self.consensus_pubkey.is_some() {
+        if true {
             len += 1;
         }
-        if self.jailed {
+        if true {
             len += 1;
         }
-        if self.status != 0 {
+        if true {
             len += 1;
         }
-        if !self.tokens.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.delegator_shares.is_empty() {
+        if true {
             len += 1;
         }
-        if self.description.is_some() {
+        if true {
             len += 1;
         }
-        if self.unbonding_height != 0 {
+        if true {
             len += 1;
         }
-        if self.unbonding_time.is_some() {
+        if true {
             len += 1;
         }
-        if self.commission.is_some() {
+        if true {
             len += 1;
         }
-        if !self.min_self_delegation.is_empty() {
+        if true {
             len += 1;
         }
-        if self.unbonding_on_hold_ref_count != 0 {
+        if true {
             len += 1;
         }
-        if !self.unbonding_ids.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.Validator", len)?;
-        if !self.operator_address.is_empty() {
+        if true {
             struct_ser.serialize_field("operatorAddress", &self.operator_address)?;
         }
         if let Some(v) = self.consensus_pubkey.as_ref() {
             struct_ser.serialize_field("consensusPubkey", v)?;
         }
-        if self.jailed {
+        if true {
             struct_ser.serialize_field("jailed", &self.jailed)?;
         }
-        if self.status != 0 {
+        if true {
             let v = BondStatus::from_i32(self.status)
                 .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.status)))?;
             struct_ser.serialize_field("status", &v)?;
         }
-        if !self.tokens.is_empty() {
+        if true {
             struct_ser.serialize_field("tokens", &self.tokens)?;
         }
-        if !self.delegator_shares.is_empty() {
+        if true {
             struct_ser.serialize_field("delegatorShares", &self.delegator_shares)?;
         }
         if let Some(v) = self.description.as_ref() {
             struct_ser.serialize_field("description", v)?;
         }
-        if self.unbonding_height != 0 {
+        if true {
             struct_ser.serialize_field("unbondingHeight", ::alloc::string::ToString::to_string(&self.unbonding_height).as_str())?;
         }
         if let Some(v) = self.unbonding_time.as_ref() {
@@ -7514,13 +7514,13 @@ impl serde::Serialize for Validator {
         if let Some(v) = self.commission.as_ref() {
             struct_ser.serialize_field("commission", v)?;
         }
-        if !self.min_self_delegation.is_empty() {
+        if true {
             struct_ser.serialize_field("minSelfDelegation", &self.min_self_delegation)?;
         }
-        if self.unbonding_on_hold_ref_count != 0 {
+        if true {
             struct_ser.serialize_field("unbondingOnHoldRefCount", ::alloc::string::ToString::to_string(&self.unbonding_on_hold_ref_count).as_str())?;
         }
-        if !self.unbonding_ids.is_empty() {
+        if true {
             struct_ser.serialize_field("unbondingIds", &self.unbonding_ids.iter().map(::alloc::string::ToString::to_string).collect::<::alloc::vec::Vec<_>>())?;
         }
         struct_ser.end()

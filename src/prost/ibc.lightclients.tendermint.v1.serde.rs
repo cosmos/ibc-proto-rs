@@ -6,41 +6,41 @@ impl serde::Serialize for ClientState {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.chain_id.is_empty() {
+        if true {
             len += 1;
         }
-        if self.trust_level.is_some() {
+        if true {
             len += 1;
         }
-        if self.trusting_period.is_some() {
+        if true {
             len += 1;
         }
-        if self.unbonding_period.is_some() {
+        if true {
             len += 1;
         }
-        if self.max_clock_drift.is_some() {
+        if true {
             len += 1;
         }
-        if self.frozen_height.is_some() {
+        if true {
             len += 1;
         }
-        if self.latest_height.is_some() {
+        if true {
             len += 1;
         }
-        if !self.proof_specs.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.upgrade_path.is_empty() {
+        if true {
             len += 1;
         }
-        if self.allow_update_after_expiry {
+        if true {
             len += 1;
         }
-        if self.allow_update_after_misbehaviour {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.tendermint.v1.ClientState", len)?;
-        if !self.chain_id.is_empty() {
+        if true {
             struct_ser.serialize_field("chainId", &self.chain_id)?;
         }
         if let Some(v) = self.trust_level.as_ref() {
@@ -61,16 +61,16 @@ impl serde::Serialize for ClientState {
         if let Some(v) = self.latest_height.as_ref() {
             struct_ser.serialize_field("latestHeight", v)?;
         }
-        if !self.proof_specs.is_empty() {
+        if true {
             struct_ser.serialize_field("proofSpecs", &self.proof_specs)?;
         }
-        if !self.upgrade_path.is_empty() {
+        if true {
             struct_ser.serialize_field("upgradePath", &self.upgrade_path)?;
         }
-        if self.allow_update_after_expiry {
+        if true {
             struct_ser.serialize_field("allowUpdateAfterExpiry", &self.allow_update_after_expiry)?;
         }
-        if self.allow_update_after_misbehaviour {
+        if true {
             struct_ser.serialize_field("allowUpdateAfterMisbehaviour", &self.allow_update_after_misbehaviour)?;
         }
         struct_ser.end()
@@ -278,13 +278,13 @@ impl serde::Serialize for ConsensusState {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.timestamp.is_some() {
+        if true {
             len += 1;
         }
-        if self.root.is_some() {
+        if true {
             len += 1;
         }
-        if !self.next_validators_hash.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.tendermint.v1.ConsensusState", len)?;
@@ -294,7 +294,7 @@ impl serde::Serialize for ConsensusState {
         if let Some(v) = self.root.as_ref() {
             struct_ser.serialize_field("root", v)?;
         }
-        if !self.next_validators_hash.is_empty() {
+        if true {
             struct_ser.serialize_field("nextValidatorsHash", pbjson::private::base64::encode(&self.next_validators_hash).as_str())?;
         }
         struct_ser.end()
@@ -406,17 +406,17 @@ impl serde::Serialize for Fraction {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.numerator != 0 {
+        if true {
             len += 1;
         }
-        if self.denominator != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.tendermint.v1.Fraction", len)?;
-        if self.numerator != 0 {
+        if true {
             struct_ser.serialize_field("numerator", ::alloc::string::ToString::to_string(&self.numerator).as_str())?;
         }
-        if self.denominator != 0 {
+        if true {
             struct_ser.serialize_field("denominator", ::alloc::string::ToString::to_string(&self.denominator).as_str())?;
         }
         struct_ser.end()
@@ -518,16 +518,16 @@ impl serde::Serialize for Header {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.signed_header.is_some() {
+        if true {
             len += 1;
         }
-        if self.validator_set.is_some() {
+        if true {
             len += 1;
         }
-        if self.trusted_height.is_some() {
+        if true {
             len += 1;
         }
-        if self.trusted_validators.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.tendermint.v1.Header", len)?;
@@ -664,17 +664,17 @@ impl serde::Serialize for Misbehaviour {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.client_id.is_empty() {
+        if true {
             len += 1;
         }
-        if self.header_1.is_some() {
+        if true {
             len += 1;
         }
-        if self.header_2.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.tendermint.v1.Misbehaviour", len)?;
-        if !self.client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
         if let Some(v) = self.header_1.as_ref() {

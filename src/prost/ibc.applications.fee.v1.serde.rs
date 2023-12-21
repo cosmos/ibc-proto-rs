@@ -6,23 +6,23 @@ impl serde::Serialize for Fee {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.recv_fee.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.ack_fee.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.timeout_fee.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.Fee", len)?;
-        if !self.recv_fee.is_empty() {
+        if true {
             struct_ser.serialize_field("recvFee", &self.recv_fee)?;
         }
-        if !self.ack_fee.is_empty() {
+        if true {
             struct_ser.serialize_field("ackFee", &self.ack_fee)?;
         }
-        if !self.timeout_fee.is_empty() {
+        if true {
             struct_ser.serialize_field("timeoutFee", &self.timeout_fee)?;
         }
         struct_ser.end()
@@ -134,17 +134,17 @@ impl serde::Serialize for FeeEnabledChannel {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.port_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.channel_id.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.FeeEnabledChannel", len)?;
-        if !self.port_id.is_empty() {
+        if true {
             struct_ser.serialize_field("portId", &self.port_id)?;
         }
-        if !self.channel_id.is_empty() {
+        if true {
             struct_ser.serialize_field("channelId", &self.channel_id)?;
         }
         struct_ser.end()
@@ -244,14 +244,14 @@ impl serde::Serialize for ForwardRelayerAddress {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.address.is_empty() {
+        if true {
             len += 1;
         }
-        if self.packet_id.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.ForwardRelayerAddress", len)?;
-        if !self.address.is_empty() {
+        if true {
             struct_ser.serialize_field("address", &self.address)?;
         }
         if let Some(v) = self.packet_id.as_ref() {
@@ -353,35 +353,35 @@ impl serde::Serialize for GenesisState {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.identified_fees.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.fee_enabled_channels.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.registered_payees.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.registered_counterparty_payees.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.forward_relayers.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.GenesisState", len)?;
-        if !self.identified_fees.is_empty() {
+        if true {
             struct_ser.serialize_field("identifiedFees", &self.identified_fees)?;
         }
-        if !self.fee_enabled_channels.is_empty() {
+        if true {
             struct_ser.serialize_field("feeEnabledChannels", &self.fee_enabled_channels)?;
         }
-        if !self.registered_payees.is_empty() {
+        if true {
             struct_ser.serialize_field("registeredPayees", &self.registered_payees)?;
         }
-        if !self.registered_counterparty_payees.is_empty() {
+        if true {
             struct_ser.serialize_field("registeredCounterpartyPayees", &self.registered_counterparty_payees)?;
         }
-        if !self.forward_relayers.is_empty() {
+        if true {
             struct_ser.serialize_field("forwardRelayers", &self.forward_relayers)?;
         }
         struct_ser.end()
@@ -517,17 +517,17 @@ impl serde::Serialize for IdentifiedPacketFees {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.packet_id.is_some() {
+        if true {
             len += 1;
         }
-        if !self.packet_fees.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.IdentifiedPacketFees", len)?;
         if let Some(v) = self.packet_id.as_ref() {
             struct_ser.serialize_field("packetId", v)?;
         }
-        if !self.packet_fees.is_empty() {
+        if true {
             struct_ser.serialize_field("packetFees", &self.packet_fees)?;
         }
         struct_ser.end()
@@ -627,23 +627,23 @@ impl serde::Serialize for IncentivizedAcknowledgement {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.app_acknowledgement.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.forward_relayer_address.is_empty() {
+        if true {
             len += 1;
         }
-        if self.underlying_app_success {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.IncentivizedAcknowledgement", len)?;
-        if !self.app_acknowledgement.is_empty() {
+        if true {
             struct_ser.serialize_field("appAcknowledgement", pbjson::private::base64::encode(&self.app_acknowledgement).as_str())?;
         }
-        if !self.forward_relayer_address.is_empty() {
+        if true {
             struct_ser.serialize_field("forwardRelayerAddress", &self.forward_relayer_address)?;
         }
-        if self.underlying_app_success {
+        if true {
             struct_ser.serialize_field("underlyingAppSuccess", &self.underlying_app_success)?;
         }
         struct_ser.end()
@@ -757,17 +757,17 @@ impl serde::Serialize for Metadata {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.fee_version.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.app_version.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.Metadata", len)?;
-        if !self.fee_version.is_empty() {
+        if true {
             struct_ser.serialize_field("feeVersion", &self.fee_version)?;
         }
-        if !self.app_version.is_empty() {
+        if true {
             struct_ser.serialize_field("appVersion", &self.app_version)?;
         }
         struct_ser.end()
@@ -867,35 +867,35 @@ impl serde::Serialize for MsgPayPacketFee {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.fee.is_some() {
+        if true {
             len += 1;
         }
-        if !self.source_port_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.source_channel_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.signer.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.relayers.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.MsgPayPacketFee", len)?;
         if let Some(v) = self.fee.as_ref() {
             struct_ser.serialize_field("fee", v)?;
         }
-        if !self.source_port_id.is_empty() {
+        if true {
             struct_ser.serialize_field("sourcePortId", &self.source_port_id)?;
         }
-        if !self.source_channel_id.is_empty() {
+        if true {
             struct_ser.serialize_field("sourceChannelId", &self.source_channel_id)?;
         }
-        if !self.signer.is_empty() {
+        if true {
             struct_ser.serialize_field("signer", &self.signer)?;
         }
-        if !self.relayers.is_empty() {
+        if true {
             struct_ser.serialize_field("relayers", &self.relayers)?;
         }
         struct_ser.end()
@@ -1028,10 +1028,10 @@ impl serde::Serialize for MsgPayPacketFeeAsync {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.packet_id.is_some() {
+        if true {
             len += 1;
         }
-        if self.packet_fee.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.MsgPayPacketFeeAsync", len)?;
@@ -1280,29 +1280,29 @@ impl serde::Serialize for MsgRegisterCounterpartyPayee {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.port_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.channel_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.relayer.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.counterparty_payee.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.MsgRegisterCounterpartyPayee", len)?;
-        if !self.port_id.is_empty() {
+        if true {
             struct_ser.serialize_field("portId", &self.port_id)?;
         }
-        if !self.channel_id.is_empty() {
+        if true {
             struct_ser.serialize_field("channelId", &self.channel_id)?;
         }
-        if !self.relayer.is_empty() {
+        if true {
             struct_ser.serialize_field("relayer", &self.relayer)?;
         }
-        if !self.counterparty_payee.is_empty() {
+        if true {
             struct_ser.serialize_field("counterpartyPayee", &self.counterparty_payee)?;
         }
         struct_ser.end()
@@ -1496,29 +1496,29 @@ impl serde::Serialize for MsgRegisterPayee {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.port_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.channel_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.relayer.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.payee.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.MsgRegisterPayee", len)?;
-        if !self.port_id.is_empty() {
+        if true {
             struct_ser.serialize_field("portId", &self.port_id)?;
         }
-        if !self.channel_id.is_empty() {
+        if true {
             struct_ser.serialize_field("channelId", &self.channel_id)?;
         }
-        if !self.relayer.is_empty() {
+        if true {
             struct_ser.serialize_field("relayer", &self.relayer)?;
         }
-        if !self.payee.is_empty() {
+        if true {
             struct_ser.serialize_field("payee", &self.payee)?;
         }
         struct_ser.end()
@@ -1711,23 +1711,23 @@ impl serde::Serialize for PacketFee {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.fee.is_some() {
+        if true {
             len += 1;
         }
-        if !self.refund_address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.relayers.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.PacketFee", len)?;
         if let Some(v) = self.fee.as_ref() {
             struct_ser.serialize_field("fee", v)?;
         }
-        if !self.refund_address.is_empty() {
+        if true {
             struct_ser.serialize_field("refundAddress", &self.refund_address)?;
         }
-        if !self.relayers.is_empty() {
+        if true {
             struct_ser.serialize_field("relayers", &self.relayers)?;
         }
         struct_ser.end()
@@ -1837,11 +1837,11 @@ impl serde::Serialize for PacketFees {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.packet_fees.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.PacketFees", len)?;
-        if !self.packet_fees.is_empty() {
+        if true {
             struct_ser.serialize_field("packetFees", &self.packet_fees)?;
         }
         struct_ser.end()
@@ -1929,17 +1929,17 @@ impl serde::Serialize for QueryCounterpartyPayeeRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.channel_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.relayer.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.QueryCounterpartyPayeeRequest", len)?;
-        if !self.channel_id.is_empty() {
+        if true {
             struct_ser.serialize_field("channelId", &self.channel_id)?;
         }
-        if !self.relayer.is_empty() {
+        if true {
             struct_ser.serialize_field("relayer", &self.relayer)?;
         }
         struct_ser.end()
@@ -2038,11 +2038,11 @@ impl serde::Serialize for QueryCounterpartyPayeeResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.counterparty_payee.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.QueryCounterpartyPayeeResponse", len)?;
-        if !self.counterparty_payee.is_empty() {
+        if true {
             struct_ser.serialize_field("counterpartyPayee", &self.counterparty_payee)?;
         }
         struct_ser.end()
@@ -2130,17 +2130,17 @@ impl serde::Serialize for QueryFeeEnabledChannelRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.port_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.channel_id.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.QueryFeeEnabledChannelRequest", len)?;
-        if !self.port_id.is_empty() {
+        if true {
             struct_ser.serialize_field("portId", &self.port_id)?;
         }
-        if !self.channel_id.is_empty() {
+        if true {
             struct_ser.serialize_field("channelId", &self.channel_id)?;
         }
         struct_ser.end()
@@ -2240,11 +2240,11 @@ impl serde::Serialize for QueryFeeEnabledChannelResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.fee_enabled {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.QueryFeeEnabledChannelResponse", len)?;
-        if self.fee_enabled {
+        if true {
             struct_ser.serialize_field("feeEnabled", &self.fee_enabled)?;
         }
         struct_ser.end()
@@ -2332,17 +2332,17 @@ impl serde::Serialize for QueryFeeEnabledChannelsRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
-        if self.query_height != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.QueryFeeEnabledChannelsRequest", len)?;
         if let Some(v) = self.pagination.as_ref() {
             struct_ser.serialize_field("pagination", v)?;
         }
-        if self.query_height != 0 {
+        if true {
             struct_ser.serialize_field("queryHeight", ::alloc::string::ToString::to_string(&self.query_height).as_str())?;
         }
         struct_ser.end()
@@ -2443,14 +2443,14 @@ impl serde::Serialize for QueryFeeEnabledChannelsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.fee_enabled_channels.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.QueryFeeEnabledChannelsResponse", len)?;
-        if !self.fee_enabled_channels.is_empty() {
+        if true {
             struct_ser.serialize_field("feeEnabledChannels", &self.fee_enabled_channels)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -2552,17 +2552,17 @@ impl serde::Serialize for QueryIncentivizedPacketRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.packet_id.is_some() {
+        if true {
             len += 1;
         }
-        if self.query_height != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.QueryIncentivizedPacketRequest", len)?;
         if let Some(v) = self.packet_id.as_ref() {
             struct_ser.serialize_field("packetId", v)?;
         }
-        if self.query_height != 0 {
+        if true {
             struct_ser.serialize_field("queryHeight", ::alloc::string::ToString::to_string(&self.query_height).as_str())?;
         }
         struct_ser.end()
@@ -2664,7 +2664,7 @@ impl serde::Serialize for QueryIncentivizedPacketResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.incentivized_packet.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.QueryIncentivizedPacketResponse", len)?;
@@ -2756,29 +2756,29 @@ impl serde::Serialize for QueryIncentivizedPacketsForChannelRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
-        if !self.port_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.channel_id.is_empty() {
+        if true {
             len += 1;
         }
-        if self.query_height != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.QueryIncentivizedPacketsForChannelRequest", len)?;
         if let Some(v) = self.pagination.as_ref() {
             struct_ser.serialize_field("pagination", v)?;
         }
-        if !self.port_id.is_empty() {
+        if true {
             struct_ser.serialize_field("portId", &self.port_id)?;
         }
-        if !self.channel_id.is_empty() {
+        if true {
             struct_ser.serialize_field("channelId", &self.channel_id)?;
         }
-        if self.query_height != 0 {
+        if true {
             struct_ser.serialize_field("queryHeight", ::alloc::string::ToString::to_string(&self.query_height).as_str())?;
         }
         struct_ser.end()
@@ -2903,14 +2903,14 @@ impl serde::Serialize for QueryIncentivizedPacketsForChannelResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.incentivized_packets.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.QueryIncentivizedPacketsForChannelResponse", len)?;
-        if !self.incentivized_packets.is_empty() {
+        if true {
             struct_ser.serialize_field("incentivizedPackets", &self.incentivized_packets)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -3012,17 +3012,17 @@ impl serde::Serialize for QueryIncentivizedPacketsRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
-        if self.query_height != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.QueryIncentivizedPacketsRequest", len)?;
         if let Some(v) = self.pagination.as_ref() {
             struct_ser.serialize_field("pagination", v)?;
         }
-        if self.query_height != 0 {
+        if true {
             struct_ser.serialize_field("queryHeight", ::alloc::string::ToString::to_string(&self.query_height).as_str())?;
         }
         struct_ser.end()
@@ -3123,14 +3123,14 @@ impl serde::Serialize for QueryIncentivizedPacketsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.incentivized_packets.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.QueryIncentivizedPacketsResponse", len)?;
-        if !self.incentivized_packets.is_empty() {
+        if true {
             struct_ser.serialize_field("incentivizedPackets", &self.incentivized_packets)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -3232,17 +3232,17 @@ impl serde::Serialize for QueryPayeeRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.channel_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.relayer.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.QueryPayeeRequest", len)?;
-        if !self.channel_id.is_empty() {
+        if true {
             struct_ser.serialize_field("channelId", &self.channel_id)?;
         }
-        if !self.relayer.is_empty() {
+        if true {
             struct_ser.serialize_field("relayer", &self.relayer)?;
         }
         struct_ser.end()
@@ -3341,11 +3341,11 @@ impl serde::Serialize for QueryPayeeResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.payee_address.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.QueryPayeeResponse", len)?;
-        if !self.payee_address.is_empty() {
+        if true {
             struct_ser.serialize_field("payeeAddress", &self.payee_address)?;
         }
         struct_ser.end()
@@ -3433,7 +3433,7 @@ impl serde::Serialize for QueryTotalAckFeesRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.packet_id.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.QueryTotalAckFeesRequest", len)?;
@@ -3525,11 +3525,11 @@ impl serde::Serialize for QueryTotalAckFeesResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.ack_fees.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.QueryTotalAckFeesResponse", len)?;
-        if !self.ack_fees.is_empty() {
+        if true {
             struct_ser.serialize_field("ackFees", &self.ack_fees)?;
         }
         struct_ser.end()
@@ -3617,7 +3617,7 @@ impl serde::Serialize for QueryTotalRecvFeesRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.packet_id.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.QueryTotalRecvFeesRequest", len)?;
@@ -3709,11 +3709,11 @@ impl serde::Serialize for QueryTotalRecvFeesResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.recv_fees.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.QueryTotalRecvFeesResponse", len)?;
-        if !self.recv_fees.is_empty() {
+        if true {
             struct_ser.serialize_field("recvFees", &self.recv_fees)?;
         }
         struct_ser.end()
@@ -3801,7 +3801,7 @@ impl serde::Serialize for QueryTotalTimeoutFeesRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.packet_id.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.QueryTotalTimeoutFeesRequest", len)?;
@@ -3893,11 +3893,11 @@ impl serde::Serialize for QueryTotalTimeoutFeesResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.timeout_fees.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.QueryTotalTimeoutFeesResponse", len)?;
-        if !self.timeout_fees.is_empty() {
+        if true {
             struct_ser.serialize_field("timeoutFees", &self.timeout_fees)?;
         }
         struct_ser.end()
@@ -3985,23 +3985,23 @@ impl serde::Serialize for RegisteredCounterpartyPayee {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.channel_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.relayer.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.counterparty_payee.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.RegisteredCounterpartyPayee", len)?;
-        if !self.channel_id.is_empty() {
+        if true {
             struct_ser.serialize_field("channelId", &self.channel_id)?;
         }
-        if !self.relayer.is_empty() {
+        if true {
             struct_ser.serialize_field("relayer", &self.relayer)?;
         }
-        if !self.counterparty_payee.is_empty() {
+        if true {
             struct_ser.serialize_field("counterpartyPayee", &self.counterparty_payee)?;
         }
         struct_ser.end()
@@ -4112,23 +4112,23 @@ impl serde::Serialize for RegisteredPayee {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.channel_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.relayer.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.payee.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.RegisteredPayee", len)?;
-        if !self.channel_id.is_empty() {
+        if true {
             struct_ser.serialize_field("channelId", &self.channel_id)?;
         }
-        if !self.relayer.is_empty() {
+        if true {
             struct_ser.serialize_field("relayer", &self.relayer)?;
         }
-        if !self.payee.is_empty() {
+        if true {
             struct_ser.serialize_field("payee", &self.payee)?;
         }
         struct_ser.end()

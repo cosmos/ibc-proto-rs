@@ -6,11 +6,11 @@ impl serde::Serialize for AddressBytesToStringRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.address_bytes.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.auth.v1beta1.AddressBytesToStringRequest", len)?;
-        if !self.address_bytes.is_empty() {
+        if true {
             struct_ser.serialize_field("addressBytes", pbjson::private::base64::encode(&self.address_bytes).as_str())?;
         }
         struct_ser.end()
@@ -100,11 +100,11 @@ impl serde::Serialize for AddressBytesToStringResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.address_string.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.auth.v1beta1.AddressBytesToStringResponse", len)?;
-        if !self.address_string.is_empty() {
+        if true {
             struct_ser.serialize_field("addressString", &self.address_string)?;
         }
         struct_ser.end()
@@ -192,11 +192,11 @@ impl serde::Serialize for AddressStringToBytesRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.address_string.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.auth.v1beta1.AddressStringToBytesRequest", len)?;
-        if !self.address_string.is_empty() {
+        if true {
             struct_ser.serialize_field("addressString", &self.address_string)?;
         }
         struct_ser.end()
@@ -284,11 +284,11 @@ impl serde::Serialize for AddressStringToBytesResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.address_bytes.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.auth.v1beta1.AddressStringToBytesResponse", len)?;
-        if !self.address_bytes.is_empty() {
+        if true {
             struct_ser.serialize_field("addressBytes", pbjson::private::base64::encode(&self.address_bytes).as_str())?;
         }
         struct_ser.end()
@@ -378,29 +378,29 @@ impl serde::Serialize for BaseAccount {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.address.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pub_key.is_some() {
+        if true {
             len += 1;
         }
-        if self.account_number != 0 {
+        if true {
             len += 1;
         }
-        if self.sequence != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.auth.v1beta1.BaseAccount", len)?;
-        if !self.address.is_empty() {
+        if true {
             struct_ser.serialize_field("address", &self.address)?;
         }
         if let Some(v) = self.pub_key.as_ref() {
             struct_ser.serialize_field("pubKey", v)?;
         }
-        if self.account_number != 0 {
+        if true {
             struct_ser.serialize_field("accountNumber", ::alloc::string::ToString::to_string(&self.account_number).as_str())?;
         }
-        if self.sequence != 0 {
+        if true {
             struct_ser.serialize_field("sequence", ::alloc::string::ToString::to_string(&self.sequence).as_str())?;
         }
         struct_ser.end()
@@ -597,11 +597,11 @@ impl serde::Serialize for Bech32PrefixResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.bech32_prefix.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.auth.v1beta1.Bech32PrefixResponse", len)?;
-        if !self.bech32_prefix.is_empty() {
+        if true {
             struct_ser.serialize_field("bech32Prefix", &self.bech32_prefix)?;
         }
         struct_ser.end()
@@ -689,17 +689,17 @@ impl serde::Serialize for GenesisState {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.params.is_some() {
+        if true {
             len += 1;
         }
-        if !self.accounts.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.auth.v1beta1.GenesisState", len)?;
         if let Some(v) = self.params.as_ref() {
             struct_ser.serialize_field("params", v)?;
         }
-        if !self.accounts.is_empty() {
+        if true {
             struct_ser.serialize_field("accounts", &self.accounts)?;
         }
         struct_ser.end()
@@ -797,23 +797,23 @@ impl serde::Serialize for ModuleAccount {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.base_account.is_some() {
+        if true {
             len += 1;
         }
-        if !self.name.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.permissions.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.auth.v1beta1.ModuleAccount", len)?;
         if let Some(v) = self.base_account.as_ref() {
             struct_ser.serialize_field("baseAccount", v)?;
         }
-        if !self.name.is_empty() {
+        if true {
             struct_ser.serialize_field("name", &self.name)?;
         }
-        if !self.permissions.is_empty() {
+        if true {
             struct_ser.serialize_field("permissions", &self.permissions)?;
         }
         struct_ser.end()
@@ -923,17 +923,17 @@ impl serde::Serialize for ModuleCredential {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.module_name.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.derivation_keys.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.auth.v1beta1.ModuleCredential", len)?;
-        if !self.module_name.is_empty() {
+        if true {
             struct_ser.serialize_field("moduleName", &self.module_name)?;
         }
-        if !self.derivation_keys.is_empty() {
+        if true {
             struct_ser.serialize_field("derivationKeys", &self.derivation_keys.iter().map(pbjson::private::base64::encode).collect::<::alloc::vec::Vec<_>>())?;
         }
         struct_ser.end()
@@ -1036,14 +1036,14 @@ impl serde::Serialize for MsgUpdateParams {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.authority.is_empty() {
+        if true {
             len += 1;
         }
-        if self.params.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.auth.v1beta1.MsgUpdateParams", len)?;
-        if !self.authority.is_empty() {
+        if true {
             struct_ser.serialize_field("authority", &self.authority)?;
         }
         if let Some(v) = self.params.as_ref() {
@@ -1215,35 +1215,35 @@ impl serde::Serialize for Params {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.max_memo_characters != 0 {
+        if true {
             len += 1;
         }
-        if self.tx_sig_limit != 0 {
+        if true {
             len += 1;
         }
-        if self.tx_size_cost_per_byte != 0 {
+        if true {
             len += 1;
         }
-        if self.sig_verify_cost_ed25519 != 0 {
+        if true {
             len += 1;
         }
-        if self.sig_verify_cost_secp256k1 != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.auth.v1beta1.Params", len)?;
-        if self.max_memo_characters != 0 {
+        if true {
             struct_ser.serialize_field("maxMemoCharacters", ::alloc::string::ToString::to_string(&self.max_memo_characters).as_str())?;
         }
-        if self.tx_sig_limit != 0 {
+        if true {
             struct_ser.serialize_field("txSigLimit", ::alloc::string::ToString::to_string(&self.tx_sig_limit).as_str())?;
         }
-        if self.tx_size_cost_per_byte != 0 {
+        if true {
             struct_ser.serialize_field("txSizeCostPerByte", ::alloc::string::ToString::to_string(&self.tx_size_cost_per_byte).as_str())?;
         }
-        if self.sig_verify_cost_ed25519 != 0 {
+        if true {
             struct_ser.serialize_field("sigVerifyCostEd25519", ::alloc::string::ToString::to_string(&self.sig_verify_cost_ed25519).as_str())?;
         }
-        if self.sig_verify_cost_secp256k1 != 0 {
+        if true {
             struct_ser.serialize_field("sigVerifyCostSecp256k1", ::alloc::string::ToString::to_string(&self.sig_verify_cost_secp256k1).as_str())?;
         }
         struct_ser.end()
@@ -1389,17 +1389,17 @@ impl serde::Serialize for QueryAccountAddressByIdRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.id != 0 {
+        if true {
             len += 1;
         }
-        if self.account_id != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.auth.v1beta1.QueryAccountAddressByIDRequest", len)?;
-        if self.id != 0 {
+        if true {
             struct_ser.serialize_field("id", ::alloc::string::ToString::to_string(&self.id).as_str())?;
         }
-        if self.account_id != 0 {
+        if true {
             struct_ser.serialize_field("accountId", ::alloc::string::ToString::to_string(&self.account_id).as_str())?;
         }
         struct_ser.end()
@@ -1502,11 +1502,11 @@ impl serde::Serialize for QueryAccountAddressByIdResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.account_address.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.auth.v1beta1.QueryAccountAddressByIDResponse", len)?;
-        if !self.account_address.is_empty() {
+        if true {
             struct_ser.serialize_field("accountAddress", &self.account_address)?;
         }
         struct_ser.end()
@@ -1594,11 +1594,11 @@ impl serde::Serialize for QueryAccountInfoRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.address.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.auth.v1beta1.QueryAccountInfoRequest", len)?;
-        if !self.address.is_empty() {
+        if true {
             struct_ser.serialize_field("address", &self.address)?;
         }
         struct_ser.end()
@@ -1685,7 +1685,7 @@ impl serde::Serialize for QueryAccountInfoResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.info.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.auth.v1beta1.QueryAccountInfoResponse", len)?;
@@ -1776,11 +1776,11 @@ impl serde::Serialize for QueryAccountRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.address.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.auth.v1beta1.QueryAccountRequest", len)?;
-        if !self.address.is_empty() {
+        if true {
             struct_ser.serialize_field("address", &self.address)?;
         }
         struct_ser.end()
@@ -1867,7 +1867,7 @@ impl serde::Serialize for QueryAccountResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.account.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.auth.v1beta1.QueryAccountResponse", len)?;
@@ -1958,7 +1958,7 @@ impl serde::Serialize for QueryAccountsRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.auth.v1beta1.QueryAccountsRequest", len)?;
@@ -2049,14 +2049,14 @@ impl serde::Serialize for QueryAccountsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.accounts.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.auth.v1beta1.QueryAccountsResponse", len)?;
-        if !self.accounts.is_empty() {
+        if true {
             struct_ser.serialize_field("accounts", &self.accounts)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -2157,11 +2157,11 @@ impl serde::Serialize for QueryModuleAccountByNameRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.name.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.auth.v1beta1.QueryModuleAccountByNameRequest", len)?;
-        if !self.name.is_empty() {
+        if true {
             struct_ser.serialize_field("name", &self.name)?;
         }
         struct_ser.end()
@@ -2248,7 +2248,7 @@ impl serde::Serialize for QueryModuleAccountByNameResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.account.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.auth.v1beta1.QueryModuleAccountByNameResponse", len)?;
@@ -2410,11 +2410,11 @@ impl serde::Serialize for QueryModuleAccountsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.accounts.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.auth.v1beta1.QueryModuleAccountsResponse", len)?;
-        if !self.accounts.is_empty() {
+        if true {
             struct_ser.serialize_field("accounts", &self.accounts)?;
         }
         struct_ser.end()
@@ -2572,7 +2572,7 @@ impl serde::Serialize for QueryParamsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.params.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.auth.v1beta1.QueryParamsResponse", len)?;

@@ -6,13 +6,13 @@ impl serde::Serialize for GenesisState {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.client_genesis.is_some() {
+        if true {
             len += 1;
         }
-        if self.connection_genesis.is_some() {
+        if true {
             len += 1;
         }
-        if self.channel_genesis.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.types.v1.GenesisState", len)?;

@@ -91,13 +91,13 @@ impl serde::Serialize for SignatureDescriptor {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.public_key.is_some() {
+        if true {
             len += 1;
         }
-        if self.data.is_some() {
+        if true {
             len += 1;
         }
-        if self.sequence != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.tx.signing.v1beta1.SignatureDescriptor", len)?;
@@ -107,7 +107,7 @@ impl serde::Serialize for SignatureDescriptor {
         if let Some(v) = self.data.as_ref() {
             struct_ser.serialize_field("data", v)?;
         }
-        if self.sequence != 0 {
+        if true {
             struct_ser.serialize_field("sequence", ::alloc::string::ToString::to_string(&self.sequence).as_str())?;
         }
         struct_ser.end()
@@ -328,17 +328,17 @@ impl serde::Serialize for signature_descriptor::data::Multi {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.bitarray.is_some() {
+        if true {
             len += 1;
         }
-        if !self.signatures.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Multi", len)?;
         if let Some(v) = self.bitarray.as_ref() {
             struct_ser.serialize_field("bitarray", v)?;
         }
-        if !self.signatures.is_empty() {
+        if true {
             struct_ser.serialize_field("signatures", &self.signatures)?;
         }
         struct_ser.end()
@@ -436,19 +436,19 @@ impl serde::Serialize for signature_descriptor::data::Single {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.mode != 0 {
+        if true {
             len += 1;
         }
-        if !self.signature.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Single", len)?;
-        if self.mode != 0 {
+        if true {
             let v = SignMode::from_i32(self.mode)
                 .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.mode)))?;
             struct_ser.serialize_field("mode", &v)?;
         }
-        if !self.signature.is_empty() {
+        if true {
             struct_ser.serialize_field("signature", pbjson::private::base64::encode(&self.signature).as_str())?;
         }
         struct_ser.end()
@@ -548,11 +548,11 @@ impl serde::Serialize for SignatureDescriptors {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.signatures.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.tx.signing.v1beta1.SignatureDescriptors", len)?;
-        if !self.signatures.is_empty() {
+        if true {
             struct_ser.serialize_field("signatures", &self.signatures)?;
         }
         struct_ser.end()

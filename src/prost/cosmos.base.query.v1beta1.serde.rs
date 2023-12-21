@@ -6,35 +6,35 @@ impl serde::Serialize for PageRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.key.is_empty() {
+        if true {
             len += 1;
         }
-        if self.offset != 0 {
+        if true {
             len += 1;
         }
-        if self.limit != 0 {
+        if true {
             len += 1;
         }
-        if self.count_total {
+        if true {
             len += 1;
         }
-        if self.reverse {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.query.v1beta1.PageRequest", len)?;
-        if !self.key.is_empty() {
+        if true {
             struct_ser.serialize_field("key", pbjson::private::base64::encode(&self.key).as_str())?;
         }
-        if self.offset != 0 {
+        if true {
             struct_ser.serialize_field("offset", ::alloc::string::ToString::to_string(&self.offset).as_str())?;
         }
-        if self.limit != 0 {
+        if true {
             struct_ser.serialize_field("limit", ::alloc::string::ToString::to_string(&self.limit).as_str())?;
         }
-        if self.count_total {
+        if true {
             struct_ser.serialize_field("countTotal", &self.count_total)?;
         }
-        if self.reverse {
+        if true {
             struct_ser.serialize_field("reverse", &self.reverse)?;
         }
         struct_ser.end()
@@ -172,17 +172,17 @@ impl serde::Serialize for PageResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.next_key.is_empty() {
+        if true {
             len += 1;
         }
-        if self.total != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.query.v1beta1.PageResponse", len)?;
-        if !self.next_key.is_empty() {
+        if true {
             struct_ser.serialize_field("nextKey", pbjson::private::base64::encode(&self.next_key).as_str())?;
         }
-        if self.total != 0 {
+        if true {
             struct_ser.serialize_field("total", ::alloc::string::ToString::to_string(&self.total).as_str())?;
         }
         struct_ser.end()

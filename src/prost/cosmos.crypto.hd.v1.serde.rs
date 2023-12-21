@@ -6,35 +6,35 @@ impl serde::Serialize for Bip44Params {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.purpose != 0 {
+        if true {
             len += 1;
         }
-        if self.coin_type != 0 {
+        if true {
             len += 1;
         }
-        if self.account != 0 {
+        if true {
             len += 1;
         }
-        if self.change {
+        if true {
             len += 1;
         }
-        if self.address_index != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.crypto.hd.v1.BIP44Params", len)?;
-        if self.purpose != 0 {
+        if true {
             struct_ser.serialize_field("purpose", &self.purpose)?;
         }
-        if self.coin_type != 0 {
+        if true {
             struct_ser.serialize_field("coinType", &self.coin_type)?;
         }
-        if self.account != 0 {
+        if true {
             struct_ser.serialize_field("account", &self.account)?;
         }
-        if self.change {
+        if true {
             struct_ser.serialize_field("change", &self.change)?;
         }
-        if self.address_index != 0 {
+        if true {
             struct_ser.serialize_field("addressIndex", &self.address_index)?;
         }
         struct_ser.end()

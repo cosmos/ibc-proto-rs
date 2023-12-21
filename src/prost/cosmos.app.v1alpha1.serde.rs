@@ -6,11 +6,11 @@ impl serde::Serialize for MigrateFromInfo {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.module.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.app.v1alpha1.MigrateFromInfo", len)?;
-        if !self.module.is_empty() {
+        if true {
             struct_ser.serialize_field("module", &self.module)?;
         }
         struct_ser.end()
@@ -97,23 +97,23 @@ impl serde::Serialize for ModuleDescriptor {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.go_import.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.use_package.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.can_migrate_from.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.app.v1alpha1.ModuleDescriptor", len)?;
-        if !self.go_import.is_empty() {
+        if true {
             struct_ser.serialize_field("goImport", &self.go_import)?;
         }
-        if !self.use_package.is_empty() {
+        if true {
             struct_ser.serialize_field("usePackage", &self.use_package)?;
         }
-        if !self.can_migrate_from.is_empty() {
+        if true {
             struct_ser.serialize_field("canMigrateFrom", &self.can_migrate_from)?;
         }
         struct_ser.end()
@@ -225,17 +225,17 @@ impl serde::Serialize for PackageReference {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.name.is_empty() {
+        if true {
             len += 1;
         }
-        if self.revision != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.app.v1alpha1.PackageReference", len)?;
-        if !self.name.is_empty() {
+        if true {
             struct_ser.serialize_field("name", &self.name)?;
         }
-        if self.revision != 0 {
+        if true {
             struct_ser.serialize_field("revision", &self.revision)?;
         }
         struct_ser.end()

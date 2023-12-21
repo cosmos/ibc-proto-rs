@@ -115,11 +115,11 @@ impl serde::Serialize for BatchProof {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.entries.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.ics23.v1.BatchProof", len)?;
-        if !self.entries.is_empty() {
+        if true {
             struct_ser.serialize_field("entries", &self.entries)?;
         }
         struct_ser.end()
@@ -450,17 +450,17 @@ impl serde::Serialize for CompressedBatchProof {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.entries.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.lookup_inners.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.ics23.v1.CompressedBatchProof", len)?;
-        if !self.entries.is_empty() {
+        if true {
             struct_ser.serialize_field("entries", &self.entries)?;
         }
-        if !self.lookup_inners.is_empty() {
+        if true {
             struct_ser.serialize_field("lookupInners", &self.lookup_inners)?;
         }
         struct_ser.end()
@@ -559,29 +559,29 @@ impl serde::Serialize for CompressedExistenceProof {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.key.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.value.is_empty() {
+        if true {
             len += 1;
         }
-        if self.leaf.is_some() {
+        if true {
             len += 1;
         }
-        if !self.path.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.ics23.v1.CompressedExistenceProof", len)?;
-        if !self.key.is_empty() {
+        if true {
             struct_ser.serialize_field("key", pbjson::private::base64::encode(&self.key).as_str())?;
         }
-        if !self.value.is_empty() {
+        if true {
             struct_ser.serialize_field("value", pbjson::private::base64::encode(&self.value).as_str())?;
         }
         if let Some(v) = self.leaf.as_ref() {
             struct_ser.serialize_field("leaf", v)?;
         }
-        if !self.path.is_empty() {
+        if true {
             struct_ser.serialize_field("path", &self.path)?;
         }
         struct_ser.end()
@@ -708,17 +708,17 @@ impl serde::Serialize for CompressedNonExistenceProof {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.key.is_empty() {
+        if true {
             len += 1;
         }
-        if self.left.is_some() {
+        if true {
             len += 1;
         }
-        if self.right.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.ics23.v1.CompressedNonExistenceProof", len)?;
-        if !self.key.is_empty() {
+        if true {
             struct_ser.serialize_field("key", pbjson::private::base64::encode(&self.key).as_str())?;
         }
         if let Some(v) = self.left.as_ref() {
@@ -835,29 +835,29 @@ impl serde::Serialize for ExistenceProof {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.key.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.value.is_empty() {
+        if true {
             len += 1;
         }
-        if self.leaf.is_some() {
+        if true {
             len += 1;
         }
-        if !self.path.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.ics23.v1.ExistenceProof", len)?;
-        if !self.key.is_empty() {
+        if true {
             struct_ser.serialize_field("key", pbjson::private::base64::encode(&self.key).as_str())?;
         }
-        if !self.value.is_empty() {
+        if true {
             struct_ser.serialize_field("value", pbjson::private::base64::encode(&self.value).as_str())?;
         }
         if let Some(v) = self.leaf.as_ref() {
             struct_ser.serialize_field("leaf", v)?;
         }
-        if !self.path.is_empty() {
+        if true {
             struct_ser.serialize_field("path", &self.path)?;
         }
         struct_ser.end()
@@ -1069,25 +1069,25 @@ impl serde::Serialize for InnerOp {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.hash != 0 {
+        if true {
             len += 1;
         }
-        if !self.prefix.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.suffix.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.ics23.v1.InnerOp", len)?;
-        if self.hash != 0 {
+        if true {
             let v = HashOp::from_i32(self.hash)
                 .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.hash)))?;
             struct_ser.serialize_field("hash", &v)?;
         }
-        if !self.prefix.is_empty() {
+        if true {
             struct_ser.serialize_field("prefix", pbjson::private::base64::encode(&self.prefix).as_str())?;
         }
-        if !self.suffix.is_empty() {
+        if true {
             struct_ser.serialize_field("suffix", pbjson::private::base64::encode(&self.suffix).as_str())?;
         }
         struct_ser.end()
@@ -1200,41 +1200,41 @@ impl serde::Serialize for InnerSpec {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.child_order.is_empty() {
+        if true {
             len += 1;
         }
-        if self.child_size != 0 {
+        if true {
             len += 1;
         }
-        if self.min_prefix_length != 0 {
+        if true {
             len += 1;
         }
-        if self.max_prefix_length != 0 {
+        if true {
             len += 1;
         }
-        if !self.empty_child.is_empty() {
+        if true {
             len += 1;
         }
-        if self.hash != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.ics23.v1.InnerSpec", len)?;
-        if !self.child_order.is_empty() {
+        if true {
             struct_ser.serialize_field("childOrder", &self.child_order)?;
         }
-        if self.child_size != 0 {
+        if true {
             struct_ser.serialize_field("childSize", &self.child_size)?;
         }
-        if self.min_prefix_length != 0 {
+        if true {
             struct_ser.serialize_field("minPrefixLength", &self.min_prefix_length)?;
         }
-        if self.max_prefix_length != 0 {
+        if true {
             struct_ser.serialize_field("maxPrefixLength", &self.max_prefix_length)?;
         }
-        if !self.empty_child.is_empty() {
+        if true {
             struct_ser.serialize_field("emptyChild", pbjson::private::base64::encode(&self.empty_child).as_str())?;
         }
-        if self.hash != 0 {
+        if true {
             let v = HashOp::from_i32(self.hash)
                 .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.hash)))?;
             struct_ser.serialize_field("hash", &v)?;
@@ -1394,43 +1394,43 @@ impl serde::Serialize for LeafOp {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.hash != 0 {
+        if true {
             len += 1;
         }
-        if self.prehash_key != 0 {
+        if true {
             len += 1;
         }
-        if self.prehash_value != 0 {
+        if true {
             len += 1;
         }
-        if self.length != 0 {
+        if true {
             len += 1;
         }
-        if !self.prefix.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.ics23.v1.LeafOp", len)?;
-        if self.hash != 0 {
+        if true {
             let v = HashOp::from_i32(self.hash)
                 .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.hash)))?;
             struct_ser.serialize_field("hash", &v)?;
         }
-        if self.prehash_key != 0 {
+        if true {
             let v = HashOp::from_i32(self.prehash_key)
                 .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.prehash_key)))?;
             struct_ser.serialize_field("prehashKey", &v)?;
         }
-        if self.prehash_value != 0 {
+        if true {
             let v = HashOp::from_i32(self.prehash_value)
                 .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.prehash_value)))?;
             struct_ser.serialize_field("prehashValue", &v)?;
         }
-        if self.length != 0 {
+        if true {
             let v = LengthOp::from_i32(self.length)
                 .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.length)))?;
             struct_ser.serialize_field("length", &v)?;
         }
-        if !self.prefix.is_empty() {
+        if true {
             struct_ser.serialize_field("prefix", pbjson::private::base64::encode(&self.prefix).as_str())?;
         }
         struct_ser.end()
@@ -1659,17 +1659,17 @@ impl serde::Serialize for NonExistenceProof {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.key.is_empty() {
+        if true {
             len += 1;
         }
-        if self.left.is_some() {
+        if true {
             len += 1;
         }
-        if self.right.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.ics23.v1.NonExistenceProof", len)?;
-        if !self.key.is_empty() {
+        if true {
             struct_ser.serialize_field("key", pbjson::private::base64::encode(&self.key).as_str())?;
         }
         if let Some(v) = self.left.as_ref() {
@@ -1786,16 +1786,16 @@ impl serde::Serialize for ProofSpec {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.leaf_spec.is_some() {
+        if true {
             len += 1;
         }
-        if self.inner_spec.is_some() {
+        if true {
             len += 1;
         }
-        if self.max_depth != 0 {
+        if true {
             len += 1;
         }
-        if self.min_depth != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.ics23.v1.ProofSpec", len)?;
@@ -1805,10 +1805,10 @@ impl serde::Serialize for ProofSpec {
         if let Some(v) = self.inner_spec.as_ref() {
             struct_ser.serialize_field("innerSpec", v)?;
         }
-        if self.max_depth != 0 {
+        if true {
             struct_ser.serialize_field("maxDepth", &self.max_depth)?;
         }
-        if self.min_depth != 0 {
+        if true {
             struct_ser.serialize_field("minDepth", &self.min_depth)?;
         }
         struct_ser.end()

@@ -6,17 +6,17 @@ impl serde::Serialize for Coin {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.denom.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.amount.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.v1beta1.Coin", len)?;
-        if !self.denom.is_empty() {
+        if true {
             struct_ser.serialize_field("denom", &self.denom)?;
         }
-        if !self.amount.is_empty() {
+        if true {
             struct_ser.serialize_field("amount", &self.amount)?;
         }
         struct_ser.end()
@@ -114,17 +114,17 @@ impl serde::Serialize for DecCoin {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.denom.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.amount.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.v1beta1.DecCoin", len)?;
-        if !self.denom.is_empty() {
+        if true {
             struct_ser.serialize_field("denom", &self.denom)?;
         }
-        if !self.amount.is_empty() {
+        if true {
             struct_ser.serialize_field("amount", &self.amount)?;
         }
         struct_ser.end()
@@ -222,11 +222,11 @@ impl serde::Serialize for DecProto {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.dec.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.v1beta1.DecProto", len)?;
-        if !self.dec.is_empty() {
+        if true {
             struct_ser.serialize_field("dec", &self.dec)?;
         }
         struct_ser.end()
@@ -313,11 +313,11 @@ impl serde::Serialize for IntProto {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.int.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.v1beta1.IntProto", len)?;
-        if !self.int.is_empty() {
+        if true {
             struct_ser.serialize_field("int", &self.int)?;
         }
         struct_ser.end()

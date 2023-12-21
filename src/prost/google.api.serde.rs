@@ -6,17 +6,17 @@ impl serde::Serialize for CustomHttpPattern {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.kind.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.path.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.api.CustomHttpPattern", len)?;
-        if !self.kind.is_empty() {
+        if true {
             struct_ser.serialize_field("kind", &self.kind)?;
         }
-        if !self.path.is_empty() {
+        if true {
             struct_ser.serialize_field("path", &self.path)?;
         }
         struct_ser.end()
@@ -114,17 +114,17 @@ impl serde::Serialize for Http {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.rules.is_empty() {
+        if true {
             len += 1;
         }
-        if self.fully_decode_reserved_expansion {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.api.Http", len)?;
-        if !self.rules.is_empty() {
+        if true {
             struct_ser.serialize_field("rules", &self.rules)?;
         }
-        if self.fully_decode_reserved_expansion {
+        if true {
             struct_ser.serialize_field("fullyDecodeReservedExpansion", &self.fully_decode_reserved_expansion)?;
         }
         struct_ser.end()
@@ -223,32 +223,32 @@ impl serde::Serialize for HttpRule {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.selector.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.body.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.response_body.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.additional_bindings.is_empty() {
+        if true {
             len += 1;
         }
         if self.pattern.is_some() {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.api.HttpRule", len)?;
-        if !self.selector.is_empty() {
+        if true {
             struct_ser.serialize_field("selector", &self.selector)?;
         }
-        if !self.body.is_empty() {
+        if true {
             struct_ser.serialize_field("body", &self.body)?;
         }
-        if !self.response_body.is_empty() {
+        if true {
             struct_ser.serialize_field("responseBody", &self.response_body)?;
         }
-        if !self.additional_bindings.is_empty() {
+        if true {
             struct_ser.serialize_field("additionalBindings", &self.additional_bindings)?;
         }
         if let Some(v) = self.pattern.as_ref() {

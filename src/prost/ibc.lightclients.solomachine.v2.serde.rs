@@ -6,14 +6,14 @@ impl serde::Serialize for ChannelStateData {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.path.is_empty() {
+        if true {
             len += 1;
         }
-        if self.channel.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.ChannelStateData", len)?;
-        if !self.path.is_empty() {
+        if true {
             struct_ser.serialize_field("path", pbjson::private::base64::encode(&self.path).as_str())?;
         }
         if let Some(v) = self.channel.as_ref() {
@@ -116,29 +116,29 @@ impl serde::Serialize for ClientState {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.sequence != 0 {
+        if true {
             len += 1;
         }
-        if self.is_frozen {
+        if true {
             len += 1;
         }
-        if self.consensus_state.is_some() {
+        if true {
             len += 1;
         }
-        if self.allow_update_after_proposal {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.ClientState", len)?;
-        if self.sequence != 0 {
+        if true {
             struct_ser.serialize_field("sequence", ::alloc::string::ToString::to_string(&self.sequence).as_str())?;
         }
-        if self.is_frozen {
+        if true {
             struct_ser.serialize_field("isFrozen", &self.is_frozen)?;
         }
         if let Some(v) = self.consensus_state.as_ref() {
             struct_ser.serialize_field("consensusState", v)?;
         }
-        if self.allow_update_after_proposal {
+        if true {
             struct_ser.serialize_field("allowUpdateAfterProposal", &self.allow_update_after_proposal)?;
         }
         struct_ser.end()
@@ -263,14 +263,14 @@ impl serde::Serialize for ClientStateData {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.path.is_empty() {
+        if true {
             len += 1;
         }
-        if self.client_state.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.ClientStateData", len)?;
-        if !self.path.is_empty() {
+        if true {
             struct_ser.serialize_field("path", pbjson::private::base64::encode(&self.path).as_str())?;
         }
         if let Some(v) = self.client_state.as_ref() {
@@ -374,14 +374,14 @@ impl serde::Serialize for ConnectionStateData {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.path.is_empty() {
+        if true {
             len += 1;
         }
-        if self.connection.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.ConnectionStateData", len)?;
-        if !self.path.is_empty() {
+        if true {
             struct_ser.serialize_field("path", pbjson::private::base64::encode(&self.path).as_str())?;
         }
         if let Some(v) = self.connection.as_ref() {
@@ -484,23 +484,23 @@ impl serde::Serialize for ConsensusState {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.public_key.is_some() {
+        if true {
             len += 1;
         }
-        if !self.diversifier.is_empty() {
+        if true {
             len += 1;
         }
-        if self.timestamp != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.ConsensusState", len)?;
         if let Some(v) = self.public_key.as_ref() {
             struct_ser.serialize_field("publicKey", v)?;
         }
-        if !self.diversifier.is_empty() {
+        if true {
             struct_ser.serialize_field("diversifier", &self.diversifier)?;
         }
-        if self.timestamp != 0 {
+        if true {
             struct_ser.serialize_field("timestamp", ::alloc::string::ToString::to_string(&self.timestamp).as_str())?;
         }
         struct_ser.end()
@@ -612,14 +612,14 @@ impl serde::Serialize for ConsensusStateData {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.path.is_empty() {
+        if true {
             len += 1;
         }
-        if self.consensus_state.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.ConsensusStateData", len)?;
-        if !self.path.is_empty() {
+        if true {
             struct_ser.serialize_field("path", pbjson::private::base64::encode(&self.path).as_str())?;
         }
         if let Some(v) = self.consensus_state.as_ref() {
@@ -820,35 +820,35 @@ impl serde::Serialize for Header {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.sequence != 0 {
+        if true {
             len += 1;
         }
-        if self.timestamp != 0 {
+        if true {
             len += 1;
         }
-        if !self.signature.is_empty() {
+        if true {
             len += 1;
         }
-        if self.new_public_key.is_some() {
+        if true {
             len += 1;
         }
-        if !self.new_diversifier.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.Header", len)?;
-        if self.sequence != 0 {
+        if true {
             struct_ser.serialize_field("sequence", ::alloc::string::ToString::to_string(&self.sequence).as_str())?;
         }
-        if self.timestamp != 0 {
+        if true {
             struct_ser.serialize_field("timestamp", ::alloc::string::ToString::to_string(&self.timestamp).as_str())?;
         }
-        if !self.signature.is_empty() {
+        if true {
             struct_ser.serialize_field("signature", pbjson::private::base64::encode(&self.signature).as_str())?;
         }
         if let Some(v) = self.new_public_key.as_ref() {
             struct_ser.serialize_field("newPublicKey", v)?;
         }
-        if !self.new_diversifier.is_empty() {
+        if true {
             struct_ser.serialize_field("newDiversifier", &self.new_diversifier)?;
         }
         struct_ser.end()
@@ -987,17 +987,17 @@ impl serde::Serialize for HeaderData {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.new_pub_key.is_some() {
+        if true {
             len += 1;
         }
-        if !self.new_diversifier.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.HeaderData", len)?;
         if let Some(v) = self.new_pub_key.as_ref() {
             struct_ser.serialize_field("newPubKey", v)?;
         }
-        if !self.new_diversifier.is_empty() {
+        if true {
             struct_ser.serialize_field("newDiversifier", &self.new_diversifier)?;
         }
         struct_ser.end()
@@ -1097,23 +1097,23 @@ impl serde::Serialize for Misbehaviour {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.client_id.is_empty() {
+        if true {
             len += 1;
         }
-        if self.sequence != 0 {
+        if true {
             len += 1;
         }
-        if self.signature_one.is_some() {
+        if true {
             len += 1;
         }
-        if self.signature_two.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.Misbehaviour", len)?;
-        if !self.client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
-        if self.sequence != 0 {
+        if true {
             struct_ser.serialize_field("sequence", ::alloc::string::ToString::to_string(&self.sequence).as_str())?;
         }
         if let Some(v) = self.signature_one.as_ref() {
@@ -1244,17 +1244,17 @@ impl serde::Serialize for NextSequenceRecvData {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.path.is_empty() {
+        if true {
             len += 1;
         }
-        if self.next_seq_recv != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.NextSequenceRecvData", len)?;
-        if !self.path.is_empty() {
+        if true {
             struct_ser.serialize_field("path", pbjson::private::base64::encode(&self.path).as_str())?;
         }
-        if self.next_seq_recv != 0 {
+        if true {
             struct_ser.serialize_field("nextSeqRecv", ::alloc::string::ToString::to_string(&self.next_seq_recv).as_str())?;
         }
         struct_ser.end()
@@ -1357,17 +1357,17 @@ impl serde::Serialize for PacketAcknowledgementData {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.path.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.acknowledgement.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.PacketAcknowledgementData", len)?;
-        if !self.path.is_empty() {
+        if true {
             struct_ser.serialize_field("path", pbjson::private::base64::encode(&self.path).as_str())?;
         }
-        if !self.acknowledgement.is_empty() {
+        if true {
             struct_ser.serialize_field("acknowledgement", pbjson::private::base64::encode(&self.acknowledgement).as_str())?;
         }
         struct_ser.end()
@@ -1469,17 +1469,17 @@ impl serde::Serialize for PacketCommitmentData {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.path.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.commitment.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.PacketCommitmentData", len)?;
-        if !self.path.is_empty() {
+        if true {
             struct_ser.serialize_field("path", pbjson::private::base64::encode(&self.path).as_str())?;
         }
-        if !self.commitment.is_empty() {
+        if true {
             struct_ser.serialize_field("commitment", pbjson::private::base64::encode(&self.commitment).as_str())?;
         }
         struct_ser.end()
@@ -1581,11 +1581,11 @@ impl serde::Serialize for PacketReceiptAbsenceData {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.path.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.PacketReceiptAbsenceData", len)?;
-        if !self.path.is_empty() {
+        if true {
             struct_ser.serialize_field("path", pbjson::private::base64::encode(&self.path).as_str())?;
         }
         struct_ser.end()
@@ -1674,37 +1674,37 @@ impl serde::Serialize for SignBytes {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.sequence != 0 {
+        if true {
             len += 1;
         }
-        if self.timestamp != 0 {
+        if true {
             len += 1;
         }
-        if !self.diversifier.is_empty() {
+        if true {
             len += 1;
         }
-        if self.data_type != 0 {
+        if true {
             len += 1;
         }
-        if !self.data.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.SignBytes", len)?;
-        if self.sequence != 0 {
+        if true {
             struct_ser.serialize_field("sequence", ::alloc::string::ToString::to_string(&self.sequence).as_str())?;
         }
-        if self.timestamp != 0 {
+        if true {
             struct_ser.serialize_field("timestamp", ::alloc::string::ToString::to_string(&self.timestamp).as_str())?;
         }
-        if !self.diversifier.is_empty() {
+        if true {
             struct_ser.serialize_field("diversifier", &self.diversifier)?;
         }
-        if self.data_type != 0 {
+        if true {
             let v = DataType::from_i32(self.data_type)
                 .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.data_type)))?;
             struct_ser.serialize_field("dataType", &v)?;
         }
-        if !self.data.is_empty() {
+        if true {
             struct_ser.serialize_field("data", pbjson::private::base64::encode(&self.data).as_str())?;
         }
         struct_ser.end()
@@ -1842,31 +1842,31 @@ impl serde::Serialize for SignatureAndData {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.signature.is_empty() {
+        if true {
             len += 1;
         }
-        if self.data_type != 0 {
+        if true {
             len += 1;
         }
-        if !self.data.is_empty() {
+        if true {
             len += 1;
         }
-        if self.timestamp != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.SignatureAndData", len)?;
-        if !self.signature.is_empty() {
+        if true {
             struct_ser.serialize_field("signature", pbjson::private::base64::encode(&self.signature).as_str())?;
         }
-        if self.data_type != 0 {
+        if true {
             let v = DataType::from_i32(self.data_type)
                 .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.data_type)))?;
             struct_ser.serialize_field("dataType", &v)?;
         }
-        if !self.data.is_empty() {
+        if true {
             struct_ser.serialize_field("data", pbjson::private::base64::encode(&self.data).as_str())?;
         }
-        if self.timestamp != 0 {
+        if true {
             struct_ser.serialize_field("timestamp", ::alloc::string::ToString::to_string(&self.timestamp).as_str())?;
         }
         struct_ser.end()
@@ -1993,17 +1993,17 @@ impl serde::Serialize for TimestampedSignatureData {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.signature_data.is_empty() {
+        if true {
             len += 1;
         }
-        if self.timestamp != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v2.TimestampedSignatureData", len)?;
-        if !self.signature_data.is_empty() {
+        if true {
             struct_ser.serialize_field("signatureData", pbjson::private::base64::encode(&self.signature_data).as_str())?;
         }
-        if self.timestamp != 0 {
+        if true {
             struct_ser.serialize_field("timestamp", ::alloc::string::ToString::to_string(&self.timestamp).as_str())?;
         }
         struct_ser.end()

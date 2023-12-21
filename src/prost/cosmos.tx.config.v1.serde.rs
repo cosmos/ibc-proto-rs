@@ -6,17 +6,17 @@ impl serde::Serialize for Config {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.skip_ante_handler {
+        if true {
             len += 1;
         }
-        if self.skip_post_handler {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.tx.config.v1.Config", len)?;
-        if self.skip_ante_handler {
+        if true {
             struct_ser.serialize_field("skipAnteHandler", &self.skip_ante_handler)?;
         }
-        if self.skip_post_handler {
+        if true {
             struct_ser.serialize_field("skipPostHandler", &self.skip_post_handler)?;
         }
         struct_ser.end()

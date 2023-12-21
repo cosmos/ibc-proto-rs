@@ -6,22 +6,22 @@ impl serde::Serialize for AppDescriptor {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.authn.is_some() {
+        if true {
             len += 1;
         }
-        if self.chain.is_some() {
+        if true {
             len += 1;
         }
-        if self.codec.is_some() {
+        if true {
             len += 1;
         }
-        if self.configuration.is_some() {
+        if true {
             len += 1;
         }
-        if self.query_services.is_some() {
+        if true {
             len += 1;
         }
-        if self.tx.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.reflection.v2alpha1.AppDescriptor", len)?;
@@ -183,11 +183,11 @@ impl serde::Serialize for AuthnDescriptor {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.sign_modes.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.reflection.v2alpha1.AuthnDescriptor", len)?;
-        if !self.sign_modes.is_empty() {
+        if true {
             struct_ser.serialize_field("signModes", &self.sign_modes)?;
         }
         struct_ser.end()
@@ -275,11 +275,11 @@ impl serde::Serialize for ChainDescriptor {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.id.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.reflection.v2alpha1.ChainDescriptor", len)?;
-        if !self.id.is_empty() {
+        if true {
             struct_ser.serialize_field("id", &self.id)?;
         }
         struct_ser.end()
@@ -366,11 +366,11 @@ impl serde::Serialize for CodecDescriptor {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.interfaces.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.reflection.v2alpha1.CodecDescriptor", len)?;
-        if !self.interfaces.is_empty() {
+        if true {
             struct_ser.serialize_field("interfaces", &self.interfaces)?;
         }
         struct_ser.end()
@@ -457,11 +457,11 @@ impl serde::Serialize for ConfigurationDescriptor {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.bech32_account_address_prefix.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.reflection.v2alpha1.ConfigurationDescriptor", len)?;
-        if !self.bech32_account_address_prefix.is_empty() {
+        if true {
             struct_ser.serialize_field("bech32AccountAddressPrefix", &self.bech32_account_address_prefix)?;
         }
         struct_ser.end()
@@ -620,7 +620,7 @@ impl serde::Serialize for GetAuthnDescriptorResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.authn.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.reflection.v2alpha1.GetAuthnDescriptorResponse", len)?;
@@ -782,7 +782,7 @@ impl serde::Serialize for GetChainDescriptorResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.chain.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.reflection.v2alpha1.GetChainDescriptorResponse", len)?;
@@ -944,7 +944,7 @@ impl serde::Serialize for GetCodecDescriptorResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.codec.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.reflection.v2alpha1.GetCodecDescriptorResponse", len)?;
@@ -1106,7 +1106,7 @@ impl serde::Serialize for GetConfigurationDescriptorResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.config.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.reflection.v2alpha1.GetConfigurationDescriptorResponse", len)?;
@@ -1268,7 +1268,7 @@ impl serde::Serialize for GetQueryServicesDescriptorResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.queries.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.reflection.v2alpha1.GetQueryServicesDescriptorResponse", len)?;
@@ -1430,7 +1430,7 @@ impl serde::Serialize for GetTxDescriptorResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.tx.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.reflection.v2alpha1.GetTxDescriptorResponse", len)?;
@@ -1521,17 +1521,17 @@ impl serde::Serialize for InterfaceAcceptingMessageDescriptor {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.fullname.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.field_descriptor_names.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor", len)?;
-        if !self.fullname.is_empty() {
+        if true {
             struct_ser.serialize_field("fullname", &self.fullname)?;
         }
-        if !self.field_descriptor_names.is_empty() {
+        if true {
             struct_ser.serialize_field("fieldDescriptorNames", &self.field_descriptor_names)?;
         }
         struct_ser.end()
@@ -1630,23 +1630,23 @@ impl serde::Serialize for InterfaceDescriptor {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.fullname.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.interface_accepting_messages.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.interface_implementers.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.reflection.v2alpha1.InterfaceDescriptor", len)?;
-        if !self.fullname.is_empty() {
+        if true {
             struct_ser.serialize_field("fullname", &self.fullname)?;
         }
-        if !self.interface_accepting_messages.is_empty() {
+        if true {
             struct_ser.serialize_field("interfaceAcceptingMessages", &self.interface_accepting_messages)?;
         }
-        if !self.interface_implementers.is_empty() {
+        if true {
             struct_ser.serialize_field("interfaceImplementers", &self.interface_implementers)?;
         }
         struct_ser.end()
@@ -1757,17 +1757,17 @@ impl serde::Serialize for InterfaceImplementerDescriptor {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.fullname.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.type_url.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.reflection.v2alpha1.InterfaceImplementerDescriptor", len)?;
-        if !self.fullname.is_empty() {
+        if true {
             struct_ser.serialize_field("fullname", &self.fullname)?;
         }
-        if !self.type_url.is_empty() {
+        if true {
             struct_ser.serialize_field("typeUrl", &self.type_url)?;
         }
         struct_ser.end()
@@ -1866,11 +1866,11 @@ impl serde::Serialize for MsgDescriptor {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.msg_type_url.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.reflection.v2alpha1.MsgDescriptor", len)?;
-        if !self.msg_type_url.is_empty() {
+        if true {
             struct_ser.serialize_field("msgTypeUrl", &self.msg_type_url)?;
         }
         struct_ser.end()
@@ -1958,17 +1958,17 @@ impl serde::Serialize for QueryMethodDescriptor {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.name.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.full_query_path.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.reflection.v2alpha1.QueryMethodDescriptor", len)?;
-        if !self.name.is_empty() {
+        if true {
             struct_ser.serialize_field("name", &self.name)?;
         }
-        if !self.full_query_path.is_empty() {
+        if true {
             struct_ser.serialize_field("fullQueryPath", &self.full_query_path)?;
         }
         struct_ser.end()
@@ -2067,23 +2067,23 @@ impl serde::Serialize for QueryServiceDescriptor {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.fullname.is_empty() {
+        if true {
             len += 1;
         }
-        if self.is_module {
+        if true {
             len += 1;
         }
-        if !self.methods.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.reflection.v2alpha1.QueryServiceDescriptor", len)?;
-        if !self.fullname.is_empty() {
+        if true {
             struct_ser.serialize_field("fullname", &self.fullname)?;
         }
-        if self.is_module {
+        if true {
             struct_ser.serialize_field("isModule", &self.is_module)?;
         }
-        if !self.methods.is_empty() {
+        if true {
             struct_ser.serialize_field("methods", &self.methods)?;
         }
         struct_ser.end()
@@ -2193,11 +2193,11 @@ impl serde::Serialize for QueryServicesDescriptor {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.query_services.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.reflection.v2alpha1.QueryServicesDescriptor", len)?;
-        if !self.query_services.is_empty() {
+        if true {
             struct_ser.serialize_field("queryServices", &self.query_services)?;
         }
         struct_ser.end()
@@ -2285,23 +2285,23 @@ impl serde::Serialize for SigningModeDescriptor {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.name.is_empty() {
+        if true {
             len += 1;
         }
-        if self.number != 0 {
+        if true {
             len += 1;
         }
-        if !self.authn_info_provider_method_fullname.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.reflection.v2alpha1.SigningModeDescriptor", len)?;
-        if !self.name.is_empty() {
+        if true {
             struct_ser.serialize_field("name", &self.name)?;
         }
-        if self.number != 0 {
+        if true {
             struct_ser.serialize_field("number", &self.number)?;
         }
-        if !self.authn_info_provider_method_fullname.is_empty() {
+        if true {
             struct_ser.serialize_field("authnInfoProviderMethodFullname", &self.authn_info_provider_method_fullname)?;
         }
         struct_ser.end()
@@ -2413,17 +2413,17 @@ impl serde::Serialize for TxDescriptor {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.fullname.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.msgs.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.reflection.v2alpha1.TxDescriptor", len)?;
-        if !self.fullname.is_empty() {
+        if true {
             struct_ser.serialize_field("fullname", &self.fullname)?;
         }
-        if !self.msgs.is_empty() {
+        if true {
             struct_ser.serialize_field("msgs", &self.msgs)?;
         }
         struct_ser.end()

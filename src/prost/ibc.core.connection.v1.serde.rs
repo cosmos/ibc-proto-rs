@@ -6,11 +6,11 @@ impl serde::Serialize for ClientPaths {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.paths.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.connection.v1.ClientPaths", len)?;
-        if !self.paths.is_empty() {
+        if true {
             struct_ser.serialize_field("paths", &self.paths)?;
         }
         struct_ser.end()
@@ -97,29 +97,29 @@ impl serde::Serialize for ConnectionEnd {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.client_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.versions.is_empty() {
+        if true {
             len += 1;
         }
-        if self.state != 0 {
+        if true {
             len += 1;
         }
-        if self.counterparty.is_some() {
+        if true {
             len += 1;
         }
-        if self.delay_period != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.connection.v1.ConnectionEnd", len)?;
-        if !self.client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
-        if !self.versions.is_empty() {
+        if true {
             struct_ser.serialize_field("versions", &self.versions)?;
         }
-        if self.state != 0 {
+        if true {
             let v = State::from_i32(self.state)
                 .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.state)))?;
             struct_ser.serialize_field("state", &v)?;
@@ -127,7 +127,7 @@ impl serde::Serialize for ConnectionEnd {
         if let Some(v) = self.counterparty.as_ref() {
             struct_ser.serialize_field("counterparty", v)?;
         }
-        if self.delay_period != 0 {
+        if true {
             struct_ser.serialize_field("delayPeriod", ::alloc::string::ToString::to_string(&self.delay_period).as_str())?;
         }
         struct_ser.end()
@@ -262,17 +262,17 @@ impl serde::Serialize for ConnectionPaths {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.client_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.paths.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.connection.v1.ConnectionPaths", len)?;
-        if !self.client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
-        if !self.paths.is_empty() {
+        if true {
             struct_ser.serialize_field("paths", &self.paths)?;
         }
         struct_ser.end()
@@ -371,20 +371,20 @@ impl serde::Serialize for Counterparty {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.client_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.connection_id.is_empty() {
+        if true {
             len += 1;
         }
-        if self.prefix.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.connection.v1.Counterparty", len)?;
-        if !self.client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
-        if !self.connection_id.is_empty() {
+        if true {
             struct_ser.serialize_field("connectionId", &self.connection_id)?;
         }
         if let Some(v) = self.prefix.as_ref() {
@@ -498,26 +498,26 @@ impl serde::Serialize for GenesisState {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.connections.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.client_connection_paths.is_empty() {
+        if true {
             len += 1;
         }
-        if self.next_connection_sequence != 0 {
+        if true {
             len += 1;
         }
-        if self.params.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.connection.v1.GenesisState", len)?;
-        if !self.connections.is_empty() {
+        if true {
             struct_ser.serialize_field("connections", &self.connections)?;
         }
-        if !self.client_connection_paths.is_empty() {
+        if true {
             struct_ser.serialize_field("clientConnectionPaths", &self.client_connection_paths)?;
         }
-        if self.next_connection_sequence != 0 {
+        if true {
             struct_ser.serialize_field("nextConnectionSequence", ::alloc::string::ToString::to_string(&self.next_connection_sequence).as_str())?;
         }
         if let Some(v) = self.params.as_ref() {
@@ -644,35 +644,35 @@ impl serde::Serialize for IdentifiedConnection {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.client_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.versions.is_empty() {
+        if true {
             len += 1;
         }
-        if self.state != 0 {
+        if true {
             len += 1;
         }
-        if self.counterparty.is_some() {
+        if true {
             len += 1;
         }
-        if self.delay_period != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.connection.v1.IdentifiedConnection", len)?;
-        if !self.id.is_empty() {
+        if true {
             struct_ser.serialize_field("id", &self.id)?;
         }
-        if !self.client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
-        if !self.versions.is_empty() {
+        if true {
             struct_ser.serialize_field("versions", &self.versions)?;
         }
-        if self.state != 0 {
+        if true {
             let v = State::from_i32(self.state)
                 .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.state)))?;
             struct_ser.serialize_field("state", &v)?;
@@ -680,7 +680,7 @@ impl serde::Serialize for IdentifiedConnection {
         if let Some(v) = self.counterparty.as_ref() {
             struct_ser.serialize_field("counterparty", v)?;
         }
-        if self.delay_period != 0 {
+        if true {
             struct_ser.serialize_field("delayPeriod", ::alloc::string::ToString::to_string(&self.delay_period).as_str())?;
         }
         struct_ser.end()
@@ -826,44 +826,44 @@ impl serde::Serialize for MsgConnectionOpenAck {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.connection_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.counterparty_connection_id.is_empty() {
+        if true {
             len += 1;
         }
-        if self.version.is_some() {
+        if true {
             len += 1;
         }
-        if self.client_state.is_some() {
+        if true {
             len += 1;
         }
-        if self.proof_height.is_some() {
+        if true {
             len += 1;
         }
-        if !self.proof_try.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.proof_client.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.proof_consensus.is_empty() {
+        if true {
             len += 1;
         }
-        if self.consensus_height.is_some() {
+        if true {
             len += 1;
         }
-        if !self.signer.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.host_consensus_state_proof.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.connection.v1.MsgConnectionOpenAck", len)?;
-        if !self.connection_id.is_empty() {
+        if true {
             struct_ser.serialize_field("connectionId", &self.connection_id)?;
         }
-        if !self.counterparty_connection_id.is_empty() {
+        if true {
             struct_ser.serialize_field("counterpartyConnectionId", &self.counterparty_connection_id)?;
         }
         if let Some(v) = self.version.as_ref() {
@@ -875,22 +875,22 @@ impl serde::Serialize for MsgConnectionOpenAck {
         if let Some(v) = self.proof_height.as_ref() {
             struct_ser.serialize_field("proofHeight", v)?;
         }
-        if !self.proof_try.is_empty() {
+        if true {
             struct_ser.serialize_field("proofTry", pbjson::private::base64::encode(&self.proof_try).as_str())?;
         }
-        if !self.proof_client.is_empty() {
+        if true {
             struct_ser.serialize_field("proofClient", pbjson::private::base64::encode(&self.proof_client).as_str())?;
         }
-        if !self.proof_consensus.is_empty() {
+        if true {
             struct_ser.serialize_field("proofConsensus", pbjson::private::base64::encode(&self.proof_consensus).as_str())?;
         }
         if let Some(v) = self.consensus_height.as_ref() {
             struct_ser.serialize_field("consensusHeight", v)?;
         }
-        if !self.signer.is_empty() {
+        if true {
             struct_ser.serialize_field("signer", &self.signer)?;
         }
-        if !self.host_consensus_state_proof.is_empty() {
+        if true {
             struct_ser.serialize_field("hostConsensusStateProof", pbjson::private::base64::encode(&self.host_consensus_state_proof).as_str())?;
         }
         struct_ser.end()
@@ -1175,29 +1175,29 @@ impl serde::Serialize for MsgConnectionOpenConfirm {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.connection_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.proof_ack.is_empty() {
+        if true {
             len += 1;
         }
-        if self.proof_height.is_some() {
+        if true {
             len += 1;
         }
-        if !self.signer.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.connection.v1.MsgConnectionOpenConfirm", len)?;
-        if !self.connection_id.is_empty() {
+        if true {
             struct_ser.serialize_field("connectionId", &self.connection_id)?;
         }
-        if !self.proof_ack.is_empty() {
+        if true {
             struct_ser.serialize_field("proofAck", pbjson::private::base64::encode(&self.proof_ack).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
             struct_ser.serialize_field("proofHeight", v)?;
         }
-        if !self.signer.is_empty() {
+        if true {
             struct_ser.serialize_field("signer", &self.signer)?;
         }
         struct_ser.end()
@@ -1393,23 +1393,23 @@ impl serde::Serialize for MsgConnectionOpenInit {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.client_id.is_empty() {
+        if true {
             len += 1;
         }
-        if self.counterparty.is_some() {
+        if true {
             len += 1;
         }
-        if self.version.is_some() {
+        if true {
             len += 1;
         }
-        if self.delay_period != 0 {
+        if true {
             len += 1;
         }
-        if !self.signer.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.connection.v1.MsgConnectionOpenInit", len)?;
-        if !self.client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
         if let Some(v) = self.counterparty.as_ref() {
@@ -1418,10 +1418,10 @@ impl serde::Serialize for MsgConnectionOpenInit {
         if let Some(v) = self.version.as_ref() {
             struct_ser.serialize_field("version", v)?;
         }
-        if self.delay_period != 0 {
+        if true {
             struct_ser.serialize_field("delayPeriod", ::alloc::string::ToString::to_string(&self.delay_period).as_str())?;
         }
-        if !self.signer.is_empty() {
+        if true {
             struct_ser.serialize_field("signer", &self.signer)?;
         }
         struct_ser.end()
@@ -1627,50 +1627,50 @@ impl serde::Serialize for MsgConnectionOpenTry {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.client_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.previous_connection_id.is_empty() {
+        if true {
             len += 1;
         }
-        if self.client_state.is_some() {
+        if true {
             len += 1;
         }
-        if self.counterparty.is_some() {
+        if true {
             len += 1;
         }
-        if self.delay_period != 0 {
+        if true {
             len += 1;
         }
-        if !self.counterparty_versions.is_empty() {
+        if true {
             len += 1;
         }
-        if self.proof_height.is_some() {
+        if true {
             len += 1;
         }
-        if !self.proof_init.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.proof_client.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.proof_consensus.is_empty() {
+        if true {
             len += 1;
         }
-        if self.consensus_height.is_some() {
+        if true {
             len += 1;
         }
-        if !self.signer.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.host_consensus_state_proof.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.connection.v1.MsgConnectionOpenTry", len)?;
-        if !self.client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
-        if !self.previous_connection_id.is_empty() {
+        if true {
             struct_ser.serialize_field("previousConnectionId", &self.previous_connection_id)?;
         }
         if let Some(v) = self.client_state.as_ref() {
@@ -1679,31 +1679,31 @@ impl serde::Serialize for MsgConnectionOpenTry {
         if let Some(v) = self.counterparty.as_ref() {
             struct_ser.serialize_field("counterparty", v)?;
         }
-        if self.delay_period != 0 {
+        if true {
             struct_ser.serialize_field("delayPeriod", ::alloc::string::ToString::to_string(&self.delay_period).as_str())?;
         }
-        if !self.counterparty_versions.is_empty() {
+        if true {
             struct_ser.serialize_field("counterpartyVersions", &self.counterparty_versions)?;
         }
         if let Some(v) = self.proof_height.as_ref() {
             struct_ser.serialize_field("proofHeight", v)?;
         }
-        if !self.proof_init.is_empty() {
+        if true {
             struct_ser.serialize_field("proofInit", pbjson::private::base64::encode(&self.proof_init).as_str())?;
         }
-        if !self.proof_client.is_empty() {
+        if true {
             struct_ser.serialize_field("proofClient", pbjson::private::base64::encode(&self.proof_client).as_str())?;
         }
-        if !self.proof_consensus.is_empty() {
+        if true {
             struct_ser.serialize_field("proofConsensus", pbjson::private::base64::encode(&self.proof_consensus).as_str())?;
         }
         if let Some(v) = self.consensus_height.as_ref() {
             struct_ser.serialize_field("consensusHeight", v)?;
         }
-        if !self.signer.is_empty() {
+        if true {
             struct_ser.serialize_field("signer", &self.signer)?;
         }
-        if !self.host_consensus_state_proof.is_empty() {
+        if true {
             struct_ser.serialize_field("hostConsensusStateProof", pbjson::private::base64::encode(&self.host_consensus_state_proof).as_str())?;
         }
         struct_ser.end()
@@ -2014,14 +2014,14 @@ impl serde::Serialize for MsgUpdateParams {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.signer.is_empty() {
+        if true {
             len += 1;
         }
-        if self.params.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.connection.v1.MsgUpdateParams", len)?;
-        if !self.signer.is_empty() {
+        if true {
             struct_ser.serialize_field("signer", &self.signer)?;
         }
         if let Some(v) = self.params.as_ref() {
@@ -2193,11 +2193,11 @@ impl serde::Serialize for Params {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.max_expected_time_per_block != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.connection.v1.Params", len)?;
-        if self.max_expected_time_per_block != 0 {
+        if true {
             struct_ser.serialize_field("maxExpectedTimePerBlock", ::alloc::string::ToString::to_string(&self.max_expected_time_per_block).as_str())?;
         }
         struct_ser.end()
@@ -2287,11 +2287,11 @@ impl serde::Serialize for QueryClientConnectionsRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.client_id.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.connection.v1.QueryClientConnectionsRequest", len)?;
-        if !self.client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
         struct_ser.end()
@@ -2379,20 +2379,20 @@ impl serde::Serialize for QueryClientConnectionsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.connection_paths.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.proof.is_empty() {
+        if true {
             len += 1;
         }
-        if self.proof_height.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.connection.v1.QueryClientConnectionsResponse", len)?;
-        if !self.connection_paths.is_empty() {
+        if true {
             struct_ser.serialize_field("connectionPaths", &self.connection_paths)?;
         }
-        if !self.proof.is_empty() {
+        if true {
             struct_ser.serialize_field("proof", pbjson::private::base64::encode(&self.proof).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -2508,11 +2508,11 @@ impl serde::Serialize for QueryConnectionClientStateRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.connection_id.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.connection.v1.QueryConnectionClientStateRequest", len)?;
-        if !self.connection_id.is_empty() {
+        if true {
             struct_ser.serialize_field("connectionId", &self.connection_id)?;
         }
         struct_ser.end()
@@ -2600,20 +2600,20 @@ impl serde::Serialize for QueryConnectionClientStateResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.identified_client_state.is_some() {
+        if true {
             len += 1;
         }
-        if !self.proof.is_empty() {
+        if true {
             len += 1;
         }
-        if self.proof_height.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.connection.v1.QueryConnectionClientStateResponse", len)?;
         if let Some(v) = self.identified_client_state.as_ref() {
             struct_ser.serialize_field("identifiedClientState", v)?;
         }
-        if !self.proof.is_empty() {
+        if true {
             struct_ser.serialize_field("proof", pbjson::private::base64::encode(&self.proof).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -2729,23 +2729,23 @@ impl serde::Serialize for QueryConnectionConsensusStateRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.connection_id.is_empty() {
+        if true {
             len += 1;
         }
-        if self.revision_number != 0 {
+        if true {
             len += 1;
         }
-        if self.revision_height != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.connection.v1.QueryConnectionConsensusStateRequest", len)?;
-        if !self.connection_id.is_empty() {
+        if true {
             struct_ser.serialize_field("connectionId", &self.connection_id)?;
         }
-        if self.revision_number != 0 {
+        if true {
             struct_ser.serialize_field("revisionNumber", ::alloc::string::ToString::to_string(&self.revision_number).as_str())?;
         }
-        if self.revision_height != 0 {
+        if true {
             struct_ser.serialize_field("revisionHeight", ::alloc::string::ToString::to_string(&self.revision_height).as_str())?;
         }
         struct_ser.end()
@@ -2861,26 +2861,26 @@ impl serde::Serialize for QueryConnectionConsensusStateResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.consensus_state.is_some() {
+        if true {
             len += 1;
         }
-        if !self.client_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.proof.is_empty() {
+        if true {
             len += 1;
         }
-        if self.proof_height.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.connection.v1.QueryConnectionConsensusStateResponse", len)?;
         if let Some(v) = self.consensus_state.as_ref() {
             struct_ser.serialize_field("consensusState", v)?;
         }
-        if !self.client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
-        if !self.proof.is_empty() {
+        if true {
             struct_ser.serialize_field("proof", pbjson::private::base64::encode(&self.proof).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -3079,7 +3079,7 @@ impl serde::Serialize for QueryConnectionParamsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.params.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.connection.v1.QueryConnectionParamsResponse", len)?;
@@ -3170,11 +3170,11 @@ impl serde::Serialize for QueryConnectionRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.connection_id.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.connection.v1.QueryConnectionRequest", len)?;
-        if !self.connection_id.is_empty() {
+        if true {
             struct_ser.serialize_field("connectionId", &self.connection_id)?;
         }
         struct_ser.end()
@@ -3262,20 +3262,20 @@ impl serde::Serialize for QueryConnectionResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.connection.is_some() {
+        if true {
             len += 1;
         }
-        if !self.proof.is_empty() {
+        if true {
             len += 1;
         }
-        if self.proof_height.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.connection.v1.QueryConnectionResponse", len)?;
         if let Some(v) = self.connection.as_ref() {
             struct_ser.serialize_field("connection", v)?;
         }
-        if !self.proof.is_empty() {
+        if true {
             struct_ser.serialize_field("proof", pbjson::private::base64::encode(&self.proof).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -3390,7 +3390,7 @@ impl serde::Serialize for QueryConnectionsRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.connection.v1.QueryConnectionsRequest", len)?;
@@ -3481,17 +3481,17 @@ impl serde::Serialize for QueryConnectionsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.connections.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
-        if self.height.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.connection.v1.QueryConnectionsResponse", len)?;
-        if !self.connections.is_empty() {
+        if true {
             struct_ser.serialize_field("connections", &self.connections)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -3685,17 +3685,17 @@ impl serde::Serialize for Version {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.identifier.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.features.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.connection.v1.Version", len)?;
-        if !self.identifier.is_empty() {
+        if true {
             struct_ser.serialize_field("identifier", &self.identifier)?;
         }
-        if !self.features.is_empty() {
+        if true {
             struct_ser.serialize_field("features", &self.features)?;
         }
         struct_ser.end()

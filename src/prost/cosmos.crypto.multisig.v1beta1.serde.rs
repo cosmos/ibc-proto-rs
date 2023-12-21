@@ -6,17 +6,17 @@ impl serde::Serialize for CompactBitArray {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.extra_bits_stored != 0 {
+        if true {
             len += 1;
         }
-        if !self.elems.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.crypto.multisig.v1beta1.CompactBitArray", len)?;
-        if self.extra_bits_stored != 0 {
+        if true {
             struct_ser.serialize_field("extraBitsStored", &self.extra_bits_stored)?;
         }
-        if !self.elems.is_empty() {
+        if true {
             struct_ser.serialize_field("elems", pbjson::private::base64::encode(&self.elems).as_str())?;
         }
         struct_ser.end()
@@ -119,11 +119,11 @@ impl serde::Serialize for MultiSignature {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.signatures.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.crypto.multisig.v1beta1.MultiSignature", len)?;
-        if !self.signatures.is_empty() {
+        if true {
             struct_ser.serialize_field("signatures", &self.signatures.iter().map(pbjson::private::base64::encode).collect::<::alloc::vec::Vec<_>>())?;
         }
         struct_ser.end()

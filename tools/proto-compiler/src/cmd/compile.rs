@@ -190,6 +190,7 @@ impl CompileCmd {
                 ".interchain_security.ccv.consumer.v1",
                 ".stride.interchainquery.v1",
             ])
+            .emit_fields()
             .build(&[
                 ".ibc",
                 ".cosmos",

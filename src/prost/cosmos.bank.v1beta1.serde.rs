@@ -6,17 +6,17 @@ impl serde::Serialize for Balance {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.coins.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.Balance", len)?;
-        if !self.address.is_empty() {
+        if true {
             struct_ser.serialize_field("address", &self.address)?;
         }
-        if !self.coins.is_empty() {
+        if true {
             struct_ser.serialize_field("coins", &self.coins)?;
         }
         struct_ser.end()
@@ -114,14 +114,14 @@ impl serde::Serialize for DenomOwner {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.address.is_empty() {
+        if true {
             len += 1;
         }
-        if self.balance.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.DenomOwner", len)?;
-        if !self.address.is_empty() {
+        if true {
             struct_ser.serialize_field("address", &self.address)?;
         }
         if let Some(v) = self.balance.as_ref() {
@@ -222,23 +222,23 @@ impl serde::Serialize for DenomUnit {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.denom.is_empty() {
+        if true {
             len += 1;
         }
-        if self.exponent != 0 {
+        if true {
             len += 1;
         }
-        if !self.aliases.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.DenomUnit", len)?;
-        if !self.denom.is_empty() {
+        if true {
             struct_ser.serialize_field("denom", &self.denom)?;
         }
-        if self.exponent != 0 {
+        if true {
             struct_ser.serialize_field("exponent", &self.exponent)?;
         }
-        if !self.aliases.is_empty() {
+        if true {
             struct_ser.serialize_field("aliases", &self.aliases)?;
         }
         struct_ser.end()
@@ -349,35 +349,35 @@ impl serde::Serialize for GenesisState {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.params.is_some() {
+        if true {
             len += 1;
         }
-        if !self.balances.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.supply.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.denom_metadata.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.send_enabled.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.GenesisState", len)?;
         if let Some(v) = self.params.as_ref() {
             struct_ser.serialize_field("params", v)?;
         }
-        if !self.balances.is_empty() {
+        if true {
             struct_ser.serialize_field("balances", &self.balances)?;
         }
-        if !self.supply.is_empty() {
+        if true {
             struct_ser.serialize_field("supply", &self.supply)?;
         }
-        if !self.denom_metadata.is_empty() {
+        if true {
             struct_ser.serialize_field("denomMetadata", &self.denom_metadata)?;
         }
-        if !self.send_enabled.is_empty() {
+        if true {
             struct_ser.serialize_field("sendEnabled", &self.send_enabled)?;
         }
         struct_ser.end()
@@ -510,17 +510,17 @@ impl serde::Serialize for Input {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.coins.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.Input", len)?;
-        if !self.address.is_empty() {
+        if true {
             struct_ser.serialize_field("address", &self.address)?;
         }
-        if !self.coins.is_empty() {
+        if true {
             struct_ser.serialize_field("coins", &self.coins)?;
         }
         struct_ser.end()
@@ -618,53 +618,53 @@ impl serde::Serialize for Metadata {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.description.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.denom_units.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.base.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.display.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.name.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.symbol.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.uri.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.uri_hash.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.Metadata", len)?;
-        if !self.description.is_empty() {
+        if true {
             struct_ser.serialize_field("description", &self.description)?;
         }
-        if !self.denom_units.is_empty() {
+        if true {
             struct_ser.serialize_field("denomUnits", &self.denom_units)?;
         }
-        if !self.base.is_empty() {
+        if true {
             struct_ser.serialize_field("base", &self.base)?;
         }
-        if !self.display.is_empty() {
+        if true {
             struct_ser.serialize_field("display", &self.display)?;
         }
-        if !self.name.is_empty() {
+        if true {
             struct_ser.serialize_field("name", &self.name)?;
         }
-        if !self.symbol.is_empty() {
+        if true {
             struct_ser.serialize_field("symbol", &self.symbol)?;
         }
-        if !self.uri.is_empty() {
+        if true {
             struct_ser.serialize_field("uri", &self.uri)?;
         }
-        if !self.uri_hash.is_empty() {
+        if true {
             struct_ser.serialize_field("uriHash", &self.uri_hash)?;
         }
         struct_ser.end()
@@ -830,17 +830,17 @@ impl serde::Serialize for MsgMultiSend {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.inputs.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.outputs.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.MsgMultiSend", len)?;
-        if !self.inputs.is_empty() {
+        if true {
             struct_ser.serialize_field("inputs", &self.inputs)?;
         }
-        if !self.outputs.is_empty() {
+        if true {
             struct_ser.serialize_field("outputs", &self.outputs)?;
         }
         struct_ser.end()
@@ -1009,23 +1009,23 @@ impl serde::Serialize for MsgSend {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.from_address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.to_address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.amount.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.MsgSend", len)?;
-        if !self.from_address.is_empty() {
+        if true {
             struct_ser.serialize_field("fromAddress", &self.from_address)?;
         }
-        if !self.to_address.is_empty() {
+        if true {
             struct_ser.serialize_field("toAddress", &self.to_address)?;
         }
-        if !self.amount.is_empty() {
+        if true {
             struct_ser.serialize_field("amount", &self.amount)?;
         }
         struct_ser.end()
@@ -1207,23 +1207,23 @@ impl serde::Serialize for MsgSetSendEnabled {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.authority.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.send_enabled.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.use_default_for.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.MsgSetSendEnabled", len)?;
-        if !self.authority.is_empty() {
+        if true {
             struct_ser.serialize_field("authority", &self.authority)?;
         }
-        if !self.send_enabled.is_empty() {
+        if true {
             struct_ser.serialize_field("sendEnabled", &self.send_enabled)?;
         }
-        if !self.use_default_for.is_empty() {
+        if true {
             struct_ser.serialize_field("useDefaultFor", &self.use_default_for)?;
         }
         struct_ser.end()
@@ -1405,14 +1405,14 @@ impl serde::Serialize for MsgUpdateParams {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.authority.is_empty() {
+        if true {
             len += 1;
         }
-        if self.params.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.MsgUpdateParams", len)?;
-        if !self.authority.is_empty() {
+        if true {
             struct_ser.serialize_field("authority", &self.authority)?;
         }
         if let Some(v) = self.params.as_ref() {
@@ -1584,17 +1584,17 @@ impl serde::Serialize for Output {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.coins.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.Output", len)?;
-        if !self.address.is_empty() {
+        if true {
             struct_ser.serialize_field("address", &self.address)?;
         }
-        if !self.coins.is_empty() {
+        if true {
             struct_ser.serialize_field("coins", &self.coins)?;
         }
         struct_ser.end()
@@ -1692,17 +1692,17 @@ impl serde::Serialize for Params {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.send_enabled.is_empty() {
+        if true {
             len += 1;
         }
-        if self.default_send_enabled {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.Params", len)?;
-        if !self.send_enabled.is_empty() {
+        if true {
             struct_ser.serialize_field("sendEnabled", &self.send_enabled)?;
         }
-        if self.default_send_enabled {
+        if true {
             struct_ser.serialize_field("defaultSendEnabled", &self.default_send_enabled)?;
         }
         struct_ser.end()
@@ -1802,14 +1802,14 @@ impl serde::Serialize for QueryAllBalancesRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.address.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.QueryAllBalancesRequest", len)?;
-        if !self.address.is_empty() {
+        if true {
             struct_ser.serialize_field("address", &self.address)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -1910,14 +1910,14 @@ impl serde::Serialize for QueryAllBalancesResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.balances.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.QueryAllBalancesResponse", len)?;
-        if !self.balances.is_empty() {
+        if true {
             struct_ser.serialize_field("balances", &self.balances)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -2018,17 +2018,17 @@ impl serde::Serialize for QueryBalanceRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.denom.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.QueryBalanceRequest", len)?;
-        if !self.address.is_empty() {
+        if true {
             struct_ser.serialize_field("address", &self.address)?;
         }
-        if !self.denom.is_empty() {
+        if true {
             struct_ser.serialize_field("denom", &self.denom)?;
         }
         struct_ser.end()
@@ -2126,7 +2126,7 @@ impl serde::Serialize for QueryBalanceResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.balance.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.QueryBalanceResponse", len)?;
@@ -2217,11 +2217,11 @@ impl serde::Serialize for QueryDenomMetadataRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.denom.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.QueryDenomMetadataRequest", len)?;
-        if !self.denom.is_empty() {
+        if true {
             struct_ser.serialize_field("denom", &self.denom)?;
         }
         struct_ser.end()
@@ -2308,7 +2308,7 @@ impl serde::Serialize for QueryDenomMetadataResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.metadata.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.QueryDenomMetadataResponse", len)?;
@@ -2399,14 +2399,14 @@ impl serde::Serialize for QueryDenomOwnersRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.denom.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.QueryDenomOwnersRequest", len)?;
-        if !self.denom.is_empty() {
+        if true {
             struct_ser.serialize_field("denom", &self.denom)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -2507,14 +2507,14 @@ impl serde::Serialize for QueryDenomOwnersResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.denom_owners.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.QueryDenomOwnersResponse", len)?;
-        if !self.denom_owners.is_empty() {
+        if true {
             struct_ser.serialize_field("denomOwners", &self.denom_owners)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -2616,7 +2616,7 @@ impl serde::Serialize for QueryDenomsMetadataRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.QueryDenomsMetadataRequest", len)?;
@@ -2707,14 +2707,14 @@ impl serde::Serialize for QueryDenomsMetadataResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.metadatas.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.QueryDenomsMetadataResponse", len)?;
-        if !self.metadatas.is_empty() {
+        if true {
             struct_ser.serialize_field("metadatas", &self.metadatas)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -2886,7 +2886,7 @@ impl serde::Serialize for QueryParamsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.params.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.QueryParamsResponse", len)?;
@@ -2977,14 +2977,14 @@ impl serde::Serialize for QuerySendEnabledRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.denoms.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.QuerySendEnabledRequest", len)?;
-        if !self.denoms.is_empty() {
+        if true {
             struct_ser.serialize_field("denoms", &self.denoms)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -3085,14 +3085,14 @@ impl serde::Serialize for QuerySendEnabledResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.send_enabled.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.QuerySendEnabledResponse", len)?;
-        if !self.send_enabled.is_empty() {
+        if true {
             struct_ser.serialize_field("sendEnabled", &self.send_enabled)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -3194,17 +3194,17 @@ impl serde::Serialize for QuerySpendableBalanceByDenomRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.denom.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.QuerySpendableBalanceByDenomRequest", len)?;
-        if !self.address.is_empty() {
+        if true {
             struct_ser.serialize_field("address", &self.address)?;
         }
-        if !self.denom.is_empty() {
+        if true {
             struct_ser.serialize_field("denom", &self.denom)?;
         }
         struct_ser.end()
@@ -3302,7 +3302,7 @@ impl serde::Serialize for QuerySpendableBalanceByDenomResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.balance.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.QuerySpendableBalanceByDenomResponse", len)?;
@@ -3393,14 +3393,14 @@ impl serde::Serialize for QuerySpendableBalancesRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.address.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.QuerySpendableBalancesRequest", len)?;
-        if !self.address.is_empty() {
+        if true {
             struct_ser.serialize_field("address", &self.address)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -3501,14 +3501,14 @@ impl serde::Serialize for QuerySpendableBalancesResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.balances.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.QuerySpendableBalancesResponse", len)?;
-        if !self.balances.is_empty() {
+        if true {
             struct_ser.serialize_field("balances", &self.balances)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -3609,11 +3609,11 @@ impl serde::Serialize for QuerySupplyOfRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.denom.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.QuerySupplyOfRequest", len)?;
-        if !self.denom.is_empty() {
+        if true {
             struct_ser.serialize_field("denom", &self.denom)?;
         }
         struct_ser.end()
@@ -3700,7 +3700,7 @@ impl serde::Serialize for QuerySupplyOfResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.amount.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.QuerySupplyOfResponse", len)?;
@@ -3791,7 +3791,7 @@ impl serde::Serialize for QueryTotalSupplyRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.QueryTotalSupplyRequest", len)?;
@@ -3882,14 +3882,14 @@ impl serde::Serialize for QueryTotalSupplyResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.supply.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.QueryTotalSupplyResponse", len)?;
-        if !self.supply.is_empty() {
+        if true {
             struct_ser.serialize_field("supply", &self.supply)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -3990,17 +3990,17 @@ impl serde::Serialize for SendAuthorization {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.spend_limit.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.allow_list.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.SendAuthorization", len)?;
-        if !self.spend_limit.is_empty() {
+        if true {
             struct_ser.serialize_field("spendLimit", &self.spend_limit)?;
         }
-        if !self.allow_list.is_empty() {
+        if true {
             struct_ser.serialize_field("allowList", &self.allow_list)?;
         }
         struct_ser.end()
@@ -4100,17 +4100,17 @@ impl serde::Serialize for SendEnabled {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.denom.is_empty() {
+        if true {
             len += 1;
         }
-        if self.enabled {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.SendEnabled", len)?;
-        if !self.denom.is_empty() {
+        if true {
             struct_ser.serialize_field("denom", &self.denom)?;
         }
-        if self.enabled {
+        if true {
             struct_ser.serialize_field("enabled", &self.enabled)?;
         }
         struct_ser.end()
@@ -4208,11 +4208,11 @@ impl serde::Serialize for Supply {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.total.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.v1beta1.Supply", len)?;
-        if !self.total.is_empty() {
+        if true {
             struct_ser.serialize_field("total", &self.total)?;
         }
         struct_ser.end()

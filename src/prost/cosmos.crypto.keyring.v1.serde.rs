@@ -6,17 +6,17 @@ impl serde::Serialize for Record {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.name.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pub_key.is_some() {
+        if true {
             len += 1;
         }
         if self.item.is_some() {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.crypto.keyring.v1.Record", len)?;
-        if !self.name.is_empty() {
+        if true {
             struct_ser.serialize_field("name", &self.name)?;
         }
         if let Some(v) = self.pub_key.as_ref() {
@@ -176,7 +176,7 @@ impl serde::Serialize for record::Ledger {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.path.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.crypto.keyring.v1.Record.Ledger", len)?;
@@ -267,7 +267,7 @@ impl serde::Serialize for record::Local {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.priv_key.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.crypto.keyring.v1.Record.Local", len)?;

@@ -77,11 +77,11 @@ impl serde::Serialize for ConfigResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.minimum_gas_price.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.node.v1beta1.ConfigResponse", len)?;
-        if !self.minimum_gas_price.is_empty() {
+        if true {
             struct_ser.serialize_field("minimumGasPrice", &self.minimum_gas_price)?;
         }
         struct_ser.end()

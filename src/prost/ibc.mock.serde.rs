@@ -6,7 +6,7 @@ impl serde::Serialize for ClientState {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.header.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.mock.ClientState", len)?;
@@ -97,7 +97,7 @@ impl serde::Serialize for ConsensusState {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.header.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.mock.ConsensusState", len)?;
@@ -188,17 +188,17 @@ impl serde::Serialize for Header {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.height.is_some() {
+        if true {
             len += 1;
         }
-        if self.timestamp != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.mock.Header", len)?;
         if let Some(v) = self.height.as_ref() {
             struct_ser.serialize_field("height", v)?;
         }
-        if self.timestamp != 0 {
+        if true {
             struct_ser.serialize_field("timestamp", ::alloc::string::ToString::to_string(&self.timestamp).as_str())?;
         }
         struct_ser.end()
@@ -298,17 +298,17 @@ impl serde::Serialize for Misbehaviour {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.client_id.is_empty() {
+        if true {
             len += 1;
         }
-        if self.header1.is_some() {
+        if true {
             len += 1;
         }
-        if self.header2.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.mock.Misbehaviour", len)?;
-        if !self.client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
         if let Some(v) = self.header1.as_ref() {

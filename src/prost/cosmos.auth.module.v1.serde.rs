@@ -6,23 +6,23 @@ impl serde::Serialize for Module {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.bech32_prefix.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.module_account_permissions.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.authority.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.auth.module.v1.Module", len)?;
-        if !self.bech32_prefix.is_empty() {
+        if true {
             struct_ser.serialize_field("bech32Prefix", &self.bech32_prefix)?;
         }
-        if !self.module_account_permissions.is_empty() {
+        if true {
             struct_ser.serialize_field("moduleAccountPermissions", &self.module_account_permissions)?;
         }
-        if !self.authority.is_empty() {
+        if true {
             struct_ser.serialize_field("authority", &self.authority)?;
         }
         struct_ser.end()
@@ -133,17 +133,17 @@ impl serde::Serialize for ModuleAccountPermission {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.account.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.permissions.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.auth.module.v1.ModuleAccountPermission", len)?;
-        if !self.account.is_empty() {
+        if true {
             struct_ser.serialize_field("account", &self.account)?;
         }
-        if !self.permissions.is_empty() {
+        if true {
             struct_ser.serialize_field("permissions", &self.permissions)?;
         }
         struct_ser.end()

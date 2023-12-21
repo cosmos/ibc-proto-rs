@@ -6,29 +6,29 @@ impl serde::Serialize for ActiveChannel {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.connection_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.port_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.channel_id.is_empty() {
+        if true {
             len += 1;
         }
-        if self.is_middleware_enabled {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.interchain_accounts.genesis.v1.ActiveChannel", len)?;
-        if !self.connection_id.is_empty() {
+        if true {
             struct_ser.serialize_field("connectionId", &self.connection_id)?;
         }
-        if !self.port_id.is_empty() {
+        if true {
             struct_ser.serialize_field("portId", &self.port_id)?;
         }
-        if !self.channel_id.is_empty() {
+        if true {
             struct_ser.serialize_field("channelId", &self.channel_id)?;
         }
-        if self.is_middleware_enabled {
+        if true {
             struct_ser.serialize_field("isMiddlewareEnabled", &self.is_middleware_enabled)?;
         }
         struct_ser.end()
@@ -152,26 +152,26 @@ impl serde::Serialize for ControllerGenesisState {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.active_channels.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.interchain_accounts.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.ports.is_empty() {
+        if true {
             len += 1;
         }
-        if self.params.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.interchain_accounts.genesis.v1.ControllerGenesisState", len)?;
-        if !self.active_channels.is_empty() {
+        if true {
             struct_ser.serialize_field("activeChannels", &self.active_channels)?;
         }
-        if !self.interchain_accounts.is_empty() {
+        if true {
             struct_ser.serialize_field("interchainAccounts", &self.interchain_accounts)?;
         }
-        if !self.ports.is_empty() {
+        if true {
             struct_ser.serialize_field("ports", &self.ports)?;
         }
         if let Some(v) = self.params.as_ref() {
@@ -296,10 +296,10 @@ impl serde::Serialize for GenesisState {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.controller_genesis_state.is_some() {
+        if true {
             len += 1;
         }
-        if self.host_genesis_state.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.interchain_accounts.genesis.v1.GenesisState", len)?;
@@ -406,26 +406,26 @@ impl serde::Serialize for HostGenesisState {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.active_channels.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.interchain_accounts.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.port.is_empty() {
+        if true {
             len += 1;
         }
-        if self.params.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.interchain_accounts.genesis.v1.HostGenesisState", len)?;
-        if !self.active_channels.is_empty() {
+        if true {
             struct_ser.serialize_field("activeChannels", &self.active_channels)?;
         }
-        if !self.interchain_accounts.is_empty() {
+        if true {
             struct_ser.serialize_field("interchainAccounts", &self.interchain_accounts)?;
         }
-        if !self.port.is_empty() {
+        if true {
             struct_ser.serialize_field("port", &self.port)?;
         }
         if let Some(v) = self.params.as_ref() {
@@ -550,23 +550,23 @@ impl serde::Serialize for RegisteredInterchainAccount {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.connection_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.port_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.account_address.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.interchain_accounts.genesis.v1.RegisteredInterchainAccount", len)?;
-        if !self.connection_id.is_empty() {
+        if true {
             struct_ser.serialize_field("connectionId", &self.connection_id)?;
         }
-        if !self.port_id.is_empty() {
+        if true {
             struct_ser.serialize_field("portId", &self.port_id)?;
         }
-        if !self.account_address.is_empty() {
+        if true {
             struct_ser.serialize_field("accountAddress", &self.account_address)?;
         }
         struct_ser.end()

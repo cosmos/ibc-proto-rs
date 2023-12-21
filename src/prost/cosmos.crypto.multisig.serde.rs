@@ -6,17 +6,17 @@ impl serde::Serialize for LegacyAminoPubKey {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.threshold != 0 {
+        if true {
             len += 1;
         }
-        if !self.public_keys.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.crypto.multisig.LegacyAminoPubKey", len)?;
-        if self.threshold != 0 {
+        if true {
             struct_ser.serialize_field("threshold", &self.threshold)?;
         }
-        if !self.public_keys.is_empty() {
+        if true {
             struct_ser.serialize_field("publicKeys", &self.public_keys)?;
         }
         struct_ser.end()
