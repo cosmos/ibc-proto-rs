@@ -21,6 +21,10 @@ pub struct CompileCmd {
     /// path to the Cosmos ICS proto files
     ics: PathBuf,
 
+    #[argh(option, short = 'n')]
+    /// path to the nft-transfer proto files
+    nft: PathBuf,
+
     #[argh(option, short = 'o')]
     /// path to output the generated Rust sources into
     out: PathBuf,
@@ -32,6 +36,7 @@ impl CompileCmd {
             self.ibc.as_ref(),
             self.sdk.as_ref(),
             self.ics.as_ref(),
+            self.nft.as_ref(),
             self.out.as_ref(),
         )
         .unwrap_or_else(|e| {
@@ -56,6 +61,7 @@ impl CompileCmd {
         ibc_dir: &Path,
         sdk_dir: &Path,
         ics_dir: &Path,
+        nft_dir: &Path,
         out_dir: &Path,
     ) -> Result<(), Box<dyn std::error::Error>> {
         println!(
@@ -82,12 +88,14 @@ impl CompileCmd {
             format!("{}/interchain_security/ccv/v1", ics_dir.display()),
             format!("{}/interchain_security/ccv/provider", ics_dir.display()),
             format!("{}/interchain_security/ccv/consumer", ics_dir.display()),
+            format!("{}/ibc", nft_dir.display()),
         ];
 
         let proto_includes_paths = [
             format!("{}", sdk_dir.display()),
             format!("{}", ibc_dir.display()),
             format!("{}", ics_dir.display()),
+            format!("{}", nft_dir.display()),
             format!("{}/../../definitions/mock", root),
             format!("{}/../../definitions/ibc/lightclients/localhost/v1", root),
             format!("{}/../../definitions/stride/interchainquery/v1", root),

@@ -24,6 +24,10 @@ pub struct CloneCmd {
     #[argh(option, short = 's')]
     ics_commit: Option<String>,
 
+    /// commit to checkout for the nft-transfer repo
+    #[argh(option, short = 'n')]
+    nft_commit: Option<String>,
+
     /// where to checkout the repository
     #[argh(option, short = 'o')]
     out: PathBuf,
@@ -32,6 +36,7 @@ pub struct CloneCmd {
 pub const COSMOS_SDK_URL: &str = "https://github.com/cosmos/cosmos-sdk";
 pub const IBC_GO_URL: &str = "https://github.com/cosmos/ibc-go";
 pub const ICS_URL: &str = "https://github.com/cosmos/interchain-security";
+pub const NFT_TRANSFER_URL: &str = "https://github.com/bianjieai/nft-transfer";
 
 impl CloneCmd {
     pub fn validate(&self) {
@@ -57,6 +62,12 @@ impl CloneCmd {
         let mut ics_path = self.out.clone();
         ics_path.push("ics/");
         ics_path
+    }
+
+    pub fn nft_subdir(&self) -> PathBuf {
+        let mut nft_path = self.out.clone();
+        nft_path.push("nft/");
+        nft_path
     }
 
     pub fn run(&self) {
@@ -162,6 +173,42 @@ impl CloneCmd {
             }
             None => {
                 println!("[info ] No `-i`/`--ics_commit` option passed. Skipping the ICS repo.")
+            }
+        }
+
+        match &self.nft_commit {
+            Some(nft_commit) => {
+                let nft_path = self.nft_subdir();
+                let nft_repo = if nft_path.exists() {
+                    println!(
+                        "[info ] Found nft-transfer source at '{}'",
+                        nft_path.display()
+                    );
+
+                    Repository::open(&nft_path).unwrap_or_else(|e| {
+                        println!("[error] Failed to open repository: {}", e);
+                        process::exit(1)
+                    })
+                } else {
+                    Repository::clone(NFT_TRANSFER_URL, &nft_path).unwrap_or_else(|e| {
+                        println!("[error] Failed to clone the nft-transfer repository: {}", e);
+                        process::exit(1)
+                    })
+                };
+
+                println!("[info ] Cloned at '{}'", nft_path.display());
+                checkout_commit(&nft_repo, nft_commit).unwrap_or_else(|e| {
+                    println!(
+                        "[error] Failed to checkout nft-transfer commit {}: {}",
+                        nft_commit, e
+                    );
+                    process::exit(1)
+                });
+            }
+            None => {
+                println!(
+                    "[info ] No `-n`/`--nft-commit` option passed. Skipping the nft-transfer repo."
+                )
             }
         }
     }
