@@ -6,17 +6,17 @@ impl serde::Serialize for ClientConsensusStates {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.client_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.consensus_states.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.ClientConsensusStates", len)?;
-        if !self.client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
-        if !self.consensus_states.is_empty() {
+        if true {
             struct_ser.serialize_field("consensusStates", &self.consensus_states)?;
         }
         struct_ser.end()
@@ -116,29 +116,29 @@ impl serde::Serialize for ClientUpdateProposal {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.title.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.description.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.subject_client_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.substitute_client_id.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.ClientUpdateProposal", len)?;
-        if !self.title.is_empty() {
+        if true {
             struct_ser.serialize_field("title", &self.title)?;
         }
-        if !self.description.is_empty() {
+        if true {
             struct_ser.serialize_field("description", &self.description)?;
         }
-        if !self.subject_client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("subjectClientId", &self.subject_client_id)?;
         }
-        if !self.substitute_client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("substituteClientId", &self.substitute_client_id)?;
         }
         struct_ser.end()
@@ -260,10 +260,10 @@ impl serde::Serialize for ConsensusStateWithHeight {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.height.is_some() {
+        if true {
             len += 1;
         }
-        if self.consensus_state.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.ConsensusStateWithHeight", len)?;
@@ -369,17 +369,17 @@ impl serde::Serialize for GenesisMetadata {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.key.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.value.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.GenesisMetadata", len)?;
-        if !self.key.is_empty() {
+        if true {
             struct_ser.serialize_field("key", pbjson::private::base64::encode(&self.key).as_str())?;
         }
-        if !self.value.is_empty() {
+        if true {
             struct_ser.serialize_field("value", pbjson::private::base64::encode(&self.value).as_str())?;
         }
         struct_ser.end()
@@ -481,41 +481,41 @@ impl serde::Serialize for GenesisState {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.clients.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.clients_consensus.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.clients_metadata.is_empty() {
+        if true {
             len += 1;
         }
-        if self.params.is_some() {
+        if true {
             len += 1;
         }
-        if self.create_localhost {
+        if true {
             len += 1;
         }
-        if self.next_client_sequence != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.GenesisState", len)?;
-        if !self.clients.is_empty() {
+        if true {
             struct_ser.serialize_field("clients", &self.clients)?;
         }
-        if !self.clients_consensus.is_empty() {
+        if true {
             struct_ser.serialize_field("clientsConsensus", &self.clients_consensus)?;
         }
-        if !self.clients_metadata.is_empty() {
+        if true {
             struct_ser.serialize_field("clientsMetadata", &self.clients_metadata)?;
         }
         if let Some(v) = self.params.as_ref() {
             struct_ser.serialize_field("params", v)?;
         }
-        if self.create_localhost {
+        if true {
             struct_ser.serialize_field("createLocalhost", &self.create_localhost)?;
         }
-        if self.next_client_sequence != 0 {
+        if true {
             struct_ser.serialize_field("nextClientSequence", ::alloc::string::ToString::to_string(&self.next_client_sequence).as_str())?;
         }
         struct_ser.end()
@@ -663,17 +663,17 @@ impl serde::Serialize for Height {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.revision_number != 0 {
+        if true {
             len += 1;
         }
-        if self.revision_height != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.Height", len)?;
-        if self.revision_number != 0 {
+        if true {
             struct_ser.serialize_field("revisionNumber", ::alloc::string::ToString::to_string(&self.revision_number).as_str())?;
         }
-        if self.revision_height != 0 {
+        if true {
             struct_ser.serialize_field("revisionHeight", ::alloc::string::ToString::to_string(&self.revision_height).as_str())?;
         }
         struct_ser.end()
@@ -777,14 +777,14 @@ impl serde::Serialize for IdentifiedClientState {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.client_id.is_empty() {
+        if true {
             len += 1;
         }
-        if self.client_state.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.IdentifiedClientState", len)?;
-        if !self.client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
         if let Some(v) = self.client_state.as_ref() {
@@ -887,17 +887,17 @@ impl serde::Serialize for IdentifiedGenesisMetadata {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.client_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.client_metadata.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.IdentifiedGenesisMetadata", len)?;
-        if !self.client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
-        if !self.client_metadata.is_empty() {
+        if true {
             struct_ser.serialize_field("clientMetadata", &self.client_metadata)?;
         }
         struct_ser.end()
@@ -997,13 +997,13 @@ impl serde::Serialize for MsgCreateClient {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.client_state.is_some() {
+        if true {
             len += 1;
         }
-        if self.consensus_state.is_some() {
+        if true {
             len += 1;
         }
-        if !self.signer.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.MsgCreateClient", len)?;
@@ -1013,7 +1013,7 @@ impl serde::Serialize for MsgCreateClient {
         if let Some(v) = self.consensus_state.as_ref() {
             struct_ser.serialize_field("consensusState", v)?;
         }
-        if !self.signer.is_empty() {
+        if true {
             struct_ser.serialize_field("signer", &self.signer)?;
         }
         struct_ser.end()
@@ -1195,13 +1195,13 @@ impl serde::Serialize for MsgIbcSoftwareUpgrade {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.plan.is_some() {
+        if true {
             len += 1;
         }
-        if self.upgraded_client_state.is_some() {
+        if true {
             len += 1;
         }
-        if !self.signer.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.MsgIBCSoftwareUpgrade", len)?;
@@ -1211,7 +1211,7 @@ impl serde::Serialize for MsgIbcSoftwareUpgrade {
         if let Some(v) = self.upgraded_client_state.as_ref() {
             struct_ser.serialize_field("upgradedClientState", v)?;
         }
-        if !self.signer.is_empty() {
+        if true {
             struct_ser.serialize_field("signer", &self.signer)?;
         }
         struct_ser.end()
@@ -1392,23 +1392,23 @@ impl serde::Serialize for MsgRecoverClient {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.subject_client_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.substitute_client_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.signer.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.MsgRecoverClient", len)?;
-        if !self.subject_client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("subjectClientId", &self.subject_client_id)?;
         }
-        if !self.substitute_client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("substituteClientId", &self.substitute_client_id)?;
         }
-        if !self.signer.is_empty() {
+        if true {
             struct_ser.serialize_field("signer", &self.signer)?;
         }
         struct_ser.end()
@@ -1590,23 +1590,23 @@ impl serde::Serialize for MsgSubmitMisbehaviour {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.client_id.is_empty() {
+        if true {
             len += 1;
         }
-        if self.misbehaviour.is_some() {
+        if true {
             len += 1;
         }
-        if !self.signer.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.MsgSubmitMisbehaviour", len)?;
-        if !self.client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
         if let Some(v) = self.misbehaviour.as_ref() {
             struct_ser.serialize_field("misbehaviour", v)?;
         }
-        if !self.signer.is_empty() {
+        if true {
             struct_ser.serialize_field("signer", &self.signer)?;
         }
         struct_ser.end()
@@ -1787,23 +1787,23 @@ impl serde::Serialize for MsgUpdateClient {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.client_id.is_empty() {
+        if true {
             len += 1;
         }
-        if self.client_message.is_some() {
+        if true {
             len += 1;
         }
-        if !self.signer.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.MsgUpdateClient", len)?;
-        if !self.client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
         if let Some(v) = self.client_message.as_ref() {
             struct_ser.serialize_field("clientMessage", v)?;
         }
-        if !self.signer.is_empty() {
+        if true {
             struct_ser.serialize_field("signer", &self.signer)?;
         }
         struct_ser.end()
@@ -1985,14 +1985,14 @@ impl serde::Serialize for MsgUpdateParams {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.signer.is_empty() {
+        if true {
             len += 1;
         }
-        if self.params.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.MsgUpdateParams", len)?;
-        if !self.signer.is_empty() {
+        if true {
             struct_ser.serialize_field("signer", &self.signer)?;
         }
         if let Some(v) = self.params.as_ref() {
@@ -2164,26 +2164,26 @@ impl serde::Serialize for MsgUpgradeClient {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.client_id.is_empty() {
+        if true {
             len += 1;
         }
-        if self.client_state.is_some() {
+        if true {
             len += 1;
         }
-        if self.consensus_state.is_some() {
+        if true {
             len += 1;
         }
-        if !self.proof_upgrade_client.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.proof_upgrade_consensus_state.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.signer.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.MsgUpgradeClient", len)?;
-        if !self.client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
         if let Some(v) = self.client_state.as_ref() {
@@ -2192,13 +2192,13 @@ impl serde::Serialize for MsgUpgradeClient {
         if let Some(v) = self.consensus_state.as_ref() {
             struct_ser.serialize_field("consensusState", v)?;
         }
-        if !self.proof_upgrade_client.is_empty() {
+        if true {
             struct_ser.serialize_field("proofUpgradeClient", pbjson::private::base64::encode(&self.proof_upgrade_client).as_str())?;
         }
-        if !self.proof_upgrade_consensus_state.is_empty() {
+        if true {
             struct_ser.serialize_field("proofUpgradeConsensusState", pbjson::private::base64::encode(&self.proof_upgrade_consensus_state).as_str())?;
         }
-        if !self.signer.is_empty() {
+        if true {
             struct_ser.serialize_field("signer", &self.signer)?;
         }
         struct_ser.end()
@@ -2420,11 +2420,11 @@ impl serde::Serialize for Params {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.allowed_clients.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.Params", len)?;
-        if !self.allowed_clients.is_empty() {
+        if true {
             struct_ser.serialize_field("allowedClients", &self.allowed_clients)?;
         }
         struct_ser.end()
@@ -2583,7 +2583,7 @@ impl serde::Serialize for QueryClientParamsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.params.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.QueryClientParamsResponse", len)?;
@@ -2674,11 +2674,11 @@ impl serde::Serialize for QueryClientStateRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.client_id.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.QueryClientStateRequest", len)?;
-        if !self.client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
         struct_ser.end()
@@ -2766,20 +2766,20 @@ impl serde::Serialize for QueryClientStateResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.client_state.is_some() {
+        if true {
             len += 1;
         }
-        if !self.proof.is_empty() {
+        if true {
             len += 1;
         }
-        if self.proof_height.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.QueryClientStateResponse", len)?;
         if let Some(v) = self.client_state.as_ref() {
             struct_ser.serialize_field("clientState", v)?;
         }
-        if !self.proof.is_empty() {
+        if true {
             struct_ser.serialize_field("proof", pbjson::private::base64::encode(&self.proof).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -2895,7 +2895,7 @@ impl serde::Serialize for QueryClientStatesRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.QueryClientStatesRequest", len)?;
@@ -2986,14 +2986,14 @@ impl serde::Serialize for QueryClientStatesResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.client_states.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.QueryClientStatesResponse", len)?;
-        if !self.client_states.is_empty() {
+        if true {
             struct_ser.serialize_field("clientStates", &self.client_states)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -3095,11 +3095,11 @@ impl serde::Serialize for QueryClientStatusRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.client_id.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.QueryClientStatusRequest", len)?;
-        if !self.client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
         struct_ser.end()
@@ -3187,11 +3187,11 @@ impl serde::Serialize for QueryClientStatusResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.status.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.QueryClientStatusResponse", len)?;
-        if !self.status.is_empty() {
+        if true {
             struct_ser.serialize_field("status", &self.status)?;
         }
         struct_ser.end()
@@ -3278,14 +3278,14 @@ impl serde::Serialize for QueryConsensusStateHeightsRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.client_id.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.QueryConsensusStateHeightsRequest", len)?;
-        if !self.client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -3387,14 +3387,14 @@ impl serde::Serialize for QueryConsensusStateHeightsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.consensus_state_heights.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.QueryConsensusStateHeightsResponse", len)?;
-        if !self.consensus_state_heights.is_empty() {
+        if true {
             struct_ser.serialize_field("consensusStateHeights", &self.consensus_state_heights)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -3496,29 +3496,29 @@ impl serde::Serialize for QueryConsensusStateRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.client_id.is_empty() {
+        if true {
             len += 1;
         }
-        if self.revision_number != 0 {
+        if true {
             len += 1;
         }
-        if self.revision_height != 0 {
+        if true {
             len += 1;
         }
-        if self.latest_height {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.QueryConsensusStateRequest", len)?;
-        if !self.client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
-        if self.revision_number != 0 {
+        if true {
             struct_ser.serialize_field("revisionNumber", ::alloc::string::ToString::to_string(&self.revision_number).as_str())?;
         }
-        if self.revision_height != 0 {
+        if true {
             struct_ser.serialize_field("revisionHeight", ::alloc::string::ToString::to_string(&self.revision_height).as_str())?;
         }
-        if self.latest_height {
+        if true {
             struct_ser.serialize_field("latestHeight", &self.latest_height)?;
         }
         struct_ser.end()
@@ -3646,20 +3646,20 @@ impl serde::Serialize for QueryConsensusStateResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.consensus_state.is_some() {
+        if true {
             len += 1;
         }
-        if !self.proof.is_empty() {
+        if true {
             len += 1;
         }
-        if self.proof_height.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.QueryConsensusStateResponse", len)?;
         if let Some(v) = self.consensus_state.as_ref() {
             struct_ser.serialize_field("consensusState", v)?;
         }
-        if !self.proof.is_empty() {
+        if true {
             struct_ser.serialize_field("proof", pbjson::private::base64::encode(&self.proof).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -3775,14 +3775,14 @@ impl serde::Serialize for QueryConsensusStatesRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.client_id.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.QueryConsensusStatesRequest", len)?;
-        if !self.client_id.is_empty() {
+        if true {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -3884,14 +3884,14 @@ impl serde::Serialize for QueryConsensusStatesResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.consensus_states.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.QueryConsensusStatesResponse", len)?;
-        if !self.consensus_states.is_empty() {
+        if true {
             struct_ser.serialize_field("consensusStates", &self.consensus_states)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -4064,7 +4064,7 @@ impl serde::Serialize for QueryUpgradedClientStateResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.upgraded_client_state.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.QueryUpgradedClientStateResponse", len)?;
@@ -4227,7 +4227,7 @@ impl serde::Serialize for QueryUpgradedConsensusStateResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.upgraded_consensus_state.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.QueryUpgradedConsensusStateResponse", len)?;
@@ -4319,23 +4319,23 @@ impl serde::Serialize for UpgradeProposal {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.title.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.description.is_empty() {
+        if true {
             len += 1;
         }
-        if self.plan.is_some() {
+        if true {
             len += 1;
         }
-        if self.upgraded_client_state.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.UpgradeProposal", len)?;
-        if !self.title.is_empty() {
+        if true {
             struct_ser.serialize_field("title", &self.title)?;
         }
-        if !self.description.is_empty() {
+        if true {
             struct_ser.serialize_field("description", &self.description)?;
         }
         if let Some(v) = self.plan.as_ref() {

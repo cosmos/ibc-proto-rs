@@ -6,22 +6,22 @@ impl serde::Serialize for BlockMetadata {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.request_begin_block.is_some() {
+        if true {
             len += 1;
         }
-        if self.response_begin_block.is_some() {
+        if true {
             len += 1;
         }
-        if !self.deliver_txs.is_empty() {
+        if true {
             len += 1;
         }
-        if self.request_end_block.is_some() {
+        if true {
             len += 1;
         }
-        if self.response_end_block.is_some() {
+        if true {
             len += 1;
         }
-        if self.response_commit.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.store.v1beta1.BlockMetadata", len)?;
@@ -31,7 +31,7 @@ impl serde::Serialize for BlockMetadata {
         if let Some(v) = self.response_begin_block.as_ref() {
             struct_ser.serialize_field("responseBeginBlock", v)?;
         }
-        if !self.deliver_txs.is_empty() {
+        if true {
             struct_ser.serialize_field("deliverTxs", &self.deliver_txs)?;
         }
         if let Some(v) = self.request_end_block.as_ref() {
@@ -188,10 +188,10 @@ impl serde::Serialize for block_metadata::DeliverTx {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.request.is_some() {
+        if true {
             len += 1;
         }
-        if self.response.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.store.v1beta1.BlockMetadata.DeliverTx", len)?;
@@ -296,17 +296,17 @@ impl serde::Serialize for CommitId {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.version != 0 {
+        if true {
             len += 1;
         }
-        if !self.hash.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.store.v1beta1.CommitID", len)?;
-        if self.version != 0 {
+        if true {
             struct_ser.serialize_field("version", ::alloc::string::ToString::to_string(&self.version).as_str())?;
         }
-        if !self.hash.is_empty() {
+        if true {
             struct_ser.serialize_field("hash", pbjson::private::base64::encode(&self.hash).as_str())?;
         }
         struct_ser.end()
@@ -408,20 +408,20 @@ impl serde::Serialize for CommitInfo {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.version != 0 {
+        if true {
             len += 1;
         }
-        if !self.store_infos.is_empty() {
+        if true {
             len += 1;
         }
-        if self.timestamp.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.store.v1beta1.CommitInfo", len)?;
-        if self.version != 0 {
+        if true {
             struct_ser.serialize_field("version", ::alloc::string::ToString::to_string(&self.version).as_str())?;
         }
-        if !self.store_infos.is_empty() {
+        if true {
             struct_ser.serialize_field("storeInfos", &self.store_infos)?;
         }
         if let Some(v) = self.timestamp.as_ref() {
@@ -536,14 +536,14 @@ impl serde::Serialize for StoreInfo {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.name.is_empty() {
+        if true {
             len += 1;
         }
-        if self.commit_id.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.store.v1beta1.StoreInfo", len)?;
-        if !self.name.is_empty() {
+        if true {
             struct_ser.serialize_field("name", &self.name)?;
         }
         if let Some(v) = self.commit_id.as_ref() {
@@ -645,29 +645,29 @@ impl serde::Serialize for StoreKvPair {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.store_key.is_empty() {
+        if true {
             len += 1;
         }
-        if self.delete {
+        if true {
             len += 1;
         }
-        if !self.key.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.value.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.store.v1beta1.StoreKVPair", len)?;
-        if !self.store_key.is_empty() {
+        if true {
             struct_ser.serialize_field("storeKey", &self.store_key)?;
         }
-        if self.delete {
+        if true {
             struct_ser.serialize_field("delete", &self.delete)?;
         }
-        if !self.key.is_empty() {
+        if true {
             struct_ser.serialize_field("key", pbjson::private::base64::encode(&self.key).as_str())?;
         }
-        if !self.value.is_empty() {
+        if true {
             struct_ser.serialize_field("value", pbjson::private::base64::encode(&self.value).as_str())?;
         }
         struct_ser.end()

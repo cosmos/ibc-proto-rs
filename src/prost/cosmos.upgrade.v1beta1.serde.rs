@@ -6,17 +6,17 @@ impl serde::Serialize for CancelSoftwareUpgradeProposal {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.title.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.description.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal", len)?;
-        if !self.title.is_empty() {
+        if true {
             struct_ser.serialize_field("title", &self.title)?;
         }
-        if !self.description.is_empty() {
+        if true {
             struct_ser.serialize_field("description", &self.description)?;
         }
         struct_ser.end()
@@ -114,17 +114,17 @@ impl serde::Serialize for ModuleVersion {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.name.is_empty() {
+        if true {
             len += 1;
         }
-        if self.version != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.upgrade.v1beta1.ModuleVersion", len)?;
-        if !self.name.is_empty() {
+        if true {
             struct_ser.serialize_field("name", &self.name)?;
         }
-        if self.version != 0 {
+        if true {
             struct_ser.serialize_field("version", ::alloc::string::ToString::to_string(&self.version).as_str())?;
         }
         struct_ser.end()
@@ -224,11 +224,11 @@ impl serde::Serialize for MsgCancelUpgrade {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.authority.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.upgrade.v1beta1.MsgCancelUpgrade", len)?;
-        if !self.authority.is_empty() {
+        if true {
             struct_ser.serialize_field("authority", &self.authority)?;
         }
         struct_ser.end()
@@ -386,14 +386,14 @@ impl serde::Serialize for MsgSoftwareUpgrade {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.authority.is_empty() {
+        if true {
             len += 1;
         }
-        if self.plan.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.upgrade.v1beta1.MsgSoftwareUpgrade", len)?;
-        if !self.authority.is_empty() {
+        if true {
             struct_ser.serialize_field("authority", &self.authority)?;
         }
         if let Some(v) = self.plan.as_ref() {
@@ -565,32 +565,32 @@ impl serde::Serialize for Plan {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.name.is_empty() {
+        if true {
             len += 1;
         }
-        if self.time.is_some() {
+        if true {
             len += 1;
         }
-        if self.height != 0 {
+        if true {
             len += 1;
         }
-        if !self.info.is_empty() {
+        if true {
             len += 1;
         }
-        if self.upgraded_client_state.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.upgrade.v1beta1.Plan", len)?;
-        if !self.name.is_empty() {
+        if true {
             struct_ser.serialize_field("name", &self.name)?;
         }
         if let Some(v) = self.time.as_ref() {
             struct_ser.serialize_field("time", v)?;
         }
-        if self.height != 0 {
+        if true {
             struct_ser.serialize_field("height", ::alloc::string::ToString::to_string(&self.height).as_str())?;
         }
-        if !self.info.is_empty() {
+        if true {
             struct_ser.serialize_field("info", &self.info)?;
         }
         if let Some(v) = self.upgraded_client_state.as_ref() {
@@ -727,11 +727,11 @@ impl serde::Serialize for QueryAppliedPlanRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.name.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.upgrade.v1beta1.QueryAppliedPlanRequest", len)?;
-        if !self.name.is_empty() {
+        if true {
             struct_ser.serialize_field("name", &self.name)?;
         }
         struct_ser.end()
@@ -818,11 +818,11 @@ impl serde::Serialize for QueryAppliedPlanResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.height != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.upgrade.v1beta1.QueryAppliedPlanResponse", len)?;
-        if self.height != 0 {
+        if true {
             struct_ser.serialize_field("height", ::alloc::string::ToString::to_string(&self.height).as_str())?;
         }
         struct_ser.end()
@@ -982,11 +982,11 @@ impl serde::Serialize for QueryAuthorityResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.address.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.upgrade.v1beta1.QueryAuthorityResponse", len)?;
-        if !self.address.is_empty() {
+        if true {
             struct_ser.serialize_field("address", &self.address)?;
         }
         struct_ser.end()
@@ -1144,7 +1144,7 @@ impl serde::Serialize for QueryCurrentPlanResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.plan.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.upgrade.v1beta1.QueryCurrentPlanResponse", len)?;
@@ -1235,11 +1235,11 @@ impl serde::Serialize for QueryModuleVersionsRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.module_name.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.upgrade.v1beta1.QueryModuleVersionsRequest", len)?;
-        if !self.module_name.is_empty() {
+        if true {
             struct_ser.serialize_field("moduleName", &self.module_name)?;
         }
         struct_ser.end()
@@ -1327,11 +1327,11 @@ impl serde::Serialize for QueryModuleVersionsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.module_versions.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.upgrade.v1beta1.QueryModuleVersionsResponse", len)?;
-        if !self.module_versions.is_empty() {
+        if true {
             struct_ser.serialize_field("moduleVersions", &self.module_versions)?;
         }
         struct_ser.end()
@@ -1419,11 +1419,11 @@ impl serde::Serialize for QueryUpgradedConsensusStateRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.last_height != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateRequest", len)?;
-        if self.last_height != 0 {
+        if true {
             struct_ser.serialize_field("lastHeight", ::alloc::string::ToString::to_string(&self.last_height).as_str())?;
         }
         struct_ser.end()
@@ -1513,11 +1513,11 @@ impl serde::Serialize for QueryUpgradedConsensusStateResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.upgraded_consensus_state.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateResponse", len)?;
-        if !self.upgraded_consensus_state.is_empty() {
+        if true {
             struct_ser.serialize_field("upgradedConsensusState", pbjson::private::base64::encode(&self.upgraded_consensus_state).as_str())?;
         }
         struct_ser.end()
@@ -1607,20 +1607,20 @@ impl serde::Serialize for SoftwareUpgradeProposal {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.title.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.description.is_empty() {
+        if true {
             len += 1;
         }
-        if self.plan.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.upgrade.v1beta1.SoftwareUpgradeProposal", len)?;
-        if !self.title.is_empty() {
+        if true {
             struct_ser.serialize_field("title", &self.title)?;
         }
-        if !self.description.is_empty() {
+        if true {
             struct_ser.serialize_field("description", &self.description)?;
         }
         if let Some(v) = self.plan.as_ref() {

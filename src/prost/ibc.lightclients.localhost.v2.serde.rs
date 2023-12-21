@@ -6,7 +6,7 @@ impl serde::Serialize for ClientState {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.latest_height.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.localhost.v2.ClientState", len)?;

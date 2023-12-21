@@ -6,17 +6,17 @@ impl serde::Serialize for Module {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.max_metadata_len != 0 {
+        if true {
             len += 1;
         }
-        if !self.authority.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.module.v1.Module", len)?;
-        if self.max_metadata_len != 0 {
+        if true {
             struct_ser.serialize_field("maxMetadataLen", ::alloc::string::ToString::to_string(&self.max_metadata_len).as_str())?;
         }
-        if !self.authority.is_empty() {
+        if true {
             struct_ser.serialize_field("authority", &self.authority)?;
         }
         struct_ser.end()

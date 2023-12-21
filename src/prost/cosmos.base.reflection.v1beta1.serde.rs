@@ -77,11 +77,11 @@ impl serde::Serialize for ListAllInterfacesResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.interface_names.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.reflection.v1beta1.ListAllInterfacesResponse", len)?;
-        if !self.interface_names.is_empty() {
+        if true {
             struct_ser.serialize_field("interfaceNames", &self.interface_names)?;
         }
         struct_ser.end()
@@ -169,11 +169,11 @@ impl serde::Serialize for ListImplementationsRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.interface_name.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.reflection.v1beta1.ListImplementationsRequest", len)?;
-        if !self.interface_name.is_empty() {
+        if true {
             struct_ser.serialize_field("interfaceName", &self.interface_name)?;
         }
         struct_ser.end()
@@ -261,11 +261,11 @@ impl serde::Serialize for ListImplementationsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.implementation_message_names.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.reflection.v1beta1.ListImplementationsResponse", len)?;
-        if !self.implementation_message_names.is_empty() {
+        if true {
             struct_ser.serialize_field("implementationMessageNames", &self.implementation_message_names)?;
         }
         struct_ser.end()

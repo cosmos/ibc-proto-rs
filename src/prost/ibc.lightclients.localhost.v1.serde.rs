@@ -6,14 +6,14 @@ impl serde::Serialize for ClientState {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.chain_id.is_empty() {
+        if true {
             len += 1;
         }
-        if self.height.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.localhost.v1.ClientState", len)?;
-        if !self.chain_id.is_empty() {
+        if true {
             struct_ser.serialize_field("chainId", &self.chain_id)?;
         }
         if let Some(v) = self.height.as_ref() {

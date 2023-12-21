@@ -6,17 +6,17 @@ impl serde::Serialize for Any {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.type_url.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.value.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.Any", len)?;
-        if !self.type_url.is_empty() {
+        if true {
             struct_ser.serialize_field("typeUrl", &self.type_url)?;
         }
-        if !self.value.is_empty() {
+        if true {
             struct_ser.serialize_field("value", pbjson::private::base64::encode(&self.value).as_str())?;
         }
         struct_ser.end()
@@ -117,65 +117,65 @@ impl serde::Serialize for DescriptorProto {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.name.is_some() {
+        if true {
             len += 1;
         }
-        if !self.field.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.extension.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.nested_type.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.enum_type.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.extension_range.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.oneof_decl.is_empty() {
+        if true {
             len += 1;
         }
-        if self.options.is_some() {
+        if true {
             len += 1;
         }
-        if !self.reserved_range.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.reserved_name.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.DescriptorProto", len)?;
         if let Some(v) = self.name.as_ref() {
             struct_ser.serialize_field("name", v)?;
         }
-        if !self.field.is_empty() {
+        if true {
             struct_ser.serialize_field("field", &self.field)?;
         }
-        if !self.extension.is_empty() {
+        if true {
             struct_ser.serialize_field("extension", &self.extension)?;
         }
-        if !self.nested_type.is_empty() {
+        if true {
             struct_ser.serialize_field("nestedType", &self.nested_type)?;
         }
-        if !self.enum_type.is_empty() {
+        if true {
             struct_ser.serialize_field("enumType", &self.enum_type)?;
         }
-        if !self.extension_range.is_empty() {
+        if true {
             struct_ser.serialize_field("extensionRange", &self.extension_range)?;
         }
-        if !self.oneof_decl.is_empty() {
+        if true {
             struct_ser.serialize_field("oneofDecl", &self.oneof_decl)?;
         }
         if let Some(v) = self.options.as_ref() {
             struct_ser.serialize_field("options", v)?;
         }
-        if !self.reserved_range.is_empty() {
+        if true {
             struct_ser.serialize_field("reservedRange", &self.reserved_range)?;
         }
-        if !self.reserved_name.is_empty() {
+        if true {
             struct_ser.serialize_field("reservedName", &self.reserved_name)?;
         }
         struct_ser.end()
@@ -367,13 +367,13 @@ impl serde::Serialize for descriptor_proto::ExtensionRange {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.start.is_some() {
+        if true {
             len += 1;
         }
-        if self.end.is_some() {
+        if true {
             len += 1;
         }
-        if self.options.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.DescriptorProto.ExtensionRange", len)?;
@@ -496,10 +496,10 @@ impl serde::Serialize for descriptor_proto::ReservedRange {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.start.is_some() {
+        if true {
             len += 1;
         }
-        if self.end.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.DescriptorProto.ReservedRange", len)?;
@@ -608,17 +608,17 @@ impl serde::Serialize for Duration {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.seconds != 0 {
+        if true {
             len += 1;
         }
-        if self.nanos != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.Duration", len)?;
-        if self.seconds != 0 {
+        if true {
             struct_ser.serialize_field("seconds", ::alloc::string::ToString::to_string(&self.seconds).as_str())?;
         }
-        if self.nanos != 0 {
+        if true {
             struct_ser.serialize_field("nanos", &self.nanos)?;
         }
         struct_ser.end()
@@ -720,35 +720,35 @@ impl serde::Serialize for EnumDescriptorProto {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.name.is_some() {
+        if true {
             len += 1;
         }
-        if !self.value.is_empty() {
+        if true {
             len += 1;
         }
-        if self.options.is_some() {
+        if true {
             len += 1;
         }
-        if !self.reserved_range.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.reserved_name.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.EnumDescriptorProto", len)?;
         if let Some(v) = self.name.as_ref() {
             struct_ser.serialize_field("name", v)?;
         }
-        if !self.value.is_empty() {
+        if true {
             struct_ser.serialize_field("value", &self.value)?;
         }
         if let Some(v) = self.options.as_ref() {
             struct_ser.serialize_field("options", v)?;
         }
-        if !self.reserved_range.is_empty() {
+        if true {
             struct_ser.serialize_field("reservedRange", &self.reserved_range)?;
         }
-        if !self.reserved_name.is_empty() {
+        if true {
             struct_ser.serialize_field("reservedName", &self.reserved_name)?;
         }
         struct_ser.end()
@@ -881,10 +881,10 @@ impl serde::Serialize for enum_descriptor_proto::EnumReservedRange {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.start.is_some() {
+        if true {
             len += 1;
         }
-        if self.end.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.EnumDescriptorProto.EnumReservedRange", len)?;
@@ -993,13 +993,13 @@ impl serde::Serialize for EnumOptions {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.allow_alias.is_some() {
+        if true {
             len += 1;
         }
-        if self.deprecated.is_some() {
+        if true {
             len += 1;
         }
-        if !self.uninterpreted_option.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.EnumOptions", len)?;
@@ -1009,7 +1009,7 @@ impl serde::Serialize for EnumOptions {
         if let Some(v) = self.deprecated.as_ref() {
             struct_ser.serialize_field("deprecated", v)?;
         }
-        if !self.uninterpreted_option.is_empty() {
+        if true {
             struct_ser.serialize_field("uninterpretedOption", &self.uninterpreted_option)?;
         }
         struct_ser.end()
@@ -1120,13 +1120,13 @@ impl serde::Serialize for EnumValueDescriptorProto {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.name.is_some() {
+        if true {
             len += 1;
         }
-        if self.number.is_some() {
+        if true {
             len += 1;
         }
-        if self.options.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.EnumValueDescriptorProto", len)?;
@@ -1247,17 +1247,17 @@ impl serde::Serialize for EnumValueOptions {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.deprecated.is_some() {
+        if true {
             len += 1;
         }
-        if !self.uninterpreted_option.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.EnumValueOptions", len)?;
         if let Some(v) = self.deprecated.as_ref() {
             struct_ser.serialize_field("deprecated", v)?;
         }
-        if !self.uninterpreted_option.is_empty() {
+        if true {
             struct_ser.serialize_field("uninterpretedOption", &self.uninterpreted_option)?;
         }
         struct_ser.end()
@@ -1356,11 +1356,11 @@ impl serde::Serialize for ExtensionRangeOptions {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.uninterpreted_option.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.ExtensionRangeOptions", len)?;
-        if !self.uninterpreted_option.is_empty() {
+        if true {
             struct_ser.serialize_field("uninterpretedOption", &self.uninterpreted_option)?;
         }
         struct_ser.end()
@@ -1448,37 +1448,37 @@ impl serde::Serialize for FieldDescriptorProto {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.name.is_some() {
+        if true {
             len += 1;
         }
-        if self.number.is_some() {
+        if true {
             len += 1;
         }
-        if self.label.is_some() {
+        if true {
             len += 1;
         }
-        if self.r#type.is_some() {
+        if true {
             len += 1;
         }
-        if self.type_name.is_some() {
+        if true {
             len += 1;
         }
-        if self.extendee.is_some() {
+        if true {
             len += 1;
         }
-        if self.default_value.is_some() {
+        if true {
             len += 1;
         }
-        if self.oneof_index.is_some() {
+        if true {
             len += 1;
         }
-        if self.json_name.is_some() {
+        if true {
             len += 1;
         }
-        if self.options.is_some() {
+        if true {
             len += 1;
         }
-        if self.proto3_optional.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.FieldDescriptorProto", len)?;
@@ -1919,28 +1919,28 @@ impl serde::Serialize for FieldOptions {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.ctype.is_some() {
+        if true {
             len += 1;
         }
-        if self.packed.is_some() {
+        if true {
             len += 1;
         }
-        if self.jstype.is_some() {
+        if true {
             len += 1;
         }
-        if self.lazy.is_some() {
+        if true {
             len += 1;
         }
-        if self.unverified_lazy.is_some() {
+        if true {
             len += 1;
         }
-        if self.deprecated.is_some() {
+        if true {
             len += 1;
         }
-        if self.weak.is_some() {
+        if true {
             len += 1;
         }
-        if !self.uninterpreted_option.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.FieldOptions", len)?;
@@ -1969,7 +1969,7 @@ impl serde::Serialize for FieldOptions {
         if let Some(v) = self.weak.as_ref() {
             struct_ser.serialize_field("weak", v)?;
         }
-        if !self.uninterpreted_option.is_empty() {
+        if true {
             struct_ser.serialize_field("uninterpretedOption", &self.uninterpreted_option)?;
         }
         struct_ser.end()
@@ -2287,40 +2287,40 @@ impl serde::Serialize for FileDescriptorProto {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.name.is_some() {
+        if true {
             len += 1;
         }
-        if self.package.is_some() {
+        if true {
             len += 1;
         }
-        if !self.dependency.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.public_dependency.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.weak_dependency.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.message_type.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.enum_type.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.service.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.extension.is_empty() {
+        if true {
             len += 1;
         }
-        if self.options.is_some() {
+        if true {
             len += 1;
         }
-        if self.source_code_info.is_some() {
+        if true {
             len += 1;
         }
-        if self.syntax.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.FileDescriptorProto", len)?;
@@ -2330,25 +2330,25 @@ impl serde::Serialize for FileDescriptorProto {
         if let Some(v) = self.package.as_ref() {
             struct_ser.serialize_field("package", v)?;
         }
-        if !self.dependency.is_empty() {
+        if true {
             struct_ser.serialize_field("dependency", &self.dependency)?;
         }
-        if !self.public_dependency.is_empty() {
+        if true {
             struct_ser.serialize_field("publicDependency", &self.public_dependency)?;
         }
-        if !self.weak_dependency.is_empty() {
+        if true {
             struct_ser.serialize_field("weakDependency", &self.weak_dependency)?;
         }
-        if !self.message_type.is_empty() {
+        if true {
             struct_ser.serialize_field("messageType", &self.message_type)?;
         }
-        if !self.enum_type.is_empty() {
+        if true {
             struct_ser.serialize_field("enumType", &self.enum_type)?;
         }
-        if !self.service.is_empty() {
+        if true {
             struct_ser.serialize_field("service", &self.service)?;
         }
-        if !self.extension.is_empty() {
+        if true {
             struct_ser.serialize_field("extension", &self.extension)?;
         }
         if let Some(v) = self.options.as_ref() {
@@ -2576,11 +2576,11 @@ impl serde::Serialize for FileDescriptorSet {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.file.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.FileDescriptorSet", len)?;
-        if !self.file.is_empty() {
+        if true {
             struct_ser.serialize_field("file", &self.file)?;
         }
         struct_ser.end()
@@ -2667,67 +2667,67 @@ impl serde::Serialize for FileOptions {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.java_package.is_some() {
+        if true {
             len += 1;
         }
-        if self.java_outer_classname.is_some() {
+        if true {
             len += 1;
         }
-        if self.java_multiple_files.is_some() {
+        if true {
             len += 1;
         }
-        if self.java_generate_equals_and_hash.is_some() {
+        if true {
             len += 1;
         }
-        if self.java_string_check_utf8.is_some() {
+        if true {
             len += 1;
         }
-        if self.optimize_for.is_some() {
+        if true {
             len += 1;
         }
-        if self.go_package.is_some() {
+        if true {
             len += 1;
         }
-        if self.cc_generic_services.is_some() {
+        if true {
             len += 1;
         }
-        if self.java_generic_services.is_some() {
+        if true {
             len += 1;
         }
-        if self.py_generic_services.is_some() {
+        if true {
             len += 1;
         }
-        if self.php_generic_services.is_some() {
+        if true {
             len += 1;
         }
-        if self.deprecated.is_some() {
+        if true {
             len += 1;
         }
-        if self.cc_enable_arenas.is_some() {
+        if true {
             len += 1;
         }
-        if self.objc_class_prefix.is_some() {
+        if true {
             len += 1;
         }
-        if self.csharp_namespace.is_some() {
+        if true {
             len += 1;
         }
-        if self.swift_prefix.is_some() {
+        if true {
             len += 1;
         }
-        if self.php_class_prefix.is_some() {
+        if true {
             len += 1;
         }
-        if self.php_namespace.is_some() {
+        if true {
             len += 1;
         }
-        if self.php_metadata_namespace.is_some() {
+        if true {
             len += 1;
         }
-        if self.ruby_package.is_some() {
+        if true {
             len += 1;
         }
-        if !self.uninterpreted_option.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.FileOptions", len)?;
@@ -2793,7 +2793,7 @@ impl serde::Serialize for FileOptions {
         if let Some(v) = self.ruby_package.as_ref() {
             struct_ser.serialize_field("rubyPackage", v)?;
         }
-        if !self.uninterpreted_option.is_empty() {
+        if true {
             struct_ser.serialize_field("uninterpretedOption", &self.uninterpreted_option)?;
         }
         struct_ser.end()
@@ -3196,11 +3196,11 @@ impl serde::Serialize for GeneratedCodeInfo {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.annotation.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.GeneratedCodeInfo", len)?;
-        if !self.annotation.is_empty() {
+        if true {
             struct_ser.serialize_field("annotation", &self.annotation)?;
         }
         struct_ser.end()
@@ -3287,20 +3287,20 @@ impl serde::Serialize for generated_code_info::Annotation {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.path.is_empty() {
+        if true {
             len += 1;
         }
-        if self.source_file.is_some() {
+        if true {
             len += 1;
         }
-        if self.begin.is_some() {
+        if true {
             len += 1;
         }
-        if self.end.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.GeneratedCodeInfo.Annotation", len)?;
-        if !self.path.is_empty() {
+        if true {
             struct_ser.serialize_field("path", &self.path)?;
         }
         if let Some(v) = self.source_file.as_ref() {
@@ -3437,19 +3437,19 @@ impl serde::Serialize for MessageOptions {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.message_set_wire_format.is_some() {
+        if true {
             len += 1;
         }
-        if self.no_standard_descriptor_accessor.is_some() {
+        if true {
             len += 1;
         }
-        if self.deprecated.is_some() {
+        if true {
             len += 1;
         }
-        if self.map_entry.is_some() {
+        if true {
             len += 1;
         }
-        if !self.uninterpreted_option.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.MessageOptions", len)?;
@@ -3465,7 +3465,7 @@ impl serde::Serialize for MessageOptions {
         if let Some(v) = self.map_entry.as_ref() {
             struct_ser.serialize_field("mapEntry", v)?;
         }
-        if !self.uninterpreted_option.is_empty() {
+        if true {
             struct_ser.serialize_field("uninterpretedOption", &self.uninterpreted_option)?;
         }
         struct_ser.end()
@@ -3600,22 +3600,22 @@ impl serde::Serialize for MethodDescriptorProto {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.name.is_some() {
+        if true {
             len += 1;
         }
-        if self.input_type.is_some() {
+        if true {
             len += 1;
         }
-        if self.output_type.is_some() {
+        if true {
             len += 1;
         }
-        if self.options.is_some() {
+        if true {
             len += 1;
         }
-        if self.client_streaming.is_some() {
+        if true {
             len += 1;
         }
-        if self.server_streaming.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.MethodDescriptorProto", len)?;
@@ -3780,13 +3780,13 @@ impl serde::Serialize for MethodOptions {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.deprecated.is_some() {
+        if true {
             len += 1;
         }
-        if self.idempotency_level.is_some() {
+        if true {
             len += 1;
         }
-        if !self.uninterpreted_option.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.MethodOptions", len)?;
@@ -3798,7 +3798,7 @@ impl serde::Serialize for MethodOptions {
                 .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
             struct_ser.serialize_field("idempotencyLevel", &v)?;
         }
-        if !self.uninterpreted_option.is_empty() {
+        if true {
             struct_ser.serialize_field("uninterpretedOption", &self.uninterpreted_option)?;
         }
         struct_ser.end()
@@ -3985,10 +3985,10 @@ impl serde::Serialize for OneofDescriptorProto {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.name.is_some() {
+        if true {
             len += 1;
         }
-        if self.options.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.OneofDescriptorProto", len)?;
@@ -4093,11 +4093,11 @@ impl serde::Serialize for OneofOptions {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.uninterpreted_option.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.OneofOptions", len)?;
-        if !self.uninterpreted_option.is_empty() {
+        if true {
             struct_ser.serialize_field("uninterpretedOption", &self.uninterpreted_option)?;
         }
         struct_ser.end()
@@ -4185,20 +4185,20 @@ impl serde::Serialize for ServiceDescriptorProto {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.name.is_some() {
+        if true {
             len += 1;
         }
-        if !self.method.is_empty() {
+        if true {
             len += 1;
         }
-        if self.options.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.ServiceDescriptorProto", len)?;
         if let Some(v) = self.name.as_ref() {
             struct_ser.serialize_field("name", v)?;
         }
-        if !self.method.is_empty() {
+        if true {
             struct_ser.serialize_field("method", &self.method)?;
         }
         if let Some(v) = self.options.as_ref() {
@@ -4310,17 +4310,17 @@ impl serde::Serialize for ServiceOptions {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.deprecated.is_some() {
+        if true {
             len += 1;
         }
-        if !self.uninterpreted_option.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.ServiceOptions", len)?;
         if let Some(v) = self.deprecated.as_ref() {
             struct_ser.serialize_field("deprecated", v)?;
         }
-        if !self.uninterpreted_option.is_empty() {
+        if true {
             struct_ser.serialize_field("uninterpretedOption", &self.uninterpreted_option)?;
         }
         struct_ser.end()
@@ -4419,11 +4419,11 @@ impl serde::Serialize for SourceCodeInfo {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.location.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.SourceCodeInfo", len)?;
-        if !self.location.is_empty() {
+        if true {
             struct_ser.serialize_field("location", &self.location)?;
         }
         struct_ser.end()
@@ -4510,26 +4510,26 @@ impl serde::Serialize for source_code_info::Location {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.path.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.span.is_empty() {
+        if true {
             len += 1;
         }
-        if self.leading_comments.is_some() {
+        if true {
             len += 1;
         }
-        if self.trailing_comments.is_some() {
+        if true {
             len += 1;
         }
-        if !self.leading_detached_comments.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.SourceCodeInfo.Location", len)?;
-        if !self.path.is_empty() {
+        if true {
             struct_ser.serialize_field("path", &self.path)?;
         }
-        if !self.span.is_empty() {
+        if true {
             struct_ser.serialize_field("span", &self.span)?;
         }
         if let Some(v) = self.leading_comments.as_ref() {
@@ -4538,7 +4538,7 @@ impl serde::Serialize for source_code_info::Location {
         if let Some(v) = self.trailing_comments.as_ref() {
             struct_ser.serialize_field("trailingComments", v)?;
         }
-        if !self.leading_detached_comments.is_empty() {
+        if true {
             struct_ser.serialize_field("leadingDetachedComments", &self.leading_detached_comments)?;
         }
         struct_ser.end()
@@ -4678,17 +4678,17 @@ impl serde::Serialize for Timestamp {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.seconds != 0 {
+        if true {
             len += 1;
         }
-        if self.nanos != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.Timestamp", len)?;
-        if self.seconds != 0 {
+        if true {
             struct_ser.serialize_field("seconds", ::alloc::string::ToString::to_string(&self.seconds).as_str())?;
         }
-        if self.nanos != 0 {
+        if true {
             struct_ser.serialize_field("nanos", &self.nanos)?;
         }
         struct_ser.end()
@@ -4790,29 +4790,29 @@ impl serde::Serialize for UninterpretedOption {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.name.is_empty() {
+        if true {
             len += 1;
         }
-        if self.identifier_value.is_some() {
+        if true {
             len += 1;
         }
-        if self.positive_int_value.is_some() {
+        if true {
             len += 1;
         }
-        if self.negative_int_value.is_some() {
+        if true {
             len += 1;
         }
-        if self.double_value.is_some() {
+        if true {
             len += 1;
         }
-        if self.string_value.is_some() {
+        if true {
             len += 1;
         }
-        if self.aggregate_value.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.UninterpretedOption", len)?;
-        if !self.name.is_empty() {
+        if true {
             struct_ser.serialize_field("name", &self.name)?;
         }
         if let Some(v) = self.identifier_value.as_ref() {

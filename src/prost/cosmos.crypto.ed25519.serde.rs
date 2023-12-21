@@ -6,11 +6,11 @@ impl serde::Serialize for PrivKey {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.key.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.crypto.ed25519.PrivKey", len)?;
-        if !self.key.is_empty() {
+        if true {
             struct_ser.serialize_field("key", pbjson::private::base64::encode(&self.key).as_str())?;
         }
         struct_ser.end()
@@ -99,11 +99,11 @@ impl serde::Serialize for PubKey {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.key.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.crypto.ed25519.PubKey", len)?;
-        if !self.key.is_empty() {
+        if true {
             struct_ser.serialize_field("key", pbjson::private::base64::encode(&self.key).as_str())?;
         }
         struct_ser.end()

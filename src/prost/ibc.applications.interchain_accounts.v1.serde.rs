@@ -6,11 +6,11 @@ impl serde::Serialize for CosmosTx {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.messages.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.interchain_accounts.v1.CosmosTx", len)?;
-        if !self.messages.is_empty() {
+        if true {
             struct_ser.serialize_field("messages", &self.messages)?;
         }
         struct_ser.end()
@@ -97,17 +97,17 @@ impl serde::Serialize for InterchainAccount {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.base_account.is_some() {
+        if true {
             len += 1;
         }
-        if !self.account_owner.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.interchain_accounts.v1.InterchainAccount", len)?;
         if let Some(v) = self.base_account.as_ref() {
             struct_ser.serialize_field("baseAccount", v)?;
         }
-        if !self.account_owner.is_empty() {
+        if true {
             struct_ser.serialize_field("accountOwner", &self.account_owner)?;
         }
         struct_ser.end()
@@ -207,25 +207,25 @@ impl serde::Serialize for InterchainAccountPacketData {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.r#type != 0 {
+        if true {
             len += 1;
         }
-        if !self.data.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.memo.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.interchain_accounts.v1.InterchainAccountPacketData", len)?;
-        if self.r#type != 0 {
+        if true {
             let v = Type::from_i32(self.r#type)
                 .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.r#type)))?;
             struct_ser.serialize_field("type", &v)?;
         }
-        if !self.data.is_empty() {
+        if true {
             struct_ser.serialize_field("data", pbjson::private::base64::encode(&self.data).as_str())?;
         }
-        if !self.memo.is_empty() {
+        if true {
             struct_ser.serialize_field("memo", &self.memo)?;
         }
         struct_ser.end()
@@ -336,41 +336,41 @@ impl serde::Serialize for Metadata {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.version.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.controller_connection_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.host_connection_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.address.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.encoding.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.tx_type.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.interchain_accounts.v1.Metadata", len)?;
-        if !self.version.is_empty() {
+        if true {
             struct_ser.serialize_field("version", &self.version)?;
         }
-        if !self.controller_connection_id.is_empty() {
+        if true {
             struct_ser.serialize_field("controllerConnectionId", &self.controller_connection_id)?;
         }
-        if !self.host_connection_id.is_empty() {
+        if true {
             struct_ser.serialize_field("hostConnectionId", &self.host_connection_id)?;
         }
-        if !self.address.is_empty() {
+        if true {
             struct_ser.serialize_field("address", &self.address)?;
         }
-        if !self.encoding.is_empty() {
+        if true {
             struct_ser.serialize_field("encoding", &self.encoding)?;
         }
-        if !self.tx_type.is_empty() {
+        if true {
             struct_ser.serialize_field("txType", &self.tx_type)?;
         }
         struct_ser.end()

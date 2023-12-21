@@ -6,14 +6,14 @@ impl serde::Serialize for MsgUpdateParams {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.signer.is_empty() {
+        if true {
             len += 1;
         }
-        if self.params.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.interchain_accounts.host.v1.MsgUpdateParams", len)?;
-        if !self.signer.is_empty() {
+        if true {
             struct_ser.serialize_field("signer", &self.signer)?;
         }
         if let Some(v) = self.params.as_ref() {
@@ -185,17 +185,17 @@ impl serde::Serialize for Params {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.host_enabled {
+        if true {
             len += 1;
         }
-        if !self.allow_messages.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.interchain_accounts.host.v1.Params", len)?;
-        if self.host_enabled {
+        if true {
             struct_ser.serialize_field("hostEnabled", &self.host_enabled)?;
         }
-        if !self.allow_messages.is_empty() {
+        if true {
             struct_ser.serialize_field("allowMessages", &self.allow_messages)?;
         }
         struct_ser.end()
@@ -366,7 +366,7 @@ impl serde::Serialize for QueryParamsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.params.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.interchain_accounts.host.v1.QueryParamsResponse", len)?;

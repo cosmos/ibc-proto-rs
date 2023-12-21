@@ -6,17 +6,17 @@ impl serde::Serialize for Module {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.blocked_module_accounts_override.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.authority.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.bank.module.v1.Module", len)?;
-        if !self.blocked_module_accounts_override.is_empty() {
+        if true {
             struct_ser.serialize_field("blockedModuleAccountsOverride", &self.blocked_module_accounts_override)?;
         }
-        if !self.authority.is_empty() {
+        if true {
             struct_ser.serialize_field("authority", &self.authority)?;
         }
         struct_ser.end()

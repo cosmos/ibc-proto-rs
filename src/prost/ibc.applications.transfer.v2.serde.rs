@@ -6,35 +6,35 @@ impl serde::Serialize for FungibleTokenPacketData {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.denom.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.amount.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.sender.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.receiver.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.memo.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v2.FungibleTokenPacketData", len)?;
-        if !self.denom.is_empty() {
+        if true {
             struct_ser.serialize_field("denom", &self.denom)?;
         }
-        if !self.amount.is_empty() {
+        if true {
             struct_ser.serialize_field("amount", &self.amount)?;
         }
-        if !self.sender.is_empty() {
+        if true {
             struct_ser.serialize_field("sender", &self.sender)?;
         }
-        if !self.receiver.is_empty() {
+        if true {
             struct_ser.serialize_field("receiver", &self.receiver)?;
         }
-        if !self.memo.is_empty() {
+        if true {
             struct_ser.serialize_field("memo", &self.memo)?;
         }
         struct_ser.end()

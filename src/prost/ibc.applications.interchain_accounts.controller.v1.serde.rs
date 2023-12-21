@@ -6,23 +6,23 @@ impl serde::Serialize for MsgRegisterInterchainAccount {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.owner.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.connection_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.version.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccount", len)?;
-        if !self.owner.is_empty() {
+        if true {
             struct_ser.serialize_field("owner", &self.owner)?;
         }
-        if !self.connection_id.is_empty() {
+        if true {
             struct_ser.serialize_field("connectionId", &self.connection_id)?;
         }
-        if !self.version.is_empty() {
+        if true {
             struct_ser.serialize_field("version", &self.version)?;
         }
         struct_ser.end()
@@ -132,17 +132,17 @@ impl serde::Serialize for MsgRegisterInterchainAccountResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.channel_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.port_id.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccountResponse", len)?;
-        if !self.channel_id.is_empty() {
+        if true {
             struct_ser.serialize_field("channelId", &self.channel_id)?;
         }
-        if !self.port_id.is_empty() {
+        if true {
             struct_ser.serialize_field("portId", &self.port_id)?;
         }
         struct_ser.end()
@@ -242,29 +242,29 @@ impl serde::Serialize for MsgSendTx {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.owner.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.connection_id.is_empty() {
+        if true {
             len += 1;
         }
-        if self.packet_data.is_some() {
+        if true {
             len += 1;
         }
-        if self.relative_timeout != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.interchain_accounts.controller.v1.MsgSendTx", len)?;
-        if !self.owner.is_empty() {
+        if true {
             struct_ser.serialize_field("owner", &self.owner)?;
         }
-        if !self.connection_id.is_empty() {
+        if true {
             struct_ser.serialize_field("connectionId", &self.connection_id)?;
         }
         if let Some(v) = self.packet_data.as_ref() {
             struct_ser.serialize_field("packetData", v)?;
         }
-        if self.relative_timeout != 0 {
+        if true {
             struct_ser.serialize_field("relativeTimeout", ::alloc::string::ToString::to_string(&self.relative_timeout).as_str())?;
         }
         struct_ser.end()
@@ -389,11 +389,11 @@ impl serde::Serialize for MsgSendTxResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.sequence != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.interchain_accounts.controller.v1.MsgSendTxResponse", len)?;
-        if self.sequence != 0 {
+        if true {
             struct_ser.serialize_field("sequence", ::alloc::string::ToString::to_string(&self.sequence).as_str())?;
         }
         struct_ser.end()
@@ -482,14 +482,14 @@ impl serde::Serialize for MsgUpdateParams {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.signer.is_empty() {
+        if true {
             len += 1;
         }
-        if self.params.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.interchain_accounts.controller.v1.MsgUpdateParams", len)?;
-        if !self.signer.is_empty() {
+        if true {
             struct_ser.serialize_field("signer", &self.signer)?;
         }
         if let Some(v) = self.params.as_ref() {
@@ -661,11 +661,11 @@ impl serde::Serialize for Params {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.controller_enabled {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.interchain_accounts.controller.v1.Params", len)?;
-        if self.controller_enabled {
+        if true {
             struct_ser.serialize_field("controllerEnabled", &self.controller_enabled)?;
         }
         struct_ser.end()
@@ -753,17 +753,17 @@ impl serde::Serialize for QueryInterchainAccountRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.owner.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.connection_id.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.interchain_accounts.controller.v1.QueryInterchainAccountRequest", len)?;
-        if !self.owner.is_empty() {
+        if true {
             struct_ser.serialize_field("owner", &self.owner)?;
         }
-        if !self.connection_id.is_empty() {
+        if true {
             struct_ser.serialize_field("connectionId", &self.connection_id)?;
         }
         struct_ser.end()
@@ -862,11 +862,11 @@ impl serde::Serialize for QueryInterchainAccountResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.address.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.interchain_accounts.controller.v1.QueryInterchainAccountResponse", len)?;
-        if !self.address.is_empty() {
+        if true {
             struct_ser.serialize_field("address", &self.address)?;
         }
         struct_ser.end()
@@ -1024,7 +1024,7 @@ impl serde::Serialize for QueryParamsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.params.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.interchain_accounts.controller.v1.QueryParamsResponse", len)?;

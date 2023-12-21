@@ -6,23 +6,23 @@ impl serde::Serialize for Deposit {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.proposal_id != 0 {
+        if true {
             len += 1;
         }
-        if !self.depositor.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.amount.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.Deposit", len)?;
-        if self.proposal_id != 0 {
+        if true {
             struct_ser.serialize_field("proposalId", ::alloc::string::ToString::to_string(&self.proposal_id).as_str())?;
         }
-        if !self.depositor.is_empty() {
+        if true {
             struct_ser.serialize_field("depositor", &self.depositor)?;
         }
-        if !self.amount.is_empty() {
+        if true {
             struct_ser.serialize_field("amount", &self.amount)?;
         }
         struct_ser.end()
@@ -134,14 +134,14 @@ impl serde::Serialize for DepositParams {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.min_deposit.is_empty() {
+        if true {
             len += 1;
         }
-        if self.max_deposit_period.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.DepositParams", len)?;
-        if !self.min_deposit.is_empty() {
+        if true {
             struct_ser.serialize_field("minDeposit", &self.min_deposit)?;
         }
         if let Some(v) = self.max_deposit_period.as_ref() {
@@ -244,38 +244,38 @@ impl serde::Serialize for GenesisState {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.starting_proposal_id != 0 {
+        if true {
             len += 1;
         }
-        if !self.deposits.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.votes.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.proposals.is_empty() {
+        if true {
             len += 1;
         }
-        if self.deposit_params.is_some() {
+        if true {
             len += 1;
         }
-        if self.voting_params.is_some() {
+        if true {
             len += 1;
         }
-        if self.tally_params.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.GenesisState", len)?;
-        if self.starting_proposal_id != 0 {
+        if true {
             struct_ser.serialize_field("startingProposalId", ::alloc::string::ToString::to_string(&self.starting_proposal_id).as_str())?;
         }
-        if !self.deposits.is_empty() {
+        if true {
             struct_ser.serialize_field("deposits", &self.deposits)?;
         }
-        if !self.votes.is_empty() {
+        if true {
             struct_ser.serialize_field("votes", &self.votes)?;
         }
-        if !self.proposals.is_empty() {
+        if true {
             struct_ser.serialize_field("proposals", &self.proposals)?;
         }
         if let Some(v) = self.deposit_params.as_ref() {
@@ -443,23 +443,23 @@ impl serde::Serialize for MsgDeposit {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.proposal_id != 0 {
+        if true {
             len += 1;
         }
-        if !self.depositor.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.amount.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.MsgDeposit", len)?;
-        if self.proposal_id != 0 {
+        if true {
             struct_ser.serialize_field("proposalId", ::alloc::string::ToString::to_string(&self.proposal_id).as_str())?;
         }
-        if !self.depositor.is_empty() {
+        if true {
             struct_ser.serialize_field("depositor", &self.depositor)?;
         }
-        if !self.amount.is_empty() {
+        if true {
             struct_ser.serialize_field("amount", &self.amount)?;
         }
         struct_ser.end()
@@ -642,23 +642,23 @@ impl serde::Serialize for MsgSubmitProposal {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.content.is_some() {
+        if true {
             len += 1;
         }
-        if !self.initial_deposit.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.proposer.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.MsgSubmitProposal", len)?;
         if let Some(v) = self.content.as_ref() {
             struct_ser.serialize_field("content", v)?;
         }
-        if !self.initial_deposit.is_empty() {
+        if true {
             struct_ser.serialize_field("initialDeposit", &self.initial_deposit)?;
         }
-        if !self.proposer.is_empty() {
+        if true {
             struct_ser.serialize_field("proposer", &self.proposer)?;
         }
         struct_ser.end()
@@ -768,11 +768,11 @@ impl serde::Serialize for MsgSubmitProposalResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.proposal_id != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.MsgSubmitProposalResponse", len)?;
-        if self.proposal_id != 0 {
+        if true {
             struct_ser.serialize_field("proposalId", ::alloc::string::ToString::to_string(&self.proposal_id).as_str())?;
         }
         struct_ser.end()
@@ -862,23 +862,23 @@ impl serde::Serialize for MsgVote {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.proposal_id != 0 {
+        if true {
             len += 1;
         }
-        if !self.voter.is_empty() {
+        if true {
             len += 1;
         }
-        if self.option != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.MsgVote", len)?;
-        if self.proposal_id != 0 {
+        if true {
             struct_ser.serialize_field("proposalId", ::alloc::string::ToString::to_string(&self.proposal_id).as_str())?;
         }
-        if !self.voter.is_empty() {
+        if true {
             struct_ser.serialize_field("voter", &self.voter)?;
         }
-        if self.option != 0 {
+        if true {
             let v = VoteOption::from_i32(self.option)
                 .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.option)))?;
             struct_ser.serialize_field("option", &v)?;
@@ -1063,23 +1063,23 @@ impl serde::Serialize for MsgVoteWeighted {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.proposal_id != 0 {
+        if true {
             len += 1;
         }
-        if !self.voter.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.options.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.MsgVoteWeighted", len)?;
-        if self.proposal_id != 0 {
+        if true {
             struct_ser.serialize_field("proposalId", ::alloc::string::ToString::to_string(&self.proposal_id).as_str())?;
         }
-        if !self.voter.is_empty() {
+        if true {
             struct_ser.serialize_field("voter", &self.voter)?;
         }
-        if !self.options.is_empty() {
+        if true {
             struct_ser.serialize_field("options", &self.options)?;
         }
         struct_ser.end()
@@ -1262,41 +1262,41 @@ impl serde::Serialize for Proposal {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.proposal_id != 0 {
+        if true {
             len += 1;
         }
-        if self.content.is_some() {
+        if true {
             len += 1;
         }
-        if self.status != 0 {
+        if true {
             len += 1;
         }
-        if self.final_tally_result.is_some() {
+        if true {
             len += 1;
         }
-        if self.submit_time.is_some() {
+        if true {
             len += 1;
         }
-        if self.deposit_end_time.is_some() {
+        if true {
             len += 1;
         }
-        if !self.total_deposit.is_empty() {
+        if true {
             len += 1;
         }
-        if self.voting_start_time.is_some() {
+        if true {
             len += 1;
         }
-        if self.voting_end_time.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.Proposal", len)?;
-        if self.proposal_id != 0 {
+        if true {
             struct_ser.serialize_field("proposalId", ::alloc::string::ToString::to_string(&self.proposal_id).as_str())?;
         }
         if let Some(v) = self.content.as_ref() {
             struct_ser.serialize_field("content", v)?;
         }
-        if self.status != 0 {
+        if true {
             let v = ProposalStatus::from_i32(self.status)
                 .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.status)))?;
             struct_ser.serialize_field("status", &v)?;
@@ -1310,7 +1310,7 @@ impl serde::Serialize for Proposal {
         if let Some(v) = self.deposit_end_time.as_ref() {
             struct_ser.serialize_field("depositEndTime", v)?;
         }
-        if !self.total_deposit.is_empty() {
+        if true {
             struct_ser.serialize_field("totalDeposit", &self.total_deposit)?;
         }
         if let Some(v) = self.voting_start_time.as_ref() {
@@ -1585,17 +1585,17 @@ impl serde::Serialize for QueryDepositRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.proposal_id != 0 {
+        if true {
             len += 1;
         }
-        if !self.depositor.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.QueryDepositRequest", len)?;
-        if self.proposal_id != 0 {
+        if true {
             struct_ser.serialize_field("proposalId", ::alloc::string::ToString::to_string(&self.proposal_id).as_str())?;
         }
-        if !self.depositor.is_empty() {
+        if true {
             struct_ser.serialize_field("depositor", &self.depositor)?;
         }
         struct_ser.end()
@@ -1696,7 +1696,7 @@ impl serde::Serialize for QueryDepositResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.deposit.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.QueryDepositResponse", len)?;
@@ -1787,14 +1787,14 @@ impl serde::Serialize for QueryDepositsRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.proposal_id != 0 {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.QueryDepositsRequest", len)?;
-        if self.proposal_id != 0 {
+        if true {
             struct_ser.serialize_field("proposalId", ::alloc::string::ToString::to_string(&self.proposal_id).as_str())?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -1898,14 +1898,14 @@ impl serde::Serialize for QueryDepositsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.deposits.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.QueryDepositsResponse", len)?;
-        if !self.deposits.is_empty() {
+        if true {
             struct_ser.serialize_field("deposits", &self.deposits)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -2006,11 +2006,11 @@ impl serde::Serialize for QueryParamsRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.params_type.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.QueryParamsRequest", len)?;
-        if !self.params_type.is_empty() {
+        if true {
             struct_ser.serialize_field("paramsType", &self.params_type)?;
         }
         struct_ser.end()
@@ -2098,13 +2098,13 @@ impl serde::Serialize for QueryParamsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.voting_params.is_some() {
+        if true {
             len += 1;
         }
-        if self.deposit_params.is_some() {
+        if true {
             len += 1;
         }
-        if self.tally_params.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.QueryParamsResponse", len)?;
@@ -2226,11 +2226,11 @@ impl serde::Serialize for QueryProposalRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.proposal_id != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.QueryProposalRequest", len)?;
-        if self.proposal_id != 0 {
+        if true {
             struct_ser.serialize_field("proposalId", ::alloc::string::ToString::to_string(&self.proposal_id).as_str())?;
         }
         struct_ser.end()
@@ -2320,7 +2320,7 @@ impl serde::Serialize for QueryProposalResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.proposal.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.QueryProposalResponse", len)?;
@@ -2411,28 +2411,28 @@ impl serde::Serialize for QueryProposalsRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.proposal_status != 0 {
+        if true {
             len += 1;
         }
-        if !self.voter.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.depositor.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.QueryProposalsRequest", len)?;
-        if self.proposal_status != 0 {
+        if true {
             let v = ProposalStatus::from_i32(self.proposal_status)
                 .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.proposal_status)))?;
             struct_ser.serialize_field("proposalStatus", &v)?;
         }
-        if !self.voter.is_empty() {
+        if true {
             struct_ser.serialize_field("voter", &self.voter)?;
         }
-        if !self.depositor.is_empty() {
+        if true {
             struct_ser.serialize_field("depositor", &self.depositor)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -2556,14 +2556,14 @@ impl serde::Serialize for QueryProposalsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.proposals.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.QueryProposalsResponse", len)?;
-        if !self.proposals.is_empty() {
+        if true {
             struct_ser.serialize_field("proposals", &self.proposals)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -2664,11 +2664,11 @@ impl serde::Serialize for QueryTallyResultRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.proposal_id != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.QueryTallyResultRequest", len)?;
-        if self.proposal_id != 0 {
+        if true {
             struct_ser.serialize_field("proposalId", ::alloc::string::ToString::to_string(&self.proposal_id).as_str())?;
         }
         struct_ser.end()
@@ -2758,7 +2758,7 @@ impl serde::Serialize for QueryTallyResultResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.tally.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.QueryTallyResultResponse", len)?;
@@ -2849,17 +2849,17 @@ impl serde::Serialize for QueryVoteRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.proposal_id != 0 {
+        if true {
             len += 1;
         }
-        if !self.voter.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.QueryVoteRequest", len)?;
-        if self.proposal_id != 0 {
+        if true {
             struct_ser.serialize_field("proposalId", ::alloc::string::ToString::to_string(&self.proposal_id).as_str())?;
         }
-        if !self.voter.is_empty() {
+        if true {
             struct_ser.serialize_field("voter", &self.voter)?;
         }
         struct_ser.end()
@@ -2960,7 +2960,7 @@ impl serde::Serialize for QueryVoteResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.vote.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.QueryVoteResponse", len)?;
@@ -3051,14 +3051,14 @@ impl serde::Serialize for QueryVotesRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.proposal_id != 0 {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.QueryVotesRequest", len)?;
-        if self.proposal_id != 0 {
+        if true {
             struct_ser.serialize_field("proposalId", ::alloc::string::ToString::to_string(&self.proposal_id).as_str())?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -3162,14 +3162,14 @@ impl serde::Serialize for QueryVotesResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.votes.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.QueryVotesResponse", len)?;
-        if !self.votes.is_empty() {
+        if true {
             struct_ser.serialize_field("votes", &self.votes)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -3270,23 +3270,23 @@ impl serde::Serialize for TallyParams {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.quorum.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.threshold.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.veto_threshold.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.TallyParams", len)?;
-        if !self.quorum.is_empty() {
+        if true {
             struct_ser.serialize_field("quorum", pbjson::private::base64::encode(&self.quorum).as_str())?;
         }
-        if !self.threshold.is_empty() {
+        if true {
             struct_ser.serialize_field("threshold", pbjson::private::base64::encode(&self.threshold).as_str())?;
         }
-        if !self.veto_threshold.is_empty() {
+        if true {
             struct_ser.serialize_field("vetoThreshold", pbjson::private::base64::encode(&self.veto_threshold).as_str())?;
         }
         struct_ser.end()
@@ -3402,29 +3402,29 @@ impl serde::Serialize for TallyResult {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.yes.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.abstain.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.no.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.no_with_veto.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.TallyResult", len)?;
-        if !self.yes.is_empty() {
+        if true {
             struct_ser.serialize_field("yes", &self.yes)?;
         }
-        if !self.abstain.is_empty() {
+        if true {
             struct_ser.serialize_field("abstain", &self.abstain)?;
         }
-        if !self.no.is_empty() {
+        if true {
             struct_ser.serialize_field("no", &self.no)?;
         }
-        if !self.no_with_veto.is_empty() {
+        if true {
             struct_ser.serialize_field("noWithVeto", &self.no_with_veto)?;
         }
         struct_ser.end()
@@ -3545,17 +3545,17 @@ impl serde::Serialize for TextProposal {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.title.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.description.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.TextProposal", len)?;
-        if !self.title.is_empty() {
+        if true {
             struct_ser.serialize_field("title", &self.title)?;
         }
-        if !self.description.is_empty() {
+        if true {
             struct_ser.serialize_field("description", &self.description)?;
         }
         struct_ser.end()
@@ -3653,31 +3653,31 @@ impl serde::Serialize for Vote {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.proposal_id != 0 {
+        if true {
             len += 1;
         }
-        if !self.voter.is_empty() {
+        if true {
             len += 1;
         }
-        if self.option != 0 {
+        if true {
             len += 1;
         }
-        if !self.options.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.Vote", len)?;
-        if self.proposal_id != 0 {
+        if true {
             struct_ser.serialize_field("proposalId", ::alloc::string::ToString::to_string(&self.proposal_id).as_str())?;
         }
-        if !self.voter.is_empty() {
+        if true {
             struct_ser.serialize_field("voter", &self.voter)?;
         }
-        if self.option != 0 {
+        if true {
             let v = VoteOption::from_i32(self.option)
                 .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.option)))?;
             struct_ser.serialize_field("option", &v)?;
         }
-        if !self.options.is_empty() {
+        if true {
             struct_ser.serialize_field("options", &self.options)?;
         }
         struct_ser.end()
@@ -3882,7 +3882,7 @@ impl serde::Serialize for VotingParams {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.voting_period.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.VotingParams", len)?;
@@ -3974,19 +3974,19 @@ impl serde::Serialize for WeightedVoteOption {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.option != 0 {
+        if true {
             len += 1;
         }
-        if !self.weight.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1beta1.WeightedVoteOption", len)?;
-        if self.option != 0 {
+        if true {
             let v = VoteOption::from_i32(self.option)
                 .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.option)))?;
             struct_ser.serialize_field("option", &v)?;
         }
-        if !self.weight.is_empty() {
+        if true {
             struct_ser.serialize_field("weight", &self.weight)?;
         }
         struct_ser.end()

@@ -6,11 +6,11 @@ impl serde::Serialize for MerklePath {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.key_path.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.commitment.v1.MerklePath", len)?;
-        if !self.key_path.is_empty() {
+        if true {
             struct_ser.serialize_field("keyPath", &self.key_path)?;
         }
         struct_ser.end()
@@ -98,11 +98,11 @@ impl serde::Serialize for MerklePrefix {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.key_prefix.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.commitment.v1.MerklePrefix", len)?;
-        if !self.key_prefix.is_empty() {
+        if true {
             struct_ser.serialize_field("keyPrefix", pbjson::private::base64::encode(&self.key_prefix).as_str())?;
         }
         struct_ser.end()
@@ -192,11 +192,11 @@ impl serde::Serialize for MerkleProof {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.proofs.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.commitment.v1.MerkleProof", len)?;
-        if !self.proofs.is_empty() {
+        if true {
             struct_ser.serialize_field("proofs", &self.proofs)?;
         }
         struct_ser.end()
@@ -283,11 +283,11 @@ impl serde::Serialize for MerkleRoot {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.hash.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.commitment.v1.MerkleRoot", len)?;
-        if !self.hash.is_empty() {
+        if true {
             struct_ser.serialize_field("hash", pbjson::private::base64::encode(&self.hash).as_str())?;
         }
         struct_ser.end()

@@ -6,29 +6,29 @@ impl serde::Serialize for Allocation {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.source_port.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.source_channel.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.spend_limit.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.allow_list.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.Allocation", len)?;
-        if !self.source_port.is_empty() {
+        if true {
             struct_ser.serialize_field("sourcePort", &self.source_port)?;
         }
-        if !self.source_channel.is_empty() {
+        if true {
             struct_ser.serialize_field("sourceChannel", &self.source_channel)?;
         }
-        if !self.spend_limit.is_empty() {
+        if true {
             struct_ser.serialize_field("spendLimit", &self.spend_limit)?;
         }
-        if !self.allow_list.is_empty() {
+        if true {
             struct_ser.serialize_field("allowList", &self.allow_list)?;
         }
         struct_ser.end()
@@ -152,17 +152,17 @@ impl serde::Serialize for DenomTrace {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.path.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.base_denom.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.DenomTrace", len)?;
-        if !self.path.is_empty() {
+        if true {
             struct_ser.serialize_field("path", &self.path)?;
         }
-        if !self.base_denom.is_empty() {
+        if true {
             struct_ser.serialize_field("baseDenom", &self.base_denom)?;
         }
         struct_ser.end()
@@ -261,29 +261,29 @@ impl serde::Serialize for GenesisState {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.port_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.denom_traces.is_empty() {
+        if true {
             len += 1;
         }
-        if self.params.is_some() {
+        if true {
             len += 1;
         }
-        if !self.total_escrowed.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.GenesisState", len)?;
-        if !self.port_id.is_empty() {
+        if true {
             struct_ser.serialize_field("portId", &self.port_id)?;
         }
-        if !self.denom_traces.is_empty() {
+        if true {
             struct_ser.serialize_field("denomTraces", &self.denom_traces)?;
         }
         if let Some(v) = self.params.as_ref() {
             struct_ser.serialize_field("params", v)?;
         }
-        if !self.total_escrowed.is_empty() {
+        if true {
             struct_ser.serialize_field("totalEscrowed", &self.total_escrowed)?;
         }
         struct_ser.end()
@@ -406,53 +406,53 @@ impl serde::Serialize for MsgTransfer {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.source_port.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.source_channel.is_empty() {
+        if true {
             len += 1;
         }
-        if self.token.is_some() {
+        if true {
             len += 1;
         }
-        if !self.sender.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.receiver.is_empty() {
+        if true {
             len += 1;
         }
-        if self.timeout_height.is_some() {
+        if true {
             len += 1;
         }
-        if self.timeout_timestamp != 0 {
+        if true {
             len += 1;
         }
-        if !self.memo.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.MsgTransfer", len)?;
-        if !self.source_port.is_empty() {
+        if true {
             struct_ser.serialize_field("sourcePort", &self.source_port)?;
         }
-        if !self.source_channel.is_empty() {
+        if true {
             struct_ser.serialize_field("sourceChannel", &self.source_channel)?;
         }
         if let Some(v) = self.token.as_ref() {
             struct_ser.serialize_field("token", v)?;
         }
-        if !self.sender.is_empty() {
+        if true {
             struct_ser.serialize_field("sender", &self.sender)?;
         }
-        if !self.receiver.is_empty() {
+        if true {
             struct_ser.serialize_field("receiver", &self.receiver)?;
         }
         if let Some(v) = self.timeout_height.as_ref() {
             struct_ser.serialize_field("timeoutHeight", v)?;
         }
-        if self.timeout_timestamp != 0 {
+        if true {
             struct_ser.serialize_field("timeoutTimestamp", ::alloc::string::ToString::to_string(&self.timeout_timestamp).as_str())?;
         }
-        if !self.memo.is_empty() {
+        if true {
             struct_ser.serialize_field("memo", &self.memo)?;
         }
         struct_ser.end()
@@ -622,11 +622,11 @@ impl serde::Serialize for MsgTransferResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.sequence != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.MsgTransferResponse", len)?;
-        if self.sequence != 0 {
+        if true {
             struct_ser.serialize_field("sequence", ::alloc::string::ToString::to_string(&self.sequence).as_str())?;
         }
         struct_ser.end()
@@ -715,14 +715,14 @@ impl serde::Serialize for MsgUpdateParams {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.signer.is_empty() {
+        if true {
             len += 1;
         }
-        if self.params.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.MsgUpdateParams", len)?;
-        if !self.signer.is_empty() {
+        if true {
             struct_ser.serialize_field("signer", &self.signer)?;
         }
         if let Some(v) = self.params.as_ref() {
@@ -894,17 +894,17 @@ impl serde::Serialize for Params {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.send_enabled {
+        if true {
             len += 1;
         }
-        if self.receive_enabled {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.Params", len)?;
-        if self.send_enabled {
+        if true {
             struct_ser.serialize_field("sendEnabled", &self.send_enabled)?;
         }
-        if self.receive_enabled {
+        if true {
             struct_ser.serialize_field("receiveEnabled", &self.receive_enabled)?;
         }
         struct_ser.end()
@@ -1004,11 +1004,11 @@ impl serde::Serialize for QueryDenomHashRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.trace.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.QueryDenomHashRequest", len)?;
-        if !self.trace.is_empty() {
+        if true {
             struct_ser.serialize_field("trace", &self.trace)?;
         }
         struct_ser.end()
@@ -1095,11 +1095,11 @@ impl serde::Serialize for QueryDenomHashResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.hash.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.QueryDenomHashResponse", len)?;
-        if !self.hash.is_empty() {
+        if true {
             struct_ser.serialize_field("hash", &self.hash)?;
         }
         struct_ser.end()
@@ -1186,11 +1186,11 @@ impl serde::Serialize for QueryDenomTraceRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.hash.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.QueryDenomTraceRequest", len)?;
-        if !self.hash.is_empty() {
+        if true {
             struct_ser.serialize_field("hash", &self.hash)?;
         }
         struct_ser.end()
@@ -1277,7 +1277,7 @@ impl serde::Serialize for QueryDenomTraceResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.denom_trace.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.QueryDenomTraceResponse", len)?;
@@ -1369,7 +1369,7 @@ impl serde::Serialize for QueryDenomTracesRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.QueryDenomTracesRequest", len)?;
@@ -1460,14 +1460,14 @@ impl serde::Serialize for QueryDenomTracesResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.denom_traces.is_empty() {
+        if true {
             len += 1;
         }
-        if self.pagination.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.QueryDenomTracesResponse", len)?;
-        if !self.denom_traces.is_empty() {
+        if true {
             struct_ser.serialize_field("denomTraces", &self.denom_traces)?;
         }
         if let Some(v) = self.pagination.as_ref() {
@@ -1569,17 +1569,17 @@ impl serde::Serialize for QueryEscrowAddressRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.port_id.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.channel_id.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.QueryEscrowAddressRequest", len)?;
-        if !self.port_id.is_empty() {
+        if true {
             struct_ser.serialize_field("portId", &self.port_id)?;
         }
-        if !self.channel_id.is_empty() {
+        if true {
             struct_ser.serialize_field("channelId", &self.channel_id)?;
         }
         struct_ser.end()
@@ -1679,11 +1679,11 @@ impl serde::Serialize for QueryEscrowAddressResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.escrow_address.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.QueryEscrowAddressResponse", len)?;
-        if !self.escrow_address.is_empty() {
+        if true {
             struct_ser.serialize_field("escrowAddress", &self.escrow_address)?;
         }
         struct_ser.end()
@@ -1842,7 +1842,7 @@ impl serde::Serialize for QueryParamsResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.params.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.QueryParamsResponse", len)?;
@@ -1933,11 +1933,11 @@ impl serde::Serialize for QueryTotalEscrowForDenomRequest {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.denom.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.QueryTotalEscrowForDenomRequest", len)?;
-        if !self.denom.is_empty() {
+        if true {
             struct_ser.serialize_field("denom", &self.denom)?;
         }
         struct_ser.end()
@@ -2024,7 +2024,7 @@ impl serde::Serialize for QueryTotalEscrowForDenomResponse {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.amount.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.QueryTotalEscrowForDenomResponse", len)?;
@@ -2115,11 +2115,11 @@ impl serde::Serialize for TransferAuthorization {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.allocations.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.TransferAuthorization", len)?;
-        if !self.allocations.is_empty() {
+        if true {
             struct_ser.serialize_field("allocations", &self.allocations)?;
         }
         struct_ser.end()

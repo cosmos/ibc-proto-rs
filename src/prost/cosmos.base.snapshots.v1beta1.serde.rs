@@ -6,11 +6,11 @@ impl serde::Serialize for Metadata {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.chunk_hashes.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.snapshots.v1beta1.Metadata", len)?;
-        if !self.chunk_hashes.is_empty() {
+        if true {
             struct_ser.serialize_field("chunkHashes", &self.chunk_hashes.iter().map(pbjson::private::base64::encode).collect::<::alloc::vec::Vec<_>>())?;
         }
         struct_ser.end()
@@ -101,32 +101,32 @@ impl serde::Serialize for Snapshot {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if self.height != 0 {
+        if true {
             len += 1;
         }
-        if self.format != 0 {
+        if true {
             len += 1;
         }
-        if self.chunks != 0 {
+        if true {
             len += 1;
         }
-        if !self.hash.is_empty() {
+        if true {
             len += 1;
         }
-        if self.metadata.is_some() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.snapshots.v1beta1.Snapshot", len)?;
-        if self.height != 0 {
+        if true {
             struct_ser.serialize_field("height", ::alloc::string::ToString::to_string(&self.height).as_str())?;
         }
-        if self.format != 0 {
+        if true {
             struct_ser.serialize_field("format", &self.format)?;
         }
-        if self.chunks != 0 {
+        if true {
             struct_ser.serialize_field("chunks", &self.chunks)?;
         }
-        if !self.hash.is_empty() {
+        if true {
             struct_ser.serialize_field("hash", pbjson::private::base64::encode(&self.hash).as_str())?;
         }
         if let Some(v) = self.metadata.as_ref() {
@@ -268,17 +268,17 @@ impl serde::Serialize for SnapshotExtensionMeta {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.name.is_empty() {
+        if true {
             len += 1;
         }
-        if self.format != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.snapshots.v1beta1.SnapshotExtensionMeta", len)?;
-        if !self.name.is_empty() {
+        if true {
             struct_ser.serialize_field("name", &self.name)?;
         }
-        if self.format != 0 {
+        if true {
             struct_ser.serialize_field("format", &self.format)?;
         }
         struct_ser.end()
@@ -378,11 +378,11 @@ impl serde::Serialize for SnapshotExtensionPayload {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.payload.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.snapshots.v1beta1.SnapshotExtensionPayload", len)?;
-        if !self.payload.is_empty() {
+        if true {
             struct_ser.serialize_field("payload", pbjson::private::base64::encode(&self.payload).as_str())?;
         }
         struct_ser.end()
@@ -471,29 +471,29 @@ impl serde::Serialize for SnapshotIavlItem {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.key.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.value.is_empty() {
+        if true {
             len += 1;
         }
-        if self.version != 0 {
+        if true {
             len += 1;
         }
-        if self.height != 0 {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.snapshots.v1beta1.SnapshotIAVLItem", len)?;
-        if !self.key.is_empty() {
+        if true {
             struct_ser.serialize_field("key", pbjson::private::base64::encode(&self.key).as_str())?;
         }
-        if !self.value.is_empty() {
+        if true {
             struct_ser.serialize_field("value", pbjson::private::base64::encode(&self.value).as_str())?;
         }
-        if self.version != 0 {
+        if true {
             struct_ser.serialize_field("version", ::alloc::string::ToString::to_string(&self.version).as_str())?;
         }
-        if self.height != 0 {
+        if true {
             struct_ser.serialize_field("height", &self.height)?;
         }
         struct_ser.end()
@@ -783,17 +783,17 @@ impl serde::Serialize for SnapshotKvItem {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.key.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.value.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.snapshots.v1beta1.SnapshotKVItem", len)?;
-        if !self.key.is_empty() {
+        if true {
             struct_ser.serialize_field("key", pbjson::private::base64::encode(&self.key).as_str())?;
         }
-        if !self.value.is_empty() {
+        if true {
             struct_ser.serialize_field("value", pbjson::private::base64::encode(&self.value).as_str())?;
         }
         struct_ser.end()
@@ -895,11 +895,11 @@ impl serde::Serialize for SnapshotSchema {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.keys.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.snapshots.v1beta1.SnapshotSchema", len)?;
-        if !self.keys.is_empty() {
+        if true {
             struct_ser.serialize_field("keys", &self.keys.iter().map(pbjson::private::base64::encode).collect::<::alloc::vec::Vec<_>>())?;
         }
         struct_ser.end()
@@ -989,11 +989,11 @@ impl serde::Serialize for SnapshotStoreItem {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.name.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.snapshots.v1beta1.SnapshotStoreItem", len)?;
-        if !self.name.is_empty() {
+        if true {
             struct_ser.serialize_field("name", &self.name)?;
         }
         struct_ser.end()

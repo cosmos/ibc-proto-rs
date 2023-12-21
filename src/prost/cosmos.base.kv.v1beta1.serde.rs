@@ -6,17 +6,17 @@ impl serde::Serialize for Pair {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.key.is_empty() {
+        if true {
             len += 1;
         }
-        if !self.value.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.kv.v1beta1.Pair", len)?;
-        if !self.key.is_empty() {
+        if true {
             struct_ser.serialize_field("key", pbjson::private::base64::encode(&self.key).as_str())?;
         }
-        if !self.value.is_empty() {
+        if true {
             struct_ser.serialize_field("value", pbjson::private::base64::encode(&self.value).as_str())?;
         }
         struct_ser.end()
@@ -118,11 +118,11 @@ impl serde::Serialize for Pairs {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
-        if !self.pairs.is_empty() {
+        if true {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.kv.v1beta1.Pairs", len)?;
-        if !self.pairs.is_empty() {
+        if true {
             struct_ser.serialize_field("pairs", &self.pairs)?;
         }
         struct_ser.end()
