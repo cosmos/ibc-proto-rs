@@ -550,9 +550,11 @@ pub struct NonFungibleTokenPacketData {
     pub token_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// the non fungible tokens's uri to be transferred
     #[prost(string, repeated, tag = "5")]
+    #[cfg_attr(feature = "serde", serde(default))]
     pub token_uris: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// the non fungible tokens's data to be transferred
     #[prost(string, repeated, tag = "6")]
+    #[cfg_attr(feature = "serde", serde(default))]
     pub token_data: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// the sender address
     #[prost(string, tag = "7")]
