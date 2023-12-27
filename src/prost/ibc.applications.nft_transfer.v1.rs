@@ -539,9 +539,11 @@ pub struct NonFungibleTokenPacketData {
     pub class_id: ::prost::alloc::string::String,
     /// the class_uri of class to be transferred
     #[prost(string, tag = "2")]
+    #[cfg_attr(feature = "serde", serde(default))]
     pub class_uri: ::prost::alloc::string::String,
     /// the class_data of class to be transferred
     #[prost(string, tag = "3")]
+    #[cfg_attr(feature = "serde", serde(default))]
     pub class_data: ::prost::alloc::string::String,
     /// the non fungible tokens to be transferred
     #[prost(string, repeated, tag = "4")]
@@ -560,6 +562,7 @@ pub struct NonFungibleTokenPacketData {
     pub receiver: ::prost::alloc::string::String,
     /// optional memo
     #[prost(string, tag = "9")]
+    #[cfg_attr(feature = "serde", serde(default))]
     pub memo: ::prost::alloc::string::String,
 }
 impl ::prost::Name for NonFungibleTokenPacketData {
