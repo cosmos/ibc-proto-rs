@@ -1,5 +1,4 @@
 /// Plan specifies information about a planned upgrade and when it should occur.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Plan {
@@ -45,7 +44,6 @@ impl ::prost::Name for Plan {
 /// upgrade.
 /// Deprecated: This legacy proposal is deprecated in favor of Msg-based gov
 /// proposals, see MsgSoftwareUpgrade.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SoftwareUpgradeProposal {
@@ -70,7 +68,6 @@ impl ::prost::Name for SoftwareUpgradeProposal {
 /// upgrade.
 /// Deprecated: This legacy proposal is deprecated in favor of Msg-based gov
 /// proposals, see MsgCancelUpgrade.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CancelSoftwareUpgradeProposal {
@@ -91,7 +88,6 @@ impl ::prost::Name for CancelSoftwareUpgradeProposal {
 /// ModuleVersion specifies a module and its consensus version.
 ///
 /// Since: cosmos-sdk 0.43
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ModuleVersion {
@@ -112,7 +108,6 @@ impl ::prost::Name for ModuleVersion {
 /// MsgSoftwareUpgrade is the Msg/SoftwareUpgrade request type.
 ///
 /// Since: cosmos-sdk 0.46
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgSoftwareUpgrade {
@@ -133,7 +128,6 @@ impl ::prost::Name for MsgSoftwareUpgrade {
 /// MsgSoftwareUpgradeResponse is the Msg/SoftwareUpgrade response type.
 ///
 /// Since: cosmos-sdk 0.46
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgSoftwareUpgradeResponse {}
@@ -147,7 +141,6 @@ impl ::prost::Name for MsgSoftwareUpgradeResponse {
 /// MsgCancelUpgrade is the Msg/CancelUpgrade request type.
 ///
 /// Since: cosmos-sdk 0.46
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgCancelUpgrade {
@@ -165,7 +158,6 @@ impl ::prost::Name for MsgCancelUpgrade {
 /// MsgCancelUpgradeResponse is the Msg/CancelUpgrade response type.
 ///
 /// Since: cosmos-sdk 0.46
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgCancelUpgradeResponse {}
@@ -565,7 +557,6 @@ pub mod msg_server {
 }
 /// QueryCurrentPlanRequest is the request type for the Query/CurrentPlan RPC
 /// method.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryCurrentPlanRequest {}
@@ -578,7 +569,6 @@ impl ::prost::Name for QueryCurrentPlanRequest {
 }
 /// QueryCurrentPlanResponse is the response type for the Query/CurrentPlan RPC
 /// method.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryCurrentPlanResponse {
@@ -595,7 +585,6 @@ impl ::prost::Name for QueryCurrentPlanResponse {
 }
 /// QueryCurrentPlanRequest is the request type for the Query/AppliedPlan RPC
 /// method.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryAppliedPlanRequest {
@@ -612,7 +601,6 @@ impl ::prost::Name for QueryAppliedPlanRequest {
 }
 /// QueryAppliedPlanResponse is the response type for the Query/AppliedPlan RPC
 /// method.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryAppliedPlanResponse {
@@ -629,7 +617,6 @@ impl ::prost::Name for QueryAppliedPlanResponse {
 }
 /// QueryUpgradedConsensusStateRequest is the request type for the Query/UpgradedConsensusState
 /// RPC method.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryUpgradedConsensusStateRequest {
@@ -647,7 +634,6 @@ impl ::prost::Name for QueryUpgradedConsensusStateRequest {
 }
 /// QueryUpgradedConsensusStateResponse is the response type for the Query/UpgradedConsensusState
 /// RPC method.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryUpgradedConsensusStateResponse {
@@ -666,7 +652,6 @@ impl ::prost::Name for QueryUpgradedConsensusStateResponse {
 /// RPC method.
 ///
 /// Since: cosmos-sdk 0.43
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryModuleVersionsRequest {
@@ -687,7 +672,6 @@ impl ::prost::Name for QueryModuleVersionsRequest {
 /// RPC method.
 ///
 /// Since: cosmos-sdk 0.43
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryModuleVersionsResponse {
@@ -705,7 +689,6 @@ impl ::prost::Name for QueryModuleVersionsResponse {
 /// QueryAuthorityRequest is the request type for Query/Authority
 ///
 /// Since: cosmos-sdk 0.46
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryAuthorityRequest {}
@@ -719,7 +702,6 @@ impl ::prost::Name for QueryAuthorityRequest {
 /// QueryAuthorityResponse is the response type for Query/Authority
 ///
 /// Since: cosmos-sdk 0.46
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryAuthorityResponse {

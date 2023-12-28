@@ -1,6 +1,5 @@
 /// IdentifiedClientState defines a client state with an additional client
 /// identifier field.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct IdentifiedClientState {
@@ -22,7 +21,6 @@ impl ::prost::Name for IdentifiedClientState {
 }
 /// ConsensusStateWithHeight defines a consensus state with an additional height
 /// field.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsensusStateWithHeight {
@@ -44,7 +42,6 @@ impl ::prost::Name for ConsensusStateWithHeight {
 }
 /// ClientConsensusStates defines all the stored consensus states for a given
 /// client.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ClientConsensusStates {
@@ -72,7 +69,6 @@ impl ::prost::Name for ClientConsensusStates {
 /// breaking changes In these cases, the RevisionNumber is incremented so that
 /// height continues to be monitonically increasing even as the RevisionHeight
 /// gets reset
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[derive(Eq, PartialOrd, Ord)]
 #[cfg_attr(
     all(feature = "json-schema", feature = "serde"),
@@ -83,11 +79,9 @@ impl ::prost::Name for ClientConsensusStates {
 pub struct Height {
     /// the revision that the client is currently on
     #[prost(uint64, tag = "1")]
-    #[cfg_attr(feature = "serde", serde(default))]
     pub revision_number: u64,
     /// the height within the given revision
     #[prost(uint64, tag = "2")]
-    #[cfg_attr(feature = "serde", serde(default))]
     pub revision_height: u64,
 }
 impl ::prost::Name for Height {
@@ -98,7 +92,6 @@ impl ::prost::Name for Height {
     }
 }
 /// Params defines the set of IBC light client parameters.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Params {
@@ -121,7 +114,6 @@ impl ::prost::Name for Params {
 /// chain parameters (with exception to latest height, frozen height, and chain-id).
 ///
 /// Deprecated: Please use MsgRecoverClient in favour of this message type.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ClientUpdateProposal {
@@ -150,7 +142,6 @@ impl ::prost::Name for ClientUpdateProposal {
 /// upgrade.
 ///
 /// Deprecated: Please use MsgIBCSoftwareUpgrade in favour of this message type.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpgradeProposal {
@@ -181,7 +172,6 @@ impl ::prost::Name for UpgradeProposal {
     }
 }
 /// GenesisState defines the ibc client submodule's genesis state.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenesisState {
@@ -214,7 +204,6 @@ impl ::prost::Name for GenesisState {
 }
 /// GenesisMetadata defines the genesis type for metadata that clients may return
 /// with ExportMetadata
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenesisMetadata {
@@ -234,7 +223,6 @@ impl ::prost::Name for GenesisMetadata {
 }
 /// IdentifiedGenesisMetadata has the client metadata with the corresponding
 /// client id.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct IdentifiedGenesisMetadata {
@@ -251,7 +239,6 @@ impl ::prost::Name for IdentifiedGenesisMetadata {
     }
 }
 /// MsgCreateClient defines a message to create an IBC client
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgCreateClient {
@@ -278,7 +265,6 @@ impl ::prost::Name for MsgCreateClient {
     }
 }
 /// MsgCreateClientResponse defines the Msg/CreateClient response type.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgCreateClientResponse {}
@@ -291,7 +277,6 @@ impl ::prost::Name for MsgCreateClientResponse {
 }
 /// MsgUpdateClient defines an sdk.Msg to update a IBC client state using
 /// the given client message.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgUpdateClient {
@@ -315,7 +300,6 @@ impl ::prost::Name for MsgUpdateClient {
     }
 }
 /// MsgUpdateClientResponse defines the Msg/UpdateClient response type.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgUpdateClientResponse {}
@@ -328,7 +312,6 @@ impl ::prost::Name for MsgUpdateClientResponse {
 }
 /// MsgUpgradeClient defines an sdk.Msg to upgrade an IBC client to a new client
 /// state
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgUpgradeClient {
@@ -364,7 +347,6 @@ impl ::prost::Name for MsgUpgradeClient {
     }
 }
 /// MsgUpgradeClientResponse defines the Msg/UpgradeClient response type.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgUpgradeClientResponse {}
@@ -378,7 +360,6 @@ impl ::prost::Name for MsgUpgradeClientResponse {
 /// MsgSubmitMisbehaviour defines an sdk.Msg type that submits Evidence for
 /// light client misbehaviour.
 /// This message has been deprecated. Use MsgUpdateClient instead.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgSubmitMisbehaviour {
@@ -403,7 +384,6 @@ impl ::prost::Name for MsgSubmitMisbehaviour {
 }
 /// MsgSubmitMisbehaviourResponse defines the Msg/SubmitMisbehaviour response
 /// type.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgSubmitMisbehaviourResponse {}
@@ -415,7 +395,6 @@ impl ::prost::Name for MsgSubmitMisbehaviourResponse {
     }
 }
 /// MsgRecoverClient defines the message used to recover a frozen or expired client.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgRecoverClient {
@@ -438,7 +417,6 @@ impl ::prost::Name for MsgRecoverClient {
     }
 }
 /// MsgRecoverClientResponse defines the Msg/RecoverClient response type.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgRecoverClientResponse {}
@@ -450,7 +428,6 @@ impl ::prost::Name for MsgRecoverClientResponse {
     }
 }
 /// MsgIBCSoftwareUpgrade defines the message used to schedule an upgrade of an IBC client using a v1 governance proposal
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgIbcSoftwareUpgrade {
@@ -482,7 +459,6 @@ impl ::prost::Name for MsgIbcSoftwareUpgrade {
     }
 }
 /// MsgIBCSoftwareUpgradeResponse defines the Msg/IBCSoftwareUpgrade response type.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgIbcSoftwareUpgradeResponse {}
@@ -494,7 +470,6 @@ impl ::prost::Name for MsgIbcSoftwareUpgradeResponse {
     }
 }
 /// MsgUpdateParams defines the sdk.Msg type to update the client parameters.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgUpdateParams {
@@ -515,7 +490,6 @@ impl ::prost::Name for MsgUpdateParams {
     }
 }
 /// MsgUpdateParamsResponse defines the MsgUpdateParams response type.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgUpdateParamsResponse {}
@@ -1297,7 +1271,6 @@ pub mod msg_server {
 }
 /// QueryClientStateRequest is the request type for the Query/ClientState RPC
 /// method
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryClientStateRequest {
@@ -1315,7 +1288,6 @@ impl ::prost::Name for QueryClientStateRequest {
 /// QueryClientStateResponse is the response type for the Query/ClientState RPC
 /// method. Besides the client state, it includes a proof and the height from
 /// which the proof was retrieved.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryClientStateResponse {
@@ -1340,7 +1312,6 @@ impl ::prost::Name for QueryClientStateResponse {
 }
 /// QueryClientStatesRequest is the request type for the Query/ClientStates RPC
 /// method
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryClientStatesRequest {
@@ -1359,7 +1330,6 @@ impl ::prost::Name for QueryClientStatesRequest {
 }
 /// QueryClientStatesResponse is the response type for the Query/ClientStates RPC
 /// method.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryClientStatesResponse {
@@ -1382,7 +1352,6 @@ impl ::prost::Name for QueryClientStatesResponse {
 /// QueryConsensusStateRequest is the request type for the Query/ConsensusState
 /// RPC method. Besides the consensus state, it includes a proof and the height
 /// from which the proof was retrieved.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsensusStateRequest {
@@ -1409,7 +1378,6 @@ impl ::prost::Name for QueryConsensusStateRequest {
 }
 /// QueryConsensusStateResponse is the response type for the Query/ConsensusState
 /// RPC method
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsensusStateResponse {
@@ -1434,7 +1402,6 @@ impl ::prost::Name for QueryConsensusStateResponse {
 }
 /// QueryConsensusStatesRequest is the request type for the Query/ConsensusStates
 /// RPC method.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsensusStatesRequest {
@@ -1456,7 +1423,6 @@ impl ::prost::Name for QueryConsensusStatesRequest {
 }
 /// QueryConsensusStatesResponse is the response type for the
 /// Query/ConsensusStates RPC method
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsensusStatesResponse {
@@ -1478,7 +1444,6 @@ impl ::prost::Name for QueryConsensusStatesResponse {
 }
 /// QueryConsensusStateHeightsRequest is the request type for Query/ConsensusStateHeights
 /// RPC method.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsensusStateHeightsRequest {
@@ -1500,7 +1465,6 @@ impl ::prost::Name for QueryConsensusStateHeightsRequest {
 }
 /// QueryConsensusStateHeightsResponse is the response type for the
 /// Query/ConsensusStateHeights RPC method
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsensusStateHeightsResponse {
@@ -1522,7 +1486,6 @@ impl ::prost::Name for QueryConsensusStateHeightsResponse {
 }
 /// QueryClientStatusRequest is the request type for the Query/ClientStatus RPC
 /// method
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryClientStatusRequest {
@@ -1539,7 +1502,6 @@ impl ::prost::Name for QueryClientStatusRequest {
 }
 /// QueryClientStatusResponse is the response type for the Query/ClientStatus RPC
 /// method. It returns the current status of the IBC client.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryClientStatusResponse {
@@ -1555,7 +1517,6 @@ impl ::prost::Name for QueryClientStatusResponse {
 }
 /// QueryClientParamsRequest is the request type for the Query/ClientParams RPC
 /// method.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryClientParamsRequest {}
@@ -1568,7 +1529,6 @@ impl ::prost::Name for QueryClientParamsRequest {
 }
 /// QueryClientParamsResponse is the response type for the Query/ClientParams RPC
 /// method.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryClientParamsResponse {
@@ -1585,7 +1545,6 @@ impl ::prost::Name for QueryClientParamsResponse {
 }
 /// QueryUpgradedClientStateRequest is the request type for the
 /// Query/UpgradedClientState RPC method
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryUpgradedClientStateRequest {}
@@ -1598,7 +1557,6 @@ impl ::prost::Name for QueryUpgradedClientStateRequest {
 }
 /// QueryUpgradedClientStateResponse is the response type for the
 /// Query/UpgradedClientState RPC method.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryUpgradedClientStateResponse {
@@ -1617,7 +1575,6 @@ impl ::prost::Name for QueryUpgradedClientStateResponse {
 }
 /// QueryUpgradedConsensusStateRequest is the request type for the
 /// Query/UpgradedConsensusState RPC method
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryUpgradedConsensusStateRequest {}
@@ -1630,7 +1587,6 @@ impl ::prost::Name for QueryUpgradedConsensusStateRequest {
 }
 /// QueryUpgradedConsensusStateResponse is the response type for the
 /// Query/UpgradedConsensusState RPC method.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryUpgradedConsensusStateResponse {

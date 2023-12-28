@@ -44,6 +44,11 @@ impl CompileCmd {
             process::exit(1);
         });
 
+        Self::build_pbjson_impls(self.out.as_ref()).unwrap_or_else(|e| {
+            eprintln!("[error] failed to build pbjson impls: {}", e);
+            process::exit(1);
+        });
+
         println!("[info ] Done!");
     }
 
@@ -116,15 +121,11 @@ impl CompileCmd {
         // List available paths for dependencies
         let includes: Vec<PathBuf> = proto_includes_paths.iter().map(PathBuf::from).collect();
 
-        let attrs_serde =
-            r#"#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]"#;
-        let attrs_serde_default = r#"#[cfg_attr(feature = "serde", serde(default))]"#;
         let attrs_jsonschema = r#"#[cfg_attr(all(feature = "json-schema", feature = "serde"), derive(::schemars::JsonSchema))]"#;
+        let attrs_jsonschema_str = r#"#[cfg_attr(all(feature = "json-schema", feature = "serde"), schemars(with = "String"))]"#;
 
         let attrs_ord = "#[derive(Eq, PartialOrd, Ord)]";
         let attrs_eq = "#[derive(Eq)]";
-        let attrs_serde_base64 = r#"#[cfg_attr(feature = "serde", serde(with = "crate::base64"))]"#;
-        let attrs_jsonschema_str = r#"#[cfg_attr(all(feature = "json-schema", feature = "serde"), schemars(with = "String"))]"#;
 
         // Automatically derive a `prost::Name` implementation.
         let mut config = prost_build::Config::new();
@@ -140,22 +141,12 @@ impl CompileCmd {
             .file_descriptor_set_path(out_dir.join("proto_descriptor.bin"))
             .extern_path(".tendermint", "::tendermint_proto")
             .extern_path(".ics23", "::ics23")
-            .type_attribute(".google.protobuf.Any", attrs_serde)
             .type_attribute(".google.protobuf.Any", attrs_eq)
             .type_attribute(".google.protobuf.Any", attrs_jsonschema)
-            .type_attribute(".google.protobuf.Timestamp", attrs_serde)
-            .type_attribute(".google.protobuf.Duration", attrs_serde)
             .type_attribute(".google.protobuf.Duration", attrs_eq)
-            .type_attribute(".ibc.core.client.v1", attrs_serde)
             .type_attribute(".ibc.core.client.v1.Height", attrs_ord)
             .type_attribute(".ibc.core.client.v1.Height", attrs_jsonschema)
-            .field_attribute(".ibc.core.client.v1.Height", attrs_serde_default)
-            .type_attribute(".ibc.core.commitment.v1", attrs_serde)
             .type_attribute(".ibc.core.commitment.v1.MerkleRoot", attrs_jsonschema)
-            .field_attribute(
-                ".ibc.core.commitment.v1.MerkleRoot.hash",
-                attrs_serde_base64,
-            )
             .field_attribute(
                 ".ibc.core.commitment.v1.MerkleRoot.hash",
                 attrs_jsonschema_str,
@@ -163,54 +154,50 @@ impl CompileCmd {
             .type_attribute(".ibc.core.commitment.v1.MerklePrefix", attrs_jsonschema)
             .field_attribute(
                 ".ibc.core.commitment.v1.MerklePrefix.key_prefix",
-                attrs_serde_base64,
-            )
-            .field_attribute(
-                ".ibc.core.commitment.v1.MerklePrefix.key_prefix",
                 attrs_jsonschema_str,
             )
-            .type_attribute(".ibc.core.channel.v1", attrs_serde)
             .type_attribute(".ibc.core.channel.v1.Channel", attrs_jsonschema)
             .type_attribute(".ibc.core.channel.v1.Counterparty", attrs_jsonschema)
-            .type_attribute(".ibc.core.connection.v1", attrs_serde)
             .type_attribute(".ibc.core.connection.v1.ConnectionEnd", attrs_jsonschema)
             .type_attribute(".ibc.core.connection.v1.Counterparty", attrs_jsonschema)
             .type_attribute(".ibc.core.connection.v1.Version", attrs_jsonschema)
-            .type_attribute(".ibc.core.types.v1", attrs_serde)
-            .type_attribute(".ibc.applications.transfer.v1", attrs_serde)
-            .field_attribute(
-                ".ibc.applications.transfer.v1.MsgTransfer.memo",
-                attrs_serde_default,
-            )
-            .type_attribute(".ibc.applications.transfer.v2", attrs_serde)
-            .field_attribute(
-                ".ibc.applications.transfer.v2.FungibleTokenPacketData.memo",
-                attrs_serde_default,
-            )
-            .type_attribute(
-                ".ibc.applications.interchain_accounts.controller.v1",
-                attrs_serde,
-            )
-            .type_attribute(
-                ".ibc.applications.interchain_accounts.genesis.v1",
-                attrs_serde,
-            )
-            .type_attribute(".ibc.applications.interchain_accounts.host.v1", attrs_serde)
-            .type_attribute(".ibc.applications.interchain_accounts.v1", attrs_serde)
-            .type_attribute(".ibc.lightclients.tendermint.v1", attrs_serde)
-            .type_attribute(".ibc.lightclients.localhost.v2", attrs_serde)
-            .type_attribute(".ibc.lightclients.solomachine.v3", attrs_serde)
-            .type_attribute(".cosmos.app.v1alpha1", attrs_serde)
-            .type_attribute(".cosmos.auth.v1beta1", attrs_serde)
-            .type_attribute(".cosmos.bank.v1beta1", attrs_serde)
-            .type_attribute(".cosmos.base.v1beta1", attrs_serde)
-            .type_attribute(".cosmos.base.query.v1beta1", attrs_serde)
-            .type_attribute(".cosmos.config.v1", attrs_serde)
-            .type_attribute(".cosmos.tx.config.v1", attrs_serde)
-            .type_attribute(".cosmos.upgrade.v1beta1", attrs_serde)
             .compile_with_config(config, &protos, &includes)?;
 
         println!("[info ] Protos compiled successfully");
+
+        Ok(())
+    }
+
+    fn build_pbjson_impls(out_dir: &Path) -> Result<(), Box<dyn std::error::Error>> {
+        println!("[info] Building pbjson Serialize, Deserialize impls...");
+        let descriptor_set_path = out_dir.join("proto_descriptor.bin");
+        let descriptor_set = std::fs::read(descriptor_set_path)?;
+
+        pbjson_build::Builder::new()
+            .register_descriptors(&descriptor_set)?
+            .out_dir(&out_dir)
+            .exclude([
+                // The validator patch is not compatible with protojson builds
+                ".cosmos.staking.v1beta1.StakeAuthorization",
+                ".cosmos.staking.v1beta1.ValidatorUpdates",
+                // TODO: These have dependencies on tendermint-proto, which does not implement protojson.
+                //       After it's implemented there, we can delete these exclusions.
+                ".cosmos.base.abci.v1beta1",
+                ".cosmos.tx.v1beta1",
+                ".cosmos.base.tendermint.v1beta1",
+                ".interchain_security.ccv.v1",
+                ".interchain_security.ccv.provider.v1",
+                ".interchain_security.ccv.consumer.v1",
+                ".stride.interchainquery.v1",
+            ])
+            .emit_fields()
+            .build(&[
+                ".ibc",
+                ".cosmos",
+                ".interchain_security",
+                ".stride",
+                ".google",
+            ])?;
 
         Ok(())
     }

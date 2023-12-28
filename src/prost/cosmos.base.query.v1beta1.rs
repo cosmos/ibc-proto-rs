@@ -5,7 +5,6 @@
 ///           Foo some_parameter = 1;
 ///           PageRequest pagination = 2;
 ///   }
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PageRequest {
@@ -49,7 +48,6 @@ impl ::prost::Name for PageRequest {
 ///           repeated Bar results = 1;
 ///           PageResponse page = 2;
 ///   }
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PageResponse {

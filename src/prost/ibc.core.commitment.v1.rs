@@ -1,6 +1,5 @@
 /// MerkleRoot defines a merkle root hash.
 /// In the Cosmos SDK, the AppHash of a block header becomes the root.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[cfg_attr(
     all(feature = "json-schema", feature = "serde"),
     derive(::schemars::JsonSchema)
@@ -9,7 +8,6 @@
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MerkleRoot {
     #[prost(bytes = "vec", tag = "1")]
-    #[cfg_attr(feature = "serde", serde(with = "crate::base64"))]
     #[cfg_attr(
         all(feature = "json-schema", feature = "serde"),
         schemars(with = "String")
@@ -26,7 +24,6 @@ impl ::prost::Name for MerkleRoot {
 /// MerklePrefix is merkle path prefixed to the key.
 /// The constructed key from the Path and the key will be append(Path.KeyPath,
 /// append(Path.KeyPrefix, key...))
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[cfg_attr(
     all(feature = "json-schema", feature = "serde"),
     derive(::schemars::JsonSchema)
@@ -35,7 +32,6 @@ impl ::prost::Name for MerkleRoot {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MerklePrefix {
     #[prost(bytes = "vec", tag = "1")]
-    #[cfg_attr(feature = "serde", serde(with = "crate::base64"))]
     #[cfg_attr(
         all(feature = "json-schema", feature = "serde"),
         schemars(with = "String")
@@ -52,7 +48,6 @@ impl ::prost::Name for MerklePrefix {
 /// MerklePath is the path used to verify commitment proofs, which can be an
 /// arbitrary structured object (defined by a commitment type).
 /// MerklePath is represented from root-to-leaf
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MerklePath {
@@ -71,7 +66,6 @@ impl ::prost::Name for MerklePath {
 /// elements, verifiable in conjunction with a known commitment root. Proofs
 /// should be succinct.
 /// MerkleProofs are ordered from leaf-to-root
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MerkleProof {
