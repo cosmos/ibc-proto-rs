@@ -1,6 +1,5 @@
 /// ClassTrace contains the base classID for ICS721 non-fungible tokens and the
 /// source tracing information path.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ClassTrace {
@@ -22,7 +21,6 @@ impl ::prost::Name for ClassTrace {
 /// Params defines the set of IBC nft-transfer parameters.
 /// NOTE: To prevent a nft from being transferred, set the
 /// TransfersEnabled parameter to false.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Params {
@@ -45,7 +43,6 @@ impl ::prost::Name for Params {
 /// MsgTransfer defines a msg to transfer non fungible tokens between
 /// ICS721 enabled chains. See ICS Spec here:
 /// <https://github.com/cosmos/ibc/tree/master/spec/app/ics-721-nft-transfer#data-structures>
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgTransfer {
@@ -79,7 +76,6 @@ pub struct MsgTransfer {
     pub timeout_timestamp: u64,
     /// optional memo
     #[prost(string, tag = "9")]
-    #[cfg_attr(feature = "serde", serde(default))]
     pub memo: ::prost::alloc::string::String,
 }
 impl ::prost::Name for MsgTransfer {
@@ -90,7 +86,6 @@ impl ::prost::Name for MsgTransfer {
     }
 }
 /// MsgTransferResponse defines the Msg/Transfer response type.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgTransferResponse {
@@ -107,7 +102,6 @@ impl ::prost::Name for MsgTransferResponse {
 }
 /// MsgUpdateParams is the Msg/UpdateParams request type.
 ///
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgUpdateParams {
@@ -130,7 +124,6 @@ impl ::prost::Name for MsgUpdateParams {
 /// MsgUpdateParamsResponse defines the response structure for executing a
 /// MsgUpdateParams message.
 ///
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgUpdateParamsResponse {}
@@ -530,7 +523,6 @@ pub mod msg_server {
 /// NonFungibleTokenPacketData defines a struct for the packet payload
 /// See NonFungibleTokenPacketData spec:
 /// <https://github.com/cosmos/ibc/tree/master/spec/app/ics-721-nft-transfer#data-structures>
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NonFungibleTokenPacketData {
@@ -539,22 +531,18 @@ pub struct NonFungibleTokenPacketData {
     pub class_id: ::prost::alloc::string::String,
     /// the class_uri of class to be transferred
     #[prost(string, tag = "2")]
-    #[cfg_attr(feature = "serde", serde(default))]
     pub class_uri: ::prost::alloc::string::String,
     /// the class_data of class to be transferred
     #[prost(string, tag = "3")]
-    #[cfg_attr(feature = "serde", serde(default))]
     pub class_data: ::prost::alloc::string::String,
     /// the non fungible tokens to be transferred
     #[prost(string, repeated, tag = "4")]
     pub token_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// the non fungible tokens's uri to be transferred
     #[prost(string, repeated, tag = "5")]
-    #[cfg_attr(feature = "serde", serde(default))]
     pub token_uris: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// the non fungible tokens's data to be transferred
     #[prost(string, repeated, tag = "6")]
-    #[cfg_attr(feature = "serde", serde(default))]
     pub token_data: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// the sender address
     #[prost(string, tag = "7")]
@@ -564,7 +552,6 @@ pub struct NonFungibleTokenPacketData {
     pub receiver: ::prost::alloc::string::String,
     /// optional memo
     #[prost(string, tag = "9")]
-    #[cfg_attr(feature = "serde", serde(default))]
     pub memo: ::prost::alloc::string::String,
 }
 impl ::prost::Name for NonFungibleTokenPacketData {
@@ -576,7 +563,6 @@ impl ::prost::Name for NonFungibleTokenPacketData {
 }
 /// QueryClassTraceRequest is the request type for the Query/ClassDenom RPC
 /// method
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryClassTraceRequest {
@@ -594,7 +580,6 @@ impl ::prost::Name for QueryClassTraceRequest {
 }
 /// QueryClassTraceResponse is the response type for the Query/ClassDenom RPC
 /// method.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryClassTraceResponse {
@@ -611,7 +596,6 @@ impl ::prost::Name for QueryClassTraceResponse {
 }
 /// QueryConnectionsRequest is the request type for the Query/ClassTraces RPC
 /// method
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryClassTracesRequest {
@@ -630,7 +614,6 @@ impl ::prost::Name for QueryClassTracesRequest {
 }
 /// QueryClassTracesResponse is the response type for the Query/ClassTraces RPC
 /// method.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryClassTracesResponse {
@@ -652,7 +635,6 @@ impl ::prost::Name for QueryClassTracesResponse {
 }
 /// QueryClassHashRequest is the request type for the Query/ClassHash RPC
 /// method
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryClassHashRequest {
@@ -669,7 +651,6 @@ impl ::prost::Name for QueryClassHashRequest {
 }
 /// QueryClassHashResponse is the response type for the Query/ClassHash RPC
 /// method.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryClassHashResponse {
@@ -686,7 +667,6 @@ impl ::prost::Name for QueryClassHashResponse {
 }
 /// QueryEscrowAddressRequest is the request type for the EscrowAddress RPC
 /// method.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryEscrowAddressRequest {
@@ -706,7 +686,6 @@ impl ::prost::Name for QueryEscrowAddressRequest {
 }
 /// QueryEscrowAddressResponse is the response type of the EscrowAddress RPC
 /// method.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryEscrowAddressResponse {
@@ -722,7 +701,6 @@ impl ::prost::Name for QueryEscrowAddressResponse {
     }
 }
 /// QueryParamsRequest is request type for the Query/Params RPC method.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsRequest {}
@@ -734,7 +712,6 @@ impl ::prost::Name for QueryParamsRequest {
     }
 }
 /// QueryParamsResponse is response type for the Query/Params RPC method.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsResponse {
@@ -1391,7 +1368,6 @@ pub mod query_server {
     }
 }
 /// GenesisState defines the ibc-nft-transfer genesis state
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenesisState {
