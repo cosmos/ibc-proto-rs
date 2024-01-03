@@ -305,6 +305,8 @@ pub mod ibc {
         pub mod nft_transfer {
             pub mod v1 {
                 include_proto!("ibc.applications.nft_transfer.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("ibc.applications.nft_transfer.v1.serde.rs");
             }
         }
     }
