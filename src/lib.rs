@@ -2,11 +2,8 @@
 
 // Todo: automate the creation of this module setup based on the dots in the filenames.
 // This module setup is necessary because the generated code contains "super::" calls for dependencies.
-
-#![cfg_attr(
-    not(feature = "serde"),
-    deny(warnings, trivial_casts, trivial_numeric_casts, unused_import_braces)
-)]
+#![cfg_attr(not(feature = "std"), no_std)]
+#![deny(warnings, trivial_casts, trivial_numeric_casts, unused_import_braces)]
 #![allow(clippy::large_enum_variant, clippy::derive_partial_eq_without_eq)]
 #![allow(rustdoc::bare_urls)]
 #![forbid(unsafe_code)]
@@ -372,6 +369,13 @@ pub mod ibc {
                 include_proto!("ibc.lightclients.tendermint.v1.rs");
                 #[cfg(feature = "serde")]
                 include_proto!("ibc.lightclients.tendermint.v1.serde.rs");
+            }
+        }
+        pub mod wasm {
+            pub mod v1 {
+                include_proto!("ibc.lightclients.wasm.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("ibc.lightclients.wasm.v1.serde.rs");
             }
         }
     }
