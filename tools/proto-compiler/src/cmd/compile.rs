@@ -236,6 +236,14 @@ impl CompileCmd {
                     "The denomination trace `([port_id]/[channel_id])+/[denom]`",
                 )],
             ),
+            (
+                "ibc.applications.nft_transfer.v1.rs",
+                &[(
+                    "The class trace (\\[port_id\\]/[channel_id])+/\\[denom\\]",
+                    "The class trace `([port_id]/[channel_id])+/[class]`",
+                )],
+            ),
+
         ];
 
         for (file, patches) in PATCHES {
