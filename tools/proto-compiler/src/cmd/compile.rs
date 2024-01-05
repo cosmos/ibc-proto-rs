@@ -244,7 +244,6 @@ impl CompileCmd {
                     "The class trace `([port_id]/[channel_id])+/[class]`",
                 )],
             ),
-
         ];
 
         for (file, patches) in PATCHES {
