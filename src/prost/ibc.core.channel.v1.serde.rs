@@ -13,7 +13,7 @@ impl serde::Serialize for Acknowledgement {
         if let Some(v) = self.response.as_ref() {
             match v {
                 acknowledgement::Response::Result(v) => {
-                    struct_ser.serialize_field("result", pbjson::private::base64::encode(&v).as_str())?;
+                    struct_ser.serialize_field("result", pbjson::private::base64::encode(v).as_str())?;
                 }
                 acknowledgement::Response::Error(v) => {
                     struct_ser.serialize_field("error", v)?;

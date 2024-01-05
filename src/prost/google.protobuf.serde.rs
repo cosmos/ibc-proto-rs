@@ -6767,7 +6767,7 @@ impl serde::Serialize for UninterpretedOption {
             struct_ser.serialize_field("doubleValue", v)?;
         }
         if let Some(v) = self.string_value.as_ref() {
-            struct_ser.serialize_field("stringValue", pbjson::private::base64::encode(&v).as_str())?;
+            struct_ser.serialize_field("stringValue", pbjson::private::base64::encode(v).as_str())?;
         }
         if let Some(v) = self.aggregate_value.as_ref() {
             struct_ser.serialize_field("aggregateValue", v)?;
