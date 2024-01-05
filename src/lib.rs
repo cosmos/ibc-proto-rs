@@ -364,6 +364,13 @@ pub mod ibc {
                 include_proto!("ibc.lightclients.tendermint.v1.serde.rs");
             }
         }
+        pub mod wasm {
+            pub mod v1 {
+                include_proto!("ibc.lightclients.wasm.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("ibc.lightclients.wasm.v1.serde.rs");
+            }
+        }
     }
     pub mod mock {
         include_proto!("ibc.mock.rs");
