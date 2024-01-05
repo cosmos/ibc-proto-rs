@@ -1064,6 +1064,10 @@ impl ::prost::Name for ConsensusState {
     }
 }
 /// Wasm light client message (either header(s) or misbehaviour)
+#[cfg_attr(
+    all(feature = "json-schema", feature = "serde"),
+    derive(::schemars::JsonSchema)
+)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ClientMessage {
