@@ -34,6 +34,9 @@ pub const IBC_GO_COMMIT: &str = include_str!("IBC_GO_COMMIT");
 /// The version (commit hash) of Interchain Security used when generating this library.
 pub const INTERCHAIN_SECURITY_COMMIT: &str = include_str!("INTERCHAIN_SECURITY_COMMIT");
 
+/// The version (commit hash) of nft-transfer used when generating this library.
+pub const NFT_TRANSFER_COMMIT: &str = include_str!("NFT_TRANSFER_COMMIT");
+
 /// File descriptor set of compiled proto.
 #[cfg(feature = "proto-descriptor")]
 pub const FILE_DESCRIPTOR_SET: &[u8] = include_bytes!("prost/proto_descriptor.bin");
@@ -294,6 +297,13 @@ pub mod ibc {
                     #[cfg(feature = "serde")]
                     include_proto!("ibc.applications.interchain_accounts.host.v1.serde.rs");
                 }
+            }
+        }
+        pub mod nft_transfer {
+            pub mod v1 {
+                include_proto!("ibc.applications.nft_transfer.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("ibc.applications.nft_transfer.v1.serde.rs");
             }
         }
     }
