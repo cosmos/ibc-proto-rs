@@ -86,32 +86,32 @@ impl<'de> serde::Deserialize<'de> for Module {
                 formatter.write_str("struct cosmos.auth.module.v1.Module")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Module, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Module, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut bech32_prefix__ = None;
                 let mut module_account_permissions__ = None;
                 let mut authority__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Bech32Prefix => {
                             if bech32_prefix__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("bech32Prefix"));
                             }
-                            bech32_prefix__ = Some(map.next_value()?);
+                            bech32_prefix__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ModuleAccountPermissions => {
                             if module_account_permissions__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("moduleAccountPermissions"));
                             }
-                            module_account_permissions__ = Some(map.next_value()?);
+                            module_account_permissions__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Authority => {
                             if authority__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("authority"));
                             }
-                            authority__ = Some(map.next_value()?);
+                            authority__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -202,25 +202,25 @@ impl<'de> serde::Deserialize<'de> for ModuleAccountPermission {
                 formatter.write_str("struct cosmos.auth.module.v1.ModuleAccountPermission")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<ModuleAccountPermission, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ModuleAccountPermission, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut account__ = None;
                 let mut permissions__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Account => {
                             if account__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("account"));
                             }
-                            account__ = Some(map.next_value()?);
+                            account__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Permissions => {
                             if permissions__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("permissions"));
                             }
-                            permissions__ = Some(map.next_value()?);
+                            permissions__ = Some(map_.next_value()?);
                         }
                     }
                 }

@@ -76,25 +76,25 @@ impl<'de> serde::Deserialize<'de> for ClientState {
                 formatter.write_str("struct ibc.lightclients.localhost.v1.ClientState")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<ClientState, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ClientState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut chain_id__ = None;
                 let mut height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ChainId => {
                             if chain_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("chainId"));
                             }
-                            chain_id__ = Some(map.next_value()?);
+                            chain_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Height => {
                             if height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("height"));
                             }
-                            height__ = map.next_value()?;
+                            height__ = map_.next_value()?;
                         }
                     }
                 }

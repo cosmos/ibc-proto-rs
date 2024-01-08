@@ -67,19 +67,19 @@ impl<'de> serde::Deserialize<'de> for Metadata {
                 formatter.write_str("struct cosmos.base.snapshots.v1beta1.Metadata")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Metadata, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Metadata, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut chunk_hashes__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ChunkHashes => {
                             if chunk_hashes__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("chunkHashes"));
                             }
                             chunk_hashes__ = 
-                                Some(map.next_value::<::alloc::vec::Vec<::pbjson::private::BytesDeserialize<_>>>()?
+                                Some(map_.next_value::<::alloc::vec::Vec<::pbjson::private::BytesDeserialize<_>>>()?
                                     .into_iter().map(|x| x.0).collect())
                             ;
                         }
@@ -118,6 +118,7 @@ impl serde::Serialize for Snapshot {
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.snapshots.v1beta1.Snapshot", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("height", ::alloc::string::ToString::to_string(&self.height).as_str())?;
         }
         if true {
@@ -127,6 +128,7 @@ impl serde::Serialize for Snapshot {
             struct_ser.serialize_field("chunks", &self.chunks)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("hash", pbjson::private::base64::encode(&self.hash).as_str())?;
         }
         if let Some(v) = self.metadata.as_ref() {
@@ -197,7 +199,7 @@ impl<'de> serde::Deserialize<'de> for Snapshot {
                 formatter.write_str("struct cosmos.base.snapshots.v1beta1.Snapshot")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Snapshot, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Snapshot, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -206,14 +208,14 @@ impl<'de> serde::Deserialize<'de> for Snapshot {
                 let mut chunks__ = None;
                 let mut hash__ = None;
                 let mut metadata__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Height => {
                             if height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("height"));
                             }
                             height__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Format => {
@@ -221,7 +223,7 @@ impl<'de> serde::Deserialize<'de> for Snapshot {
                                 return Err(serde::de::Error::duplicate_field("format"));
                             }
                             format__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Chunks => {
@@ -229,7 +231,7 @@ impl<'de> serde::Deserialize<'de> for Snapshot {
                                 return Err(serde::de::Error::duplicate_field("chunks"));
                             }
                             chunks__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Hash => {
@@ -237,14 +239,14 @@ impl<'de> serde::Deserialize<'de> for Snapshot {
                                 return Err(serde::de::Error::duplicate_field("hash"));
                             }
                             hash__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Metadata => {
                             if metadata__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("metadata"));
                             }
-                            metadata__ = map.next_value()?;
+                            metadata__ = map_.next_value()?;
                         }
                     }
                 }
@@ -337,26 +339,26 @@ impl<'de> serde::Deserialize<'de> for SnapshotExtensionMeta {
                 formatter.write_str("struct cosmos.base.snapshots.v1beta1.SnapshotExtensionMeta")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<SnapshotExtensionMeta, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<SnapshotExtensionMeta, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut name__ = None;
                 let mut format__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Name => {
                             if name__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("name"));
                             }
-                            name__ = Some(map.next_value()?);
+                            name__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Format => {
                             if format__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("format"));
                             }
                             format__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -383,6 +385,7 @@ impl serde::Serialize for SnapshotExtensionPayload {
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.snapshots.v1beta1.SnapshotExtensionPayload", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("payload", pbjson::private::base64::encode(&self.payload).as_str())?;
         }
         struct_ser.end()
@@ -438,19 +441,19 @@ impl<'de> serde::Deserialize<'de> for SnapshotExtensionPayload {
                 formatter.write_str("struct cosmos.base.snapshots.v1beta1.SnapshotExtensionPayload")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<SnapshotExtensionPayload, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<SnapshotExtensionPayload, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut payload__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Payload => {
                             if payload__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("payload"));
                             }
                             payload__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -485,12 +488,15 @@ impl serde::Serialize for SnapshotIavlItem {
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.snapshots.v1beta1.SnapshotIAVLItem", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("key", pbjson::private::base64::encode(&self.key).as_str())?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("value", pbjson::private::base64::encode(&self.value).as_str())?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("version", ::alloc::string::ToString::to_string(&self.version).as_str())?;
         }
         if true {
@@ -558,7 +564,7 @@ impl<'de> serde::Deserialize<'de> for SnapshotIavlItem {
                 formatter.write_str("struct cosmos.base.snapshots.v1beta1.SnapshotIAVLItem")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<SnapshotIavlItem, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<SnapshotIavlItem, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -566,14 +572,14 @@ impl<'de> serde::Deserialize<'de> for SnapshotIavlItem {
                 let mut value__ = None;
                 let mut version__ = None;
                 let mut height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Key => {
                             if key__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("key"));
                             }
                             key__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Value => {
@@ -581,7 +587,7 @@ impl<'de> serde::Deserialize<'de> for SnapshotIavlItem {
                                 return Err(serde::de::Error::duplicate_field("value"));
                             }
                             value__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Version => {
@@ -589,7 +595,7 @@ impl<'de> serde::Deserialize<'de> for SnapshotIavlItem {
                                 return Err(serde::de::Error::duplicate_field("version"));
                             }
                             version__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Height => {
@@ -597,7 +603,7 @@ impl<'de> serde::Deserialize<'de> for SnapshotIavlItem {
                                 return Err(serde::de::Error::duplicate_field("height"));
                             }
                             height__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -716,53 +722,53 @@ impl<'de> serde::Deserialize<'de> for SnapshotItem {
                 formatter.write_str("struct cosmos.base.snapshots.v1beta1.SnapshotItem")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<SnapshotItem, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<SnapshotItem, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut item__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Store => {
                             if item__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("store"));
                             }
-                            item__ = map.next_value::<::core::option::Option<_>>()?.map(snapshot_item::Item::Store)
+                            item__ = map_.next_value::<::core::option::Option<_>>()?.map(snapshot_item::Item::Store)
 ;
                         }
                         GeneratedField::Iavl => {
                             if item__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("iavl"));
                             }
-                            item__ = map.next_value::<::core::option::Option<_>>()?.map(snapshot_item::Item::Iavl)
+                            item__ = map_.next_value::<::core::option::Option<_>>()?.map(snapshot_item::Item::Iavl)
 ;
                         }
                         GeneratedField::Extension => {
                             if item__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("extension"));
                             }
-                            item__ = map.next_value::<::core::option::Option<_>>()?.map(snapshot_item::Item::Extension)
+                            item__ = map_.next_value::<::core::option::Option<_>>()?.map(snapshot_item::Item::Extension)
 ;
                         }
                         GeneratedField::ExtensionPayload => {
                             if item__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("extensionPayload"));
                             }
-                            item__ = map.next_value::<::core::option::Option<_>>()?.map(snapshot_item::Item::ExtensionPayload)
+                            item__ = map_.next_value::<::core::option::Option<_>>()?.map(snapshot_item::Item::ExtensionPayload)
 ;
                         }
                         GeneratedField::Kv => {
                             if item__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("kv"));
                             }
-                            item__ = map.next_value::<::core::option::Option<_>>()?.map(snapshot_item::Item::Kv)
+                            item__ = map_.next_value::<::core::option::Option<_>>()?.map(snapshot_item::Item::Kv)
 ;
                         }
                         GeneratedField::Schema => {
                             if item__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("schema"));
                             }
-                            item__ = map.next_value::<::core::option::Option<_>>()?.map(snapshot_item::Item::Schema)
+                            item__ = map_.next_value::<::core::option::Option<_>>()?.map(snapshot_item::Item::Schema)
 ;
                         }
                     }
@@ -791,9 +797,11 @@ impl serde::Serialize for SnapshotKvItem {
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.snapshots.v1beta1.SnapshotKVItem", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("key", pbjson::private::base64::encode(&self.key).as_str())?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("value", pbjson::private::base64::encode(&self.value).as_str())?;
         }
         struct_ser.end()
@@ -852,20 +860,20 @@ impl<'de> serde::Deserialize<'de> for SnapshotKvItem {
                 formatter.write_str("struct cosmos.base.snapshots.v1beta1.SnapshotKVItem")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<SnapshotKvItem, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<SnapshotKvItem, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut key__ = None;
                 let mut value__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Key => {
                             if key__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("key"));
                             }
                             key__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Value => {
@@ -873,7 +881,7 @@ impl<'de> serde::Deserialize<'de> for SnapshotKvItem {
                                 return Err(serde::de::Error::duplicate_field("value"));
                             }
                             value__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -955,19 +963,19 @@ impl<'de> serde::Deserialize<'de> for SnapshotSchema {
                 formatter.write_str("struct cosmos.base.snapshots.v1beta1.SnapshotSchema")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<SnapshotSchema, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<SnapshotSchema, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut keys__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Keys => {
                             if keys__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("keys"));
                             }
                             keys__ = 
-                                Some(map.next_value::<::alloc::vec::Vec<::pbjson::private::BytesDeserialize<_>>>()?
+                                Some(map_.next_value::<::alloc::vec::Vec<::pbjson::private::BytesDeserialize<_>>>()?
                                     .into_iter().map(|x| x.0).collect())
                             ;
                         }
@@ -1049,18 +1057,18 @@ impl<'de> serde::Deserialize<'de> for SnapshotStoreItem {
                 formatter.write_str("struct cosmos.base.snapshots.v1beta1.SnapshotStoreItem")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<SnapshotStoreItem, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<SnapshotStoreItem, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut name__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Name => {
                             if name__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("name"));
                             }
-                            name__ = Some(map.next_value()?);
+                            name__ = Some(map_.next_value()?);
                         }
                     }
                 }

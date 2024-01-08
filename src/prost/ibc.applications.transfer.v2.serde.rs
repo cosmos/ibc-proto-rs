@@ -102,7 +102,7 @@ impl<'de> serde::Deserialize<'de> for FungibleTokenPacketData {
                 formatter.write_str("struct ibc.applications.transfer.v2.FungibleTokenPacketData")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<FungibleTokenPacketData, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<FungibleTokenPacketData, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -111,37 +111,37 @@ impl<'de> serde::Deserialize<'de> for FungibleTokenPacketData {
                 let mut sender__ = None;
                 let mut receiver__ = None;
                 let mut memo__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Denom => {
                             if denom__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("denom"));
                             }
-                            denom__ = Some(map.next_value()?);
+                            denom__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Amount => {
                             if amount__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("amount"));
                             }
-                            amount__ = Some(map.next_value()?);
+                            amount__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Sender => {
                             if sender__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sender"));
                             }
-                            sender__ = Some(map.next_value()?);
+                            sender__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Receiver => {
                             if receiver__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("receiver"));
                             }
-                            receiver__ = Some(map.next_value()?);
+                            receiver__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Memo => {
                             if memo__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("memo"));
                             }
-                            memo__ = Some(map.next_value()?);
+                            memo__ = Some(map_.next_value()?);
                         }
                     }
                 }

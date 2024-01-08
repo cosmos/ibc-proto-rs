@@ -112,7 +112,7 @@ impl<'de> serde::Deserialize<'de> for AppDescriptor {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.AppDescriptor")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<AppDescriptor, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<AppDescriptor, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -122,43 +122,43 @@ impl<'de> serde::Deserialize<'de> for AppDescriptor {
                 let mut configuration__ = None;
                 let mut query_services__ = None;
                 let mut tx__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Authn => {
                             if authn__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("authn"));
                             }
-                            authn__ = map.next_value()?;
+                            authn__ = map_.next_value()?;
                         }
                         GeneratedField::Chain => {
                             if chain__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("chain"));
                             }
-                            chain__ = map.next_value()?;
+                            chain__ = map_.next_value()?;
                         }
                         GeneratedField::Codec => {
                             if codec__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("codec"));
                             }
-                            codec__ = map.next_value()?;
+                            codec__ = map_.next_value()?;
                         }
                         GeneratedField::Configuration => {
                             if configuration__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("configuration"));
                             }
-                            configuration__ = map.next_value()?;
+                            configuration__ = map_.next_value()?;
                         }
                         GeneratedField::QueryServices => {
                             if query_services__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("queryServices"));
                             }
-                            query_services__ = map.next_value()?;
+                            query_services__ = map_.next_value()?;
                         }
                         GeneratedField::Tx => {
                             if tx__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tx"));
                             }
-                            tx__ = map.next_value()?;
+                            tx__ = map_.next_value()?;
                         }
                     }
                 }
@@ -244,18 +244,18 @@ impl<'de> serde::Deserialize<'de> for AuthnDescriptor {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.AuthnDescriptor")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<AuthnDescriptor, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<AuthnDescriptor, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut sign_modes__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::SignModes => {
                             if sign_modes__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signModes"));
                             }
-                            sign_modes__ = Some(map.next_value()?);
+                            sign_modes__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -335,18 +335,18 @@ impl<'de> serde::Deserialize<'de> for ChainDescriptor {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.ChainDescriptor")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<ChainDescriptor, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ChainDescriptor, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut id__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Id => {
                             if id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("id"));
                             }
-                            id__ = Some(map.next_value()?);
+                            id__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -426,18 +426,18 @@ impl<'de> serde::Deserialize<'de> for CodecDescriptor {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.CodecDescriptor")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<CodecDescriptor, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<CodecDescriptor, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut interfaces__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Interfaces => {
                             if interfaces__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("interfaces"));
                             }
-                            interfaces__ = Some(map.next_value()?);
+                            interfaces__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -518,18 +518,18 @@ impl<'de> serde::Deserialize<'de> for ConfigurationDescriptor {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.ConfigurationDescriptor")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<ConfigurationDescriptor, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ConfigurationDescriptor, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut bech32_account_address_prefix__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Bech32AccountAddressPrefix => {
                             if bech32_account_address_prefix__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("bech32AccountAddressPrefix"));
                             }
-                            bech32_account_address_prefix__ = Some(map.next_value()?);
+                            bech32_account_address_prefix__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -598,12 +598,12 @@ impl<'de> serde::Deserialize<'de> for GetAuthnDescriptorRequest {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.GetAuthnDescriptorRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<GetAuthnDescriptorRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<GetAuthnDescriptorRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(GetAuthnDescriptorRequest {
                 })
@@ -680,18 +680,18 @@ impl<'de> serde::Deserialize<'de> for GetAuthnDescriptorResponse {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.GetAuthnDescriptorResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<GetAuthnDescriptorResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<GetAuthnDescriptorResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut authn__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Authn => {
                             if authn__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("authn"));
                             }
-                            authn__ = map.next_value()?;
+                            authn__ = map_.next_value()?;
                         }
                     }
                 }
@@ -760,12 +760,12 @@ impl<'de> serde::Deserialize<'de> for GetChainDescriptorRequest {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.GetChainDescriptorRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<GetChainDescriptorRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<GetChainDescriptorRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(GetChainDescriptorRequest {
                 })
@@ -842,18 +842,18 @@ impl<'de> serde::Deserialize<'de> for GetChainDescriptorResponse {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.GetChainDescriptorResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<GetChainDescriptorResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<GetChainDescriptorResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut chain__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Chain => {
                             if chain__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("chain"));
                             }
-                            chain__ = map.next_value()?;
+                            chain__ = map_.next_value()?;
                         }
                     }
                 }
@@ -922,12 +922,12 @@ impl<'de> serde::Deserialize<'de> for GetCodecDescriptorRequest {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.GetCodecDescriptorRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<GetCodecDescriptorRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<GetCodecDescriptorRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(GetCodecDescriptorRequest {
                 })
@@ -1004,18 +1004,18 @@ impl<'de> serde::Deserialize<'de> for GetCodecDescriptorResponse {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.GetCodecDescriptorResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<GetCodecDescriptorResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<GetCodecDescriptorResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut codec__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Codec => {
                             if codec__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("codec"));
                             }
-                            codec__ = map.next_value()?;
+                            codec__ = map_.next_value()?;
                         }
                     }
                 }
@@ -1084,12 +1084,12 @@ impl<'de> serde::Deserialize<'de> for GetConfigurationDescriptorRequest {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.GetConfigurationDescriptorRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<GetConfigurationDescriptorRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<GetConfigurationDescriptorRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(GetConfigurationDescriptorRequest {
                 })
@@ -1166,18 +1166,18 @@ impl<'de> serde::Deserialize<'de> for GetConfigurationDescriptorResponse {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.GetConfigurationDescriptorResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<GetConfigurationDescriptorResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<GetConfigurationDescriptorResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut config__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Config => {
                             if config__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("config"));
                             }
-                            config__ = map.next_value()?;
+                            config__ = map_.next_value()?;
                         }
                     }
                 }
@@ -1246,12 +1246,12 @@ impl<'de> serde::Deserialize<'de> for GetQueryServicesDescriptorRequest {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.GetQueryServicesDescriptorRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<GetQueryServicesDescriptorRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<GetQueryServicesDescriptorRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(GetQueryServicesDescriptorRequest {
                 })
@@ -1328,18 +1328,18 @@ impl<'de> serde::Deserialize<'de> for GetQueryServicesDescriptorResponse {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.GetQueryServicesDescriptorResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<GetQueryServicesDescriptorResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<GetQueryServicesDescriptorResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut queries__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Queries => {
                             if queries__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("queries"));
                             }
-                            queries__ = map.next_value()?;
+                            queries__ = map_.next_value()?;
                         }
                     }
                 }
@@ -1408,12 +1408,12 @@ impl<'de> serde::Deserialize<'de> for GetTxDescriptorRequest {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.GetTxDescriptorRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<GetTxDescriptorRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<GetTxDescriptorRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(GetTxDescriptorRequest {
                 })
@@ -1490,18 +1490,18 @@ impl<'de> serde::Deserialize<'de> for GetTxDescriptorResponse {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.GetTxDescriptorResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<GetTxDescriptorResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<GetTxDescriptorResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut tx__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Tx => {
                             if tx__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tx"));
                             }
-                            tx__ = map.next_value()?;
+                            tx__ = map_.next_value()?;
                         }
                     }
                 }
@@ -1591,25 +1591,25 @@ impl<'de> serde::Deserialize<'de> for InterfaceAcceptingMessageDescriptor {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.InterfaceAcceptingMessageDescriptor")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<InterfaceAcceptingMessageDescriptor, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<InterfaceAcceptingMessageDescriptor, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut fullname__ = None;
                 let mut field_descriptor_names__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Fullname => {
                             if fullname__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("fullname"));
                             }
-                            fullname__ = Some(map.next_value()?);
+                            fullname__ = Some(map_.next_value()?);
                         }
                         GeneratedField::FieldDescriptorNames => {
                             if field_descriptor_names__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("fieldDescriptorNames"));
                             }
-                            field_descriptor_names__ = Some(map.next_value()?);
+                            field_descriptor_names__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1710,32 +1710,32 @@ impl<'de> serde::Deserialize<'de> for InterfaceDescriptor {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.InterfaceDescriptor")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<InterfaceDescriptor, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<InterfaceDescriptor, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut fullname__ = None;
                 let mut interface_accepting_messages__ = None;
                 let mut interface_implementers__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Fullname => {
                             if fullname__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("fullname"));
                             }
-                            fullname__ = Some(map.next_value()?);
+                            fullname__ = Some(map_.next_value()?);
                         }
                         GeneratedField::InterfaceAcceptingMessages => {
                             if interface_accepting_messages__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("interfaceAcceptingMessages"));
                             }
-                            interface_accepting_messages__ = Some(map.next_value()?);
+                            interface_accepting_messages__ = Some(map_.next_value()?);
                         }
                         GeneratedField::InterfaceImplementers => {
                             if interface_implementers__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("interfaceImplementers"));
                             }
-                            interface_implementers__ = Some(map.next_value()?);
+                            interface_implementers__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1827,25 +1827,25 @@ impl<'de> serde::Deserialize<'de> for InterfaceImplementerDescriptor {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.InterfaceImplementerDescriptor")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<InterfaceImplementerDescriptor, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<InterfaceImplementerDescriptor, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut fullname__ = None;
                 let mut type_url__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Fullname => {
                             if fullname__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("fullname"));
                             }
-                            fullname__ = Some(map.next_value()?);
+                            fullname__ = Some(map_.next_value()?);
                         }
                         GeneratedField::TypeUrl => {
                             if type_url__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("typeUrl"));
                             }
-                            type_url__ = Some(map.next_value()?);
+                            type_url__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1927,18 +1927,18 @@ impl<'de> serde::Deserialize<'de> for MsgDescriptor {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.MsgDescriptor")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgDescriptor, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgDescriptor, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut msg_type_url__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::MsgTypeUrl => {
                             if msg_type_url__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("msgTypeUrl"));
                             }
-                            msg_type_url__ = Some(map.next_value()?);
+                            msg_type_url__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -2028,25 +2028,25 @@ impl<'de> serde::Deserialize<'de> for QueryMethodDescriptor {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.QueryMethodDescriptor")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryMethodDescriptor, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryMethodDescriptor, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut name__ = None;
                 let mut full_query_path__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Name => {
                             if name__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("name"));
                             }
-                            name__ = Some(map.next_value()?);
+                            name__ = Some(map_.next_value()?);
                         }
                         GeneratedField::FullQueryPath => {
                             if full_query_path__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("fullQueryPath"));
                             }
-                            full_query_path__ = Some(map.next_value()?);
+                            full_query_path__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -2146,32 +2146,32 @@ impl<'de> serde::Deserialize<'de> for QueryServiceDescriptor {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.QueryServiceDescriptor")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryServiceDescriptor, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryServiceDescriptor, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut fullname__ = None;
                 let mut is_module__ = None;
                 let mut methods__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Fullname => {
                             if fullname__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("fullname"));
                             }
-                            fullname__ = Some(map.next_value()?);
+                            fullname__ = Some(map_.next_value()?);
                         }
                         GeneratedField::IsModule => {
                             if is_module__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("isModule"));
                             }
-                            is_module__ = Some(map.next_value()?);
+                            is_module__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Methods => {
                             if methods__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("methods"));
                             }
-                            methods__ = Some(map.next_value()?);
+                            methods__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -2254,18 +2254,18 @@ impl<'de> serde::Deserialize<'de> for QueryServicesDescriptor {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.QueryServicesDescriptor")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryServicesDescriptor, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryServicesDescriptor, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut query_services__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::QueryServices => {
                             if query_services__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("queryServices"));
                             }
-                            query_services__ = Some(map.next_value()?);
+                            query_services__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -2364,34 +2364,34 @@ impl<'de> serde::Deserialize<'de> for SigningModeDescriptor {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.SigningModeDescriptor")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<SigningModeDescriptor, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<SigningModeDescriptor, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut name__ = None;
                 let mut number__ = None;
                 let mut authn_info_provider_method_fullname__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Name => {
                             if name__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("name"));
                             }
-                            name__ = Some(map.next_value()?);
+                            name__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Number => {
                             if number__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("number"));
                             }
                             number__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::AuthnInfoProviderMethodFullname => {
                             if authn_info_provider_method_fullname__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("authnInfoProviderMethodFullname"));
                             }
-                            authn_info_provider_method_fullname__ = Some(map.next_value()?);
+                            authn_info_provider_method_fullname__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -2482,25 +2482,25 @@ impl<'de> serde::Deserialize<'de> for TxDescriptor {
                 formatter.write_str("struct cosmos.base.reflection.v2alpha1.TxDescriptor")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<TxDescriptor, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<TxDescriptor, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut fullname__ = None;
                 let mut msgs__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Fullname => {
                             if fullname__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("fullname"));
                             }
-                            fullname__ = Some(map.next_value()?);
+                            fullname__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Msgs => {
                             if msgs__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("msgs"));
                             }
-                            msgs__ = Some(map.next_value()?);
+                            msgs__ = Some(map_.next_value()?);
                         }
                     }
                 }

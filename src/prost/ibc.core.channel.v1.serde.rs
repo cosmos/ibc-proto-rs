@@ -13,7 +13,8 @@ impl serde::Serialize for Acknowledgement {
         if let Some(v) = self.response.as_ref() {
             match v {
                 acknowledgement::Response::Result(v) => {
-                    struct_ser.serialize_field("result", pbjson::private::base64::encode(v).as_str())?;
+                    #[allow(clippy::needless_borrow)]
+                    struct_ser.serialize_field("result", pbjson::private::base64::encode(&v).as_str())?;
                 }
                 acknowledgement::Response::Error(v) => {
                     struct_ser.serialize_field("error", v)?;
@@ -76,24 +77,24 @@ impl<'de> serde::Deserialize<'de> for Acknowledgement {
                 formatter.write_str("struct ibc.core.channel.v1.Acknowledgement")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Acknowledgement, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Acknowledgement, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut response__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Result => {
                             if response__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("result"));
                             }
-                            response__ = map.next_value::<::core::option::Option<::pbjson::private::BytesDeserialize<_>>>()?.map(|x| acknowledgement::Response::Result(x.0));
+                            response__ = map_.next_value::<::core::option::Option<::pbjson::private::BytesDeserialize<_>>>()?.map(|x| acknowledgement::Response::Result(x.0));
                         }
                         GeneratedField::Error => {
                             if response__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("error"));
                             }
-                            response__ = map.next_value::<::core::option::Option<_>>()?.map(acknowledgement::Response::Error);
+                            response__ = map_.next_value::<::core::option::Option<_>>()?.map(acknowledgement::Response::Error);
                         }
                     }
                 }
@@ -130,13 +131,13 @@ impl serde::Serialize for Channel {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.channel.v1.Channel", len)?;
         if true {
-            let v = State::from_i32(self.state)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.state)))?;
+            let v = State::try_from(self.state)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.state)))?;
             struct_ser.serialize_field("state", &v)?;
         }
         if true {
-            let v = Order::from_i32(self.ordering)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.ordering)))?;
+            let v = Order::try_from(self.ordering)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.ordering)))?;
             struct_ser.serialize_field("ordering", &v)?;
         }
         if let Some(v) = self.counterparty.as_ref() {
@@ -214,7 +215,7 @@ impl<'de> serde::Deserialize<'de> for Channel {
                 formatter.write_str("struct ibc.core.channel.v1.Channel")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Channel, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Channel, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -223,37 +224,37 @@ impl<'de> serde::Deserialize<'de> for Channel {
                 let mut counterparty__ = None;
                 let mut connection_hops__ = None;
                 let mut version__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::State => {
                             if state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("state"));
                             }
-                            state__ = Some(map.next_value::<State>()? as i32);
+                            state__ = Some(map_.next_value::<State>()? as i32);
                         }
                         GeneratedField::Ordering => {
                             if ordering__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("ordering"));
                             }
-                            ordering__ = Some(map.next_value::<Order>()? as i32);
+                            ordering__ = Some(map_.next_value::<Order>()? as i32);
                         }
                         GeneratedField::Counterparty => {
                             if counterparty__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("counterparty"));
                             }
-                            counterparty__ = map.next_value()?;
+                            counterparty__ = map_.next_value()?;
                         }
                         GeneratedField::ConnectionHops => {
                             if connection_hops__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("connectionHops"));
                             }
-                            connection_hops__ = Some(map.next_value()?);
+                            connection_hops__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Version => {
                             if version__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("version"));
                             }
-                            version__ = Some(map.next_value()?);
+                            version__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -348,25 +349,25 @@ impl<'de> serde::Deserialize<'de> for Counterparty {
                 formatter.write_str("struct ibc.core.channel.v1.Counterparty")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Counterparty, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Counterparty, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut port_id__ = None;
                 let mut channel_id__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -434,6 +435,7 @@ impl serde::Serialize for GenesisState {
             struct_ser.serialize_field("ackSequences", &self.ack_sequences)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("nextChannelSequence", ::alloc::string::ToString::to_string(&self.next_channel_sequence).as_str())?;
         }
         struct_ser.end()
@@ -514,7 +516,7 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                 formatter.write_str("struct ibc.core.channel.v1.GenesisState")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<GenesisState, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<GenesisState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -526,56 +528,56 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                 let mut recv_sequences__ = None;
                 let mut ack_sequences__ = None;
                 let mut next_channel_sequence__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Channels => {
                             if channels__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channels"));
                             }
-                            channels__ = Some(map.next_value()?);
+                            channels__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Acknowledgements => {
                             if acknowledgements__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("acknowledgements"));
                             }
-                            acknowledgements__ = Some(map.next_value()?);
+                            acknowledgements__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Commitments => {
                             if commitments__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("commitments"));
                             }
-                            commitments__ = Some(map.next_value()?);
+                            commitments__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Receipts => {
                             if receipts__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("receipts"));
                             }
-                            receipts__ = Some(map.next_value()?);
+                            receipts__ = Some(map_.next_value()?);
                         }
                         GeneratedField::SendSequences => {
                             if send_sequences__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sendSequences"));
                             }
-                            send_sequences__ = Some(map.next_value()?);
+                            send_sequences__ = Some(map_.next_value()?);
                         }
                         GeneratedField::RecvSequences => {
                             if recv_sequences__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("recvSequences"));
                             }
-                            recv_sequences__ = Some(map.next_value()?);
+                            recv_sequences__ = Some(map_.next_value()?);
                         }
                         GeneratedField::AckSequences => {
                             if ack_sequences__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("ackSequences"));
                             }
-                            ack_sequences__ = Some(map.next_value()?);
+                            ack_sequences__ = Some(map_.next_value()?);
                         }
                         GeneratedField::NextChannelSequence => {
                             if next_channel_sequence__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("nextChannelSequence"));
                             }
                             next_channel_sequence__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -626,13 +628,13 @@ impl serde::Serialize for IdentifiedChannel {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.channel.v1.IdentifiedChannel", len)?;
         if true {
-            let v = State::from_i32(self.state)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.state)))?;
+            let v = State::try_from(self.state)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.state)))?;
             struct_ser.serialize_field("state", &v)?;
         }
         if true {
-            let v = Order::from_i32(self.ordering)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.ordering)))?;
+            let v = Order::try_from(self.ordering)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.ordering)))?;
             struct_ser.serialize_field("ordering", &v)?;
         }
         if let Some(v) = self.counterparty.as_ref() {
@@ -724,7 +726,7 @@ impl<'de> serde::Deserialize<'de> for IdentifiedChannel {
                 formatter.write_str("struct ibc.core.channel.v1.IdentifiedChannel")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<IdentifiedChannel, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<IdentifiedChannel, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -735,49 +737,49 @@ impl<'de> serde::Deserialize<'de> for IdentifiedChannel {
                 let mut version__ = None;
                 let mut port_id__ = None;
                 let mut channel_id__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::State => {
                             if state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("state"));
                             }
-                            state__ = Some(map.next_value::<State>()? as i32);
+                            state__ = Some(map_.next_value::<State>()? as i32);
                         }
                         GeneratedField::Ordering => {
                             if ordering__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("ordering"));
                             }
-                            ordering__ = Some(map.next_value::<Order>()? as i32);
+                            ordering__ = Some(map_.next_value::<Order>()? as i32);
                         }
                         GeneratedField::Counterparty => {
                             if counterparty__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("counterparty"));
                             }
-                            counterparty__ = map.next_value()?;
+                            counterparty__ = map_.next_value()?;
                         }
                         GeneratedField::ConnectionHops => {
                             if connection_hops__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("connectionHops"));
                             }
-                            connection_hops__ = Some(map.next_value()?);
+                            connection_hops__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Version => {
                             if version__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("version"));
                             }
-                            version__ = Some(map.next_value()?);
+                            version__ = Some(map_.next_value()?);
                         }
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -823,9 +825,11 @@ impl serde::Serialize for MsgAcknowledgement {
             struct_ser.serialize_field("packet", v)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("acknowledgement", pbjson::private::base64::encode(&self.acknowledgement).as_str())?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proofAcked", pbjson::private::base64::encode(&self.proof_acked).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -901,7 +905,7 @@ impl<'de> serde::Deserialize<'de> for MsgAcknowledgement {
                 formatter.write_str("struct ibc.core.channel.v1.MsgAcknowledgement")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgAcknowledgement, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgAcknowledgement, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -910,20 +914,20 @@ impl<'de> serde::Deserialize<'de> for MsgAcknowledgement {
                 let mut proof_acked__ = None;
                 let mut proof_height__ = None;
                 let mut signer__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Packet => {
                             if packet__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("packet"));
                             }
-                            packet__ = map.next_value()?;
+                            packet__ = map_.next_value()?;
                         }
                         GeneratedField::Acknowledgement => {
                             if acknowledgement__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("acknowledgement"));
                             }
                             acknowledgement__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofAcked => {
@@ -931,20 +935,20 @@ impl<'de> serde::Deserialize<'de> for MsgAcknowledgement {
                                 return Err(serde::de::Error::duplicate_field("proofAcked"));
                             }
                             proof_acked__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofHeight => {
                             if proof_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofHeight"));
                             }
-                            proof_height__ = map.next_value()?;
+                            proof_height__ = map_.next_value()?;
                         }
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map.next_value()?);
+                            signer__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -973,8 +977,8 @@ impl serde::Serialize for MsgAcknowledgementResponse {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.channel.v1.MsgAcknowledgementResponse", len)?;
         if true {
-            let v = ResponseResultType::from_i32(self.result)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.result)))?;
+            let v = ResponseResultType::try_from(self.result)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.result)))?;
             struct_ser.serialize_field("result", &v)?;
         }
         struct_ser.end()
@@ -1030,18 +1034,18 @@ impl<'de> serde::Deserialize<'de> for MsgAcknowledgementResponse {
                 formatter.write_str("struct ibc.core.channel.v1.MsgAcknowledgementResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgAcknowledgementResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgAcknowledgementResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut result__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Result => {
                             if result__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("result"));
                             }
-                            result__ = Some(map.next_value::<ResponseResultType>()? as i32);
+                            result__ = Some(map_.next_value::<ResponseResultType>()? as i32);
                         }
                     }
                 }
@@ -1084,6 +1088,7 @@ impl serde::Serialize for MsgChannelCloseConfirm {
             struct_ser.serialize_field("channelId", &self.channel_id)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proofInit", pbjson::private::base64::encode(&self.proof_init).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -1161,7 +1166,7 @@ impl<'de> serde::Deserialize<'de> for MsgChannelCloseConfirm {
                 formatter.write_str("struct ibc.core.channel.v1.MsgChannelCloseConfirm")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgChannelCloseConfirm, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgChannelCloseConfirm, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -1170,39 +1175,39 @@ impl<'de> serde::Deserialize<'de> for MsgChannelCloseConfirm {
                 let mut proof_init__ = None;
                 let mut proof_height__ = None;
                 let mut signer__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ProofInit => {
                             if proof_init__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofInit"));
                             }
                             proof_init__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofHeight => {
                             if proof_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofHeight"));
                             }
-                            proof_height__ = map.next_value()?;
+                            proof_height__ = map_.next_value()?;
                         }
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map.next_value()?);
+                            signer__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1275,12 +1280,12 @@ impl<'de> serde::Deserialize<'de> for MsgChannelCloseConfirmResponse {
                 formatter.write_str("struct ibc.core.channel.v1.MsgChannelCloseConfirmResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgChannelCloseConfirmResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgChannelCloseConfirmResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(MsgChannelCloseConfirmResponse {
                 })
@@ -1377,32 +1382,32 @@ impl<'de> serde::Deserialize<'de> for MsgChannelCloseInit {
                 formatter.write_str("struct ibc.core.channel.v1.MsgChannelCloseInit")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgChannelCloseInit, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgChannelCloseInit, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut port_id__ = None;
                 let mut channel_id__ = None;
                 let mut signer__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map.next_value()?);
+                            signer__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1473,12 +1478,12 @@ impl<'de> serde::Deserialize<'de> for MsgChannelCloseInitResponse {
                 formatter.write_str("struct ibc.core.channel.v1.MsgChannelCloseInitResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgChannelCloseInitResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgChannelCloseInitResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(MsgChannelCloseInitResponse {
                 })
@@ -1530,6 +1535,7 @@ impl serde::Serialize for MsgChannelOpenAck {
             struct_ser.serialize_field("counterpartyVersion", &self.counterparty_version)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proofTry", pbjson::private::base64::encode(&self.proof_try).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -1615,7 +1621,7 @@ impl<'de> serde::Deserialize<'de> for MsgChannelOpenAck {
                 formatter.write_str("struct ibc.core.channel.v1.MsgChannelOpenAck")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgChannelOpenAck, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgChannelOpenAck, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -1626,51 +1632,51 @@ impl<'de> serde::Deserialize<'de> for MsgChannelOpenAck {
                 let mut proof_try__ = None;
                 let mut proof_height__ = None;
                 let mut signer__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::CounterpartyChannelId => {
                             if counterparty_channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("counterpartyChannelId"));
                             }
-                            counterparty_channel_id__ = Some(map.next_value()?);
+                            counterparty_channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::CounterpartyVersion => {
                             if counterparty_version__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("counterpartyVersion"));
                             }
-                            counterparty_version__ = Some(map.next_value()?);
+                            counterparty_version__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ProofTry => {
                             if proof_try__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofTry"));
                             }
                             proof_try__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofHeight => {
                             if proof_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofHeight"));
                             }
-                            proof_height__ = map.next_value()?;
+                            proof_height__ = map_.next_value()?;
                         }
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map.next_value()?);
+                            signer__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1745,12 +1751,12 @@ impl<'de> serde::Deserialize<'de> for MsgChannelOpenAckResponse {
                 formatter.write_str("struct ibc.core.channel.v1.MsgChannelOpenAckResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgChannelOpenAckResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgChannelOpenAckResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(MsgChannelOpenAckResponse {
                 })
@@ -1790,6 +1796,7 @@ impl serde::Serialize for MsgChannelOpenConfirm {
             struct_ser.serialize_field("channelId", &self.channel_id)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proofAck", pbjson::private::base64::encode(&self.proof_ack).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -1867,7 +1874,7 @@ impl<'de> serde::Deserialize<'de> for MsgChannelOpenConfirm {
                 formatter.write_str("struct ibc.core.channel.v1.MsgChannelOpenConfirm")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgChannelOpenConfirm, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgChannelOpenConfirm, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -1876,39 +1883,39 @@ impl<'de> serde::Deserialize<'de> for MsgChannelOpenConfirm {
                 let mut proof_ack__ = None;
                 let mut proof_height__ = None;
                 let mut signer__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ProofAck => {
                             if proof_ack__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofAck"));
                             }
                             proof_ack__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofHeight => {
                             if proof_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofHeight"));
                             }
-                            proof_height__ = map.next_value()?;
+                            proof_height__ = map_.next_value()?;
                         }
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map.next_value()?);
+                            signer__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1981,12 +1988,12 @@ impl<'de> serde::Deserialize<'de> for MsgChannelOpenConfirmResponse {
                 formatter.write_str("struct ibc.core.channel.v1.MsgChannelOpenConfirmResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgChannelOpenConfirmResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgChannelOpenConfirmResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(MsgChannelOpenConfirmResponse {
                 })
@@ -2082,32 +2089,32 @@ impl<'de> serde::Deserialize<'de> for MsgChannelOpenInit {
                 formatter.write_str("struct ibc.core.channel.v1.MsgChannelOpenInit")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgChannelOpenInit, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgChannelOpenInit, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut port_id__ = None;
                 let mut channel__ = None;
                 let mut signer__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Channel => {
                             if channel__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channel"));
                             }
-                            channel__ = map.next_value()?;
+                            channel__ = map_.next_value()?;
                         }
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map.next_value()?);
+                            signer__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -2199,25 +2206,25 @@ impl<'de> serde::Deserialize<'de> for MsgChannelOpenInitResponse {
                 formatter.write_str("struct ibc.core.channel.v1.MsgChannelOpenInitResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgChannelOpenInitResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgChannelOpenInitResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut channel_id__ = None;
                 let mut version__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Version => {
                             if version__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("version"));
                             }
-                            version__ = Some(map.next_value()?);
+                            version__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -2273,6 +2280,7 @@ impl serde::Serialize for MsgChannelOpenTry {
             struct_ser.serialize_field("counterpartyVersion", &self.counterparty_version)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proofInit", pbjson::private::base64::encode(&self.proof_init).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -2357,7 +2365,7 @@ impl<'de> serde::Deserialize<'de> for MsgChannelOpenTry {
                 formatter.write_str("struct ibc.core.channel.v1.MsgChannelOpenTry")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgChannelOpenTry, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgChannelOpenTry, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -2368,51 +2376,51 @@ impl<'de> serde::Deserialize<'de> for MsgChannelOpenTry {
                 let mut proof_init__ = None;
                 let mut proof_height__ = None;
                 let mut signer__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::PreviousChannelId => {
                             if previous_channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("previousChannelId"));
                             }
-                            previous_channel_id__ = Some(map.next_value()?);
+                            previous_channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Channel => {
                             if channel__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channel"));
                             }
-                            channel__ = map.next_value()?;
+                            channel__ = map_.next_value()?;
                         }
                         GeneratedField::CounterpartyVersion => {
                             if counterparty_version__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("counterpartyVersion"));
                             }
-                            counterparty_version__ = Some(map.next_value()?);
+                            counterparty_version__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ProofInit => {
                             if proof_init__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofInit"));
                             }
                             proof_init__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofHeight => {
                             if proof_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofHeight"));
                             }
-                            proof_height__ = map.next_value()?;
+                            proof_height__ = map_.next_value()?;
                         }
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map.next_value()?);
+                            signer__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -2508,25 +2516,25 @@ impl<'de> serde::Deserialize<'de> for MsgChannelOpenTryResponse {
                 formatter.write_str("struct ibc.core.channel.v1.MsgChannelOpenTryResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgChannelOpenTryResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgChannelOpenTryResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut version__ = None;
                 let mut channel_id__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Version => {
                             if version__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("version"));
                             }
-                            version__ = Some(map.next_value()?);
+                            version__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -2564,6 +2572,7 @@ impl serde::Serialize for MsgRecvPacket {
             struct_ser.serialize_field("packet", v)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proofCommitment", pbjson::private::base64::encode(&self.proof_commitment).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -2636,7 +2645,7 @@ impl<'de> serde::Deserialize<'de> for MsgRecvPacket {
                 formatter.write_str("struct ibc.core.channel.v1.MsgRecvPacket")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgRecvPacket, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgRecvPacket, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -2644,33 +2653,33 @@ impl<'de> serde::Deserialize<'de> for MsgRecvPacket {
                 let mut proof_commitment__ = None;
                 let mut proof_height__ = None;
                 let mut signer__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Packet => {
                             if packet__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("packet"));
                             }
-                            packet__ = map.next_value()?;
+                            packet__ = map_.next_value()?;
                         }
                         GeneratedField::ProofCommitment => {
                             if proof_commitment__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofCommitment"));
                             }
                             proof_commitment__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofHeight => {
                             if proof_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofHeight"));
                             }
-                            proof_height__ = map.next_value()?;
+                            proof_height__ = map_.next_value()?;
                         }
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map.next_value()?);
+                            signer__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -2698,8 +2707,8 @@ impl serde::Serialize for MsgRecvPacketResponse {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.channel.v1.MsgRecvPacketResponse", len)?;
         if true {
-            let v = ResponseResultType::from_i32(self.result)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.result)))?;
+            let v = ResponseResultType::try_from(self.result)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.result)))?;
             struct_ser.serialize_field("result", &v)?;
         }
         struct_ser.end()
@@ -2755,18 +2764,18 @@ impl<'de> serde::Deserialize<'de> for MsgRecvPacketResponse {
                 formatter.write_str("struct ibc.core.channel.v1.MsgRecvPacketResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgRecvPacketResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgRecvPacketResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut result__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Result => {
                             if result__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("result"));
                             }
-                            result__ = Some(map.next_value::<ResponseResultType>()? as i32);
+                            result__ = Some(map_.next_value::<ResponseResultType>()? as i32);
                         }
                     }
                 }
@@ -2806,12 +2815,14 @@ impl serde::Serialize for MsgTimeout {
             struct_ser.serialize_field("packet", v)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proofUnreceived", pbjson::private::base64::encode(&self.proof_unreceived).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
             struct_ser.serialize_field("proofHeight", v)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("nextSequenceRecv", ::alloc::string::ToString::to_string(&self.next_sequence_recv).as_str())?;
         }
         if true {
@@ -2885,7 +2896,7 @@ impl<'de> serde::Deserialize<'de> for MsgTimeout {
                 formatter.write_str("struct ibc.core.channel.v1.MsgTimeout")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgTimeout, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgTimeout, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -2894,41 +2905,41 @@ impl<'de> serde::Deserialize<'de> for MsgTimeout {
                 let mut proof_height__ = None;
                 let mut next_sequence_recv__ = None;
                 let mut signer__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Packet => {
                             if packet__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("packet"));
                             }
-                            packet__ = map.next_value()?;
+                            packet__ = map_.next_value()?;
                         }
                         GeneratedField::ProofUnreceived => {
                             if proof_unreceived__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofUnreceived"));
                             }
                             proof_unreceived__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofHeight => {
                             if proof_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofHeight"));
                             }
-                            proof_height__ = map.next_value()?;
+                            proof_height__ = map_.next_value()?;
                         }
                         GeneratedField::NextSequenceRecv => {
                             if next_sequence_recv__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("nextSequenceRecv"));
                             }
                             next_sequence_recv__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map.next_value()?);
+                            signer__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -2975,15 +2986,18 @@ impl serde::Serialize for MsgTimeoutOnClose {
             struct_ser.serialize_field("packet", v)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proofUnreceived", pbjson::private::base64::encode(&self.proof_unreceived).as_str())?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proofClose", pbjson::private::base64::encode(&self.proof_close).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
             struct_ser.serialize_field("proofHeight", v)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("nextSequenceRecv", ::alloc::string::ToString::to_string(&self.next_sequence_recv).as_str())?;
         }
         if true {
@@ -3061,7 +3075,7 @@ impl<'de> serde::Deserialize<'de> for MsgTimeoutOnClose {
                 formatter.write_str("struct ibc.core.channel.v1.MsgTimeoutOnClose")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgTimeoutOnClose, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgTimeoutOnClose, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -3071,20 +3085,20 @@ impl<'de> serde::Deserialize<'de> for MsgTimeoutOnClose {
                 let mut proof_height__ = None;
                 let mut next_sequence_recv__ = None;
                 let mut signer__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Packet => {
                             if packet__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("packet"));
                             }
-                            packet__ = map.next_value()?;
+                            packet__ = map_.next_value()?;
                         }
                         GeneratedField::ProofUnreceived => {
                             if proof_unreceived__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofUnreceived"));
                             }
                             proof_unreceived__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofClose => {
@@ -3092,28 +3106,28 @@ impl<'de> serde::Deserialize<'de> for MsgTimeoutOnClose {
                                 return Err(serde::de::Error::duplicate_field("proofClose"));
                             }
                             proof_close__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofHeight => {
                             if proof_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofHeight"));
                             }
-                            proof_height__ = map.next_value()?;
+                            proof_height__ = map_.next_value()?;
                         }
                         GeneratedField::NextSequenceRecv => {
                             if next_sequence_recv__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("nextSequenceRecv"));
                             }
                             next_sequence_recv__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map.next_value()?);
+                            signer__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -3143,8 +3157,8 @@ impl serde::Serialize for MsgTimeoutOnCloseResponse {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.channel.v1.MsgTimeoutOnCloseResponse", len)?;
         if true {
-            let v = ResponseResultType::from_i32(self.result)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.result)))?;
+            let v = ResponseResultType::try_from(self.result)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.result)))?;
             struct_ser.serialize_field("result", &v)?;
         }
         struct_ser.end()
@@ -3200,18 +3214,18 @@ impl<'de> serde::Deserialize<'de> for MsgTimeoutOnCloseResponse {
                 formatter.write_str("struct ibc.core.channel.v1.MsgTimeoutOnCloseResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgTimeoutOnCloseResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgTimeoutOnCloseResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut result__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Result => {
                             if result__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("result"));
                             }
-                            result__ = Some(map.next_value::<ResponseResultType>()? as i32);
+                            result__ = Some(map_.next_value::<ResponseResultType>()? as i32);
                         }
                     }
                 }
@@ -3236,8 +3250,8 @@ impl serde::Serialize for MsgTimeoutResponse {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.channel.v1.MsgTimeoutResponse", len)?;
         if true {
-            let v = ResponseResultType::from_i32(self.result)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.result)))?;
+            let v = ResponseResultType::try_from(self.result)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.result)))?;
             struct_ser.serialize_field("result", &v)?;
         }
         struct_ser.end()
@@ -3293,18 +3307,18 @@ impl<'de> serde::Deserialize<'de> for MsgTimeoutResponse {
                 formatter.write_str("struct ibc.core.channel.v1.MsgTimeoutResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgTimeoutResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgTimeoutResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut result__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Result => {
                             if result__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("result"));
                             }
-                            result__ = Some(map.next_value::<ResponseResultType>()? as i32);
+                            result__ = Some(map_.next_value::<ResponseResultType>()? as i32);
                         }
                     }
                 }
@@ -3355,10 +3369,9 @@ impl<'de> serde::Deserialize<'de> for Order {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(Order::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -3368,10 +3381,9 @@ impl<'de> serde::Deserialize<'de> for Order {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(Order::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -3426,6 +3438,7 @@ impl serde::Serialize for Packet {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.channel.v1.Packet", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("sequence", ::alloc::string::ToString::to_string(&self.sequence).as_str())?;
         }
         if true {
@@ -3441,12 +3454,14 @@ impl serde::Serialize for Packet {
             struct_ser.serialize_field("destinationChannel", &self.destination_channel)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("data", pbjson::private::base64::encode(&self.data).as_str())?;
         }
         if let Some(v) = self.timeout_height.as_ref() {
             struct_ser.serialize_field("timeoutHeight", v)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("timeoutTimestamp", ::alloc::string::ToString::to_string(&self.timeout_timestamp).as_str())?;
         }
         struct_ser.end()
@@ -3529,7 +3544,7 @@ impl<'de> serde::Deserialize<'de> for Packet {
                 formatter.write_str("struct ibc.core.channel.v1.Packet")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Packet, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Packet, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -3541,60 +3556,60 @@ impl<'de> serde::Deserialize<'de> for Packet {
                 let mut data__ = None;
                 let mut timeout_height__ = None;
                 let mut timeout_timestamp__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Sequence => {
                             if sequence__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sequence"));
                             }
                             sequence__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::SourcePort => {
                             if source_port__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sourcePort"));
                             }
-                            source_port__ = Some(map.next_value()?);
+                            source_port__ = Some(map_.next_value()?);
                         }
                         GeneratedField::SourceChannel => {
                             if source_channel__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sourceChannel"));
                             }
-                            source_channel__ = Some(map.next_value()?);
+                            source_channel__ = Some(map_.next_value()?);
                         }
                         GeneratedField::DestinationPort => {
                             if destination_port__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("destinationPort"));
                             }
-                            destination_port__ = Some(map.next_value()?);
+                            destination_port__ = Some(map_.next_value()?);
                         }
                         GeneratedField::DestinationChannel => {
                             if destination_channel__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("destinationChannel"));
                             }
-                            destination_channel__ = Some(map.next_value()?);
+                            destination_channel__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Data => {
                             if data__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("data"));
                             }
                             data__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::TimeoutHeight => {
                             if timeout_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("timeoutHeight"));
                             }
-                            timeout_height__ = map.next_value()?;
+                            timeout_height__ = map_.next_value()?;
                         }
                         GeneratedField::TimeoutTimestamp => {
                             if timeout_timestamp__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("timeoutTimestamp"));
                             }
                             timeout_timestamp__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -3639,6 +3654,7 @@ impl serde::Serialize for PacketId {
             struct_ser.serialize_field("channelId", &self.channel_id)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("sequence", ::alloc::string::ToString::to_string(&self.sequence).as_str())?;
         }
         struct_ser.end()
@@ -3702,33 +3718,33 @@ impl<'de> serde::Deserialize<'de> for PacketId {
                 formatter.write_str("struct ibc.core.channel.v1.PacketId")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<PacketId, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<PacketId, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut port_id__ = None;
                 let mut channel_id__ = None;
                 let mut sequence__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Sequence => {
                             if sequence__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sequence"));
                             }
                             sequence__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -3768,6 +3784,7 @@ impl serde::Serialize for PacketSequence {
             struct_ser.serialize_field("channelId", &self.channel_id)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("sequence", ::alloc::string::ToString::to_string(&self.sequence).as_str())?;
         }
         struct_ser.end()
@@ -3831,33 +3848,33 @@ impl<'de> serde::Deserialize<'de> for PacketSequence {
                 formatter.write_str("struct ibc.core.channel.v1.PacketSequence")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<PacketSequence, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<PacketSequence, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut port_id__ = None;
                 let mut channel_id__ = None;
                 let mut sequence__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Sequence => {
                             if sequence__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sequence"));
                             }
                             sequence__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -3900,9 +3917,11 @@ impl serde::Serialize for PacketState {
             struct_ser.serialize_field("channelId", &self.channel_id)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("sequence", ::alloc::string::ToString::to_string(&self.sequence).as_str())?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("data", pbjson::private::base64::encode(&self.data).as_str())?;
         }
         struct_ser.end()
@@ -3969,7 +3988,7 @@ impl<'de> serde::Deserialize<'de> for PacketState {
                 formatter.write_str("struct ibc.core.channel.v1.PacketState")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<PacketState, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<PacketState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -3977,26 +3996,26 @@ impl<'de> serde::Deserialize<'de> for PacketState {
                 let mut channel_id__ = None;
                 let mut sequence__ = None;
                 let mut data__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Sequence => {
                             if sequence__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sequence"));
                             }
                             sequence__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Data => {
@@ -4004,7 +4023,7 @@ impl<'de> serde::Deserialize<'de> for PacketState {
                                 return Err(serde::de::Error::duplicate_field("data"));
                             }
                             data__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -4099,25 +4118,25 @@ impl<'de> serde::Deserialize<'de> for QueryChannelClientStateRequest {
                 formatter.write_str("struct ibc.core.channel.v1.QueryChannelClientStateRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryChannelClientStateRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryChannelClientStateRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut port_id__ = None;
                 let mut channel_id__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -4152,6 +4171,7 @@ impl serde::Serialize for QueryChannelClientStateResponse {
             struct_ser.serialize_field("identifiedClientState", v)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proof", pbjson::private::base64::encode(&self.proof).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -4218,34 +4238,34 @@ impl<'de> serde::Deserialize<'de> for QueryChannelClientStateResponse {
                 formatter.write_str("struct ibc.core.channel.v1.QueryChannelClientStateResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryChannelClientStateResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryChannelClientStateResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut identified_client_state__ = None;
                 let mut proof__ = None;
                 let mut proof_height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::IdentifiedClientState => {
                             if identified_client_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("identifiedClientState"));
                             }
-                            identified_client_state__ = map.next_value()?;
+                            identified_client_state__ = map_.next_value()?;
                         }
                         GeneratedField::Proof => {
                             if proof__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proof"));
                             }
                             proof__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofHeight => {
                             if proof_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofHeight"));
                             }
-                            proof_height__ = map.next_value()?;
+                            proof_height__ = map_.next_value()?;
                         }
                     }
                 }
@@ -4287,9 +4307,11 @@ impl serde::Serialize for QueryChannelConsensusStateRequest {
             struct_ser.serialize_field("channelId", &self.channel_id)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("revisionNumber", ::alloc::string::ToString::to_string(&self.revision_number).as_str())?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("revisionHeight", ::alloc::string::ToString::to_string(&self.revision_height).as_str())?;
         }
         struct_ser.end()
@@ -4358,7 +4380,7 @@ impl<'de> serde::Deserialize<'de> for QueryChannelConsensusStateRequest {
                 formatter.write_str("struct ibc.core.channel.v1.QueryChannelConsensusStateRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryChannelConsensusStateRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryChannelConsensusStateRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -4366,26 +4388,26 @@ impl<'de> serde::Deserialize<'de> for QueryChannelConsensusStateRequest {
                 let mut channel_id__ = None;
                 let mut revision_number__ = None;
                 let mut revision_height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::RevisionNumber => {
                             if revision_number__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("revisionNumber"));
                             }
                             revision_number__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::RevisionHeight => {
@@ -4393,7 +4415,7 @@ impl<'de> serde::Deserialize<'de> for QueryChannelConsensusStateRequest {
                                 return Err(serde::de::Error::duplicate_field("revisionHeight"));
                             }
                             revision_height__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -4437,6 +4459,7 @@ impl serde::Serialize for QueryChannelConsensusStateResponse {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proof", pbjson::private::base64::encode(&self.proof).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -4507,7 +4530,7 @@ impl<'de> serde::Deserialize<'de> for QueryChannelConsensusStateResponse {
                 formatter.write_str("struct ibc.core.channel.v1.QueryChannelConsensusStateResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryChannelConsensusStateResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryChannelConsensusStateResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -4515,33 +4538,33 @@ impl<'de> serde::Deserialize<'de> for QueryChannelConsensusStateResponse {
                 let mut client_id__ = None;
                 let mut proof__ = None;
                 let mut proof_height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ConsensusState => {
                             if consensus_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("consensusState"));
                             }
-                            consensus_state__ = map.next_value()?;
+                            consensus_state__ = map_.next_value()?;
                         }
                         GeneratedField::ClientId => {
                             if client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientId"));
                             }
-                            client_id__ = Some(map.next_value()?);
+                            client_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Proof => {
                             if proof__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proof"));
                             }
                             proof__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofHeight => {
                             if proof_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofHeight"));
                             }
-                            proof_height__ = map.next_value()?;
+                            proof_height__ = map_.next_value()?;
                         }
                     }
                 }
@@ -4635,25 +4658,25 @@ impl<'de> serde::Deserialize<'de> for QueryChannelRequest {
                 formatter.write_str("struct ibc.core.channel.v1.QueryChannelRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryChannelRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryChannelRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut port_id__ = None;
                 let mut channel_id__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -4688,6 +4711,7 @@ impl serde::Serialize for QueryChannelResponse {
             struct_ser.serialize_field("channel", v)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proof", pbjson::private::base64::encode(&self.proof).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -4753,34 +4777,34 @@ impl<'de> serde::Deserialize<'de> for QueryChannelResponse {
                 formatter.write_str("struct ibc.core.channel.v1.QueryChannelResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryChannelResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryChannelResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut channel__ = None;
                 let mut proof__ = None;
                 let mut proof_height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Channel => {
                             if channel__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channel"));
                             }
-                            channel__ = map.next_value()?;
+                            channel__ = map_.next_value()?;
                         }
                         GeneratedField::Proof => {
                             if proof__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proof"));
                             }
                             proof__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofHeight => {
                             if proof_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofHeight"));
                             }
-                            proof_height__ = map.next_value()?;
+                            proof_height__ = map_.next_value()?;
                         }
                     }
                 }
@@ -4862,18 +4886,18 @@ impl<'de> serde::Deserialize<'de> for QueryChannelsRequest {
                 formatter.write_str("struct ibc.core.channel.v1.QueryChannelsRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryChannelsRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryChannelsRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut pagination__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map.next_value()?;
+                            pagination__ = map_.next_value()?;
                         }
                     }
                 }
@@ -4971,32 +4995,32 @@ impl<'de> serde::Deserialize<'de> for QueryChannelsResponse {
                 formatter.write_str("struct ibc.core.channel.v1.QueryChannelsResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryChannelsResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryChannelsResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut channels__ = None;
                 let mut pagination__ = None;
                 let mut height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Channels => {
                             if channels__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channels"));
                             }
-                            channels__ = Some(map.next_value()?);
+                            channels__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map.next_value()?;
+                            pagination__ = map_.next_value()?;
                         }
                         GeneratedField::Height => {
                             if height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("height"));
                             }
-                            height__ = map.next_value()?;
+                            height__ = map_.next_value()?;
                         }
                     }
                 }
@@ -5087,25 +5111,25 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionChannelsRequest {
                 formatter.write_str("struct ibc.core.channel.v1.QueryConnectionChannelsRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryConnectionChannelsRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryConnectionChannelsRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut connection__ = None;
                 let mut pagination__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Connection => {
                             if connection__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("connection"));
                             }
-                            connection__ = Some(map.next_value()?);
+                            connection__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map.next_value()?;
+                            pagination__ = map_.next_value()?;
                         }
                     }
                 }
@@ -5204,32 +5228,32 @@ impl<'de> serde::Deserialize<'de> for QueryConnectionChannelsResponse {
                 formatter.write_str("struct ibc.core.channel.v1.QueryConnectionChannelsResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryConnectionChannelsResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryConnectionChannelsResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut channels__ = None;
                 let mut pagination__ = None;
                 let mut height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Channels => {
                             if channels__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channels"));
                             }
-                            channels__ = Some(map.next_value()?);
+                            channels__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map.next_value()?;
+                            pagination__ = map_.next_value()?;
                         }
                         GeneratedField::Height => {
                             if height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("height"));
                             }
-                            height__ = map.next_value()?;
+                            height__ = map_.next_value()?;
                         }
                     }
                 }
@@ -5322,25 +5346,25 @@ impl<'de> serde::Deserialize<'de> for QueryNextSequenceReceiveRequest {
                 formatter.write_str("struct ibc.core.channel.v1.QueryNextSequenceReceiveRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryNextSequenceReceiveRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryNextSequenceReceiveRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut port_id__ = None;
                 let mut channel_id__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -5372,9 +5396,11 @@ impl serde::Serialize for QueryNextSequenceReceiveResponse {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.channel.v1.QueryNextSequenceReceiveResponse", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("nextSequenceReceive", ::alloc::string::ToString::to_string(&self.next_sequence_receive).as_str())?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proof", pbjson::private::base64::encode(&self.proof).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -5441,21 +5467,21 @@ impl<'de> serde::Deserialize<'de> for QueryNextSequenceReceiveResponse {
                 formatter.write_str("struct ibc.core.channel.v1.QueryNextSequenceReceiveResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryNextSequenceReceiveResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryNextSequenceReceiveResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut next_sequence_receive__ = None;
                 let mut proof__ = None;
                 let mut proof_height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::NextSequenceReceive => {
                             if next_sequence_receive__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("nextSequenceReceive"));
                             }
                             next_sequence_receive__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Proof => {
@@ -5463,14 +5489,14 @@ impl<'de> serde::Deserialize<'de> for QueryNextSequenceReceiveResponse {
                                 return Err(serde::de::Error::duplicate_field("proof"));
                             }
                             proof__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofHeight => {
                             if proof_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofHeight"));
                             }
-                            proof_height__ = map.next_value()?;
+                            proof_height__ = map_.next_value()?;
                         }
                     }
                 }
@@ -5563,25 +5589,25 @@ impl<'de> serde::Deserialize<'de> for QueryNextSequenceSendRequest {
                 formatter.write_str("struct ibc.core.channel.v1.QueryNextSequenceSendRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryNextSequenceSendRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryNextSequenceSendRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut port_id__ = None;
                 let mut channel_id__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -5613,9 +5639,11 @@ impl serde::Serialize for QueryNextSequenceSendResponse {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.channel.v1.QueryNextSequenceSendResponse", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("nextSequenceSend", ::alloc::string::ToString::to_string(&self.next_sequence_send).as_str())?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proof", pbjson::private::base64::encode(&self.proof).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -5682,21 +5710,21 @@ impl<'de> serde::Deserialize<'de> for QueryNextSequenceSendResponse {
                 formatter.write_str("struct ibc.core.channel.v1.QueryNextSequenceSendResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryNextSequenceSendResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryNextSequenceSendResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut next_sequence_send__ = None;
                 let mut proof__ = None;
                 let mut proof_height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::NextSequenceSend => {
                             if next_sequence_send__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("nextSequenceSend"));
                             }
                             next_sequence_send__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Proof => {
@@ -5704,14 +5732,14 @@ impl<'de> serde::Deserialize<'de> for QueryNextSequenceSendResponse {
                                 return Err(serde::de::Error::duplicate_field("proof"));
                             }
                             proof__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofHeight => {
                             if proof_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofHeight"));
                             }
-                            proof_height__ = map.next_value()?;
+                            proof_height__ = map_.next_value()?;
                         }
                     }
                 }
@@ -5750,6 +5778,7 @@ impl serde::Serialize for QueryPacketAcknowledgementRequest {
             struct_ser.serialize_field("channelId", &self.channel_id)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("sequence", ::alloc::string::ToString::to_string(&self.sequence).as_str())?;
         }
         struct_ser.end()
@@ -5813,33 +5842,33 @@ impl<'de> serde::Deserialize<'de> for QueryPacketAcknowledgementRequest {
                 formatter.write_str("struct ibc.core.channel.v1.QueryPacketAcknowledgementRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryPacketAcknowledgementRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryPacketAcknowledgementRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut port_id__ = None;
                 let mut channel_id__ = None;
                 let mut sequence__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Sequence => {
                             if sequence__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sequence"));
                             }
                             sequence__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -5873,9 +5902,11 @@ impl serde::Serialize for QueryPacketAcknowledgementResponse {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.channel.v1.QueryPacketAcknowledgementResponse", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("acknowledgement", pbjson::private::base64::encode(&self.acknowledgement).as_str())?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proof", pbjson::private::base64::encode(&self.proof).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -5941,21 +5972,21 @@ impl<'de> serde::Deserialize<'de> for QueryPacketAcknowledgementResponse {
                 formatter.write_str("struct ibc.core.channel.v1.QueryPacketAcknowledgementResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryPacketAcknowledgementResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryPacketAcknowledgementResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut acknowledgement__ = None;
                 let mut proof__ = None;
                 let mut proof_height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Acknowledgement => {
                             if acknowledgement__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("acknowledgement"));
                             }
                             acknowledgement__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Proof => {
@@ -5963,14 +5994,14 @@ impl<'de> serde::Deserialize<'de> for QueryPacketAcknowledgementResponse {
                                 return Err(serde::de::Error::duplicate_field("proof"));
                             }
                             proof__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofHeight => {
                             if proof_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofHeight"));
                             }
-                            proof_height__ = map.next_value()?;
+                            proof_height__ = map_.next_value()?;
                         }
                     }
                 }
@@ -6082,7 +6113,7 @@ impl<'de> serde::Deserialize<'de> for QueryPacketAcknowledgementsRequest {
                 formatter.write_str("struct ibc.core.channel.v1.QueryPacketAcknowledgementsRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryPacketAcknowledgementsRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryPacketAcknowledgementsRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -6090,32 +6121,32 @@ impl<'de> serde::Deserialize<'de> for QueryPacketAcknowledgementsRequest {
                 let mut channel_id__ = None;
                 let mut pagination__ = None;
                 let mut packet_commitment_sequences__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map.next_value()?;
+                            pagination__ = map_.next_value()?;
                         }
                         GeneratedField::PacketCommitmentSequences => {
                             if packet_commitment_sequences__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("packetCommitmentSequences"));
                             }
                             packet_commitment_sequences__ = 
-                                Some(map.next_value::<::alloc::vec::Vec<::pbjson::private::NumberDeserialize<_>>>()?
+                                Some(map_.next_value::<::alloc::vec::Vec<::pbjson::private::NumberDeserialize<_>>>()?
                                     .into_iter().map(|x| x.0).collect())
                             ;
                         }
@@ -6218,32 +6249,32 @@ impl<'de> serde::Deserialize<'de> for QueryPacketAcknowledgementsResponse {
                 formatter.write_str("struct ibc.core.channel.v1.QueryPacketAcknowledgementsResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryPacketAcknowledgementsResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryPacketAcknowledgementsResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut acknowledgements__ = None;
                 let mut pagination__ = None;
                 let mut height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Acknowledgements => {
                             if acknowledgements__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("acknowledgements"));
                             }
-                            acknowledgements__ = Some(map.next_value()?);
+                            acknowledgements__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map.next_value()?;
+                            pagination__ = map_.next_value()?;
                         }
                         GeneratedField::Height => {
                             if height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("height"));
                             }
-                            height__ = map.next_value()?;
+                            height__ = map_.next_value()?;
                         }
                     }
                 }
@@ -6282,6 +6313,7 @@ impl serde::Serialize for QueryPacketCommitmentRequest {
             struct_ser.serialize_field("channelId", &self.channel_id)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("sequence", ::alloc::string::ToString::to_string(&self.sequence).as_str())?;
         }
         struct_ser.end()
@@ -6345,33 +6377,33 @@ impl<'de> serde::Deserialize<'de> for QueryPacketCommitmentRequest {
                 formatter.write_str("struct ibc.core.channel.v1.QueryPacketCommitmentRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryPacketCommitmentRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryPacketCommitmentRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut port_id__ = None;
                 let mut channel_id__ = None;
                 let mut sequence__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Sequence => {
                             if sequence__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sequence"));
                             }
                             sequence__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -6405,9 +6437,11 @@ impl serde::Serialize for QueryPacketCommitmentResponse {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.channel.v1.QueryPacketCommitmentResponse", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("commitment", pbjson::private::base64::encode(&self.commitment).as_str())?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proof", pbjson::private::base64::encode(&self.proof).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -6473,21 +6507,21 @@ impl<'de> serde::Deserialize<'de> for QueryPacketCommitmentResponse {
                 formatter.write_str("struct ibc.core.channel.v1.QueryPacketCommitmentResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryPacketCommitmentResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryPacketCommitmentResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut commitment__ = None;
                 let mut proof__ = None;
                 let mut proof_height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Commitment => {
                             if commitment__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("commitment"));
                             }
                             commitment__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Proof => {
@@ -6495,14 +6529,14 @@ impl<'de> serde::Deserialize<'de> for QueryPacketCommitmentResponse {
                                 return Err(serde::de::Error::duplicate_field("proof"));
                             }
                             proof__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofHeight => {
                             if proof_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofHeight"));
                             }
-                            proof_height__ = map.next_value()?;
+                            proof_height__ = map_.next_value()?;
                         }
                     }
                 }
@@ -6604,32 +6638,32 @@ impl<'de> serde::Deserialize<'de> for QueryPacketCommitmentsRequest {
                 formatter.write_str("struct ibc.core.channel.v1.QueryPacketCommitmentsRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryPacketCommitmentsRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryPacketCommitmentsRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut port_id__ = None;
                 let mut channel_id__ = None;
                 let mut pagination__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map.next_value()?;
+                            pagination__ = map_.next_value()?;
                         }
                     }
                 }
@@ -6729,32 +6763,32 @@ impl<'de> serde::Deserialize<'de> for QueryPacketCommitmentsResponse {
                 formatter.write_str("struct ibc.core.channel.v1.QueryPacketCommitmentsResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryPacketCommitmentsResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryPacketCommitmentsResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut commitments__ = None;
                 let mut pagination__ = None;
                 let mut height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Commitments => {
                             if commitments__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("commitments"));
                             }
-                            commitments__ = Some(map.next_value()?);
+                            commitments__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map.next_value()?;
+                            pagination__ = map_.next_value()?;
                         }
                         GeneratedField::Height => {
                             if height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("height"));
                             }
-                            height__ = map.next_value()?;
+                            height__ = map_.next_value()?;
                         }
                     }
                 }
@@ -6793,6 +6827,7 @@ impl serde::Serialize for QueryPacketReceiptRequest {
             struct_ser.serialize_field("channelId", &self.channel_id)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("sequence", ::alloc::string::ToString::to_string(&self.sequence).as_str())?;
         }
         struct_ser.end()
@@ -6856,33 +6891,33 @@ impl<'de> serde::Deserialize<'de> for QueryPacketReceiptRequest {
                 formatter.write_str("struct ibc.core.channel.v1.QueryPacketReceiptRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryPacketReceiptRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryPacketReceiptRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut port_id__ = None;
                 let mut channel_id__ = None;
                 let mut sequence__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Sequence => {
                             if sequence__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sequence"));
                             }
                             sequence__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -6919,6 +6954,7 @@ impl serde::Serialize for QueryPacketReceiptResponse {
             struct_ser.serialize_field("received", &self.received)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proof", pbjson::private::base64::encode(&self.proof).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -6984,34 +7020,34 @@ impl<'de> serde::Deserialize<'de> for QueryPacketReceiptResponse {
                 formatter.write_str("struct ibc.core.channel.v1.QueryPacketReceiptResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryPacketReceiptResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryPacketReceiptResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut received__ = None;
                 let mut proof__ = None;
                 let mut proof_height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Received => {
                             if received__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("received"));
                             }
-                            received__ = Some(map.next_value()?);
+                            received__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Proof => {
                             if proof__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proof"));
                             }
                             proof__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofHeight => {
                             if proof_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofHeight"));
                             }
-                            proof_height__ = map.next_value()?;
+                            proof_height__ = map_.next_value()?;
                         }
                     }
                 }
@@ -7114,33 +7150,33 @@ impl<'de> serde::Deserialize<'de> for QueryUnreceivedAcksRequest {
                 formatter.write_str("struct ibc.core.channel.v1.QueryUnreceivedAcksRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryUnreceivedAcksRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryUnreceivedAcksRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut port_id__ = None;
                 let mut channel_id__ = None;
                 let mut packet_ack_sequences__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::PacketAckSequences => {
                             if packet_ack_sequences__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("packetAckSequences"));
                             }
                             packet_ack_sequences__ = 
-                                Some(map.next_value::<::alloc::vec::Vec<::pbjson::private::NumberDeserialize<_>>>()?
+                                Some(map_.next_value::<::alloc::vec::Vec<::pbjson::private::NumberDeserialize<_>>>()?
                                     .into_iter().map(|x| x.0).collect())
                             ;
                         }
@@ -7233,20 +7269,20 @@ impl<'de> serde::Deserialize<'de> for QueryUnreceivedAcksResponse {
                 formatter.write_str("struct ibc.core.channel.v1.QueryUnreceivedAcksResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryUnreceivedAcksResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryUnreceivedAcksResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut sequences__ = None;
                 let mut height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Sequences => {
                             if sequences__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sequences"));
                             }
                             sequences__ = 
-                                Some(map.next_value::<::alloc::vec::Vec<::pbjson::private::NumberDeserialize<_>>>()?
+                                Some(map_.next_value::<::alloc::vec::Vec<::pbjson::private::NumberDeserialize<_>>>()?
                                     .into_iter().map(|x| x.0).collect())
                             ;
                         }
@@ -7254,7 +7290,7 @@ impl<'de> serde::Deserialize<'de> for QueryUnreceivedAcksResponse {
                             if height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("height"));
                             }
-                            height__ = map.next_value()?;
+                            height__ = map_.next_value()?;
                         }
                     }
                 }
@@ -7356,33 +7392,33 @@ impl<'de> serde::Deserialize<'de> for QueryUnreceivedPacketsRequest {
                 formatter.write_str("struct ibc.core.channel.v1.QueryUnreceivedPacketsRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryUnreceivedPacketsRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryUnreceivedPacketsRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut port_id__ = None;
                 let mut channel_id__ = None;
                 let mut packet_commitment_sequences__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::PacketCommitmentSequences => {
                             if packet_commitment_sequences__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("packetCommitmentSequences"));
                             }
                             packet_commitment_sequences__ = 
-                                Some(map.next_value::<::alloc::vec::Vec<::pbjson::private::NumberDeserialize<_>>>()?
+                                Some(map_.next_value::<::alloc::vec::Vec<::pbjson::private::NumberDeserialize<_>>>()?
                                     .into_iter().map(|x| x.0).collect())
                             ;
                         }
@@ -7475,20 +7511,20 @@ impl<'de> serde::Deserialize<'de> for QueryUnreceivedPacketsResponse {
                 formatter.write_str("struct ibc.core.channel.v1.QueryUnreceivedPacketsResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryUnreceivedPacketsResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryUnreceivedPacketsResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut sequences__ = None;
                 let mut height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Sequences => {
                             if sequences__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sequences"));
                             }
                             sequences__ = 
-                                Some(map.next_value::<::alloc::vec::Vec<::pbjson::private::NumberDeserialize<_>>>()?
+                                Some(map_.next_value::<::alloc::vec::Vec<::pbjson::private::NumberDeserialize<_>>>()?
                                     .into_iter().map(|x| x.0).collect())
                             ;
                         }
@@ -7496,7 +7532,7 @@ impl<'de> serde::Deserialize<'de> for QueryUnreceivedPacketsResponse {
                             if height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("height"));
                             }
-                            height__ = map.next_value()?;
+                            height__ = map_.next_value()?;
                         }
                     }
                 }
@@ -7548,10 +7584,9 @@ impl<'de> serde::Deserialize<'de> for ResponseResultType {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(ResponseResultType::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -7561,10 +7596,9 @@ impl<'de> serde::Deserialize<'de> for ResponseResultType {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(ResponseResultType::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -7628,10 +7662,9 @@ impl<'de> serde::Deserialize<'de> for State {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(State::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -7641,10 +7674,9 @@ impl<'de> serde::Deserialize<'de> for State {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(State::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -7686,6 +7718,7 @@ impl serde::Serialize for Timeout {
             struct_ser.serialize_field("height", v)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("timestamp", ::alloc::string::ToString::to_string(&self.timestamp).as_str())?;
         }
         struct_ser.end()
@@ -7744,26 +7777,26 @@ impl<'de> serde::Deserialize<'de> for Timeout {
                 formatter.write_str("struct ibc.core.channel.v1.Timeout")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Timeout, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Timeout, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut height__ = None;
                 let mut timestamp__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Height => {
                             if height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("height"));
                             }
-                            height__ = map.next_value()?;
+                            height__ = map_.next_value()?;
                         }
                         GeneratedField::Timestamp => {
                             if timestamp__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("timestamp"));
                             }
                             timestamp__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }

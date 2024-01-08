@@ -104,7 +104,7 @@ impl<'de> serde::Deserialize<'de> for Bip44Params {
                 formatter.write_str("struct cosmos.crypto.hd.v1.BIP44Params")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Bip44Params, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Bip44Params, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -113,14 +113,14 @@ impl<'de> serde::Deserialize<'de> for Bip44Params {
                 let mut account__ = None;
                 let mut change__ = None;
                 let mut address_index__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Purpose => {
                             if purpose__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("purpose"));
                             }
                             purpose__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::CoinType => {
@@ -128,7 +128,7 @@ impl<'de> serde::Deserialize<'de> for Bip44Params {
                                 return Err(serde::de::Error::duplicate_field("coinType"));
                             }
                             coin_type__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Account => {
@@ -136,21 +136,21 @@ impl<'de> serde::Deserialize<'de> for Bip44Params {
                                 return Err(serde::de::Error::duplicate_field("account"));
                             }
                             account__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Change => {
                             if change__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("change"));
                             }
-                            change__ = Some(map.next_value()?);
+                            change__ = Some(map_.next_value()?);
                         }
                         GeneratedField::AddressIndex => {
                             if address_index__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("addressIndex"));
                             }
                             address_index__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }

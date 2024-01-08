@@ -97,7 +97,7 @@ impl<'de> serde::Deserialize<'de> for ActiveChannel {
                 formatter.write_str("struct ibc.applications.interchain_accounts.genesis.v1.ActiveChannel")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<ActiveChannel, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ActiveChannel, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -105,31 +105,31 @@ impl<'de> serde::Deserialize<'de> for ActiveChannel {
                 let mut port_id__ = None;
                 let mut channel_id__ = None;
                 let mut is_middleware_enabled__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ConnectionId => {
                             if connection_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("connectionId"));
                             }
-                            connection_id__ = Some(map.next_value()?);
+                            connection_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::IsMiddlewareEnabled => {
                             if is_middleware_enabled__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("isMiddlewareEnabled"));
                             }
-                            is_middleware_enabled__ = Some(map.next_value()?);
+                            is_middleware_enabled__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -241,7 +241,7 @@ impl<'de> serde::Deserialize<'de> for ControllerGenesisState {
                 formatter.write_str("struct ibc.applications.interchain_accounts.genesis.v1.ControllerGenesisState")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<ControllerGenesisState, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ControllerGenesisState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -249,31 +249,31 @@ impl<'de> serde::Deserialize<'de> for ControllerGenesisState {
                 let mut interchain_accounts__ = None;
                 let mut ports__ = None;
                 let mut params__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ActiveChannels => {
                             if active_channels__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("activeChannels"));
                             }
-                            active_channels__ = Some(map.next_value()?);
+                            active_channels__ = Some(map_.next_value()?);
                         }
                         GeneratedField::InterchainAccounts => {
                             if interchain_accounts__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("interchainAccounts"));
                             }
-                            interchain_accounts__ = Some(map.next_value()?);
+                            interchain_accounts__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Ports => {
                             if ports__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("ports"));
                             }
-                            ports__ = Some(map.next_value()?);
+                            ports__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Params => {
                             if params__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("params"));
                             }
-                            params__ = map.next_value()?;
+                            params__ = map_.next_value()?;
                         }
                     }
                 }
@@ -367,25 +367,25 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                 formatter.write_str("struct ibc.applications.interchain_accounts.genesis.v1.GenesisState")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<GenesisState, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<GenesisState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut controller_genesis_state__ = None;
                 let mut host_genesis_state__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ControllerGenesisState => {
                             if controller_genesis_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("controllerGenesisState"));
                             }
-                            controller_genesis_state__ = map.next_value()?;
+                            controller_genesis_state__ = map_.next_value()?;
                         }
                         GeneratedField::HostGenesisState => {
                             if host_genesis_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("hostGenesisState"));
                             }
-                            host_genesis_state__ = map.next_value()?;
+                            host_genesis_state__ = map_.next_value()?;
                         }
                     }
                 }
@@ -495,7 +495,7 @@ impl<'de> serde::Deserialize<'de> for HostGenesisState {
                 formatter.write_str("struct ibc.applications.interchain_accounts.genesis.v1.HostGenesisState")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<HostGenesisState, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<HostGenesisState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -503,31 +503,31 @@ impl<'de> serde::Deserialize<'de> for HostGenesisState {
                 let mut interchain_accounts__ = None;
                 let mut port__ = None;
                 let mut params__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ActiveChannels => {
                             if active_channels__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("activeChannels"));
                             }
-                            active_channels__ = Some(map.next_value()?);
+                            active_channels__ = Some(map_.next_value()?);
                         }
                         GeneratedField::InterchainAccounts => {
                             if interchain_accounts__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("interchainAccounts"));
                             }
-                            interchain_accounts__ = Some(map.next_value()?);
+                            interchain_accounts__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Port => {
                             if port__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("port"));
                             }
-                            port__ = Some(map.next_value()?);
+                            port__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Params => {
                             if params__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("params"));
                             }
-                            params__ = map.next_value()?;
+                            params__ = map_.next_value()?;
                         }
                     }
                 }
@@ -631,32 +631,32 @@ impl<'de> serde::Deserialize<'de> for RegisteredInterchainAccount {
                 formatter.write_str("struct ibc.applications.interchain_accounts.genesis.v1.RegisteredInterchainAccount")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<RegisteredInterchainAccount, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<RegisteredInterchainAccount, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut connection_id__ = None;
                 let mut port_id__ = None;
                 let mut account_address__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ConnectionId => {
                             if connection_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("connectionId"));
                             }
-                            connection_id__ = Some(map.next_value()?);
+                            connection_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::AccountAddress => {
                             if account_address__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("accountAddress"));
                             }
-                            account_address__ = Some(map.next_value()?);
+                            account_address__ = Some(map_.next_value()?);
                         }
                     }
                 }

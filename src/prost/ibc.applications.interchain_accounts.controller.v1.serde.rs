@@ -85,32 +85,32 @@ impl<'de> serde::Deserialize<'de> for MsgRegisterInterchainAccount {
                 formatter.write_str("struct ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccount")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgRegisterInterchainAccount, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgRegisterInterchainAccount, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut owner__ = None;
                 let mut connection_id__ = None;
                 let mut version__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Owner => {
                             if owner__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("owner"));
                             }
-                            owner__ = Some(map.next_value()?);
+                            owner__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ConnectionId => {
                             if connection_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("connectionId"));
                             }
-                            connection_id__ = Some(map.next_value()?);
+                            connection_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Version => {
                             if version__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("version"));
                             }
-                            version__ = Some(map.next_value()?);
+                            version__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -203,25 +203,25 @@ impl<'de> serde::Deserialize<'de> for MsgRegisterInterchainAccountResponse {
                 formatter.write_str("struct ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccountResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgRegisterInterchainAccountResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgRegisterInterchainAccountResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut channel_id__ = None;
                 let mut port_id__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -265,6 +265,7 @@ impl serde::Serialize for MsgSendTx {
             struct_ser.serialize_field("packetData", v)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("relativeTimeout", ::alloc::string::ToString::to_string(&self.relative_timeout).as_str())?;
         }
         struct_ser.end()
@@ -332,7 +333,7 @@ impl<'de> serde::Deserialize<'de> for MsgSendTx {
                 formatter.write_str("struct ibc.applications.interchain_accounts.controller.v1.MsgSendTx")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgSendTx, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgSendTx, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -340,32 +341,32 @@ impl<'de> serde::Deserialize<'de> for MsgSendTx {
                 let mut connection_id__ = None;
                 let mut packet_data__ = None;
                 let mut relative_timeout__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Owner => {
                             if owner__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("owner"));
                             }
-                            owner__ = Some(map.next_value()?);
+                            owner__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ConnectionId => {
                             if connection_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("connectionId"));
                             }
-                            connection_id__ = Some(map.next_value()?);
+                            connection_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::PacketData => {
                             if packet_data__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("packetData"));
                             }
-                            packet_data__ = map.next_value()?;
+                            packet_data__ = map_.next_value()?;
                         }
                         GeneratedField::RelativeTimeout => {
                             if relative_timeout__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("relativeTimeout"));
                             }
                             relative_timeout__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -394,6 +395,7 @@ impl serde::Serialize for MsgSendTxResponse {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.interchain_accounts.controller.v1.MsgSendTxResponse", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("sequence", ::alloc::string::ToString::to_string(&self.sequence).as_str())?;
         }
         struct_ser.end()
@@ -449,19 +451,19 @@ impl<'de> serde::Deserialize<'de> for MsgSendTxResponse {
                 formatter.write_str("struct ibc.applications.interchain_accounts.controller.v1.MsgSendTxResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgSendTxResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgSendTxResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut sequence__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Sequence => {
                             if sequence__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sequence"));
                             }
                             sequence__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -551,25 +553,25 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateParams {
                 formatter.write_str("struct ibc.applications.interchain_accounts.controller.v1.MsgUpdateParams")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgUpdateParams, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgUpdateParams, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut signer__ = None;
                 let mut params__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map.next_value()?);
+                            signer__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Params => {
                             if params__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("params"));
                             }
-                            params__ = map.next_value()?;
+                            params__ = map_.next_value()?;
                         }
                     }
                 }
@@ -639,12 +641,12 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateParamsResponse {
                 formatter.write_str("struct ibc.applications.interchain_accounts.controller.v1.MsgUpdateParamsResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgUpdateParamsResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgUpdateParamsResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(MsgUpdateParamsResponse {
                 })
@@ -722,18 +724,18 @@ impl<'de> serde::Deserialize<'de> for Params {
                 formatter.write_str("struct ibc.applications.interchain_accounts.controller.v1.Params")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Params, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Params, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut controller_enabled__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ControllerEnabled => {
                             if controller_enabled__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("controllerEnabled"));
                             }
-                            controller_enabled__ = Some(map.next_value()?);
+                            controller_enabled__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -823,25 +825,25 @@ impl<'de> serde::Deserialize<'de> for QueryInterchainAccountRequest {
                 formatter.write_str("struct ibc.applications.interchain_accounts.controller.v1.QueryInterchainAccountRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryInterchainAccountRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryInterchainAccountRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut owner__ = None;
                 let mut connection_id__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Owner => {
                             if owner__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("owner"));
                             }
-                            owner__ = Some(map.next_value()?);
+                            owner__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ConnectionId => {
                             if connection_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("connectionId"));
                             }
-                            connection_id__ = Some(map.next_value()?);
+                            connection_id__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -922,18 +924,18 @@ impl<'de> serde::Deserialize<'de> for QueryInterchainAccountResponse {
                 formatter.write_str("struct ibc.applications.interchain_accounts.controller.v1.QueryInterchainAccountResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryInterchainAccountResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryInterchainAccountResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut address__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Address => {
                             if address__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("address"));
                             }
-                            address__ = Some(map.next_value()?);
+                            address__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1002,12 +1004,12 @@ impl<'de> serde::Deserialize<'de> for QueryParamsRequest {
                 formatter.write_str("struct ibc.applications.interchain_accounts.controller.v1.QueryParamsRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryParamsRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryParamsRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(QueryParamsRequest {
                 })
@@ -1084,18 +1086,18 @@ impl<'de> serde::Deserialize<'de> for QueryParamsResponse {
                 formatter.write_str("struct ibc.applications.interchain_accounts.controller.v1.QueryParamsResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryParamsResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryParamsResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut params__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Params => {
                             if params__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("params"));
                             }
-                            params__ = map.next_value()?;
+                            params__ = map_.next_value()?;
                         }
                     }
                 }

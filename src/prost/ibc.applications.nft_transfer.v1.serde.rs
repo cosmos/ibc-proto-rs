@@ -76,25 +76,25 @@ impl<'de> serde::Deserialize<'de> for ClassTrace {
                 formatter.write_str("struct ibc.applications.nft_transfer.v1.ClassTrace")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<ClassTrace, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ClassTrace, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut path__ = None;
                 let mut base_class_id__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Path => {
                             if path__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("path"));
                             }
-                            path__ = Some(map.next_value()?);
+                            path__ = Some(map_.next_value()?);
                         }
                         GeneratedField::BaseClassId => {
                             if base_class_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("baseClassId"));
                             }
-                            base_class_id__ = Some(map.next_value()?);
+                            base_class_id__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -194,32 +194,32 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                 formatter.write_str("struct ibc.applications.nft_transfer.v1.GenesisState")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<GenesisState, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<GenesisState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut port_id__ = None;
                 let mut traces__ = None;
                 let mut params__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Traces => {
                             if traces__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("traces"));
                             }
-                            traces__ = Some(map.next_value()?);
+                            traces__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Params => {
                             if params__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("params"));
                             }
-                            params__ = map.next_value()?;
+                            params__ = map_.next_value()?;
                         }
                     }
                 }
@@ -291,6 +291,7 @@ impl serde::Serialize for MsgTransfer {
             struct_ser.serialize_field("timeoutHeight", v)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("timeoutTimestamp", ::alloc::string::ToString::to_string(&self.timeout_timestamp).as_str())?;
         }
         if true {
@@ -379,7 +380,7 @@ impl<'de> serde::Deserialize<'de> for MsgTransfer {
                 formatter.write_str("struct ibc.applications.nft_transfer.v1.MsgTransfer")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgTransfer, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgTransfer, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -392,63 +393,63 @@ impl<'de> serde::Deserialize<'de> for MsgTransfer {
                 let mut timeout_height__ = None;
                 let mut timeout_timestamp__ = None;
                 let mut memo__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::SourcePort => {
                             if source_port__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sourcePort"));
                             }
-                            source_port__ = Some(map.next_value()?);
+                            source_port__ = Some(map_.next_value()?);
                         }
                         GeneratedField::SourceChannel => {
                             if source_channel__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sourceChannel"));
                             }
-                            source_channel__ = Some(map.next_value()?);
+                            source_channel__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ClassId => {
                             if class_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("classId"));
                             }
-                            class_id__ = Some(map.next_value()?);
+                            class_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::TokenIds => {
                             if token_ids__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tokenIds"));
                             }
-                            token_ids__ = Some(map.next_value()?);
+                            token_ids__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Sender => {
                             if sender__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sender"));
                             }
-                            sender__ = Some(map.next_value()?);
+                            sender__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Receiver => {
                             if receiver__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("receiver"));
                             }
-                            receiver__ = Some(map.next_value()?);
+                            receiver__ = Some(map_.next_value()?);
                         }
                         GeneratedField::TimeoutHeight => {
                             if timeout_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("timeoutHeight"));
                             }
-                            timeout_height__ = map.next_value()?;
+                            timeout_height__ = map_.next_value()?;
                         }
                         GeneratedField::TimeoutTimestamp => {
                             if timeout_timestamp__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("timeoutTimestamp"));
                             }
                             timeout_timestamp__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Memo => {
                             if memo__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("memo"));
                             }
-                            memo__ = Some(map.next_value()?);
+                            memo__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -481,6 +482,7 @@ impl serde::Serialize for MsgTransferResponse {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.nft_transfer.v1.MsgTransferResponse", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("sequence", ::alloc::string::ToString::to_string(&self.sequence).as_str())?;
         }
         struct_ser.end()
@@ -536,19 +538,19 @@ impl<'de> serde::Deserialize<'de> for MsgTransferResponse {
                 formatter.write_str("struct ibc.applications.nft_transfer.v1.MsgTransferResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgTransferResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgTransferResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut sequence__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Sequence => {
                             if sequence__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sequence"));
                             }
                             sequence__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -638,25 +640,25 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateParams {
                 formatter.write_str("struct ibc.applications.nft_transfer.v1.MsgUpdateParams")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgUpdateParams, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgUpdateParams, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut authority__ = None;
                 let mut params__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Authority => {
                             if authority__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("authority"));
                             }
-                            authority__ = Some(map.next_value()?);
+                            authority__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Params => {
                             if params__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("params"));
                             }
-                            params__ = map.next_value()?;
+                            params__ = map_.next_value()?;
                         }
                     }
                 }
@@ -726,12 +728,12 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateParamsResponse {
                 formatter.write_str("struct ibc.applications.nft_transfer.v1.MsgUpdateParamsResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgUpdateParamsResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgUpdateParamsResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(MsgUpdateParamsResponse {
                 })
@@ -886,7 +888,7 @@ impl<'de> serde::Deserialize<'de> for NonFungibleTokenPacketData {
                 formatter.write_str("struct ibc.applications.nft_transfer.v1.NonFungibleTokenPacketData")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<NonFungibleTokenPacketData, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<NonFungibleTokenPacketData, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -899,61 +901,61 @@ impl<'de> serde::Deserialize<'de> for NonFungibleTokenPacketData {
                 let mut sender__ = None;
                 let mut receiver__ = None;
                 let mut memo__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ClassId => {
                             if class_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("classId"));
                             }
-                            class_id__ = Some(map.next_value()?);
+                            class_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ClassUri => {
                             if class_uri__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("classUri"));
                             }
-                            class_uri__ = Some(map.next_value()?);
+                            class_uri__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ClassData => {
                             if class_data__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("classData"));
                             }
-                            class_data__ = Some(map.next_value()?);
+                            class_data__ = Some(map_.next_value()?);
                         }
                         GeneratedField::TokenIds => {
                             if token_ids__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tokenIds"));
                             }
-                            token_ids__ = Some(map.next_value()?);
+                            token_ids__ = Some(map_.next_value()?);
                         }
                         GeneratedField::TokenUris => {
                             if token_uris__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tokenUris"));
                             }
-                            token_uris__ = Some(map.next_value()?);
+                            token_uris__ = Some(map_.next_value()?);
                         }
                         GeneratedField::TokenData => {
                             if token_data__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("tokenData"));
                             }
-                            token_data__ = Some(map.next_value()?);
+                            token_data__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Sender => {
                             if sender__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sender"));
                             }
-                            sender__ = Some(map.next_value()?);
+                            sender__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Receiver => {
                             if receiver__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("receiver"));
                             }
-                            receiver__ = Some(map.next_value()?);
+                            receiver__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Memo => {
                             if memo__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("memo"));
                             }
-                            memo__ = Some(map.next_value()?);
+                            memo__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1052,25 +1054,25 @@ impl<'de> serde::Deserialize<'de> for Params {
                 formatter.write_str("struct ibc.applications.nft_transfer.v1.Params")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Params, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Params, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut send_enabled__ = None;
                 let mut receive_enabled__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::SendEnabled => {
                             if send_enabled__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sendEnabled"));
                             }
-                            send_enabled__ = Some(map.next_value()?);
+                            send_enabled__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ReceiveEnabled => {
                             if receive_enabled__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("receiveEnabled"));
                             }
-                            receive_enabled__ = Some(map.next_value()?);
+                            receive_enabled__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1151,18 +1153,18 @@ impl<'de> serde::Deserialize<'de> for QueryClassHashRequest {
                 formatter.write_str("struct ibc.applications.nft_transfer.v1.QueryClassHashRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryClassHashRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryClassHashRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut trace__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Trace => {
                             if trace__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("trace"));
                             }
-                            trace__ = Some(map.next_value()?);
+                            trace__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1242,18 +1244,18 @@ impl<'de> serde::Deserialize<'de> for QueryClassHashResponse {
                 formatter.write_str("struct ibc.applications.nft_transfer.v1.QueryClassHashResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryClassHashResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryClassHashResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut hash__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Hash => {
                             if hash__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("hash"));
                             }
-                            hash__ = Some(map.next_value()?);
+                            hash__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1333,18 +1335,18 @@ impl<'de> serde::Deserialize<'de> for QueryClassTraceRequest {
                 formatter.write_str("struct ibc.applications.nft_transfer.v1.QueryClassTraceRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryClassTraceRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryClassTraceRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut hash__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Hash => {
                             if hash__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("hash"));
                             }
-                            hash__ = Some(map.next_value()?);
+                            hash__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1425,18 +1427,18 @@ impl<'de> serde::Deserialize<'de> for QueryClassTraceResponse {
                 formatter.write_str("struct ibc.applications.nft_transfer.v1.QueryClassTraceResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryClassTraceResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryClassTraceResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut class_trace__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ClassTrace => {
                             if class_trace__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("classTrace"));
                             }
-                            class_trace__ = map.next_value()?;
+                            class_trace__ = map_.next_value()?;
                         }
                     }
                 }
@@ -1516,18 +1518,18 @@ impl<'de> serde::Deserialize<'de> for QueryClassTracesRequest {
                 formatter.write_str("struct ibc.applications.nft_transfer.v1.QueryClassTracesRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryClassTracesRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryClassTracesRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut pagination__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map.next_value()?;
+                            pagination__ = map_.next_value()?;
                         }
                     }
                 }
@@ -1617,25 +1619,25 @@ impl<'de> serde::Deserialize<'de> for QueryClassTracesResponse {
                 formatter.write_str("struct ibc.applications.nft_transfer.v1.QueryClassTracesResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryClassTracesResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryClassTracesResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut class_traces__ = None;
                 let mut pagination__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ClassTraces => {
                             if class_traces__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("classTraces"));
                             }
-                            class_traces__ = Some(map.next_value()?);
+                            class_traces__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map.next_value()?;
+                            pagination__ = map_.next_value()?;
                         }
                     }
                 }
@@ -1727,25 +1729,25 @@ impl<'de> serde::Deserialize<'de> for QueryEscrowAddressRequest {
                 formatter.write_str("struct ibc.applications.nft_transfer.v1.QueryEscrowAddressRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryEscrowAddressRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryEscrowAddressRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut port_id__ = None;
                 let mut channel_id__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1827,18 +1829,18 @@ impl<'de> serde::Deserialize<'de> for QueryEscrowAddressResponse {
                 formatter.write_str("struct ibc.applications.nft_transfer.v1.QueryEscrowAddressResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryEscrowAddressResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryEscrowAddressResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut escrow_address__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::EscrowAddress => {
                             if escrow_address__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("escrowAddress"));
                             }
-                            escrow_address__ = Some(map.next_value()?);
+                            escrow_address__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1907,12 +1909,12 @@ impl<'de> serde::Deserialize<'de> for QueryParamsRequest {
                 formatter.write_str("struct ibc.applications.nft_transfer.v1.QueryParamsRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryParamsRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryParamsRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(QueryParamsRequest {
                 })
@@ -1989,18 +1991,18 @@ impl<'de> serde::Deserialize<'de> for QueryParamsResponse {
                 formatter.write_str("struct ibc.applications.nft_transfer.v1.QueryParamsResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryParamsResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryParamsResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut params__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Params => {
                             if params__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("params"));
                             }
-                            params__ = map.next_value()?;
+                            params__ = map_.next_value()?;
                         }
                     }
                 }
