@@ -127,7 +127,7 @@ COSMOS_ICS_DIR=$(mktemp -d /tmp/interchain-security-XXXXXXXX)
 
 pushd "$COSMOS_ICS_DIR"
 git clone "$COSMOS_ICS_GIT" .
-git checkout -b "$INTERCHAIN_SECURITY_COMMIT" "$INTERCHAIN_SECURITY_COMMIT"
+git switch --detach "$INTERCHAIN_SECURITY_COMMIT"
 
 cd proto
 buf mod update
@@ -138,7 +138,7 @@ COSMOS_SDK_DIR=$(mktemp -d /tmp/cosmos-sdk-XXXXXXXX)
 
 pushd "$COSMOS_SDK_DIR"
 git clone "$COSMOS_SDK_GIT" .
-git checkout -b "$COSMOS_SDK_COMMIT" "$COSMOS_SDK_COMMIT"
+git switch --detach "$COSMOS_SDK_COMMIT"
 
 cd proto
 buf mod update
@@ -164,7 +164,7 @@ IBC_GO_DIR=$(mktemp -d /tmp/ibc-go-XXXXXXXX)
 
 pushd "$IBC_GO_DIR"
 git clone "$IBC_GO_GIT" .
-git checkout -b "$IBC_GO_COMMIT" "$IBC_GO_COMMIT"
+git switch --detach "$IBC_GO_COMMIT"
 
 cd proto
 buf export -v -o ../proto-include
