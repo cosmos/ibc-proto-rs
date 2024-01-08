@@ -75,25 +75,25 @@ impl<'de> serde::Deserialize<'de> for Coin {
                 formatter.write_str("struct cosmos.base.v1beta1.Coin")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Coin, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Coin, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut denom__ = None;
                 let mut amount__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Denom => {
                             if denom__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("denom"));
                             }
-                            denom__ = Some(map.next_value()?);
+                            denom__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Amount => {
                             if amount__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("amount"));
                             }
-                            amount__ = Some(map.next_value()?);
+                            amount__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -183,25 +183,25 @@ impl<'de> serde::Deserialize<'de> for DecCoin {
                 formatter.write_str("struct cosmos.base.v1beta1.DecCoin")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<DecCoin, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<DecCoin, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut denom__ = None;
                 let mut amount__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Denom => {
                             if denom__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("denom"));
                             }
-                            denom__ = Some(map.next_value()?);
+                            denom__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Amount => {
                             if amount__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("amount"));
                             }
-                            amount__ = Some(map.next_value()?);
+                            amount__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -282,18 +282,18 @@ impl<'de> serde::Deserialize<'de> for DecProto {
                 formatter.write_str("struct cosmos.base.v1beta1.DecProto")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<DecProto, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<DecProto, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut dec__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Dec => {
                             if dec__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("dec"));
                             }
-                            dec__ = Some(map.next_value()?);
+                            dec__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -373,18 +373,18 @@ impl<'de> serde::Deserialize<'de> for IntProto {
                 formatter.write_str("struct cosmos.base.v1beta1.IntProto")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<IntProto, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<IntProto, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut int__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Int => {
                             if int__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("int"));
                             }
-                            int__ = Some(map.next_value()?);
+                            int__ = Some(map_.next_value()?);
                         }
                     }
                 }

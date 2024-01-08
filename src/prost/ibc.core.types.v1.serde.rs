@@ -87,32 +87,32 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                 formatter.write_str("struct ibc.core.types.v1.GenesisState")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<GenesisState, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<GenesisState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut client_genesis__ = None;
                 let mut connection_genesis__ = None;
                 let mut channel_genesis__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ClientGenesis => {
                             if client_genesis__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientGenesis"));
                             }
-                            client_genesis__ = map.next_value()?;
+                            client_genesis__ = map_.next_value()?;
                         }
                         GeneratedField::ConnectionGenesis => {
                             if connection_genesis__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("connectionGenesis"));
                             }
-                            connection_genesis__ = map.next_value()?;
+                            connection_genesis__ = map_.next_value()?;
                         }
                         GeneratedField::ChannelGenesis => {
                             if channel_genesis__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelGenesis"));
                             }
-                            channel_genesis__ = map.next_value()?;
+                            channel_genesis__ = map_.next_value()?;
                         }
                     }
                 }

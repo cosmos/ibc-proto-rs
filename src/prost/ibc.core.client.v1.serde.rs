@@ -77,25 +77,25 @@ impl<'de> serde::Deserialize<'de> for ClientConsensusStates {
                 formatter.write_str("struct ibc.core.client.v1.ClientConsensusStates")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<ClientConsensusStates, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ClientConsensusStates, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut client_id__ = None;
                 let mut consensus_states__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ClientId => {
                             if client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientId"));
                             }
-                            client_id__ = Some(map.next_value()?);
+                            client_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ConsensusStates => {
                             if consensus_states__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("consensusStates"));
                             }
-                            consensus_states__ = Some(map.next_value()?);
+                            consensus_states__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -205,7 +205,7 @@ impl<'de> serde::Deserialize<'de> for ClientUpdateProposal {
                 formatter.write_str("struct ibc.core.client.v1.ClientUpdateProposal")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<ClientUpdateProposal, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ClientUpdateProposal, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -213,31 +213,31 @@ impl<'de> serde::Deserialize<'de> for ClientUpdateProposal {
                 let mut description__ = None;
                 let mut subject_client_id__ = None;
                 let mut substitute_client_id__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Title => {
                             if title__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("title"));
                             }
-                            title__ = Some(map.next_value()?);
+                            title__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Description => {
                             if description__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("description"));
                             }
-                            description__ = Some(map.next_value()?);
+                            description__ = Some(map_.next_value()?);
                         }
                         GeneratedField::SubjectClientId => {
                             if subject_client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("subjectClientId"));
                             }
-                            subject_client_id__ = Some(map.next_value()?);
+                            subject_client_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::SubstituteClientId => {
                             if substitute_client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("substituteClientId"));
                             }
-                            substitute_client_id__ = Some(map.next_value()?);
+                            substitute_client_id__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -330,25 +330,25 @@ impl<'de> serde::Deserialize<'de> for ConsensusStateWithHeight {
                 formatter.write_str("struct ibc.core.client.v1.ConsensusStateWithHeight")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<ConsensusStateWithHeight, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ConsensusStateWithHeight, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut height__ = None;
                 let mut consensus_state__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Height => {
                             if height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("height"));
                             }
-                            height__ = map.next_value()?;
+                            height__ = map_.next_value()?;
                         }
                         GeneratedField::ConsensusState => {
                             if consensus_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("consensusState"));
                             }
-                            consensus_state__ = map.next_value()?;
+                            consensus_state__ = map_.next_value()?;
                         }
                     }
                 }
@@ -377,9 +377,11 @@ impl serde::Serialize for GenesisMetadata {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.GenesisMetadata", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("key", pbjson::private::base64::encode(&self.key).as_str())?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("value", pbjson::private::base64::encode(&self.value).as_str())?;
         }
         struct_ser.end()
@@ -438,20 +440,20 @@ impl<'de> serde::Deserialize<'de> for GenesisMetadata {
                 formatter.write_str("struct ibc.core.client.v1.GenesisMetadata")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<GenesisMetadata, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<GenesisMetadata, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut key__ = None;
                 let mut value__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Key => {
                             if key__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("key"));
                             }
                             key__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Value => {
@@ -459,7 +461,7 @@ impl<'de> serde::Deserialize<'de> for GenesisMetadata {
                                 return Err(serde::de::Error::duplicate_field("value"));
                             }
                             value__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -516,6 +518,7 @@ impl serde::Serialize for GenesisState {
             struct_ser.serialize_field("createLocalhost", &self.create_localhost)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("nextClientSequence", ::alloc::string::ToString::to_string(&self.next_client_sequence).as_str())?;
         }
         struct_ser.end()
@@ -590,7 +593,7 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                 formatter.write_str("struct ibc.core.client.v1.GenesisState")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<GenesisState, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<GenesisState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -600,44 +603,44 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                 let mut params__ = None;
                 let mut create_localhost__ = None;
                 let mut next_client_sequence__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Clients => {
                             if clients__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clients"));
                             }
-                            clients__ = Some(map.next_value()?);
+                            clients__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ClientsConsensus => {
                             if clients_consensus__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientsConsensus"));
                             }
-                            clients_consensus__ = Some(map.next_value()?);
+                            clients_consensus__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ClientsMetadata => {
                             if clients_metadata__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientsMetadata"));
                             }
-                            clients_metadata__ = Some(map.next_value()?);
+                            clients_metadata__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Params => {
                             if params__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("params"));
                             }
-                            params__ = map.next_value()?;
+                            params__ = map_.next_value()?;
                         }
                         GeneratedField::CreateLocalhost => {
                             if create_localhost__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("createLocalhost"));
                             }
-                            create_localhost__ = Some(map.next_value()?);
+                            create_localhost__ = Some(map_.next_value()?);
                         }
                         GeneratedField::NextClientSequence => {
                             if next_client_sequence__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("nextClientSequence"));
                             }
                             next_client_sequence__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -671,9 +674,11 @@ impl serde::Serialize for Height {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.Height", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("revisionNumber", ::alloc::string::ToString::to_string(&self.revision_number).as_str())?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("revisionHeight", ::alloc::string::ToString::to_string(&self.revision_height).as_str())?;
         }
         struct_ser.end()
@@ -734,20 +739,20 @@ impl<'de> serde::Deserialize<'de> for Height {
                 formatter.write_str("struct ibc.core.client.v1.Height")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Height, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Height, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut revision_number__ = None;
                 let mut revision_height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::RevisionNumber => {
                             if revision_number__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("revisionNumber"));
                             }
                             revision_number__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::RevisionHeight => {
@@ -755,7 +760,7 @@ impl<'de> serde::Deserialize<'de> for Height {
                                 return Err(serde::de::Error::duplicate_field("revisionHeight"));
                             }
                             revision_height__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -848,25 +853,25 @@ impl<'de> serde::Deserialize<'de> for IdentifiedClientState {
                 formatter.write_str("struct ibc.core.client.v1.IdentifiedClientState")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<IdentifiedClientState, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<IdentifiedClientState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut client_id__ = None;
                 let mut client_state__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ClientId => {
                             if client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientId"));
                             }
-                            client_id__ = Some(map.next_value()?);
+                            client_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ClientState => {
                             if client_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientState"));
                             }
-                            client_state__ = map.next_value()?;
+                            client_state__ = map_.next_value()?;
                         }
                     }
                 }
@@ -958,25 +963,25 @@ impl<'de> serde::Deserialize<'de> for IdentifiedGenesisMetadata {
                 formatter.write_str("struct ibc.core.client.v1.IdentifiedGenesisMetadata")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<IdentifiedGenesisMetadata, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<IdentifiedGenesisMetadata, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut client_id__ = None;
                 let mut client_metadata__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ClientId => {
                             if client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientId"));
                             }
-                            client_id__ = Some(map.next_value()?);
+                            client_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ClientMetadata => {
                             if client_metadata__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientMetadata"));
                             }
-                            client_metadata__ = Some(map.next_value()?);
+                            client_metadata__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1077,32 +1082,32 @@ impl<'de> serde::Deserialize<'de> for MsgCreateClient {
                 formatter.write_str("struct ibc.core.client.v1.MsgCreateClient")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgCreateClient, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgCreateClient, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut client_state__ = None;
                 let mut consensus_state__ = None;
                 let mut signer__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ClientState => {
                             if client_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientState"));
                             }
-                            client_state__ = map.next_value()?;
+                            client_state__ = map_.next_value()?;
                         }
                         GeneratedField::ConsensusState => {
                             if consensus_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("consensusState"));
                             }
-                            consensus_state__ = map.next_value()?;
+                            consensus_state__ = map_.next_value()?;
                         }
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map.next_value()?);
+                            signer__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1173,12 +1178,12 @@ impl<'de> serde::Deserialize<'de> for MsgCreateClientResponse {
                 formatter.write_str("struct ibc.core.client.v1.MsgCreateClientResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgCreateClientResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgCreateClientResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(MsgCreateClientResponse {
                 })
@@ -1274,32 +1279,32 @@ impl<'de> serde::Deserialize<'de> for MsgIbcSoftwareUpgrade {
                 formatter.write_str("struct ibc.core.client.v1.MsgIBCSoftwareUpgrade")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgIbcSoftwareUpgrade, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgIbcSoftwareUpgrade, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut plan__ = None;
                 let mut upgraded_client_state__ = None;
                 let mut signer__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Plan => {
                             if plan__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("plan"));
                             }
-                            plan__ = map.next_value()?;
+                            plan__ = map_.next_value()?;
                         }
                         GeneratedField::UpgradedClientState => {
                             if upgraded_client_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("upgradedClientState"));
                             }
-                            upgraded_client_state__ = map.next_value()?;
+                            upgraded_client_state__ = map_.next_value()?;
                         }
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map.next_value()?);
+                            signer__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1370,12 +1375,12 @@ impl<'de> serde::Deserialize<'de> for MsgIbcSoftwareUpgradeResponse {
                 formatter.write_str("struct ibc.core.client.v1.MsgIBCSoftwareUpgradeResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgIbcSoftwareUpgradeResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgIbcSoftwareUpgradeResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(MsgIbcSoftwareUpgradeResponse {
                 })
@@ -1472,32 +1477,32 @@ impl<'de> serde::Deserialize<'de> for MsgRecoverClient {
                 formatter.write_str("struct ibc.core.client.v1.MsgRecoverClient")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgRecoverClient, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgRecoverClient, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut subject_client_id__ = None;
                 let mut substitute_client_id__ = None;
                 let mut signer__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::SubjectClientId => {
                             if subject_client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("subjectClientId"));
                             }
-                            subject_client_id__ = Some(map.next_value()?);
+                            subject_client_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::SubstituteClientId => {
                             if substitute_client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("substituteClientId"));
                             }
-                            substitute_client_id__ = Some(map.next_value()?);
+                            substitute_client_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map.next_value()?);
+                            signer__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1568,12 +1573,12 @@ impl<'de> serde::Deserialize<'de> for MsgRecoverClientResponse {
                 formatter.write_str("struct ibc.core.client.v1.MsgRecoverClientResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgRecoverClientResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgRecoverClientResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(MsgRecoverClientResponse {
                 })
@@ -1669,32 +1674,32 @@ impl<'de> serde::Deserialize<'de> for MsgSubmitMisbehaviour {
                 formatter.write_str("struct ibc.core.client.v1.MsgSubmitMisbehaviour")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgSubmitMisbehaviour, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgSubmitMisbehaviour, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut client_id__ = None;
                 let mut misbehaviour__ = None;
                 let mut signer__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ClientId => {
                             if client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientId"));
                             }
-                            client_id__ = Some(map.next_value()?);
+                            client_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Misbehaviour => {
                             if misbehaviour__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("misbehaviour"));
                             }
-                            misbehaviour__ = map.next_value()?;
+                            misbehaviour__ = map_.next_value()?;
                         }
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map.next_value()?);
+                            signer__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1765,12 +1770,12 @@ impl<'de> serde::Deserialize<'de> for MsgSubmitMisbehaviourResponse {
                 formatter.write_str("struct ibc.core.client.v1.MsgSubmitMisbehaviourResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgSubmitMisbehaviourResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgSubmitMisbehaviourResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(MsgSubmitMisbehaviourResponse {
                 })
@@ -1867,32 +1872,32 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateClient {
                 formatter.write_str("struct ibc.core.client.v1.MsgUpdateClient")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgUpdateClient, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgUpdateClient, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut client_id__ = None;
                 let mut client_message__ = None;
                 let mut signer__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ClientId => {
                             if client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientId"));
                             }
-                            client_id__ = Some(map.next_value()?);
+                            client_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ClientMessage => {
                             if client_message__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientMessage"));
                             }
-                            client_message__ = map.next_value()?;
+                            client_message__ = map_.next_value()?;
                         }
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map.next_value()?);
+                            signer__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1963,12 +1968,12 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateClientResponse {
                 formatter.write_str("struct ibc.core.client.v1.MsgUpdateClientResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgUpdateClientResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgUpdateClientResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(MsgUpdateClientResponse {
                 })
@@ -2054,25 +2059,25 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateParams {
                 formatter.write_str("struct ibc.core.client.v1.MsgUpdateParams")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgUpdateParams, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgUpdateParams, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut signer__ = None;
                 let mut params__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map.next_value()?);
+                            signer__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Params => {
                             if params__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("params"));
                             }
-                            params__ = map.next_value()?;
+                            params__ = map_.next_value()?;
                         }
                     }
                 }
@@ -2142,12 +2147,12 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateParamsResponse {
                 formatter.write_str("struct ibc.core.client.v1.MsgUpdateParamsResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgUpdateParamsResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgUpdateParamsResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(MsgUpdateParamsResponse {
                 })
@@ -2193,9 +2198,11 @@ impl serde::Serialize for MsgUpgradeClient {
             struct_ser.serialize_field("consensusState", v)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proofUpgradeClient", pbjson::private::base64::encode(&self.proof_upgrade_client).as_str())?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proofUpgradeConsensusState", pbjson::private::base64::encode(&self.proof_upgrade_consensus_state).as_str())?;
         }
         if true {
@@ -2274,7 +2281,7 @@ impl<'de> serde::Deserialize<'de> for MsgUpgradeClient {
                 formatter.write_str("struct ibc.core.client.v1.MsgUpgradeClient")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgUpgradeClient, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgUpgradeClient, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -2284,32 +2291,32 @@ impl<'de> serde::Deserialize<'de> for MsgUpgradeClient {
                 let mut proof_upgrade_client__ = None;
                 let mut proof_upgrade_consensus_state__ = None;
                 let mut signer__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ClientId => {
                             if client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientId"));
                             }
-                            client_id__ = Some(map.next_value()?);
+                            client_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ClientState => {
                             if client_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientState"));
                             }
-                            client_state__ = map.next_value()?;
+                            client_state__ = map_.next_value()?;
                         }
                         GeneratedField::ConsensusState => {
                             if consensus_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("consensusState"));
                             }
-                            consensus_state__ = map.next_value()?;
+                            consensus_state__ = map_.next_value()?;
                         }
                         GeneratedField::ProofUpgradeClient => {
                             if proof_upgrade_client__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofUpgradeClient"));
                             }
                             proof_upgrade_client__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofUpgradeConsensusState => {
@@ -2317,14 +2324,14 @@ impl<'de> serde::Deserialize<'de> for MsgUpgradeClient {
                                 return Err(serde::de::Error::duplicate_field("proofUpgradeConsensusState"));
                             }
                             proof_upgrade_consensus_state__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map.next_value()?);
+                            signer__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -2398,12 +2405,12 @@ impl<'de> serde::Deserialize<'de> for MsgUpgradeClientResponse {
                 formatter.write_str("struct ibc.core.client.v1.MsgUpgradeClientResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgUpgradeClientResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgUpgradeClientResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(MsgUpgradeClientResponse {
                 })
@@ -2481,18 +2488,18 @@ impl<'de> serde::Deserialize<'de> for Params {
                 formatter.write_str("struct ibc.core.client.v1.Params")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Params, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Params, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut allowed_clients__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::AllowedClients => {
                             if allowed_clients__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("allowedClients"));
                             }
-                            allowed_clients__ = Some(map.next_value()?);
+                            allowed_clients__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -2561,12 +2568,12 @@ impl<'de> serde::Deserialize<'de> for QueryClientParamsRequest {
                 formatter.write_str("struct ibc.core.client.v1.QueryClientParamsRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryClientParamsRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryClientParamsRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(QueryClientParamsRequest {
                 })
@@ -2643,18 +2650,18 @@ impl<'de> serde::Deserialize<'de> for QueryClientParamsResponse {
                 formatter.write_str("struct ibc.core.client.v1.QueryClientParamsResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryClientParamsResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryClientParamsResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut params__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Params => {
                             if params__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("params"));
                             }
-                            params__ = map.next_value()?;
+                            params__ = map_.next_value()?;
                         }
                     }
                 }
@@ -2735,18 +2742,18 @@ impl<'de> serde::Deserialize<'de> for QueryClientStateRequest {
                 formatter.write_str("struct ibc.core.client.v1.QueryClientStateRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryClientStateRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryClientStateRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut client_id__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ClientId => {
                             if client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientId"));
                             }
-                            client_id__ = Some(map.next_value()?);
+                            client_id__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -2780,6 +2787,7 @@ impl serde::Serialize for QueryClientStateResponse {
             struct_ser.serialize_field("clientState", v)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proof", pbjson::private::base64::encode(&self.proof).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -2846,34 +2854,34 @@ impl<'de> serde::Deserialize<'de> for QueryClientStateResponse {
                 formatter.write_str("struct ibc.core.client.v1.QueryClientStateResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryClientStateResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryClientStateResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut client_state__ = None;
                 let mut proof__ = None;
                 let mut proof_height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ClientState => {
                             if client_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientState"));
                             }
-                            client_state__ = map.next_value()?;
+                            client_state__ = map_.next_value()?;
                         }
                         GeneratedField::Proof => {
                             if proof__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proof"));
                             }
                             proof__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofHeight => {
                             if proof_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofHeight"));
                             }
-                            proof_height__ = map.next_value()?;
+                            proof_height__ = map_.next_value()?;
                         }
                     }
                 }
@@ -2955,18 +2963,18 @@ impl<'de> serde::Deserialize<'de> for QueryClientStatesRequest {
                 formatter.write_str("struct ibc.core.client.v1.QueryClientStatesRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryClientStatesRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryClientStatesRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut pagination__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map.next_value()?;
+                            pagination__ = map_.next_value()?;
                         }
                     }
                 }
@@ -3056,25 +3064,25 @@ impl<'de> serde::Deserialize<'de> for QueryClientStatesResponse {
                 formatter.write_str("struct ibc.core.client.v1.QueryClientStatesResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryClientStatesResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryClientStatesResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut client_states__ = None;
                 let mut pagination__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ClientStates => {
                             if client_states__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientStates"));
                             }
-                            client_states__ = Some(map.next_value()?);
+                            client_states__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map.next_value()?;
+                            pagination__ = map_.next_value()?;
                         }
                     }
                 }
@@ -3156,18 +3164,18 @@ impl<'de> serde::Deserialize<'de> for QueryClientStatusRequest {
                 formatter.write_str("struct ibc.core.client.v1.QueryClientStatusRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryClientStatusRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryClientStatusRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut client_id__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ClientId => {
                             if client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientId"));
                             }
-                            client_id__ = Some(map.next_value()?);
+                            client_id__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -3247,18 +3255,18 @@ impl<'de> serde::Deserialize<'de> for QueryClientStatusResponse {
                 formatter.write_str("struct ibc.core.client.v1.QueryClientStatusResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryClientStatusResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryClientStatusResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut status__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Status => {
                             if status__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("status"));
                             }
-                            status__ = Some(map.next_value()?);
+                            status__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -3348,25 +3356,25 @@ impl<'de> serde::Deserialize<'de> for QueryConsensusStateHeightsRequest {
                 formatter.write_str("struct ibc.core.client.v1.QueryConsensusStateHeightsRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryConsensusStateHeightsRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryConsensusStateHeightsRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut client_id__ = None;
                 let mut pagination__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ClientId => {
                             if client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientId"));
                             }
-                            client_id__ = Some(map.next_value()?);
+                            client_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map.next_value()?;
+                            pagination__ = map_.next_value()?;
                         }
                     }
                 }
@@ -3457,25 +3465,25 @@ impl<'de> serde::Deserialize<'de> for QueryConsensusStateHeightsResponse {
                 formatter.write_str("struct ibc.core.client.v1.QueryConsensusStateHeightsResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryConsensusStateHeightsResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryConsensusStateHeightsResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut consensus_state_heights__ = None;
                 let mut pagination__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ConsensusStateHeights => {
                             if consensus_state_heights__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("consensusStateHeights"));
                             }
-                            consensus_state_heights__ = Some(map.next_value()?);
+                            consensus_state_heights__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map.next_value()?;
+                            pagination__ = map_.next_value()?;
                         }
                     }
                 }
@@ -3513,9 +3521,11 @@ impl serde::Serialize for QueryConsensusStateRequest {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("revisionNumber", ::alloc::string::ToString::to_string(&self.revision_number).as_str())?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("revisionHeight", ::alloc::string::ToString::to_string(&self.revision_height).as_str())?;
         }
         if true {
@@ -3587,7 +3597,7 @@ impl<'de> serde::Deserialize<'de> for QueryConsensusStateRequest {
                 formatter.write_str("struct ibc.core.client.v1.QueryConsensusStateRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryConsensusStateRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryConsensusStateRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -3595,20 +3605,20 @@ impl<'de> serde::Deserialize<'de> for QueryConsensusStateRequest {
                 let mut revision_number__ = None;
                 let mut revision_height__ = None;
                 let mut latest_height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ClientId => {
                             if client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientId"));
                             }
-                            client_id__ = Some(map.next_value()?);
+                            client_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::RevisionNumber => {
                             if revision_number__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("revisionNumber"));
                             }
                             revision_number__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::RevisionHeight => {
@@ -3616,14 +3626,14 @@ impl<'de> serde::Deserialize<'de> for QueryConsensusStateRequest {
                                 return Err(serde::de::Error::duplicate_field("revisionHeight"));
                             }
                             revision_height__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::LatestHeight => {
                             if latest_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("latestHeight"));
                             }
-                            latest_height__ = Some(map.next_value()?);
+                            latest_height__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -3660,6 +3670,7 @@ impl serde::Serialize for QueryConsensusStateResponse {
             struct_ser.serialize_field("consensusState", v)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("proof", pbjson::private::base64::encode(&self.proof).as_str())?;
         }
         if let Some(v) = self.proof_height.as_ref() {
@@ -3726,34 +3737,34 @@ impl<'de> serde::Deserialize<'de> for QueryConsensusStateResponse {
                 formatter.write_str("struct ibc.core.client.v1.QueryConsensusStateResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryConsensusStateResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryConsensusStateResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut consensus_state__ = None;
                 let mut proof__ = None;
                 let mut proof_height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ConsensusState => {
                             if consensus_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("consensusState"));
                             }
-                            consensus_state__ = map.next_value()?;
+                            consensus_state__ = map_.next_value()?;
                         }
                         GeneratedField::Proof => {
                             if proof__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proof"));
                             }
                             proof__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ProofHeight => {
                             if proof_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofHeight"));
                             }
-                            proof_height__ = map.next_value()?;
+                            proof_height__ = map_.next_value()?;
                         }
                     }
                 }
@@ -3845,25 +3856,25 @@ impl<'de> serde::Deserialize<'de> for QueryConsensusStatesRequest {
                 formatter.write_str("struct ibc.core.client.v1.QueryConsensusStatesRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryConsensusStatesRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryConsensusStatesRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut client_id__ = None;
                 let mut pagination__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ClientId => {
                             if client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientId"));
                             }
-                            client_id__ = Some(map.next_value()?);
+                            client_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map.next_value()?;
+                            pagination__ = map_.next_value()?;
                         }
                     }
                 }
@@ -3954,25 +3965,25 @@ impl<'de> serde::Deserialize<'de> for QueryConsensusStatesResponse {
                 formatter.write_str("struct ibc.core.client.v1.QueryConsensusStatesResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryConsensusStatesResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryConsensusStatesResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut consensus_states__ = None;
                 let mut pagination__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ConsensusStates => {
                             if consensus_states__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("consensusStates"));
                             }
-                            consensus_states__ = Some(map.next_value()?);
+                            consensus_states__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map.next_value()?;
+                            pagination__ = map_.next_value()?;
                         }
                     }
                 }
@@ -4042,12 +4053,12 @@ impl<'de> serde::Deserialize<'de> for QueryUpgradedClientStateRequest {
                 formatter.write_str("struct ibc.core.client.v1.QueryUpgradedClientStateRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryUpgradedClientStateRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryUpgradedClientStateRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(QueryUpgradedClientStateRequest {
                 })
@@ -4125,18 +4136,18 @@ impl<'de> serde::Deserialize<'de> for QueryUpgradedClientStateResponse {
                 formatter.write_str("struct ibc.core.client.v1.QueryUpgradedClientStateResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryUpgradedClientStateResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryUpgradedClientStateResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut upgraded_client_state__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::UpgradedClientState => {
                             if upgraded_client_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("upgradedClientState"));
                             }
-                            upgraded_client_state__ = map.next_value()?;
+                            upgraded_client_state__ = map_.next_value()?;
                         }
                     }
                 }
@@ -4205,12 +4216,12 @@ impl<'de> serde::Deserialize<'de> for QueryUpgradedConsensusStateRequest {
                 formatter.write_str("struct ibc.core.client.v1.QueryUpgradedConsensusStateRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryUpgradedConsensusStateRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryUpgradedConsensusStateRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(QueryUpgradedConsensusStateRequest {
                 })
@@ -4288,18 +4299,18 @@ impl<'de> serde::Deserialize<'de> for QueryUpgradedConsensusStateResponse {
                 formatter.write_str("struct ibc.core.client.v1.QueryUpgradedConsensusStateResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryUpgradedConsensusStateResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryUpgradedConsensusStateResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut upgraded_consensus_state__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::UpgradedConsensusState => {
                             if upgraded_consensus_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("upgradedConsensusState"));
                             }
-                            upgraded_consensus_state__ = map.next_value()?;
+                            upgraded_consensus_state__ = map_.next_value()?;
                         }
                     }
                 }
@@ -4407,7 +4418,7 @@ impl<'de> serde::Deserialize<'de> for UpgradeProposal {
                 formatter.write_str("struct ibc.core.client.v1.UpgradeProposal")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<UpgradeProposal, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<UpgradeProposal, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -4415,31 +4426,31 @@ impl<'de> serde::Deserialize<'de> for UpgradeProposal {
                 let mut description__ = None;
                 let mut plan__ = None;
                 let mut upgraded_client_state__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Title => {
                             if title__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("title"));
                             }
-                            title__ = Some(map.next_value()?);
+                            title__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Description => {
                             if description__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("description"));
                             }
-                            description__ = Some(map.next_value()?);
+                            description__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Plan => {
                             if plan__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("plan"));
                             }
-                            plan__ = map.next_value()?;
+                            plan__ = map_.next_value()?;
                         }
                         GeneratedField::UpgradedClientState => {
                             if upgraded_client_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("upgradedClientState"));
                             }
-                            upgraded_client_state__ = map.next_value()?;
+                            upgraded_client_state__ = map_.next_value()?;
                         }
                     }
                 }

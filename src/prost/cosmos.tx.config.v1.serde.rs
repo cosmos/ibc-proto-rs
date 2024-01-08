@@ -77,25 +77,25 @@ impl<'de> serde::Deserialize<'de> for Config {
                 formatter.write_str("struct cosmos.tx.config.v1.Config")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Config, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Config, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut skip_ante_handler__ = None;
                 let mut skip_post_handler__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::SkipAnteHandler => {
                             if skip_ante_handler__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("skipAnteHandler"));
                             }
-                            skip_ante_handler__ = Some(map.next_value()?);
+                            skip_ante_handler__ = Some(map_.next_value()?);
                         }
                         GeneratedField::SkipPostHandler => {
                             if skip_post_handler__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("skipPostHandler"));
                             }
-                            skip_post_handler__ = Some(map.next_value()?);
+                            skip_post_handler__ = Some(map_.next_value()?);
                         }
                     }
                 }

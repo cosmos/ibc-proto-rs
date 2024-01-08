@@ -66,19 +66,19 @@ impl<'de> serde::Deserialize<'de> for Checksums {
                 formatter.write_str("struct ibc.lightclients.wasm.v1.Checksums")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Checksums, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Checksums, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut checksums__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Checksums => {
                             if checksums__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("checksums"));
                             }
                             checksums__ = 
-                                Some(map.next_value::<::alloc::vec::Vec<::pbjson::private::BytesDeserialize<_>>>()?
+                                Some(map_.next_value::<::alloc::vec::Vec<::pbjson::private::BytesDeserialize<_>>>()?
                                     .into_iter().map(|x| x.0).collect())
                             ;
                         }
@@ -105,6 +105,7 @@ impl serde::Serialize for ClientMessage {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.wasm.v1.ClientMessage", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("data", pbjson::private::base64::encode(&self.data).as_str())?;
         }
         struct_ser.end()
@@ -160,19 +161,19 @@ impl<'de> serde::Deserialize<'de> for ClientMessage {
                 formatter.write_str("struct ibc.lightclients.wasm.v1.ClientMessage")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<ClientMessage, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ClientMessage, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut data__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Data => {
                             if data__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("data"));
                             }
                             data__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -204,9 +205,11 @@ impl serde::Serialize for ClientState {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.wasm.v1.ClientState", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("data", pbjson::private::base64::encode(&self.data).as_str())?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("checksum", pbjson::private::base64::encode(&self.checksum).as_str())?;
         }
         if let Some(v) = self.latest_height.as_ref() {
@@ -272,21 +275,21 @@ impl<'de> serde::Deserialize<'de> for ClientState {
                 formatter.write_str("struct ibc.lightclients.wasm.v1.ClientState")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<ClientState, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ClientState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut data__ = None;
                 let mut checksum__ = None;
                 let mut latest_height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Data => {
                             if data__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("data"));
                             }
                             data__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Checksum => {
@@ -294,14 +297,14 @@ impl<'de> serde::Deserialize<'de> for ClientState {
                                 return Err(serde::de::Error::duplicate_field("checksum"));
                             }
                             checksum__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::LatestHeight => {
                             if latest_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("latestHeight"));
                             }
-                            latest_height__ = map.next_value()?;
+                            latest_height__ = map_.next_value()?;
                         }
                     }
                 }
@@ -328,6 +331,7 @@ impl serde::Serialize for ConsensusState {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.wasm.v1.ConsensusState", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("data", pbjson::private::base64::encode(&self.data).as_str())?;
         }
         struct_ser.end()
@@ -383,19 +387,19 @@ impl<'de> serde::Deserialize<'de> for ConsensusState {
                 formatter.write_str("struct ibc.lightclients.wasm.v1.ConsensusState")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<ConsensusState, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ConsensusState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut data__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Data => {
                             if data__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("data"));
                             }
                             data__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -421,6 +425,7 @@ impl serde::Serialize for Contract {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.wasm.v1.Contract", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("codeBytes", pbjson::private::base64::encode(&self.code_bytes).as_str())?;
         }
         struct_ser.end()
@@ -477,19 +482,19 @@ impl<'de> serde::Deserialize<'de> for Contract {
                 formatter.write_str("struct ibc.lightclients.wasm.v1.Contract")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Contract, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Contract, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut code_bytes__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::CodeBytes => {
                             if code_bytes__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("codeBytes"));
                             }
                             code_bytes__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -570,18 +575,18 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                 formatter.write_str("struct ibc.lightclients.wasm.v1.GenesisState")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<GenesisState, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<GenesisState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut contracts__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Contracts => {
                             if contracts__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("contracts"));
                             }
-                            contracts__ = Some(map.next_value()?);
+                            contracts__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -621,9 +626,11 @@ impl serde::Serialize for MsgMigrateContract {
             struct_ser.serialize_field("clientId", &self.client_id)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("checksum", pbjson::private::base64::encode(&self.checksum).as_str())?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("msg", pbjson::private::base64::encode(&self.msg).as_str())?;
         }
         struct_ser.end()
@@ -689,7 +696,7 @@ impl<'de> serde::Deserialize<'de> for MsgMigrateContract {
                 formatter.write_str("struct ibc.lightclients.wasm.v1.MsgMigrateContract")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgMigrateContract, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgMigrateContract, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -697,26 +704,26 @@ impl<'de> serde::Deserialize<'de> for MsgMigrateContract {
                 let mut client_id__ = None;
                 let mut checksum__ = None;
                 let mut msg__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map.next_value()?);
+                            signer__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ClientId => {
                             if client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientId"));
                             }
-                            client_id__ = Some(map.next_value()?);
+                            client_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Checksum => {
                             if checksum__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("checksum"));
                             }
                             checksum__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Msg => {
@@ -724,7 +731,7 @@ impl<'de> serde::Deserialize<'de> for MsgMigrateContract {
                                 return Err(serde::de::Error::duplicate_field("msg"));
                             }
                             msg__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -797,12 +804,12 @@ impl<'de> serde::Deserialize<'de> for MsgMigrateContractResponse {
                 formatter.write_str("struct ibc.lightclients.wasm.v1.MsgMigrateContractResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgMigrateContractResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgMigrateContractResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(MsgMigrateContractResponse {
                 })
@@ -830,6 +837,7 @@ impl serde::Serialize for MsgRemoveChecksum {
             struct_ser.serialize_field("signer", &self.signer)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("checksum", pbjson::private::base64::encode(&self.checksum).as_str())?;
         }
         struct_ser.end()
@@ -888,26 +896,26 @@ impl<'de> serde::Deserialize<'de> for MsgRemoveChecksum {
                 formatter.write_str("struct ibc.lightclients.wasm.v1.MsgRemoveChecksum")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgRemoveChecksum, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgRemoveChecksum, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut signer__ = None;
                 let mut checksum__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map.next_value()?);
+                            signer__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Checksum => {
                             if checksum__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("checksum"));
                             }
                             checksum__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -978,12 +986,12 @@ impl<'de> serde::Deserialize<'de> for MsgRemoveChecksumResponse {
                 formatter.write_str("struct ibc.lightclients.wasm.v1.MsgRemoveChecksumResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgRemoveChecksumResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgRemoveChecksumResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(MsgRemoveChecksumResponse {
                 })
@@ -1011,6 +1019,7 @@ impl serde::Serialize for MsgStoreCode {
             struct_ser.serialize_field("signer", &self.signer)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("wasmByteCode", pbjson::private::base64::encode(&self.wasm_byte_code).as_str())?;
         }
         struct_ser.end()
@@ -1070,26 +1079,26 @@ impl<'de> serde::Deserialize<'de> for MsgStoreCode {
                 formatter.write_str("struct ibc.lightclients.wasm.v1.MsgStoreCode")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgStoreCode, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgStoreCode, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut signer__ = None;
                 let mut wasm_byte_code__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map.next_value()?);
+                            signer__ = Some(map_.next_value()?);
                         }
                         GeneratedField::WasmByteCode => {
                             if wasm_byte_code__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("wasmByteCode"));
                             }
                             wasm_byte_code__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -1116,6 +1125,7 @@ impl serde::Serialize for MsgStoreCodeResponse {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.wasm.v1.MsgStoreCodeResponse", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("checksum", pbjson::private::base64::encode(&self.checksum).as_str())?;
         }
         struct_ser.end()
@@ -1171,19 +1181,19 @@ impl<'de> serde::Deserialize<'de> for MsgStoreCodeResponse {
                 formatter.write_str("struct ibc.lightclients.wasm.v1.MsgStoreCodeResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgStoreCodeResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgStoreCodeResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut checksum__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Checksum => {
                             if checksum__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("checksum"));
                             }
                             checksum__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -1264,18 +1274,18 @@ impl<'de> serde::Deserialize<'de> for QueryChecksumsRequest {
                 formatter.write_str("struct ibc.lightclients.wasm.v1.QueryChecksumsRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryChecksumsRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryChecksumsRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut pagination__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map.next_value()?;
+                            pagination__ = map_.next_value()?;
                         }
                     }
                 }
@@ -1364,25 +1374,25 @@ impl<'de> serde::Deserialize<'de> for QueryChecksumsResponse {
                 formatter.write_str("struct ibc.lightclients.wasm.v1.QueryChecksumsResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryChecksumsResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryChecksumsResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut checksums__ = None;
                 let mut pagination__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Checksums => {
                             if checksums__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("checksums"));
                             }
-                            checksums__ = Some(map.next_value()?);
+                            checksums__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map.next_value()?;
+                            pagination__ = map_.next_value()?;
                         }
                     }
                 }
@@ -1463,18 +1473,18 @@ impl<'de> serde::Deserialize<'de> for QueryCodeRequest {
                 formatter.write_str("struct ibc.lightclients.wasm.v1.QueryCodeRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryCodeRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryCodeRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut checksum__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Checksum => {
                             if checksum__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("checksum"));
                             }
-                            checksum__ = Some(map.next_value()?);
+                            checksum__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1499,6 +1509,7 @@ impl serde::Serialize for QueryCodeResponse {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.wasm.v1.QueryCodeResponse", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("data", pbjson::private::base64::encode(&self.data).as_str())?;
         }
         struct_ser.end()
@@ -1554,19 +1565,19 @@ impl<'de> serde::Deserialize<'de> for QueryCodeResponse {
                 formatter.write_str("struct ibc.lightclients.wasm.v1.QueryCodeResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryCodeResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryCodeResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut data__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Data => {
                             if data__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("data"));
                             }
                             data__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
