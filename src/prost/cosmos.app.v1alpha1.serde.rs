@@ -66,18 +66,18 @@ impl<'de> serde::Deserialize<'de> for MigrateFromInfo {
                 formatter.write_str("struct cosmos.app.v1alpha1.MigrateFromInfo")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MigrateFromInfo, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MigrateFromInfo, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut module__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Module => {
                             if module__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("module"));
                             }
-                            module__ = Some(map.next_value()?);
+                            module__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -178,32 +178,32 @@ impl<'de> serde::Deserialize<'de> for ModuleDescriptor {
                 formatter.write_str("struct cosmos.app.v1alpha1.ModuleDescriptor")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<ModuleDescriptor, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ModuleDescriptor, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut go_import__ = None;
                 let mut use_package__ = None;
                 let mut can_migrate_from__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::GoImport => {
                             if go_import__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("goImport"));
                             }
-                            go_import__ = Some(map.next_value()?);
+                            go_import__ = Some(map_.next_value()?);
                         }
                         GeneratedField::UsePackage => {
                             if use_package__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("usePackage"));
                             }
-                            use_package__ = Some(map.next_value()?);
+                            use_package__ = Some(map_.next_value()?);
                         }
                         GeneratedField::CanMigrateFrom => {
                             if can_migrate_from__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("canMigrateFrom"));
                             }
-                            can_migrate_from__ = Some(map.next_value()?);
+                            can_migrate_from__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -294,26 +294,26 @@ impl<'de> serde::Deserialize<'de> for PackageReference {
                 formatter.write_str("struct cosmos.app.v1alpha1.PackageReference")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<PackageReference, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<PackageReference, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut name__ = None;
                 let mut revision__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Name => {
                             if name__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("name"));
                             }
-                            name__ = Some(map.next_value()?);
+                            name__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Revision => {
                             if revision__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("revision"));
                             }
                             revision__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }

@@ -14,6 +14,7 @@ impl serde::Serialize for Module {
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.module.v1.Module", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("maxMetadataLen", ::alloc::string::ToString::to_string(&self.max_metadata_len).as_str())?;
         }
         if true {
@@ -76,27 +77,27 @@ impl<'de> serde::Deserialize<'de> for Module {
                 formatter.write_str("struct cosmos.gov.module.v1.Module")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Module, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Module, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut max_metadata_len__ = None;
                 let mut authority__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::MaxMetadataLen => {
                             if max_metadata_len__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("maxMetadataLen"));
                             }
                             max_metadata_len__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Authority => {
                             if authority__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("authority"));
                             }
-                            authority__ = Some(map.next_value()?);
+                            authority__ = Some(map_.next_value()?);
                         }
                     }
                 }

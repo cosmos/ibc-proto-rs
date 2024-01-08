@@ -87,32 +87,32 @@ impl<'de> serde::Deserialize<'de> for Fee {
                 formatter.write_str("struct ibc.applications.fee.v1.Fee")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Fee, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Fee, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut recv_fee__ = None;
                 let mut ack_fee__ = None;
                 let mut timeout_fee__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::RecvFee => {
                             if recv_fee__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("recvFee"));
                             }
-                            recv_fee__ = Some(map.next_value()?);
+                            recv_fee__ = Some(map_.next_value()?);
                         }
                         GeneratedField::AckFee => {
                             if ack_fee__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("ackFee"));
                             }
-                            ack_fee__ = Some(map.next_value()?);
+                            ack_fee__ = Some(map_.next_value()?);
                         }
                         GeneratedField::TimeoutFee => {
                             if timeout_fee__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("timeoutFee"));
                             }
-                            timeout_fee__ = Some(map.next_value()?);
+                            timeout_fee__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -205,25 +205,25 @@ impl<'de> serde::Deserialize<'de> for FeeEnabledChannel {
                 formatter.write_str("struct ibc.applications.fee.v1.FeeEnabledChannel")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<FeeEnabledChannel, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<FeeEnabledChannel, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut port_id__ = None;
                 let mut channel_id__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -314,25 +314,25 @@ impl<'de> serde::Deserialize<'de> for ForwardRelayerAddress {
                 formatter.write_str("struct ibc.applications.fee.v1.ForwardRelayerAddress")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<ForwardRelayerAddress, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ForwardRelayerAddress, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut address__ = None;
                 let mut packet_id__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Address => {
                             if address__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("address"));
                             }
-                            address__ = Some(map.next_value()?);
+                            address__ = Some(map_.next_value()?);
                         }
                         GeneratedField::PacketId => {
                             if packet_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("packetId"));
                             }
-                            packet_id__ = map.next_value()?;
+                            packet_id__ = map_.next_value()?;
                         }
                     }
                 }
@@ -454,7 +454,7 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                 formatter.write_str("struct ibc.applications.fee.v1.GenesisState")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<GenesisState, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<GenesisState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -463,37 +463,37 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                 let mut registered_payees__ = None;
                 let mut registered_counterparty_payees__ = None;
                 let mut forward_relayers__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::IdentifiedFees => {
                             if identified_fees__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("identifiedFees"));
                             }
-                            identified_fees__ = Some(map.next_value()?);
+                            identified_fees__ = Some(map_.next_value()?);
                         }
                         GeneratedField::FeeEnabledChannels => {
                             if fee_enabled_channels__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("feeEnabledChannels"));
                             }
-                            fee_enabled_channels__ = Some(map.next_value()?);
+                            fee_enabled_channels__ = Some(map_.next_value()?);
                         }
                         GeneratedField::RegisteredPayees => {
                             if registered_payees__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("registeredPayees"));
                             }
-                            registered_payees__ = Some(map.next_value()?);
+                            registered_payees__ = Some(map_.next_value()?);
                         }
                         GeneratedField::RegisteredCounterpartyPayees => {
                             if registered_counterparty_payees__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("registeredCounterpartyPayees"));
                             }
-                            registered_counterparty_payees__ = Some(map.next_value()?);
+                            registered_counterparty_payees__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ForwardRelayers => {
                             if forward_relayers__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("forwardRelayers"));
                             }
-                            forward_relayers__ = Some(map.next_value()?);
+                            forward_relayers__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -588,25 +588,25 @@ impl<'de> serde::Deserialize<'de> for IdentifiedPacketFees {
                 formatter.write_str("struct ibc.applications.fee.v1.IdentifiedPacketFees")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<IdentifiedPacketFees, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<IdentifiedPacketFees, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut packet_id__ = None;
                 let mut packet_fees__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PacketId => {
                             if packet_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("packetId"));
                             }
-                            packet_id__ = map.next_value()?;
+                            packet_id__ = map_.next_value()?;
                         }
                         GeneratedField::PacketFees => {
                             if packet_fees__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("packetFees"));
                             }
-                            packet_fees__ = Some(map.next_value()?);
+                            packet_fees__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -638,6 +638,7 @@ impl serde::Serialize for IncentivizedAcknowledgement {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.fee.v1.IncentivizedAcknowledgement", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("appAcknowledgement", pbjson::private::base64::encode(&self.app_acknowledgement).as_str())?;
         }
         if true {
@@ -708,34 +709,34 @@ impl<'de> serde::Deserialize<'de> for IncentivizedAcknowledgement {
                 formatter.write_str("struct ibc.applications.fee.v1.IncentivizedAcknowledgement")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<IncentivizedAcknowledgement, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<IncentivizedAcknowledgement, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut app_acknowledgement__ = None;
                 let mut forward_relayer_address__ = None;
                 let mut underlying_app_success__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::AppAcknowledgement => {
                             if app_acknowledgement__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("appAcknowledgement"));
                             }
                             app_acknowledgement__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::ForwardRelayerAddress => {
                             if forward_relayer_address__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("forwardRelayerAddress"));
                             }
-                            forward_relayer_address__ = Some(map.next_value()?);
+                            forward_relayer_address__ = Some(map_.next_value()?);
                         }
                         GeneratedField::UnderlyingAppSuccess => {
                             if underlying_app_success__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("underlyingAppSuccess"));
                             }
-                            underlying_app_success__ = Some(map.next_value()?);
+                            underlying_app_success__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -828,25 +829,25 @@ impl<'de> serde::Deserialize<'de> for Metadata {
                 formatter.write_str("struct ibc.applications.fee.v1.Metadata")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Metadata, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Metadata, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut fee_version__ = None;
                 let mut app_version__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::FeeVersion => {
                             if fee_version__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("feeVersion"));
                             }
-                            fee_version__ = Some(map.next_value()?);
+                            fee_version__ = Some(map_.next_value()?);
                         }
                         GeneratedField::AppVersion => {
                             if app_version__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("appVersion"));
                             }
-                            app_version__ = Some(map.next_value()?);
+                            app_version__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -965,7 +966,7 @@ impl<'de> serde::Deserialize<'de> for MsgPayPacketFee {
                 formatter.write_str("struct ibc.applications.fee.v1.MsgPayPacketFee")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgPayPacketFee, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgPayPacketFee, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -974,37 +975,37 @@ impl<'de> serde::Deserialize<'de> for MsgPayPacketFee {
                 let mut source_channel_id__ = None;
                 let mut signer__ = None;
                 let mut relayers__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Fee => {
                             if fee__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("fee"));
                             }
-                            fee__ = map.next_value()?;
+                            fee__ = map_.next_value()?;
                         }
                         GeneratedField::SourcePortId => {
                             if source_port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sourcePortId"));
                             }
-                            source_port_id__ = Some(map.next_value()?);
+                            source_port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::SourceChannelId => {
                             if source_channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sourceChannelId"));
                             }
-                            source_channel_id__ = Some(map.next_value()?);
+                            source_channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Signer => {
                             if signer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signer"));
                             }
-                            signer__ = Some(map.next_value()?);
+                            signer__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Relayers => {
                             if relayers__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("relayers"));
                             }
-                            relayers__ = Some(map.next_value()?);
+                            relayers__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1099,25 +1100,25 @@ impl<'de> serde::Deserialize<'de> for MsgPayPacketFeeAsync {
                 formatter.write_str("struct ibc.applications.fee.v1.MsgPayPacketFeeAsync")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgPayPacketFeeAsync, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgPayPacketFeeAsync, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut packet_id__ = None;
                 let mut packet_fee__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PacketId => {
                             if packet_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("packetId"));
                             }
-                            packet_id__ = map.next_value()?;
+                            packet_id__ = map_.next_value()?;
                         }
                         GeneratedField::PacketFee => {
                             if packet_fee__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("packetFee"));
                             }
-                            packet_fee__ = map.next_value()?;
+                            packet_fee__ = map_.next_value()?;
                         }
                     }
                 }
@@ -1187,12 +1188,12 @@ impl<'de> serde::Deserialize<'de> for MsgPayPacketFeeAsyncResponse {
                 formatter.write_str("struct ibc.applications.fee.v1.MsgPayPacketFeeAsyncResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgPayPacketFeeAsyncResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgPayPacketFeeAsyncResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(MsgPayPacketFeeAsyncResponse {
                 })
@@ -1258,12 +1259,12 @@ impl<'de> serde::Deserialize<'de> for MsgPayPacketFeeResponse {
                 formatter.write_str("struct ibc.applications.fee.v1.MsgPayPacketFeeResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgPayPacketFeeResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgPayPacketFeeResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(MsgPayPacketFeeResponse {
                 })
@@ -1370,7 +1371,7 @@ impl<'de> serde::Deserialize<'de> for MsgRegisterCounterpartyPayee {
                 formatter.write_str("struct ibc.applications.fee.v1.MsgRegisterCounterpartyPayee")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgRegisterCounterpartyPayee, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgRegisterCounterpartyPayee, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -1378,31 +1379,31 @@ impl<'de> serde::Deserialize<'de> for MsgRegisterCounterpartyPayee {
                 let mut channel_id__ = None;
                 let mut relayer__ = None;
                 let mut counterparty_payee__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Relayer => {
                             if relayer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("relayer"));
                             }
-                            relayer__ = Some(map.next_value()?);
+                            relayer__ = Some(map_.next_value()?);
                         }
                         GeneratedField::CounterpartyPayee => {
                             if counterparty_payee__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("counterpartyPayee"));
                             }
-                            counterparty_payee__ = Some(map.next_value()?);
+                            counterparty_payee__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1474,12 +1475,12 @@ impl<'de> serde::Deserialize<'de> for MsgRegisterCounterpartyPayeeResponse {
                 formatter.write_str("struct ibc.applications.fee.v1.MsgRegisterCounterpartyPayeeResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgRegisterCounterpartyPayeeResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgRegisterCounterpartyPayeeResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(MsgRegisterCounterpartyPayeeResponse {
                 })
@@ -1585,7 +1586,7 @@ impl<'de> serde::Deserialize<'de> for MsgRegisterPayee {
                 formatter.write_str("struct ibc.applications.fee.v1.MsgRegisterPayee")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgRegisterPayee, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgRegisterPayee, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -1593,31 +1594,31 @@ impl<'de> serde::Deserialize<'de> for MsgRegisterPayee {
                 let mut channel_id__ = None;
                 let mut relayer__ = None;
                 let mut payee__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Relayer => {
                             if relayer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("relayer"));
                             }
-                            relayer__ = Some(map.next_value()?);
+                            relayer__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Payee => {
                             if payee__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("payee"));
                             }
-                            payee__ = Some(map.next_value()?);
+                            payee__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1689,12 +1690,12 @@ impl<'de> serde::Deserialize<'de> for MsgRegisterPayeeResponse {
                 formatter.write_str("struct ibc.applications.fee.v1.MsgRegisterPayeeResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MsgRegisterPayeeResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgRegisterPayeeResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(MsgRegisterPayeeResponse {
                 })
@@ -1790,32 +1791,32 @@ impl<'de> serde::Deserialize<'de> for PacketFee {
                 formatter.write_str("struct ibc.applications.fee.v1.PacketFee")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<PacketFee, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<PacketFee, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut fee__ = None;
                 let mut refund_address__ = None;
                 let mut relayers__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Fee => {
                             if fee__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("fee"));
                             }
-                            fee__ = map.next_value()?;
+                            fee__ = map_.next_value()?;
                         }
                         GeneratedField::RefundAddress => {
                             if refund_address__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("refundAddress"));
                             }
-                            refund_address__ = Some(map.next_value()?);
+                            refund_address__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Relayers => {
                             if relayers__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("relayers"));
                             }
-                            relayers__ = Some(map.next_value()?);
+                            relayers__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1898,18 +1899,18 @@ impl<'de> serde::Deserialize<'de> for PacketFees {
                 formatter.write_str("struct ibc.applications.fee.v1.PacketFees")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<PacketFees, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<PacketFees, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut packet_fees__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PacketFees => {
                             if packet_fees__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("packetFees"));
                             }
-                            packet_fees__ = Some(map.next_value()?);
+                            packet_fees__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1999,25 +2000,25 @@ impl<'de> serde::Deserialize<'de> for QueryCounterpartyPayeeRequest {
                 formatter.write_str("struct ibc.applications.fee.v1.QueryCounterpartyPayeeRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryCounterpartyPayeeRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryCounterpartyPayeeRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut channel_id__ = None;
                 let mut relayer__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Relayer => {
                             if relayer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("relayer"));
                             }
-                            relayer__ = Some(map.next_value()?);
+                            relayer__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -2099,18 +2100,18 @@ impl<'de> serde::Deserialize<'de> for QueryCounterpartyPayeeResponse {
                 formatter.write_str("struct ibc.applications.fee.v1.QueryCounterpartyPayeeResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryCounterpartyPayeeResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryCounterpartyPayeeResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut counterparty_payee__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::CounterpartyPayee => {
                             if counterparty_payee__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("counterpartyPayee"));
                             }
-                            counterparty_payee__ = Some(map.next_value()?);
+                            counterparty_payee__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -2201,25 +2202,25 @@ impl<'de> serde::Deserialize<'de> for QueryFeeEnabledChannelRequest {
                 formatter.write_str("struct ibc.applications.fee.v1.QueryFeeEnabledChannelRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryFeeEnabledChannelRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryFeeEnabledChannelRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut port_id__ = None;
                 let mut channel_id__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -2301,18 +2302,18 @@ impl<'de> serde::Deserialize<'de> for QueryFeeEnabledChannelResponse {
                 formatter.write_str("struct ibc.applications.fee.v1.QueryFeeEnabledChannelResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryFeeEnabledChannelResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryFeeEnabledChannelResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut fee_enabled__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::FeeEnabled => {
                             if fee_enabled__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("feeEnabled"));
                             }
-                            fee_enabled__ = Some(map.next_value()?);
+                            fee_enabled__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -2343,6 +2344,7 @@ impl serde::Serialize for QueryFeeEnabledChannelsRequest {
             struct_ser.serialize_field("pagination", v)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("queryHeight", ::alloc::string::ToString::to_string(&self.query_height).as_str())?;
         }
         struct_ser.end()
@@ -2402,26 +2404,26 @@ impl<'de> serde::Deserialize<'de> for QueryFeeEnabledChannelsRequest {
                 formatter.write_str("struct ibc.applications.fee.v1.QueryFeeEnabledChannelsRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryFeeEnabledChannelsRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryFeeEnabledChannelsRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut pagination__ = None;
                 let mut query_height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map.next_value()?;
+                            pagination__ = map_.next_value()?;
                         }
                         GeneratedField::QueryHeight => {
                             if query_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("queryHeight"));
                             }
                             query_height__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -2513,25 +2515,25 @@ impl<'de> serde::Deserialize<'de> for QueryFeeEnabledChannelsResponse {
                 formatter.write_str("struct ibc.applications.fee.v1.QueryFeeEnabledChannelsResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryFeeEnabledChannelsResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryFeeEnabledChannelsResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut fee_enabled_channels__ = None;
                 let mut pagination__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::FeeEnabledChannels => {
                             if fee_enabled_channels__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("feeEnabledChannels"));
                             }
-                            fee_enabled_channels__ = Some(map.next_value()?);
+                            fee_enabled_channels__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map.next_value()?;
+                            pagination__ = map_.next_value()?;
                         }
                     }
                 }
@@ -2563,6 +2565,7 @@ impl serde::Serialize for QueryIncentivizedPacketRequest {
             struct_ser.serialize_field("packetId", v)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("queryHeight", ::alloc::string::ToString::to_string(&self.query_height).as_str())?;
         }
         struct_ser.end()
@@ -2623,26 +2626,26 @@ impl<'de> serde::Deserialize<'de> for QueryIncentivizedPacketRequest {
                 formatter.write_str("struct ibc.applications.fee.v1.QueryIncentivizedPacketRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryIncentivizedPacketRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryIncentivizedPacketRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut packet_id__ = None;
                 let mut query_height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PacketId => {
                             if packet_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("packetId"));
                             }
-                            packet_id__ = map.next_value()?;
+                            packet_id__ = map_.next_value()?;
                         }
                         GeneratedField::QueryHeight => {
                             if query_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("queryHeight"));
                             }
                             query_height__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -2725,18 +2728,18 @@ impl<'de> serde::Deserialize<'de> for QueryIncentivizedPacketResponse {
                 formatter.write_str("struct ibc.applications.fee.v1.QueryIncentivizedPacketResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryIncentivizedPacketResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryIncentivizedPacketResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut incentivized_packet__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::IncentivizedPacket => {
                             if incentivized_packet__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("incentivizedPacket"));
                             }
-                            incentivized_packet__ = map.next_value()?;
+                            incentivized_packet__ = map_.next_value()?;
                         }
                     }
                 }
@@ -2779,6 +2782,7 @@ impl serde::Serialize for QueryIncentivizedPacketsForChannelRequest {
             struct_ser.serialize_field("channelId", &self.channel_id)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("queryHeight", ::alloc::string::ToString::to_string(&self.query_height).as_str())?;
         }
         struct_ser.end()
@@ -2846,7 +2850,7 @@ impl<'de> serde::Deserialize<'de> for QueryIncentivizedPacketsForChannelRequest 
                 formatter.write_str("struct ibc.applications.fee.v1.QueryIncentivizedPacketsForChannelRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryIncentivizedPacketsForChannelRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryIncentivizedPacketsForChannelRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -2854,32 +2858,32 @@ impl<'de> serde::Deserialize<'de> for QueryIncentivizedPacketsForChannelRequest 
                 let mut port_id__ = None;
                 let mut channel_id__ = None;
                 let mut query_height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map.next_value()?;
+                            pagination__ = map_.next_value()?;
                         }
                         GeneratedField::PortId => {
                             if port_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("portId"));
                             }
-                            port_id__ = Some(map.next_value()?);
+                            port_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::QueryHeight => {
                             if query_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("queryHeight"));
                             }
                             query_height__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -2973,25 +2977,25 @@ impl<'de> serde::Deserialize<'de> for QueryIncentivizedPacketsForChannelResponse
                 formatter.write_str("struct ibc.applications.fee.v1.QueryIncentivizedPacketsForChannelResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryIncentivizedPacketsForChannelResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryIncentivizedPacketsForChannelResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut incentivized_packets__ = None;
                 let mut pagination__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::IncentivizedPackets => {
                             if incentivized_packets__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("incentivizedPackets"));
                             }
-                            incentivized_packets__ = Some(map.next_value()?);
+                            incentivized_packets__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map.next_value()?;
+                            pagination__ = map_.next_value()?;
                         }
                     }
                 }
@@ -3023,6 +3027,7 @@ impl serde::Serialize for QueryIncentivizedPacketsRequest {
             struct_ser.serialize_field("pagination", v)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("queryHeight", ::alloc::string::ToString::to_string(&self.query_height).as_str())?;
         }
         struct_ser.end()
@@ -3082,26 +3087,26 @@ impl<'de> serde::Deserialize<'de> for QueryIncentivizedPacketsRequest {
                 formatter.write_str("struct ibc.applications.fee.v1.QueryIncentivizedPacketsRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryIncentivizedPacketsRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryIncentivizedPacketsRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut pagination__ = None;
                 let mut query_height__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map.next_value()?;
+                            pagination__ = map_.next_value()?;
                         }
                         GeneratedField::QueryHeight => {
                             if query_height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("queryHeight"));
                             }
                             query_height__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -3193,25 +3198,25 @@ impl<'de> serde::Deserialize<'de> for QueryIncentivizedPacketsResponse {
                 formatter.write_str("struct ibc.applications.fee.v1.QueryIncentivizedPacketsResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryIncentivizedPacketsResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryIncentivizedPacketsResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut incentivized_packets__ = None;
                 let mut pagination__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::IncentivizedPackets => {
                             if incentivized_packets__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("incentivizedPackets"));
                             }
-                            incentivized_packets__ = Some(map.next_value()?);
+                            incentivized_packets__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pagination"));
                             }
-                            pagination__ = map.next_value()?;
+                            pagination__ = map_.next_value()?;
                         }
                     }
                 }
@@ -3302,25 +3307,25 @@ impl<'de> serde::Deserialize<'de> for QueryPayeeRequest {
                 formatter.write_str("struct ibc.applications.fee.v1.QueryPayeeRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryPayeeRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryPayeeRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut channel_id__ = None;
                 let mut relayer__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Relayer => {
                             if relayer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("relayer"));
                             }
-                            relayer__ = Some(map.next_value()?);
+                            relayer__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -3402,18 +3407,18 @@ impl<'de> serde::Deserialize<'de> for QueryPayeeResponse {
                 formatter.write_str("struct ibc.applications.fee.v1.QueryPayeeResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryPayeeResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryPayeeResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut payee_address__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PayeeAddress => {
                             if payee_address__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("payeeAddress"));
                             }
-                            payee_address__ = Some(map.next_value()?);
+                            payee_address__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -3494,18 +3499,18 @@ impl<'de> serde::Deserialize<'de> for QueryTotalAckFeesRequest {
                 formatter.write_str("struct ibc.applications.fee.v1.QueryTotalAckFeesRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryTotalAckFeesRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryTotalAckFeesRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut packet_id__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PacketId => {
                             if packet_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("packetId"));
                             }
-                            packet_id__ = map.next_value()?;
+                            packet_id__ = map_.next_value()?;
                         }
                     }
                 }
@@ -3586,18 +3591,18 @@ impl<'de> serde::Deserialize<'de> for QueryTotalAckFeesResponse {
                 formatter.write_str("struct ibc.applications.fee.v1.QueryTotalAckFeesResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryTotalAckFeesResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryTotalAckFeesResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut ack_fees__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::AckFees => {
                             if ack_fees__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("ackFees"));
                             }
-                            ack_fees__ = Some(map.next_value()?);
+                            ack_fees__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -3678,18 +3683,18 @@ impl<'de> serde::Deserialize<'de> for QueryTotalRecvFeesRequest {
                 formatter.write_str("struct ibc.applications.fee.v1.QueryTotalRecvFeesRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryTotalRecvFeesRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryTotalRecvFeesRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut packet_id__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PacketId => {
                             if packet_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("packetId"));
                             }
-                            packet_id__ = map.next_value()?;
+                            packet_id__ = map_.next_value()?;
                         }
                     }
                 }
@@ -3770,18 +3775,18 @@ impl<'de> serde::Deserialize<'de> for QueryTotalRecvFeesResponse {
                 formatter.write_str("struct ibc.applications.fee.v1.QueryTotalRecvFeesResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryTotalRecvFeesResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryTotalRecvFeesResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut recv_fees__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::RecvFees => {
                             if recv_fees__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("recvFees"));
                             }
-                            recv_fees__ = Some(map.next_value()?);
+                            recv_fees__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -3862,18 +3867,18 @@ impl<'de> serde::Deserialize<'de> for QueryTotalTimeoutFeesRequest {
                 formatter.write_str("struct ibc.applications.fee.v1.QueryTotalTimeoutFeesRequest")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryTotalTimeoutFeesRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryTotalTimeoutFeesRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut packet_id__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PacketId => {
                             if packet_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("packetId"));
                             }
-                            packet_id__ = map.next_value()?;
+                            packet_id__ = map_.next_value()?;
                         }
                     }
                 }
@@ -3954,18 +3959,18 @@ impl<'de> serde::Deserialize<'de> for QueryTotalTimeoutFeesResponse {
                 formatter.write_str("struct ibc.applications.fee.v1.QueryTotalTimeoutFeesResponse")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<QueryTotalTimeoutFeesResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryTotalTimeoutFeesResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut timeout_fees__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::TimeoutFees => {
                             if timeout_fees__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("timeoutFees"));
                             }
-                            timeout_fees__ = Some(map.next_value()?);
+                            timeout_fees__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -4065,32 +4070,32 @@ impl<'de> serde::Deserialize<'de> for RegisteredCounterpartyPayee {
                 formatter.write_str("struct ibc.applications.fee.v1.RegisteredCounterpartyPayee")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<RegisteredCounterpartyPayee, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<RegisteredCounterpartyPayee, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut channel_id__ = None;
                 let mut relayer__ = None;
                 let mut counterparty_payee__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Relayer => {
                             if relayer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("relayer"));
                             }
-                            relayer__ = Some(map.next_value()?);
+                            relayer__ = Some(map_.next_value()?);
                         }
                         GeneratedField::CounterpartyPayee => {
                             if counterparty_payee__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("counterpartyPayee"));
                             }
-                            counterparty_payee__ = Some(map.next_value()?);
+                            counterparty_payee__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -4191,32 +4196,32 @@ impl<'de> serde::Deserialize<'de> for RegisteredPayee {
                 formatter.write_str("struct ibc.applications.fee.v1.RegisteredPayee")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<RegisteredPayee, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<RegisteredPayee, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut channel_id__ = None;
                 let mut relayer__ = None;
                 let mut payee__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ChannelId => {
                             if channel_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("channelId"));
                             }
-                            channel_id__ = Some(map.next_value()?);
+                            channel_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Relayer => {
                             if relayer__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("relayer"));
                             }
-                            relayer__ = Some(map.next_value()?);
+                            relayer__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Payee => {
                             if payee__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("payee"));
                             }
-                            payee__ = Some(map.next_value()?);
+                            payee__ = Some(map_.next_value()?);
                         }
                     }
                 }

@@ -67,18 +67,18 @@ impl<'de> serde::Deserialize<'de> for MerklePath {
                 formatter.write_str("struct ibc.core.commitment.v1.MerklePath")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MerklePath, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MerklePath, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut key_path__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::KeyPath => {
                             if key_path__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("keyPath"));
                             }
-                            key_path__ = Some(map.next_value()?);
+                            key_path__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -103,6 +103,7 @@ impl serde::Serialize for MerklePrefix {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.commitment.v1.MerklePrefix", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("keyPrefix", pbjson::private::base64::encode(&self.key_prefix).as_str())?;
         }
         struct_ser.end()
@@ -159,19 +160,19 @@ impl<'de> serde::Deserialize<'de> for MerklePrefix {
                 formatter.write_str("struct ibc.core.commitment.v1.MerklePrefix")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MerklePrefix, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MerklePrefix, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut key_prefix__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::KeyPrefix => {
                             if key_prefix__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("keyPrefix"));
                             }
                             key_prefix__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -252,18 +253,18 @@ impl<'de> serde::Deserialize<'de> for MerkleProof {
                 formatter.write_str("struct ibc.core.commitment.v1.MerkleProof")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MerkleProof, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MerkleProof, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut proofs__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Proofs => {
                             if proofs__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proofs"));
                             }
-                            proofs__ = Some(map.next_value()?);
+                            proofs__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -288,6 +289,7 @@ impl serde::Serialize for MerkleRoot {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.core.commitment.v1.MerkleRoot", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("hash", pbjson::private::base64::encode(&self.hash).as_str())?;
         }
         struct_ser.end()
@@ -343,19 +345,19 @@ impl<'de> serde::Deserialize<'de> for MerkleRoot {
                 formatter.write_str("struct ibc.core.commitment.v1.MerkleRoot")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MerkleRoot, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MerkleRoot, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut hash__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Hash => {
                             if hash__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("hash"));
                             }
                             hash__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }

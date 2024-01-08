@@ -17,6 +17,7 @@ impl serde::Serialize for ClientState {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v3.ClientState", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("sequence", ::alloc::string::ToString::to_string(&self.sequence).as_str())?;
         }
         if true {
@@ -86,34 +87,34 @@ impl<'de> serde::Deserialize<'de> for ClientState {
                 formatter.write_str("struct ibc.lightclients.solomachine.v3.ClientState")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<ClientState, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ClientState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut sequence__ = None;
                 let mut is_frozen__ = None;
                 let mut consensus_state__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Sequence => {
                             if sequence__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sequence"));
                             }
                             sequence__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::IsFrozen => {
                             if is_frozen__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("isFrozen"));
                             }
-                            is_frozen__ = Some(map.next_value()?);
+                            is_frozen__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ConsensusState => {
                             if consensus_state__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("consensusState"));
                             }
-                            consensus_state__ = map.next_value()?;
+                            consensus_state__ = map_.next_value()?;
                         }
                     }
                 }
@@ -152,6 +153,7 @@ impl serde::Serialize for ConsensusState {
             struct_ser.serialize_field("diversifier", &self.diversifier)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("timestamp", ::alloc::string::ToString::to_string(&self.timestamp).as_str())?;
         }
         struct_ser.end()
@@ -214,33 +216,33 @@ impl<'de> serde::Deserialize<'de> for ConsensusState {
                 formatter.write_str("struct ibc.lightclients.solomachine.v3.ConsensusState")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<ConsensusState, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ConsensusState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut public_key__ = None;
                 let mut diversifier__ = None;
                 let mut timestamp__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PublicKey => {
                             if public_key__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("publicKey"));
                             }
-                            public_key__ = map.next_value()?;
+                            public_key__ = map_.next_value()?;
                         }
                         GeneratedField::Diversifier => {
                             if diversifier__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("diversifier"));
                             }
-                            diversifier__ = Some(map.next_value()?);
+                            diversifier__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Timestamp => {
                             if timestamp__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("timestamp"));
                             }
                             timestamp__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -277,9 +279,11 @@ impl serde::Serialize for Header {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v3.Header", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("timestamp", ::alloc::string::ToString::to_string(&self.timestamp).as_str())?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("signature", pbjson::private::base64::encode(&self.signature).as_str())?;
         }
         if let Some(v) = self.new_public_key.as_ref() {
@@ -352,7 +356,7 @@ impl<'de> serde::Deserialize<'de> for Header {
                 formatter.write_str("struct ibc.lightclients.solomachine.v3.Header")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Header, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Header, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -360,14 +364,14 @@ impl<'de> serde::Deserialize<'de> for Header {
                 let mut signature__ = None;
                 let mut new_public_key__ = None;
                 let mut new_diversifier__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Timestamp => {
                             if timestamp__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("timestamp"));
                             }
                             timestamp__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Signature => {
@@ -375,20 +379,20 @@ impl<'de> serde::Deserialize<'de> for Header {
                                 return Err(serde::de::Error::duplicate_field("signature"));
                             }
                             signature__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::NewPublicKey => {
                             if new_public_key__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("newPublicKey"));
                             }
-                            new_public_key__ = map.next_value()?;
+                            new_public_key__ = map_.next_value()?;
                         }
                         GeneratedField::NewDiversifier => {
                             if new_diversifier__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("newDiversifier"));
                             }
-                            new_diversifier__ = Some(map.next_value()?);
+                            new_diversifier__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -482,25 +486,25 @@ impl<'de> serde::Deserialize<'de> for HeaderData {
                 formatter.write_str("struct ibc.lightclients.solomachine.v3.HeaderData")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<HeaderData, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<HeaderData, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut new_pub_key__ = None;
                 let mut new_diversifier__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::NewPubKey => {
                             if new_pub_key__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("newPubKey"));
                             }
-                            new_pub_key__ = map.next_value()?;
+                            new_pub_key__ = map_.next_value()?;
                         }
                         GeneratedField::NewDiversifier => {
                             if new_diversifier__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("newDiversifier"));
                             }
-                            new_diversifier__ = Some(map.next_value()?);
+                            new_diversifier__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -532,6 +536,7 @@ impl serde::Serialize for Misbehaviour {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v3.Misbehaviour", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("sequence", ::alloc::string::ToString::to_string(&self.sequence).as_str())?;
         }
         if let Some(v) = self.signature_one.as_ref() {
@@ -601,34 +606,34 @@ impl<'de> serde::Deserialize<'de> for Misbehaviour {
                 formatter.write_str("struct ibc.lightclients.solomachine.v3.Misbehaviour")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Misbehaviour, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Misbehaviour, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut sequence__ = None;
                 let mut signature_one__ = None;
                 let mut signature_two__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Sequence => {
                             if sequence__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sequence"));
                             }
                             sequence__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::SignatureOne => {
                             if signature_one__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signatureOne"));
                             }
-                            signature_one__ = map.next_value()?;
+                            signature_one__ = map_.next_value()?;
                         }
                         GeneratedField::SignatureTwo => {
                             if signature_two__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signatureTwo"));
                             }
-                            signature_two__ = map.next_value()?;
+                            signature_two__ = map_.next_value()?;
                         }
                     }
                 }
@@ -667,18 +672,22 @@ impl serde::Serialize for SignBytes {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v3.SignBytes", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("sequence", ::alloc::string::ToString::to_string(&self.sequence).as_str())?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("timestamp", ::alloc::string::ToString::to_string(&self.timestamp).as_str())?;
         }
         if true {
             struct_ser.serialize_field("diversifier", &self.diversifier)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("path", pbjson::private::base64::encode(&self.path).as_str())?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("data", pbjson::private::base64::encode(&self.data).as_str())?;
         }
         struct_ser.end()
@@ -746,7 +755,7 @@ impl<'de> serde::Deserialize<'de> for SignBytes {
                 formatter.write_str("struct ibc.lightclients.solomachine.v3.SignBytes")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<SignBytes, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<SignBytes, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -755,14 +764,14 @@ impl<'de> serde::Deserialize<'de> for SignBytes {
                 let mut diversifier__ = None;
                 let mut path__ = None;
                 let mut data__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Sequence => {
                             if sequence__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sequence"));
                             }
                             sequence__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Timestamp => {
@@ -770,21 +779,21 @@ impl<'de> serde::Deserialize<'de> for SignBytes {
                                 return Err(serde::de::Error::duplicate_field("timestamp"));
                             }
                             timestamp__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Diversifier => {
                             if diversifier__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("diversifier"));
                             }
-                            diversifier__ = Some(map.next_value()?);
+                            diversifier__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Path => {
                             if path__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("path"));
                             }
                             path__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Data => {
@@ -792,7 +801,7 @@ impl<'de> serde::Deserialize<'de> for SignBytes {
                                 return Err(serde::de::Error::duplicate_field("data"));
                             }
                             data__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -831,15 +840,19 @@ impl serde::Serialize for SignatureAndData {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v3.SignatureAndData", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("signature", pbjson::private::base64::encode(&self.signature).as_str())?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("path", pbjson::private::base64::encode(&self.path).as_str())?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("data", pbjson::private::base64::encode(&self.data).as_str())?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("timestamp", ::alloc::string::ToString::to_string(&self.timestamp).as_str())?;
         }
         struct_ser.end()
@@ -904,7 +917,7 @@ impl<'de> serde::Deserialize<'de> for SignatureAndData {
                 formatter.write_str("struct ibc.lightclients.solomachine.v3.SignatureAndData")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<SignatureAndData, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<SignatureAndData, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -912,14 +925,14 @@ impl<'de> serde::Deserialize<'de> for SignatureAndData {
                 let mut path__ = None;
                 let mut data__ = None;
                 let mut timestamp__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Signature => {
                             if signature__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signature"));
                             }
                             signature__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Path => {
@@ -927,7 +940,7 @@ impl<'de> serde::Deserialize<'de> for SignatureAndData {
                                 return Err(serde::de::Error::duplicate_field("path"));
                             }
                             path__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Data => {
@@ -935,7 +948,7 @@ impl<'de> serde::Deserialize<'de> for SignatureAndData {
                                 return Err(serde::de::Error::duplicate_field("data"));
                             }
                             data__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Timestamp => {
@@ -943,7 +956,7 @@ impl<'de> serde::Deserialize<'de> for SignatureAndData {
                                 return Err(serde::de::Error::duplicate_field("timestamp"));
                             }
                             timestamp__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -975,9 +988,11 @@ impl serde::Serialize for TimestampedSignatureData {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.solomachine.v3.TimestampedSignatureData", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("signatureData", pbjson::private::base64::encode(&self.signature_data).as_str())?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("timestamp", ::alloc::string::ToString::to_string(&self.timestamp).as_str())?;
         }
         struct_ser.end()
@@ -1037,20 +1052,20 @@ impl<'de> serde::Deserialize<'de> for TimestampedSignatureData {
                 formatter.write_str("struct ibc.lightclients.solomachine.v3.TimestampedSignatureData")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<TimestampedSignatureData, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<TimestampedSignatureData, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut signature_data__ = None;
                 let mut timestamp__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::SignatureData => {
                             if signature_data__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("signatureData"));
                             }
                             signature_data__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Timestamp => {
@@ -1058,7 +1073,7 @@ impl<'de> serde::Deserialize<'de> for TimestampedSignatureData {
                                 return Err(serde::de::Error::duplicate_field("timestamp"));
                             }
                             timestamp__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }

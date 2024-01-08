@@ -14,9 +14,11 @@ impl serde::Serialize for Pair {
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.base.kv.v1beta1.Pair", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("key", pbjson::private::base64::encode(&self.key).as_str())?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("value", pbjson::private::base64::encode(&self.value).as_str())?;
         }
         struct_ser.end()
@@ -75,20 +77,20 @@ impl<'de> serde::Deserialize<'de> for Pair {
                 formatter.write_str("struct cosmos.base.kv.v1beta1.Pair")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Pair, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Pair, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut key__ = None;
                 let mut value__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Key => {
                             if key__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("key"));
                             }
                             key__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Value => {
@@ -96,7 +98,7 @@ impl<'de> serde::Deserialize<'de> for Pair {
                                 return Err(serde::de::Error::duplicate_field("value"));
                             }
                             value__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -178,18 +180,18 @@ impl<'de> serde::Deserialize<'de> for Pairs {
                 formatter.write_str("struct cosmos.base.kv.v1beta1.Pairs")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Pairs, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Pairs, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut pairs__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Pairs => {
                             if pairs__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pairs"));
                             }
-                            pairs__ = Some(map.next_value()?);
+                            pairs__ = Some(map_.next_value()?);
                         }
                     }
                 }

@@ -76,25 +76,25 @@ impl<'de> serde::Deserialize<'de> for Module {
                 formatter.write_str("struct cosmos.staking.module.v1.Module")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Module, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Module, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut hooks_order__ = None;
                 let mut authority__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::HooksOrder => {
                             if hooks_order__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("hooksOrder"));
                             }
-                            hooks_order__ = Some(map.next_value()?);
+                            hooks_order__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Authority => {
                             if authority__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("authority"));
                             }
-                            authority__ = Some(map.next_value()?);
+                            authority__ = Some(map_.next_value()?);
                         }
                     }
                 }

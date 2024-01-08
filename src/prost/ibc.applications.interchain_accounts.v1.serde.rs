@@ -66,18 +66,18 @@ impl<'de> serde::Deserialize<'de> for CosmosTx {
                 formatter.write_str("struct ibc.applications.interchain_accounts.v1.CosmosTx")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<CosmosTx, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<CosmosTx, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut messages__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Messages => {
                             if messages__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("messages"));
                             }
-                            messages__ = Some(map.next_value()?);
+                            messages__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -168,25 +168,25 @@ impl<'de> serde::Deserialize<'de> for InterchainAccount {
                 formatter.write_str("struct ibc.applications.interchain_accounts.v1.InterchainAccount")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<InterchainAccount, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<InterchainAccount, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut base_account__ = None;
                 let mut account_owner__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::BaseAccount => {
                             if base_account__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("baseAccount"));
                             }
-                            base_account__ = map.next_value()?;
+                            base_account__ = map_.next_value()?;
                         }
                         GeneratedField::AccountOwner => {
                             if account_owner__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("accountOwner"));
                             }
-                            account_owner__ = Some(map.next_value()?);
+                            account_owner__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -218,11 +218,12 @@ impl serde::Serialize for InterchainAccountPacketData {
         }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.interchain_accounts.v1.InterchainAccountPacketData", len)?;
         if true {
-            let v = Type::from_i32(self.r#type)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.r#type)))?;
+            let v = Type::try_from(self.r#type)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.r#type)))?;
             struct_ser.serialize_field("type", &v)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("data", pbjson::private::base64::encode(&self.data).as_str())?;
         }
         if true {
@@ -287,34 +288,34 @@ impl<'de> serde::Deserialize<'de> for InterchainAccountPacketData {
                 formatter.write_str("struct ibc.applications.interchain_accounts.v1.InterchainAccountPacketData")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<InterchainAccountPacketData, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<InterchainAccountPacketData, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut r#type__ = None;
                 let mut data__ = None;
                 let mut memo__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Type => {
                             if r#type__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("type"));
                             }
-                            r#type__ = Some(map.next_value::<Type>()? as i32);
+                            r#type__ = Some(map_.next_value::<Type>()? as i32);
                         }
                         GeneratedField::Data => {
                             if data__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("data"));
                             }
                             data__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Memo => {
                             if memo__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("memo"));
                             }
-                            memo__ = Some(map.next_value()?);
+                            memo__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -444,7 +445,7 @@ impl<'de> serde::Deserialize<'de> for Metadata {
                 formatter.write_str("struct ibc.applications.interchain_accounts.v1.Metadata")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Metadata, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Metadata, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -454,43 +455,43 @@ impl<'de> serde::Deserialize<'de> for Metadata {
                 let mut address__ = None;
                 let mut encoding__ = None;
                 let mut tx_type__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Version => {
                             if version__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("version"));
                             }
-                            version__ = Some(map.next_value()?);
+                            version__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ControllerConnectionId => {
                             if controller_connection_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("controllerConnectionId"));
                             }
-                            controller_connection_id__ = Some(map.next_value()?);
+                            controller_connection_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::HostConnectionId => {
                             if host_connection_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("hostConnectionId"));
                             }
-                            host_connection_id__ = Some(map.next_value()?);
+                            host_connection_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Address => {
                             if address__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("address"));
                             }
-                            address__ = Some(map.next_value()?);
+                            address__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Encoding => {
                             if encoding__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("encoding"));
                             }
-                            encoding__ = Some(map.next_value()?);
+                            encoding__ = Some(map_.next_value()?);
                         }
                         GeneratedField::TxType => {
                             if tx_type__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("txType"));
                             }
-                            tx_type__ = Some(map.next_value()?);
+                            tx_type__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -544,10 +545,9 @@ impl<'de> serde::Deserialize<'de> for Type {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(Type::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -557,10 +557,9 @@ impl<'de> serde::Deserialize<'de> for Type {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(Type::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })

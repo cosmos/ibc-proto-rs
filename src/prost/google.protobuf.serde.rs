@@ -17,6 +17,7 @@ impl serde::Serialize for Any {
             struct_ser.serialize_field("typeUrl", &self.type_url)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("value", pbjson::private::base64::encode(&self.value).as_str())?;
         }
         struct_ser.end()
@@ -76,26 +77,26 @@ impl<'de> serde::Deserialize<'de> for Any {
                 formatter.write_str("struct google.protobuf.Any")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Any, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Any, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut type_url__ = None;
                 let mut value__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::TypeUrl => {
                             if type_url__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("typeUrl"));
                             }
-                            type_url__ = Some(map.next_value()?);
+                            type_url__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Value => {
                             if value__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("value"));
                             }
                             value__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -264,7 +265,7 @@ impl<'de> serde::Deserialize<'de> for DescriptorProto {
                 formatter.write_str("struct google.protobuf.DescriptorProto")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<DescriptorProto, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<DescriptorProto, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -278,67 +279,67 @@ impl<'de> serde::Deserialize<'de> for DescriptorProto {
                 let mut options__ = None;
                 let mut reserved_range__ = None;
                 let mut reserved_name__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Name => {
                             if name__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("name"));
                             }
-                            name__ = map.next_value()?;
+                            name__ = map_.next_value()?;
                         }
                         GeneratedField::Field => {
                             if field__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("field"));
                             }
-                            field__ = Some(map.next_value()?);
+                            field__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Extension => {
                             if extension__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("extension"));
                             }
-                            extension__ = Some(map.next_value()?);
+                            extension__ = Some(map_.next_value()?);
                         }
                         GeneratedField::NestedType => {
                             if nested_type__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("nestedType"));
                             }
-                            nested_type__ = Some(map.next_value()?);
+                            nested_type__ = Some(map_.next_value()?);
                         }
                         GeneratedField::EnumType => {
                             if enum_type__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("enumType"));
                             }
-                            enum_type__ = Some(map.next_value()?);
+                            enum_type__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ExtensionRange => {
                             if extension_range__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("extensionRange"));
                             }
-                            extension_range__ = Some(map.next_value()?);
+                            extension_range__ = Some(map_.next_value()?);
                         }
                         GeneratedField::OneofDecl => {
                             if oneof_decl__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("oneofDecl"));
                             }
-                            oneof_decl__ = Some(map.next_value()?);
+                            oneof_decl__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Options => {
                             if options__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("options"));
                             }
-                            options__ = map.next_value()?;
+                            options__ = map_.next_value()?;
                         }
                         GeneratedField::ReservedRange => {
                             if reserved_range__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("reservedRange"));
                             }
-                            reserved_range__ = Some(map.next_value()?);
+                            reserved_range__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ReservedName => {
                             if reserved_name__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("reservedName"));
                             }
-                            reserved_name__ = Some(map.next_value()?);
+                            reserved_name__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -445,21 +446,21 @@ impl<'de> serde::Deserialize<'de> for descriptor_proto::ExtensionRange {
                 formatter.write_str("struct google.protobuf.DescriptorProto.ExtensionRange")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<descriptor_proto::ExtensionRange, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<descriptor_proto::ExtensionRange, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut start__ = None;
                 let mut end__ = None;
                 let mut options__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Start => {
                             if start__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("start"));
                             }
                             start__ = 
-                                map.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
+                                map_.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
                             ;
                         }
                         GeneratedField::End => {
@@ -467,14 +468,14 @@ impl<'de> serde::Deserialize<'de> for descriptor_proto::ExtensionRange {
                                 return Err(serde::de::Error::duplicate_field("end"));
                             }
                             end__ = 
-                                map.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
+                                map_.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
                             ;
                         }
                         GeneratedField::Options => {
                             if options__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("options"));
                             }
-                            options__ = map.next_value()?;
+                            options__ = map_.next_value()?;
                         }
                     }
                 }
@@ -565,20 +566,20 @@ impl<'de> serde::Deserialize<'de> for descriptor_proto::ReservedRange {
                 formatter.write_str("struct google.protobuf.DescriptorProto.ReservedRange")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<descriptor_proto::ReservedRange, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<descriptor_proto::ReservedRange, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut start__ = None;
                 let mut end__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Start => {
                             if start__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("start"));
                             }
                             start__ = 
-                                map.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
+                                map_.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
                             ;
                         }
                         GeneratedField::End => {
@@ -586,7 +587,7 @@ impl<'de> serde::Deserialize<'de> for descriptor_proto::ReservedRange {
                                 return Err(serde::de::Error::duplicate_field("end"));
                             }
                             end__ = 
-                                map.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
+                                map_.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
                             ;
                         }
                     }
@@ -616,6 +617,7 @@ impl serde::Serialize for Duration {
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.Duration", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("seconds", ::alloc::string::ToString::to_string(&self.seconds).as_str())?;
         }
         if true {
@@ -677,20 +679,20 @@ impl<'de> serde::Deserialize<'de> for Duration {
                 formatter.write_str("struct google.protobuf.Duration")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Duration, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Duration, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut seconds__ = None;
                 let mut nanos__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Seconds => {
                             if seconds__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("seconds"));
                             }
                             seconds__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Nanos => {
@@ -698,7 +700,7 @@ impl<'de> serde::Deserialize<'de> for Duration {
                                 return Err(serde::de::Error::duplicate_field("nanos"));
                             }
                             nanos__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -763,10 +765,9 @@ impl<'de> serde::Deserialize<'de> for Edition {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(Edition::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -776,10 +777,9 @@ impl<'de> serde::Deserialize<'de> for Edition {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(Edition::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -912,7 +912,7 @@ impl<'de> serde::Deserialize<'de> for EnumDescriptorProto {
                 formatter.write_str("struct google.protobuf.EnumDescriptorProto")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<EnumDescriptorProto, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<EnumDescriptorProto, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -921,37 +921,37 @@ impl<'de> serde::Deserialize<'de> for EnumDescriptorProto {
                 let mut options__ = None;
                 let mut reserved_range__ = None;
                 let mut reserved_name__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Name => {
                             if name__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("name"));
                             }
-                            name__ = map.next_value()?;
+                            name__ = map_.next_value()?;
                         }
                         GeneratedField::Value => {
                             if value__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("value"));
                             }
-                            value__ = Some(map.next_value()?);
+                            value__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Options => {
                             if options__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("options"));
                             }
-                            options__ = map.next_value()?;
+                            options__ = map_.next_value()?;
                         }
                         GeneratedField::ReservedRange => {
                             if reserved_range__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("reservedRange"));
                             }
-                            reserved_range__ = Some(map.next_value()?);
+                            reserved_range__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ReservedName => {
                             if reserved_name__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("reservedName"));
                             }
-                            reserved_name__ = Some(map.next_value()?);
+                            reserved_name__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1044,20 +1044,20 @@ impl<'de> serde::Deserialize<'de> for enum_descriptor_proto::EnumReservedRange {
                 formatter.write_str("struct google.protobuf.EnumDescriptorProto.EnumReservedRange")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<enum_descriptor_proto::EnumReservedRange, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<enum_descriptor_proto::EnumReservedRange, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut start__ = None;
                 let mut end__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Start => {
                             if start__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("start"));
                             }
                             start__ = 
-                                map.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
+                                map_.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
                             ;
                         }
                         GeneratedField::End => {
@@ -1065,7 +1065,7 @@ impl<'de> serde::Deserialize<'de> for enum_descriptor_proto::EnumReservedRange {
                                 return Err(serde::de::Error::duplicate_field("end"));
                             }
                             end__ = 
-                                map.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
+                                map_.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
                             ;
                         }
                     }
@@ -1186,7 +1186,7 @@ impl<'de> serde::Deserialize<'de> for EnumOptions {
                 formatter.write_str("struct google.protobuf.EnumOptions")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<EnumOptions, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<EnumOptions, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -1195,37 +1195,37 @@ impl<'de> serde::Deserialize<'de> for EnumOptions {
                 let mut deprecated_legacy_json_field_conflicts__ = None;
                 let mut features__ = None;
                 let mut uninterpreted_option__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::AllowAlias => {
                             if allow_alias__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("allowAlias"));
                             }
-                            allow_alias__ = map.next_value()?;
+                            allow_alias__ = map_.next_value()?;
                         }
                         GeneratedField::Deprecated => {
                             if deprecated__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("deprecated"));
                             }
-                            deprecated__ = map.next_value()?;
+                            deprecated__ = map_.next_value()?;
                         }
                         GeneratedField::DeprecatedLegacyJsonFieldConflicts => {
                             if deprecated_legacy_json_field_conflicts__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("deprecatedLegacyJsonFieldConflicts"));
                             }
-                            deprecated_legacy_json_field_conflicts__ = map.next_value()?;
+                            deprecated_legacy_json_field_conflicts__ = map_.next_value()?;
                         }
                         GeneratedField::Features => {
                             if features__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("features"));
                             }
-                            features__ = map.next_value()?;
+                            features__ = map_.next_value()?;
                         }
                         GeneratedField::UninterpretedOption => {
                             if uninterpreted_option__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("uninterpretedOption"));
                             }
-                            uninterpreted_option__ = Some(map.next_value()?);
+                            uninterpreted_option__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1327,34 +1327,34 @@ impl<'de> serde::Deserialize<'de> for EnumValueDescriptorProto {
                 formatter.write_str("struct google.protobuf.EnumValueDescriptorProto")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<EnumValueDescriptorProto, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<EnumValueDescriptorProto, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut name__ = None;
                 let mut number__ = None;
                 let mut options__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Name => {
                             if name__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("name"));
                             }
-                            name__ = map.next_value()?;
+                            name__ = map_.next_value()?;
                         }
                         GeneratedField::Number => {
                             if number__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("number"));
                             }
                             number__ = 
-                                map.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
+                                map_.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
                             ;
                         }
                         GeneratedField::Options => {
                             if options__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("options"));
                             }
-                            options__ = map.next_value()?;
+                            options__ = map_.next_value()?;
                         }
                     }
                 }
@@ -1465,7 +1465,7 @@ impl<'de> serde::Deserialize<'de> for EnumValueOptions {
                 formatter.write_str("struct google.protobuf.EnumValueOptions")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<EnumValueOptions, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<EnumValueOptions, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -1473,31 +1473,31 @@ impl<'de> serde::Deserialize<'de> for EnumValueOptions {
                 let mut features__ = None;
                 let mut debug_redact__ = None;
                 let mut uninterpreted_option__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Deprecated => {
                             if deprecated__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("deprecated"));
                             }
-                            deprecated__ = map.next_value()?;
+                            deprecated__ = map_.next_value()?;
                         }
                         GeneratedField::Features => {
                             if features__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("features"));
                             }
-                            features__ = map.next_value()?;
+                            features__ = map_.next_value()?;
                         }
                         GeneratedField::DebugRedact => {
                             if debug_redact__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("debugRedact"));
                             }
-                            debug_redact__ = map.next_value()?;
+                            debug_redact__ = map_.next_value()?;
                         }
                         GeneratedField::UninterpretedOption => {
                             if uninterpreted_option__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("uninterpretedOption"));
                             }
-                            uninterpreted_option__ = Some(map.next_value()?);
+                            uninterpreted_option__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -1543,8 +1543,8 @@ impl serde::Serialize for ExtensionRangeOptions {
             struct_ser.serialize_field("features", v)?;
         }
         if let Some(v) = self.verification.as_ref() {
-            let v = extension_range_options::VerificationState::from_i32(*v)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
+            let v = extension_range_options::VerificationState::try_from(*v)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
             struct_ser.serialize_field("verification", &v)?;
         }
         struct_ser.end()
@@ -1610,7 +1610,7 @@ impl<'de> serde::Deserialize<'de> for ExtensionRangeOptions {
                 formatter.write_str("struct google.protobuf.ExtensionRangeOptions")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<ExtensionRangeOptions, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ExtensionRangeOptions, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -1618,31 +1618,31 @@ impl<'de> serde::Deserialize<'de> for ExtensionRangeOptions {
                 let mut declaration__ = None;
                 let mut features__ = None;
                 let mut verification__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::UninterpretedOption => {
                             if uninterpreted_option__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("uninterpretedOption"));
                             }
-                            uninterpreted_option__ = Some(map.next_value()?);
+                            uninterpreted_option__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Declaration => {
                             if declaration__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("declaration"));
                             }
-                            declaration__ = Some(map.next_value()?);
+                            declaration__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Features => {
                             if features__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("features"));
                             }
-                            features__ = map.next_value()?;
+                            features__ = map_.next_value()?;
                         }
                         GeneratedField::Verification => {
                             if verification__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("verification"));
                             }
-                            verification__ = map.next_value::<::core::option::Option<extension_range_options::VerificationState>>()?.map(|x| x as i32);
+                            verification__ = map_.next_value::<::core::option::Option<extension_range_options::VerificationState>>()?.map(|x| x as i32);
                         }
                     }
                 }
@@ -1762,7 +1762,7 @@ impl<'de> serde::Deserialize<'de> for extension_range_options::Declaration {
                 formatter.write_str("struct google.protobuf.ExtensionRangeOptions.Declaration")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<extension_range_options::Declaration, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<extension_range_options::Declaration, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -1771,39 +1771,39 @@ impl<'de> serde::Deserialize<'de> for extension_range_options::Declaration {
                 let mut r#type__ = None;
                 let mut reserved__ = None;
                 let mut repeated__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Number => {
                             if number__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("number"));
                             }
                             number__ = 
-                                map.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
+                                map_.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
                             ;
                         }
                         GeneratedField::FullName => {
                             if full_name__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("fullName"));
                             }
-                            full_name__ = map.next_value()?;
+                            full_name__ = map_.next_value()?;
                         }
                         GeneratedField::Type => {
                             if r#type__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("type"));
                             }
-                            r#type__ = map.next_value()?;
+                            r#type__ = map_.next_value()?;
                         }
                         GeneratedField::Reserved => {
                             if reserved__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("reserved"));
                             }
-                            reserved__ = map.next_value()?;
+                            reserved__ = map_.next_value()?;
                         }
                         GeneratedField::Repeated => {
                             if repeated__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("repeated"));
                             }
-                            repeated__ = map.next_value()?;
+                            repeated__ = map_.next_value()?;
                         }
                     }
                 }
@@ -1856,10 +1856,9 @@ impl<'de> serde::Deserialize<'de> for extension_range_options::VerificationState
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(extension_range_options::VerificationState::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -1869,10 +1868,9 @@ impl<'de> serde::Deserialize<'de> for extension_range_options::VerificationState
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(extension_range_options::VerificationState::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -1920,33 +1918,33 @@ impl serde::Serialize for FeatureSet {
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.FeatureSet", len)?;
         if let Some(v) = self.field_presence.as_ref() {
-            let v = feature_set::FieldPresence::from_i32(*v)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
+            let v = feature_set::FieldPresence::try_from(*v)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
             struct_ser.serialize_field("fieldPresence", &v)?;
         }
         if let Some(v) = self.enum_type.as_ref() {
-            let v = feature_set::EnumType::from_i32(*v)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
+            let v = feature_set::EnumType::try_from(*v)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
             struct_ser.serialize_field("enumType", &v)?;
         }
         if let Some(v) = self.repeated_field_encoding.as_ref() {
-            let v = feature_set::RepeatedFieldEncoding::from_i32(*v)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
+            let v = feature_set::RepeatedFieldEncoding::try_from(*v)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
             struct_ser.serialize_field("repeatedFieldEncoding", &v)?;
         }
         if let Some(v) = self.utf8_validation.as_ref() {
-            let v = feature_set::Utf8Validation::from_i32(*v)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
+            let v = feature_set::Utf8Validation::try_from(*v)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
             struct_ser.serialize_field("utf8Validation", &v)?;
         }
         if let Some(v) = self.message_encoding.as_ref() {
-            let v = feature_set::MessageEncoding::from_i32(*v)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
+            let v = feature_set::MessageEncoding::try_from(*v)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
             struct_ser.serialize_field("messageEncoding", &v)?;
         }
         if let Some(v) = self.json_format.as_ref() {
-            let v = feature_set::JsonFormat::from_i32(*v)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
+            let v = feature_set::JsonFormat::try_from(*v)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
             struct_ser.serialize_field("jsonFormat", &v)?;
         }
         struct_ser.end()
@@ -2023,7 +2021,7 @@ impl<'de> serde::Deserialize<'de> for FeatureSet {
                 formatter.write_str("struct google.protobuf.FeatureSet")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<FeatureSet, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<FeatureSet, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -2033,43 +2031,43 @@ impl<'de> serde::Deserialize<'de> for FeatureSet {
                 let mut utf8_validation__ = None;
                 let mut message_encoding__ = None;
                 let mut json_format__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::FieldPresence => {
                             if field_presence__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("fieldPresence"));
                             }
-                            field_presence__ = map.next_value::<::core::option::Option<feature_set::FieldPresence>>()?.map(|x| x as i32);
+                            field_presence__ = map_.next_value::<::core::option::Option<feature_set::FieldPresence>>()?.map(|x| x as i32);
                         }
                         GeneratedField::EnumType => {
                             if enum_type__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("enumType"));
                             }
-                            enum_type__ = map.next_value::<::core::option::Option<feature_set::EnumType>>()?.map(|x| x as i32);
+                            enum_type__ = map_.next_value::<::core::option::Option<feature_set::EnumType>>()?.map(|x| x as i32);
                         }
                         GeneratedField::RepeatedFieldEncoding => {
                             if repeated_field_encoding__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("repeatedFieldEncoding"));
                             }
-                            repeated_field_encoding__ = map.next_value::<::core::option::Option<feature_set::RepeatedFieldEncoding>>()?.map(|x| x as i32);
+                            repeated_field_encoding__ = map_.next_value::<::core::option::Option<feature_set::RepeatedFieldEncoding>>()?.map(|x| x as i32);
                         }
                         GeneratedField::Utf8Validation => {
                             if utf8_validation__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("utf8Validation"));
                             }
-                            utf8_validation__ = map.next_value::<::core::option::Option<feature_set::Utf8Validation>>()?.map(|x| x as i32);
+                            utf8_validation__ = map_.next_value::<::core::option::Option<feature_set::Utf8Validation>>()?.map(|x| x as i32);
                         }
                         GeneratedField::MessageEncoding => {
                             if message_encoding__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("messageEncoding"));
                             }
-                            message_encoding__ = map.next_value::<::core::option::Option<feature_set::MessageEncoding>>()?.map(|x| x as i32);
+                            message_encoding__ = map_.next_value::<::core::option::Option<feature_set::MessageEncoding>>()?.map(|x| x as i32);
                         }
                         GeneratedField::JsonFormat => {
                             if json_format__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("jsonFormat"));
                             }
-                            json_format__ = map.next_value::<::core::option::Option<feature_set::JsonFormat>>()?.map(|x| x as i32);
+                            json_format__ = map_.next_value::<::core::option::Option<feature_set::JsonFormat>>()?.map(|x| x as i32);
                         }
                     }
                 }
@@ -2125,10 +2123,9 @@ impl<'de> serde::Deserialize<'de> for feature_set::EnumType {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(feature_set::EnumType::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -2138,10 +2135,9 @@ impl<'de> serde::Deserialize<'de> for feature_set::EnumType {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(feature_set::EnumType::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -2203,10 +2199,9 @@ impl<'de> serde::Deserialize<'de> for feature_set::FieldPresence {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(feature_set::FieldPresence::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -2216,10 +2211,9 @@ impl<'de> serde::Deserialize<'de> for feature_set::FieldPresence {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(feature_set::FieldPresence::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -2280,10 +2274,9 @@ impl<'de> serde::Deserialize<'de> for feature_set::JsonFormat {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(feature_set::JsonFormat::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -2293,10 +2286,9 @@ impl<'de> serde::Deserialize<'de> for feature_set::JsonFormat {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(feature_set::JsonFormat::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -2356,10 +2348,9 @@ impl<'de> serde::Deserialize<'de> for feature_set::MessageEncoding {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(feature_set::MessageEncoding::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -2369,10 +2360,9 @@ impl<'de> serde::Deserialize<'de> for feature_set::MessageEncoding {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(feature_set::MessageEncoding::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -2432,10 +2422,9 @@ impl<'de> serde::Deserialize<'de> for feature_set::RepeatedFieldEncoding {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(feature_set::RepeatedFieldEncoding::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -2445,10 +2434,9 @@ impl<'de> serde::Deserialize<'de> for feature_set::RepeatedFieldEncoding {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(feature_set::RepeatedFieldEncoding::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -2508,10 +2496,9 @@ impl<'de> serde::Deserialize<'de> for feature_set::Utf8Validation {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(feature_set::Utf8Validation::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -2521,10 +2508,9 @@ impl<'de> serde::Deserialize<'de> for feature_set::Utf8Validation {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(feature_set::Utf8Validation::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -2567,13 +2553,13 @@ impl serde::Serialize for FeatureSetDefaults {
             struct_ser.serialize_field("defaults", &self.defaults)?;
         }
         if let Some(v) = self.minimum_edition.as_ref() {
-            let v = Edition::from_i32(*v)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
+            let v = Edition::try_from(*v)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
             struct_ser.serialize_field("minimumEdition", &v)?;
         }
         if let Some(v) = self.maximum_edition.as_ref() {
-            let v = Edition::from_i32(*v)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
+            let v = Edition::try_from(*v)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
             struct_ser.serialize_field("maximumEdition", &v)?;
         }
         struct_ser.end()
@@ -2637,32 +2623,32 @@ impl<'de> serde::Deserialize<'de> for FeatureSetDefaults {
                 formatter.write_str("struct google.protobuf.FeatureSetDefaults")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<FeatureSetDefaults, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<FeatureSetDefaults, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut defaults__ = None;
                 let mut minimum_edition__ = None;
                 let mut maximum_edition__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Defaults => {
                             if defaults__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("defaults"));
                             }
-                            defaults__ = Some(map.next_value()?);
+                            defaults__ = Some(map_.next_value()?);
                         }
                         GeneratedField::MinimumEdition => {
                             if minimum_edition__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("minimumEdition"));
                             }
-                            minimum_edition__ = map.next_value::<::core::option::Option<Edition>>()?.map(|x| x as i32);
+                            minimum_edition__ = map_.next_value::<::core::option::Option<Edition>>()?.map(|x| x as i32);
                         }
                         GeneratedField::MaximumEdition => {
                             if maximum_edition__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("maximumEdition"));
                             }
-                            maximum_edition__ = map.next_value::<::core::option::Option<Edition>>()?.map(|x| x as i32);
+                            maximum_edition__ = map_.next_value::<::core::option::Option<Edition>>()?.map(|x| x as i32);
                         }
                     }
                 }
@@ -2692,8 +2678,8 @@ impl serde::Serialize for feature_set_defaults::FeatureSetEditionDefault {
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.FeatureSetDefaults.FeatureSetEditionDefault", len)?;
         if let Some(v) = self.edition.as_ref() {
-            let v = Edition::from_i32(*v)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
+            let v = Edition::try_from(*v)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
             struct_ser.serialize_field("edition", &v)?;
         }
         if let Some(v) = self.features.as_ref() {
@@ -2755,25 +2741,25 @@ impl<'de> serde::Deserialize<'de> for feature_set_defaults::FeatureSetEditionDef
                 formatter.write_str("struct google.protobuf.FeatureSetDefaults.FeatureSetEditionDefault")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<feature_set_defaults::FeatureSetEditionDefault, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<feature_set_defaults::FeatureSetEditionDefault, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut edition__ = None;
                 let mut features__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Edition => {
                             if edition__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("edition"));
                             }
-                            edition__ = map.next_value::<::core::option::Option<Edition>>()?.map(|x| x as i32);
+                            edition__ = map_.next_value::<::core::option::Option<Edition>>()?.map(|x| x as i32);
                         }
                         GeneratedField::Features => {
                             if features__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("features"));
                             }
-                            features__ = map.next_value()?;
+                            features__ = map_.next_value()?;
                         }
                     }
                 }
@@ -2835,13 +2821,13 @@ impl serde::Serialize for FieldDescriptorProto {
             struct_ser.serialize_field("number", v)?;
         }
         if let Some(v) = self.label.as_ref() {
-            let v = field_descriptor_proto::Label::from_i32(*v)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
+            let v = field_descriptor_proto::Label::try_from(*v)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
             struct_ser.serialize_field("label", &v)?;
         }
         if let Some(v) = self.r#type.as_ref() {
-            let v = field_descriptor_proto::Type::from_i32(*v)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
+            let v = field_descriptor_proto::Type::try_from(*v)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
             struct_ser.serialize_field("type", &v)?;
         }
         if let Some(v) = self.type_name.as_ref() {
@@ -2953,7 +2939,7 @@ impl<'de> serde::Deserialize<'de> for FieldDescriptorProto {
                 formatter.write_str("struct google.protobuf.FieldDescriptorProto")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<FieldDescriptorProto, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<FieldDescriptorProto, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -2968,77 +2954,77 @@ impl<'de> serde::Deserialize<'de> for FieldDescriptorProto {
                 let mut json_name__ = None;
                 let mut options__ = None;
                 let mut proto3_optional__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Name => {
                             if name__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("name"));
                             }
-                            name__ = map.next_value()?;
+                            name__ = map_.next_value()?;
                         }
                         GeneratedField::Number => {
                             if number__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("number"));
                             }
                             number__ = 
-                                map.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
+                                map_.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
                             ;
                         }
                         GeneratedField::Label => {
                             if label__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("label"));
                             }
-                            label__ = map.next_value::<::core::option::Option<field_descriptor_proto::Label>>()?.map(|x| x as i32);
+                            label__ = map_.next_value::<::core::option::Option<field_descriptor_proto::Label>>()?.map(|x| x as i32);
                         }
                         GeneratedField::Type => {
                             if r#type__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("type"));
                             }
-                            r#type__ = map.next_value::<::core::option::Option<field_descriptor_proto::Type>>()?.map(|x| x as i32);
+                            r#type__ = map_.next_value::<::core::option::Option<field_descriptor_proto::Type>>()?.map(|x| x as i32);
                         }
                         GeneratedField::TypeName => {
                             if type_name__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("typeName"));
                             }
-                            type_name__ = map.next_value()?;
+                            type_name__ = map_.next_value()?;
                         }
                         GeneratedField::Extendee => {
                             if extendee__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("extendee"));
                             }
-                            extendee__ = map.next_value()?;
+                            extendee__ = map_.next_value()?;
                         }
                         GeneratedField::DefaultValue => {
                             if default_value__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("defaultValue"));
                             }
-                            default_value__ = map.next_value()?;
+                            default_value__ = map_.next_value()?;
                         }
                         GeneratedField::OneofIndex => {
                             if oneof_index__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("oneofIndex"));
                             }
                             oneof_index__ = 
-                                map.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
+                                map_.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
                             ;
                         }
                         GeneratedField::JsonName => {
                             if json_name__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("jsonName"));
                             }
-                            json_name__ = map.next_value()?;
+                            json_name__ = map_.next_value()?;
                         }
                         GeneratedField::Options => {
                             if options__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("options"));
                             }
-                            options__ = map.next_value()?;
+                            options__ = map_.next_value()?;
                         }
                         GeneratedField::Proto3Optional => {
                             if proto3_optional__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("proto3Optional"));
                             }
-                            proto3_optional__ = map.next_value()?;
+                            proto3_optional__ = map_.next_value()?;
                         }
                     }
                 }
@@ -3099,10 +3085,9 @@ impl<'de> serde::Deserialize<'de> for field_descriptor_proto::Label {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(field_descriptor_proto::Label::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -3112,10 +3097,9 @@ impl<'de> serde::Deserialize<'de> for field_descriptor_proto::Label {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(field_descriptor_proto::Label::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -3205,10 +3189,9 @@ impl<'de> serde::Deserialize<'de> for field_descriptor_proto::Type {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(field_descriptor_proto::Type::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -3218,10 +3201,9 @@ impl<'de> serde::Deserialize<'de> for field_descriptor_proto::Type {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(field_descriptor_proto::Type::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -3306,16 +3288,16 @@ impl serde::Serialize for FieldOptions {
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.FieldOptions", len)?;
         if let Some(v) = self.ctype.as_ref() {
-            let v = field_options::CType::from_i32(*v)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
+            let v = field_options::CType::try_from(*v)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
             struct_ser.serialize_field("ctype", &v)?;
         }
         if let Some(v) = self.packed.as_ref() {
             struct_ser.serialize_field("packed", v)?;
         }
         if let Some(v) = self.jstype.as_ref() {
-            let v = field_options::JsType::from_i32(*v)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
+            let v = field_options::JsType::try_from(*v)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
             struct_ser.serialize_field("jstype", &v)?;
         }
         if let Some(v) = self.lazy.as_ref() {
@@ -3334,14 +3316,14 @@ impl serde::Serialize for FieldOptions {
             struct_ser.serialize_field("debugRedact", v)?;
         }
         if let Some(v) = self.retention.as_ref() {
-            let v = field_options::OptionRetention::from_i32(*v)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
+            let v = field_options::OptionRetention::try_from(*v)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
             struct_ser.serialize_field("retention", &v)?;
         }
         if true {
             let v = self.targets.iter().cloned().map(|v| {
-                field_options::OptionTargetType::from_i32(v)
-                    .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", v)))
+                field_options::OptionTargetType::try_from(v)
+                    .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", v)))
                 }).collect::<Result<::alloc::vec::Vec<_>, _>>()?;
             struct_ser.serialize_field("targets", &v)?;
         }
@@ -3447,7 +3429,7 @@ impl<'de> serde::Deserialize<'de> for FieldOptions {
                 formatter.write_str("struct google.protobuf.FieldOptions")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<FieldOptions, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<FieldOptions, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -3464,85 +3446,85 @@ impl<'de> serde::Deserialize<'de> for FieldOptions {
                 let mut edition_defaults__ = None;
                 let mut features__ = None;
                 let mut uninterpreted_option__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Ctype => {
                             if ctype__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("ctype"));
                             }
-                            ctype__ = map.next_value::<::core::option::Option<field_options::CType>>()?.map(|x| x as i32);
+                            ctype__ = map_.next_value::<::core::option::Option<field_options::CType>>()?.map(|x| x as i32);
                         }
                         GeneratedField::Packed => {
                             if packed__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("packed"));
                             }
-                            packed__ = map.next_value()?;
+                            packed__ = map_.next_value()?;
                         }
                         GeneratedField::Jstype => {
                             if jstype__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("jstype"));
                             }
-                            jstype__ = map.next_value::<::core::option::Option<field_options::JsType>>()?.map(|x| x as i32);
+                            jstype__ = map_.next_value::<::core::option::Option<field_options::JsType>>()?.map(|x| x as i32);
                         }
                         GeneratedField::Lazy => {
                             if lazy__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("lazy"));
                             }
-                            lazy__ = map.next_value()?;
+                            lazy__ = map_.next_value()?;
                         }
                         GeneratedField::UnverifiedLazy => {
                             if unverified_lazy__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("unverifiedLazy"));
                             }
-                            unverified_lazy__ = map.next_value()?;
+                            unverified_lazy__ = map_.next_value()?;
                         }
                         GeneratedField::Deprecated => {
                             if deprecated__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("deprecated"));
                             }
-                            deprecated__ = map.next_value()?;
+                            deprecated__ = map_.next_value()?;
                         }
                         GeneratedField::Weak => {
                             if weak__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("weak"));
                             }
-                            weak__ = map.next_value()?;
+                            weak__ = map_.next_value()?;
                         }
                         GeneratedField::DebugRedact => {
                             if debug_redact__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("debugRedact"));
                             }
-                            debug_redact__ = map.next_value()?;
+                            debug_redact__ = map_.next_value()?;
                         }
                         GeneratedField::Retention => {
                             if retention__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("retention"));
                             }
-                            retention__ = map.next_value::<::core::option::Option<field_options::OptionRetention>>()?.map(|x| x as i32);
+                            retention__ = map_.next_value::<::core::option::Option<field_options::OptionRetention>>()?.map(|x| x as i32);
                         }
                         GeneratedField::Targets => {
                             if targets__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("targets"));
                             }
-                            targets__ = Some(map.next_value::<::alloc::vec::Vec<field_options::OptionTargetType>>()?.into_iter().map(|x| x as i32).collect());
+                            targets__ = Some(map_.next_value::<::alloc::vec::Vec<field_options::OptionTargetType>>()?.into_iter().map(|x| x as i32).collect());
                         }
                         GeneratedField::EditionDefaults => {
                             if edition_defaults__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("editionDefaults"));
                             }
-                            edition_defaults__ = Some(map.next_value()?);
+                            edition_defaults__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Features => {
                             if features__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("features"));
                             }
-                            features__ = map.next_value()?;
+                            features__ = map_.next_value()?;
                         }
                         GeneratedField::UninterpretedOption => {
                             if uninterpreted_option__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("uninterpretedOption"));
                             }
-                            uninterpreted_option__ = Some(map.next_value()?);
+                            uninterpreted_option__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -3605,10 +3587,9 @@ impl<'de> serde::Deserialize<'de> for field_options::CType {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(field_options::CType::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -3618,10 +3599,9 @@ impl<'de> serde::Deserialize<'de> for field_options::CType {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(field_options::CType::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -3658,8 +3638,8 @@ impl serde::Serialize for field_options::EditionDefault {
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.FieldOptions.EditionDefault", len)?;
         if let Some(v) = self.edition.as_ref() {
-            let v = Edition::from_i32(*v)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
+            let v = Edition::try_from(*v)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
             struct_ser.serialize_field("edition", &v)?;
         }
         if let Some(v) = self.value.as_ref() {
@@ -3721,25 +3701,25 @@ impl<'de> serde::Deserialize<'de> for field_options::EditionDefault {
                 formatter.write_str("struct google.protobuf.FieldOptions.EditionDefault")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<field_options::EditionDefault, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<field_options::EditionDefault, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut edition__ = None;
                 let mut value__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Edition => {
                             if edition__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("edition"));
                             }
-                            edition__ = map.next_value::<::core::option::Option<Edition>>()?.map(|x| x as i32);
+                            edition__ = map_.next_value::<::core::option::Option<Edition>>()?.map(|x| x as i32);
                         }
                         GeneratedField::Value => {
                             if value__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("value"));
                             }
-                            value__ = map.next_value()?;
+                            value__ = map_.next_value()?;
                         }
                     }
                 }
@@ -3791,10 +3771,9 @@ impl<'de> serde::Deserialize<'de> for field_options::JsType {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(field_options::JsType::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -3804,10 +3783,9 @@ impl<'de> serde::Deserialize<'de> for field_options::JsType {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(field_options::JsType::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -3867,10 +3845,9 @@ impl<'de> serde::Deserialize<'de> for field_options::OptionRetention {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(field_options::OptionRetention::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -3880,10 +3857,9 @@ impl<'de> serde::Deserialize<'de> for field_options::OptionRetention {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(field_options::OptionRetention::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -3957,10 +3933,9 @@ impl<'de> serde::Deserialize<'de> for field_options::OptionTargetType {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(field_options::OptionTargetType::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -3970,10 +3945,9 @@ impl<'de> serde::Deserialize<'de> for field_options::OptionTargetType {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(field_options::OptionTargetType::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -4086,8 +4060,8 @@ impl serde::Serialize for FileDescriptorProto {
             struct_ser.serialize_field("syntax", v)?;
         }
         if let Some(v) = self.edition.as_ref() {
-            let v = Edition::from_i32(*v)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
+            let v = Edition::try_from(*v)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
             struct_ser.serialize_field("edition", &v)?;
         }
         struct_ser.end()
@@ -4184,7 +4158,7 @@ impl<'de> serde::Deserialize<'de> for FileDescriptorProto {
                 formatter.write_str("struct google.protobuf.FileDescriptorProto")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<FileDescriptorProto, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<FileDescriptorProto, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -4201,32 +4175,32 @@ impl<'de> serde::Deserialize<'de> for FileDescriptorProto {
                 let mut source_code_info__ = None;
                 let mut syntax__ = None;
                 let mut edition__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Name => {
                             if name__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("name"));
                             }
-                            name__ = map.next_value()?;
+                            name__ = map_.next_value()?;
                         }
                         GeneratedField::Package => {
                             if package__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("package"));
                             }
-                            package__ = map.next_value()?;
+                            package__ = map_.next_value()?;
                         }
                         GeneratedField::Dependency => {
                             if dependency__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("dependency"));
                             }
-                            dependency__ = Some(map.next_value()?);
+                            dependency__ = Some(map_.next_value()?);
                         }
                         GeneratedField::PublicDependency => {
                             if public_dependency__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("publicDependency"));
                             }
                             public_dependency__ = 
-                                Some(map.next_value::<::alloc::vec::Vec<::pbjson::private::NumberDeserialize<_>>>()?
+                                Some(map_.next_value::<::alloc::vec::Vec<::pbjson::private::NumberDeserialize<_>>>()?
                                     .into_iter().map(|x| x.0).collect())
                             ;
                         }
@@ -4235,7 +4209,7 @@ impl<'de> serde::Deserialize<'de> for FileDescriptorProto {
                                 return Err(serde::de::Error::duplicate_field("weakDependency"));
                             }
                             weak_dependency__ = 
-                                Some(map.next_value::<::alloc::vec::Vec<::pbjson::private::NumberDeserialize<_>>>()?
+                                Some(map_.next_value::<::alloc::vec::Vec<::pbjson::private::NumberDeserialize<_>>>()?
                                     .into_iter().map(|x| x.0).collect())
                             ;
                         }
@@ -4243,49 +4217,49 @@ impl<'de> serde::Deserialize<'de> for FileDescriptorProto {
                             if message_type__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("messageType"));
                             }
-                            message_type__ = Some(map.next_value()?);
+                            message_type__ = Some(map_.next_value()?);
                         }
                         GeneratedField::EnumType => {
                             if enum_type__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("enumType"));
                             }
-                            enum_type__ = Some(map.next_value()?);
+                            enum_type__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Service => {
                             if service__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("service"));
                             }
-                            service__ = Some(map.next_value()?);
+                            service__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Extension => {
                             if extension__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("extension"));
                             }
-                            extension__ = Some(map.next_value()?);
+                            extension__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Options => {
                             if options__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("options"));
                             }
-                            options__ = map.next_value()?;
+                            options__ = map_.next_value()?;
                         }
                         GeneratedField::SourceCodeInfo => {
                             if source_code_info__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sourceCodeInfo"));
                             }
-                            source_code_info__ = map.next_value()?;
+                            source_code_info__ = map_.next_value()?;
                         }
                         GeneratedField::Syntax => {
                             if syntax__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("syntax"));
                             }
-                            syntax__ = map.next_value()?;
+                            syntax__ = map_.next_value()?;
                         }
                         GeneratedField::Edition => {
                             if edition__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("edition"));
                             }
-                            edition__ = map.next_value::<::core::option::Option<Edition>>()?.map(|x| x as i32);
+                            edition__ = map_.next_value::<::core::option::Option<Edition>>()?.map(|x| x as i32);
                         }
                     }
                 }
@@ -4377,18 +4351,18 @@ impl<'de> serde::Deserialize<'de> for FileDescriptorSet {
                 formatter.write_str("struct google.protobuf.FileDescriptorSet")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<FileDescriptorSet, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<FileDescriptorSet, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut file__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::File => {
                             if file__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("file"));
                             }
-                            file__ = Some(map.next_value()?);
+                            file__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -4491,8 +4465,8 @@ impl serde::Serialize for FileOptions {
             struct_ser.serialize_field("javaStringCheckUtf8", v)?;
         }
         if let Some(v) = self.optimize_for.as_ref() {
-            let v = file_options::OptimizeMode::from_i32(*v)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
+            let v = file_options::OptimizeMode::try_from(*v)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
             struct_ser.serialize_field("optimizeFor", &v)?;
         }
         if let Some(v) = self.go_package.as_ref() {
@@ -4679,7 +4653,7 @@ impl<'de> serde::Deserialize<'de> for FileOptions {
                 formatter.write_str("struct google.protobuf.FileOptions")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<FileOptions, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<FileOptions, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -4705,139 +4679,139 @@ impl<'de> serde::Deserialize<'de> for FileOptions {
                 let mut ruby_package__ = None;
                 let mut features__ = None;
                 let mut uninterpreted_option__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::JavaPackage => {
                             if java_package__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("javaPackage"));
                             }
-                            java_package__ = map.next_value()?;
+                            java_package__ = map_.next_value()?;
                         }
                         GeneratedField::JavaOuterClassname => {
                             if java_outer_classname__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("javaOuterClassname"));
                             }
-                            java_outer_classname__ = map.next_value()?;
+                            java_outer_classname__ = map_.next_value()?;
                         }
                         GeneratedField::JavaMultipleFiles => {
                             if java_multiple_files__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("javaMultipleFiles"));
                             }
-                            java_multiple_files__ = map.next_value()?;
+                            java_multiple_files__ = map_.next_value()?;
                         }
                         GeneratedField::JavaGenerateEqualsAndHash => {
                             if java_generate_equals_and_hash__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("javaGenerateEqualsAndHash"));
                             }
-                            java_generate_equals_and_hash__ = map.next_value()?;
+                            java_generate_equals_and_hash__ = map_.next_value()?;
                         }
                         GeneratedField::JavaStringCheckUtf8 => {
                             if java_string_check_utf8__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("javaStringCheckUtf8"));
                             }
-                            java_string_check_utf8__ = map.next_value()?;
+                            java_string_check_utf8__ = map_.next_value()?;
                         }
                         GeneratedField::OptimizeFor => {
                             if optimize_for__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("optimizeFor"));
                             }
-                            optimize_for__ = map.next_value::<::core::option::Option<file_options::OptimizeMode>>()?.map(|x| x as i32);
+                            optimize_for__ = map_.next_value::<::core::option::Option<file_options::OptimizeMode>>()?.map(|x| x as i32);
                         }
                         GeneratedField::GoPackage => {
                             if go_package__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("goPackage"));
                             }
-                            go_package__ = map.next_value()?;
+                            go_package__ = map_.next_value()?;
                         }
                         GeneratedField::CcGenericServices => {
                             if cc_generic_services__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("ccGenericServices"));
                             }
-                            cc_generic_services__ = map.next_value()?;
+                            cc_generic_services__ = map_.next_value()?;
                         }
                         GeneratedField::JavaGenericServices => {
                             if java_generic_services__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("javaGenericServices"));
                             }
-                            java_generic_services__ = map.next_value()?;
+                            java_generic_services__ = map_.next_value()?;
                         }
                         GeneratedField::PyGenericServices => {
                             if py_generic_services__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pyGenericServices"));
                             }
-                            py_generic_services__ = map.next_value()?;
+                            py_generic_services__ = map_.next_value()?;
                         }
                         GeneratedField::PhpGenericServices => {
                             if php_generic_services__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("phpGenericServices"));
                             }
-                            php_generic_services__ = map.next_value()?;
+                            php_generic_services__ = map_.next_value()?;
                         }
                         GeneratedField::Deprecated => {
                             if deprecated__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("deprecated"));
                             }
-                            deprecated__ = map.next_value()?;
+                            deprecated__ = map_.next_value()?;
                         }
                         GeneratedField::CcEnableArenas => {
                             if cc_enable_arenas__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("ccEnableArenas"));
                             }
-                            cc_enable_arenas__ = map.next_value()?;
+                            cc_enable_arenas__ = map_.next_value()?;
                         }
                         GeneratedField::ObjcClassPrefix => {
                             if objc_class_prefix__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("objcClassPrefix"));
                             }
-                            objc_class_prefix__ = map.next_value()?;
+                            objc_class_prefix__ = map_.next_value()?;
                         }
                         GeneratedField::CsharpNamespace => {
                             if csharp_namespace__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("csharpNamespace"));
                             }
-                            csharp_namespace__ = map.next_value()?;
+                            csharp_namespace__ = map_.next_value()?;
                         }
                         GeneratedField::SwiftPrefix => {
                             if swift_prefix__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("swiftPrefix"));
                             }
-                            swift_prefix__ = map.next_value()?;
+                            swift_prefix__ = map_.next_value()?;
                         }
                         GeneratedField::PhpClassPrefix => {
                             if php_class_prefix__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("phpClassPrefix"));
                             }
-                            php_class_prefix__ = map.next_value()?;
+                            php_class_prefix__ = map_.next_value()?;
                         }
                         GeneratedField::PhpNamespace => {
                             if php_namespace__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("phpNamespace"));
                             }
-                            php_namespace__ = map.next_value()?;
+                            php_namespace__ = map_.next_value()?;
                         }
                         GeneratedField::PhpMetadataNamespace => {
                             if php_metadata_namespace__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("phpMetadataNamespace"));
                             }
-                            php_metadata_namespace__ = map.next_value()?;
+                            php_metadata_namespace__ = map_.next_value()?;
                         }
                         GeneratedField::RubyPackage => {
                             if ruby_package__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("rubyPackage"));
                             }
-                            ruby_package__ = map.next_value()?;
+                            ruby_package__ = map_.next_value()?;
                         }
                         GeneratedField::Features => {
                             if features__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("features"));
                             }
-                            features__ = map.next_value()?;
+                            features__ = map_.next_value()?;
                         }
                         GeneratedField::UninterpretedOption => {
                             if uninterpreted_option__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("uninterpretedOption"));
                             }
-                            uninterpreted_option__ = Some(map.next_value()?);
+                            uninterpreted_option__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -4909,10 +4883,9 @@ impl<'de> serde::Deserialize<'de> for file_options::OptimizeMode {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(file_options::OptimizeMode::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -4922,10 +4895,9 @@ impl<'de> serde::Deserialize<'de> for file_options::OptimizeMode {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(file_options::OptimizeMode::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -5014,18 +4986,18 @@ impl<'de> serde::Deserialize<'de> for GeneratedCodeInfo {
                 formatter.write_str("struct google.protobuf.GeneratedCodeInfo")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<GeneratedCodeInfo, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<GeneratedCodeInfo, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut annotation__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Annotation => {
                             if annotation__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("annotation"));
                             }
-                            annotation__ = Some(map.next_value()?);
+                            annotation__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -5074,8 +5046,8 @@ impl serde::Serialize for generated_code_info::Annotation {
             struct_ser.serialize_field("end", v)?;
         }
         if let Some(v) = self.semantic.as_ref() {
-            let v = generated_code_info::annotation::Semantic::from_i32(*v)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
+            let v = generated_code_info::annotation::Semantic::try_from(*v)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
             struct_ser.serialize_field("semantic", &v)?;
         }
         struct_ser.end()
@@ -5144,7 +5116,7 @@ impl<'de> serde::Deserialize<'de> for generated_code_info::Annotation {
                 formatter.write_str("struct google.protobuf.GeneratedCodeInfo.Annotation")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<generated_code_info::Annotation, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<generated_code_info::Annotation, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -5153,14 +5125,14 @@ impl<'de> serde::Deserialize<'de> for generated_code_info::Annotation {
                 let mut begin__ = None;
                 let mut end__ = None;
                 let mut semantic__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Path => {
                             if path__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("path"));
                             }
                             path__ = 
-                                Some(map.next_value::<::alloc::vec::Vec<::pbjson::private::NumberDeserialize<_>>>()?
+                                Some(map_.next_value::<::alloc::vec::Vec<::pbjson::private::NumberDeserialize<_>>>()?
                                     .into_iter().map(|x| x.0).collect())
                             ;
                         }
@@ -5168,14 +5140,14 @@ impl<'de> serde::Deserialize<'de> for generated_code_info::Annotation {
                             if source_file__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("sourceFile"));
                             }
-                            source_file__ = map.next_value()?;
+                            source_file__ = map_.next_value()?;
                         }
                         GeneratedField::Begin => {
                             if begin__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("begin"));
                             }
                             begin__ = 
-                                map.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
+                                map_.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
                             ;
                         }
                         GeneratedField::End => {
@@ -5183,14 +5155,14 @@ impl<'de> serde::Deserialize<'de> for generated_code_info::Annotation {
                                 return Err(serde::de::Error::duplicate_field("end"));
                             }
                             end__ = 
-                                map.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
+                                map_.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
                             ;
                         }
                         GeneratedField::Semantic => {
                             if semantic__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("semantic"));
                             }
-                            semantic__ = map.next_value::<::core::option::Option<generated_code_info::annotation::Semantic>>()?.map(|x| x as i32);
+                            semantic__ = map_.next_value::<::core::option::Option<generated_code_info::annotation::Semantic>>()?.map(|x| x as i32);
                         }
                     }
                 }
@@ -5245,10 +5217,9 @@ impl<'de> serde::Deserialize<'de> for generated_code_info::annotation::Semantic 
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(generated_code_info::annotation::Semantic::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -5258,10 +5229,9 @@ impl<'de> serde::Deserialize<'de> for generated_code_info::annotation::Semantic 
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(generated_code_info::annotation::Semantic::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -5409,7 +5379,7 @@ impl<'de> serde::Deserialize<'de> for MessageOptions {
                 formatter.write_str("struct google.protobuf.MessageOptions")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MessageOptions, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MessageOptions, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -5420,49 +5390,49 @@ impl<'de> serde::Deserialize<'de> for MessageOptions {
                 let mut deprecated_legacy_json_field_conflicts__ = None;
                 let mut features__ = None;
                 let mut uninterpreted_option__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::MessageSetWireFormat => {
                             if message_set_wire_format__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("messageSetWireFormat"));
                             }
-                            message_set_wire_format__ = map.next_value()?;
+                            message_set_wire_format__ = map_.next_value()?;
                         }
                         GeneratedField::NoStandardDescriptorAccessor => {
                             if no_standard_descriptor_accessor__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("noStandardDescriptorAccessor"));
                             }
-                            no_standard_descriptor_accessor__ = map.next_value()?;
+                            no_standard_descriptor_accessor__ = map_.next_value()?;
                         }
                         GeneratedField::Deprecated => {
                             if deprecated__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("deprecated"));
                             }
-                            deprecated__ = map.next_value()?;
+                            deprecated__ = map_.next_value()?;
                         }
                         GeneratedField::MapEntry => {
                             if map_entry__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("mapEntry"));
                             }
-                            map_entry__ = map.next_value()?;
+                            map_entry__ = map_.next_value()?;
                         }
                         GeneratedField::DeprecatedLegacyJsonFieldConflicts => {
                             if deprecated_legacy_json_field_conflicts__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("deprecatedLegacyJsonFieldConflicts"));
                             }
-                            deprecated_legacy_json_field_conflicts__ = map.next_value()?;
+                            deprecated_legacy_json_field_conflicts__ = map_.next_value()?;
                         }
                         GeneratedField::Features => {
                             if features__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("features"));
                             }
-                            features__ = map.next_value()?;
+                            features__ = map_.next_value()?;
                         }
                         GeneratedField::UninterpretedOption => {
                             if uninterpreted_option__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("uninterpretedOption"));
                             }
-                            uninterpreted_option__ = Some(map.next_value()?);
+                            uninterpreted_option__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -5597,7 +5567,7 @@ impl<'de> serde::Deserialize<'de> for MethodDescriptorProto {
                 formatter.write_str("struct google.protobuf.MethodDescriptorProto")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MethodDescriptorProto, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MethodDescriptorProto, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -5607,43 +5577,43 @@ impl<'de> serde::Deserialize<'de> for MethodDescriptorProto {
                 let mut options__ = None;
                 let mut client_streaming__ = None;
                 let mut server_streaming__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Name => {
                             if name__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("name"));
                             }
-                            name__ = map.next_value()?;
+                            name__ = map_.next_value()?;
                         }
                         GeneratedField::InputType => {
                             if input_type__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("inputType"));
                             }
-                            input_type__ = map.next_value()?;
+                            input_type__ = map_.next_value()?;
                         }
                         GeneratedField::OutputType => {
                             if output_type__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("outputType"));
                             }
-                            output_type__ = map.next_value()?;
+                            output_type__ = map_.next_value()?;
                         }
                         GeneratedField::Options => {
                             if options__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("options"));
                             }
-                            options__ = map.next_value()?;
+                            options__ = map_.next_value()?;
                         }
                         GeneratedField::ClientStreaming => {
                             if client_streaming__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientStreaming"));
                             }
-                            client_streaming__ = map.next_value()?;
+                            client_streaming__ = map_.next_value()?;
                         }
                         GeneratedField::ServerStreaming => {
                             if server_streaming__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("serverStreaming"));
                             }
-                            server_streaming__ = map.next_value()?;
+                            server_streaming__ = map_.next_value()?;
                         }
                     }
                 }
@@ -5685,8 +5655,8 @@ impl serde::Serialize for MethodOptions {
             struct_ser.serialize_field("deprecated", v)?;
         }
         if let Some(v) = self.idempotency_level.as_ref() {
-            let v = method_options::IdempotencyLevel::from_i32(*v)
-                .ok_or_else(|| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
+            let v = method_options::IdempotencyLevel::try_from(*v)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
             struct_ser.serialize_field("idempotencyLevel", &v)?;
         }
         if let Some(v) = self.features.as_ref() {
@@ -5759,7 +5729,7 @@ impl<'de> serde::Deserialize<'de> for MethodOptions {
                 formatter.write_str("struct google.protobuf.MethodOptions")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<MethodOptions, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MethodOptions, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -5767,31 +5737,31 @@ impl<'de> serde::Deserialize<'de> for MethodOptions {
                 let mut idempotency_level__ = None;
                 let mut features__ = None;
                 let mut uninterpreted_option__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Deprecated => {
                             if deprecated__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("deprecated"));
                             }
-                            deprecated__ = map.next_value()?;
+                            deprecated__ = map_.next_value()?;
                         }
                         GeneratedField::IdempotencyLevel => {
                             if idempotency_level__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("idempotencyLevel"));
                             }
-                            idempotency_level__ = map.next_value::<::core::option::Option<method_options::IdempotencyLevel>>()?.map(|x| x as i32);
+                            idempotency_level__ = map_.next_value::<::core::option::Option<method_options::IdempotencyLevel>>()?.map(|x| x as i32);
                         }
                         GeneratedField::Features => {
                             if features__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("features"));
                             }
-                            features__ = map.next_value()?;
+                            features__ = map_.next_value()?;
                         }
                         GeneratedField::UninterpretedOption => {
                             if uninterpreted_option__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("uninterpretedOption"));
                             }
-                            uninterpreted_option__ = Some(map.next_value()?);
+                            uninterpreted_option__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -5845,10 +5815,9 @@ impl<'de> serde::Deserialize<'de> for method_options::IdempotencyLevel {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(method_options::IdempotencyLevel::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
                     })
@@ -5858,10 +5827,9 @@ impl<'de> serde::Deserialize<'de> for method_options::IdempotencyLevel {
             where
                 E: serde::de::Error,
             {
-                use core::convert::TryFrom;
                 i32::try_from(v)
                     .ok()
-                    .and_then(method_options::IdempotencyLevel::from_i32)
+                    .and_then(|x| x.try_into().ok())
                     .ok_or_else(|| {
                         serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
                     })
@@ -5959,25 +5927,25 @@ impl<'de> serde::Deserialize<'de> for OneofDescriptorProto {
                 formatter.write_str("struct google.protobuf.OneofDescriptorProto")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<OneofDescriptorProto, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<OneofDescriptorProto, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut name__ = None;
                 let mut options__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Name => {
                             if name__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("name"));
                             }
-                            name__ = map.next_value()?;
+                            name__ = map_.next_value()?;
                         }
                         GeneratedField::Options => {
                             if options__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("options"));
                             }
-                            options__ = map.next_value()?;
+                            options__ = map_.next_value()?;
                         }
                     }
                 }
@@ -6068,25 +6036,25 @@ impl<'de> serde::Deserialize<'de> for OneofOptions {
                 formatter.write_str("struct google.protobuf.OneofOptions")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<OneofOptions, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<OneofOptions, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut features__ = None;
                 let mut uninterpreted_option__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Features => {
                             if features__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("features"));
                             }
-                            features__ = map.next_value()?;
+                            features__ = map_.next_value()?;
                         }
                         GeneratedField::UninterpretedOption => {
                             if uninterpreted_option__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("uninterpretedOption"));
                             }
-                            uninterpreted_option__ = Some(map.next_value()?);
+                            uninterpreted_option__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -6185,32 +6153,32 @@ impl<'de> serde::Deserialize<'de> for ServiceDescriptorProto {
                 formatter.write_str("struct google.protobuf.ServiceDescriptorProto")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<ServiceDescriptorProto, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ServiceDescriptorProto, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut name__ = None;
                 let mut method__ = None;
                 let mut options__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Name => {
                             if name__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("name"));
                             }
-                            name__ = map.next_value()?;
+                            name__ = map_.next_value()?;
                         }
                         GeneratedField::Method => {
                             if method__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("method"));
                             }
-                            method__ = Some(map.next_value()?);
+                            method__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Options => {
                             if options__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("options"));
                             }
-                            options__ = map.next_value()?;
+                            options__ = map_.next_value()?;
                         }
                     }
                 }
@@ -6311,32 +6279,32 @@ impl<'de> serde::Deserialize<'de> for ServiceOptions {
                 formatter.write_str("struct google.protobuf.ServiceOptions")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<ServiceOptions, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ServiceOptions, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut features__ = None;
                 let mut deprecated__ = None;
                 let mut uninterpreted_option__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Features => {
                             if features__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("features"));
                             }
-                            features__ = map.next_value()?;
+                            features__ = map_.next_value()?;
                         }
                         GeneratedField::Deprecated => {
                             if deprecated__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("deprecated"));
                             }
-                            deprecated__ = map.next_value()?;
+                            deprecated__ = map_.next_value()?;
                         }
                         GeneratedField::UninterpretedOption => {
                             if uninterpreted_option__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("uninterpretedOption"));
                             }
-                            uninterpreted_option__ = Some(map.next_value()?);
+                            uninterpreted_option__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -6418,18 +6386,18 @@ impl<'de> serde::Deserialize<'de> for SourceCodeInfo {
                 formatter.write_str("struct google.protobuf.SourceCodeInfo")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<SourceCodeInfo, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<SourceCodeInfo, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut location__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Location => {
                             if location__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("location"));
                             }
-                            location__ = Some(map.next_value()?);
+                            location__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -6548,7 +6516,7 @@ impl<'de> serde::Deserialize<'de> for source_code_info::Location {
                 formatter.write_str("struct google.protobuf.SourceCodeInfo.Location")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<source_code_info::Location, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<source_code_info::Location, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -6557,14 +6525,14 @@ impl<'de> serde::Deserialize<'de> for source_code_info::Location {
                 let mut leading_comments__ = None;
                 let mut trailing_comments__ = None;
                 let mut leading_detached_comments__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Path => {
                             if path__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("path"));
                             }
                             path__ = 
-                                Some(map.next_value::<::alloc::vec::Vec<::pbjson::private::NumberDeserialize<_>>>()?
+                                Some(map_.next_value::<::alloc::vec::Vec<::pbjson::private::NumberDeserialize<_>>>()?
                                     .into_iter().map(|x| x.0).collect())
                             ;
                         }
@@ -6573,7 +6541,7 @@ impl<'de> serde::Deserialize<'de> for source_code_info::Location {
                                 return Err(serde::de::Error::duplicate_field("span"));
                             }
                             span__ = 
-                                Some(map.next_value::<::alloc::vec::Vec<::pbjson::private::NumberDeserialize<_>>>()?
+                                Some(map_.next_value::<::alloc::vec::Vec<::pbjson::private::NumberDeserialize<_>>>()?
                                     .into_iter().map(|x| x.0).collect())
                             ;
                         }
@@ -6581,19 +6549,19 @@ impl<'de> serde::Deserialize<'de> for source_code_info::Location {
                             if leading_comments__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("leadingComments"));
                             }
-                            leading_comments__ = map.next_value()?;
+                            leading_comments__ = map_.next_value()?;
                         }
                         GeneratedField::TrailingComments => {
                             if trailing_comments__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("trailingComments"));
                             }
-                            trailing_comments__ = map.next_value()?;
+                            trailing_comments__ = map_.next_value()?;
                         }
                         GeneratedField::LeadingDetachedComments => {
                             if leading_detached_comments__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("leadingDetachedComments"));
                             }
-                            leading_detached_comments__ = Some(map.next_value()?);
+                            leading_detached_comments__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -6625,6 +6593,7 @@ impl serde::Serialize for Timestamp {
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.Timestamp", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("seconds", ::alloc::string::ToString::to_string(&self.seconds).as_str())?;
         }
         if true {
@@ -6686,20 +6655,20 @@ impl<'de> serde::Deserialize<'de> for Timestamp {
                 formatter.write_str("struct google.protobuf.Timestamp")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Timestamp, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Timestamp, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut seconds__ = None;
                 let mut nanos__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Seconds => {
                             if seconds__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("seconds"));
                             }
                             seconds__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                         GeneratedField::Nanos => {
@@ -6707,7 +6676,7 @@ impl<'de> serde::Deserialize<'de> for Timestamp {
                                 return Err(serde::de::Error::duplicate_field("nanos"));
                             }
                             nanos__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -6758,16 +6727,19 @@ impl serde::Serialize for UninterpretedOption {
             struct_ser.serialize_field("identifierValue", v)?;
         }
         if let Some(v) = self.positive_int_value.as_ref() {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("positiveIntValue", ::alloc::string::ToString::to_string(&v).as_str())?;
         }
         if let Some(v) = self.negative_int_value.as_ref() {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("negativeIntValue", ::alloc::string::ToString::to_string(&v).as_str())?;
         }
         if let Some(v) = self.double_value.as_ref() {
             struct_ser.serialize_field("doubleValue", v)?;
         }
         if let Some(v) = self.string_value.as_ref() {
-            struct_ser.serialize_field("stringValue", pbjson::private::base64::encode(v).as_str())?;
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field("stringValue", pbjson::private::base64::encode(&v).as_str())?;
         }
         if let Some(v) = self.aggregate_value.as_ref() {
             struct_ser.serialize_field("aggregateValue", v)?;
@@ -6849,7 +6821,7 @@ impl<'de> serde::Deserialize<'de> for UninterpretedOption {
                 formatter.write_str("struct google.protobuf.UninterpretedOption")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<UninterpretedOption, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<UninterpretedOption, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -6860,26 +6832,26 @@ impl<'de> serde::Deserialize<'de> for UninterpretedOption {
                 let mut double_value__ = None;
                 let mut string_value__ = None;
                 let mut aggregate_value__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Name => {
                             if name__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("name"));
                             }
-                            name__ = Some(map.next_value()?);
+                            name__ = Some(map_.next_value()?);
                         }
                         GeneratedField::IdentifierValue => {
                             if identifier_value__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("identifierValue"));
                             }
-                            identifier_value__ = map.next_value()?;
+                            identifier_value__ = map_.next_value()?;
                         }
                         GeneratedField::PositiveIntValue => {
                             if positive_int_value__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("positiveIntValue"));
                             }
                             positive_int_value__ = 
-                                map.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
+                                map_.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
                             ;
                         }
                         GeneratedField::NegativeIntValue => {
@@ -6887,7 +6859,7 @@ impl<'de> serde::Deserialize<'de> for UninterpretedOption {
                                 return Err(serde::de::Error::duplicate_field("negativeIntValue"));
                             }
                             negative_int_value__ = 
-                                map.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
+                                map_.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
                             ;
                         }
                         GeneratedField::DoubleValue => {
@@ -6895,7 +6867,7 @@ impl<'de> serde::Deserialize<'de> for UninterpretedOption {
                                 return Err(serde::de::Error::duplicate_field("doubleValue"));
                             }
                             double_value__ = 
-                                map.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
+                                map_.next_value::<::core::option::Option<::pbjson::private::NumberDeserialize<_>>>()?.map(|x| x.0)
                             ;
                         }
                         GeneratedField::StringValue => {
@@ -6903,14 +6875,14 @@ impl<'de> serde::Deserialize<'de> for UninterpretedOption {
                                 return Err(serde::de::Error::duplicate_field("stringValue"));
                             }
                             string_value__ = 
-                                map.next_value::<::core::option::Option<::pbjson::private::BytesDeserialize<_>>>()?.map(|x| x.0)
+                                map_.next_value::<::core::option::Option<::pbjson::private::BytesDeserialize<_>>>()?.map(|x| x.0)
                             ;
                         }
                         GeneratedField::AggregateValue => {
                             if aggregate_value__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("aggregateValue"));
                             }
-                            aggregate_value__ = map.next_value()?;
+                            aggregate_value__ = map_.next_value()?;
                         }
                     }
                 }
@@ -6997,25 +6969,25 @@ impl<'de> serde::Deserialize<'de> for uninterpreted_option::NamePart {
                 formatter.write_str("struct google.protobuf.UninterpretedOption.NamePart")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<uninterpreted_option::NamePart, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<uninterpreted_option::NamePart, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut name_part__ = None;
                 let mut is_extension__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::NamePart => {
                             if name_part__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("namePart"));
                             }
-                            name_part__ = Some(map.next_value()?);
+                            name_part__ = Some(map_.next_value()?);
                         }
                         GeneratedField::IsExtension => {
                             if is_extension__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("isExtension"));
                             }
-                            is_extension__ = Some(map.next_value()?);
+                            is_extension__ = Some(map_.next_value()?);
                         }
                     }
                 }

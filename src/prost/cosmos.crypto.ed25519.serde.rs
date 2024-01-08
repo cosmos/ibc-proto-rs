@@ -11,6 +11,7 @@ impl serde::Serialize for PrivKey {
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.crypto.ed25519.PrivKey", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("key", pbjson::private::base64::encode(&self.key).as_str())?;
         }
         struct_ser.end()
@@ -66,19 +67,19 @@ impl<'de> serde::Deserialize<'de> for PrivKey {
                 formatter.write_str("struct cosmos.crypto.ed25519.PrivKey")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<PrivKey, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<PrivKey, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut key__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Key => {
                             if key__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("key"));
                             }
                             key__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -104,6 +105,7 @@ impl serde::Serialize for PubKey {
         }
         let mut struct_ser = serializer.serialize_struct("cosmos.crypto.ed25519.PubKey", len)?;
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("key", pbjson::private::base64::encode(&self.key).as_str())?;
         }
         struct_ser.end()
@@ -159,19 +161,19 @@ impl<'de> serde::Deserialize<'de> for PubKey {
                 formatter.write_str("struct cosmos.crypto.ed25519.PubKey")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<PubKey, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<PubKey, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut key__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Key => {
                             if key__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("key"));
                             }
                             key__ = 
-                                Some(map.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
                             ;
                         }
                     }

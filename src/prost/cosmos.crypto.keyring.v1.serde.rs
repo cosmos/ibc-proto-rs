@@ -107,53 +107,53 @@ impl<'de> serde::Deserialize<'de> for Record {
                 formatter.write_str("struct cosmos.crypto.keyring.v1.Record")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Record, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Record, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut name__ = None;
                 let mut pub_key__ = None;
                 let mut item__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Name => {
                             if name__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("name"));
                             }
-                            name__ = Some(map.next_value()?);
+                            name__ = Some(map_.next_value()?);
                         }
                         GeneratedField::PubKey => {
                             if pub_key__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("pubKey"));
                             }
-                            pub_key__ = map.next_value()?;
+                            pub_key__ = map_.next_value()?;
                         }
                         GeneratedField::Local => {
                             if item__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("local"));
                             }
-                            item__ = map.next_value::<::core::option::Option<_>>()?.map(record::Item::Local)
+                            item__ = map_.next_value::<::core::option::Option<_>>()?.map(record::Item::Local)
 ;
                         }
                         GeneratedField::Ledger => {
                             if item__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("ledger"));
                             }
-                            item__ = map.next_value::<::core::option::Option<_>>()?.map(record::Item::Ledger)
+                            item__ = map_.next_value::<::core::option::Option<_>>()?.map(record::Item::Ledger)
 ;
                         }
                         GeneratedField::Multi => {
                             if item__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("multi"));
                             }
-                            item__ = map.next_value::<::core::option::Option<_>>()?.map(record::Item::Multi)
+                            item__ = map_.next_value::<::core::option::Option<_>>()?.map(record::Item::Multi)
 ;
                         }
                         GeneratedField::Offline => {
                             if item__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("offline"));
                             }
-                            item__ = map.next_value::<::core::option::Option<_>>()?.map(record::Item::Offline)
+                            item__ = map_.next_value::<::core::option::Option<_>>()?.map(record::Item::Offline)
 ;
                         }
                     }
@@ -236,18 +236,18 @@ impl<'de> serde::Deserialize<'de> for record::Ledger {
                 formatter.write_str("struct cosmos.crypto.keyring.v1.Record.Ledger")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<record::Ledger, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<record::Ledger, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut path__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Path => {
                             if path__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("path"));
                             }
-                            path__ = map.next_value()?;
+                            path__ = map_.next_value()?;
                         }
                     }
                 }
@@ -328,18 +328,18 @@ impl<'de> serde::Deserialize<'de> for record::Local {
                 formatter.write_str("struct cosmos.crypto.keyring.v1.Record.Local")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<record::Local, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<record::Local, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut priv_key__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::PrivKey => {
                             if priv_key__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("privKey"));
                             }
-                            priv_key__ = map.next_value()?;
+                            priv_key__ = map_.next_value()?;
                         }
                     }
                 }
@@ -408,12 +408,12 @@ impl<'de> serde::Deserialize<'de> for record::Multi {
                 formatter.write_str("struct cosmos.crypto.keyring.v1.Record.Multi")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<record::Multi, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<record::Multi, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(record::Multi {
                 })
@@ -479,12 +479,12 @@ impl<'de> serde::Deserialize<'de> for record::Offline {
                 formatter.write_str("struct cosmos.crypto.keyring.v1.Record.Offline")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<record::Offline, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<record::Offline, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                while map.next_key::<GeneratedField>()?.is_some() {
-                    let _ = map.next_value::<serde::de::IgnoredAny>()?;
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
                 }
                 Ok(record::Offline {
                 })

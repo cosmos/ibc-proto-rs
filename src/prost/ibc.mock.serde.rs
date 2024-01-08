@@ -66,18 +66,18 @@ impl<'de> serde::Deserialize<'de> for ClientState {
                 formatter.write_str("struct ibc.mock.ClientState")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<ClientState, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ClientState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut header__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Header => {
                             if header__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("header"));
                             }
-                            header__ = map.next_value()?;
+                            header__ = map_.next_value()?;
                         }
                     }
                 }
@@ -157,18 +157,18 @@ impl<'de> serde::Deserialize<'de> for ConsensusState {
                 formatter.write_str("struct ibc.mock.ConsensusState")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<ConsensusState, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ConsensusState, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut header__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Header => {
                             if header__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("header"));
                             }
-                            header__ = map.next_value()?;
+                            header__ = map_.next_value()?;
                         }
                     }
                 }
@@ -199,6 +199,7 @@ impl serde::Serialize for Header {
             struct_ser.serialize_field("height", v)?;
         }
         if true {
+            #[allow(clippy::needless_borrow)]
             struct_ser.serialize_field("timestamp", ::alloc::string::ToString::to_string(&self.timestamp).as_str())?;
         }
         struct_ser.end()
@@ -257,26 +258,26 @@ impl<'de> serde::Deserialize<'de> for Header {
                 formatter.write_str("struct ibc.mock.Header")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Header, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Header, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut height__ = None;
                 let mut timestamp__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Height => {
                             if height__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("height"));
                             }
-                            height__ = map.next_value()?;
+                            height__ = map_.next_value()?;
                         }
                         GeneratedField::Timestamp => {
                             if timestamp__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("timestamp"));
                             }
                             timestamp__ = 
-                                Some(map.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
                             ;
                         }
                     }
@@ -377,32 +378,32 @@ impl<'de> serde::Deserialize<'de> for Misbehaviour {
                 formatter.write_str("struct ibc.mock.Misbehaviour")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Misbehaviour, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Misbehaviour, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut client_id__ = None;
                 let mut header1__ = None;
                 let mut header2__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ClientId => {
                             if client_id__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("clientId"));
                             }
-                            client_id__ = Some(map.next_value()?);
+                            client_id__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Header1 => {
                             if header1__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("header1"));
                             }
-                            header1__ = map.next_value()?;
+                            header1__ = map_.next_value()?;
                         }
                         GeneratedField::Header2 => {
                             if header2__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("header2"));
                             }
-                            header2__ = map.next_value()?;
+                            header2__ = map_.next_value()?;
                         }
                     }
                 }

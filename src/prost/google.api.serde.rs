@@ -75,25 +75,25 @@ impl<'de> serde::Deserialize<'de> for CustomHttpPattern {
                 formatter.write_str("struct google.api.CustomHttpPattern")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<CustomHttpPattern, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<CustomHttpPattern, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut kind__ = None;
                 let mut path__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Kind => {
                             if kind__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("kind"));
                             }
-                            kind__ = Some(map.next_value()?);
+                            kind__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Path => {
                             if path__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("path"));
                             }
-                            path__ = Some(map.next_value()?);
+                            path__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -184,25 +184,25 @@ impl<'de> serde::Deserialize<'de> for Http {
                 formatter.write_str("struct google.api.Http")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<Http, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Http, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
                 let mut rules__ = None;
                 let mut fully_decode_reserved_expansion__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Rules => {
                             if rules__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("rules"));
                             }
-                            rules__ = Some(map.next_value()?);
+                            rules__ = Some(map_.next_value()?);
                         }
                         GeneratedField::FullyDecodeReservedExpansion => {
                             if fully_decode_reserved_expansion__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("fullyDecodeReservedExpansion"));
                             }
-                            fully_decode_reserved_expansion__ = Some(map.next_value()?);
+                            fully_decode_reserved_expansion__ = Some(map_.next_value()?);
                         }
                     }
                 }
@@ -355,7 +355,7 @@ impl<'de> serde::Deserialize<'de> for HttpRule {
                 formatter.write_str("struct google.api.HttpRule")
             }
 
-            fn visit_map<V>(self, mut map: V) -> core::result::Result<HttpRule, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<HttpRule, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -364,67 +364,67 @@ impl<'de> serde::Deserialize<'de> for HttpRule {
                 let mut response_body__ = None;
                 let mut additional_bindings__ = None;
                 let mut pattern__ = None;
-                while let Some(k) = map.next_key()? {
+                while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Selector => {
                             if selector__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("selector"));
                             }
-                            selector__ = Some(map.next_value()?);
+                            selector__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Body => {
                             if body__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("body"));
                             }
-                            body__ = Some(map.next_value()?);
+                            body__ = Some(map_.next_value()?);
                         }
                         GeneratedField::ResponseBody => {
                             if response_body__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("responseBody"));
                             }
-                            response_body__ = Some(map.next_value()?);
+                            response_body__ = Some(map_.next_value()?);
                         }
                         GeneratedField::AdditionalBindings => {
                             if additional_bindings__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("additionalBindings"));
                             }
-                            additional_bindings__ = Some(map.next_value()?);
+                            additional_bindings__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Get => {
                             if pattern__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("get"));
                             }
-                            pattern__ = map.next_value::<::core::option::Option<_>>()?.map(http_rule::Pattern::Get);
+                            pattern__ = map_.next_value::<::core::option::Option<_>>()?.map(http_rule::Pattern::Get);
                         }
                         GeneratedField::Put => {
                             if pattern__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("put"));
                             }
-                            pattern__ = map.next_value::<::core::option::Option<_>>()?.map(http_rule::Pattern::Put);
+                            pattern__ = map_.next_value::<::core::option::Option<_>>()?.map(http_rule::Pattern::Put);
                         }
                         GeneratedField::Post => {
                             if pattern__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("post"));
                             }
-                            pattern__ = map.next_value::<::core::option::Option<_>>()?.map(http_rule::Pattern::Post);
+                            pattern__ = map_.next_value::<::core::option::Option<_>>()?.map(http_rule::Pattern::Post);
                         }
                         GeneratedField::Delete => {
                             if pattern__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("delete"));
                             }
-                            pattern__ = map.next_value::<::core::option::Option<_>>()?.map(http_rule::Pattern::Delete);
+                            pattern__ = map_.next_value::<::core::option::Option<_>>()?.map(http_rule::Pattern::Delete);
                         }
                         GeneratedField::Patch => {
                             if pattern__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("patch"));
                             }
-                            pattern__ = map.next_value::<::core::option::Option<_>>()?.map(http_rule::Pattern::Patch);
+                            pattern__ = map_.next_value::<::core::option::Option<_>>()?.map(http_rule::Pattern::Patch);
                         }
                         GeneratedField::Custom => {
                             if pattern__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("custom"));
                             }
-                            pattern__ = map.next_value::<::core::option::Option<_>>()?.map(http_rule::Pattern::Custom)
+                            pattern__ = map_.next_value::<::core::option::Option<_>>()?.map(http_rule::Pattern::Custom)
 ;
                         }
                     }
