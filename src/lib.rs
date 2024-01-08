@@ -4,7 +4,11 @@
 // This module setup is necessary because the generated code contains "super::" calls for dependencies.
 #![cfg_attr(not(feature = "std"), no_std)]
 #![deny(warnings, trivial_casts, trivial_numeric_casts, unused_import_braces)]
-#![allow(clippy::large_enum_variant, clippy::derive_partial_eq_without_eq)]
+#![allow(
+    clippy::large_enum_variant,
+    clippy::derive_partial_eq_without_eq,
+    clippy::needless_borrows_for_generic_args
+)]
 #![allow(rustdoc::bare_urls)]
 #![forbid(unsafe_code)]
 
