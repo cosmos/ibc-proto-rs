@@ -1,5 +1,32 @@
 # CHANGELOG
 
+## v0.41.0
+
+*January 8th, 2024*
+
+This release integrates the ICS-08 Wasm light client and ICS-721 NFT transfer
+application proto types. It additionally resolves the removal of the `#[no_std]`
+attribute, introduces the `informalsystems-pbjson/std` dependency for std
+feature compatibility, and includes the `counterparty_upgrade_sequence` field in
+the `MsgTimeoutOnClose` and `MsgChannelCloseConfirm`, optimizing for the channel
+upgradability support.
+
+### BUG FIXES
+
+- Fix `#[no_std]` attribute removal and add `informalsystems-pbjson/std` dependency
+  for `std` feature ([\#171](https://github.com/cosmos/ibc-proto-rs/issues/171)).
+
+### FEATURES
+
+- Add ICS-721 NFT transfer application proto types
+  ([\#167](https://github.com/cosmos/ibc-proto-rs/issues/167)).
+- Integrate Wasm light client proto types by updating `IBC_GO_COMMIT` to the
+  hash associated with the ibc-go `wasm-v8.0.0` tag
+  ([\#168](https://github.com/cosmos/ibc-proto-rs/issues/168)).
+- Sync ibc-go at `e1df7a6` to add `counterparty_upgrade_sequence` to
+  `MsgTimeoutOnClose` and `MsgChannelCloseConfirm` for Hermes support
+  ([\#172](https://github.com/cosmos/ibc-proto-rs/issues/172)).
+
 ## v0.40.0
 
 *December 29th, 2023*

@@ -225,8 +225,8 @@ Our release process is as follows:
    1. Running `unclog build -u` and copy pasting the output at the top
       of the `CHANGELOG.md` file, making sure to update the header with
       the new version.
-   1. Running `unclog release vX.Y.Z` to create a summary of all of the changes
-      in this release.
+   2. Running `unclog release --version vX.Y.Z --editor <editor>` to create a
+      summary of all of the changes in this release.
    3. Committing the updated `CHANGELOG.md` file and `.changelog` directory to the repo.
 2. Push this to a branch `release/vX.Y.Z` according to the version number of
    the anticipated release (e.g. `release/v0.18.0`) and open a **draft PR**.
@@ -243,19 +243,21 @@ Our release process is as follows:
 7. Checkout the `main` and pull it with `git checkout main && git pull origin main`.
    Then create a signed tag and push it to GitHub: `git tag -s -a vX.Y.Z && git push origin vX.Y.Z`
    In the tag message, write the version and the link to the corresponding section of the changelog.
-9. If any problem arises, submit a new PR, get it merged to `main` and try again.
+8. If any problem arises, submit a new PR, get it merged to `main` and try again.
    The reason for not releasing straight from the release branch, and therefore losing the
    ability to fix publishing-related problems as they arise, is that we would like the embedded
    metadata of the published crates, namely the Git commit at which the release was done,
    to match the Git commit on the `main` branch which will be tagged.
    [See this article][crates.io-security] for a more in-depth explanation.
    **Note:** This step requires the appropriate privileges to push crates to [crates.io].
-10. Once the tag is pushed, wait for the CI bot to create a GitHub release,
-    then update the release description to 
-    ```
+9. Once the tag is pushed, wait for the CI bot to create a GitHub release, then
+    update the release description to
+
+    ```md
     [📖 CHANGELOG](https://github.com/cosmos/ibc-proto-rs/blob/master/CHANGELOG.md#vXYZ)`
     ```
-11. All done! 🎉
+
+10. All done! 🎉
 
 [crates.io]: https://crates.io
 [crates.io-security]: https://codeandbitters.com/published-crate-analysis/
