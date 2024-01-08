@@ -17,6 +17,13 @@ pub struct ValidatorSetChangePacketData {
     #[prost(string, repeated, tag = "3")]
     pub slash_acks: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
+impl ::prost::Name for ValidatorSetChangePacketData {
+    const NAME: &'static str = "ValidatorSetChangePacketData";
+    const PACKAGE: &'static str = "interchain_security.ccv.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.v1.{}", Self::NAME)
+    }
+}
 /// This packet is sent from the consumer chain to the provider chain
 /// to notify that a VSC packet reached maturity on the consumer chain.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -25,6 +32,13 @@ pub struct VscMaturedPacketData {
     /// the id of the VSC packet that reached maturity
     #[prost(uint64, tag = "1")]
     pub valset_update_id: u64,
+}
+impl ::prost::Name for VscMaturedPacketData {
+    const NAME: &'static str = "VSCMaturedPacketData";
+    const PACKAGE: &'static str = "interchain_security.ccv.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.v1.{}", Self::NAME)
+    }
 }
 /// This packet is sent from the consumer chain to the provider chain
 /// to request the slashing of a validator as a result of an infraction
@@ -43,6 +57,13 @@ pub struct SlashPacketData {
         tag = "3"
     )]
     pub infraction: i32,
+}
+impl ::prost::Name for SlashPacketData {
+    const NAME: &'static str = "SlashPacketData";
+    const PACKAGE: &'static str = "interchain_security.ccv.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.v1.{}", Self::NAME)
+    }
 }
 /// ConsumerPacketData contains a consumer packet data and a type tag
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -64,6 +85,13 @@ pub mod consumer_packet_data {
         VscMaturedPacketData(super::VscMaturedPacketData),
     }
 }
+impl ::prost::Name for ConsumerPacketData {
+    const NAME: &'static str = "ConsumerPacketData";
+    const PACKAGE: &'static str = "interchain_security.ccv.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.v1.{}", Self::NAME)
+    }
+}
 /// Note this type is used during IBC handshake methods for both the consumer and provider
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -72,6 +100,13 @@ pub struct HandshakeMetadata {
     pub provider_fee_pool_addr: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub version: ::prost::alloc::string::String,
+}
+impl ::prost::Name for HandshakeMetadata {
+    const NAME: &'static str = "HandshakeMetadata";
+    const PACKAGE: &'static str = "interchain_security.ccv.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.v1.{}", Self::NAME)
+    }
 }
 /// ConsumerPacketData contains a consumer packet data and a type tag
 /// that is compatible with ICS v1 and v2 over the wire. It is not used for internal storage.
@@ -94,6 +129,13 @@ pub mod consumer_packet_data_v1 {
         VscMaturedPacketData(super::VscMaturedPacketData),
     }
 }
+impl ::prost::Name for ConsumerPacketDataV1 {
+    const NAME: &'static str = "ConsumerPacketDataV1";
+    const PACKAGE: &'static str = "interchain_security.ccv.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.v1.{}", Self::NAME)
+    }
+}
 /// This packet is sent from the consumer chain to the provider chain
 /// It is backward compatible with the ICS v1 and v2 version of the packet.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -107,6 +149,13 @@ pub struct SlashPacketDataV1 {
     /// tell if the slashing is for a downtime or a double-signing infraction
     #[prost(enumeration = "InfractionType", tag = "3")]
     pub infraction: i32,
+}
+impl ::prost::Name for SlashPacketDataV1 {
+    const NAME: &'static str = "SlashPacketDataV1";
+    const PACKAGE: &'static str = "interchain_security.ccv.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.v1.{}", Self::NAME)
+    }
 }
 /// ConsumerPacketType indicates interchain security specific packet types.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -250,6 +299,13 @@ pub struct ConsumerParams {
     #[prost(string, repeated, tag = "12")]
     pub provider_reward_denoms: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
+impl ::prost::Name for ConsumerParams {
+    const NAME: &'static str = "ConsumerParams";
+    const PACKAGE: &'static str = "interchain_security.ccv.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.v1.{}", Self::NAME)
+    }
+}
 /// ConsumerGenesisState defines the CCV consumer chain genesis state.
 ///
 /// Note this type is referenced in both the consumer and provider CCV modules,
@@ -304,6 +360,13 @@ pub struct ConsumerGenesisState {
     #[prost(bool, tag = "13")]
     pub pre_ccv: bool,
 }
+impl ::prost::Name for ConsumerGenesisState {
+    const NAME: &'static str = "ConsumerGenesisState";
+    const PACKAGE: &'static str = "interchain_security.ccv.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.v1.{}", Self::NAME)
+    }
+}
 /// HeightValsetUpdateID represents a mapping internal to the consumer CCV module
 /// AND used in shared consumer genesis state, which links a block height to each recv valset update id.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -314,6 +377,13 @@ pub struct HeightToValsetUpdateId {
     #[prost(uint64, tag = "2")]
     pub valset_update_id: u64,
 }
+impl ::prost::Name for HeightToValsetUpdateId {
+    const NAME: &'static str = "HeightToValsetUpdateID";
+    const PACKAGE: &'static str = "interchain_security.ccv.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.v1.{}", Self::NAME)
+    }
+}
 /// OutstandingDowntime defines the type used internally to the consumer CCV module,
 /// AND used in shared consumer genesis state, in order to not send multiple slashing
 /// requests for the same downtime infraction.
@@ -323,6 +393,13 @@ pub struct OutstandingDowntime {
     #[prost(string, tag = "1")]
     pub validator_consensus_address: ::prost::alloc::string::String,
 }
+impl ::prost::Name for OutstandingDowntime {
+    const NAME: &'static str = "OutstandingDowntime";
+    const PACKAGE: &'static str = "interchain_security.ccv.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.v1.{}", Self::NAME)
+    }
+}
 /// LastTransmissionBlockHeight is the last time validator holding
 /// pools were transmitted to the provider chain. This type is used internally
 /// to the consumer CCV module AND used in shared consumer genesis state.
@@ -331,6 +408,13 @@ pub struct OutstandingDowntime {
 pub struct LastTransmissionBlockHeight {
     #[prost(int64, tag = "1")]
     pub height: i64,
+}
+impl ::prost::Name for LastTransmissionBlockHeight {
+    const NAME: &'static str = "LastTransmissionBlockHeight";
+    const PACKAGE: &'static str = "interchain_security.ccv.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.v1.{}", Self::NAME)
+    }
 }
 /// MaturingVSCPacket represents a vsc packet that is maturing internal to the
 /// consumer CCV module, where the consumer has not yet relayed a VSCMatured packet
@@ -346,6 +430,13 @@ pub struct MaturingVscPacket {
         super::super::super::google::protobuf::Timestamp,
     >,
 }
+impl ::prost::Name for MaturingVscPacket {
+    const NAME: &'static str = "MaturingVSCPacket";
+    const PACKAGE: &'static str = "interchain_security.ccv.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.v1.{}", Self::NAME)
+    }
+}
 /// ConsumerPacketDataList is a list of consumer packet data packets.
 ///
 /// Note this type is is used internally to the consumer CCV module
@@ -357,4 +448,11 @@ pub struct MaturingVscPacket {
 pub struct ConsumerPacketDataList {
     #[prost(message, repeated, tag = "1")]
     pub list: ::prost::alloc::vec::Vec<ConsumerPacketData>,
+}
+impl ::prost::Name for ConsumerPacketDataList {
+    const NAME: &'static str = "ConsumerPacketDataList";
+    const PACKAGE: &'static str = "interchain_security.ccv.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.v1.{}", Self::NAME)
+    }
 }

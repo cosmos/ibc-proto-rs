@@ -1,5 +1,4 @@
 /// Config is the config object of the x/auth/tx package.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Config {
@@ -11,4 +10,11 @@ pub struct Config {
     /// this functionality.
     #[prost(bool, tag = "2")]
     pub skip_post_handler: bool,
+}
+impl ::prost::Name for Config {
+    const NAME: &'static str = "Config";
+    const PACKAGE: &'static str = "cosmos.tx.config.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.tx.config.v1.{}", Self::NAME)
+    }
 }

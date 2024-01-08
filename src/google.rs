@@ -1,6 +1,8 @@
 pub mod protobuf {
     use crate::include_proto;
     include_proto!("google.protobuf.rs");
+    #[cfg(feature = "serde")]
+    include_proto!("google.protobuf.serde.rs");
 
     // source: https://github.com/tokio-rs/prost/blob/master/prost-types/src/lib.rs
     use core::convert::TryFrom;

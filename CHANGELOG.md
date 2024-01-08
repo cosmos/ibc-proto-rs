@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## v0.40.0
+
+*December 29th, 2023*
+
+### BREAKING CHANGES
+
+- Added ProtoJSON support.
+  The `serde` feature flag now abides by [Protobuf JSON rules](https://protobuf.dev/programming-guides/proto3/#json)
+  when it comes to JSON serialization/deserialization.
+  ([#166](https://github.com/cosmos/ibc-proto-rs/pull/166))
+
+## v0.39.1
+
+*November 22nd, 2023*
+
+### FEATURES
+
+- Derive the `prost::Name` trait for all Protobuf messages
+  ([\#163](https://github.com/cosmos/ibc-proto-rs/pull/163))
+
 ## v0.39.0
 
 *November 15th, 2023*

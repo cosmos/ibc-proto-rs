@@ -1,7 +1,6 @@
 /// FungibleTokenPacketData defines a struct for the packet payload
 /// See FungibleTokenPacketData spec:
 /// <https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer#data-structures>
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct FungibleTokenPacketData {
@@ -19,6 +18,12 @@ pub struct FungibleTokenPacketData {
     pub receiver: ::prost::alloc::string::String,
     /// optional memo
     #[prost(string, tag = "5")]
-    #[cfg_attr(feature = "serde", serde(default))]
     pub memo: ::prost::alloc::string::String,
+}
+impl ::prost::Name for FungibleTokenPacketData {
+    const NAME: &'static str = "FungibleTokenPacketData";
+    const PACKAGE: &'static str = "ibc.applications.transfer.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.applications.transfer.v2.{}", Self::NAME)
+    }
 }

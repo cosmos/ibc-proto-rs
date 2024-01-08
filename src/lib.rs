@@ -2,10 +2,13 @@
 
 // Todo: automate the creation of this module setup based on the dots in the filenames.
 // This module setup is necessary because the generated code contains "super::" calls for dependencies.
-
 #![cfg_attr(not(feature = "std"), no_std)]
 #![deny(warnings, trivial_casts, trivial_numeric_casts, unused_import_braces)]
-#![allow(clippy::large_enum_variant, clippy::derive_partial_eq_without_eq)]
+#![allow(
+    clippy::large_enum_variant,
+    clippy::derive_partial_eq_without_eq,
+    clippy::needless_borrows_for_generic_args
+)]
 #![allow(rustdoc::bare_urls)]
 #![forbid(unsafe_code)]
 
@@ -35,6 +38,9 @@ pub const IBC_GO_COMMIT: &str = include_str!("IBC_GO_COMMIT");
 /// The version (commit hash) of Interchain Security used when generating this library.
 pub const INTERCHAIN_SECURITY_COMMIT: &str = include_str!("INTERCHAIN_SECURITY_COMMIT");
 
+/// The version (commit hash) of nft-transfer used when generating this library.
+pub const NFT_TRANSFER_COMMIT: &str = include_str!("NFT_TRANSFER_COMMIT");
+
 /// File descriptor set of compiled proto.
 #[cfg(feature = "proto-descriptor")]
 pub const FILE_DESCRIPTOR_SET: &[u8] = include_bytes!("prost/proto_descriptor.bin");
@@ -43,11 +49,15 @@ pub mod cosmos {
     pub mod app {
         pub mod v1alpha1 {
             include_proto!("cosmos.app.v1alpha1.rs");
+            #[cfg(feature = "serde")]
+            include_proto!("cosmos.app.v1alpha1.serde.rs");
         }
     }
     pub mod auth {
         pub mod v1beta1 {
             include_proto!("cosmos.auth.v1beta1.rs");
+            #[cfg(feature = "serde")]
+            include_proto!("cosmos.auth.v1beta1.serde.rs");
             /// EthAccount defines an Ethermint account.
             /// TODO: remove when/if a canonical `EthAccount`
             /// lands in the next Cosmos SDK release
@@ -64,26 +74,36 @@ pub mod cosmos {
         pub mod module {
             pub mod v1 {
                 include_proto!("cosmos.auth.module.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("cosmos.auth.module.v1.serde.rs");
             }
         }
     }
     pub mod staking {
         pub mod v1beta1 {
             include_proto!("cosmos.staking.v1beta1.rs");
+            #[cfg(feature = "serde")]
+            include_proto!("cosmos.staking.v1beta1.serde.rs");
         }
         pub mod module {
             pub mod v1 {
                 include_proto!("cosmos.staking.module.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("cosmos.staking.module.v1.serde.rs");
             }
         }
     }
     pub mod bank {
         pub mod v1beta1 {
             include_proto!("cosmos.bank.v1beta1.rs");
+            #[cfg(feature = "serde")]
+            include_proto!("cosmos.bank.v1beta1.serde.rs");
         }
         pub mod module {
             pub mod v1 {
                 include_proto!("cosmos.bank.module.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("cosmos.bank.module.v1.serde.rs");
             }
         }
     }
@@ -96,20 +116,28 @@ pub mod cosmos {
         pub mod node {
             pub mod v1beta1 {
                 include_proto!("cosmos.base.node.v1beta1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("cosmos.base.node.v1beta1.serde.rs");
             }
         }
         pub mod query {
             pub mod v1beta1 {
                 include_proto!("cosmos.base.query.v1beta1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("cosmos.base.query.v1beta1.serde.rs");
             }
         }
         pub mod reflection {
             pub mod v1beta1 {
                 include_proto!("cosmos.base.reflection.v1beta1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("cosmos.base.reflection.v1beta1.serde.rs");
             }
         }
         pub mod v1beta1 {
             include_proto!("cosmos.base.v1beta1.rs");
+            #[cfg(feature = "serde")]
+            include_proto!("cosmos.base.v1beta1.serde.rs");
         }
         pub mod tendermint {
             pub mod v1beta1 {
@@ -119,11 +147,15 @@ pub mod cosmos {
         pub mod kv {
             pub mod v1beta1 {
                 include_proto!("cosmos.base.kv.v1beta1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("cosmos.base.kv.v1beta1.serde.rs");
             }
         }
         pub mod snapshots {
             pub mod v1beta1 {
                 include_proto!("cosmos.base.snapshots.v1beta1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("cosmos.base.snapshots.v1beta1.serde.rs");
             }
         }
     }
@@ -131,26 +163,40 @@ pub mod cosmos {
         pub mod multisig {
             pub mod v1beta1 {
                 include_proto!("cosmos.crypto.multisig.v1beta1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("cosmos.crypto.multisig.v1beta1.serde.rs");
             }
             include_proto!("cosmos.crypto.multisig.rs");
+            #[cfg(feature = "serde")]
+            include_proto!("cosmos.crypto.multisig.serde.rs");
         }
         pub mod ed25519 {
             include_proto!("cosmos.crypto.ed25519.rs");
+            #[cfg(feature = "serde")]
+            include_proto!("cosmos.crypto.ed25519.serde.rs");
         }
         pub mod secp256k1 {
             include_proto!("cosmos.crypto.secp256k1.rs");
+            #[cfg(feature = "serde")]
+            include_proto!("cosmos.crypto.secp256k1.serde.rs");
         }
         pub mod secp256r1 {
             include_proto!("cosmos.crypto.secp256r1.rs");
+            #[cfg(feature = "serde")]
+            include_proto!("cosmos.crypto.secp256r1.serde.rs");
         }
         pub mod keyring {
             pub mod v1 {
                 include_proto!("cosmos.crypto.keyring.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("cosmos.crypto.keyring.v1.serde.rs");
             }
         }
         pub mod hd {
             pub mod v1 {
                 include_proto!("cosmos.crypto.hd.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("cosmos.crypto.hd.v1.serde.rs");
             }
         }
     }
@@ -158,11 +204,15 @@ pub mod cosmos {
         pub mod config {
             pub mod v1 {
                 include_proto!("cosmos.tx.config.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("cosmos.tx.config.v1.serde.rs");
             }
         }
         pub mod signing {
             pub mod v1beta1 {
                 include_proto!("cosmos.tx.signing.v1beta1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("cosmos.tx.signing.v1beta1.serde.rs");
             }
         }
         pub mod v1beta1 {
@@ -172,23 +222,33 @@ pub mod cosmos {
     pub mod upgrade {
         pub mod v1beta1 {
             include_proto!("cosmos.upgrade.v1beta1.rs");
+            #[cfg(feature = "serde")]
+            include_proto!("cosmos.upgrade.v1beta1.serde.rs");
         }
         pub mod module {
             pub mod v1 {
                 include_proto!("cosmos.upgrade.module.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("cosmos.upgrade.module.v1.serde.rs");
             }
         }
     }
     pub mod gov {
         pub mod v1 {
             include_proto!("cosmos.gov.v1.rs");
+            #[cfg(feature = "serde")]
+            include_proto!("cosmos.gov.v1.serde.rs");
         }
         pub mod v1beta1 {
             include_proto!("cosmos.gov.v1beta1.rs");
+            #[cfg(feature = "serde")]
+            include_proto!("cosmos.gov.v1beta1.serde.rs");
         }
         pub mod module {
             pub mod v1 {
                 include_proto!("cosmos.gov.module.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("cosmos.gov.module.v1.serde.rs");
             }
         }
     }
@@ -206,29 +266,48 @@ pub mod ibc {
         pub mod transfer {
             pub mod v1 {
                 include_proto!("ibc.applications.transfer.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("ibc.applications.transfer.v1.serde.rs");
             }
             pub mod v2 {
                 include_proto!("ibc.applications.transfer.v2.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("ibc.applications.transfer.v2.serde.rs");
             }
         }
         pub mod fee {
             pub mod v1 {
                 include_proto!("ibc.applications.fee.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("ibc.applications.fee.v1.serde.rs");
             }
         }
         pub mod interchain_accounts {
             pub mod v1 {
                 include_proto!("ibc.applications.interchain_accounts.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("ibc.applications.interchain_accounts.v1.serde.rs");
             }
             pub mod controller {
                 pub mod v1 {
                     include_proto!("ibc.applications.interchain_accounts.controller.v1.rs");
+                    #[cfg(feature = "serde")]
+                    include_proto!("ibc.applications.interchain_accounts.controller.v1.serde.rs");
                 }
             }
             pub mod host {
                 pub mod v1 {
                     include_proto!("ibc.applications.interchain_accounts.host.v1.rs");
+                    #[cfg(feature = "serde")]
+                    include_proto!("ibc.applications.interchain_accounts.host.v1.serde.rs");
                 }
+            }
+        }
+        pub mod nft_transfer {
+            pub mod v1 {
+                include_proto!("ibc.applications.nft_transfer.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("ibc.applications.nft_transfer.v1.serde.rs");
             }
         }
     }
@@ -236,26 +315,36 @@ pub mod ibc {
         pub mod channel {
             pub mod v1 {
                 include_proto!("ibc.core.channel.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("ibc.core.channel.v1.serde.rs");
             }
         }
         pub mod client {
             pub mod v1 {
                 include_proto!("ibc.core.client.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("ibc.core.client.v1.serde.rs");
             }
         }
         pub mod commitment {
             pub mod v1 {
                 include_proto!("ibc.core.commitment.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("ibc.core.commitment.v1.serde.rs");
             }
         }
         pub mod connection {
             pub mod v1 {
                 include_proto!("ibc.core.connection.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("ibc.core.connection.v1.serde.rs");
             }
         }
         pub mod types {
             pub mod v1 {
                 include_proto!("ibc.core.types.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("ibc.core.types.v1.serde.rs");
             }
         }
     }
@@ -263,24 +352,41 @@ pub mod ibc {
         pub mod localhost {
             pub mod v1 {
                 include_proto!("ibc.lightclients.localhost.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("ibc.lightclients.localhost.v1.serde.rs");
             }
             pub mod v2 {
                 include_proto!("ibc.lightclients.localhost.v2.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("ibc.lightclients.localhost.v2.serde.rs");
             }
         }
         pub mod solomachine {
             pub mod v3 {
                 include_proto!("ibc.lightclients.solomachine.v3.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("ibc.lightclients.solomachine.v3.serde.rs");
             }
         }
         pub mod tendermint {
             pub mod v1 {
                 include_proto!("ibc.lightclients.tendermint.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("ibc.lightclients.tendermint.v1.serde.rs");
+            }
+        }
+        pub mod wasm {
+            pub mod v1 {
+                include_proto!("ibc.lightclients.wasm.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("ibc.lightclients.wasm.v1.serde.rs");
             }
         }
     }
     pub mod mock {
         include_proto!("ibc.mock.rs");
+        #[cfg(feature = "serde")]
+        include_proto!("ibc.mock.serde.rs");
     }
 }
 
@@ -311,28 +417,5 @@ pub mod stride {
         pub mod v1 {
             include_proto!("stride.interchainquery.v1.rs");
         }
-    }
-}
-
-#[cfg(feature = "serde")]
-pub(crate) mod base64 {
-    use alloc::string::String;
-    use alloc::vec::Vec;
-
-    use base64::prelude::*;
-    use serde::{Deserialize, Deserializer, Serialize, Serializer};
-
-    pub fn serialize<S: Serializer>(bytes: &[u8], serializer: S) -> Result<S::Ok, S::Error> {
-        let encoded = BASE64_STANDARD.encode(bytes);
-        String::serialize(&encoded, serializer)
-    }
-
-    pub fn deserialize<'de, D: Deserializer<'de>>(deserializer: D) -> Result<Vec<u8>, D::Error> {
-        let base64 = String::deserialize(deserializer)?;
-        let bytes = BASE64_STANDARD
-            .decode(base64.as_bytes())
-            .map_err(serde::de::Error::custom)?;
-
-        Ok(bytes)
     }
 }
