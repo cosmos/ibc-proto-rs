@@ -731,7 +731,7 @@ pub mod query_client {
                 .insert(GrpcMethod::new("ibc.lightclients.wasm.v1.Query", "Checksums"));
             self.inner.unary(req, path, codec).await
         }
-        /// Get Wasm code for given code hash
+        /// Get Wasm code for given checksum
         pub async fn code(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryCodeRequest>,
@@ -775,7 +775,7 @@ pub mod query_server {
             tonic::Response<super::QueryChecksumsResponse>,
             tonic::Status,
         >;
-        /// Get Wasm code for given code hash
+        /// Get Wasm code for given checksum
         async fn code(
             &self,
             request: tonic::Request<super::QueryCodeRequest>,
