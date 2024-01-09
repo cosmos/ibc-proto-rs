@@ -25,6 +25,10 @@ pub struct CompileCmd {
     /// path to the nft-transfer proto files
     nft: PathBuf,
 
+    #[argh(option, short = 'r')]
+    /// path to the Sovereign SDK rollups proto files
+    sov: PathBuf,
+
     #[argh(option, short = 'o')]
     /// path to output the generated Rust sources into
     out: PathBuf,
@@ -37,6 +41,7 @@ impl CompileCmd {
             self.sdk.as_ref(),
             self.ics.as_ref(),
             self.nft.as_ref(),
+            self.sov.as_ref(),
             self.out.as_ref(),
         )
         .unwrap_or_else(|e| {
@@ -62,6 +67,7 @@ impl CompileCmd {
         sdk_dir: &Path,
         ics_dir: &Path,
         nft_dir: &Path,
+        sov_dir: &Path,
         out_dir: &Path,
     ) -> Result<(), Box<dyn std::error::Error>> {
         println!(
@@ -77,6 +83,8 @@ impl CompileCmd {
             format!("{}/../../definitions/ibc/lightclients/localhost/v1", root),
             format!("{}/../../definitions/stride/interchainquery/v1", root),
             format!("{}/ibc", ibc_dir.display()),
+            format!("{}/ibc", nft_dir.display()),
+            format!("{}/ibc", sov_dir.display()),
             format!("{}/cosmos/auth", sdk_dir.display()),
             format!("{}/cosmos/gov", sdk_dir.display()),
             format!("{}/cosmos/tx", sdk_dir.display()),
@@ -88,7 +96,6 @@ impl CompileCmd {
             format!("{}/interchain_security/ccv/v1", ics_dir.display()),
             format!("{}/interchain_security/ccv/provider", ics_dir.display()),
             format!("{}/interchain_security/ccv/consumer", ics_dir.display()),
-            format!("{}/ibc", nft_dir.display()),
         ];
 
         let proto_includes_paths = [
@@ -96,6 +103,7 @@ impl CompileCmd {
             format!("{}", ibc_dir.display()),
             format!("{}", ics_dir.display()),
             format!("{}", nft_dir.display()),
+            format!("{}", sov_dir.display()),
             format!("{}/../../definitions/mock", root),
             format!("{}/../../definitions/ibc/lightclients/localhost/v1", root),
             format!("{}/../../definitions/stride/interchainquery/v1", root),
@@ -205,6 +213,7 @@ impl CompileCmd {
                 ".cosmos",
                 ".interchain_security",
                 ".stride",
+                ".sovereign",
                 ".google",
             ])?;
 

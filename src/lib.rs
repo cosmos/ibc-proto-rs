@@ -41,6 +41,9 @@ pub const INTERCHAIN_SECURITY_COMMIT: &str = include_str!("INTERCHAIN_SECURITY_C
 /// The version (commit hash) of nft-transfer used when generating this library.
 pub const NFT_TRANSFER_COMMIT: &str = include_str!("NFT_TRANSFER_COMMIT");
 
+/// The version (commit hash) of Sovereign SDK clients used when generating this library.
+pub const SOVEREIGN_IBC_COMMIT: &str = include_str!("SOVEREIGN_IBC_COMMIT");
+
 /// File descriptor set of compiled proto.
 #[cfg(feature = "proto-descriptor")]
 pub const FILE_DESCRIPTOR_SET: &[u8] = include_bytes!("prost/proto_descriptor.bin");
@@ -382,6 +385,15 @@ pub mod ibc {
                 include_proto!("ibc.lightclients.wasm.v1.serde.rs");
             }
         }
+        pub mod sovereign {
+            pub mod tendermint {
+                pub mod v1 {
+                    include_proto!("ibc.lightclients.sovereign.tendermint.v1.rs");
+                    #[cfg(feature = "serde")]
+                    include_proto!("ibc.lightclients.sovereign.tendermint.v1.serde.rs");
+                }
+            }
+        }
     }
     pub mod mock {
         include_proto!("ibc.mock.rs");
@@ -416,6 +428,16 @@ pub mod stride {
     pub mod interchainquery {
         pub mod v1 {
             include_proto!("stride.interchainquery.v1.rs");
+        }
+    }
+}
+
+pub mod sovereign {
+    pub mod types {
+        pub mod v1 {
+            include_proto!("sovereign.types.v1.rs");
+            #[cfg(feature = "serde")]
+            include_proto!("sovereign.types.v1.serde.rs");
         }
     }
 }

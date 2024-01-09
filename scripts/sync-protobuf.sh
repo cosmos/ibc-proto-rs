@@ -27,16 +27,19 @@ COSMOS_SDK_GIT="${COSMOS_SDK_GIT:-$CACHE_PATH/cosmos/cosmos-sdk.git}"
 IBC_GO_GIT="${IBC_GO_GIT:-$CACHE_PATH/ibc-go.git}"
 COSMOS_ICS_GIT="${COSMOS_ICS_GIT:-$CACHE_PATH/cosmos/interchain-security.git}"
 NFT_TRANSFER_GIT="${NFT_TRANSFER_GIT:-$CACHE_PATH/bianjieai/nft-transfer.git}"
+SOVEREIGN_IBC_GIT="${SOVEREIGN_IBC_GIT:-$CACHE_PATH/informalsystems/sovereign-ibc.git}"
 
 COSMOS_SDK_COMMIT="$(cat src/COSMOS_SDK_COMMIT)"
 IBC_GO_COMMIT="$(cat src/IBC_GO_COMMIT)"
 INTERCHAIN_SECURITY_COMMIT="$(cat src/INTERCHAIN_SECURITY_COMMIT)"
 NFT_TRANSFER_COMMIT="$(cat src/NFT_TRANSFER_COMMIT)"
+SOVEREIGN_IBC_COMMIT="$(cat src/SOVEREIGN_IBC_COMMIT)"
 
 echo "COSMOS_SDK_COMMIT: $COSMOS_SDK_COMMIT"
 echo "IBC_GO_COMMIT: $IBC_GO_COMMIT"
 echo "INTERCHAIN_SECURITY_COMMIT: $INTERCHAIN_SECURITY_COMMIT"
 echo "NFT_TRANSFER_COMMIT: $NFT_TRANSFER_COMMIT"
+echo "SOVEREIGN_IBC_COMMIT: $SOVEREIGN_IBC_COMMIT"
 
 # Use either --ics-commit flag for commit ID,
 # or --ics-tag for git tag. Because we can't modify
@@ -100,6 +103,13 @@ else
     echo "Using existing nft-transfer bare git repository at $NFT_TRANSFER_GIT"
 fi
 
+if [[ ! -e "$SOVEREIGN_IBC_GIT" ]]
+then
+    echo "Cloning sovereign-ibc source code to as bare git repository to $SOVEREIGN_IBC_GIT"
+    git clone --mirror https://github.com/informalsystems/sovereign-ibc.git "$SOVEREIGN_IBC_GIT"
+else 
+    echo "Using existing sovereign-ibc bare git repository at $SOVEREIGN_IBC_GIT"
+fi
 
 # Update the repositories using git fetch. This is so that
 # we keep local copies of the repositories up to sync first.
@@ -116,6 +126,10 @@ git fetch
 popd
 
 pushd "$NFT_TRANSFER_GIT"
+git fetch
+popd
+
+pushd "$SOVEREIGN_IBC_GIT"
 git fetch
 popd
 
@@ -181,6 +195,19 @@ buf export -v -o ../proto-include
 rm ../proto-include/ibc/core/client/v1/client.proto
 popd
 
+SOVEREIGN_IBC_DIR=$(mktemp -d /tmp/sovereign-ibc-XXXXXXXX)
+
+pushd "$SOVEREIGN_IBC_DIR"
+git clone "$SOVEREIGN_IBC_GIT" .
+git checkout -b "$SOVEREIGN_IBC_COMMIT" "$SOVEREIGN_IBC_COMMIT"
+
+cd proto
+buf export -v -o ../proto-include
+rm ../proto-include/ibc/core/client/v1/client.proto
+rm ../proto-include/ibc/core/commitment/v1/commitment.proto
+rm ../proto-include/ibc/lightclients/tendermint/v1/tendermint.proto
+popd
+
 # Remove the existing generated protobuf files
 # so that the newly generated code does not
 # contain removed files.
@@ -201,6 +228,7 @@ cargo run -- compile \
   --sdk "$COSMOS_SDK_DIR/proto-include" \
   --ibc "$IBC_GO_DIR/proto-include" \
   --nft "$NFT_TRANSFER_DIR/proto-include" \
+  --sov "$SOVEREIGN_IBC_DIR/proto-include" \
   --out ../../src/prost
 
 cd ../..
@@ -221,3 +249,4 @@ rm -rf "$COSMOS_ICS_DIR"
 rm -rf "$COSMOS_SDK_DIR"
 rm -rf "$IBC_GO_DIR"
 rm -rf "$NFT_TRANSFER_DIR"
+rm -rf "$SOVEREIGN_IBC_DIR"
