@@ -163,7 +163,7 @@ pub struct MsgPayPacketFee {
     /// the source port unique identifier
     #[prost(string, tag = "2")]
     pub source_port_id: ::prost::alloc::string::String,
-    /// the source channel unique identifier
+    /// the source channel unique identifer
     #[prost(string, tag = "3")]
     pub source_channel_id: ::prost::alloc::string::String,
     /// account address to refund fee if necessary
@@ -910,7 +910,7 @@ pub struct ForwardRelayerAddress {
     /// the forward relayer address
     #[prost(string, tag = "1")]
     pub address: ::prost::alloc::string::String,
-    /// unique packet identifier comprised of the channel ID, port ID and sequence
+    /// unique packet identifer comprised of the channel ID, port ID and sequence
     #[prost(message, optional, tag = "2")]
     pub packet_id: ::core::option::Option<
         super::super::super::core::channel::v1::PacketId,
