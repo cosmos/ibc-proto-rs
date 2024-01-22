@@ -132,7 +132,7 @@ pub struct PacketState {
     #[prost(bytes = "vec", tag = "4")]
     pub data: ::prost::alloc::vec::Vec<u8>,
 }
-/// PacketId is an identifer for a unique Packet
+/// PacketId is an identifier for a unique Packet
 /// Source chains refer to packets by source port/channel
 /// Destination chains refer to packets by destination port/channel
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
@@ -429,6 +429,9 @@ pub struct MsgChannelOpenTryResponse {
 }
 /// MsgChannelOpenAck defines a msg sent by a Relayer to Chain A to acknowledge
 /// the change of channel state to TRYOPEN on Chain B.
+/// WARNING: a channel upgrade MUST NOT initialize an upgrade for this channel
+/// in the same block as executing this message otherwise the counterparty will
+/// be incapable of opening.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -618,6 +621,8 @@ pub struct MsgAcknowledgementResponse {
     pub result: i32,
 }
 /// MsgChannelUpgradeInit defines the request type for the ChannelUpgradeInit rpc
+/// WARNING: Initializing a channel upgrade in the same block as opening the channel
+/// may result in the counterparty being incapable of opening.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -748,11 +753,13 @@ pub struct MsgChannelUpgradeOpen {
     pub channel_id: ::prost::alloc::string::String,
     #[prost(enumeration = "State", tag = "3")]
     pub counterparty_channel_state: i32,
-    #[prost(bytes = "vec", tag = "4")]
+    #[prost(uint64, tag = "4")]
+    pub counterparty_upgrade_sequence: u64,
+    #[prost(bytes = "vec", tag = "5")]
     pub proof_channel: ::prost::alloc::vec::Vec<u8>,
-    #[prost(message, optional, tag = "5")]
+    #[prost(message, optional, tag = "6")]
     pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
-    #[prost(string, tag = "6")]
+    #[prost(string, tag = "7")]
     pub signer: ::prost::alloc::string::String,
 }
 /// MsgChannelUpgradeOpenResponse defines the MsgChannelUpgradeOpen response type

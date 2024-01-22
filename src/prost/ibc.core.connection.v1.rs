@@ -97,7 +97,7 @@ pub struct ConnectionPaths {
     #[prost(string, repeated, tag = "2")]
     pub paths: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
-/// Version defines the versioning scheme used to negotiate the IBC verison in
+/// Version defines the versioning scheme used to negotiate the IBC version in
 /// the connection handshake.
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[cfg_attr(
@@ -227,7 +227,7 @@ pub struct MsgConnectionOpenTry {
     pub counterparty_versions: ::prost::alloc::vec::Vec<Version>,
     #[prost(message, optional, tag = "7")]
     pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
-    /// proof of the initialization the connection on Chain A: `UNITIALIZED ->
+    /// proof of the initialization the connection on Chain A: `UNINITIALIZED ->
     /// INIT`
     #[prost(bytes = "vec", tag = "8")]
     pub proof_init: ::prost::alloc::vec::Vec<u8>,
@@ -268,7 +268,7 @@ pub struct MsgConnectionOpenAck {
     >,
     #[prost(message, optional, tag = "5")]
     pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
-    /// proof of the initialization the connection on Chain B: `UNITIALIZED ->
+    /// proof of the initialization the connection on Chain B: `UNINITIALIZED ->
     /// TRYOPEN`
     #[prost(bytes = "vec", tag = "6")]
     pub proof_try: ::prost::alloc::vec::Vec<u8>,
