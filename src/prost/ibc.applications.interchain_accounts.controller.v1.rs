@@ -19,6 +19,11 @@ pub struct MsgRegisterInterchainAccount {
     pub connection_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
     pub version: ::prost::alloc::string::String,
+    #[prost(
+        enumeration = "super::super::super::super::core::channel::v1::Order",
+        tag = "4"
+    )]
+    pub order: i32,
 }
 /// MsgRegisterInterchainAccountResponse defines the response for Msg/RegisterAccount
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
