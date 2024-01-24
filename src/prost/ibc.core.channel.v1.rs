@@ -132,7 +132,7 @@ pub struct PacketState {
     #[prost(bytes = "vec", tag = "4")]
     pub data: ::prost::alloc::vec::Vec<u8>,
 }
-/// PacketId is an identifier for a unique Packet
+/// PacketId is an identifer for a unique Packet
 /// Source chains refer to packets by source port/channel
 /// Destination chains refer to packets by destination port/channel
 #[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
