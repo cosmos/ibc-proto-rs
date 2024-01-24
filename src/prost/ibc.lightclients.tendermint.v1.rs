@@ -8,7 +8,7 @@ pub struct ClientState {
     pub chain_id: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "2")]
     pub trust_level: ::core::option::Option<Fraction>,
-    /// duration of the period since the LatestTimestamp during which the
+    /// duration of the period since the LastestTimestamp during which the
     /// submitted headers are valid for upgrade
     #[prost(message, optional, tag = "3")]
     pub trusting_period: ::core::option::Option<

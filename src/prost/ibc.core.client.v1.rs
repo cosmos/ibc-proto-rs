@@ -1199,7 +1199,7 @@ pub struct QueryConsensusStateRequest {
     /// consensus state revision height
     #[prost(uint64, tag = "3")]
     pub revision_height: u64,
-    /// latest_height overrides the height field and queries the latest stored
+    /// latest_height overrrides the height field and queries the latest stored
     /// ConsensusState
     #[prost(bool, tag = "4")]
     pub latest_height: bool,
