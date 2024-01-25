@@ -53,7 +53,6 @@ default-features = false
 
 [dependencies.cosmos-sdk-proto]
 version = "0.20.0"
-path = "../cosmos-rust/cosmos-sdk-proto"
 default-features = false
 
 [dev-dependencies]
@@ -69,3 +68,6 @@ server             = ["std", "dep:tonic", "tonic/codegen", "tonic/transport", "t
 parity-scale-codec = ["dep:parity-scale-codec", "dep:scale-info"]
 borsh              = ["dep:borsh"]
 proto-descriptor   = []
+
+[patch.crates-io]
+cosmos-sdk-proto = { git = "https://github.com/informalsystems/cosmos-rust", branch = "romac/extract-ibc-proto" }
