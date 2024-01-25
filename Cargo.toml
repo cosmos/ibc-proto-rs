@@ -51,6 +51,11 @@ borsh = { version = "0.10", default-features = false, optional = true }
 version          = "0.34"
 default-features = false
 
+[dependencies.cosmos-sdk-proto]
+version = "0.20.0"
+path = "../cosmos-rust/cosmos-sdk-proto"
+default-features = false
+
 [dev-dependencies]
 serde_json = "1.0.107"
 
@@ -58,7 +63,7 @@ serde_json = "1.0.107"
 default            = ["std", "client"]
 std                = ["prost/std", "bytes/std", "subtle-encoding/std", "base64/std", "flex-error/std", "ics23/std", "informalsystems-pbjson/std"]
 serde              = ["dep:serde", "ics23/serde", "informalsystems-pbjson"]
-client             = ["std", "dep:tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
+client             = ["std", "dep:tonic", "tonic/codegen", "tonic/transport", "tonic/prost", "cosmos-sdk-proto/grpc-transport"]
 json-schema        = ["std", "serde", "dep:schemars"]
 server             = ["std", "dep:tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
 parity-scale-codec = ["dep:parity-scale-codec", "dep:scale-info"]

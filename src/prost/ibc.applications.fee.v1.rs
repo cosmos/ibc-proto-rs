@@ -5,17 +5,17 @@ pub struct Fee {
     /// the packet receive fee
     #[prost(message, repeated, tag = "1")]
     pub recv_fee: ::prost::alloc::vec::Vec<
-        super::super::super::super::cosmos::base::v1beta1::Coin,
+        ::cosmos_sdk_proto::cosmos::base::v1beta1::Coin,
     >,
     /// the packet acknowledgement fee
     #[prost(message, repeated, tag = "2")]
     pub ack_fee: ::prost::alloc::vec::Vec<
-        super::super::super::super::cosmos::base::v1beta1::Coin,
+        ::cosmos_sdk_proto::cosmos::base::v1beta1::Coin,
     >,
     /// the packet timeout fee
     #[prost(message, repeated, tag = "3")]
     pub timeout_fee: ::prost::alloc::vec::Vec<
-        super::super::super::super::cosmos::base::v1beta1::Coin,
+        ::cosmos_sdk_proto::cosmos::base::v1beta1::Coin,
     >,
 }
 impl ::prost::Name for Fee {
@@ -930,7 +930,7 @@ pub struct QueryIncentivizedPacketsRequest {
     /// pagination defines an optional pagination for the request.
     #[prost(message, optional, tag = "1")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageRequest,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageRequest,
     >,
     /// block height at which to query
     #[prost(uint64, tag = "2")]
@@ -953,7 +953,7 @@ pub struct QueryIncentivizedPacketsResponse {
     /// pagination defines the pagination in the response.
     #[prost(message, optional, tag = "2")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageResponse,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageResponse,
     >,
 }
 impl ::prost::Name for QueryIncentivizedPacketsResponse {
@@ -1006,7 +1006,7 @@ pub struct QueryIncentivizedPacketsForChannelRequest {
     /// pagination defines an optional pagination for the request.
     #[prost(message, optional, tag = "1")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageRequest,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageRequest,
     >,
     #[prost(string, tag = "2")]
     pub port_id: ::prost::alloc::string::String,
@@ -1033,7 +1033,7 @@ pub struct QueryIncentivizedPacketsForChannelResponse {
     /// pagination defines the pagination in the response.
     #[prost(message, optional, tag = "2")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageResponse,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageResponse,
     >,
 }
 impl ::prost::Name for QueryIncentivizedPacketsForChannelResponse {
@@ -1067,7 +1067,7 @@ pub struct QueryTotalRecvFeesResponse {
     /// the total packet receive fees
     #[prost(message, repeated, tag = "1")]
     pub recv_fees: ::prost::alloc::vec::Vec<
-        super::super::super::super::cosmos::base::v1beta1::Coin,
+        ::cosmos_sdk_proto::cosmos::base::v1beta1::Coin,
     >,
 }
 impl ::prost::Name for QueryTotalRecvFeesResponse {
@@ -1101,7 +1101,7 @@ pub struct QueryTotalAckFeesResponse {
     /// the total packet acknowledgement fees
     #[prost(message, repeated, tag = "1")]
     pub ack_fees: ::prost::alloc::vec::Vec<
-        super::super::super::super::cosmos::base::v1beta1::Coin,
+        ::cosmos_sdk_proto::cosmos::base::v1beta1::Coin,
     >,
 }
 impl ::prost::Name for QueryTotalAckFeesResponse {
@@ -1135,7 +1135,7 @@ pub struct QueryTotalTimeoutFeesResponse {
     /// the total packet timeout fees
     #[prost(message, repeated, tag = "1")]
     pub timeout_fees: ::prost::alloc::vec::Vec<
-        super::super::super::super::cosmos::base::v1beta1::Coin,
+        ::cosmos_sdk_proto::cosmos::base::v1beta1::Coin,
     >,
 }
 impl ::prost::Name for QueryTotalTimeoutFeesResponse {
@@ -1218,7 +1218,7 @@ pub struct QueryFeeEnabledChannelsRequest {
     /// pagination defines an optional pagination for the request.
     #[prost(message, optional, tag = "1")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageRequest,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageRequest,
     >,
     /// block height at which to query
     #[prost(uint64, tag = "2")]
@@ -1241,7 +1241,7 @@ pub struct QueryFeeEnabledChannelsResponse {
     /// pagination defines the pagination in the response.
     #[prost(message, optional, tag = "2")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageResponse,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageResponse,
     >,
 }
 impl ::prost::Name for QueryFeeEnabledChannelsResponse {
