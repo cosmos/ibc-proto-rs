@@ -1,19 +1,25 @@
 syntax = "proto3";
 package ibc.mock;
 
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
 import "ibc/core/client/v1/client.proto";
 
 message Header {
   ibc.core.client.v1.Height height = 1;
-  uint64 timestamp = 2; 
+  google.protobuf.Timestamp timestamp = 2;
 }
 
 message ClientState {
   Header header = 1;
+  google.protobuf.Duration trusing_period = 2;
+  google.protobuf.Duration max_clock_drift = 3;
+  bool frozen = 4;
 }
 
 message ConsensusState {
   Header header = 1;
+  bytes bytes = 2;
 }
 
 message Misbehaviour {
