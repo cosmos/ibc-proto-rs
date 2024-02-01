@@ -5,11 +5,13 @@ import "ibc/core/client/v1/client.proto";
 
 message Header {
   ibc.core.client.v1.Height height = 1;
-  uint64 timestamp = 2; 
+  uint64 timestamp = 2;
 }
 
 message ClientState {
   Header header = 1;
+  uint64 trusting_period = 2;
+  bool frozen = 3;
 }
 
 message ConsensusState {

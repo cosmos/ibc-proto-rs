@@ -18,6 +18,10 @@ impl ::prost::Name for Header {
 pub struct ClientState {
     #[prost(message, optional, tag = "1")]
     pub header: ::core::option::Option<Header>,
+    #[prost(uint64, tag = "2")]
+    pub trusting_period: u64,
+    #[prost(bool, tag = "3")]
+    pub frozen: bool,
 }
 impl ::prost::Name for ClientState {
     const NAME: &'static str = "ClientState";
