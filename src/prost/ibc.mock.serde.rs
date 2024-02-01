@@ -9,9 +9,22 @@ impl serde::Serialize for ClientState {
         if true {
             len += 1;
         }
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("ibc.mock.ClientState", len)?;
         if let Some(v) = self.header.as_ref() {
             struct_ser.serialize_field("header", v)?;
+        }
+        if true {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field("trustingPeriod", ::alloc::string::ToString::to_string(&self.trusting_period).as_str())?;
+        }
+        if true {
+            struct_ser.serialize_field("frozen", &self.frozen)?;
         }
         struct_ser.end()
     }
@@ -24,11 +37,16 @@ impl<'de> serde::Deserialize<'de> for ClientState {
     {
         const FIELDS: &[&str] = &[
             "header",
+            "trusting_period",
+            "trustingPeriod",
+            "frozen",
         ];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
             Header,
+            TrustingPeriod,
+            Frozen,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
@@ -51,6 +69,8 @@ impl<'de> serde::Deserialize<'de> for ClientState {
                     {
                         match value {
                             "header" => Ok(GeneratedField::Header),
+                            "trustingPeriod" | "trusting_period" => Ok(GeneratedField::TrustingPeriod),
+                            "frozen" => Ok(GeneratedField::Frozen),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -71,6 +91,8 @@ impl<'de> serde::Deserialize<'de> for ClientState {
                     V: serde::de::MapAccess<'de>,
             {
                 let mut header__ = None;
+                let mut trusting_period__ = None;
+                let mut frozen__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Header => {
@@ -79,10 +101,26 @@ impl<'de> serde::Deserialize<'de> for ClientState {
                             }
                             header__ = map_.next_value()?;
                         }
+                        GeneratedField::TrustingPeriod => {
+                            if trusting_period__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("trustingPeriod"));
+                            }
+                            trusting_period__ = 
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                            ;
+                        }
+                        GeneratedField::Frozen => {
+                            if frozen__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("frozen"));
+                            }
+                            frozen__ = Some(map_.next_value()?);
+                        }
                     }
                 }
                 Ok(ClientState {
                     header: header__,
+                    trusting_period: trusting_period__.unwrap_or_default(),
+                    frozen: frozen__.unwrap_or_default(),
                 })
             }
         }
