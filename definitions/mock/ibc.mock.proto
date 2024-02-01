@@ -10,8 +10,8 @@ message Header {
 
 message ClientState {
   Header header = 1;
-  uint64 trusing_period = 2;
-  bool frozen = 4;
+  uint64 trusting_period = 2;
+  bool frozen = 3;
 }
 
 message ConsensusState {
