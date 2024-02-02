@@ -587,9 +587,9 @@ pub struct GetBlockWithTxsResponse {
     #[prost(message, repeated, tag = "1")]
     pub txs: ::prost::alloc::vec::Vec<Tx>,
     #[prost(message, optional, tag = "2")]
-    pub block_id: ::core::option::Option<::tendermint_proto::types::BlockId>,
+    pub block_id: ::core::option::Option<::cometbft_proto::types::BlockId>,
     #[prost(message, optional, tag = "3")]
-    pub block: ::core::option::Option<::tendermint_proto::types::Block>,
+    pub block: ::core::option::Option<::cometbft_proto::types::Block>,
     /// pagination defines a pagination for the response.
     #[prost(message, optional, tag = "4")]
     pub pagination: ::core::option::Option<

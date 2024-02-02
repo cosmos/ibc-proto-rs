@@ -14,7 +14,7 @@
 
 pub mod google;
 
-pub use tendermint_proto::Protobuf;
+pub use cometbft_proto::Protobuf;
 
 extern crate alloc;
 

@@ -72,7 +72,7 @@ pub struct MsgSubmitConsumerDoubleVoting {
     /// an evidence of a validator that signed two conflicting votes
     #[prost(message, optional, tag = "2")]
     pub duplicate_vote_evidence: ::core::option::Option<
-        ::tendermint_proto::types::DuplicateVoteEvidence,
+        ::cometbft_proto::types::DuplicateVoteEvidence,
     >,
     /// The light client header of the infraction block
     #[prost(message, optional, tag = "3")]
@@ -998,7 +998,7 @@ pub struct KeyAssignmentReplacement {
     #[prost(bytes = "vec", tag = "1")]
     pub provider_addr: ::prost::alloc::vec::Vec<u8>,
     #[prost(message, optional, tag = "2")]
-    pub prev_c_key: ::core::option::Option<::tendermint_proto::crypto::PublicKey>,
+    pub prev_c_key: ::core::option::Option<::cometbft_proto::crypto::PublicKey>,
     #[prost(int64, tag = "3")]
     pub power: i64,
 }
@@ -1020,7 +1020,7 @@ pub struct ValidatorConsumerPubKey {
     #[prost(bytes = "vec", tag = "2")]
     pub provider_addr: ::prost::alloc::vec::Vec<u8>,
     #[prost(message, optional, tag = "3")]
-    pub consumer_key: ::core::option::Option<::tendermint_proto::crypto::PublicKey>,
+    pub consumer_key: ::core::option::Option<::cometbft_proto::crypto::PublicKey>,
 }
 impl ::prost::Name for ValidatorConsumerPubKey {
     const NAME: &'static str = "ValidatorConsumerPubKey";

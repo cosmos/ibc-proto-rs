@@ -147,7 +147,7 @@ impl CompileCmd {
             .server_mod_attribute(".", r#"#[cfg(feature = "server")]"#)
             .out_dir(out_dir)
             .file_descriptor_set_path(out_dir.join("proto_descriptor.bin"))
-            .extern_path(".tendermint", "::tendermint_proto")
+            .extern_path(".tendermint", "::cometbft_proto")
             .extern_path(".ics23", "::ics23")
             .type_attribute(".google.protobuf.Any", attrs_eq)
             .type_attribute(".google.protobuf.Any", attrs_jsonschema)
