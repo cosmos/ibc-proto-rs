@@ -22,12 +22,14 @@ set -eou pipefail
 # repositories over and over again every time
 # the script is called.
 
-CACHE_PATH="${XDG_CACHE_HOME:-$HOME/.cache}"
-COSMOS_SDK_GIT="${COSMOS_SDK_GIT:-$CACHE_PATH/cosmos/cosmos-sdk.git}"
+CACHE_PATH="${XDG_CACHE_HOME:-$HOME/.cache}"/ibc-proto-rs-build
+COSMOS_SDK_GIT="${COSMOS_SDK_GIT:-$CACHE_PATH/cosmos-sdk.git}"
 IBC_GO_GIT="${IBC_GO_GIT:-$CACHE_PATH/ibc-go.git}"
-COSMOS_ICS_GIT="${COSMOS_ICS_GIT:-$CACHE_PATH/cosmos/interchain-security.git}"
-NFT_TRANSFER_GIT="${NFT_TRANSFER_GIT:-$CACHE_PATH/bianjieai/nft-transfer.git}"
+COSMOS_ICS_GIT="${COSMOS_ICS_GIT:-$CACHE_PATH/interchain-security.git}"
+NFT_TRANSFER_GIT="${NFT_TRANSFER_GIT:-$CACHE_PATH/nft-transfer.git}"
 
+# A tag on buf.build/cometbft/cometbft must be named after the CometBFT commit
+COMETBFT_COMMIT="$(cat src/COMETBFT_COMMIT)"
 COSMOS_SDK_COMMIT="$(cat src/COSMOS_SDK_COMMIT)"
 IBC_GO_COMMIT="$(cat src/IBC_GO_COMMIT)"
 INTERCHAIN_SECURITY_COMMIT="$(cat src/INTERCHAIN_SECURITY_COMMIT)"
@@ -119,6 +121,12 @@ pushd "$NFT_TRANSFER_GIT"
 git fetch
 popd
 
+COMETBFT_DIR=$(mktemp -d /tmp/cometbft-XXXXXXXX)
+
+pushd "$COMETBFT_DIR"
+buf export -v -o . "buf.build/cometbft/cometbft:${COMETBFT_COMMIT}"
+popd
+
 # Create a new temporary directory to check out the
 # actual source files from the bare git repositories.
 # This is so that we do not accidentally use an unclean
@@ -197,6 +205,7 @@ cargo build
 # and once for no-std version with --build-tonic set to false
 
 cargo run -- compile \
+  --cmt "$COMETBFT_DIR" \
   --ics "$COSMOS_ICS_DIR/proto-include" \
   --sdk "$COSMOS_SDK_DIR/proto-include" \
   --ibc "$IBC_GO_DIR/proto-include" \
@@ -217,6 +226,7 @@ rm -f src/prost/cosmos.base.store.v1beta1.rs
 rm -f src/prost/tendermint.abci.rs
 
 # Remove the temporary checkouts of the repositories
+rm -rf "$COMETBFT_DIR"
 rm -rf "$COSMOS_ICS_DIR"
 rm -rf "$COSMOS_SDK_DIR"
 rm -rf "$IBC_GO_DIR"

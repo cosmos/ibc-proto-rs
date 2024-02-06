@@ -9,6 +9,10 @@ use argh::FromArgs;
 #[argh(subcommand, name = "compile")]
 /// Compile
 pub struct CompileCmd {
+    #[argh(option, short = 't')]
+    /// path to the CometBFT proto files
+    cmt: PathBuf,
+
     #[argh(option, short = 'i')]
     /// path to the IBC-Go proto files
     ibc: PathBuf,
@@ -32,13 +36,7 @@ pub struct CompileCmd {
 
 impl CompileCmd {
     pub fn run(&self) {
-        Self::compile_ibc_protos(
-            self.ibc.as_ref(),
-            self.sdk.as_ref(),
-            self.ics.as_ref(),
-            self.nft.as_ref(),
-            self.out.as_ref(),
-        )
+        self.compile_ibc_protos()
         .unwrap_or_else(|e| {
             eprintln!("[error] failed to compile protos: {}", e);
             process::exit(1);
@@ -57,16 +55,10 @@ impl CompileCmd {
         println!("[info ] Done!");
     }
 
-    fn compile_ibc_protos(
-        ibc_dir: &Path,
-        sdk_dir: &Path,
-        ics_dir: &Path,
-        nft_dir: &Path,
-        out_dir: &Path,
-    ) -> Result<(), Box<dyn std::error::Error>> {
+    fn compile_ibc_protos(&self) -> Result<(), Box<dyn std::error::Error>> {
         println!(
             "[info ] Compiling IBC .proto files to Rust into '{}'...",
-            out_dir.display()
+            self.out.display()
         );
 
         let root = env!("CARGO_MANIFEST_DIR");
@@ -76,26 +68,27 @@ impl CompileCmd {
             format!("{}/../../definitions/mock", root),
             format!("{}/../../definitions/ibc/lightclients/localhost/v1", root),
             format!("{}/../../definitions/stride/interchainquery/v1", root),
-            format!("{}/ibc", ibc_dir.display()),
-            format!("{}/cosmos/auth", sdk_dir.display()),
-            format!("{}/cosmos/gov", sdk_dir.display()),
-            format!("{}/cosmos/tx", sdk_dir.display()),
-            format!("{}/cosmos/base", sdk_dir.display()),
-            format!("{}/cosmos/crypto", sdk_dir.display()),
-            format!("{}/cosmos/bank", sdk_dir.display()),
-            format!("{}/cosmos/staking", sdk_dir.display()),
-            format!("{}/cosmos/upgrade", sdk_dir.display()),
-            format!("{}/interchain_security/ccv/v1", ics_dir.display()),
-            format!("{}/interchain_security/ccv/provider", ics_dir.display()),
-            format!("{}/interchain_security/ccv/consumer", ics_dir.display()),
-            format!("{}/ibc", nft_dir.display()),
+            format!("{}/ibc", self.ibc.display()),
+            format!("{}/cosmos/auth", self.sdk.display()),
+            format!("{}/cosmos/gov", self.sdk.display()),
+            format!("{}/cosmos/tx", self.sdk.display()),
+            format!("{}/cosmos/base", self.sdk.display()),
+            format!("{}/cosmos/crypto", self.sdk.display()),
+            format!("{}/cosmos/bank", self.sdk.display()),
+            format!("{}/cosmos/staking", self.sdk.display()),
+            format!("{}/cosmos/upgrade", self.sdk.display()),
+            format!("{}/interchain_security/ccv/v1", self.ics.display()),
+            format!("{}/interchain_security/ccv/provider", self.ics.display()),
+            format!("{}/interchain_security/ccv/consumer", self.ics.display()),
+            format!("{}/ibc", self.nft.display()),
         ];
 
         let proto_includes_paths = [
-            format!("{}", sdk_dir.display()),
-            format!("{}", ibc_dir.display()),
-            format!("{}", ics_dir.display()),
-            format!("{}", nft_dir.display()),
+            format!("{}", self.cmt.display()),
+            format!("{}", self.sdk.display()),
+            format!("{}", self.ibc.display()),
+            format!("{}", self.ics.display()),
+            format!("{}", self.nft.display()),
             format!("{}/../../definitions/mock", root),
             format!("{}/../../definitions/ibc/lightclients/localhost/v1", root),
             format!("{}/../../definitions/stride/interchainquery/v1", root),
@@ -145,9 +138,9 @@ impl CompileCmd {
             .client_mod_attribute(".", r#"#[cfg(feature = "client")]"#)
             .build_server(true)
             .server_mod_attribute(".", r#"#[cfg(feature = "server")]"#)
-            .out_dir(out_dir)
-            .file_descriptor_set_path(out_dir.join("proto_descriptor.bin"))
-            .extern_path(".tendermint", "::cometbft_proto")
+            .out_dir(&self.out)
+            .file_descriptor_set_path(self.out.join("proto_descriptor.bin"))
+            .extern_path(".cometbft", "::cometbft_proto")
             .extern_path(".ics23", "::ics23")
             .type_attribute(".google.protobuf.Any", attrs_eq)
             .type_attribute(".google.protobuf.Any", attrs_jsonschema)
