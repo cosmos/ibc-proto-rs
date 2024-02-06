@@ -69,42 +69,42 @@ impl CompileCmd {
             out_dir.display()
         );
 
-        let root = env!("CARGO_MANIFEST_DIR");
+        let root = Path::new(env!("CARGO_MANIFEST_DIR"));
 
         // Paths
         let proto_paths = [
-            format!("{}/../../definitions/mock", root),
-            format!("{}/../../definitions/ibc/lightclients/localhost/v1", root),
-            format!("{}/../../definitions/stride/interchainquery/v1", root),
-            format!("{}/ibc", ibc_dir.display()),
-            format!("{}/cosmos/auth", sdk_dir.display()),
-            format!("{}/cosmos/gov", sdk_dir.display()),
-            format!("{}/cosmos/tx", sdk_dir.display()),
-            format!("{}/cosmos/base", sdk_dir.display()),
-            format!("{}/cosmos/crypto", sdk_dir.display()),
-            format!("{}/cosmos/bank", sdk_dir.display()),
-            format!("{}/cosmos/staking", sdk_dir.display()),
-            format!("{}/cosmos/upgrade", sdk_dir.display()),
-            format!("{}/interchain_security/ccv/v1", ics_dir.display()),
-            format!("{}/interchain_security/ccv/provider", ics_dir.display()),
-            format!("{}/interchain_security/ccv/consumer", ics_dir.display()),
-            format!("{}/ibc", nft_dir.display()),
+            root.join("../../definitions/mock"),
+            root.join("../../definitions/ibc/lightclients/localhost/v1"),
+            root.join("../../definitions/stride/interchainquery/v1"),
+            ibc_dir.join("ibc"),
+            sdk_dir.join("cosmos/auth"),
+            sdk_dir.join("cosmos/gov"),
+            sdk_dir.join("cosmos/tx"),
+            sdk_dir.join("cosmos/base"),
+            sdk_dir.join("cosmos/crypto"),
+            sdk_dir.join("cosmos/bank"),
+            sdk_dir.join("cosmos/staking"),
+            sdk_dir.join("cosmos/upgrade"),
+            ics_dir.join("interchain_security/ccv/v1"),
+            ics_dir.join("interchain_security/ccv/provider"),
+            ics_dir.join("interchain_security/ccv/consumer"),
+            nft_dir.join("ibc"),
         ];
 
         let proto_includes_paths = [
-            format!("{}", sdk_dir.display()),
-            format!("{}", ibc_dir.display()),
-            format!("{}", ics_dir.display()),
-            format!("{}", nft_dir.display()),
-            format!("{}/../../definitions/mock", root),
-            format!("{}/../../definitions/ibc/lightclients/localhost/v1", root),
-            format!("{}/../../definitions/stride/interchainquery/v1", root),
+            sdk_dir.to_path_buf(),
+            ibc_dir.to_path_buf(),
+            ics_dir.to_path_buf(),
+            nft_dir.to_path_buf(),
+            root.join("../../definitions/mock"),
+            root.join("../../definitions/ibc/lightclients/localhost/v1"),
+            root.join("../../definitions/stride/interchainquery/v1"),
         ];
 
         // List available proto files
         let mut protos: Vec<PathBuf> = vec![];
         for proto_path in &proto_paths {
-            println!("Looking for proto files in {:?}", proto_path);
+            println!("Looking for proto files in '{}'", proto_path.display());
             protos.append(
                 &mut WalkDir::new(proto_path)
                     .into_iter()
@@ -122,12 +122,9 @@ impl CompileCmd {
         println!("Found the following protos:");
         // Show which protos will be compiled
         for proto in &protos {
-            println!("\t-> {:?}", proto);
+            println!("\t-> {}", proto.display());
         }
         println!("[info ] Compiling..");
-
-        // List available paths for dependencies
-        let includes: Vec<PathBuf> = proto_includes_paths.iter().map(PathBuf::from).collect();
 
         let attrs_jsonschema = r#"#[cfg_attr(all(feature = "json-schema", feature = "serde"), derive(::schemars::JsonSchema))]"#;
         let attrs_jsonschema_str = r#"#[cfg_attr(all(feature = "json-schema", feature = "serde"), schemars(with = "String"))]"#;
@@ -170,7 +167,7 @@ impl CompileCmd {
             .type_attribute(".ibc.core.connection.v1.Counterparty", attrs_jsonschema)
             .type_attribute(".ibc.core.connection.v1.Version", attrs_jsonschema)
             .type_attribute(".ibc.lightclients.wasm.v1.ClientMessage", attrs_jsonschema)
-            .compile_with_config(config, &protos, &includes)?;
+            .compile_with_config(config, &protos, &proto_includes_paths)?;
 
         println!("[info ] Protos compiled successfully");
 
