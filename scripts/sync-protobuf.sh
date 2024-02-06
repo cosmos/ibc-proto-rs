@@ -22,11 +22,11 @@ set -eou pipefail
 # repositories over and over again every time
 # the script is called.
 
-CACHE_PATH="${XDG_CACHE_HOME:-$HOME/.cache}"
-COSMOS_SDK_GIT="${COSMOS_SDK_GIT:-$CACHE_PATH/cosmos/cosmos-sdk.git}"
+CACHE_PATH="${XDG_CACHE_HOME:-$HOME/.cache}"/ibc-proto-rs-build
+COSMOS_SDK_GIT="${COSMOS_SDK_GIT:-$CACHE_PATH/cosmos-sdk.git}"
 IBC_GO_GIT="${IBC_GO_GIT:-$CACHE_PATH/ibc-go.git}"
-COSMOS_ICS_GIT="${COSMOS_ICS_GIT:-$CACHE_PATH/cosmos/interchain-security.git}"
-NFT_TRANSFER_GIT="${NFT_TRANSFER_GIT:-$CACHE_PATH/bianjieai/nft-transfer.git}"
+COSMOS_ICS_GIT="${COSMOS_ICS_GIT:-$CACHE_PATH/interchain-security.git}"
+NFT_TRANSFER_GIT="${NFT_TRANSFER_GIT:-$CACHE_PATH/nft-transfer.git}"
 
 COSMOS_SDK_COMMIT="$(cat src/COSMOS_SDK_COMMIT)"
 IBC_GO_COMMIT="$(cat src/IBC_GO_COMMIT)"
