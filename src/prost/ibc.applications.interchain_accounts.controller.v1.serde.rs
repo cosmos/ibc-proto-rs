@@ -15,6 +15,9 @@ impl serde::Serialize for MsgRegisterInterchainAccount {
         if true {
             len += 1;
         }
+        if true {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.interchain_accounts.controller.v1.MsgRegisterInterchainAccount", len)?;
         if true {
             struct_ser.serialize_field("owner", &self.owner)?;
@@ -24,6 +27,11 @@ impl serde::Serialize for MsgRegisterInterchainAccount {
         }
         if true {
             struct_ser.serialize_field("version", &self.version)?;
+        }
+        if true {
+            let v = super::super::super::super::core::channel::v1::Order::try_from(self.ordering)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", self.ordering)))?;
+            struct_ser.serialize_field("ordering", &v)?;
         }
         struct_ser.end()
     }
@@ -39,6 +47,7 @@ impl<'de> serde::Deserialize<'de> for MsgRegisterInterchainAccount {
             "connection_id",
             "connectionId",
             "version",
+            "ordering",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -46,6 +55,7 @@ impl<'de> serde::Deserialize<'de> for MsgRegisterInterchainAccount {
             Owner,
             ConnectionId,
             Version,
+            Ordering,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
@@ -70,6 +80,7 @@ impl<'de> serde::Deserialize<'de> for MsgRegisterInterchainAccount {
                             "owner" => Ok(GeneratedField::Owner),
                             "connectionId" | "connection_id" => Ok(GeneratedField::ConnectionId),
                             "version" => Ok(GeneratedField::Version),
+                            "ordering" => Ok(GeneratedField::Ordering),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -92,6 +103,7 @@ impl<'de> serde::Deserialize<'de> for MsgRegisterInterchainAccount {
                 let mut owner__ = None;
                 let mut connection_id__ = None;
                 let mut version__ = None;
+                let mut ordering__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Owner => {
@@ -112,12 +124,19 @@ impl<'de> serde::Deserialize<'de> for MsgRegisterInterchainAccount {
                             }
                             version__ = Some(map_.next_value()?);
                         }
+                        GeneratedField::Ordering => {
+                            if ordering__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("ordering"));
+                            }
+                            ordering__ = Some(map_.next_value::<super::super::super::super::core::channel::v1::Order>()? as i32);
+                        }
                     }
                 }
                 Ok(MsgRegisterInterchainAccount {
                     owner: owner__.unwrap_or_default(),
                     connection_id: connection_id__.unwrap_or_default(),
                     version: version__.unwrap_or_default(),
+                    ordering: ordering__.unwrap_or_default(),
                 })
             }
         }
