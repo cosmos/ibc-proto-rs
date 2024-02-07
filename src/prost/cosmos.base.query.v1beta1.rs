@@ -5,7 +5,6 @@
 ///           Foo some_parameter = 1;
 ///           PageRequest pagination = 2;
 ///   }
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PageRequest {
@@ -35,6 +34,13 @@ pub struct PageRequest {
     #[prost(bool, tag = "5")]
     pub reverse: bool,
 }
+impl ::prost::Name for PageRequest {
+    const NAME: &'static str = "PageRequest";
+    const PACKAGE: &'static str = "cosmos.base.query.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.query.v1beta1.{}", Self::NAME)
+    }
+}
 /// PageResponse is to be embedded in gRPC response messages where the
 /// corresponding request message has used PageRequest.
 ///
@@ -42,7 +48,6 @@ pub struct PageRequest {
 ///           repeated Bar results = 1;
 ///           PageResponse page = 2;
 ///   }
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PageResponse {
@@ -55,4 +60,11 @@ pub struct PageResponse {
     /// was set, its value is undefined otherwise
     #[prost(uint64, tag = "2")]
     pub total: u64,
+}
+impl ::prost::Name for PageResponse {
+    const NAME: &'static str = "PageResponse";
+    const PACKAGE: &'static str = "cosmos.base.query.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.query.v1beta1.{}", Self::NAME)
+    }
 }

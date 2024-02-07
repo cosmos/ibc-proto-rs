@@ -1,5 +1,4 @@
 /// ClientState defines the 09-localhost client state
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ClientState {
@@ -8,4 +7,11 @@ pub struct ClientState {
     pub latest_height: ::core::option::Option<
         super::super::super::core::client::v1::Height,
     >,
+}
+impl ::prost::Name for ClientState {
+    const NAME: &'static str = "ClientState";
+    const PACKAGE: &'static str = "ibc.lightclients.localhost.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.lightclients.localhost.v2.{}", Self::NAME)
+    }
 }

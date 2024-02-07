@@ -1,6 +1,5 @@
 /// ClientState defines a solo machine client that tracks the current consensus
 /// state and if the client is frozen.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ClientState {
@@ -13,10 +12,16 @@ pub struct ClientState {
     #[prost(message, optional, tag = "3")]
     pub consensus_state: ::core::option::Option<ConsensusState>,
 }
+impl ::prost::Name for ClientState {
+    const NAME: &'static str = "ClientState";
+    const PACKAGE: &'static str = "ibc.lightclients.solomachine.v3";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.lightclients.solomachine.v3.{}", Self::NAME)
+    }
+}
 /// ConsensusState defines a solo machine consensus state. The sequence of a
 /// consensus state is contained in the "height" key used in storing the
 /// consensus state.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsensusState {
@@ -33,8 +38,14 @@ pub struct ConsensusState {
     #[prost(uint64, tag = "3")]
     pub timestamp: u64,
 }
+impl ::prost::Name for ConsensusState {
+    const NAME: &'static str = "ConsensusState";
+    const PACKAGE: &'static str = "ibc.lightclients.solomachine.v3";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.lightclients.solomachine.v3.{}", Self::NAME)
+    }
+}
 /// Header defines a solo machine consensus header
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Header {
@@ -49,9 +60,15 @@ pub struct Header {
     #[prost(string, tag = "4")]
     pub new_diversifier: ::prost::alloc::string::String,
 }
+impl ::prost::Name for Header {
+    const NAME: &'static str = "Header";
+    const PACKAGE: &'static str = "ibc.lightclients.solomachine.v3";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.lightclients.solomachine.v3.{}", Self::NAME)
+    }
+}
 /// Misbehaviour defines misbehaviour for a solo machine which consists
 /// of a sequence and two signatures over different messages at that sequence.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Misbehaviour {
@@ -62,9 +79,15 @@ pub struct Misbehaviour {
     #[prost(message, optional, tag = "3")]
     pub signature_two: ::core::option::Option<SignatureAndData>,
 }
+impl ::prost::Name for Misbehaviour {
+    const NAME: &'static str = "Misbehaviour";
+    const PACKAGE: &'static str = "ibc.lightclients.solomachine.v3";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.lightclients.solomachine.v3.{}", Self::NAME)
+    }
+}
 /// SignatureAndData contains a signature and the data signed over to create that
 /// signature.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SignatureAndData {
@@ -77,9 +100,15 @@ pub struct SignatureAndData {
     #[prost(uint64, tag = "4")]
     pub timestamp: u64,
 }
+impl ::prost::Name for SignatureAndData {
+    const NAME: &'static str = "SignatureAndData";
+    const PACKAGE: &'static str = "ibc.lightclients.solomachine.v3";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.lightclients.solomachine.v3.{}", Self::NAME)
+    }
+}
 /// TimestampedSignatureData contains the signature data and the timestamp of the
 /// signature.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TimestampedSignatureData {
@@ -88,8 +117,14 @@ pub struct TimestampedSignatureData {
     #[prost(uint64, tag = "2")]
     pub timestamp: u64,
 }
+impl ::prost::Name for TimestampedSignatureData {
+    const NAME: &'static str = "TimestampedSignatureData";
+    const PACKAGE: &'static str = "ibc.lightclients.solomachine.v3";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.lightclients.solomachine.v3.{}", Self::NAME)
+    }
+}
 /// SignBytes defines the signed bytes used for signature verification.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SignBytes {
@@ -109,8 +144,14 @@ pub struct SignBytes {
     #[prost(bytes = "vec", tag = "5")]
     pub data: ::prost::alloc::vec::Vec<u8>,
 }
+impl ::prost::Name for SignBytes {
+    const NAME: &'static str = "SignBytes";
+    const PACKAGE: &'static str = "ibc.lightclients.solomachine.v3";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.lightclients.solomachine.v3.{}", Self::NAME)
+    }
+}
 /// HeaderData returns the SignBytes data for update verification.
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct HeaderData {
@@ -122,4 +163,11 @@ pub struct HeaderData {
     /// header diversifier
     #[prost(string, tag = "2")]
     pub new_diversifier: ::prost::alloc::string::String,
+}
+impl ::prost::Name for HeaderData {
+    const NAME: &'static str = "HeaderData";
+    const PACKAGE: &'static str = "ibc.lightclients.solomachine.v3";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.lightclients.solomachine.v3.{}", Self::NAME)
+    }
 }

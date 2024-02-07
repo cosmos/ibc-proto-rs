@@ -1,5 +1,47 @@
 # CHANGELOG
 
+## v0.41.0
+
+*January 9th, 2024*
+
+This release integrates the ICS-08 WASM light client and ICS-721 NFT transfer
+application proto types. It additionally resolves the removal of the `#[no_std]`
+attribute, introduces the `informalsystems-pbjson/std` dependency for std
+feature compatibility.
+
+### BUG FIXES
+
+- Fix `#[no_std]` attribute removal and add `informalsystems-pbjson/std` dependency
+  for `std` feature ([\#171](https://github.com/cosmos/ibc-proto-rs/issues/171)).
+
+### FEATURES
+
+- Add ICS-721 NFT transfer application proto types
+  ([\#167](https://github.com/cosmos/ibc-proto-rs/issues/167)).
+- Integrate WASM light client proto types by updating `IBC_GO_COMMIT` to the
+  hash associated with the ibc-go `wasm-v8.0.0` tag
+  ([\#168](https://github.com/cosmos/ibc-proto-rs/issues/168)).
+
+## v0.40.0
+
+*December 29th, 2023*
+
+### BREAKING CHANGES
+
+- Added ProtoJSON support.
+  The `serde` feature flag now abides by [Protobuf JSON rules](https://protobuf.dev/programming-guides/proto3/#json)
+  when it comes to JSON serialization/deserialization.
+  ([#166](https://github.com/cosmos/ibc-proto-rs/pull/166))
+
+## v0.39.1
+
+*November 22nd, 2023*
+
+### FEATURES
+
+- Derive the `prost::Name` trait for all Protobuf messages
+  ([\#163](https://github.com/cosmos/ibc-proto-rs/pull/163))
+
 ## v0.39.0
 
 *November 15th, 2023*

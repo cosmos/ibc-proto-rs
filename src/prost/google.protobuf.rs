@@ -27,7 +27,7 @@
 ///        foo = any.unpack(Foo.getDefaultInstance());
 ///      }
 ///
-///   Example 3: Pack and unpack a message in Python.
+/// Example 3: Pack and unpack a message in Python.
 ///
 ///      foo = Foo(...)
 ///      any = Any()
@@ -37,7 +37,7 @@
 ///        any.Unpack(foo)
 ///        ...
 ///
-///   Example 4: Pack and unpack a message in Go
+/// Example 4: Pack and unpack a message in Go
 ///
 ///       foo := &pb.Foo{...}
 ///       any, err := anypb.New(foo)
@@ -84,7 +84,6 @@
 ///        "value": "1.212s"
 ///      }
 ///
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[derive(Eq)]
 #[cfg_attr(
     all(feature = "json-schema", feature = "serde"),
@@ -128,6 +127,13 @@ pub struct Any {
     #[prost(bytes = "vec", tag = "2")]
     pub value: ::prost::alloc::vec::Vec<u8>,
 }
+impl ::prost::Name for Any {
+    const NAME: &'static str = "Any";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
+    }
+}
 /// The protocol compiler can output a FileDescriptorSet containing the .proto
 /// files it parses.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -135,6 +141,13 @@ pub struct Any {
 pub struct FileDescriptorSet {
     #[prost(message, repeated, tag = "1")]
     pub file: ::prost::alloc::vec::Vec<FileDescriptorProto>,
+}
+impl ::prost::Name for FileDescriptorSet {
+    const NAME: &'static str = "FileDescriptorSet";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
+    }
 }
 /// Describes a complete .proto file.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -179,9 +192,16 @@ pub struct FileDescriptorProto {
     /// If `edition` is present, this value must be "editions".
     #[prost(string, optional, tag = "12")]
     pub syntax: ::core::option::Option<::prost::alloc::string::String>,
-    /// The edition of the proto file, which is an opaque string.
-    #[prost(string, optional, tag = "13")]
-    pub edition: ::core::option::Option<::prost::alloc::string::String>,
+    /// The edition of the proto file.
+    #[prost(enumeration = "Edition", optional, tag = "14")]
+    pub edition: ::core::option::Option<i32>,
+}
+impl ::prost::Name for FileDescriptorProto {
+    const NAME: &'static str = "FileDescriptorProto";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
+    }
 }
 /// Describes a message type.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -224,6 +244,13 @@ pub mod descriptor_proto {
         #[prost(message, optional, tag = "3")]
         pub options: ::core::option::Option<super::ExtensionRangeOptions>,
     }
+    impl ::prost::Name for ExtensionRange {
+        const NAME: &'static str = "ExtensionRange";
+        const PACKAGE: &'static str = "google.protobuf";
+        fn full_name() -> ::prost::alloc::string::String {
+            ::prost::alloc::format!("google.protobuf.DescriptorProto.{}", Self::NAME)
+        }
+    }
     /// Range of reserved tag numbers. Reserved tag numbers may not be used by
     /// fields or extension ranges in the same message. Reserved ranges may
     /// not overlap.
@@ -236,6 +263,20 @@ pub mod descriptor_proto {
         /// Exclusive.
         #[prost(int32, optional, tag = "2")]
         pub end: ::core::option::Option<i32>,
+    }
+    impl ::prost::Name for ReservedRange {
+        const NAME: &'static str = "ReservedRange";
+        const PACKAGE: &'static str = "google.protobuf";
+        fn full_name() -> ::prost::alloc::string::String {
+            ::prost::alloc::format!("google.protobuf.DescriptorProto.{}", Self::NAME)
+        }
+    }
+}
+impl ::prost::Name for DescriptorProto {
+    const NAME: &'static str = "DescriptorProto";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
     }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -253,7 +294,7 @@ pub struct ExtensionRangeOptions {
     #[prost(message, optional, tag = "50")]
     pub features: ::core::option::Option<FeatureSet>,
     /// The verification state of the range.
-    /// TODO(b/278783756): flip the default to DECLARATION once all empty ranges
+    /// TODO: flip the default to DECLARATION once all empty ranges
     /// are marked as UNVERIFIED.
     #[prost(
         enumeration = "extension_range_options::VerificationState",
@@ -289,6 +330,15 @@ pub mod extension_range_options {
         /// Otherwise the extension must be defined as optional.
         #[prost(bool, optional, tag = "6")]
         pub repeated: ::core::option::Option<bool>,
+    }
+    impl ::prost::Name for Declaration {
+        const NAME: &'static str = "Declaration";
+        const PACKAGE: &'static str = "google.protobuf";
+        fn full_name() -> ::prost::alloc::string::String {
+            ::prost::alloc::format!(
+                "google.protobuf.ExtensionRangeOptions.{}", Self::NAME
+            )
+        }
     }
     /// The verification state of the extension range.
     #[derive(
@@ -327,6 +377,13 @@ pub mod extension_range_options {
                 _ => None,
             }
         }
+    }
+}
+impl ::prost::Name for ExtensionRangeOptions {
+    const NAME: &'static str = "ExtensionRangeOptions";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
     }
 }
 /// Describes a field within a message.
@@ -427,9 +484,10 @@ pub mod field_descriptor_proto {
         Bool = 8,
         String = 9,
         /// Tag-delimited aggregate.
-        /// Group type is deprecated and not supported in proto3. However, Proto3
+        /// Group type is deprecated and not supported after google.protobuf. However, Proto3
         /// implementations should still be able to parse the group wire format and
-        /// treat group fields as unknown fields.
+        /// treat group fields as unknown fields.  In Editions, the group wire format
+        /// can be enabled via the `message_encoding` feature.
         Group = 10,
         /// Length-delimited aggregate.
         Message = 11,
@@ -511,8 +569,11 @@ pub mod field_descriptor_proto {
     pub enum Label {
         /// 0 is reserved for errors
         Optional = 1,
-        Required = 2,
         Repeated = 3,
+        /// The required label is only allowed in google.protobuf.  In proto3 and Editions
+        /// it's explicitly prohibited.  In Editions, the `field_presence` feature
+        /// can be used to get this behavior.
+        Required = 2,
     }
     impl Label {
         /// String value of the enum field names used in the ProtoBuf definition.
@@ -522,19 +583,26 @@ pub mod field_descriptor_proto {
         pub fn as_str_name(&self) -> &'static str {
             match self {
                 Label::Optional => "LABEL_OPTIONAL",
-                Label::Required => "LABEL_REQUIRED",
                 Label::Repeated => "LABEL_REPEATED",
+                Label::Required => "LABEL_REQUIRED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
         pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
             match value {
                 "LABEL_OPTIONAL" => Some(Self::Optional),
-                "LABEL_REQUIRED" => Some(Self::Required),
                 "LABEL_REPEATED" => Some(Self::Repeated),
+                "LABEL_REQUIRED" => Some(Self::Required),
                 _ => None,
             }
         }
+    }
+}
+impl ::prost::Name for FieldDescriptorProto {
+    const NAME: &'static str = "FieldDescriptorProto";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
     }
 }
 /// Describes a oneof.
@@ -545,6 +613,13 @@ pub struct OneofDescriptorProto {
     pub name: ::core::option::Option<::prost::alloc::string::String>,
     #[prost(message, optional, tag = "2")]
     pub options: ::core::option::Option<OneofOptions>,
+}
+impl ::prost::Name for OneofDescriptorProto {
+    const NAME: &'static str = "OneofDescriptorProto";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
+    }
 }
 /// Describes an enum type.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -586,6 +661,20 @@ pub mod enum_descriptor_proto {
         #[prost(int32, optional, tag = "2")]
         pub end: ::core::option::Option<i32>,
     }
+    impl ::prost::Name for EnumReservedRange {
+        const NAME: &'static str = "EnumReservedRange";
+        const PACKAGE: &'static str = "google.protobuf";
+        fn full_name() -> ::prost::alloc::string::String {
+            ::prost::alloc::format!("google.protobuf.EnumDescriptorProto.{}", Self::NAME)
+        }
+    }
+}
+impl ::prost::Name for EnumDescriptorProto {
+    const NAME: &'static str = "EnumDescriptorProto";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
+    }
 }
 /// Describes a value within an enum.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -598,6 +687,13 @@ pub struct EnumValueDescriptorProto {
     #[prost(message, optional, tag = "3")]
     pub options: ::core::option::Option<EnumValueOptions>,
 }
+impl ::prost::Name for EnumValueDescriptorProto {
+    const NAME: &'static str = "EnumValueDescriptorProto";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
+    }
+}
 /// Describes a service.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -608,6 +704,13 @@ pub struct ServiceDescriptorProto {
     pub method: ::prost::alloc::vec::Vec<MethodDescriptorProto>,
     #[prost(message, optional, tag = "3")]
     pub options: ::core::option::Option<ServiceOptions>,
+}
+impl ::prost::Name for ServiceDescriptorProto {
+    const NAME: &'static str = "ServiceDescriptorProto";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
+    }
 }
 /// Describes a method of a service.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -629,6 +732,13 @@ pub struct MethodDescriptorProto {
     /// Identifies if server streams multiple server messages
     #[prost(bool, optional, tag = "6", default = "false")]
     pub server_streaming: ::core::option::Option<bool>,
+}
+impl ::prost::Name for MethodDescriptorProto {
+    const NAME: &'static str = "MethodDescriptorProto";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
+    }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -796,6 +906,13 @@ pub mod file_options {
         }
     }
 }
+impl ::prost::Name for FileOptions {
+    const NAME: &'static str = "FileOptions";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MessageOptions {
@@ -861,7 +978,7 @@ pub struct MessageOptions {
     /// This should only be used as a temporary measure against broken builds due
     /// to the change in behavior for JSON field name conflicts.
     ///
-    /// TODO(b/261750190) This is legacy behavior we plan to remove once downstream
+    /// TODO This is legacy behavior we plan to remove once downstream
     /// teams have had time to migrate.
     #[deprecated]
     #[prost(bool, optional, tag = "11")]
@@ -872,6 +989,13 @@ pub struct MessageOptions {
     /// The parser stores options it doesn't recognize here. See above.
     #[prost(message, repeated, tag = "999")]
     pub uninterpreted_option: ::prost::alloc::vec::Vec<UninterpretedOption>,
+}
+impl ::prost::Name for MessageOptions {
+    const NAME: &'static str = "MessageOptions";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
+    }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -893,7 +1017,9 @@ pub struct FieldOptions {
     /// a more efficient representation on the wire. Rather than repeatedly
     /// writing the tag and type for each element, the entire array is encoded as
     /// a single length-delimited blob. In proto3, only explicit setting it to
-    /// false will avoid using packed encoding.
+    /// false will avoid using packed encoding.  This option is prohibited in
+    /// Editions, but the `repeated_field_encoding` feature can be used to control
+    /// the behavior.
     #[prost(bool, optional, tag = "2")]
     pub packed: ::core::option::Option<bool>,
     /// The jstype option determines the JavaScript type used for values of the
@@ -987,11 +1113,18 @@ pub mod field_options {
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct EditionDefault {
-        #[prost(string, optional, tag = "1")]
-        pub edition: ::core::option::Option<::prost::alloc::string::String>,
+        #[prost(enumeration = "super::Edition", optional, tag = "3")]
+        pub edition: ::core::option::Option<i32>,
         /// Textproto value.
         #[prost(string, optional, tag = "2")]
         pub value: ::core::option::Option<::prost::alloc::string::String>,
+    }
+    impl ::prost::Name for EditionDefault {
+        const NAME: &'static str = "EditionDefault";
+        const PACKAGE: &'static str = "google.protobuf";
+        fn full_name() -> ::prost::alloc::string::String {
+            ::prost::alloc::format!("google.protobuf.FieldOptions.{}", Self::NAME)
+        }
     }
     #[derive(
         Clone,
@@ -1190,6 +1323,13 @@ pub mod field_options {
         }
     }
 }
+impl ::prost::Name for FieldOptions {
+    const NAME: &'static str = "FieldOptions";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct OneofOptions {
@@ -1199,6 +1339,13 @@ pub struct OneofOptions {
     /// The parser stores options it doesn't recognize here. See above.
     #[prost(message, repeated, tag = "999")]
     pub uninterpreted_option: ::prost::alloc::vec::Vec<UninterpretedOption>,
+}
+impl ::prost::Name for OneofOptions {
+    const NAME: &'static str = "OneofOptions";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
+    }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1217,7 +1364,7 @@ pub struct EnumOptions {
     /// and strips underscored from the fields before comparison in proto3 only.
     /// The new behavior takes `json_name` into account and applies to proto2 as
     /// well.
-    /// TODO(b/261750190) Remove this legacy behavior once downstream teams have
+    /// TODO Remove this legacy behavior once downstream teams have
     /// had time to migrate.
     #[deprecated]
     #[prost(bool, optional, tag = "6")]
@@ -1228,6 +1375,13 @@ pub struct EnumOptions {
     /// The parser stores options it doesn't recognize here. See above.
     #[prost(message, repeated, tag = "999")]
     pub uninterpreted_option: ::prost::alloc::vec::Vec<UninterpretedOption>,
+}
+impl ::prost::Name for EnumOptions {
+    const NAME: &'static str = "EnumOptions";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
+    }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1250,6 +1404,13 @@ pub struct EnumValueOptions {
     #[prost(message, repeated, tag = "999")]
     pub uninterpreted_option: ::prost::alloc::vec::Vec<UninterpretedOption>,
 }
+impl ::prost::Name for EnumValueOptions {
+    const NAME: &'static str = "EnumValueOptions";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ServiceOptions {
@@ -1265,6 +1426,13 @@ pub struct ServiceOptions {
     /// The parser stores options it doesn't recognize here. See above.
     #[prost(message, repeated, tag = "999")]
     pub uninterpreted_option: ::prost::alloc::vec::Vec<UninterpretedOption>,
+}
+impl ::prost::Name for ServiceOptions {
+    const NAME: &'static str = "ServiceOptions";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
+    }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1336,6 +1504,13 @@ pub mod method_options {
         }
     }
 }
+impl ::prost::Name for MethodOptions {
+    const NAME: &'static str = "MethodOptions";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
+    }
+}
 /// A message representing a option the parser does not recognize. This only
 /// appears in options protos created by the compiler::Parser class.
 /// DescriptorPool resolves these when building Descriptor objects. Therefore,
@@ -1377,8 +1552,22 @@ pub mod uninterpreted_option {
         #[prost(bool, required, tag = "2")]
         pub is_extension: bool,
     }
+    impl ::prost::Name for NamePart {
+        const NAME: &'static str = "NamePart";
+        const PACKAGE: &'static str = "google.protobuf";
+        fn full_name() -> ::prost::alloc::string::String {
+            ::prost::alloc::format!("google.protobuf.UninterpretedOption.{}", Self::NAME)
+        }
+    }
 }
-/// TODO(b/274655146) Enums in C++ gencode (and potentially other languages) are
+impl ::prost::Name for UninterpretedOption {
+    const NAME: &'static str = "UninterpretedOption";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
+    }
+}
+/// TODO Enums in C++ gencode (and potentially other languages) are
 /// not well scoped.  This means that each of the feature enums below can clash
 /// with each other.  The short names we've chosen maximize call-site
 /// readability, but leave us very open to this scenario.  A future feature will
@@ -1393,14 +1582,12 @@ pub struct FeatureSet {
     pub enum_type: ::core::option::Option<i32>,
     #[prost(enumeration = "feature_set::RepeatedFieldEncoding", optional, tag = "3")]
     pub repeated_field_encoding: ::core::option::Option<i32>,
-    #[prost(enumeration = "feature_set::StringFieldValidation", optional, tag = "4")]
-    pub string_field_validation: ::core::option::Option<i32>,
+    #[prost(enumeration = "feature_set::Utf8Validation", optional, tag = "4")]
+    pub utf8_validation: ::core::option::Option<i32>,
     #[prost(enumeration = "feature_set::MessageEncoding", optional, tag = "5")]
     pub message_encoding: ::core::option::Option<i32>,
     #[prost(enumeration = "feature_set::JsonFormat", optional, tag = "6")]
     pub json_format: ::core::option::Option<i32>,
-    #[prost(message, optional, boxed, tag = "999")]
-    pub raw_features: ::core::option::Option<::prost::alloc::boxed::Box<FeatureSet>>,
 }
 /// Nested message and enum types in `FeatureSet`.
 pub mod feature_set {
@@ -1536,32 +1723,29 @@ pub mod feature_set {
         ::prost::Enumeration
     )]
     #[repr(i32)]
-    pub enum StringFieldValidation {
+    pub enum Utf8Validation {
         Unknown = 0,
-        Mandatory = 1,
-        Hint = 2,
-        None = 3,
+        None = 1,
+        Verify = 2,
     }
-    impl StringFieldValidation {
+    impl Utf8Validation {
         /// String value of the enum field names used in the ProtoBuf definition.
         ///
         /// The values are not transformed in any way and thus are considered stable
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                StringFieldValidation::Unknown => "STRING_FIELD_VALIDATION_UNKNOWN",
-                StringFieldValidation::Mandatory => "MANDATORY",
-                StringFieldValidation::Hint => "HINT",
-                StringFieldValidation::None => "NONE",
+                Utf8Validation::Unknown => "UTF8_VALIDATION_UNKNOWN",
+                Utf8Validation::None => "NONE",
+                Utf8Validation::Verify => "VERIFY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
         pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
             match value {
-                "STRING_FIELD_VALIDATION_UNKNOWN" => Some(Self::Unknown),
-                "MANDATORY" => Some(Self::Mandatory),
-                "HINT" => Some(Self::Hint),
+                "UTF8_VALIDATION_UNKNOWN" => Some(Self::Unknown),
                 "NONE" => Some(Self::None),
+                "VERIFY" => Some(Self::Verify),
                 _ => None,
             }
         }
@@ -1643,6 +1827,62 @@ pub mod feature_set {
                 _ => None,
             }
         }
+    }
+}
+impl ::prost::Name for FeatureSet {
+    const NAME: &'static str = "FeatureSet";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
+    }
+}
+/// A compiled specification for the defaults of a set of features.  These
+/// messages are generated from FeatureSet extensions and can be used to seed
+/// feature resolution. The resolution with this object becomes a simple search
+/// for the closest matching edition, followed by proto merges.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct FeatureSetDefaults {
+    #[prost(message, repeated, tag = "1")]
+    pub defaults: ::prost::alloc::vec::Vec<
+        feature_set_defaults::FeatureSetEditionDefault,
+    >,
+    /// The minimum supported edition (inclusive) when this was constructed.
+    /// Editions before this will not have defaults.
+    #[prost(enumeration = "Edition", optional, tag = "4")]
+    pub minimum_edition: ::core::option::Option<i32>,
+    /// The maximum known edition (inclusive) when this was constructed. Editions
+    /// after this will not have reliable defaults.
+    #[prost(enumeration = "Edition", optional, tag = "5")]
+    pub maximum_edition: ::core::option::Option<i32>,
+}
+/// Nested message and enum types in `FeatureSetDefaults`.
+pub mod feature_set_defaults {
+    /// A map from every known edition with a unique set of defaults to its
+    /// defaults. Not all editions may be contained here.  For a given edition,
+    /// the defaults at the closest matching edition ordered at or before it should
+    /// be used.  This field must be in strict ascending order by edition.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct FeatureSetEditionDefault {
+        #[prost(enumeration = "super::Edition", optional, tag = "3")]
+        pub edition: ::core::option::Option<i32>,
+        #[prost(message, optional, tag = "2")]
+        pub features: ::core::option::Option<super::FeatureSet>,
+    }
+    impl ::prost::Name for FeatureSetEditionDefault {
+        const NAME: &'static str = "FeatureSetEditionDefault";
+        const PACKAGE: &'static str = "google.protobuf";
+        fn full_name() -> ::prost::alloc::string::String {
+            ::prost::alloc::format!("google.protobuf.FeatureSetDefaults.{}", Self::NAME)
+        }
+    }
+}
+impl ::prost::Name for FeatureSetDefaults {
+    const NAME: &'static str = "FeatureSetDefaults";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
     }
 }
 /// Encapsulates information about the original source file from which a
@@ -1789,6 +2029,20 @@ pub mod source_code_info {
             ::prost::alloc::string::String,
         >,
     }
+    impl ::prost::Name for Location {
+        const NAME: &'static str = "Location";
+        const PACKAGE: &'static str = "google.protobuf";
+        fn full_name() -> ::prost::alloc::string::String {
+            ::prost::alloc::format!("google.protobuf.SourceCodeInfo.{}", Self::NAME)
+        }
+    }
+}
+impl ::prost::Name for SourceCodeInfo {
+    const NAME: &'static str = "SourceCodeInfo";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
+    }
 }
 /// Describes the relationship between generated code and its original source
 /// file. A GeneratedCodeInfo message is associated with only one generated
@@ -1870,6 +2124,78 @@ pub mod generated_code_info {
                     _ => None,
                 }
             }
+        }
+    }
+    impl ::prost::Name for Annotation {
+        const NAME: &'static str = "Annotation";
+        const PACKAGE: &'static str = "google.protobuf";
+        fn full_name() -> ::prost::alloc::string::String {
+            ::prost::alloc::format!("google.protobuf.GeneratedCodeInfo.{}", Self::NAME)
+        }
+    }
+}
+impl ::prost::Name for GeneratedCodeInfo {
+    const NAME: &'static str = "GeneratedCodeInfo";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
+    }
+}
+/// The full set of known editions.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum Edition {
+    /// A placeholder for an unknown edition value.
+    Unknown = 0,
+    /// Legacy syntax "editions".  These pre-date editions, but behave much like
+    /// distinct editions.  These can't be used to specify the edition of proto
+    /// files, but feature definitions must supply proto2/proto3 defaults for
+    /// backwards compatibility.
+    Proto2 = 998,
+    Proto3 = 999,
+    /// Editions that have been released.  The specific values are arbitrary and
+    /// should not be depended on, but they will always be time-ordered for easy
+    /// comparison.
+    Edition2023 = 1000,
+    /// Placeholder editions for testing feature resolution.  These should not be
+    /// used or relyed on outside of tests.
+    Edition1TestOnly = 1,
+    Edition2TestOnly = 2,
+    Edition99997TestOnly = 99997,
+    Edition99998TestOnly = 99998,
+    Edition99999TestOnly = 99999,
+}
+impl Edition {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            Edition::Unknown => "EDITION_UNKNOWN",
+            Edition::Proto2 => "EDITION_PROTO2",
+            Edition::Proto3 => "EDITION_PROTO3",
+            Edition::Edition2023 => "EDITION_2023",
+            Edition::Edition1TestOnly => "EDITION_1_TEST_ONLY",
+            Edition::Edition2TestOnly => "EDITION_2_TEST_ONLY",
+            Edition::Edition99997TestOnly => "EDITION_99997_TEST_ONLY",
+            Edition::Edition99998TestOnly => "EDITION_99998_TEST_ONLY",
+            Edition::Edition99999TestOnly => "EDITION_99999_TEST_ONLY",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "EDITION_UNKNOWN" => Some(Self::Unknown),
+            "EDITION_PROTO2" => Some(Self::Proto2),
+            "EDITION_PROTO3" => Some(Self::Proto3),
+            "EDITION_2023" => Some(Self::Edition2023),
+            "EDITION_1_TEST_ONLY" => Some(Self::Edition1TestOnly),
+            "EDITION_2_TEST_ONLY" => Some(Self::Edition2TestOnly),
+            "EDITION_99997_TEST_ONLY" => Some(Self::Edition99997TestOnly),
+            "EDITION_99998_TEST_ONLY" => Some(Self::Edition99998TestOnly),
+            "EDITION_99999_TEST_ONLY" => Some(Self::Edition99999TestOnly),
+            _ => None,
         }
     }
 }
@@ -1963,7 +2289,6 @@ pub mod generated_code_info {
 /// <http://joda-time.sourceforge.net/apidocs/org/joda/time/format/ISODateTimeFormat.html#dateTime(>)
 /// ) to obtain a formatter capable of generating timestamps in this format.
 ///
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Timestamp {
@@ -1978,6 +2303,13 @@ pub struct Timestamp {
     /// inclusive.
     #[prost(int32, tag = "2")]
     pub nanos: i32,
+}
+impl ::prost::Name for Timestamp {
+    const NAME: &'static str = "Timestamp";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
+    }
 }
 /// A Duration represents a signed, fixed-length span of time represented
 /// as a count of seconds and fractions of seconds at nanosecond
@@ -2038,7 +2370,6 @@ pub struct Timestamp {
 /// be expressed in JSON format as "3.000000001s", and 3 seconds and 1
 /// microsecond should be expressed in JSON format as "3.000001s".
 ///
-#[cfg_attr(feature = "serde", derive(::serde::Serialize, ::serde::Deserialize))]
 #[derive(Eq)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -2056,4 +2387,11 @@ pub struct Duration {
     /// to +999,999,999 inclusive.
     #[prost(int32, tag = "2")]
     pub nanos: i32,
+}
+impl ::prost::Name for Duration {
+    const NAME: &'static str = "Duration";
+    const PACKAGE: &'static str = "google.protobuf";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("google.protobuf.{}", Self::NAME)
+    }
 }

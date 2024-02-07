@@ -11,3 +11,10 @@ pub struct LegacyAminoPubKey {
         super::super::super::google::protobuf::Any,
     >,
 }
+impl ::prost::Name for LegacyAminoPubKey {
+    const NAME: &'static str = "LegacyAminoPubKey";
+    const PACKAGE: &'static str = "cosmos.crypto.multisig";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.crypto.multisig.{}", Self::NAME)
+    }
+}

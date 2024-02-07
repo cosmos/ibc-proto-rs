@@ -26,14 +26,17 @@ CACHE_PATH="${XDG_CACHE_HOME:-$HOME/.cache}"
 COSMOS_SDK_GIT="${COSMOS_SDK_GIT:-$CACHE_PATH/cosmos/cosmos-sdk.git}"
 IBC_GO_GIT="${IBC_GO_GIT:-$CACHE_PATH/ibc-go.git}"
 COSMOS_ICS_GIT="${COSMOS_ICS_GIT:-$CACHE_PATH/cosmos/interchain-security.git}"
+NFT_TRANSFER_GIT="${NFT_TRANSFER_GIT:-$CACHE_PATH/bianjieai/nft-transfer.git}"
 
 COSMOS_SDK_COMMIT="$(cat src/COSMOS_SDK_COMMIT)"
 IBC_GO_COMMIT="$(cat src/IBC_GO_COMMIT)"
 INTERCHAIN_SECURITY_COMMIT="$(cat src/INTERCHAIN_SECURITY_COMMIT)"
+NFT_TRANSFER_COMMIT="$(cat src/NFT_TRANSFER_COMMIT)"
 
 echo "COSMOS_SDK_COMMIT: $COSMOS_SDK_COMMIT"
 echo "IBC_GO_COMMIT: $IBC_GO_COMMIT"
 echo "INTERCHAIN_SECURITY_COMMIT: $INTERCHAIN_SECURITY_COMMIT"
+echo "NFT_TRANSFER_COMMIT: $NFT_TRANSFER_COMMIT"
 
 # Use either --ics-commit flag for commit ID,
 # or --ics-tag for git tag. Because we can't modify
@@ -89,6 +92,15 @@ else
     echo "Using existing ibc-go bare git repository at $IBC_GO_GIT"
 fi
 
+if [[ ! -e "$NFT_TRANSFER_GIT" ]]
+then
+    echo "Cloning nft-transfer source code to as bare git repository to $NFT_TRANSFER_GIT"
+    git clone --mirror https://github.com/bianjieai/nft-transfer.git "$NFT_TRANSFER_GIT"
+else
+    echo "Using existing nft-transfer bare git repository at $NFT_TRANSFER_GIT"
+fi
+
+
 # Update the repositories using git fetch. This is so that
 # we keep local copies of the repositories up to sync first.
 pushd "$COSMOS_ICS_GIT"
@@ -100,6 +112,10 @@ git fetch
 popd
 
 pushd "$IBC_GO_GIT"
+git fetch
+popd
+
+pushd "$NFT_TRANSFER_GIT"
 git fetch
 popd
 
@@ -154,6 +170,17 @@ cd proto
 buf export -v -o ../proto-include
 popd
 
+NFT_TRANSFER_DIR=$(mktemp -d /tmp/nft-transfer-XXXXXXXX)
+
+pushd "$NFT_TRANSFER_DIR"
+git clone "$NFT_TRANSFER_GIT" .
+git checkout -b "$NFT_TRANSFER_COMMIT" "$NFT_TRANSFER_COMMIT"
+
+cd proto
+buf export -v -o ../proto-include
+rm ../proto-include/ibc/core/client/v1/client.proto
+popd
+
 # Remove the existing generated protobuf files
 # so that the newly generated code does not
 # contain removed files.
@@ -173,6 +200,7 @@ cargo run -- compile \
   --ics "$COSMOS_ICS_DIR/proto-include" \
   --sdk "$COSMOS_SDK_DIR/proto-include" \
   --ibc "$IBC_GO_DIR/proto-include" \
+  --nft "$NFT_TRANSFER_DIR/proto-include" \
   --out ../../src/prost
 
 cd ../..
@@ -192,3 +220,4 @@ rm -f src/prost/tendermint.abci.rs
 rm -rf "$COSMOS_ICS_DIR"
 rm -rf "$COSMOS_SDK_DIR"
 rm -rf "$IBC_GO_DIR"
+rm -rf "$NFT_TRANSFER_DIR"

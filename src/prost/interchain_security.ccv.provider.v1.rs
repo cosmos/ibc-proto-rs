@@ -13,9 +13,23 @@ pub struct MsgAssignConsumerKey {
     #[prost(string, tag = "3")]
     pub consumer_key: ::prost::alloc::string::String,
 }
+impl ::prost::Name for MsgAssignConsumerKey {
+    const NAME: &'static str = "MsgAssignConsumerKey";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgAssignConsumerKeyResponse {}
+impl ::prost::Name for MsgAssignConsumerKeyResponse {
+    const NAME: &'static str = "MsgAssignConsumerKeyResponse";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 /// MsgSubmitConsumerMisbehaviour defines a message that reports a light client attack,
 ///   also known as a misbehaviour, observed on a consumer chain
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -30,9 +44,23 @@ pub struct MsgSubmitConsumerMisbehaviour {
         super::super::super::super::ibc::lightclients::tendermint::v1::Misbehaviour,
     >,
 }
+impl ::prost::Name for MsgSubmitConsumerMisbehaviour {
+    const NAME: &'static str = "MsgSubmitConsumerMisbehaviour";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgSubmitConsumerMisbehaviourResponse {}
+impl ::prost::Name for MsgSubmitConsumerMisbehaviourResponse {
+    const NAME: &'static str = "MsgSubmitConsumerMisbehaviourResponse";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 /// MsgSubmitConsumerDoubleVoting defines a message that reports
 /// a double signing infraction observed on a consumer chain
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -52,9 +80,23 @@ pub struct MsgSubmitConsumerDoubleVoting {
         super::super::super::super::ibc::lightclients::tendermint::v1::Header,
     >,
 }
+impl ::prost::Name for MsgSubmitConsumerDoubleVoting {
+    const NAME: &'static str = "MsgSubmitConsumerDoubleVoting";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgSubmitConsumerDoubleVotingResponse {}
+impl ::prost::Name for MsgSubmitConsumerDoubleVotingResponse {
+    const NAME: &'static str = "MsgSubmitConsumerDoubleVotingResponse";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 /// Generated client implementations.
 #[cfg(feature = "client")]
 pub mod msg_client {
@@ -606,6 +648,13 @@ pub struct ConsumerAdditionProposal {
     #[prost(string, tag = "14")]
     pub distribution_transmission_channel: ::prost::alloc::string::String,
 }
+impl ::prost::Name for ConsumerAdditionProposal {
+    const NAME: &'static str = "ConsumerAdditionProposal";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 /// ConsumerRemovalProposal is a governance proposal on the provider chain to
 /// remove (and stop) a consumer chain. If it passes, all the consumer chain's
 /// state is removed from the provider chain. The outstanding unbonding operation
@@ -629,6 +678,13 @@ pub struct ConsumerRemovalProposal {
         super::super::super::super::google::protobuf::Timestamp,
     >,
 }
+impl ::prost::Name for ConsumerRemovalProposal {
+    const NAME: &'static str = "ConsumerRemovalProposal";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 /// ChangeRewardDenomsProposal is a governance proposal on the provider chain to
 /// mutate the set of denoms accepted by the provider as rewards.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -646,6 +702,13 @@ pub struct ChangeRewardDenomsProposal {
     /// the list of consumer reward denoms to remove
     #[prost(string, repeated, tag = "4")]
     pub denoms_to_remove: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+impl ::prost::Name for ChangeRewardDenomsProposal {
+    const NAME: &'static str = "ChangeRewardDenomsProposal";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
 }
 /// A persisted queue entry indicating that a slash packet data instance needs to
 /// be handled. This type belongs in the "global" queue, to coordinate slash
@@ -673,6 +736,13 @@ pub struct GlobalSlashEntry {
     /// see QueueGlobalSlashEntry.
     #[prost(bytes = "vec", tag = "4")]
     pub provider_val_cons_addr: ::prost::alloc::vec::Vec<u8>,
+}
+impl ::prost::Name for GlobalSlashEntry {
+    const NAME: &'static str = "GlobalSlashEntry";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
 }
 /// Params defines the parameters for CCV Provider module
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -725,6 +795,13 @@ pub struct Params {
         super::super::super::super::cosmos::base::v1beta1::Coin,
     >,
 }
+impl ::prost::Name for Params {
+    const NAME: &'static str = "Params";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 /// SlashAcks contains cons addresses of consumer chain validators
 /// successfully slashed on the provider chain.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -732,6 +809,13 @@ pub struct Params {
 pub struct SlashAcks {
     #[prost(string, repeated, tag = "1")]
     pub addresses: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+impl ::prost::Name for SlashAcks {
+    const NAME: &'static str = "SlashAcks";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
 }
 /// ConsumerAdditionProposals holds pending governance proposals on the provider
 /// chain to spawn a new chain.
@@ -742,6 +826,13 @@ pub struct ConsumerAdditionProposals {
     #[prost(message, repeated, tag = "1")]
     pub pending: ::prost::alloc::vec::Vec<ConsumerAdditionProposal>,
 }
+impl ::prost::Name for ConsumerAdditionProposals {
+    const NAME: &'static str = "ConsumerAdditionProposals";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 /// ConsumerRemovalProposals holds pending governance proposals on the provider
 /// chain to remove (and stop) a consumer chain.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -751,12 +842,26 @@ pub struct ConsumerRemovalProposals {
     #[prost(message, repeated, tag = "1")]
     pub pending: ::prost::alloc::vec::Vec<ConsumerRemovalProposal>,
 }
+impl ::prost::Name for ConsumerRemovalProposals {
+    const NAME: &'static str = "ConsumerRemovalProposals";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 /// AddressList contains a list of consensus addresses
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddressList {
     #[prost(bytes = "vec", repeated, tag = "1")]
     pub addresses: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+impl ::prost::Name for AddressList {
+    const NAME: &'static str = "AddressList";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -765,6 +870,13 @@ pub struct ChannelToChain {
     pub channel_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub chain_id: ::prost::alloc::string::String,
+}
+impl ::prost::Name for ChannelToChain {
+    const NAME: &'static str = "ChannelToChain";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
 }
 /// VscUnbondingOps contains the IDs of unbonding operations that are waiting for
 /// at least one VSCMaturedPacket with vscID from a consumer chain
@@ -775,6 +887,13 @@ pub struct VscUnbondingOps {
     pub vsc_id: u64,
     #[prost(uint64, repeated, tag = "2")]
     pub unbonding_op_ids: ::prost::alloc::vec::Vec<u64>,
+}
+impl ::prost::Name for VscUnbondingOps {
+    const NAME: &'static str = "VscUnbondingOps";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
 }
 /// UnbondingOp contains the ids of consumer chains that need to unbond before
 /// the unbonding operation with the given ID can unbond
@@ -789,6 +908,13 @@ pub struct UnbondingOp {
         ::prost::alloc::string::String,
     >,
 }
+impl ::prost::Name for UnbondingOp {
+    const NAME: &'static str = "UnbondingOp";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct InitTimeoutTimestamp {
@@ -796,6 +922,13 @@ pub struct InitTimeoutTimestamp {
     pub chain_id: ::prost::alloc::string::String,
     #[prost(uint64, tag = "2")]
     pub timestamp: u64,
+}
+impl ::prost::Name for InitTimeoutTimestamp {
+    const NAME: &'static str = "InitTimeoutTimestamp";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -807,12 +940,26 @@ pub struct VscSendTimestamp {
         super::super::super::super::google::protobuf::Timestamp,
     >,
 }
+impl ::prost::Name for VscSendTimestamp {
+    const NAME: &'static str = "VscSendTimestamp";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 /// ValidatorSetChangePackets is a pb list of ccv.ValidatorSetChangePacketData.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ValidatorSetChangePackets {
     #[prost(message, repeated, tag = "1")]
     pub list: ::prost::alloc::vec::Vec<super::super::v1::ValidatorSetChangePacketData>,
+}
+impl ::prost::Name for ValidatorSetChangePackets {
+    const NAME: &'static str = "ValidatorSetChangePackets";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
 }
 /// MaturedUnbondingOps defines a list of ids corresponding to ids of matured
 /// unbonding operations.
@@ -821,6 +968,13 @@ pub struct ValidatorSetChangePackets {
 pub struct MaturedUnbondingOps {
     #[prost(uint64, repeated, tag = "1")]
     pub ids: ::prost::alloc::vec::Vec<u64>,
+}
+impl ::prost::Name for MaturedUnbondingOps {
+    const NAME: &'static str = "MaturedUnbondingOps";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
 }
 /// ExportedVscSendTimestamps is VscSendTimestamp with chainID info for exporting to genesis
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -831,6 +985,13 @@ pub struct ExportedVscSendTimestamp {
     #[prost(message, repeated, tag = "2")]
     pub vsc_send_timestamps: ::prost::alloc::vec::Vec<VscSendTimestamp>,
 }
+impl ::prost::Name for ExportedVscSendTimestamp {
+    const NAME: &'static str = "ExportedVscSendTimestamp";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct KeyAssignmentReplacement {
@@ -840,6 +1001,13 @@ pub struct KeyAssignmentReplacement {
     pub prev_c_key: ::core::option::Option<::tendermint_proto::crypto::PublicKey>,
     #[prost(int64, tag = "3")]
     pub power: i64,
+}
+impl ::prost::Name for KeyAssignmentReplacement {
+    const NAME: &'static str = "KeyAssignmentReplacement";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
 }
 /// Used to serialize the ValidatorConsumerPubKey index from key assignment
 /// ValidatorConsumerPubKey: (chainID, providerAddr consAddr) -> consumerKey
@@ -854,6 +1022,13 @@ pub struct ValidatorConsumerPubKey {
     #[prost(message, optional, tag = "3")]
     pub consumer_key: ::core::option::Option<::tendermint_proto::crypto::PublicKey>,
 }
+impl ::prost::Name for ValidatorConsumerPubKey {
+    const NAME: &'static str = "ValidatorConsumerPubKey";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 /// Used to serialize the ValidatorConsumerAddr index from key assignment
 /// ValidatorByConsumerAddr: (chainID, consumerAddr consAddr) -> providerAddr
 /// consAddr
@@ -867,6 +1042,13 @@ pub struct ValidatorByConsumerAddr {
     #[prost(bytes = "vec", tag = "3")]
     pub provider_addr: ::prost::alloc::vec::Vec<u8>,
 }
+impl ::prost::Name for ValidatorByConsumerAddr {
+    const NAME: &'static str = "ValidatorByConsumerAddr";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 /// Used to serialize the ConsumerAddrsToPrune index from key assignment
 /// ConsumerAddrsToPrune: (chainID, vscID uint64) -> consumerAddrs AddressList
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -879,11 +1061,25 @@ pub struct ConsumerAddrsToPrune {
     #[prost(message, optional, tag = "3")]
     pub consumer_addrs: ::core::option::Option<AddressList>,
 }
+impl ::prost::Name for ConsumerAddrsToPrune {
+    const NAME: &'static str = "ConsumerAddrsToPrune";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsumerGenesisRequest {
     #[prost(string, tag = "1")]
     pub chain_id: ::prost::alloc::string::String,
+}
+impl ::prost::Name for QueryConsumerGenesisRequest {
+    const NAME: &'static str = "QueryConsumerGenesisRequest";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -891,32 +1087,81 @@ pub struct QueryConsumerGenesisResponse {
     #[prost(message, optional, tag = "1")]
     pub genesis_state: ::core::option::Option<super::super::v1::ConsumerGenesisState>,
 }
+impl ::prost::Name for QueryConsumerGenesisResponse {
+    const NAME: &'static str = "QueryConsumerGenesisResponse";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsumerChainsRequest {}
+impl ::prost::Name for QueryConsumerChainsRequest {
+    const NAME: &'static str = "QueryConsumerChainsRequest";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsumerChainsResponse {
     #[prost(message, repeated, tag = "1")]
     pub chains: ::prost::alloc::vec::Vec<Chain>,
 }
+impl ::prost::Name for QueryConsumerChainsResponse {
+    const NAME: &'static str = "QueryConsumerChainsResponse";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsumerChainStartProposalsRequest {}
+impl ::prost::Name for QueryConsumerChainStartProposalsRequest {
+    const NAME: &'static str = "QueryConsumerChainStartProposalsRequest";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsumerChainStartProposalsResponse {
     #[prost(message, optional, tag = "1")]
     pub proposals: ::core::option::Option<ConsumerAdditionProposals>,
 }
+impl ::prost::Name for QueryConsumerChainStartProposalsResponse {
+    const NAME: &'static str = "QueryConsumerChainStartProposalsResponse";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsumerChainStopProposalsRequest {}
+impl ::prost::Name for QueryConsumerChainStopProposalsRequest {
+    const NAME: &'static str = "QueryConsumerChainStopProposalsRequest";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsumerChainStopProposalsResponse {
     #[prost(message, optional, tag = "1")]
     pub proposals: ::core::option::Option<ConsumerRemovalProposals>,
+}
+impl ::prost::Name for QueryConsumerChainStopProposalsResponse {
+    const NAME: &'static str = "QueryConsumerChainStopProposalsResponse";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -925,6 +1170,13 @@ pub struct Chain {
     pub chain_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub client_id: ::prost::alloc::string::String,
+}
+impl ::prost::Name for Chain {
+    const NAME: &'static str = "Chain";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -936,12 +1188,26 @@ pub struct QueryValidatorConsumerAddrRequest {
     #[prost(string, tag = "2")]
     pub provider_address: ::prost::alloc::string::String,
 }
+impl ::prost::Name for QueryValidatorConsumerAddrRequest {
+    const NAME: &'static str = "QueryValidatorConsumerAddrRequest";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryValidatorConsumerAddrResponse {
     /// The address of the validator on the consumer chain
     #[prost(string, tag = "1")]
     pub consumer_address: ::prost::alloc::string::String,
+}
+impl ::prost::Name for QueryValidatorConsumerAddrResponse {
+    const NAME: &'static str = "QueryValidatorConsumerAddrResponse";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -953,6 +1219,13 @@ pub struct QueryValidatorProviderAddrRequest {
     #[prost(string, tag = "2")]
     pub consumer_address: ::prost::alloc::string::String,
 }
+impl ::prost::Name for QueryValidatorProviderAddrRequest {
+    const NAME: &'static str = "QueryValidatorProviderAddrRequest";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryValidatorProviderAddrResponse {
@@ -960,9 +1233,23 @@ pub struct QueryValidatorProviderAddrResponse {
     #[prost(string, tag = "1")]
     pub provider_address: ::prost::alloc::string::String,
 }
+impl ::prost::Name for QueryValidatorProviderAddrResponse {
+    const NAME: &'static str = "QueryValidatorProviderAddrResponse";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryThrottleStateRequest {}
+impl ::prost::Name for QueryThrottleStateRequest {
+    const NAME: &'static str = "QueryThrottleStateRequest";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryThrottleStateResponse {
@@ -983,11 +1270,25 @@ pub struct QueryThrottleStateResponse {
     #[prost(message, repeated, tag = "4")]
     pub packets: ::prost::alloc::vec::Vec<ThrottledSlashPacket>,
 }
+impl ::prost::Name for QueryThrottleStateResponse {
+    const NAME: &'static str = "QueryThrottleStateResponse";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryThrottledConsumerPacketDataRequest {
     #[prost(string, tag = "1")]
     pub chain_id: ::prost::alloc::string::String,
+}
+impl ::prost::Name for QueryThrottledConsumerPacketDataRequest {
+    const NAME: &'static str = "QueryThrottledConsumerPacketDataRequest";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -999,6 +1300,13 @@ pub struct QueryThrottledConsumerPacketDataResponse {
     #[prost(message, repeated, tag = "3")]
     pub packet_data_instances: ::prost::alloc::vec::Vec<ThrottledPacketDataWrapper>,
 }
+impl ::prost::Name for QueryThrottledConsumerPacketDataResponse {
+    const NAME: &'static str = "QueryThrottledConsumerPacketDataResponse";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 /// A query wrapper type for the global entry and data relevant to a throttled
 /// slash packet.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -1008,6 +1316,13 @@ pub struct ThrottledSlashPacket {
     pub global_entry: ::core::option::Option<GlobalSlashEntry>,
     #[prost(message, optional, tag = "2")]
     pub data: ::core::option::Option<super::super::v1::SlashPacketData>,
+}
+impl ::prost::Name for ThrottledSlashPacket {
+    const NAME: &'static str = "ThrottledSlashPacket";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
 }
 /// ThrottledPacketDataWrapper contains either SlashPacketData or
 /// VSCMaturedPacketData
@@ -1028,14 +1343,35 @@ pub mod throttled_packet_data_wrapper {
         VscMaturedPacket(super::super::super::v1::VscMaturedPacketData),
     }
 }
+impl ::prost::Name for ThrottledPacketDataWrapper {
+    const NAME: &'static str = "ThrottledPacketDataWrapper";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryRegisteredConsumerRewardDenomsRequest {}
+impl ::prost::Name for QueryRegisteredConsumerRewardDenomsRequest {
+    const NAME: &'static str = "QueryRegisteredConsumerRewardDenomsRequest";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryRegisteredConsumerRewardDenomsResponse {
     #[prost(string, repeated, tag = "1")]
     pub denoms: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+impl ::prost::Name for QueryRegisteredConsumerRewardDenomsResponse {
+    const NAME: &'static str = "QueryRegisteredConsumerRewardDenomsResponse";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
 }
 /// Generated client implementations.
 #[cfg(feature = "client")]
@@ -2112,6 +2448,13 @@ pub struct GenesisState {
     #[prost(message, repeated, tag = "13")]
     pub exported_vsc_send_timestamps: ::prost::alloc::vec::Vec<ExportedVscSendTimestamp>,
 }
+impl ::prost::Name for GenesisState {
+    const NAME: &'static str = "GenesisState";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 /// The provider CCV module's knowledge of consumer state.
 ///
 /// Note this type is only used internally to the provider CCV module.
@@ -2146,6 +2489,13 @@ pub struct ConsumerState {
     #[prost(message, repeated, tag = "8")]
     pub unbonding_ops_index: ::prost::alloc::vec::Vec<VscUnbondingOps>,
 }
+impl ::prost::Name for ConsumerState {
+    const NAME: &'static str = "ConsumerState";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
 /// ValsetUpdateIdToHeight defines the genesis information for the mapping
 /// of each valset udpate id to a block height
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -2155,4 +2505,11 @@ pub struct ValsetUpdateIdToHeight {
     pub valset_update_id: u64,
     #[prost(uint64, tag = "2")]
     pub height: u64,
+}
+impl ::prost::Name for ValsetUpdateIdToHeight {
+    const NAME: &'static str = "ValsetUpdateIdToHeight";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
 }

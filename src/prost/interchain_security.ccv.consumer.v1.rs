@@ -17,6 +17,13 @@ pub struct CrossChainValidator {
         super::super::super::super::google::protobuf::Any,
     >,
 }
+impl ::prost::Name for CrossChainValidator {
+    const NAME: &'static str = "CrossChainValidator";
+    const PACKAGE: &'static str = "interchain_security.ccv.consumer.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.consumer.v1.{}", Self::NAME)
+    }
+}
 /// A record storing the state of a slash packet sent to the provider chain
 /// which may bounce back and forth until handled by the provider.
 ///
@@ -30,6 +37,13 @@ pub struct SlashRecord {
     pub send_time: ::core::option::Option<
         super::super::super::super::google::protobuf::Timestamp,
     >,
+}
+impl ::prost::Name for SlashRecord {
+    const NAME: &'static str = "SlashRecord";
+    const PACKAGE: &'static str = "interchain_security.ccv.consumer.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.consumer.v1.{}", Self::NAME)
+    }
 }
 /// NextFeeDistributionEstimate holds information about next fee distribution
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -57,18 +71,46 @@ pub struct NextFeeDistributionEstimate {
     #[prost(string, tag = "7")]
     pub to_consumer: ::prost::alloc::string::String,
 }
+impl ::prost::Name for NextFeeDistributionEstimate {
+    const NAME: &'static str = "NextFeeDistributionEstimate";
+    const PACKAGE: &'static str = "interchain_security.ccv.consumer.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.consumer.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryNextFeeDistributionEstimateRequest {}
+impl ::prost::Name for QueryNextFeeDistributionEstimateRequest {
+    const NAME: &'static str = "QueryNextFeeDistributionEstimateRequest";
+    const PACKAGE: &'static str = "interchain_security.ccv.consumer.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.consumer.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryNextFeeDistributionEstimateResponse {
     #[prost(message, optional, tag = "1")]
     pub data: ::core::option::Option<NextFeeDistributionEstimate>,
 }
+impl ::prost::Name for QueryNextFeeDistributionEstimateResponse {
+    const NAME: &'static str = "QueryNextFeeDistributionEstimateResponse";
+    const PACKAGE: &'static str = "interchain_security.ccv.consumer.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.consumer.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsRequest {}
+impl ::prost::Name for QueryParamsRequest {
+    const NAME: &'static str = "QueryParamsRequest";
+    const PACKAGE: &'static str = "interchain_security.ccv.consumer.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.consumer.v1.{}", Self::NAME)
+    }
+}
 /// QueryParamsResponse is response type for the Query/Params RPC method.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -77,9 +119,23 @@ pub struct QueryParamsResponse {
     #[prost(message, optional, tag = "1")]
     pub params: ::core::option::Option<super::super::v1::ConsumerParams>,
 }
+impl ::prost::Name for QueryParamsResponse {
+    const NAME: &'static str = "QueryParamsResponse";
+    const PACKAGE: &'static str = "interchain_security.ccv.consumer.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.consumer.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryProviderInfoRequest {}
+impl ::prost::Name for QueryProviderInfoRequest {
+    const NAME: &'static str = "QueryProviderInfoRequest";
+    const PACKAGE: &'static str = "interchain_security.ccv.consumer.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.consumer.v1.{}", Self::NAME)
+    }
+}
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryProviderInfoResponse {
@@ -87,6 +143,13 @@ pub struct QueryProviderInfoResponse {
     pub consumer: ::core::option::Option<ChainInfo>,
     #[prost(message, optional, tag = "2")]
     pub provider: ::core::option::Option<ChainInfo>,
+}
+impl ::prost::Name for QueryProviderInfoResponse {
+    const NAME: &'static str = "QueryProviderInfoResponse";
+    const PACKAGE: &'static str = "interchain_security.ccv.consumer.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.consumer.v1.{}", Self::NAME)
+    }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -99,6 +162,13 @@ pub struct ChainInfo {
     pub connection_id: ::prost::alloc::string::String,
     #[prost(string, tag = "4")]
     pub channel_id: ::prost::alloc::string::String,
+}
+impl ::prost::Name for ChainInfo {
+    const NAME: &'static str = "ChainInfo";
+    const PACKAGE: &'static str = "interchain_security.ccv.consumer.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.consumer.v1.{}", Self::NAME)
+    }
 }
 /// Generated client implementations.
 #[cfg(feature = "client")]
