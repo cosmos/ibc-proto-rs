@@ -27,7 +27,7 @@
 ///        foo = any.unpack(Foo.getDefaultInstance());
 ///      }
 ///
-/// Example 3: Pack and unpack a message in Python.
+///   Example 3: Pack and unpack a message in Python.
 ///
 ///      foo = Foo(...)
 ///      any = Any()
@@ -37,7 +37,7 @@
 ///        any.Unpack(foo)
 ///        ...
 ///
-/// Example 4: Pack and unpack a message in Go
+///   Example 4: Pack and unpack a message in Go
 ///
 ///       foo := &pb.Foo{...}
 ///       any, err := anypb.New(foo)

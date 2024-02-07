@@ -1434,10 +1434,6 @@ pub struct Allocation {
     /// allow list of receivers, an empty allow list permits any receiver address
     #[prost(string, repeated, tag = "4")]
     pub allow_list: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// allow list of packet data keys, an empty list prohibits all packet data keys;
-    /// a list only with "*" permits any packet data key
-    #[prost(string, repeated, tag = "5")]
-    pub allowed_packet_data: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 impl ::prost::Name for Allocation {
     const NAME: &'static str = "Allocation";
