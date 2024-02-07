@@ -144,6 +144,16 @@ impl CompileCmd {
             .server_mod_attribute(".", r#"#[cfg(feature = "server")]"#)
             .out_dir(out_dir)
             .file_descriptor_set_path(out_dir.join("proto_descriptor.bin"))
+            // Use the v0.34 definition of `abci.Event` which does not enforce valid UTF-8 data
+            // for its `key` and `value` attributes, specifying them as `bytes` instead of `string`.
+            // This is required, because ibc-go emits event attributes which are not valid UTF-8,
+            // so we need to use this definition to be able to parse them.
+            // In Protobuf, `bytes` and `string` are wire-compatible, so doing this strictly
+            // increases the amount fo data we can parse.
+            .extern_path(
+                ".tendermint.abci.Event",
+                "::tendermint_proto::v0_34::abci::Event",
+            )
             .extern_path(".tendermint", "::tendermint_proto")
             .extern_path(".ics23", "::ics23")
             .type_attribute(".google.protobuf.Any", attrs_eq)
