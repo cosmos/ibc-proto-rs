@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## v0.41.0
+## v0.42.0
 
 *February 8th, 2024*
 
