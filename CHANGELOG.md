@@ -1,5 +1,40 @@
 # CHANGELOG
 
+## v0.42.0
+
+*February 8th, 2024*
+
+This release updates the proto types for IBC-Go from `v8.0.0` to `v8.1.0`.
+This includes proto types used for channel upgrade.
+
+Please note that IBC-Go v8.1.0 doesn't provide the Wasm light client proto types anymore (`ibc.lightclients.wasm.v1`). These types will live in
+ibc-proto-rs versions `v0.41.x`
+
+### BREAKING CHANGES
+
+- Removed WASM light client proto types
+  ([\#192](https://github.com/cosmos/ibc-proto-rs/pull/192))
+- Use the v0.34 definition of `abci.Event` which does not enforce 
+  valid UTF-8 data for its `key` and `value` attributes, specifying 
+  them as `bytes` instead of `string`. ([#180](https://github.com/cosmos/ibc-proto-rs/issues/180))
+
+  This is required, because ibc-go emits event attributes which are not valid UTF-8,
+  so we need to use this definition to be able to parse them.
+
+  In Protobuf, `bytes` and `string` are wire-compatible, so doing this strictly increases the amount fo data we can parse.
+
+  See this Hermes PR for background information: https://github.com/informalsystems/hermes/pull/3768
+
+### FEATURES
+
+- Bump IBC-Go to v8.1.0 ([\#192](https://github.com/cosmos/ibc-proto-rs/pull/192))
+
+### IMPROVEMENTS
+
+- Extend `ibc::mock::ClientState` with `trusting_period` and `frozen` data
+  fields to cover a wider range of client state testing scenarios
+  ([\#186](https://github.com/cosmos/ibc-proto-rs/issues/186)).
+
 ## v0.41.0
 
 *January 9th, 2024*
