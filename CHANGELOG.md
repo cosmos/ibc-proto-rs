@@ -23,6 +23,7 @@ ibc-proto-rs versions `v0.41.x`
 
   See this Hermes PR for background information: https://github.com/informalsystems/hermes/pull/3768
 - Removed WASM light client proto types
+  ([\#192](https://github.com/cosmos/ibc-proto-rs/pull/192))
 
 ### FEATURES
 
