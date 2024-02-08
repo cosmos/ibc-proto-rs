@@ -12,6 +12,8 @@ ibc-proto-rs versions `v0.41.x`
 
 ### BREAKING CHANGES
 
+- Removed WASM light client proto types
+  ([\#192](https://github.com/cosmos/ibc-proto-rs/pull/192))
 - Use the v0.34 definition of `abci.Event` which does not enforce 
   valid UTF-8 data for its `key` and `value` attributes, specifying 
   them as `bytes` instead of `string`. ([#180](https://github.com/cosmos/ibc-proto-rs/issues/180))
@@ -22,8 +24,6 @@ ibc-proto-rs versions `v0.41.x`
   In Protobuf, `bytes` and `string` are wire-compatible, so doing this strictly increases the amount fo data we can parse.
 
   See this Hermes PR for background information: https://github.com/informalsystems/hermes/pull/3768
-- Removed WASM light client proto types
-  ([\#192](https://github.com/cosmos/ibc-proto-rs/pull/192))
 
 ### FEATURES
 
