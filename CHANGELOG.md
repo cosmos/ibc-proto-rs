@@ -4,10 +4,10 @@
 
 *February 8th, 2024*
 
-This release updates the proto types from ibc-go from `v8.0.0` to `v8.1.0`.
+This release updates the proto types for IBC-Go from `v8.0.0` to `v8.1.0`.
 This includes proto types used for channel upgrade.
 
-Please note that ibc-go `v8.1.0` doesn't have the WASM light client proto types. These types will live in
+Please note that IBC-Go v8.1.0 doesn't provide the Wasm light client proto types anymore (`ibc.lightclients.wasm.v1`). These types will live in
 ibc-proto-rs versions `v0.41.x`
 
 ### BREAKING CHANGES
@@ -27,8 +27,7 @@ ibc-proto-rs versions `v0.41.x`
 
 ### FEATURES
 
-- Bump ibc-go to v8.1.0 ([\#192](https://github.com/cosmos/ibc-proto-
-  rs/pull/192))
+- Bump IBC-Go to v8.1.0 ([\#192](https://github.com/cosmos/ibc-proto-rs/pull/192))
 
 ### IMPROVEMENTS
 
