@@ -176,19 +176,12 @@ impl serde::Serialize for ConsensusState {
         if true {
             len += 1;
         }
-        if true {
-            len += 1;
-        }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.sovereign.tendermint.v1.ConsensusState", len)?;
-        if let Some(v) = self.timestamp.as_ref() {
-            struct_ser.serialize_field("timestamp", v)?;
-        }
         if let Some(v) = self.root.as_ref() {
             struct_ser.serialize_field("root", v)?;
         }
-        if true {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("nextValidatorsHash", pbjson::private::base64::encode(&self.next_validators_hash).as_str())?;
+        if let Some(v) = self.tendermint_params.as_ref() {
+            struct_ser.serialize_field("tendermintParams", v)?;
         }
         struct_ser.end()
     }
@@ -200,17 +193,15 @@ impl<'de> serde::Deserialize<'de> for ConsensusState {
         D: serde::Deserializer<'de>,
     {
         const FIELDS: &[&str] = &[
-            "timestamp",
             "root",
-            "next_validators_hash",
-            "nextValidatorsHash",
+            "tendermint_params",
+            "tendermintParams",
         ];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
-            Timestamp,
             Root,
-            NextValidatorsHash,
+            TendermintParams,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
@@ -232,9 +223,8 @@ impl<'de> serde::Deserialize<'de> for ConsensusState {
                         E: serde::de::Error,
                     {
                         match value {
-                            "timestamp" => Ok(GeneratedField::Timestamp),
                             "root" => Ok(GeneratedField::Root),
-                            "nextValidatorsHash" | "next_validators_hash" => Ok(GeneratedField::NextValidatorsHash),
+                            "tendermintParams" | "tendermint_params" => Ok(GeneratedField::TendermintParams),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -254,155 +244,31 @@ impl<'de> serde::Deserialize<'de> for ConsensusState {
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                let mut timestamp__ = None;
                 let mut root__ = None;
-                let mut next_validators_hash__ = None;
+                let mut tendermint_params__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
-                        GeneratedField::Timestamp => {
-                            if timestamp__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("timestamp"));
-                            }
-                            timestamp__ = map_.next_value()?;
-                        }
                         GeneratedField::Root => {
                             if root__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("root"));
                             }
                             root__ = map_.next_value()?;
                         }
-                        GeneratedField::NextValidatorsHash => {
-                            if next_validators_hash__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("nextValidatorsHash"));
+                        GeneratedField::TendermintParams => {
+                            if tendermint_params__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("tendermintParams"));
                             }
-                            next_validators_hash__ = 
-                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
-                            ;
+                            tendermint_params__ = map_.next_value()?;
                         }
                     }
                 }
                 Ok(ConsensusState {
-                    timestamp: timestamp__,
                     root: root__,
-                    next_validators_hash: next_validators_hash__.unwrap_or_default(),
+                    tendermint_params: tendermint_params__,
                 })
             }
         }
         deserializer.deserialize_struct("ibc.lightclients.sovereign.tendermint.v1.ConsensusState", FIELDS, GeneratedVisitor)
-    }
-}
-impl serde::Serialize for Fraction {
-    #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-        let mut len = 0;
-        if true {
-            len += 1;
-        }
-        if true {
-            len += 1;
-        }
-        let mut struct_ser = serializer.serialize_struct("ibc.lightclients.sovereign.tendermint.v1.Fraction", len)?;
-        if true {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("numerator", ::alloc::string::ToString::to_string(&self.numerator).as_str())?;
-        }
-        if true {
-            #[allow(clippy::needless_borrow)]
-            struct_ser.serialize_field("denominator", ::alloc::string::ToString::to_string(&self.denominator).as_str())?;
-        }
-        struct_ser.end()
-    }
-}
-impl<'de> serde::Deserialize<'de> for Fraction {
-    #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        const FIELDS: &[&str] = &[
-            "numerator",
-            "denominator",
-        ];
-
-        #[allow(clippy::enum_variant_names)]
-        enum GeneratedField {
-            Numerator,
-            Denominator,
-        }
-        impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct GeneratedVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-                    type Value = GeneratedField;
-
-                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-                        write!(formatter, "expected one of: {:?}", &FIELDS)
-                    }
-
-                    #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        match value {
-                            "numerator" => Ok(GeneratedField::Numerator),
-                            "denominator" => Ok(GeneratedField::Denominator),
-                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(GeneratedVisitor)
-            }
-        }
-        struct GeneratedVisitor;
-        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = Fraction;
-
-            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-                formatter.write_str("struct ibc.lightclients.sovereign.tendermint.v1.Fraction")
-            }
-
-            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Fraction, V::Error>
-                where
-                    V: serde::de::MapAccess<'de>,
-            {
-                let mut numerator__ = None;
-                let mut denominator__ = None;
-                while let Some(k) = map_.next_key()? {
-                    match k {
-                        GeneratedField::Numerator => {
-                            if numerator__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("numerator"));
-                            }
-                            numerator__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
-                            ;
-                        }
-                        GeneratedField::Denominator => {
-                            if denominator__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("denominator"));
-                            }
-                            denominator__ = 
-                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
-                            ;
-                        }
-                    }
-                }
-                Ok(Fraction {
-                    numerator: numerator__.unwrap_or_default(),
-                    denominator: denominator__.unwrap_or_default(),
-                })
-            }
-        }
-        deserializer.deserialize_struct("ibc.lightclients.sovereign.tendermint.v1.Fraction", FIELDS, GeneratedVisitor)
     }
 }
 impl serde::Serialize for Header {
@@ -420,8 +286,8 @@ impl serde::Serialize for Header {
             len += 1;
         }
         let mut struct_ser = serializer.serialize_struct("ibc.lightclients.sovereign.tendermint.v1.Header", len)?;
-        if let Some(v) = self.da_header.as_ref() {
-            struct_ser.serialize_field("daHeader", v)?;
+        if let Some(v) = self.tendermint_header.as_ref() {
+            struct_ser.serialize_field("tendermintHeader", v)?;
         }
         if let Some(v) = self.aggregated_proof_data.as_ref() {
             struct_ser.serialize_field("aggregatedProofData", v)?;
@@ -436,15 +302,15 @@ impl<'de> serde::Deserialize<'de> for Header {
         D: serde::Deserializer<'de>,
     {
         const FIELDS: &[&str] = &[
-            "da_header",
-            "daHeader",
+            "tendermint_header",
+            "tendermintHeader",
             "aggregated_proof_data",
             "aggregatedProofData",
         ];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
-            DaHeader,
+            TendermintHeader,
             AggregatedProofData,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
@@ -467,7 +333,7 @@ impl<'de> serde::Deserialize<'de> for Header {
                         E: serde::de::Error,
                     {
                         match value {
-                            "daHeader" | "da_header" => Ok(GeneratedField::DaHeader),
+                            "tendermintHeader" | "tendermint_header" => Ok(GeneratedField::TendermintHeader),
                             "aggregatedProofData" | "aggregated_proof_data" => Ok(GeneratedField::AggregatedProofData),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
@@ -488,15 +354,15 @@ impl<'de> serde::Deserialize<'de> for Header {
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                let mut da_header__ = None;
+                let mut tendermint_header__ = None;
                 let mut aggregated_proof_data__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
-                        GeneratedField::DaHeader => {
-                            if da_header__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("daHeader"));
+                        GeneratedField::TendermintHeader => {
+                            if tendermint_header__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("tendermintHeader"));
                             }
-                            da_header__ = map_.next_value()?;
+                            tendermint_header__ = map_.next_value()?;
                         }
                         GeneratedField::AggregatedProofData => {
                             if aggregated_proof_data__.is_some() {
@@ -507,7 +373,7 @@ impl<'de> serde::Deserialize<'de> for Header {
                     }
                 }
                 Ok(Header {
-                    da_header: da_header__,
+                    tendermint_header: tendermint_header__,
                     aggregated_proof_data: aggregated_proof_data__,
                 })
             }
@@ -643,7 +509,7 @@ impl<'de> serde::Deserialize<'de> for Misbehaviour {
         deserializer.deserialize_struct("ibc.lightclients.sovereign.tendermint.v1.Misbehaviour", FIELDS, GeneratedVisitor)
     }
 }
-impl serde::Serialize for TendermintParams {
+impl serde::Serialize for TendermintClientParams {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
@@ -666,7 +532,7 @@ impl serde::Serialize for TendermintParams {
         if true {
             len += 1;
         }
-        let mut struct_ser = serializer.serialize_struct("ibc.lightclients.sovereign.tendermint.v1.TendermintParams", len)?;
+        let mut struct_ser = serializer.serialize_struct("ibc.lightclients.sovereign.tendermint.v1.TendermintClientParams", len)?;
         if true {
             struct_ser.serialize_field("chainId", &self.chain_id)?;
         }
@@ -685,7 +551,7 @@ impl serde::Serialize for TendermintParams {
         struct_ser.end()
     }
 }
-impl<'de> serde::Deserialize<'de> for TendermintParams {
+impl<'de> serde::Deserialize<'de> for TendermintClientParams {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
@@ -746,13 +612,13 @@ impl<'de> serde::Deserialize<'de> for TendermintParams {
         }
         struct GeneratedVisitor;
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = TendermintParams;
+            type Value = TendermintClientParams;
 
             fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-                formatter.write_str("struct ibc.lightclients.sovereign.tendermint.v1.TendermintParams")
+                formatter.write_str("struct ibc.lightclients.sovereign.tendermint.v1.TendermintClientParams")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> core::result::Result<TendermintParams, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<TendermintClientParams, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -795,7 +661,7 @@ impl<'de> serde::Deserialize<'de> for TendermintParams {
                         }
                     }
                 }
-                Ok(TendermintParams {
+                Ok(TendermintClientParams {
                     chain_id: chain_id__.unwrap_or_default(),
                     trust_level: trust_level__,
                     trusting_period: trusting_period__,
@@ -804,6 +670,118 @@ impl<'de> serde::Deserialize<'de> for TendermintParams {
                 })
             }
         }
-        deserializer.deserialize_struct("ibc.lightclients.sovereign.tendermint.v1.TendermintParams", FIELDS, GeneratedVisitor)
+        deserializer.deserialize_struct("ibc.lightclients.sovereign.tendermint.v1.TendermintClientParams", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for TendermintConsensusParams {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("ibc.lightclients.sovereign.tendermint.v1.TendermintConsensusParams", len)?;
+        if let Some(v) = self.timestamp.as_ref() {
+            struct_ser.serialize_field("timestamp", v)?;
+        }
+        if true {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field("nextValidatorsHash", pbjson::private::base64::encode(&self.next_validators_hash).as_str())?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for TendermintConsensusParams {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "timestamp",
+            "next_validators_hash",
+            "nextValidatorsHash",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Timestamp,
+            NextValidatorsHash,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "timestamp" => Ok(GeneratedField::Timestamp),
+                            "nextValidatorsHash" | "next_validators_hash" => Ok(GeneratedField::NextValidatorsHash),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = TendermintConsensusParams;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct ibc.lightclients.sovereign.tendermint.v1.TendermintConsensusParams")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<TendermintConsensusParams, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut timestamp__ = None;
+                let mut next_validators_hash__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Timestamp => {
+                            if timestamp__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("timestamp"));
+                            }
+                            timestamp__ = map_.next_value()?;
+                        }
+                        GeneratedField::NextValidatorsHash => {
+                            if next_validators_hash__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("nextValidatorsHash"));
+                            }
+                            next_validators_hash__ = 
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                            ;
+                        }
+                    }
+                }
+                Ok(TendermintConsensusParams {
+                    timestamp: timestamp__,
+                    next_validators_hash: next_validators_hash__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("ibc.lightclients.sovereign.tendermint.v1.TendermintConsensusParams", FIELDS, GeneratedVisitor)
     }
 }

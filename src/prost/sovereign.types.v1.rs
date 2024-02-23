@@ -31,12 +31,18 @@ pub struct PublicInput {
     /// the final DA block hash
     #[prost(bytes = "vec", tag = "2")]
     pub final_da_block_hash: ::prost::alloc::vec::Vec<u8>,
-    /// the initial state root
+    /// the genesis state root
     #[prost(bytes = "vec", tag = "3")]
+    pub genesis_state_root: ::prost::alloc::vec::Vec<u8>,
+    /// the initial state root
+    #[prost(bytes = "vec", tag = "4")]
     pub initial_state_root: ::prost::alloc::vec::Vec<u8>,
     /// the final state root
-    #[prost(bytes = "vec", tag = "4")]
+    #[prost(bytes = "vec", tag = "5")]
     pub final_state_root: ::prost::alloc::vec::Vec<u8>,
+    /// th code commitment of the aggregated proof circuit
+    #[prost(bytes = "vec", tag = "6")]
+    pub code_commitment: ::prost::alloc::vec::Vec<u8>,
 }
 impl ::prost::Name for PublicInput {
     const NAME: &'static str = "PublicInput";
