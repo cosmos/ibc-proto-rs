@@ -12,12 +12,24 @@ impl serde::Serialize for Module {
         if true {
             len += 1;
         }
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.module.v1.Module", len)?;
         if true {
             struct_ser.serialize_field("hooksOrder", &self.hooks_order)?;
         }
         if true {
             struct_ser.serialize_field("authority", &self.authority)?;
+        }
+        if true {
+            struct_ser.serialize_field("bech32PrefixValidator", &self.bech32_prefix_validator)?;
+        }
+        if true {
+            struct_ser.serialize_field("bech32PrefixConsensus", &self.bech32_prefix_consensus)?;
         }
         struct_ser.end()
     }
@@ -32,12 +44,18 @@ impl<'de> serde::Deserialize<'de> for Module {
             "hooks_order",
             "hooksOrder",
             "authority",
+            "bech32_prefix_validator",
+            "bech32PrefixValidator",
+            "bech32_prefix_consensus",
+            "bech32PrefixConsensus",
         ];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
             HooksOrder,
             Authority,
+            Bech32PrefixValidator,
+            Bech32PrefixConsensus,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
@@ -61,6 +79,8 @@ impl<'de> serde::Deserialize<'de> for Module {
                         match value {
                             "hooksOrder" | "hooks_order" => Ok(GeneratedField::HooksOrder),
                             "authority" => Ok(GeneratedField::Authority),
+                            "bech32PrefixValidator" | "bech32_prefix_validator" => Ok(GeneratedField::Bech32PrefixValidator),
+                            "bech32PrefixConsensus" | "bech32_prefix_consensus" => Ok(GeneratedField::Bech32PrefixConsensus),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -82,6 +102,8 @@ impl<'de> serde::Deserialize<'de> for Module {
             {
                 let mut hooks_order__ = None;
                 let mut authority__ = None;
+                let mut bech32_prefix_validator__ = None;
+                let mut bech32_prefix_consensus__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::HooksOrder => {
@@ -96,11 +118,25 @@ impl<'de> serde::Deserialize<'de> for Module {
                             }
                             authority__ = Some(map_.next_value()?);
                         }
+                        GeneratedField::Bech32PrefixValidator => {
+                            if bech32_prefix_validator__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("bech32PrefixValidator"));
+                            }
+                            bech32_prefix_validator__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Bech32PrefixConsensus => {
+                            if bech32_prefix_consensus__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("bech32PrefixConsensus"));
+                            }
+                            bech32_prefix_consensus__ = Some(map_.next_value()?);
+                        }
                     }
                 }
                 Ok(Module {
                     hooks_order: hooks_order__.unwrap_or_default(),
                     authority: authority__.unwrap_or_default(),
+                    bech32_prefix_validator: bech32_prefix_validator__.unwrap_or_default(),
+                    bech32_prefix_consensus: bech32_prefix_consensus__.unwrap_or_default(),
                 })
             }
         }

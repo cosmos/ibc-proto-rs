@@ -251,3 +251,33 @@ impl ::prost::Name for SearchTxsResult {
         ::prost::alloc::format!("cosmos.base.abci.v1beta1.{}", Self::NAME)
     }
 }
+/// SearchBlocksResult defines a structure for querying blocks pageable
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SearchBlocksResult {
+    /// Count of all blocks
+    #[prost(int64, tag = "1")]
+    pub total_count: i64,
+    /// Count of blocks in current page
+    #[prost(int64, tag = "2")]
+    pub count: i64,
+    /// Index of current page, start from 1
+    #[prost(int64, tag = "3")]
+    pub page_number: i64,
+    /// Count of total pages
+    #[prost(int64, tag = "4")]
+    pub page_total: i64,
+    /// Max count blocks per page
+    #[prost(int64, tag = "5")]
+    pub limit: i64,
+    /// List of blocks in current page
+    #[prost(message, repeated, tag = "6")]
+    pub blocks: ::prost::alloc::vec::Vec<::cometbft_proto::types::v1::Block>,
+}
+impl ::prost::Name for SearchBlocksResult {
+    const NAME: &'static str = "SearchBlocksResult";
+    const PACKAGE: &'static str = "cosmos.base.abci.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.base.abci.v1beta1.{}", Self::NAME)
+    }
+}

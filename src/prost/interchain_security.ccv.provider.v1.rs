@@ -1,570 +1,3 @@
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgAssignConsumerKey {
-    /// The chain id of the consumer chain to assign a consensus public key to
-    #[prost(string, tag = "1")]
-    pub chain_id: ::prost::alloc::string::String,
-    /// The validator address on the provider
-    #[prost(string, tag = "2")]
-    pub provider_addr: ::prost::alloc::string::String,
-    /// The consensus public key to use on the consumer.
-    /// in json string format corresponding to proto-any, ex:
-    /// `{"@type":"/cosmos.crypto.ed25519.PubKey","key":"Ui5Gf1+mtWUdH8u3xlmzdKID+F3PK0sfXZ73GZ6q6is="}`
-    #[prost(string, tag = "3")]
-    pub consumer_key: ::prost::alloc::string::String,
-}
-impl ::prost::Name for MsgAssignConsumerKey {
-    const NAME: &'static str = "MsgAssignConsumerKey";
-    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
-    }
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgAssignConsumerKeyResponse {}
-impl ::prost::Name for MsgAssignConsumerKeyResponse {
-    const NAME: &'static str = "MsgAssignConsumerKeyResponse";
-    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
-    }
-}
-/// MsgSubmitConsumerMisbehaviour defines a message that reports a light client attack,
-///   also known as a misbehaviour, observed on a consumer chain
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgSubmitConsumerMisbehaviour {
-    #[prost(string, tag = "1")]
-    pub submitter: ::prost::alloc::string::String,
-    /// The Misbehaviour of the consumer chain wrapping
-    /// two conflicting IBC headers
-    #[prost(message, optional, tag = "2")]
-    pub misbehaviour: ::core::option::Option<
-        super::super::super::super::ibc::lightclients::tendermint::v1::Misbehaviour,
-    >,
-}
-impl ::prost::Name for MsgSubmitConsumerMisbehaviour {
-    const NAME: &'static str = "MsgSubmitConsumerMisbehaviour";
-    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
-    }
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgSubmitConsumerMisbehaviourResponse {}
-impl ::prost::Name for MsgSubmitConsumerMisbehaviourResponse {
-    const NAME: &'static str = "MsgSubmitConsumerMisbehaviourResponse";
-    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
-    }
-}
-/// MsgSubmitConsumerDoubleVoting defines a message that reports
-/// a double signing infraction observed on a consumer chain
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgSubmitConsumerDoubleVoting {
-    #[prost(string, tag = "1")]
-    pub submitter: ::prost::alloc::string::String,
-    /// The equivocation of the consumer chain wrapping
-    /// an evidence of a validator that signed two conflicting votes
-    #[prost(message, optional, tag = "2")]
-    pub duplicate_vote_evidence: ::core::option::Option<
-        ::cometbft_proto::types::DuplicateVoteEvidence,
-    >,
-    /// The light client header of the infraction block
-    #[prost(message, optional, tag = "3")]
-    pub infraction_block_header: ::core::option::Option<
-        super::super::super::super::ibc::lightclients::tendermint::v1::Header,
-    >,
-}
-impl ::prost::Name for MsgSubmitConsumerDoubleVoting {
-    const NAME: &'static str = "MsgSubmitConsumerDoubleVoting";
-    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
-    }
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgSubmitConsumerDoubleVotingResponse {}
-impl ::prost::Name for MsgSubmitConsumerDoubleVotingResponse {
-    const NAME: &'static str = "MsgSubmitConsumerDoubleVotingResponse";
-    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
-    }
-}
-/// Generated client implementations.
-#[cfg(feature = "client")]
-pub mod msg_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
-    use tonic::codegen::*;
-    use tonic::codegen::http::Uri;
-    /// Msg defines the Msg service.
-    #[derive(Debug, Clone)]
-    pub struct MsgClient<T> {
-        inner: tonic::client::Grpc<T>,
-    }
-    impl MsgClient<tonic::transport::Channel> {
-        /// Attempt to create a new client by connecting to a given endpoint.
-        pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
-        where
-            D: TryInto<tonic::transport::Endpoint>,
-            D::Error: Into<StdError>,
-        {
-            let conn = tonic::transport::Endpoint::new(dst)?.connect().await?;
-            Ok(Self::new(conn))
-        }
-    }
-    impl<T> MsgClient<T>
-    where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
-    {
-        pub fn new(inner: T) -> Self {
-            let inner = tonic::client::Grpc::new(inner);
-            Self { inner }
-        }
-        pub fn with_origin(inner: T, origin: Uri) -> Self {
-            let inner = tonic::client::Grpc::with_origin(inner, origin);
-            Self { inner }
-        }
-        pub fn with_interceptor<F>(
-            inner: T,
-            interceptor: F,
-        ) -> MsgClient<InterceptedService<T, F>>
-        where
-            F: tonic::service::Interceptor,
-            T::ResponseBody: Default,
-            T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-                Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
-                >,
-            >,
-            <T as tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + Send + Sync,
-        {
-            MsgClient::new(InterceptedService::new(inner, interceptor))
-        }
-        /// Compress requests with the given encoding.
-        ///
-        /// This requires the server to support it otherwise it might respond with an
-        /// error.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.send_compressed(encoding);
-            self
-        }
-        /// Enable decompressing responses.
-        #[must_use]
-        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.accept_compressed(encoding);
-            self
-        }
-        /// Limits the maximum size of a decoded message.
-        ///
-        /// Default: `4MB`
-        #[must_use]
-        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_decoding_message_size(limit);
-            self
-        }
-        /// Limits the maximum size of an encoded message.
-        ///
-        /// Default: `usize::MAX`
-        #[must_use]
-        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_encoding_message_size(limit);
-            self
-        }
-        pub async fn assign_consumer_key(
-            &mut self,
-            request: impl tonic::IntoRequest<super::MsgAssignConsumerKey>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgAssignConsumerKeyResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/interchain_security.ccv.provider.v1.Msg/AssignConsumerKey",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "interchain_security.ccv.provider.v1.Msg",
-                        "AssignConsumerKey",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        pub async fn submit_consumer_misbehaviour(
-            &mut self,
-            request: impl tonic::IntoRequest<super::MsgSubmitConsumerMisbehaviour>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgSubmitConsumerMisbehaviourResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/interchain_security.ccv.provider.v1.Msg/SubmitConsumerMisbehaviour",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "interchain_security.ccv.provider.v1.Msg",
-                        "SubmitConsumerMisbehaviour",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        pub async fn submit_consumer_double_voting(
-            &mut self,
-            request: impl tonic::IntoRequest<super::MsgSubmitConsumerDoubleVoting>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgSubmitConsumerDoubleVotingResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/interchain_security.ccv.provider.v1.Msg/SubmitConsumerDoubleVoting",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "interchain_security.ccv.provider.v1.Msg",
-                        "SubmitConsumerDoubleVoting",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-    }
-}
-/// Generated server implementations.
-#[cfg(feature = "server")]
-pub mod msg_server {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
-    use tonic::codegen::*;
-    /// Generated trait containing gRPC methods that should be implemented for use with MsgServer.
-    #[async_trait]
-    pub trait Msg: Send + Sync + 'static {
-        async fn assign_consumer_key(
-            &self,
-            request: tonic::Request<super::MsgAssignConsumerKey>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgAssignConsumerKeyResponse>,
-            tonic::Status,
-        >;
-        async fn submit_consumer_misbehaviour(
-            &self,
-            request: tonic::Request<super::MsgSubmitConsumerMisbehaviour>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgSubmitConsumerMisbehaviourResponse>,
-            tonic::Status,
-        >;
-        async fn submit_consumer_double_voting(
-            &self,
-            request: tonic::Request<super::MsgSubmitConsumerDoubleVoting>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgSubmitConsumerDoubleVotingResponse>,
-            tonic::Status,
-        >;
-    }
-    /// Msg defines the Msg service.
-    #[derive(Debug)]
-    pub struct MsgServer<T: Msg> {
-        inner: _Inner<T>,
-        accept_compression_encodings: EnabledCompressionEncodings,
-        send_compression_encodings: EnabledCompressionEncodings,
-        max_decoding_message_size: Option<usize>,
-        max_encoding_message_size: Option<usize>,
-    }
-    struct _Inner<T>(Arc<T>);
-    impl<T: Msg> MsgServer<T> {
-        pub fn new(inner: T) -> Self {
-            Self::from_arc(Arc::new(inner))
-        }
-        pub fn from_arc(inner: Arc<T>) -> Self {
-            let inner = _Inner(inner);
-            Self {
-                inner,
-                accept_compression_encodings: Default::default(),
-                send_compression_encodings: Default::default(),
-                max_decoding_message_size: None,
-                max_encoding_message_size: None,
-            }
-        }
-        pub fn with_interceptor<F>(
-            inner: T,
-            interceptor: F,
-        ) -> InterceptedService<Self, F>
-        where
-            F: tonic::service::Interceptor,
-        {
-            InterceptedService::new(Self::new(inner), interceptor)
-        }
-        /// Enable decompressing requests with the given encoding.
-        #[must_use]
-        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.accept_compression_encodings.enable(encoding);
-            self
-        }
-        /// Compress responses with the given encoding, if the client supports it.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.send_compression_encodings.enable(encoding);
-            self
-        }
-        /// Limits the maximum size of a decoded message.
-        ///
-        /// Default: `4MB`
-        #[must_use]
-        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
-            self.max_decoding_message_size = Some(limit);
-            self
-        }
-        /// Limits the maximum size of an encoded message.
-        ///
-        /// Default: `usize::MAX`
-        #[must_use]
-        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
-            self.max_encoding_message_size = Some(limit);
-            self
-        }
-    }
-    impl<T, B> tonic::codegen::Service<http::Request<B>> for MsgServer<T>
-    where
-        T: Msg,
-        B: Body + Send + 'static,
-        B::Error: Into<StdError> + Send + 'static,
-    {
-        type Response = http::Response<tonic::body::BoxBody>;
-        type Error = std::convert::Infallible;
-        type Future = BoxFuture<Self::Response, Self::Error>;
-        fn poll_ready(
-            &mut self,
-            _cx: &mut Context<'_>,
-        ) -> Poll<std::result::Result<(), Self::Error>> {
-            Poll::Ready(Ok(()))
-        }
-        fn call(&mut self, req: http::Request<B>) -> Self::Future {
-            let inner = self.inner.clone();
-            match req.uri().path() {
-                "/interchain_security.ccv.provider.v1.Msg/AssignConsumerKey" => {
-                    #[allow(non_camel_case_types)]
-                    struct AssignConsumerKeySvc<T: Msg>(pub Arc<T>);
-                    impl<T: Msg> tonic::server::UnaryService<super::MsgAssignConsumerKey>
-                    for AssignConsumerKeySvc<T> {
-                        type Response = super::MsgAssignConsumerKeyResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::MsgAssignConsumerKey>,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                <T as Msg>::assign_consumer_key(&inner, request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = AssignConsumerKeySvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/interchain_security.ccv.provider.v1.Msg/SubmitConsumerMisbehaviour" => {
-                    #[allow(non_camel_case_types)]
-                    struct SubmitConsumerMisbehaviourSvc<T: Msg>(pub Arc<T>);
-                    impl<
-                        T: Msg,
-                    > tonic::server::UnaryService<super::MsgSubmitConsumerMisbehaviour>
-                    for SubmitConsumerMisbehaviourSvc<T> {
-                        type Response = super::MsgSubmitConsumerMisbehaviourResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::MsgSubmitConsumerMisbehaviour>,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                <T as Msg>::submit_consumer_misbehaviour(&inner, request)
-                                    .await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = SubmitConsumerMisbehaviourSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/interchain_security.ccv.provider.v1.Msg/SubmitConsumerDoubleVoting" => {
-                    #[allow(non_camel_case_types)]
-                    struct SubmitConsumerDoubleVotingSvc<T: Msg>(pub Arc<T>);
-                    impl<
-                        T: Msg,
-                    > tonic::server::UnaryService<super::MsgSubmitConsumerDoubleVoting>
-                    for SubmitConsumerDoubleVotingSvc<T> {
-                        type Response = super::MsgSubmitConsumerDoubleVotingResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::MsgSubmitConsumerDoubleVoting>,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                <T as Msg>::submit_consumer_double_voting(&inner, request)
-                                    .await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = SubmitConsumerDoubleVotingSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                _ => {
-                    Box::pin(async move {
-                        Ok(
-                            http::Response::builder()
-                                .status(200)
-                                .header("grpc-status", "12")
-                                .header("content-type", "application/grpc")
-                                .body(empty_body())
-                                .unwrap(),
-                        )
-                    })
-                }
-            }
-        }
-    }
-    impl<T: Msg> Clone for MsgServer<T> {
-        fn clone(&self) -> Self {
-            let inner = self.inner.clone();
-            Self {
-                inner,
-                accept_compression_encodings: self.accept_compression_encodings,
-                send_compression_encodings: self.send_compression_encodings,
-                max_decoding_message_size: self.max_decoding_message_size,
-                max_encoding_message_size: self.max_encoding_message_size,
-            }
-        }
-    }
-    impl<T: Msg> Clone for _Inner<T> {
-        fn clone(&self) -> Self {
-            Self(Arc::clone(&self.0))
-        }
-    }
-    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            write!(f, "{:?}", self.0)
-        }
-    }
-    impl<T: Msg> tonic::server::NamedService for MsgServer<T> {
-        const NAME: &'static str = "interchain_security.ccv.provider.v1.Msg";
-    }
-}
 /// ConsumerAdditionProposal is a governance proposal on the provider chain to
 /// spawn a new consumer chain. If it passes, then all validators on the provider
 /// chain are expected to validate the consumer chain at spawn time or get
@@ -998,7 +431,7 @@ pub struct KeyAssignmentReplacement {
     #[prost(bytes = "vec", tag = "1")]
     pub provider_addr: ::prost::alloc::vec::Vec<u8>,
     #[prost(message, optional, tag = "2")]
-    pub prev_c_key: ::core::option::Option<::cometbft_proto::crypto::PublicKey>,
+    pub prev_c_key: ::core::option::Option<::cometbft_proto::crypto::v1::PublicKey>,
     #[prost(int64, tag = "3")]
     pub power: i64,
 }
@@ -1020,7 +453,7 @@ pub struct ValidatorConsumerPubKey {
     #[prost(bytes = "vec", tag = "2")]
     pub provider_addr: ::prost::alloc::vec::Vec<u8>,
     #[prost(message, optional, tag = "3")]
-    pub consumer_key: ::core::option::Option<::cometbft_proto::crypto::PublicKey>,
+    pub consumer_key: ::core::option::Option<::cometbft_proto::crypto::v1::PublicKey>,
 }
 impl ::prost::Name for ValidatorConsumerPubKey {
     const NAME: &'static str = "ValidatorConsumerPubKey";
@@ -1063,6 +496,112 @@ pub struct ConsumerAddrsToPrune {
 }
 impl ::prost::Name for ConsumerAddrsToPrune {
     const NAME: &'static str = "ConsumerAddrsToPrune";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
+/// GenesisState defines the CCV provider chain genesis state
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GenesisState {
+    /// strictly positive and set to 1 (DefaultValsetUpdateID) for a new chain
+    #[prost(uint64, tag = "1")]
+    pub valset_update_id: u64,
+    /// empty for a new chain
+    #[prost(message, repeated, tag = "2")]
+    pub consumer_states: ::prost::alloc::vec::Vec<ConsumerState>,
+    /// empty for a new chain
+    #[prost(message, repeated, tag = "3")]
+    pub unbonding_ops: ::prost::alloc::vec::Vec<UnbondingOp>,
+    /// empty for a new chain
+    #[prost(message, optional, tag = "4")]
+    pub mature_unbonding_ops: ::core::option::Option<MaturedUnbondingOps>,
+    /// empty for a new chain
+    #[prost(message, repeated, tag = "5")]
+    pub valset_update_id_to_height: ::prost::alloc::vec::Vec<ValsetUpdateIdToHeight>,
+    /// empty for a new chain
+    #[prost(message, repeated, tag = "6")]
+    pub consumer_addition_proposals: ::prost::alloc::vec::Vec<ConsumerAdditionProposal>,
+    /// empty for a new chain
+    #[prost(message, repeated, tag = "7")]
+    pub consumer_removal_proposals: ::prost::alloc::vec::Vec<ConsumerRemovalProposal>,
+    #[prost(message, optional, tag = "8")]
+    pub params: ::core::option::Option<Params>,
+    /// empty for a new chain
+    #[prost(message, repeated, tag = "9")]
+    pub validator_consumer_pubkeys: ::prost::alloc::vec::Vec<ValidatorConsumerPubKey>,
+    /// empty for a new chain
+    #[prost(message, repeated, tag = "10")]
+    pub validators_by_consumer_addr: ::prost::alloc::vec::Vec<ValidatorByConsumerAddr>,
+    /// empty for a new chain
+    #[prost(message, repeated, tag = "11")]
+    pub consumer_addrs_to_prune: ::prost::alloc::vec::Vec<ConsumerAddrsToPrune>,
+    #[prost(message, repeated, tag = "12")]
+    pub init_timeout_timestamps: ::prost::alloc::vec::Vec<InitTimeoutTimestamp>,
+    #[prost(message, repeated, tag = "13")]
+    pub exported_vsc_send_timestamps: ::prost::alloc::vec::Vec<ExportedVscSendTimestamp>,
+}
+impl ::prost::Name for GenesisState {
+    const NAME: &'static str = "GenesisState";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
+/// The provider CCV module's knowledge of consumer state.
+///
+/// Note this type is only used internally to the provider CCV module.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ConsumerState {
+    /// ChainID defines the chain ID for the consumer chain
+    #[prost(string, tag = "1")]
+    pub chain_id: ::prost::alloc::string::String,
+    /// ChannelID defines the IBC channel ID for the consumer chain
+    #[prost(string, tag = "2")]
+    pub channel_id: ::prost::alloc::string::String,
+    /// ClientID defines the IBC client ID for the consumer chain
+    #[prost(string, tag = "3")]
+    pub client_id: ::prost::alloc::string::String,
+    /// InitalHeight defines the initial block height for the consumer chain
+    #[prost(uint64, tag = "4")]
+    pub initial_height: u64,
+    /// ConsumerGenesis defines the initial consumer chain genesis states
+    #[prost(message, optional, tag = "5")]
+    pub consumer_genesis: ::core::option::Option<super::super::v1::ConsumerGenesisState>,
+    /// PendingValsetChanges defines the pending validator set changes for the
+    /// consumer chain
+    #[prost(message, repeated, tag = "6")]
+    pub pending_valset_changes: ::prost::alloc::vec::Vec<
+        super::super::v1::ValidatorSetChangePacketData,
+    >,
+    #[prost(string, repeated, tag = "7")]
+    pub slash_downtime_ack: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// UnbondingOpsIndex defines the unbonding operations waiting on this consumer
+    /// chain
+    #[prost(message, repeated, tag = "8")]
+    pub unbonding_ops_index: ::prost::alloc::vec::Vec<VscUnbondingOps>,
+}
+impl ::prost::Name for ConsumerState {
+    const NAME: &'static str = "ConsumerState";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
+/// ValsetUpdateIdToHeight defines the genesis information for the mapping
+/// of each valset udpate id to a block height
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ValsetUpdateIdToHeight {
+    #[prost(uint64, tag = "1")]
+    pub valset_update_id: u64,
+    #[prost(uint64, tag = "2")]
+    pub height: u64,
+}
+impl ::prost::Name for ValsetUpdateIdToHeight {
+    const NAME: &'static str = "ValsetUpdateIdToHeight";
     const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
     fn full_name() -> ::prost::alloc::string::String {
         ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
@@ -2407,109 +1946,570 @@ pub mod query_server {
         const NAME: &'static str = "interchain_security.ccv.provider.v1.Query";
     }
 }
-/// GenesisState defines the CCV provider chain genesis state
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GenesisState {
-    /// strictly positive and set to 1 (DefaultValsetUpdateID) for a new chain
-    #[prost(uint64, tag = "1")]
-    pub valset_update_id: u64,
-    /// empty for a new chain
-    #[prost(message, repeated, tag = "2")]
-    pub consumer_states: ::prost::alloc::vec::Vec<ConsumerState>,
-    /// empty for a new chain
-    #[prost(message, repeated, tag = "3")]
-    pub unbonding_ops: ::prost::alloc::vec::Vec<UnbondingOp>,
-    /// empty for a new chain
-    #[prost(message, optional, tag = "4")]
-    pub mature_unbonding_ops: ::core::option::Option<MaturedUnbondingOps>,
-    /// empty for a new chain
-    #[prost(message, repeated, tag = "5")]
-    pub valset_update_id_to_height: ::prost::alloc::vec::Vec<ValsetUpdateIdToHeight>,
-    /// empty for a new chain
-    #[prost(message, repeated, tag = "6")]
-    pub consumer_addition_proposals: ::prost::alloc::vec::Vec<ConsumerAdditionProposal>,
-    /// empty for a new chain
-    #[prost(message, repeated, tag = "7")]
-    pub consumer_removal_proposals: ::prost::alloc::vec::Vec<ConsumerRemovalProposal>,
-    #[prost(message, optional, tag = "8")]
-    pub params: ::core::option::Option<Params>,
-    /// empty for a new chain
-    #[prost(message, repeated, tag = "9")]
-    pub validator_consumer_pubkeys: ::prost::alloc::vec::Vec<ValidatorConsumerPubKey>,
-    /// empty for a new chain
-    #[prost(message, repeated, tag = "10")]
-    pub validators_by_consumer_addr: ::prost::alloc::vec::Vec<ValidatorByConsumerAddr>,
-    /// empty for a new chain
-    #[prost(message, repeated, tag = "11")]
-    pub consumer_addrs_to_prune: ::prost::alloc::vec::Vec<ConsumerAddrsToPrune>,
-    #[prost(message, repeated, tag = "12")]
-    pub init_timeout_timestamps: ::prost::alloc::vec::Vec<InitTimeoutTimestamp>,
-    #[prost(message, repeated, tag = "13")]
-    pub exported_vsc_send_timestamps: ::prost::alloc::vec::Vec<ExportedVscSendTimestamp>,
-}
-impl ::prost::Name for GenesisState {
-    const NAME: &'static str = "GenesisState";
-    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
-    }
-}
-/// The provider CCV module's knowledge of consumer state.
-///
-/// Note this type is only used internally to the provider CCV module.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ConsumerState {
-    /// ChainID defines the chain ID for the consumer chain
+pub struct MsgAssignConsumerKey {
+    /// The chain id of the consumer chain to assign a consensus public key to
     #[prost(string, tag = "1")]
     pub chain_id: ::prost::alloc::string::String,
-    /// ChannelID defines the IBC channel ID for the consumer chain
+    /// The validator address on the provider
     #[prost(string, tag = "2")]
-    pub channel_id: ::prost::alloc::string::String,
-    /// ClientID defines the IBC client ID for the consumer chain
+    pub provider_addr: ::prost::alloc::string::String,
+    /// The consensus public key to use on the consumer.
+    /// in json string format corresponding to proto-any, ex:
+    /// `{"@type":"/cosmos.crypto.ed25519.PubKey","key":"Ui5Gf1+mtWUdH8u3xlmzdKID+F3PK0sfXZ73GZ6q6is="}`
     #[prost(string, tag = "3")]
-    pub client_id: ::prost::alloc::string::String,
-    /// InitalHeight defines the initial block height for the consumer chain
-    #[prost(uint64, tag = "4")]
-    pub initial_height: u64,
-    /// ConsumerGenesis defines the initial consumer chain genesis states
-    #[prost(message, optional, tag = "5")]
-    pub consumer_genesis: ::core::option::Option<super::super::v1::ConsumerGenesisState>,
-    /// PendingValsetChanges defines the pending validator set changes for the
-    /// consumer chain
-    #[prost(message, repeated, tag = "6")]
-    pub pending_valset_changes: ::prost::alloc::vec::Vec<
-        super::super::v1::ValidatorSetChangePacketData,
-    >,
-    #[prost(string, repeated, tag = "7")]
-    pub slash_downtime_ack: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// UnbondingOpsIndex defines the unbonding operations waiting on this consumer
-    /// chain
-    #[prost(message, repeated, tag = "8")]
-    pub unbonding_ops_index: ::prost::alloc::vec::Vec<VscUnbondingOps>,
+    pub consumer_key: ::prost::alloc::string::String,
 }
-impl ::prost::Name for ConsumerState {
-    const NAME: &'static str = "ConsumerState";
+impl ::prost::Name for MsgAssignConsumerKey {
+    const NAME: &'static str = "MsgAssignConsumerKey";
     const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
     fn full_name() -> ::prost::alloc::string::String {
         ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
     }
 }
-/// ValsetUpdateIdToHeight defines the genesis information for the mapping
-/// of each valset udpate id to a block height
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ValsetUpdateIdToHeight {
-    #[prost(uint64, tag = "1")]
-    pub valset_update_id: u64,
-    #[prost(uint64, tag = "2")]
-    pub height: u64,
-}
-impl ::prost::Name for ValsetUpdateIdToHeight {
-    const NAME: &'static str = "ValsetUpdateIdToHeight";
+pub struct MsgAssignConsumerKeyResponse {}
+impl ::prost::Name for MsgAssignConsumerKeyResponse {
+    const NAME: &'static str = "MsgAssignConsumerKeyResponse";
     const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
     fn full_name() -> ::prost::alloc::string::String {
         ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
+/// MsgSubmitConsumerMisbehaviour defines a message that reports a light client attack,
+///   also known as a misbehaviour, observed on a consumer chain
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgSubmitConsumerMisbehaviour {
+    #[prost(string, tag = "1")]
+    pub submitter: ::prost::alloc::string::String,
+    /// The Misbehaviour of the consumer chain wrapping
+    /// two conflicting IBC headers
+    #[prost(message, optional, tag = "2")]
+    pub misbehaviour: ::core::option::Option<
+        super::super::super::super::ibc::lightclients::tendermint::v1::Misbehaviour,
+    >,
+}
+impl ::prost::Name for MsgSubmitConsumerMisbehaviour {
+    const NAME: &'static str = "MsgSubmitConsumerMisbehaviour";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgSubmitConsumerMisbehaviourResponse {}
+impl ::prost::Name for MsgSubmitConsumerMisbehaviourResponse {
+    const NAME: &'static str = "MsgSubmitConsumerMisbehaviourResponse";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
+/// MsgSubmitConsumerDoubleVoting defines a message that reports
+/// a double signing infraction observed on a consumer chain
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgSubmitConsumerDoubleVoting {
+    #[prost(string, tag = "1")]
+    pub submitter: ::prost::alloc::string::String,
+    /// The equivocation of the consumer chain wrapping
+    /// an evidence of a validator that signed two conflicting votes
+    #[prost(message, optional, tag = "2")]
+    pub duplicate_vote_evidence: ::core::option::Option<
+        ::cometbft_proto::types::v1::DuplicateVoteEvidence,
+    >,
+    /// The light client header of the infraction block
+    #[prost(message, optional, tag = "3")]
+    pub infraction_block_header: ::core::option::Option<
+        super::super::super::super::ibc::lightclients::tendermint::v1::Header,
+    >,
+}
+impl ::prost::Name for MsgSubmitConsumerDoubleVoting {
+    const NAME: &'static str = "MsgSubmitConsumerDoubleVoting";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgSubmitConsumerDoubleVotingResponse {}
+impl ::prost::Name for MsgSubmitConsumerDoubleVotingResponse {
+    const NAME: &'static str = "MsgSubmitConsumerDoubleVotingResponse";
+    const PACKAGE: &'static str = "interchain_security.ccv.provider.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("interchain_security.ccv.provider.v1.{}", Self::NAME)
+    }
+}
+/// Generated client implementations.
+#[cfg(feature = "client")]
+pub mod msg_client {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    use tonic::codegen::http::Uri;
+    /// Msg defines the Msg service.
+    #[derive(Debug, Clone)]
+    pub struct MsgClient<T> {
+        inner: tonic::client::Grpc<T>,
+    }
+    impl MsgClient<tonic::transport::Channel> {
+        /// Attempt to create a new client by connecting to a given endpoint.
+        pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
+        where
+            D: TryInto<tonic::transport::Endpoint>,
+            D::Error: Into<StdError>,
+        {
+            let conn = tonic::transport::Endpoint::new(dst)?.connect().await?;
+            Ok(Self::new(conn))
+        }
+    }
+    impl<T> MsgClient<T>
+    where
+        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+    {
+        pub fn new(inner: T) -> Self {
+            let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
+            Self { inner }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> MsgClient<InterceptedService<T, F>>
+        where
+            F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
+            T: tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+                Response = http::Response<
+                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                >,
+            >,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + Send + Sync,
+        {
+            MsgClient::new(InterceptedService::new(inner, interceptor))
+        }
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
+            self
+        }
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
+        pub async fn assign_consumer_key(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgAssignConsumerKey>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgAssignConsumerKeyResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/interchain_security.ccv.provider.v1.Msg/AssignConsumerKey",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "interchain_security.ccv.provider.v1.Msg",
+                        "AssignConsumerKey",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn submit_consumer_misbehaviour(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgSubmitConsumerMisbehaviour>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgSubmitConsumerMisbehaviourResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/interchain_security.ccv.provider.v1.Msg/SubmitConsumerMisbehaviour",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "interchain_security.ccv.provider.v1.Msg",
+                        "SubmitConsumerMisbehaviour",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn submit_consumer_double_voting(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgSubmitConsumerDoubleVoting>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgSubmitConsumerDoubleVotingResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/interchain_security.ccv.provider.v1.Msg/SubmitConsumerDoubleVoting",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "interchain_security.ccv.provider.v1.Msg",
+                        "SubmitConsumerDoubleVoting",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+    }
+}
+/// Generated server implementations.
+#[cfg(feature = "server")]
+pub mod msg_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with MsgServer.
+    #[async_trait]
+    pub trait Msg: Send + Sync + 'static {
+        async fn assign_consumer_key(
+            &self,
+            request: tonic::Request<super::MsgAssignConsumerKey>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgAssignConsumerKeyResponse>,
+            tonic::Status,
+        >;
+        async fn submit_consumer_misbehaviour(
+            &self,
+            request: tonic::Request<super::MsgSubmitConsumerMisbehaviour>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgSubmitConsumerMisbehaviourResponse>,
+            tonic::Status,
+        >;
+        async fn submit_consumer_double_voting(
+            &self,
+            request: tonic::Request<super::MsgSubmitConsumerDoubleVoting>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgSubmitConsumerDoubleVotingResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Msg defines the Msg service.
+    #[derive(Debug)]
+    pub struct MsgServer<T: Msg> {
+        inner: _Inner<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    struct _Inner<T>(Arc<T>);
+    impl<T: Msg> MsgServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            let inner = _Inner(inner);
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for MsgServer<T>
+    where
+        T: Msg,
+        B: Body + Send + 'static,
+        B::Error: Into<StdError> + Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            let inner = self.inner.clone();
+            match req.uri().path() {
+                "/interchain_security.ccv.provider.v1.Msg/AssignConsumerKey" => {
+                    #[allow(non_camel_case_types)]
+                    struct AssignConsumerKeySvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgAssignConsumerKey>
+                    for AssignConsumerKeySvc<T> {
+                        type Response = super::MsgAssignConsumerKeyResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgAssignConsumerKey>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Msg>::assign_consumer_key(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = AssignConsumerKeySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/interchain_security.ccv.provider.v1.Msg/SubmitConsumerMisbehaviour" => {
+                    #[allow(non_camel_case_types)]
+                    struct SubmitConsumerMisbehaviourSvc<T: Msg>(pub Arc<T>);
+                    impl<
+                        T: Msg,
+                    > tonic::server::UnaryService<super::MsgSubmitConsumerMisbehaviour>
+                    for SubmitConsumerMisbehaviourSvc<T> {
+                        type Response = super::MsgSubmitConsumerMisbehaviourResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgSubmitConsumerMisbehaviour>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Msg>::submit_consumer_misbehaviour(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = SubmitConsumerMisbehaviourSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/interchain_security.ccv.provider.v1.Msg/SubmitConsumerDoubleVoting" => {
+                    #[allow(non_camel_case_types)]
+                    struct SubmitConsumerDoubleVotingSvc<T: Msg>(pub Arc<T>);
+                    impl<
+                        T: Msg,
+                    > tonic::server::UnaryService<super::MsgSubmitConsumerDoubleVoting>
+                    for SubmitConsumerDoubleVotingSvc<T> {
+                        type Response = super::MsgSubmitConsumerDoubleVotingResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgSubmitConsumerDoubleVoting>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Msg>::submit_consumer_double_voting(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = SubmitConsumerDoubleVotingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", "12")
+                                .header("content-type", "application/grpc")
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T: Msg> Clone for MsgServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    impl<T: Msg> Clone for _Inner<T> {
+        fn clone(&self) -> Self {
+            Self(Arc::clone(&self.0))
+        }
+    }
+    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            write!(f, "{:?}", self.0)
+        }
+    }
+    impl<T: Msg> tonic::server::NamedService for MsgServer<T> {
+        const NAME: &'static str = "interchain_security.ccv.provider.v1.Msg";
     }
 }

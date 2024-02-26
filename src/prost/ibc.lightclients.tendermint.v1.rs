@@ -125,16 +125,16 @@ impl ::prost::Name for Misbehaviour {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Header {
     #[prost(message, optional, tag = "1")]
-    pub signed_header: ::core::option::Option<::cometbft_proto::types::SignedHeader>,
+    pub signed_header: ::core::option::Option<::cometbft_proto::types::v1::SignedHeader>,
     #[prost(message, optional, tag = "2")]
-    pub validator_set: ::core::option::Option<::cometbft_proto::types::ValidatorSet>,
+    pub validator_set: ::core::option::Option<::cometbft_proto::types::v1::ValidatorSet>,
     #[prost(message, optional, tag = "3")]
     pub trusted_height: ::core::option::Option<
         super::super::super::core::client::v1::Height,
     >,
     #[prost(message, optional, tag = "4")]
     pub trusted_validators: ::core::option::Option<
-        ::cometbft_proto::types::ValidatorSet,
+        ::cometbft_proto::types::v1::ValidatorSet,
     >,
 }
 impl ::prost::Name for Header {

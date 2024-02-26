@@ -269,6 +269,9 @@ impl serde::Serialize for GenesisState {
         if true {
             len += 1;
         }
+        if true {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1.GenesisState", len)?;
         if true {
             #[allow(clippy::needless_borrow)]
@@ -295,6 +298,9 @@ impl serde::Serialize for GenesisState {
         if let Some(v) = self.params.as_ref() {
             struct_ser.serialize_field("params", v)?;
         }
+        if true {
+            struct_ser.serialize_field("constitution", &self.constitution)?;
+        }
         struct_ser.end()
     }
 }
@@ -317,6 +323,7 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
             "tally_params",
             "tallyParams",
             "params",
+            "constitution",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -329,6 +336,7 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
             VotingParams,
             TallyParams,
             Params,
+            Constitution,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
@@ -358,6 +366,7 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                             "votingParams" | "voting_params" => Ok(GeneratedField::VotingParams),
                             "tallyParams" | "tally_params" => Ok(GeneratedField::TallyParams),
                             "params" => Ok(GeneratedField::Params),
+                            "constitution" => Ok(GeneratedField::Constitution),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -385,6 +394,7 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                 let mut voting_params__ = None;
                 let mut tally_params__ = None;
                 let mut params__ = None;
+                let mut constitution__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::StartingProposalId => {
@@ -437,6 +447,12 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                             }
                             params__ = map_.next_value()?;
                         }
+                        GeneratedField::Constitution => {
+                            if constitution__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("constitution"));
+                            }
+                            constitution__ = Some(map_.next_value()?);
+                        }
                     }
                 }
                 Ok(GenesisState {
@@ -448,10 +464,257 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                     voting_params: voting_params__,
                     tally_params: tally_params__,
                     params: params__,
+                    constitution: constitution__.unwrap_or_default(),
                 })
             }
         }
         deserializer.deserialize_struct("cosmos.gov.v1.GenesisState", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for MsgCancelProposal {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1.MsgCancelProposal", len)?;
+        if true {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field("proposalId", ::alloc::string::ToString::to_string(&self.proposal_id).as_str())?;
+        }
+        if true {
+            struct_ser.serialize_field("proposer", &self.proposer)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for MsgCancelProposal {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "proposal_id",
+            "proposalId",
+            "proposer",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            ProposalId,
+            Proposer,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "proposalId" | "proposal_id" => Ok(GeneratedField::ProposalId),
+                            "proposer" => Ok(GeneratedField::Proposer),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgCancelProposal;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmos.gov.v1.MsgCancelProposal")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgCancelProposal, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut proposal_id__ = None;
+                let mut proposer__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::ProposalId => {
+                            if proposal_id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("proposalId"));
+                            }
+                            proposal_id__ = 
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                            ;
+                        }
+                        GeneratedField::Proposer => {
+                            if proposer__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("proposer"));
+                            }
+                            proposer__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(MsgCancelProposal {
+                    proposal_id: proposal_id__.unwrap_or_default(),
+                    proposer: proposer__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("cosmos.gov.v1.MsgCancelProposal", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for MsgCancelProposalResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1.MsgCancelProposalResponse", len)?;
+        if true {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field("proposalId", ::alloc::string::ToString::to_string(&self.proposal_id).as_str())?;
+        }
+        if let Some(v) = self.canceled_time.as_ref() {
+            struct_ser.serialize_field("canceledTime", v)?;
+        }
+        if true {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field("canceledHeight", ::alloc::string::ToString::to_string(&self.canceled_height).as_str())?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for MsgCancelProposalResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "proposal_id",
+            "proposalId",
+            "canceled_time",
+            "canceledTime",
+            "canceled_height",
+            "canceledHeight",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            ProposalId,
+            CanceledTime,
+            CanceledHeight,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "proposalId" | "proposal_id" => Ok(GeneratedField::ProposalId),
+                            "canceledTime" | "canceled_time" => Ok(GeneratedField::CanceledTime),
+                            "canceledHeight" | "canceled_height" => Ok(GeneratedField::CanceledHeight),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgCancelProposalResponse;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmos.gov.v1.MsgCancelProposalResponse")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgCancelProposalResponse, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut proposal_id__ = None;
+                let mut canceled_time__ = None;
+                let mut canceled_height__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::ProposalId => {
+                            if proposal_id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("proposalId"));
+                            }
+                            proposal_id__ = 
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                            ;
+                        }
+                        GeneratedField::CanceledTime => {
+                            if canceled_time__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("canceledTime"));
+                            }
+                            canceled_time__ = map_.next_value()?;
+                        }
+                        GeneratedField::CanceledHeight => {
+                            if canceled_height__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("canceledHeight"));
+                            }
+                            canceled_height__ = 
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                            ;
+                        }
+                    }
+                }
+                Ok(MsgCancelProposalResponse {
+                    proposal_id: proposal_id__.unwrap_or_default(),
+                    canceled_time: canceled_time__,
+                    canceled_height: canceled_height__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("cosmos.gov.v1.MsgCancelProposalResponse", FIELDS, GeneratedVisitor)
     }
 }
 impl serde::Serialize for MsgDeposit {
@@ -859,6 +1122,9 @@ impl serde::Serialize for MsgSubmitProposal {
         if true {
             len += 1;
         }
+        if true {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1.MsgSubmitProposal", len)?;
         if true {
             struct_ser.serialize_field("messages", &self.messages)?;
@@ -878,6 +1144,9 @@ impl serde::Serialize for MsgSubmitProposal {
         if true {
             struct_ser.serialize_field("summary", &self.summary)?;
         }
+        if true {
+            struct_ser.serialize_field("expedited", &self.expedited)?;
+        }
         struct_ser.end()
     }
 }
@@ -895,6 +1164,7 @@ impl<'de> serde::Deserialize<'de> for MsgSubmitProposal {
             "metadata",
             "title",
             "summary",
+            "expedited",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -905,6 +1175,7 @@ impl<'de> serde::Deserialize<'de> for MsgSubmitProposal {
             Metadata,
             Title,
             Summary,
+            Expedited,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
@@ -932,6 +1203,7 @@ impl<'de> serde::Deserialize<'de> for MsgSubmitProposal {
                             "metadata" => Ok(GeneratedField::Metadata),
                             "title" => Ok(GeneratedField::Title),
                             "summary" => Ok(GeneratedField::Summary),
+                            "expedited" => Ok(GeneratedField::Expedited),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -957,6 +1229,7 @@ impl<'de> serde::Deserialize<'de> for MsgSubmitProposal {
                 let mut metadata__ = None;
                 let mut title__ = None;
                 let mut summary__ = None;
+                let mut expedited__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Messages => {
@@ -995,6 +1268,12 @@ impl<'de> serde::Deserialize<'de> for MsgSubmitProposal {
                             }
                             summary__ = Some(map_.next_value()?);
                         }
+                        GeneratedField::Expedited => {
+                            if expedited__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("expedited"));
+                            }
+                            expedited__ = Some(map_.next_value()?);
+                        }
                     }
                 }
                 Ok(MsgSubmitProposal {
@@ -1004,6 +1283,7 @@ impl<'de> serde::Deserialize<'de> for MsgSubmitProposal {
                     metadata: metadata__.unwrap_or_default(),
                     title: title__.unwrap_or_default(),
                     summary: summary__.unwrap_or_default(),
+                    expedited: expedited__.unwrap_or_default(),
                 })
             }
         }
@@ -1758,6 +2038,24 @@ impl serde::Serialize for Params {
         if true {
             len += 1;
         }
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1.Params", len)?;
         if true {
             struct_ser.serialize_field("minDeposit", &self.min_deposit)?;
@@ -1781,6 +2079,21 @@ impl serde::Serialize for Params {
             struct_ser.serialize_field("minInitialDepositRatio", &self.min_initial_deposit_ratio)?;
         }
         if true {
+            struct_ser.serialize_field("proposalCancelRatio", &self.proposal_cancel_ratio)?;
+        }
+        if true {
+            struct_ser.serialize_field("proposalCancelDest", &self.proposal_cancel_dest)?;
+        }
+        if let Some(v) = self.expedited_voting_period.as_ref() {
+            struct_ser.serialize_field("expeditedVotingPeriod", v)?;
+        }
+        if true {
+            struct_ser.serialize_field("expeditedThreshold", &self.expedited_threshold)?;
+        }
+        if true {
+            struct_ser.serialize_field("expeditedMinDeposit", &self.expedited_min_deposit)?;
+        }
+        if true {
             struct_ser.serialize_field("burnVoteQuorum", &self.burn_vote_quorum)?;
         }
         if true {
@@ -1788,6 +2101,9 @@ impl serde::Serialize for Params {
         }
         if true {
             struct_ser.serialize_field("burnVoteVeto", &self.burn_vote_veto)?;
+        }
+        if true {
+            struct_ser.serialize_field("minDepositRatio", &self.min_deposit_ratio)?;
         }
         struct_ser.end()
     }
@@ -1811,12 +2127,24 @@ impl<'de> serde::Deserialize<'de> for Params {
             "vetoThreshold",
             "min_initial_deposit_ratio",
             "minInitialDepositRatio",
+            "proposal_cancel_ratio",
+            "proposalCancelRatio",
+            "proposal_cancel_dest",
+            "proposalCancelDest",
+            "expedited_voting_period",
+            "expeditedVotingPeriod",
+            "expedited_threshold",
+            "expeditedThreshold",
+            "expedited_min_deposit",
+            "expeditedMinDeposit",
             "burn_vote_quorum",
             "burnVoteQuorum",
             "burn_proposal_deposit_prevote",
             "burnProposalDepositPrevote",
             "burn_vote_veto",
             "burnVoteVeto",
+            "min_deposit_ratio",
+            "minDepositRatio",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -1828,9 +2156,15 @@ impl<'de> serde::Deserialize<'de> for Params {
             Threshold,
             VetoThreshold,
             MinInitialDepositRatio,
+            ProposalCancelRatio,
+            ProposalCancelDest,
+            ExpeditedVotingPeriod,
+            ExpeditedThreshold,
+            ExpeditedMinDeposit,
             BurnVoteQuorum,
             BurnProposalDepositPrevote,
             BurnVoteVeto,
+            MinDepositRatio,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
@@ -1859,9 +2193,15 @@ impl<'de> serde::Deserialize<'de> for Params {
                             "threshold" => Ok(GeneratedField::Threshold),
                             "vetoThreshold" | "veto_threshold" => Ok(GeneratedField::VetoThreshold),
                             "minInitialDepositRatio" | "min_initial_deposit_ratio" => Ok(GeneratedField::MinInitialDepositRatio),
+                            "proposalCancelRatio" | "proposal_cancel_ratio" => Ok(GeneratedField::ProposalCancelRatio),
+                            "proposalCancelDest" | "proposal_cancel_dest" => Ok(GeneratedField::ProposalCancelDest),
+                            "expeditedVotingPeriod" | "expedited_voting_period" => Ok(GeneratedField::ExpeditedVotingPeriod),
+                            "expeditedThreshold" | "expedited_threshold" => Ok(GeneratedField::ExpeditedThreshold),
+                            "expeditedMinDeposit" | "expedited_min_deposit" => Ok(GeneratedField::ExpeditedMinDeposit),
                             "burnVoteQuorum" | "burn_vote_quorum" => Ok(GeneratedField::BurnVoteQuorum),
                             "burnProposalDepositPrevote" | "burn_proposal_deposit_prevote" => Ok(GeneratedField::BurnProposalDepositPrevote),
                             "burnVoteVeto" | "burn_vote_veto" => Ok(GeneratedField::BurnVoteVeto),
+                            "minDepositRatio" | "min_deposit_ratio" => Ok(GeneratedField::MinDepositRatio),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -1888,9 +2228,15 @@ impl<'de> serde::Deserialize<'de> for Params {
                 let mut threshold__ = None;
                 let mut veto_threshold__ = None;
                 let mut min_initial_deposit_ratio__ = None;
+                let mut proposal_cancel_ratio__ = None;
+                let mut proposal_cancel_dest__ = None;
+                let mut expedited_voting_period__ = None;
+                let mut expedited_threshold__ = None;
+                let mut expedited_min_deposit__ = None;
                 let mut burn_vote_quorum__ = None;
                 let mut burn_proposal_deposit_prevote__ = None;
                 let mut burn_vote_veto__ = None;
+                let mut min_deposit_ratio__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::MinDeposit => {
@@ -1935,6 +2281,36 @@ impl<'de> serde::Deserialize<'de> for Params {
                             }
                             min_initial_deposit_ratio__ = Some(map_.next_value()?);
                         }
+                        GeneratedField::ProposalCancelRatio => {
+                            if proposal_cancel_ratio__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("proposalCancelRatio"));
+                            }
+                            proposal_cancel_ratio__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::ProposalCancelDest => {
+                            if proposal_cancel_dest__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("proposalCancelDest"));
+                            }
+                            proposal_cancel_dest__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::ExpeditedVotingPeriod => {
+                            if expedited_voting_period__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("expeditedVotingPeriod"));
+                            }
+                            expedited_voting_period__ = map_.next_value()?;
+                        }
+                        GeneratedField::ExpeditedThreshold => {
+                            if expedited_threshold__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("expeditedThreshold"));
+                            }
+                            expedited_threshold__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::ExpeditedMinDeposit => {
+                            if expedited_min_deposit__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("expeditedMinDeposit"));
+                            }
+                            expedited_min_deposit__ = Some(map_.next_value()?);
+                        }
                         GeneratedField::BurnVoteQuorum => {
                             if burn_vote_quorum__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("burnVoteQuorum"));
@@ -1953,6 +2329,12 @@ impl<'de> serde::Deserialize<'de> for Params {
                             }
                             burn_vote_veto__ = Some(map_.next_value()?);
                         }
+                        GeneratedField::MinDepositRatio => {
+                            if min_deposit_ratio__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("minDepositRatio"));
+                            }
+                            min_deposit_ratio__ = Some(map_.next_value()?);
+                        }
                     }
                 }
                 Ok(Params {
@@ -1963,9 +2345,15 @@ impl<'de> serde::Deserialize<'de> for Params {
                     threshold: threshold__.unwrap_or_default(),
                     veto_threshold: veto_threshold__.unwrap_or_default(),
                     min_initial_deposit_ratio: min_initial_deposit_ratio__.unwrap_or_default(),
+                    proposal_cancel_ratio: proposal_cancel_ratio__.unwrap_or_default(),
+                    proposal_cancel_dest: proposal_cancel_dest__.unwrap_or_default(),
+                    expedited_voting_period: expedited_voting_period__,
+                    expedited_threshold: expedited_threshold__.unwrap_or_default(),
+                    expedited_min_deposit: expedited_min_deposit__.unwrap_or_default(),
                     burn_vote_quorum: burn_vote_quorum__.unwrap_or_default(),
                     burn_proposal_deposit_prevote: burn_proposal_deposit_prevote__.unwrap_or_default(),
                     burn_vote_veto: burn_vote_veto__.unwrap_or_default(),
+                    min_deposit_ratio: min_deposit_ratio__.unwrap_or_default(),
                 })
             }
         }
@@ -1980,6 +2368,12 @@ impl serde::Serialize for Proposal {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
         if true {
             len += 1;
         }
@@ -2062,6 +2456,12 @@ impl serde::Serialize for Proposal {
         if true {
             struct_ser.serialize_field("proposer", &self.proposer)?;
         }
+        if true {
+            struct_ser.serialize_field("expedited", &self.expedited)?;
+        }
+        if true {
+            struct_ser.serialize_field("failedReason", &self.failed_reason)?;
+        }
         struct_ser.end()
     }
 }
@@ -2091,6 +2491,9 @@ impl<'de> serde::Deserialize<'de> for Proposal {
             "title",
             "summary",
             "proposer",
+            "expedited",
+            "failed_reason",
+            "failedReason",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -2108,6 +2511,8 @@ impl<'de> serde::Deserialize<'de> for Proposal {
             Title,
             Summary,
             Proposer,
+            Expedited,
+            FailedReason,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
@@ -2142,6 +2547,8 @@ impl<'de> serde::Deserialize<'de> for Proposal {
                             "title" => Ok(GeneratedField::Title),
                             "summary" => Ok(GeneratedField::Summary),
                             "proposer" => Ok(GeneratedField::Proposer),
+                            "expedited" => Ok(GeneratedField::Expedited),
+                            "failedReason" | "failed_reason" => Ok(GeneratedField::FailedReason),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -2174,6 +2581,8 @@ impl<'de> serde::Deserialize<'de> for Proposal {
                 let mut title__ = None;
                 let mut summary__ = None;
                 let mut proposer__ = None;
+                let mut expedited__ = None;
+                let mut failed_reason__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Id => {
@@ -2256,6 +2665,18 @@ impl<'de> serde::Deserialize<'de> for Proposal {
                             }
                             proposer__ = Some(map_.next_value()?);
                         }
+                        GeneratedField::Expedited => {
+                            if expedited__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("expedited"));
+                            }
+                            expedited__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::FailedReason => {
+                            if failed_reason__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("failedReason"));
+                            }
+                            failed_reason__ = Some(map_.next_value()?);
+                        }
                     }
                 }
                 Ok(Proposal {
@@ -2272,6 +2693,8 @@ impl<'de> serde::Deserialize<'de> for Proposal {
                     title: title__.unwrap_or_default(),
                     summary: summary__.unwrap_or_default(),
                     proposer: proposer__.unwrap_or_default(),
+                    expedited: expedited__.unwrap_or_default(),
+                    failed_reason: failed_reason__.unwrap_or_default(),
                 })
             }
         }
@@ -2359,6 +2782,168 @@ impl<'de> serde::Deserialize<'de> for ProposalStatus {
             }
         }
         deserializer.deserialize_any(GeneratedVisitor)
+    }
+}
+impl serde::Serialize for QueryConstitutionRequest {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let len = 0;
+        let struct_ser = serializer.serialize_struct("cosmos.gov.v1.QueryConstitutionRequest", len)?;
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for QueryConstitutionRequest {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                            Err(serde::de::Error::unknown_field(value, FIELDS))
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = QueryConstitutionRequest;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmos.gov.v1.QueryConstitutionRequest")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryConstitutionRequest, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
+                }
+                Ok(QueryConstitutionRequest {
+                })
+            }
+        }
+        deserializer.deserialize_struct("cosmos.gov.v1.QueryConstitutionRequest", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for QueryConstitutionResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if true {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("cosmos.gov.v1.QueryConstitutionResponse", len)?;
+        if true {
+            struct_ser.serialize_field("constitution", &self.constitution)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for QueryConstitutionResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "constitution",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Constitution,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "constitution" => Ok(GeneratedField::Constitution),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = QueryConstitutionResponse;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct cosmos.gov.v1.QueryConstitutionResponse")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryConstitutionResponse, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut constitution__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Constitution => {
+                            if constitution__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("constitution"));
+                            }
+                            constitution__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(QueryConstitutionResponse {
+                    constitution: constitution__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("cosmos.gov.v1.QueryConstitutionResponse", FIELDS, GeneratedVisitor)
     }
 }
 impl serde::Serialize for QueryDepositRequest {

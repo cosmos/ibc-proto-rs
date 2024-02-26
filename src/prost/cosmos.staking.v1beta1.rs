@@ -1,3 +1,105 @@
+/// StakeAuthorization defines authorization for delegate/undelegate/redelegate.
+///
+/// Since: cosmos-sdk 0.43
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct StakeAuthorization {
+    /// max_tokens specifies the maximum amount of tokens can be delegate to a validator. If it is
+    /// empty, there is no spend limit and any amount of coins can be delegated.
+    #[prost(message, optional, tag = "1")]
+    pub max_tokens: ::core::option::Option<super::super::base::v1beta1::Coin>,
+    /// authorization_type defines one of AuthorizationType.
+    #[prost(enumeration = "AuthorizationType", tag = "4")]
+    pub authorization_type: i32,
+    /// validators is the oneof that represents either allow_list or deny_list
+    #[prost(oneof = "stake_authorization::Validators", tags = "2, 3")]
+    pub validators: ::core::option::Option<stake_authorization::Validators>,
+}
+/// Nested message and enum types in `StakeAuthorization`.
+pub mod stake_authorization {
+    /// Validators defines list of validator addresses.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct ValidatorsVec {
+        #[prost(string, repeated, tag = "1")]
+        pub address: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    }
+    impl ::prost::Name for ValidatorsVec {
+        const NAME: &'static str = "Validators";
+        const PACKAGE: &'static str = "cosmos.staking.v1beta1";
+        fn full_name() -> ::prost::alloc::string::String {
+            ::prost::alloc::format!(
+                "cosmos.staking.v1beta1.StakeAuthorization.{}", Self::NAME
+            )
+        }
+    }
+    /// validators is the oneof that represents either allow_list or deny_list
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum Validators {
+        /// allow_list specifies list of validator addresses to whom grantee can delegate tokens on behalf of granter's
+        /// account.
+        #[prost(message, tag = "2")]
+        AllowList(ValidatorsVec),
+        /// deny_list specifies list of validator addresses to whom grantee can not delegate tokens.
+        #[prost(message, tag = "3")]
+        DenyList(ValidatorsVec),
+    }
+}
+impl ::prost::Name for StakeAuthorization {
+    const NAME: &'static str = "StakeAuthorization";
+    const PACKAGE: &'static str = "cosmos.staking.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
+    }
+}
+/// AuthorizationType defines the type of staking module authorization type
+///
+/// Since: cosmos-sdk 0.43
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum AuthorizationType {
+    /// AUTHORIZATION_TYPE_UNSPECIFIED specifies an unknown authorization type
+    Unspecified = 0,
+    /// AUTHORIZATION_TYPE_DELEGATE defines an authorization type for Msg/Delegate
+    Delegate = 1,
+    /// AUTHORIZATION_TYPE_UNDELEGATE defines an authorization type for Msg/Undelegate
+    Undelegate = 2,
+    /// AUTHORIZATION_TYPE_REDELEGATE defines an authorization type for Msg/BeginRedelegate
+    Redelegate = 3,
+    /// AUTHORIZATION_TYPE_CANCEL_UNBONDING_DELEGATION defines an authorization type for Msg/MsgCancelUnbondingDelegation
+    CancelUnbondingDelegation = 4,
+}
+impl AuthorizationType {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            AuthorizationType::Unspecified => "AUTHORIZATION_TYPE_UNSPECIFIED",
+            AuthorizationType::Delegate => "AUTHORIZATION_TYPE_DELEGATE",
+            AuthorizationType::Undelegate => "AUTHORIZATION_TYPE_UNDELEGATE",
+            AuthorizationType::Redelegate => "AUTHORIZATION_TYPE_REDELEGATE",
+            AuthorizationType::CancelUnbondingDelegation => {
+                "AUTHORIZATION_TYPE_CANCEL_UNBONDING_DELEGATION"
+            }
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "AUTHORIZATION_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+            "AUTHORIZATION_TYPE_DELEGATE" => Some(Self::Delegate),
+            "AUTHORIZATION_TYPE_UNDELEGATE" => Some(Self::Undelegate),
+            "AUTHORIZATION_TYPE_REDELEGATE" => Some(Self::Redelegate),
+            "AUTHORIZATION_TYPE_CANCEL_UNBONDING_DELEGATION" => {
+                Some(Self::CancelUnbondingDelegation)
+            }
+            _ => None,
+        }
+    }
+}
 /// HistoricalInfo contains header and validator information for a given block.
 /// It is stored as part of staking module's state, which persists the `n` most
 /// recent HistoricalInfo
@@ -6,7 +108,7 @@
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct HistoricalInfo {
     #[prost(message, optional, tag = "1")]
-    pub header: ::core::option::Option<::cometbft_proto::types::Header>,
+    pub header: ::core::option::Option<::cometbft_proto::types::v1::Header>,
     #[prost(message, repeated, tag = "2")]
     pub valset: ::prost::alloc::vec::Vec<Validator>,
 }
@@ -237,10 +339,10 @@ impl ::prost::Name for DvvTriplets {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Delegation {
-    /// delegator_address is the bech32-encoded address of the delegator.
+    /// delegator_address is the encoded address of the delegator.
     #[prost(string, tag = "1")]
     pub delegator_address: ::prost::alloc::string::String,
-    /// validator_address is the bech32-encoded address of the validator.
+    /// validator_address is the encoded address of the validator.
     #[prost(string, tag = "2")]
     pub validator_address: ::prost::alloc::string::String,
     /// shares define the delegation shares received.
@@ -259,10 +361,10 @@ impl ::prost::Name for Delegation {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UnbondingDelegation {
-    /// delegator_address is the bech32-encoded address of the delegator.
+    /// delegator_address is the encoded address of the delegator.
     #[prost(string, tag = "1")]
     pub delegator_address: ::prost::alloc::string::String,
-    /// validator_address is the bech32-encoded address of the validator.
+    /// validator_address is the encoded address of the validator.
     #[prost(string, tag = "2")]
     pub validator_address: ::prost::alloc::string::String,
     /// entries are the unbonding delegation entries.
@@ -477,7 +579,9 @@ impl ::prost::Name for Pool {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ValidatorUpdates {
     #[prost(message, repeated, tag = "1")]
-    pub updates: ::prost::alloc::vec::Vec<::cometbft_proto::abci::ValidatorUpdate>,
+    pub updates: ::prost::alloc::vec::Vec<
+        ::cometbft_proto::abci::v1beta3::ValidatorUpdate,
+    >,
 }
 impl ::prost::Name for ValidatorUpdates {
     const NAME: &'static str = "ValidatorUpdates";
@@ -589,1044 +693,60 @@ impl InfractionType {
         }
     }
 }
-/// MsgCreateValidator defines a SDK message for creating a new validator.
+/// GenesisState defines the staking module's genesis state.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgCreateValidator {
+pub struct GenesisState {
+    /// params defines all the parameters of related to deposit.
     #[prost(message, optional, tag = "1")]
-    pub description: ::core::option::Option<Description>,
-    #[prost(message, optional, tag = "2")]
-    pub commission: ::core::option::Option<CommissionRates>,
-    #[prost(string, tag = "3")]
-    pub min_self_delegation: ::prost::alloc::string::String,
-    #[prost(string, tag = "4")]
-    pub delegator_address: ::prost::alloc::string::String,
-    #[prost(string, tag = "5")]
-    pub validator_address: ::prost::alloc::string::String,
-    #[prost(message, optional, tag = "6")]
-    pub pubkey: ::core::option::Option<super::super::super::google::protobuf::Any>,
-    #[prost(message, optional, tag = "7")]
-    pub value: ::core::option::Option<super::super::base::v1beta1::Coin>,
-}
-impl ::prost::Name for MsgCreateValidator {
-    const NAME: &'static str = "MsgCreateValidator";
-    const PACKAGE: &'static str = "cosmos.staking.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
-    }
-}
-/// MsgCreateValidatorResponse defines the Msg/CreateValidator response type.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgCreateValidatorResponse {}
-impl ::prost::Name for MsgCreateValidatorResponse {
-    const NAME: &'static str = "MsgCreateValidatorResponse";
-    const PACKAGE: &'static str = "cosmos.staking.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
-    }
-}
-/// MsgEditValidator defines a SDK message for editing an existing validator.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgEditValidator {
-    #[prost(message, optional, tag = "1")]
-    pub description: ::core::option::Option<Description>,
-    #[prost(string, tag = "2")]
-    pub validator_address: ::prost::alloc::string::String,
-    /// We pass a reference to the new commission rate and min self delegation as
-    /// it's not mandatory to update. If not updated, the deserialized rate will be
-    /// zero with no way to distinguish if an update was intended.
-    /// REF: #2373
-    #[prost(string, tag = "3")]
-    pub commission_rate: ::prost::alloc::string::String,
-    #[prost(string, tag = "4")]
-    pub min_self_delegation: ::prost::alloc::string::String,
-}
-impl ::prost::Name for MsgEditValidator {
-    const NAME: &'static str = "MsgEditValidator";
-    const PACKAGE: &'static str = "cosmos.staking.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
-    }
-}
-/// MsgEditValidatorResponse defines the Msg/EditValidator response type.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgEditValidatorResponse {}
-impl ::prost::Name for MsgEditValidatorResponse {
-    const NAME: &'static str = "MsgEditValidatorResponse";
-    const PACKAGE: &'static str = "cosmos.staking.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
-    }
-}
-/// MsgDelegate defines a SDK message for performing a delegation of coins
-/// from a delegator to a validator.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgDelegate {
-    #[prost(string, tag = "1")]
-    pub delegator_address: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub validator_address: ::prost::alloc::string::String,
-    #[prost(message, optional, tag = "3")]
-    pub amount: ::core::option::Option<super::super::base::v1beta1::Coin>,
-}
-impl ::prost::Name for MsgDelegate {
-    const NAME: &'static str = "MsgDelegate";
-    const PACKAGE: &'static str = "cosmos.staking.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
-    }
-}
-/// MsgDelegateResponse defines the Msg/Delegate response type.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgDelegateResponse {}
-impl ::prost::Name for MsgDelegateResponse {
-    const NAME: &'static str = "MsgDelegateResponse";
-    const PACKAGE: &'static str = "cosmos.staking.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
-    }
-}
-/// MsgBeginRedelegate defines a SDK message for performing a redelegation
-/// of coins from a delegator and source validator to a destination validator.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgBeginRedelegate {
-    #[prost(string, tag = "1")]
-    pub delegator_address: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub validator_src_address: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
-    pub validator_dst_address: ::prost::alloc::string::String,
-    #[prost(message, optional, tag = "4")]
-    pub amount: ::core::option::Option<super::super::base::v1beta1::Coin>,
-}
-impl ::prost::Name for MsgBeginRedelegate {
-    const NAME: &'static str = "MsgBeginRedelegate";
-    const PACKAGE: &'static str = "cosmos.staking.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
-    }
-}
-/// MsgBeginRedelegateResponse defines the Msg/BeginRedelegate response type.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgBeginRedelegateResponse {
-    #[prost(message, optional, tag = "1")]
-    pub completion_time: ::core::option::Option<
-        super::super::super::google::protobuf::Timestamp,
-    >,
-}
-impl ::prost::Name for MsgBeginRedelegateResponse {
-    const NAME: &'static str = "MsgBeginRedelegateResponse";
-    const PACKAGE: &'static str = "cosmos.staking.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
-    }
-}
-/// MsgUndelegate defines a SDK message for performing an undelegation from a
-/// delegate and a validator.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgUndelegate {
-    #[prost(string, tag = "1")]
-    pub delegator_address: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub validator_address: ::prost::alloc::string::String,
-    #[prost(message, optional, tag = "3")]
-    pub amount: ::core::option::Option<super::super::base::v1beta1::Coin>,
-}
-impl ::prost::Name for MsgUndelegate {
-    const NAME: &'static str = "MsgUndelegate";
-    const PACKAGE: &'static str = "cosmos.staking.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
-    }
-}
-/// MsgUndelegateResponse defines the Msg/Undelegate response type.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgUndelegateResponse {
-    #[prost(message, optional, tag = "1")]
-    pub completion_time: ::core::option::Option<
-        super::super::super::google::protobuf::Timestamp,
-    >,
-}
-impl ::prost::Name for MsgUndelegateResponse {
-    const NAME: &'static str = "MsgUndelegateResponse";
-    const PACKAGE: &'static str = "cosmos.staking.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
-    }
-}
-/// MsgCancelUnbondingDelegation defines the SDK message for performing a cancel unbonding delegation for delegator
-///
-/// Since: cosmos-sdk 0.46
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgCancelUnbondingDelegation {
-    #[prost(string, tag = "1")]
-    pub delegator_address: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub validator_address: ::prost::alloc::string::String,
-    /// amount is always less than or equal to unbonding delegation entry balance
-    #[prost(message, optional, tag = "3")]
-    pub amount: ::core::option::Option<super::super::base::v1beta1::Coin>,
-    /// creation_height is the height which the unbonding took place.
-    #[prost(int64, tag = "4")]
-    pub creation_height: i64,
-}
-impl ::prost::Name for MsgCancelUnbondingDelegation {
-    const NAME: &'static str = "MsgCancelUnbondingDelegation";
-    const PACKAGE: &'static str = "cosmos.staking.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
-    }
-}
-/// MsgCancelUnbondingDelegationResponse
-///
-/// Since: cosmos-sdk 0.46
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgCancelUnbondingDelegationResponse {}
-impl ::prost::Name for MsgCancelUnbondingDelegationResponse {
-    const NAME: &'static str = "MsgCancelUnbondingDelegationResponse";
-    const PACKAGE: &'static str = "cosmos.staking.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
-    }
-}
-/// MsgUpdateParams is the Msg/UpdateParams request type.
-///
-/// Since: cosmos-sdk 0.47
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgUpdateParams {
-    /// authority is the address that controls the module (defaults to x/gov unless overwritten).
-    #[prost(string, tag = "1")]
-    pub authority: ::prost::alloc::string::String,
-    /// params defines the x/staking parameters to update.
-    ///
-    /// NOTE: All parameters must be supplied.
-    #[prost(message, optional, tag = "2")]
     pub params: ::core::option::Option<Params>,
+    /// last_total_power tracks the total amounts of bonded tokens recorded during
+    /// the previous end block.
+    #[prost(bytes = "vec", tag = "2")]
+    pub last_total_power: ::prost::alloc::vec::Vec<u8>,
+    /// last_validator_powers is a special index that provides a historical list
+    /// of the last-block's bonded validators.
+    #[prost(message, repeated, tag = "3")]
+    pub last_validator_powers: ::prost::alloc::vec::Vec<LastValidatorPower>,
+    /// validators defines the validator set at genesis.
+    #[prost(message, repeated, tag = "4")]
+    pub validators: ::prost::alloc::vec::Vec<Validator>,
+    /// delegations defines the delegations active at genesis.
+    #[prost(message, repeated, tag = "5")]
+    pub delegations: ::prost::alloc::vec::Vec<Delegation>,
+    /// unbonding_delegations defines the unbonding delegations active at genesis.
+    #[prost(message, repeated, tag = "6")]
+    pub unbonding_delegations: ::prost::alloc::vec::Vec<UnbondingDelegation>,
+    /// redelegations defines the redelegations active at genesis.
+    #[prost(message, repeated, tag = "7")]
+    pub redelegations: ::prost::alloc::vec::Vec<Redelegation>,
+    /// exported defines a bool to identify whether the chain dealing with exported or initialized genesis.
+    #[prost(bool, tag = "8")]
+    pub exported: bool,
 }
-impl ::prost::Name for MsgUpdateParams {
-    const NAME: &'static str = "MsgUpdateParams";
+impl ::prost::Name for GenesisState {
+    const NAME: &'static str = "GenesisState";
     const PACKAGE: &'static str = "cosmos.staking.v1beta1";
     fn full_name() -> ::prost::alloc::string::String {
         ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
     }
 }
-/// MsgUpdateParamsResponse defines the response structure for executing a
-/// MsgUpdateParams message.
-///
-/// Since: cosmos-sdk 0.47
+/// LastValidatorPower required for validator set update logic.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgUpdateParamsResponse {}
-impl ::prost::Name for MsgUpdateParamsResponse {
-    const NAME: &'static str = "MsgUpdateParamsResponse";
+pub struct LastValidatorPower {
+    /// address is the address of the validator.
+    #[prost(string, tag = "1")]
+    pub address: ::prost::alloc::string::String,
+    /// power defines the power of the validator.
+    #[prost(int64, tag = "2")]
+    pub power: i64,
+}
+impl ::prost::Name for LastValidatorPower {
+    const NAME: &'static str = "LastValidatorPower";
     const PACKAGE: &'static str = "cosmos.staking.v1beta1";
     fn full_name() -> ::prost::alloc::string::String {
         ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
-    }
-}
-/// Generated client implementations.
-#[cfg(feature = "client")]
-pub mod msg_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
-    use tonic::codegen::*;
-    use tonic::codegen::http::Uri;
-    /// Msg defines the staking Msg service.
-    #[derive(Debug, Clone)]
-    pub struct MsgClient<T> {
-        inner: tonic::client::Grpc<T>,
-    }
-    impl MsgClient<tonic::transport::Channel> {
-        /// Attempt to create a new client by connecting to a given endpoint.
-        pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
-        where
-            D: TryInto<tonic::transport::Endpoint>,
-            D::Error: Into<StdError>,
-        {
-            let conn = tonic::transport::Endpoint::new(dst)?.connect().await?;
-            Ok(Self::new(conn))
-        }
-    }
-    impl<T> MsgClient<T>
-    where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
-    {
-        pub fn new(inner: T) -> Self {
-            let inner = tonic::client::Grpc::new(inner);
-            Self { inner }
-        }
-        pub fn with_origin(inner: T, origin: Uri) -> Self {
-            let inner = tonic::client::Grpc::with_origin(inner, origin);
-            Self { inner }
-        }
-        pub fn with_interceptor<F>(
-            inner: T,
-            interceptor: F,
-        ) -> MsgClient<InterceptedService<T, F>>
-        where
-            F: tonic::service::Interceptor,
-            T::ResponseBody: Default,
-            T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-                Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
-                >,
-            >,
-            <T as tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + Send + Sync,
-        {
-            MsgClient::new(InterceptedService::new(inner, interceptor))
-        }
-        /// Compress requests with the given encoding.
-        ///
-        /// This requires the server to support it otherwise it might respond with an
-        /// error.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.send_compressed(encoding);
-            self
-        }
-        /// Enable decompressing responses.
-        #[must_use]
-        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.accept_compressed(encoding);
-            self
-        }
-        /// Limits the maximum size of a decoded message.
-        ///
-        /// Default: `4MB`
-        #[must_use]
-        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_decoding_message_size(limit);
-            self
-        }
-        /// Limits the maximum size of an encoded message.
-        ///
-        /// Default: `usize::MAX`
-        #[must_use]
-        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_encoding_message_size(limit);
-            self
-        }
-        /// CreateValidator defines a method for creating a new validator.
-        pub async fn create_validator(
-            &mut self,
-            request: impl tonic::IntoRequest<super::MsgCreateValidator>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgCreateValidatorResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.staking.v1beta1.Msg/CreateValidator",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new("cosmos.staking.v1beta1.Msg", "CreateValidator"),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// EditValidator defines a method for editing an existing validator.
-        pub async fn edit_validator(
-            &mut self,
-            request: impl tonic::IntoRequest<super::MsgEditValidator>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgEditValidatorResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.staking.v1beta1.Msg/EditValidator",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("cosmos.staking.v1beta1.Msg", "EditValidator"));
-            self.inner.unary(req, path, codec).await
-        }
-        /// Delegate defines a method for performing a delegation of coins
-        /// from a delegator to a validator.
-        pub async fn delegate(
-            &mut self,
-            request: impl tonic::IntoRequest<super::MsgDelegate>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgDelegateResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.staking.v1beta1.Msg/Delegate",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("cosmos.staking.v1beta1.Msg", "Delegate"));
-            self.inner.unary(req, path, codec).await
-        }
-        /// BeginRedelegate defines a method for performing a redelegation
-        /// of coins from a delegator and source validator to a destination validator.
-        pub async fn begin_redelegate(
-            &mut self,
-            request: impl tonic::IntoRequest<super::MsgBeginRedelegate>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgBeginRedelegateResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.staking.v1beta1.Msg/BeginRedelegate",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new("cosmos.staking.v1beta1.Msg", "BeginRedelegate"),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Undelegate defines a method for performing an undelegation from a
-        /// delegate and a validator.
-        pub async fn undelegate(
-            &mut self,
-            request: impl tonic::IntoRequest<super::MsgUndelegate>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgUndelegateResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.staking.v1beta1.Msg/Undelegate",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("cosmos.staking.v1beta1.Msg", "Undelegate"));
-            self.inner.unary(req, path, codec).await
-        }
-        /// CancelUnbondingDelegation defines a method for performing canceling the unbonding delegation
-        /// and delegate back to previous validator.
-        ///
-        /// Since: cosmos-sdk 0.46
-        pub async fn cancel_unbonding_delegation(
-            &mut self,
-            request: impl tonic::IntoRequest<super::MsgCancelUnbondingDelegation>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgCancelUnbondingDelegationResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.staking.v1beta1.Msg/CancelUnbondingDelegation",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "cosmos.staking.v1beta1.Msg",
-                        "CancelUnbondingDelegation",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// UpdateParams defines an operation for updating the x/staking module
-        /// parameters.
-        /// Since: cosmos-sdk 0.47
-        pub async fn update_params(
-            &mut self,
-            request: impl tonic::IntoRequest<super::MsgUpdateParams>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgUpdateParamsResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.staking.v1beta1.Msg/UpdateParams",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("cosmos.staking.v1beta1.Msg", "UpdateParams"));
-            self.inner.unary(req, path, codec).await
-        }
-    }
-}
-/// Generated server implementations.
-#[cfg(feature = "server")]
-pub mod msg_server {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
-    use tonic::codegen::*;
-    /// Generated trait containing gRPC methods that should be implemented for use with MsgServer.
-    #[async_trait]
-    pub trait Msg: Send + Sync + 'static {
-        /// CreateValidator defines a method for creating a new validator.
-        async fn create_validator(
-            &self,
-            request: tonic::Request<super::MsgCreateValidator>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgCreateValidatorResponse>,
-            tonic::Status,
-        >;
-        /// EditValidator defines a method for editing an existing validator.
-        async fn edit_validator(
-            &self,
-            request: tonic::Request<super::MsgEditValidator>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgEditValidatorResponse>,
-            tonic::Status,
-        >;
-        /// Delegate defines a method for performing a delegation of coins
-        /// from a delegator to a validator.
-        async fn delegate(
-            &self,
-            request: tonic::Request<super::MsgDelegate>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgDelegateResponse>,
-            tonic::Status,
-        >;
-        /// BeginRedelegate defines a method for performing a redelegation
-        /// of coins from a delegator and source validator to a destination validator.
-        async fn begin_redelegate(
-            &self,
-            request: tonic::Request<super::MsgBeginRedelegate>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgBeginRedelegateResponse>,
-            tonic::Status,
-        >;
-        /// Undelegate defines a method for performing an undelegation from a
-        /// delegate and a validator.
-        async fn undelegate(
-            &self,
-            request: tonic::Request<super::MsgUndelegate>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgUndelegateResponse>,
-            tonic::Status,
-        >;
-        /// CancelUnbondingDelegation defines a method for performing canceling the unbonding delegation
-        /// and delegate back to previous validator.
-        ///
-        /// Since: cosmos-sdk 0.46
-        async fn cancel_unbonding_delegation(
-            &self,
-            request: tonic::Request<super::MsgCancelUnbondingDelegation>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgCancelUnbondingDelegationResponse>,
-            tonic::Status,
-        >;
-        /// UpdateParams defines an operation for updating the x/staking module
-        /// parameters.
-        /// Since: cosmos-sdk 0.47
-        async fn update_params(
-            &self,
-            request: tonic::Request<super::MsgUpdateParams>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgUpdateParamsResponse>,
-            tonic::Status,
-        >;
-    }
-    /// Msg defines the staking Msg service.
-    #[derive(Debug)]
-    pub struct MsgServer<T: Msg> {
-        inner: _Inner<T>,
-        accept_compression_encodings: EnabledCompressionEncodings,
-        send_compression_encodings: EnabledCompressionEncodings,
-        max_decoding_message_size: Option<usize>,
-        max_encoding_message_size: Option<usize>,
-    }
-    struct _Inner<T>(Arc<T>);
-    impl<T: Msg> MsgServer<T> {
-        pub fn new(inner: T) -> Self {
-            Self::from_arc(Arc::new(inner))
-        }
-        pub fn from_arc(inner: Arc<T>) -> Self {
-            let inner = _Inner(inner);
-            Self {
-                inner,
-                accept_compression_encodings: Default::default(),
-                send_compression_encodings: Default::default(),
-                max_decoding_message_size: None,
-                max_encoding_message_size: None,
-            }
-        }
-        pub fn with_interceptor<F>(
-            inner: T,
-            interceptor: F,
-        ) -> InterceptedService<Self, F>
-        where
-            F: tonic::service::Interceptor,
-        {
-            InterceptedService::new(Self::new(inner), interceptor)
-        }
-        /// Enable decompressing requests with the given encoding.
-        #[must_use]
-        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.accept_compression_encodings.enable(encoding);
-            self
-        }
-        /// Compress responses with the given encoding, if the client supports it.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.send_compression_encodings.enable(encoding);
-            self
-        }
-        /// Limits the maximum size of a decoded message.
-        ///
-        /// Default: `4MB`
-        #[must_use]
-        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
-            self.max_decoding_message_size = Some(limit);
-            self
-        }
-        /// Limits the maximum size of an encoded message.
-        ///
-        /// Default: `usize::MAX`
-        #[must_use]
-        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
-            self.max_encoding_message_size = Some(limit);
-            self
-        }
-    }
-    impl<T, B> tonic::codegen::Service<http::Request<B>> for MsgServer<T>
-    where
-        T: Msg,
-        B: Body + Send + 'static,
-        B::Error: Into<StdError> + Send + 'static,
-    {
-        type Response = http::Response<tonic::body::BoxBody>;
-        type Error = std::convert::Infallible;
-        type Future = BoxFuture<Self::Response, Self::Error>;
-        fn poll_ready(
-            &mut self,
-            _cx: &mut Context<'_>,
-        ) -> Poll<std::result::Result<(), Self::Error>> {
-            Poll::Ready(Ok(()))
-        }
-        fn call(&mut self, req: http::Request<B>) -> Self::Future {
-            let inner = self.inner.clone();
-            match req.uri().path() {
-                "/cosmos.staking.v1beta1.Msg/CreateValidator" => {
-                    #[allow(non_camel_case_types)]
-                    struct CreateValidatorSvc<T: Msg>(pub Arc<T>);
-                    impl<T: Msg> tonic::server::UnaryService<super::MsgCreateValidator>
-                    for CreateValidatorSvc<T> {
-                        type Response = super::MsgCreateValidatorResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::MsgCreateValidator>,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                <T as Msg>::create_validator(&inner, request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = CreateValidatorSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/cosmos.staking.v1beta1.Msg/EditValidator" => {
-                    #[allow(non_camel_case_types)]
-                    struct EditValidatorSvc<T: Msg>(pub Arc<T>);
-                    impl<T: Msg> tonic::server::UnaryService<super::MsgEditValidator>
-                    for EditValidatorSvc<T> {
-                        type Response = super::MsgEditValidatorResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::MsgEditValidator>,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                <T as Msg>::edit_validator(&inner, request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = EditValidatorSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/cosmos.staking.v1beta1.Msg/Delegate" => {
-                    #[allow(non_camel_case_types)]
-                    struct DelegateSvc<T: Msg>(pub Arc<T>);
-                    impl<T: Msg> tonic::server::UnaryService<super::MsgDelegate>
-                    for DelegateSvc<T> {
-                        type Response = super::MsgDelegateResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::MsgDelegate>,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                <T as Msg>::delegate(&inner, request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = DelegateSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/cosmos.staking.v1beta1.Msg/BeginRedelegate" => {
-                    #[allow(non_camel_case_types)]
-                    struct BeginRedelegateSvc<T: Msg>(pub Arc<T>);
-                    impl<T: Msg> tonic::server::UnaryService<super::MsgBeginRedelegate>
-                    for BeginRedelegateSvc<T> {
-                        type Response = super::MsgBeginRedelegateResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::MsgBeginRedelegate>,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                <T as Msg>::begin_redelegate(&inner, request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = BeginRedelegateSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/cosmos.staking.v1beta1.Msg/Undelegate" => {
-                    #[allow(non_camel_case_types)]
-                    struct UndelegateSvc<T: Msg>(pub Arc<T>);
-                    impl<T: Msg> tonic::server::UnaryService<super::MsgUndelegate>
-                    for UndelegateSvc<T> {
-                        type Response = super::MsgUndelegateResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::MsgUndelegate>,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                <T as Msg>::undelegate(&inner, request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = UndelegateSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/cosmos.staking.v1beta1.Msg/CancelUnbondingDelegation" => {
-                    #[allow(non_camel_case_types)]
-                    struct CancelUnbondingDelegationSvc<T: Msg>(pub Arc<T>);
-                    impl<
-                        T: Msg,
-                    > tonic::server::UnaryService<super::MsgCancelUnbondingDelegation>
-                    for CancelUnbondingDelegationSvc<T> {
-                        type Response = super::MsgCancelUnbondingDelegationResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::MsgCancelUnbondingDelegation>,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                <T as Msg>::cancel_unbonding_delegation(&inner, request)
-                                    .await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = CancelUnbondingDelegationSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/cosmos.staking.v1beta1.Msg/UpdateParams" => {
-                    #[allow(non_camel_case_types)]
-                    struct UpdateParamsSvc<T: Msg>(pub Arc<T>);
-                    impl<T: Msg> tonic::server::UnaryService<super::MsgUpdateParams>
-                    for UpdateParamsSvc<T> {
-                        type Response = super::MsgUpdateParamsResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::MsgUpdateParams>,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                <T as Msg>::update_params(&inner, request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = UpdateParamsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                _ => {
-                    Box::pin(async move {
-                        Ok(
-                            http::Response::builder()
-                                .status(200)
-                                .header("grpc-status", "12")
-                                .header("content-type", "application/grpc")
-                                .body(empty_body())
-                                .unwrap(),
-                        )
-                    })
-                }
-            }
-        }
-    }
-    impl<T: Msg> Clone for MsgServer<T> {
-        fn clone(&self) -> Self {
-            let inner = self.inner.clone();
-            Self {
-                inner,
-                accept_compression_encodings: self.accept_compression_encodings,
-                send_compression_encodings: self.send_compression_encodings,
-                max_decoding_message_size: self.max_decoding_message_size,
-                max_encoding_message_size: self.max_encoding_message_size,
-            }
-        }
-    }
-    impl<T: Msg> Clone for _Inner<T> {
-        fn clone(&self) -> Self {
-            Self(Arc::clone(&self.0))
-        }
-    }
-    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            write!(f, "{:?}", self.0)
-        }
-    }
-    impl<T: Msg> tonic::server::NamedService for MsgServer<T> {
-        const NAME: &'static str = "cosmos.staking.v1beta1.Msg";
     }
 }
 /// QueryValidatorsRequest is request type for Query/Validators RPC method.
@@ -3591,152 +2711,1052 @@ pub mod query_server {
         const NAME: &'static str = "cosmos.staking.v1beta1.Query";
     }
 }
-/// StakeAuthorization defines authorization for delegate/undelegate/redelegate.
-///
-/// Since: cosmos-sdk 0.43
+/// MsgCreateValidator defines a SDK message for creating a new validator.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct StakeAuthorization {
-    /// max_tokens specifies the maximum amount of tokens can be delegate to a validator. If it is
-    /// empty, there is no spend limit and any amount of coins can be delegated.
+pub struct MsgCreateValidator {
     #[prost(message, optional, tag = "1")]
-    pub max_tokens: ::core::option::Option<super::super::base::v1beta1::Coin>,
-    /// authorization_type defines one of AuthorizationType.
-    #[prost(enumeration = "AuthorizationType", tag = "4")]
-    pub authorization_type: i32,
-    /// validators is the oneof that represents either allow_list or deny_list
-    #[prost(oneof = "stake_authorization::Validators", tags = "2, 3")]
-    pub validators: ::core::option::Option<stake_authorization::Validators>,
+    pub description: ::core::option::Option<Description>,
+    #[prost(message, optional, tag = "2")]
+    pub commission: ::core::option::Option<CommissionRates>,
+    #[prost(string, tag = "3")]
+    pub min_self_delegation: ::prost::alloc::string::String,
+    /// Deprecated: Use of Delegator Address in MsgCreateValidator is deprecated.
+    /// The validator address bytes and delegator address bytes refer to the same account while creating validator (defer
+    /// only in bech32 notation).
+    #[deprecated]
+    #[prost(string, tag = "4")]
+    pub delegator_address: ::prost::alloc::string::String,
+    #[prost(string, tag = "5")]
+    pub validator_address: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "6")]
+    pub pubkey: ::core::option::Option<super::super::super::google::protobuf::Any>,
+    #[prost(message, optional, tag = "7")]
+    pub value: ::core::option::Option<super::super::base::v1beta1::Coin>,
 }
-/// Nested message and enum types in `StakeAuthorization`.
-pub mod stake_authorization {
-    /// Validators defines list of validator addresses.
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct ValidatorsVec {
-        #[prost(string, repeated, tag = "1")]
-        pub address: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    }
-    impl ::prost::Name for ValidatorsVec {
-        const NAME: &'static str = "Validators";
-        const PACKAGE: &'static str = "cosmos.staking.v1beta1";
-        fn full_name() -> ::prost::alloc::string::String {
-            ::prost::alloc::format!(
-                "cosmos.staking.v1beta1.StakeAuthorization.{}", Self::NAME
-            )
-        }
-    }
-    /// validators is the oneof that represents either allow_list or deny_list
-    #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum Validators {
-        /// allow_list specifies list of validator addresses to whom grantee can delegate tokens on behalf of granter's
-        /// account.
-        #[prost(message, tag = "2")]
-        AllowList(ValidatorsVec),
-        /// deny_list specifies list of validator addresses to whom grantee can not delegate tokens.
-        #[prost(message, tag = "3")]
-        DenyList(ValidatorsVec),
-    }
-}
-impl ::prost::Name for StakeAuthorization {
-    const NAME: &'static str = "StakeAuthorization";
+impl ::prost::Name for MsgCreateValidator {
+    const NAME: &'static str = "MsgCreateValidator";
     const PACKAGE: &'static str = "cosmos.staking.v1beta1";
     fn full_name() -> ::prost::alloc::string::String {
         ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
     }
 }
-/// AuthorizationType defines the type of staking module authorization type
-///
-/// Since: cosmos-sdk 0.43
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
-#[repr(i32)]
-pub enum AuthorizationType {
-    /// AUTHORIZATION_TYPE_UNSPECIFIED specifies an unknown authorization type
-    Unspecified = 0,
-    /// AUTHORIZATION_TYPE_DELEGATE defines an authorization type for Msg/Delegate
-    Delegate = 1,
-    /// AUTHORIZATION_TYPE_UNDELEGATE defines an authorization type for Msg/Undelegate
-    Undelegate = 2,
-    /// AUTHORIZATION_TYPE_REDELEGATE defines an authorization type for Msg/BeginRedelegate
-    Redelegate = 3,
-}
-impl AuthorizationType {
-    /// String value of the enum field names used in the ProtoBuf definition.
-    ///
-    /// The values are not transformed in any way and thus are considered stable
-    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-    pub fn as_str_name(&self) -> &'static str {
-        match self {
-            AuthorizationType::Unspecified => "AUTHORIZATION_TYPE_UNSPECIFIED",
-            AuthorizationType::Delegate => "AUTHORIZATION_TYPE_DELEGATE",
-            AuthorizationType::Undelegate => "AUTHORIZATION_TYPE_UNDELEGATE",
-            AuthorizationType::Redelegate => "AUTHORIZATION_TYPE_REDELEGATE",
-        }
-    }
-    /// Creates an enum from field names used in the ProtoBuf definition.
-    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-        match value {
-            "AUTHORIZATION_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-            "AUTHORIZATION_TYPE_DELEGATE" => Some(Self::Delegate),
-            "AUTHORIZATION_TYPE_UNDELEGATE" => Some(Self::Undelegate),
-            "AUTHORIZATION_TYPE_REDELEGATE" => Some(Self::Redelegate),
-            _ => None,
-        }
-    }
-}
-/// GenesisState defines the staking module's genesis state.
+/// MsgCreateValidatorResponse defines the Msg/CreateValidator response type.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GenesisState {
-    /// params defines all the parameters of related to deposit.
-    #[prost(message, optional, tag = "1")]
-    pub params: ::core::option::Option<Params>,
-    /// last_total_power tracks the total amounts of bonded tokens recorded during
-    /// the previous end block.
-    #[prost(bytes = "vec", tag = "2")]
-    pub last_total_power: ::prost::alloc::vec::Vec<u8>,
-    /// last_validator_powers is a special index that provides a historical list
-    /// of the last-block's bonded validators.
-    #[prost(message, repeated, tag = "3")]
-    pub last_validator_powers: ::prost::alloc::vec::Vec<LastValidatorPower>,
-    /// delegations defines the validator set at genesis.
-    #[prost(message, repeated, tag = "4")]
-    pub validators: ::prost::alloc::vec::Vec<Validator>,
-    /// delegations defines the delegations active at genesis.
-    #[prost(message, repeated, tag = "5")]
-    pub delegations: ::prost::alloc::vec::Vec<Delegation>,
-    /// unbonding_delegations defines the unbonding delegations active at genesis.
-    #[prost(message, repeated, tag = "6")]
-    pub unbonding_delegations: ::prost::alloc::vec::Vec<UnbondingDelegation>,
-    /// redelegations defines the redelegations active at genesis.
-    #[prost(message, repeated, tag = "7")]
-    pub redelegations: ::prost::alloc::vec::Vec<Redelegation>,
-    #[prost(bool, tag = "8")]
-    pub exported: bool,
-}
-impl ::prost::Name for GenesisState {
-    const NAME: &'static str = "GenesisState";
+pub struct MsgCreateValidatorResponse {}
+impl ::prost::Name for MsgCreateValidatorResponse {
+    const NAME: &'static str = "MsgCreateValidatorResponse";
     const PACKAGE: &'static str = "cosmos.staking.v1beta1";
     fn full_name() -> ::prost::alloc::string::String {
         ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
     }
 }
-/// LastValidatorPower required for validator set update logic.
+/// MsgEditValidator defines a SDK message for editing an existing validator.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LastValidatorPower {
-    /// address is the address of the validator.
+pub struct MsgEditValidator {
+    #[prost(message, optional, tag = "1")]
+    pub description: ::core::option::Option<Description>,
+    #[prost(string, tag = "2")]
+    pub validator_address: ::prost::alloc::string::String,
+    /// We pass a reference to the new commission rate and min self delegation as
+    /// it's not mandatory to update. If not updated, the deserialized rate will be
+    /// zero with no way to distinguish if an update was intended.
+    /// REF: #2373
+    #[prost(string, tag = "3")]
+    pub commission_rate: ::prost::alloc::string::String,
+    #[prost(string, tag = "4")]
+    pub min_self_delegation: ::prost::alloc::string::String,
+}
+impl ::prost::Name for MsgEditValidator {
+    const NAME: &'static str = "MsgEditValidator";
+    const PACKAGE: &'static str = "cosmos.staking.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
+    }
+}
+/// MsgEditValidatorResponse defines the Msg/EditValidator response type.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgEditValidatorResponse {}
+impl ::prost::Name for MsgEditValidatorResponse {
+    const NAME: &'static str = "MsgEditValidatorResponse";
+    const PACKAGE: &'static str = "cosmos.staking.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
+    }
+}
+/// MsgDelegate defines a SDK message for performing a delegation of coins
+/// from a delegator to a validator.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgDelegate {
     #[prost(string, tag = "1")]
-    pub address: ::prost::alloc::string::String,
-    /// power defines the power of the validator.
-    #[prost(int64, tag = "2")]
-    pub power: i64,
+    pub delegator_address: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub validator_address: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "3")]
+    pub amount: ::core::option::Option<super::super::base::v1beta1::Coin>,
 }
-impl ::prost::Name for LastValidatorPower {
-    const NAME: &'static str = "LastValidatorPower";
+impl ::prost::Name for MsgDelegate {
+    const NAME: &'static str = "MsgDelegate";
     const PACKAGE: &'static str = "cosmos.staking.v1beta1";
     fn full_name() -> ::prost::alloc::string::String {
         ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
+    }
+}
+/// MsgDelegateResponse defines the Msg/Delegate response type.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgDelegateResponse {}
+impl ::prost::Name for MsgDelegateResponse {
+    const NAME: &'static str = "MsgDelegateResponse";
+    const PACKAGE: &'static str = "cosmos.staking.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
+    }
+}
+/// MsgBeginRedelegate defines a SDK message for performing a redelegation
+/// of coins from a delegator and source validator to a destination validator.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgBeginRedelegate {
+    #[prost(string, tag = "1")]
+    pub delegator_address: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub validator_src_address: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub validator_dst_address: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "4")]
+    pub amount: ::core::option::Option<super::super::base::v1beta1::Coin>,
+}
+impl ::prost::Name for MsgBeginRedelegate {
+    const NAME: &'static str = "MsgBeginRedelegate";
+    const PACKAGE: &'static str = "cosmos.staking.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
+    }
+}
+/// MsgBeginRedelegateResponse defines the Msg/BeginRedelegate response type.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgBeginRedelegateResponse {
+    #[prost(message, optional, tag = "1")]
+    pub completion_time: ::core::option::Option<
+        super::super::super::google::protobuf::Timestamp,
+    >,
+}
+impl ::prost::Name for MsgBeginRedelegateResponse {
+    const NAME: &'static str = "MsgBeginRedelegateResponse";
+    const PACKAGE: &'static str = "cosmos.staking.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
+    }
+}
+/// MsgUndelegate defines a SDK message for performing an undelegation from a
+/// delegate and a validator.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgUndelegate {
+    #[prost(string, tag = "1")]
+    pub delegator_address: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub validator_address: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "3")]
+    pub amount: ::core::option::Option<super::super::base::v1beta1::Coin>,
+}
+impl ::prost::Name for MsgUndelegate {
+    const NAME: &'static str = "MsgUndelegate";
+    const PACKAGE: &'static str = "cosmos.staking.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
+    }
+}
+/// MsgUndelegateResponse defines the Msg/Undelegate response type.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgUndelegateResponse {
+    #[prost(message, optional, tag = "1")]
+    pub completion_time: ::core::option::Option<
+        super::super::super::google::protobuf::Timestamp,
+    >,
+    /// amount returns the amount of undelegated coins
+    ///
+    /// Since: cosmos-sdk 0.50
+    #[prost(message, optional, tag = "2")]
+    pub amount: ::core::option::Option<super::super::base::v1beta1::Coin>,
+}
+impl ::prost::Name for MsgUndelegateResponse {
+    const NAME: &'static str = "MsgUndelegateResponse";
+    const PACKAGE: &'static str = "cosmos.staking.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
+    }
+}
+/// MsgCancelUnbondingDelegation defines the SDK message for performing a cancel unbonding delegation for delegator
+///
+/// Since: cosmos-sdk 0.46
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgCancelUnbondingDelegation {
+    #[prost(string, tag = "1")]
+    pub delegator_address: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub validator_address: ::prost::alloc::string::String,
+    /// amount is always less than or equal to unbonding delegation entry balance
+    #[prost(message, optional, tag = "3")]
+    pub amount: ::core::option::Option<super::super::base::v1beta1::Coin>,
+    /// creation_height is the height which the unbonding took place.
+    #[prost(int64, tag = "4")]
+    pub creation_height: i64,
+}
+impl ::prost::Name for MsgCancelUnbondingDelegation {
+    const NAME: &'static str = "MsgCancelUnbondingDelegation";
+    const PACKAGE: &'static str = "cosmos.staking.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
+    }
+}
+/// MsgCancelUnbondingDelegationResponse
+///
+/// Since: cosmos-sdk 0.46
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgCancelUnbondingDelegationResponse {}
+impl ::prost::Name for MsgCancelUnbondingDelegationResponse {
+    const NAME: &'static str = "MsgCancelUnbondingDelegationResponse";
+    const PACKAGE: &'static str = "cosmos.staking.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
+    }
+}
+/// MsgUpdateParams is the Msg/UpdateParams request type.
+///
+/// Since: cosmos-sdk 0.47
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgUpdateParams {
+    /// authority is the address that controls the module (defaults to x/gov unless overwritten).
+    #[prost(string, tag = "1")]
+    pub authority: ::prost::alloc::string::String,
+    /// params defines the x/staking parameters to update.
+    ///
+    /// NOTE: All parameters must be supplied.
+    #[prost(message, optional, tag = "2")]
+    pub params: ::core::option::Option<Params>,
+}
+impl ::prost::Name for MsgUpdateParams {
+    const NAME: &'static str = "MsgUpdateParams";
+    const PACKAGE: &'static str = "cosmos.staking.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
+    }
+}
+/// MsgUpdateParamsResponse defines the response structure for executing a
+/// MsgUpdateParams message.
+///
+/// Since: cosmos-sdk 0.47
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgUpdateParamsResponse {}
+impl ::prost::Name for MsgUpdateParamsResponse {
+    const NAME: &'static str = "MsgUpdateParamsResponse";
+    const PACKAGE: &'static str = "cosmos.staking.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.staking.v1beta1.{}", Self::NAME)
+    }
+}
+/// Generated client implementations.
+#[cfg(feature = "client")]
+pub mod msg_client {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    use tonic::codegen::http::Uri;
+    /// Msg defines the staking Msg service.
+    #[derive(Debug, Clone)]
+    pub struct MsgClient<T> {
+        inner: tonic::client::Grpc<T>,
+    }
+    impl MsgClient<tonic::transport::Channel> {
+        /// Attempt to create a new client by connecting to a given endpoint.
+        pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
+        where
+            D: TryInto<tonic::transport::Endpoint>,
+            D::Error: Into<StdError>,
+        {
+            let conn = tonic::transport::Endpoint::new(dst)?.connect().await?;
+            Ok(Self::new(conn))
+        }
+    }
+    impl<T> MsgClient<T>
+    where
+        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+    {
+        pub fn new(inner: T) -> Self {
+            let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
+            Self { inner }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> MsgClient<InterceptedService<T, F>>
+        where
+            F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
+            T: tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+                Response = http::Response<
+                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                >,
+            >,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + Send + Sync,
+        {
+            MsgClient::new(InterceptedService::new(inner, interceptor))
+        }
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
+            self
+        }
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
+        /// CreateValidator defines a method for creating a new validator.
+        pub async fn create_validator(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgCreateValidator>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgCreateValidatorResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.staking.v1beta1.Msg/CreateValidator",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("cosmos.staking.v1beta1.Msg", "CreateValidator"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// EditValidator defines a method for editing an existing validator.
+        pub async fn edit_validator(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgEditValidator>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgEditValidatorResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.staking.v1beta1.Msg/EditValidator",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("cosmos.staking.v1beta1.Msg", "EditValidator"));
+            self.inner.unary(req, path, codec).await
+        }
+        /// Delegate defines a method for performing a delegation of coins
+        /// from a delegator to a validator.
+        pub async fn delegate(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgDelegate>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgDelegateResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.staking.v1beta1.Msg/Delegate",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("cosmos.staking.v1beta1.Msg", "Delegate"));
+            self.inner.unary(req, path, codec).await
+        }
+        /// BeginRedelegate defines a method for performing a redelegation
+        /// of coins from a delegator and source validator to a destination validator.
+        pub async fn begin_redelegate(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgBeginRedelegate>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgBeginRedelegateResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.staking.v1beta1.Msg/BeginRedelegate",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("cosmos.staking.v1beta1.Msg", "BeginRedelegate"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Undelegate defines a method for performing an undelegation from a
+        /// delegate and a validator.
+        pub async fn undelegate(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgUndelegate>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgUndelegateResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.staking.v1beta1.Msg/Undelegate",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("cosmos.staking.v1beta1.Msg", "Undelegate"));
+            self.inner.unary(req, path, codec).await
+        }
+        /// CancelUnbondingDelegation defines a method for performing canceling the unbonding delegation
+        /// and delegate back to previous validator.
+        ///
+        /// Since: cosmos-sdk 0.46
+        pub async fn cancel_unbonding_delegation(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgCancelUnbondingDelegation>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgCancelUnbondingDelegationResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.staking.v1beta1.Msg/CancelUnbondingDelegation",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "cosmos.staking.v1beta1.Msg",
+                        "CancelUnbondingDelegation",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// UpdateParams defines an operation for updating the x/staking module
+        /// parameters.
+        /// Since: cosmos-sdk 0.47
+        pub async fn update_params(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgUpdateParams>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgUpdateParamsResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.staking.v1beta1.Msg/UpdateParams",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("cosmos.staking.v1beta1.Msg", "UpdateParams"));
+            self.inner.unary(req, path, codec).await
+        }
+    }
+}
+/// Generated server implementations.
+#[cfg(feature = "server")]
+pub mod msg_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with MsgServer.
+    #[async_trait]
+    pub trait Msg: Send + Sync + 'static {
+        /// CreateValidator defines a method for creating a new validator.
+        async fn create_validator(
+            &self,
+            request: tonic::Request<super::MsgCreateValidator>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgCreateValidatorResponse>,
+            tonic::Status,
+        >;
+        /// EditValidator defines a method for editing an existing validator.
+        async fn edit_validator(
+            &self,
+            request: tonic::Request<super::MsgEditValidator>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgEditValidatorResponse>,
+            tonic::Status,
+        >;
+        /// Delegate defines a method for performing a delegation of coins
+        /// from a delegator to a validator.
+        async fn delegate(
+            &self,
+            request: tonic::Request<super::MsgDelegate>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgDelegateResponse>,
+            tonic::Status,
+        >;
+        /// BeginRedelegate defines a method for performing a redelegation
+        /// of coins from a delegator and source validator to a destination validator.
+        async fn begin_redelegate(
+            &self,
+            request: tonic::Request<super::MsgBeginRedelegate>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgBeginRedelegateResponse>,
+            tonic::Status,
+        >;
+        /// Undelegate defines a method for performing an undelegation from a
+        /// delegate and a validator.
+        async fn undelegate(
+            &self,
+            request: tonic::Request<super::MsgUndelegate>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgUndelegateResponse>,
+            tonic::Status,
+        >;
+        /// CancelUnbondingDelegation defines a method for performing canceling the unbonding delegation
+        /// and delegate back to previous validator.
+        ///
+        /// Since: cosmos-sdk 0.46
+        async fn cancel_unbonding_delegation(
+            &self,
+            request: tonic::Request<super::MsgCancelUnbondingDelegation>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgCancelUnbondingDelegationResponse>,
+            tonic::Status,
+        >;
+        /// UpdateParams defines an operation for updating the x/staking module
+        /// parameters.
+        /// Since: cosmos-sdk 0.47
+        async fn update_params(
+            &self,
+            request: tonic::Request<super::MsgUpdateParams>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgUpdateParamsResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Msg defines the staking Msg service.
+    #[derive(Debug)]
+    pub struct MsgServer<T: Msg> {
+        inner: _Inner<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    struct _Inner<T>(Arc<T>);
+    impl<T: Msg> MsgServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            let inner = _Inner(inner);
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for MsgServer<T>
+    where
+        T: Msg,
+        B: Body + Send + 'static,
+        B::Error: Into<StdError> + Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            let inner = self.inner.clone();
+            match req.uri().path() {
+                "/cosmos.staking.v1beta1.Msg/CreateValidator" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateValidatorSvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgCreateValidator>
+                    for CreateValidatorSvc<T> {
+                        type Response = super::MsgCreateValidatorResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgCreateValidator>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Msg>::create_validator(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = CreateValidatorSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/cosmos.staking.v1beta1.Msg/EditValidator" => {
+                    #[allow(non_camel_case_types)]
+                    struct EditValidatorSvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgEditValidator>
+                    for EditValidatorSvc<T> {
+                        type Response = super::MsgEditValidatorResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgEditValidator>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Msg>::edit_validator(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = EditValidatorSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/cosmos.staking.v1beta1.Msg/Delegate" => {
+                    #[allow(non_camel_case_types)]
+                    struct DelegateSvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgDelegate>
+                    for DelegateSvc<T> {
+                        type Response = super::MsgDelegateResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgDelegate>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Msg>::delegate(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = DelegateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/cosmos.staking.v1beta1.Msg/BeginRedelegate" => {
+                    #[allow(non_camel_case_types)]
+                    struct BeginRedelegateSvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgBeginRedelegate>
+                    for BeginRedelegateSvc<T> {
+                        type Response = super::MsgBeginRedelegateResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgBeginRedelegate>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Msg>::begin_redelegate(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = BeginRedelegateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/cosmos.staking.v1beta1.Msg/Undelegate" => {
+                    #[allow(non_camel_case_types)]
+                    struct UndelegateSvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgUndelegate>
+                    for UndelegateSvc<T> {
+                        type Response = super::MsgUndelegateResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgUndelegate>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Msg>::undelegate(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = UndelegateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/cosmos.staking.v1beta1.Msg/CancelUnbondingDelegation" => {
+                    #[allow(non_camel_case_types)]
+                    struct CancelUnbondingDelegationSvc<T: Msg>(pub Arc<T>);
+                    impl<
+                        T: Msg,
+                    > tonic::server::UnaryService<super::MsgCancelUnbondingDelegation>
+                    for CancelUnbondingDelegationSvc<T> {
+                        type Response = super::MsgCancelUnbondingDelegationResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgCancelUnbondingDelegation>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Msg>::cancel_unbonding_delegation(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = CancelUnbondingDelegationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/cosmos.staking.v1beta1.Msg/UpdateParams" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateParamsSvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgUpdateParams>
+                    for UpdateParamsSvc<T> {
+                        type Response = super::MsgUpdateParamsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgUpdateParams>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Msg>::update_params(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = UpdateParamsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", "12")
+                                .header("content-type", "application/grpc")
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T: Msg> Clone for MsgServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    impl<T: Msg> Clone for _Inner<T> {
+        fn clone(&self) -> Self {
+            Self(Arc::clone(&self.0))
+        }
+    }
+    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            write!(f, "{:?}", self.0)
+        }
+    }
+    impl<T: Msg> tonic::server::NamedService for MsgServer<T> {
+        const NAME: &'static str = "cosmos.staking.v1beta1.Msg";
     }
 }
