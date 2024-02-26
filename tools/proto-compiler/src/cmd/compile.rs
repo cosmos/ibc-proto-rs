@@ -9,10 +9,6 @@ use argh::FromArgs;
 #[argh(subcommand, name = "compile")]
 /// Compile
 pub struct CompileCmd {
-    #[argh(option, short = 't')]
-    /// path to the CometBFT proto files
-    cmt: PathBuf,
-
     #[argh(option, short = 'i')]
     /// path to the IBC-Go proto files
     ibc: PathBuf,
@@ -84,7 +80,6 @@ impl CompileCmd {
         ];
 
         let proto_includes_paths = [
-            self.cmt.to_path_buf(),
             self.sdk.to_path_buf(),
             self.ibc.to_path_buf(),
             self.ics.to_path_buf(),
