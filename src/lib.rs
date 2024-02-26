@@ -14,7 +14,7 @@
 
 pub mod google;
 
-pub use tendermint_proto::Protobuf;
+pub use cometbft_proto::Protobuf;
 
 extern crate alloc;
 
@@ -142,20 +142,6 @@ pub mod cosmos {
         pub mod tendermint {
             pub mod v1beta1 {
                 include_proto!("cosmos.base.tendermint.v1beta1.rs");
-            }
-        }
-        pub mod kv {
-            pub mod v1beta1 {
-                include_proto!("cosmos.base.kv.v1beta1.rs");
-                #[cfg(feature = "serde")]
-                include_proto!("cosmos.base.kv.v1beta1.serde.rs");
-            }
-        }
-        pub mod snapshots {
-            pub mod v1beta1 {
-                include_proto!("cosmos.base.snapshots.v1beta1.rs");
-                #[cfg(feature = "serde")]
-                include_proto!("cosmos.base.snapshots.v1beta1.serde.rs");
             }
         }
     }

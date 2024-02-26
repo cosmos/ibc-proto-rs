@@ -1,3 +1,26 @@
+/// SendAuthorization allows the grantee to spend up to spend_limit coins from
+/// the granter's account.
+///
+/// Since: cosmos-sdk 0.43
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SendAuthorization {
+    #[prost(message, repeated, tag = "1")]
+    pub spend_limit: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
+    /// allow_list specifies an optional list of addresses to whom the grantee can send tokens on behalf of the
+    /// granter. If omitted, any recipient is allowed.
+    ///
+    /// Since: cosmos-sdk 0.47
+    #[prost(string, repeated, tag = "2")]
+    pub allow_list: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+impl ::prost::Name for SendAuthorization {
+    const NAME: &'static str = "SendAuthorization";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
 /// Params defines the parameters for the bank module.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -158,6 +181,1934 @@ impl ::prost::Name for Metadata {
         ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
     }
 }
+/// GenesisState defines the bank module's genesis state.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GenesisState {
+    /// params defines all the parameters of the module.
+    #[prost(message, optional, tag = "1")]
+    pub params: ::core::option::Option<Params>,
+    /// balances is an array containing the balances of all the accounts.
+    #[prost(message, repeated, tag = "2")]
+    pub balances: ::prost::alloc::vec::Vec<Balance>,
+    /// supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
+    /// balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
+    #[prost(message, repeated, tag = "3")]
+    pub supply: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
+    /// denom_metadata defines the metadata of the different coins.
+    #[prost(message, repeated, tag = "4")]
+    pub denom_metadata: ::prost::alloc::vec::Vec<Metadata>,
+    /// send_enabled defines the denoms where send is enabled or disabled.
+    ///
+    /// Since: cosmos-sdk 0.47
+    #[prost(message, repeated, tag = "5")]
+    pub send_enabled: ::prost::alloc::vec::Vec<SendEnabled>,
+}
+impl ::prost::Name for GenesisState {
+    const NAME: &'static str = "GenesisState";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// Balance defines an account address and balance pair used in the bank module's
+/// genesis state.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Balance {
+    /// address is the address of the balance holder.
+    #[prost(string, tag = "1")]
+    pub address: ::prost::alloc::string::String,
+    /// coins defines the different coins this balance holds.
+    #[prost(message, repeated, tag = "2")]
+    pub coins: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
+}
+impl ::prost::Name for Balance {
+    const NAME: &'static str = "Balance";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QueryBalanceRequest is the request type for the Query/Balance RPC method.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryBalanceRequest {
+    /// address is the address to query balances for.
+    #[prost(string, tag = "1")]
+    pub address: ::prost::alloc::string::String,
+    /// denom is the coin denom to query balances for.
+    #[prost(string, tag = "2")]
+    pub denom: ::prost::alloc::string::String,
+}
+impl ::prost::Name for QueryBalanceRequest {
+    const NAME: &'static str = "QueryBalanceRequest";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QueryBalanceResponse is the response type for the Query/Balance RPC method.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryBalanceResponse {
+    /// balance is the balance of the coin.
+    #[prost(message, optional, tag = "1")]
+    pub balance: ::core::option::Option<super::super::base::v1beta1::Coin>,
+}
+impl ::prost::Name for QueryBalanceResponse {
+    const NAME: &'static str = "QueryBalanceResponse";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QueryBalanceRequest is the request type for the Query/AllBalances RPC method.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryAllBalancesRequest {
+    /// address is the address to query balances for.
+    #[prost(string, tag = "1")]
+    pub address: ::prost::alloc::string::String,
+    /// pagination defines an optional pagination for the request.
+    #[prost(message, optional, tag = "2")]
+    pub pagination: ::core::option::Option<
+        super::super::base::query::v1beta1::PageRequest,
+    >,
+    /// resolve_denom is the flag to resolve the denom into a human-readable form from the metadata.
+    ///
+    /// Since: cosmos-sdk 0.50
+    #[prost(bool, tag = "3")]
+    pub resolve_denom: bool,
+}
+impl ::prost::Name for QueryAllBalancesRequest {
+    const NAME: &'static str = "QueryAllBalancesRequest";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QueryAllBalancesResponse is the response type for the Query/AllBalances RPC
+/// method.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryAllBalancesResponse {
+    /// balances is the balances of all the coins.
+    #[prost(message, repeated, tag = "1")]
+    pub balances: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
+    /// pagination defines the pagination in the response.
+    #[prost(message, optional, tag = "2")]
+    pub pagination: ::core::option::Option<
+        super::super::base::query::v1beta1::PageResponse,
+    >,
+}
+impl ::prost::Name for QueryAllBalancesResponse {
+    const NAME: &'static str = "QueryAllBalancesResponse";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QuerySpendableBalancesRequest defines the gRPC request structure for querying
+/// an account's spendable balances.
+///
+/// Since: cosmos-sdk 0.46
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QuerySpendableBalancesRequest {
+    /// address is the address to query spendable balances for.
+    #[prost(string, tag = "1")]
+    pub address: ::prost::alloc::string::String,
+    /// pagination defines an optional pagination for the request.
+    #[prost(message, optional, tag = "2")]
+    pub pagination: ::core::option::Option<
+        super::super::base::query::v1beta1::PageRequest,
+    >,
+}
+impl ::prost::Name for QuerySpendableBalancesRequest {
+    const NAME: &'static str = "QuerySpendableBalancesRequest";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QuerySpendableBalancesResponse defines the gRPC response structure for querying
+/// an account's spendable balances.
+///
+/// Since: cosmos-sdk 0.46
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QuerySpendableBalancesResponse {
+    /// balances is the spendable balances of all the coins.
+    #[prost(message, repeated, tag = "1")]
+    pub balances: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
+    /// pagination defines the pagination in the response.
+    #[prost(message, optional, tag = "2")]
+    pub pagination: ::core::option::Option<
+        super::super::base::query::v1beta1::PageResponse,
+    >,
+}
+impl ::prost::Name for QuerySpendableBalancesResponse {
+    const NAME: &'static str = "QuerySpendableBalancesResponse";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QuerySpendableBalanceByDenomRequest defines the gRPC request structure for
+/// querying an account's spendable balance for a specific denom.
+///
+/// Since: cosmos-sdk 0.47
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QuerySpendableBalanceByDenomRequest {
+    /// address is the address to query balances for.
+    #[prost(string, tag = "1")]
+    pub address: ::prost::alloc::string::String,
+    /// denom is the coin denom to query balances for.
+    #[prost(string, tag = "2")]
+    pub denom: ::prost::alloc::string::String,
+}
+impl ::prost::Name for QuerySpendableBalanceByDenomRequest {
+    const NAME: &'static str = "QuerySpendableBalanceByDenomRequest";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QuerySpendableBalanceByDenomResponse defines the gRPC response structure for
+/// querying an account's spendable balance for a specific denom.
+///
+/// Since: cosmos-sdk 0.47
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QuerySpendableBalanceByDenomResponse {
+    /// balance is the balance of the coin.
+    #[prost(message, optional, tag = "1")]
+    pub balance: ::core::option::Option<super::super::base::v1beta1::Coin>,
+}
+impl ::prost::Name for QuerySpendableBalanceByDenomResponse {
+    const NAME: &'static str = "QuerySpendableBalanceByDenomResponse";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QueryTotalSupplyRequest is the request type for the Query/TotalSupply RPC
+/// method.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryTotalSupplyRequest {
+    /// pagination defines an optional pagination for the request.
+    ///
+    /// Since: cosmos-sdk 0.43
+    #[prost(message, optional, tag = "1")]
+    pub pagination: ::core::option::Option<
+        super::super::base::query::v1beta1::PageRequest,
+    >,
+}
+impl ::prost::Name for QueryTotalSupplyRequest {
+    const NAME: &'static str = "QueryTotalSupplyRequest";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QueryTotalSupplyResponse is the response type for the Query/TotalSupply RPC
+/// method
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryTotalSupplyResponse {
+    /// supply is the supply of the coins
+    #[prost(message, repeated, tag = "1")]
+    pub supply: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
+    /// pagination defines the pagination in the response.
+    ///
+    /// Since: cosmos-sdk 0.43
+    #[prost(message, optional, tag = "2")]
+    pub pagination: ::core::option::Option<
+        super::super::base::query::v1beta1::PageResponse,
+    >,
+}
+impl ::prost::Name for QueryTotalSupplyResponse {
+    const NAME: &'static str = "QueryTotalSupplyResponse";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QuerySupplyOfRequest is the request type for the Query/SupplyOf RPC method.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QuerySupplyOfRequest {
+    /// denom is the coin denom to query balances for.
+    #[prost(string, tag = "1")]
+    pub denom: ::prost::alloc::string::String,
+}
+impl ::prost::Name for QuerySupplyOfRequest {
+    const NAME: &'static str = "QuerySupplyOfRequest";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QuerySupplyOfResponse is the response type for the Query/SupplyOf RPC method.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QuerySupplyOfResponse {
+    /// amount is the supply of the coin.
+    #[prost(message, optional, tag = "1")]
+    pub amount: ::core::option::Option<super::super::base::v1beta1::Coin>,
+}
+impl ::prost::Name for QuerySupplyOfResponse {
+    const NAME: &'static str = "QuerySupplyOfResponse";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QueryParamsRequest defines the request type for querying x/bank parameters.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryParamsRequest {}
+impl ::prost::Name for QueryParamsRequest {
+    const NAME: &'static str = "QueryParamsRequest";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QueryParamsResponse defines the response type for querying x/bank parameters.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryParamsResponse {
+    /// params provides the parameters of the bank module.
+    #[prost(message, optional, tag = "1")]
+    pub params: ::core::option::Option<Params>,
+}
+impl ::prost::Name for QueryParamsResponse {
+    const NAME: &'static str = "QueryParamsResponse";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QueryDenomsMetadataRequest is the request type for the Query/DenomsMetadata RPC method.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryDenomsMetadataRequest {
+    /// pagination defines an optional pagination for the request.
+    #[prost(message, optional, tag = "1")]
+    pub pagination: ::core::option::Option<
+        super::super::base::query::v1beta1::PageRequest,
+    >,
+}
+impl ::prost::Name for QueryDenomsMetadataRequest {
+    const NAME: &'static str = "QueryDenomsMetadataRequest";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QueryDenomsMetadataResponse is the response type for the Query/DenomsMetadata RPC
+/// method.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryDenomsMetadataResponse {
+    /// metadata provides the client information for all the registered tokens.
+    #[prost(message, repeated, tag = "1")]
+    pub metadatas: ::prost::alloc::vec::Vec<Metadata>,
+    /// pagination defines the pagination in the response.
+    #[prost(message, optional, tag = "2")]
+    pub pagination: ::core::option::Option<
+        super::super::base::query::v1beta1::PageResponse,
+    >,
+}
+impl ::prost::Name for QueryDenomsMetadataResponse {
+    const NAME: &'static str = "QueryDenomsMetadataResponse";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QueryDenomMetadataRequest is the request type for the Query/DenomMetadata RPC method.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryDenomMetadataRequest {
+    /// denom is the coin denom to query the metadata for.
+    #[prost(string, tag = "1")]
+    pub denom: ::prost::alloc::string::String,
+}
+impl ::prost::Name for QueryDenomMetadataRequest {
+    const NAME: &'static str = "QueryDenomMetadataRequest";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QueryDenomMetadataResponse is the response type for the Query/DenomMetadata RPC
+/// method.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryDenomMetadataResponse {
+    /// metadata describes and provides all the client information for the requested token.
+    #[prost(message, optional, tag = "1")]
+    pub metadata: ::core::option::Option<Metadata>,
+}
+impl ::prost::Name for QueryDenomMetadataResponse {
+    const NAME: &'static str = "QueryDenomMetadataResponse";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QueryDenomMetadataByQueryStringRequest is the request type for the Query/DenomMetadata RPC method.
+/// Identical with QueryDenomMetadataRequest but receives denom as query string.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryDenomMetadataByQueryStringRequest {
+    /// denom is the coin denom to query the metadata for.
+    #[prost(string, tag = "1")]
+    pub denom: ::prost::alloc::string::String,
+}
+impl ::prost::Name for QueryDenomMetadataByQueryStringRequest {
+    const NAME: &'static str = "QueryDenomMetadataByQueryStringRequest";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QueryDenomMetadataByQueryStringResponse is the response type for the Query/DenomMetadata RPC
+/// method. Identical with QueryDenomMetadataResponse but receives denom as query string in request.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryDenomMetadataByQueryStringResponse {
+    /// metadata describes and provides all the client information for the requested token.
+    #[prost(message, optional, tag = "1")]
+    pub metadata: ::core::option::Option<Metadata>,
+}
+impl ::prost::Name for QueryDenomMetadataByQueryStringResponse {
+    const NAME: &'static str = "QueryDenomMetadataByQueryStringResponse";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QueryDenomOwnersRequest defines the request type for the DenomOwners RPC query,
+/// which queries for a paginated set of all account holders of a particular
+/// denomination.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryDenomOwnersRequest {
+    /// denom defines the coin denomination to query all account holders for.
+    #[prost(string, tag = "1")]
+    pub denom: ::prost::alloc::string::String,
+    /// pagination defines an optional pagination for the request.
+    #[prost(message, optional, tag = "2")]
+    pub pagination: ::core::option::Option<
+        super::super::base::query::v1beta1::PageRequest,
+    >,
+}
+impl ::prost::Name for QueryDenomOwnersRequest {
+    const NAME: &'static str = "QueryDenomOwnersRequest";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// DenomOwner defines structure representing an account that owns or holds a
+/// particular denominated token. It contains the account address and account
+/// balance of the denominated token.
+///
+/// Since: cosmos-sdk 0.46
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DenomOwner {
+    /// address defines the address that owns a particular denomination.
+    #[prost(string, tag = "1")]
+    pub address: ::prost::alloc::string::String,
+    /// balance is the balance of the denominated coin for an account.
+    #[prost(message, optional, tag = "2")]
+    pub balance: ::core::option::Option<super::super::base::v1beta1::Coin>,
+}
+impl ::prost::Name for DenomOwner {
+    const NAME: &'static str = "DenomOwner";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QueryDenomOwnersResponse defines the RPC response of a DenomOwners RPC query.
+///
+/// Since: cosmos-sdk 0.46
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryDenomOwnersResponse {
+    #[prost(message, repeated, tag = "1")]
+    pub denom_owners: ::prost::alloc::vec::Vec<DenomOwner>,
+    /// pagination defines the pagination in the response.
+    #[prost(message, optional, tag = "2")]
+    pub pagination: ::core::option::Option<
+        super::super::base::query::v1beta1::PageResponse,
+    >,
+}
+impl ::prost::Name for QueryDenomOwnersResponse {
+    const NAME: &'static str = "QueryDenomOwnersResponse";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QueryDenomOwnersByQueryRequest defines the request type for the DenomOwnersByQuery RPC query,
+/// which queries for a paginated set of all account holders of a particular
+/// denomination.
+///
+/// Since: cosmos-sdk 0.50.3
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryDenomOwnersByQueryRequest {
+    /// denom defines the coin denomination to query all account holders for.
+    #[prost(string, tag = "1")]
+    pub denom: ::prost::alloc::string::String,
+    /// pagination defines an optional pagination for the request.
+    #[prost(message, optional, tag = "2")]
+    pub pagination: ::core::option::Option<
+        super::super::base::query::v1beta1::PageRequest,
+    >,
+}
+impl ::prost::Name for QueryDenomOwnersByQueryRequest {
+    const NAME: &'static str = "QueryDenomOwnersByQueryRequest";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QueryDenomOwnersByQueryResponse defines the RPC response of a DenomOwnersByQuery RPC query.
+///
+/// Since: cosmos-sdk 0.50.3
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryDenomOwnersByQueryResponse {
+    #[prost(message, repeated, tag = "1")]
+    pub denom_owners: ::prost::alloc::vec::Vec<DenomOwner>,
+    /// pagination defines the pagination in the response.
+    #[prost(message, optional, tag = "2")]
+    pub pagination: ::core::option::Option<
+        super::super::base::query::v1beta1::PageResponse,
+    >,
+}
+impl ::prost::Name for QueryDenomOwnersByQueryResponse {
+    const NAME: &'static str = "QueryDenomOwnersByQueryResponse";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QuerySendEnabledRequest defines the RPC request for looking up SendEnabled entries.
+///
+/// Since: cosmos-sdk 0.47
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QuerySendEnabledRequest {
+    /// denoms is the specific denoms you want look up. Leave empty to get all entries.
+    #[prost(string, repeated, tag = "1")]
+    pub denoms: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// pagination defines an optional pagination for the request. This field is
+    /// only read if the denoms field is empty.
+    #[prost(message, optional, tag = "99")]
+    pub pagination: ::core::option::Option<
+        super::super::base::query::v1beta1::PageRequest,
+    >,
+}
+impl ::prost::Name for QuerySendEnabledRequest {
+    const NAME: &'static str = "QuerySendEnabledRequest";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// QuerySendEnabledResponse defines the RPC response of a SendEnable query.
+///
+/// Since: cosmos-sdk 0.47
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QuerySendEnabledResponse {
+    #[prost(message, repeated, tag = "1")]
+    pub send_enabled: ::prost::alloc::vec::Vec<SendEnabled>,
+    /// pagination defines the pagination in the response. This field is only
+    /// populated if the denoms field in the request is empty.
+    #[prost(message, optional, tag = "99")]
+    pub pagination: ::core::option::Option<
+        super::super::base::query::v1beta1::PageResponse,
+    >,
+}
+impl ::prost::Name for QuerySendEnabledResponse {
+    const NAME: &'static str = "QuerySendEnabledResponse";
+    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
+    }
+}
+/// Generated client implementations.
+#[cfg(feature = "client")]
+pub mod query_client {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    use tonic::codegen::http::Uri;
+    /// Query defines the gRPC querier service.
+    #[derive(Debug, Clone)]
+    pub struct QueryClient<T> {
+        inner: tonic::client::Grpc<T>,
+    }
+    impl QueryClient<tonic::transport::Channel> {
+        /// Attempt to create a new client by connecting to a given endpoint.
+        pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
+        where
+            D: TryInto<tonic::transport::Endpoint>,
+            D::Error: Into<StdError>,
+        {
+            let conn = tonic::transport::Endpoint::new(dst)?.connect().await?;
+            Ok(Self::new(conn))
+        }
+    }
+    impl<T> QueryClient<T>
+    where
+        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+    {
+        pub fn new(inner: T) -> Self {
+            let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
+            Self { inner }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> QueryClient<InterceptedService<T, F>>
+        where
+            F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
+            T: tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+                Response = http::Response<
+                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                >,
+            >,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + Send + Sync,
+        {
+            QueryClient::new(InterceptedService::new(inner, interceptor))
+        }
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
+            self
+        }
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
+        /// Balance queries the balance of a single coin for a single account.
+        pub async fn balance(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryBalanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryBalanceResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.bank.v1beta1.Query/Balance",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("cosmos.bank.v1beta1.Query", "Balance"));
+            self.inner.unary(req, path, codec).await
+        }
+        /// AllBalances queries the balance of all coins for a single account.
+        ///
+        /// When called from another module, this query might consume a high amount of
+        /// gas if the pagination field is incorrectly set.
+        pub async fn all_balances(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryAllBalancesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryAllBalancesResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.bank.v1beta1.Query/AllBalances",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("cosmos.bank.v1beta1.Query", "AllBalances"));
+            self.inner.unary(req, path, codec).await
+        }
+        /// SpendableBalances queries the spendable balance of all coins for a single
+        /// account.
+        ///
+        /// When called from another module, this query might consume a high amount of
+        /// gas if the pagination field is incorrectly set.
+        ///
+        /// Since: cosmos-sdk 0.46
+        pub async fn spendable_balances(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QuerySpendableBalancesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QuerySpendableBalancesResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.bank.v1beta1.Query/SpendableBalances",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("cosmos.bank.v1beta1.Query", "SpendableBalances"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// SpendableBalanceByDenom queries the spendable balance of a single denom for
+        /// a single account.
+        ///
+        /// When called from another module, this query might consume a high amount of
+        /// gas if the pagination field is incorrectly set.
+        ///
+        /// Since: cosmos-sdk 0.47
+        pub async fn spendable_balance_by_denom(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QuerySpendableBalanceByDenomRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QuerySpendableBalanceByDenomResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.bank.v1beta1.Query/SpendableBalanceByDenom",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "cosmos.bank.v1beta1.Query",
+                        "SpendableBalanceByDenom",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// TotalSupply queries the total supply of all coins.
+        ///
+        /// When called from another module, this query might consume a high amount of
+        /// gas if the pagination field is incorrectly set.
+        pub async fn total_supply(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryTotalSupplyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryTotalSupplyResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.bank.v1beta1.Query/TotalSupply",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("cosmos.bank.v1beta1.Query", "TotalSupply"));
+            self.inner.unary(req, path, codec).await
+        }
+        /// SupplyOf queries the supply of a single coin.
+        ///
+        /// When called from another module, this query might consume a high amount of
+        /// gas if the pagination field is incorrectly set.
+        pub async fn supply_of(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QuerySupplyOfRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QuerySupplyOfResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.bank.v1beta1.Query/SupplyOf",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("cosmos.bank.v1beta1.Query", "SupplyOf"));
+            self.inner.unary(req, path, codec).await
+        }
+        /// Params queries the parameters of x/bank module.
+        pub async fn params(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryParamsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryParamsResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.bank.v1beta1.Query/Params",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("cosmos.bank.v1beta1.Query", "Params"));
+            self.inner.unary(req, path, codec).await
+        }
+        /// DenomMetadata queries the client metadata of a given coin denomination.
+        pub async fn denom_metadata(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryDenomMetadataRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryDenomMetadataResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.bank.v1beta1.Query/DenomMetadata",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("cosmos.bank.v1beta1.Query", "DenomMetadata"));
+            self.inner.unary(req, path, codec).await
+        }
+        /// DenomMetadataByQueryString queries the client metadata of a given coin denomination.
+        pub async fn denom_metadata_by_query_string(
+            &mut self,
+            request: impl tonic::IntoRequest<
+                super::QueryDenomMetadataByQueryStringRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryDenomMetadataByQueryStringResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.bank.v1beta1.Query/DenomMetadataByQueryString",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "cosmos.bank.v1beta1.Query",
+                        "DenomMetadataByQueryString",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// DenomsMetadata queries the client metadata for all registered coin
+        /// denominations.
+        pub async fn denoms_metadata(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryDenomsMetadataRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryDenomsMetadataResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.bank.v1beta1.Query/DenomsMetadata",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("cosmos.bank.v1beta1.Query", "DenomsMetadata"));
+            self.inner.unary(req, path, codec).await
+        }
+        /// DenomOwners queries for all account addresses that own a particular token
+        /// denomination.
+        ///
+        /// When called from another module, this query might consume a high amount of
+        /// gas if the pagination field is incorrectly set.
+        ///
+        /// Since: cosmos-sdk 0.46
+        pub async fn denom_owners(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryDenomOwnersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryDenomOwnersResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.bank.v1beta1.Query/DenomOwners",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("cosmos.bank.v1beta1.Query", "DenomOwners"));
+            self.inner.unary(req, path, codec).await
+        }
+        /// DenomOwnersByQuery queries for all account addresses that own a particular token
+        /// denomination.
+        ///
+        /// Since: cosmos-sdk 0.50.3
+        pub async fn denom_owners_by_query(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryDenomOwnersByQueryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryDenomOwnersByQueryResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.bank.v1beta1.Query/DenomOwnersByQuery",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("cosmos.bank.v1beta1.Query", "DenomOwnersByQuery"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// SendEnabled queries for SendEnabled entries.
+        ///
+        /// This query only returns denominations that have specific SendEnabled settings.
+        /// Any denomination that does not have a specific setting will use the default
+        /// params.default_send_enabled, and will not be returned by this query.
+        ///
+        /// Since: cosmos-sdk 0.47
+        pub async fn send_enabled(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QuerySendEnabledRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QuerySendEnabledResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/cosmos.bank.v1beta1.Query/SendEnabled",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("cosmos.bank.v1beta1.Query", "SendEnabled"));
+            self.inner.unary(req, path, codec).await
+        }
+    }
+}
+/// Generated server implementations.
+#[cfg(feature = "server")]
+pub mod query_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with QueryServer.
+    #[async_trait]
+    pub trait Query: Send + Sync + 'static {
+        /// Balance queries the balance of a single coin for a single account.
+        async fn balance(
+            &self,
+            request: tonic::Request<super::QueryBalanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryBalanceResponse>,
+            tonic::Status,
+        >;
+        /// AllBalances queries the balance of all coins for a single account.
+        ///
+        /// When called from another module, this query might consume a high amount of
+        /// gas if the pagination field is incorrectly set.
+        async fn all_balances(
+            &self,
+            request: tonic::Request<super::QueryAllBalancesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryAllBalancesResponse>,
+            tonic::Status,
+        >;
+        /// SpendableBalances queries the spendable balance of all coins for a single
+        /// account.
+        ///
+        /// When called from another module, this query might consume a high amount of
+        /// gas if the pagination field is incorrectly set.
+        ///
+        /// Since: cosmos-sdk 0.46
+        async fn spendable_balances(
+            &self,
+            request: tonic::Request<super::QuerySpendableBalancesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QuerySpendableBalancesResponse>,
+            tonic::Status,
+        >;
+        /// SpendableBalanceByDenom queries the spendable balance of a single denom for
+        /// a single account.
+        ///
+        /// When called from another module, this query might consume a high amount of
+        /// gas if the pagination field is incorrectly set.
+        ///
+        /// Since: cosmos-sdk 0.47
+        async fn spendable_balance_by_denom(
+            &self,
+            request: tonic::Request<super::QuerySpendableBalanceByDenomRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QuerySpendableBalanceByDenomResponse>,
+            tonic::Status,
+        >;
+        /// TotalSupply queries the total supply of all coins.
+        ///
+        /// When called from another module, this query might consume a high amount of
+        /// gas if the pagination field is incorrectly set.
+        async fn total_supply(
+            &self,
+            request: tonic::Request<super::QueryTotalSupplyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryTotalSupplyResponse>,
+            tonic::Status,
+        >;
+        /// SupplyOf queries the supply of a single coin.
+        ///
+        /// When called from another module, this query might consume a high amount of
+        /// gas if the pagination field is incorrectly set.
+        async fn supply_of(
+            &self,
+            request: tonic::Request<super::QuerySupplyOfRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QuerySupplyOfResponse>,
+            tonic::Status,
+        >;
+        /// Params queries the parameters of x/bank module.
+        async fn params(
+            &self,
+            request: tonic::Request<super::QueryParamsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryParamsResponse>,
+            tonic::Status,
+        >;
+        /// DenomMetadata queries the client metadata of a given coin denomination.
+        async fn denom_metadata(
+            &self,
+            request: tonic::Request<super::QueryDenomMetadataRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryDenomMetadataResponse>,
+            tonic::Status,
+        >;
+        /// DenomMetadataByQueryString queries the client metadata of a given coin denomination.
+        async fn denom_metadata_by_query_string(
+            &self,
+            request: tonic::Request<super::QueryDenomMetadataByQueryStringRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryDenomMetadataByQueryStringResponse>,
+            tonic::Status,
+        >;
+        /// DenomsMetadata queries the client metadata for all registered coin
+        /// denominations.
+        async fn denoms_metadata(
+            &self,
+            request: tonic::Request<super::QueryDenomsMetadataRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryDenomsMetadataResponse>,
+            tonic::Status,
+        >;
+        /// DenomOwners queries for all account addresses that own a particular token
+        /// denomination.
+        ///
+        /// When called from another module, this query might consume a high amount of
+        /// gas if the pagination field is incorrectly set.
+        ///
+        /// Since: cosmos-sdk 0.46
+        async fn denom_owners(
+            &self,
+            request: tonic::Request<super::QueryDenomOwnersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryDenomOwnersResponse>,
+            tonic::Status,
+        >;
+        /// DenomOwnersByQuery queries for all account addresses that own a particular token
+        /// denomination.
+        ///
+        /// Since: cosmos-sdk 0.50.3
+        async fn denom_owners_by_query(
+            &self,
+            request: tonic::Request<super::QueryDenomOwnersByQueryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryDenomOwnersByQueryResponse>,
+            tonic::Status,
+        >;
+        /// SendEnabled queries for SendEnabled entries.
+        ///
+        /// This query only returns denominations that have specific SendEnabled settings.
+        /// Any denomination that does not have a specific setting will use the default
+        /// params.default_send_enabled, and will not be returned by this query.
+        ///
+        /// Since: cosmos-sdk 0.47
+        async fn send_enabled(
+            &self,
+            request: tonic::Request<super::QuerySendEnabledRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QuerySendEnabledResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Query defines the gRPC querier service.
+    #[derive(Debug)]
+    pub struct QueryServer<T: Query> {
+        inner: _Inner<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    struct _Inner<T>(Arc<T>);
+    impl<T: Query> QueryServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            let inner = _Inner(inner);
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for QueryServer<T>
+    where
+        T: Query,
+        B: Body + Send + 'static,
+        B::Error: Into<StdError> + Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            let inner = self.inner.clone();
+            match req.uri().path() {
+                "/cosmos.bank.v1beta1.Query/Balance" => {
+                    #[allow(non_camel_case_types)]
+                    struct BalanceSvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<super::QueryBalanceRequest>
+                    for BalanceSvc<T> {
+                        type Response = super::QueryBalanceResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryBalanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Query>::balance(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = BalanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/cosmos.bank.v1beta1.Query/AllBalances" => {
+                    #[allow(non_camel_case_types)]
+                    struct AllBalancesSvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<super::QueryAllBalancesRequest>
+                    for AllBalancesSvc<T> {
+                        type Response = super::QueryAllBalancesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryAllBalancesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Query>::all_balances(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = AllBalancesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/cosmos.bank.v1beta1.Query/SpendableBalances" => {
+                    #[allow(non_camel_case_types)]
+                    struct SpendableBalancesSvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<super::QuerySpendableBalancesRequest>
+                    for SpendableBalancesSvc<T> {
+                        type Response = super::QuerySpendableBalancesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QuerySpendableBalancesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Query>::spendable_balances(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = SpendableBalancesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/cosmos.bank.v1beta1.Query/SpendableBalanceByDenom" => {
+                    #[allow(non_camel_case_types)]
+                    struct SpendableBalanceByDenomSvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<
+                        super::QuerySpendableBalanceByDenomRequest,
+                    > for SpendableBalanceByDenomSvc<T> {
+                        type Response = super::QuerySpendableBalanceByDenomResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::QuerySpendableBalanceByDenomRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Query>::spendable_balance_by_denom(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = SpendableBalanceByDenomSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/cosmos.bank.v1beta1.Query/TotalSupply" => {
+                    #[allow(non_camel_case_types)]
+                    struct TotalSupplySvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<super::QueryTotalSupplyRequest>
+                    for TotalSupplySvc<T> {
+                        type Response = super::QueryTotalSupplyResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryTotalSupplyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Query>::total_supply(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = TotalSupplySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/cosmos.bank.v1beta1.Query/SupplyOf" => {
+                    #[allow(non_camel_case_types)]
+                    struct SupplyOfSvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<super::QuerySupplyOfRequest>
+                    for SupplyOfSvc<T> {
+                        type Response = super::QuerySupplyOfResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QuerySupplyOfRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Query>::supply_of(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = SupplyOfSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/cosmos.bank.v1beta1.Query/Params" => {
+                    #[allow(non_camel_case_types)]
+                    struct ParamsSvc<T: Query>(pub Arc<T>);
+                    impl<T: Query> tonic::server::UnaryService<super::QueryParamsRequest>
+                    for ParamsSvc<T> {
+                        type Response = super::QueryParamsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryParamsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Query>::params(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ParamsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/cosmos.bank.v1beta1.Query/DenomMetadata" => {
+                    #[allow(non_camel_case_types)]
+                    struct DenomMetadataSvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<super::QueryDenomMetadataRequest>
+                    for DenomMetadataSvc<T> {
+                        type Response = super::QueryDenomMetadataResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryDenomMetadataRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Query>::denom_metadata(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = DenomMetadataSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/cosmos.bank.v1beta1.Query/DenomMetadataByQueryString" => {
+                    #[allow(non_camel_case_types)]
+                    struct DenomMetadataByQueryStringSvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<
+                        super::QueryDenomMetadataByQueryStringRequest,
+                    > for DenomMetadataByQueryStringSvc<T> {
+                        type Response = super::QueryDenomMetadataByQueryStringResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::QueryDenomMetadataByQueryStringRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Query>::denom_metadata_by_query_string(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = DenomMetadataByQueryStringSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/cosmos.bank.v1beta1.Query/DenomsMetadata" => {
+                    #[allow(non_camel_case_types)]
+                    struct DenomsMetadataSvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<super::QueryDenomsMetadataRequest>
+                    for DenomsMetadataSvc<T> {
+                        type Response = super::QueryDenomsMetadataResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryDenomsMetadataRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Query>::denoms_metadata(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = DenomsMetadataSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/cosmos.bank.v1beta1.Query/DenomOwners" => {
+                    #[allow(non_camel_case_types)]
+                    struct DenomOwnersSvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<super::QueryDenomOwnersRequest>
+                    for DenomOwnersSvc<T> {
+                        type Response = super::QueryDenomOwnersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryDenomOwnersRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Query>::denom_owners(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = DenomOwnersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/cosmos.bank.v1beta1.Query/DenomOwnersByQuery" => {
+                    #[allow(non_camel_case_types)]
+                    struct DenomOwnersByQuerySvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<super::QueryDenomOwnersByQueryRequest>
+                    for DenomOwnersByQuerySvc<T> {
+                        type Response = super::QueryDenomOwnersByQueryResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::QueryDenomOwnersByQueryRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Query>::denom_owners_by_query(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = DenomOwnersByQuerySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/cosmos.bank.v1beta1.Query/SendEnabled" => {
+                    #[allow(non_camel_case_types)]
+                    struct SendEnabledSvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<super::QuerySendEnabledRequest>
+                    for SendEnabledSvc<T> {
+                        type Response = super::QuerySendEnabledResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QuerySendEnabledRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Query>::send_enabled(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = SendEnabledSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", "12")
+                                .header("content-type", "application/grpc")
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T: Query> Clone for QueryServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    impl<T: Query> Clone for _Inner<T> {
+        fn clone(&self) -> Self {
+            Self(Arc::clone(&self.0))
+        }
+    }
+    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            write!(f, "{:?}", self.0)
+        }
+    }
+    impl<T: Query> tonic::server::NamedService for QueryServer<T> {
+        const NAME: &'static str = "cosmos.bank.v1beta1.Query";
+    }
+}
 /// MsgSend represents a message to send coins from one account to another.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -262,6 +2213,7 @@ impl ::prost::Name for MsgUpdateParamsResponse {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgSetSendEnabled {
+    /// authority is the address that controls the module.
     #[prost(string, tag = "1")]
     pub authority: ::prost::alloc::string::String,
     /// send_enabled is the list of entries to add or update.
@@ -836,1689 +2788,5 @@ pub mod msg_server {
     }
     impl<T: Msg> tonic::server::NamedService for MsgServer<T> {
         const NAME: &'static str = "cosmos.bank.v1beta1.Msg";
-    }
-}
-/// QueryBalanceRequest is the request type for the Query/Balance RPC method.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryBalanceRequest {
-    /// address is the address to query balances for.
-    #[prost(string, tag = "1")]
-    pub address: ::prost::alloc::string::String,
-    /// denom is the coin denom to query balances for.
-    #[prost(string, tag = "2")]
-    pub denom: ::prost::alloc::string::String,
-}
-impl ::prost::Name for QueryBalanceRequest {
-    const NAME: &'static str = "QueryBalanceRequest";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
-    }
-}
-/// QueryBalanceResponse is the response type for the Query/Balance RPC method.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryBalanceResponse {
-    /// balance is the balance of the coin.
-    #[prost(message, optional, tag = "1")]
-    pub balance: ::core::option::Option<super::super::base::v1beta1::Coin>,
-}
-impl ::prost::Name for QueryBalanceResponse {
-    const NAME: &'static str = "QueryBalanceResponse";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
-    }
-}
-/// QueryBalanceRequest is the request type for the Query/AllBalances RPC method.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryAllBalancesRequest {
-    /// address is the address to query balances for.
-    #[prost(string, tag = "1")]
-    pub address: ::prost::alloc::string::String,
-    /// pagination defines an optional pagination for the request.
-    #[prost(message, optional, tag = "2")]
-    pub pagination: ::core::option::Option<
-        super::super::base::query::v1beta1::PageRequest,
-    >,
-}
-impl ::prost::Name for QueryAllBalancesRequest {
-    const NAME: &'static str = "QueryAllBalancesRequest";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
-    }
-}
-/// QueryAllBalancesResponse is the response type for the Query/AllBalances RPC
-/// method.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryAllBalancesResponse {
-    /// balances is the balances of all the coins.
-    #[prost(message, repeated, tag = "1")]
-    pub balances: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
-    /// pagination defines the pagination in the response.
-    #[prost(message, optional, tag = "2")]
-    pub pagination: ::core::option::Option<
-        super::super::base::query::v1beta1::PageResponse,
-    >,
-}
-impl ::prost::Name for QueryAllBalancesResponse {
-    const NAME: &'static str = "QueryAllBalancesResponse";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
-    }
-}
-/// QuerySpendableBalancesRequest defines the gRPC request structure for querying
-/// an account's spendable balances.
-///
-/// Since: cosmos-sdk 0.46
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QuerySpendableBalancesRequest {
-    /// address is the address to query spendable balances for.
-    #[prost(string, tag = "1")]
-    pub address: ::prost::alloc::string::String,
-    /// pagination defines an optional pagination for the request.
-    #[prost(message, optional, tag = "2")]
-    pub pagination: ::core::option::Option<
-        super::super::base::query::v1beta1::PageRequest,
-    >,
-}
-impl ::prost::Name for QuerySpendableBalancesRequest {
-    const NAME: &'static str = "QuerySpendableBalancesRequest";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
-    }
-}
-/// QuerySpendableBalancesResponse defines the gRPC response structure for querying
-/// an account's spendable balances.
-///
-/// Since: cosmos-sdk 0.46
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QuerySpendableBalancesResponse {
-    /// balances is the spendable balances of all the coins.
-    #[prost(message, repeated, tag = "1")]
-    pub balances: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
-    /// pagination defines the pagination in the response.
-    #[prost(message, optional, tag = "2")]
-    pub pagination: ::core::option::Option<
-        super::super::base::query::v1beta1::PageResponse,
-    >,
-}
-impl ::prost::Name for QuerySpendableBalancesResponse {
-    const NAME: &'static str = "QuerySpendableBalancesResponse";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
-    }
-}
-/// QuerySpendableBalanceByDenomRequest defines the gRPC request structure for
-/// querying an account's spendable balance for a specific denom.
-///
-/// Since: cosmos-sdk 0.47
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QuerySpendableBalanceByDenomRequest {
-    /// address is the address to query balances for.
-    #[prost(string, tag = "1")]
-    pub address: ::prost::alloc::string::String,
-    /// denom is the coin denom to query balances for.
-    #[prost(string, tag = "2")]
-    pub denom: ::prost::alloc::string::String,
-}
-impl ::prost::Name for QuerySpendableBalanceByDenomRequest {
-    const NAME: &'static str = "QuerySpendableBalanceByDenomRequest";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
-    }
-}
-/// QuerySpendableBalanceByDenomResponse defines the gRPC response structure for
-/// querying an account's spendable balance for a specific denom.
-///
-/// Since: cosmos-sdk 0.47
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QuerySpendableBalanceByDenomResponse {
-    /// balance is the balance of the coin.
-    #[prost(message, optional, tag = "1")]
-    pub balance: ::core::option::Option<super::super::base::v1beta1::Coin>,
-}
-impl ::prost::Name for QuerySpendableBalanceByDenomResponse {
-    const NAME: &'static str = "QuerySpendableBalanceByDenomResponse";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
-    }
-}
-/// QueryTotalSupplyRequest is the request type for the Query/TotalSupply RPC
-/// method.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryTotalSupplyRequest {
-    /// pagination defines an optional pagination for the request.
-    ///
-    /// Since: cosmos-sdk 0.43
-    #[prost(message, optional, tag = "1")]
-    pub pagination: ::core::option::Option<
-        super::super::base::query::v1beta1::PageRequest,
-    >,
-}
-impl ::prost::Name for QueryTotalSupplyRequest {
-    const NAME: &'static str = "QueryTotalSupplyRequest";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
-    }
-}
-/// QueryTotalSupplyResponse is the response type for the Query/TotalSupply RPC
-/// method
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryTotalSupplyResponse {
-    /// supply is the supply of the coins
-    #[prost(message, repeated, tag = "1")]
-    pub supply: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
-    /// pagination defines the pagination in the response.
-    ///
-    /// Since: cosmos-sdk 0.43
-    #[prost(message, optional, tag = "2")]
-    pub pagination: ::core::option::Option<
-        super::super::base::query::v1beta1::PageResponse,
-    >,
-}
-impl ::prost::Name for QueryTotalSupplyResponse {
-    const NAME: &'static str = "QueryTotalSupplyResponse";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
-    }
-}
-/// QuerySupplyOfRequest is the request type for the Query/SupplyOf RPC method.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QuerySupplyOfRequest {
-    /// denom is the coin denom to query balances for.
-    #[prost(string, tag = "1")]
-    pub denom: ::prost::alloc::string::String,
-}
-impl ::prost::Name for QuerySupplyOfRequest {
-    const NAME: &'static str = "QuerySupplyOfRequest";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
-    }
-}
-/// QuerySupplyOfResponse is the response type for the Query/SupplyOf RPC method.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QuerySupplyOfResponse {
-    /// amount is the supply of the coin.
-    #[prost(message, optional, tag = "1")]
-    pub amount: ::core::option::Option<super::super::base::v1beta1::Coin>,
-}
-impl ::prost::Name for QuerySupplyOfResponse {
-    const NAME: &'static str = "QuerySupplyOfResponse";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
-    }
-}
-/// QueryParamsRequest defines the request type for querying x/bank parameters.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryParamsRequest {}
-impl ::prost::Name for QueryParamsRequest {
-    const NAME: &'static str = "QueryParamsRequest";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
-    }
-}
-/// QueryParamsResponse defines the response type for querying x/bank parameters.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryParamsResponse {
-    #[prost(message, optional, tag = "1")]
-    pub params: ::core::option::Option<Params>,
-}
-impl ::prost::Name for QueryParamsResponse {
-    const NAME: &'static str = "QueryParamsResponse";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
-    }
-}
-/// QueryDenomsMetadataRequest is the request type for the Query/DenomsMetadata RPC method.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryDenomsMetadataRequest {
-    /// pagination defines an optional pagination for the request.
-    #[prost(message, optional, tag = "1")]
-    pub pagination: ::core::option::Option<
-        super::super::base::query::v1beta1::PageRequest,
-    >,
-}
-impl ::prost::Name for QueryDenomsMetadataRequest {
-    const NAME: &'static str = "QueryDenomsMetadataRequest";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
-    }
-}
-/// QueryDenomsMetadataResponse is the response type for the Query/DenomsMetadata RPC
-/// method.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryDenomsMetadataResponse {
-    /// metadata provides the client information for all the registered tokens.
-    #[prost(message, repeated, tag = "1")]
-    pub metadatas: ::prost::alloc::vec::Vec<Metadata>,
-    /// pagination defines the pagination in the response.
-    #[prost(message, optional, tag = "2")]
-    pub pagination: ::core::option::Option<
-        super::super::base::query::v1beta1::PageResponse,
-    >,
-}
-impl ::prost::Name for QueryDenomsMetadataResponse {
-    const NAME: &'static str = "QueryDenomsMetadataResponse";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
-    }
-}
-/// QueryDenomMetadataRequest is the request type for the Query/DenomMetadata RPC method.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryDenomMetadataRequest {
-    /// denom is the coin denom to query the metadata for.
-    #[prost(string, tag = "1")]
-    pub denom: ::prost::alloc::string::String,
-}
-impl ::prost::Name for QueryDenomMetadataRequest {
-    const NAME: &'static str = "QueryDenomMetadataRequest";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
-    }
-}
-/// QueryDenomMetadataResponse is the response type for the Query/DenomMetadata RPC
-/// method.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryDenomMetadataResponse {
-    /// metadata describes and provides all the client information for the requested token.
-    #[prost(message, optional, tag = "1")]
-    pub metadata: ::core::option::Option<Metadata>,
-}
-impl ::prost::Name for QueryDenomMetadataResponse {
-    const NAME: &'static str = "QueryDenomMetadataResponse";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
-    }
-}
-/// QueryDenomOwnersRequest defines the request type for the DenomOwners RPC query,
-/// which queries for a paginated set of all account holders of a particular
-/// denomination.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryDenomOwnersRequest {
-    /// denom defines the coin denomination to query all account holders for.
-    #[prost(string, tag = "1")]
-    pub denom: ::prost::alloc::string::String,
-    /// pagination defines an optional pagination for the request.
-    #[prost(message, optional, tag = "2")]
-    pub pagination: ::core::option::Option<
-        super::super::base::query::v1beta1::PageRequest,
-    >,
-}
-impl ::prost::Name for QueryDenomOwnersRequest {
-    const NAME: &'static str = "QueryDenomOwnersRequest";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
-    }
-}
-/// DenomOwner defines structure representing an account that owns or holds a
-/// particular denominated token. It contains the account address and account
-/// balance of the denominated token.
-///
-/// Since: cosmos-sdk 0.46
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DenomOwner {
-    /// address defines the address that owns a particular denomination.
-    #[prost(string, tag = "1")]
-    pub address: ::prost::alloc::string::String,
-    /// balance is the balance of the denominated coin for an account.
-    #[prost(message, optional, tag = "2")]
-    pub balance: ::core::option::Option<super::super::base::v1beta1::Coin>,
-}
-impl ::prost::Name for DenomOwner {
-    const NAME: &'static str = "DenomOwner";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
-    }
-}
-/// QueryDenomOwnersResponse defines the RPC response of a DenomOwners RPC query.
-///
-/// Since: cosmos-sdk 0.46
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QueryDenomOwnersResponse {
-    #[prost(message, repeated, tag = "1")]
-    pub denom_owners: ::prost::alloc::vec::Vec<DenomOwner>,
-    /// pagination defines the pagination in the response.
-    #[prost(message, optional, tag = "2")]
-    pub pagination: ::core::option::Option<
-        super::super::base::query::v1beta1::PageResponse,
-    >,
-}
-impl ::prost::Name for QueryDenomOwnersResponse {
-    const NAME: &'static str = "QueryDenomOwnersResponse";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
-    }
-}
-/// QuerySendEnabledRequest defines the RPC request for looking up SendEnabled entries.
-///
-/// Since: cosmos-sdk 0.47
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QuerySendEnabledRequest {
-    /// denoms is the specific denoms you want look up. Leave empty to get all entries.
-    #[prost(string, repeated, tag = "1")]
-    pub denoms: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// pagination defines an optional pagination for the request. This field is
-    /// only read if the denoms field is empty.
-    #[prost(message, optional, tag = "99")]
-    pub pagination: ::core::option::Option<
-        super::super::base::query::v1beta1::PageRequest,
-    >,
-}
-impl ::prost::Name for QuerySendEnabledRequest {
-    const NAME: &'static str = "QuerySendEnabledRequest";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
-    }
-}
-/// QuerySendEnabledResponse defines the RPC response of a SendEnable query.
-///
-/// Since: cosmos-sdk 0.47
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct QuerySendEnabledResponse {
-    #[prost(message, repeated, tag = "1")]
-    pub send_enabled: ::prost::alloc::vec::Vec<SendEnabled>,
-    /// pagination defines the pagination in the response. This field is only
-    /// populated if the denoms field in the request is empty.
-    #[prost(message, optional, tag = "99")]
-    pub pagination: ::core::option::Option<
-        super::super::base::query::v1beta1::PageResponse,
-    >,
-}
-impl ::prost::Name for QuerySendEnabledResponse {
-    const NAME: &'static str = "QuerySendEnabledResponse";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
-    }
-}
-/// Generated client implementations.
-#[cfg(feature = "client")]
-pub mod query_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
-    use tonic::codegen::*;
-    use tonic::codegen::http::Uri;
-    /// Query defines the gRPC querier service.
-    #[derive(Debug, Clone)]
-    pub struct QueryClient<T> {
-        inner: tonic::client::Grpc<T>,
-    }
-    impl QueryClient<tonic::transport::Channel> {
-        /// Attempt to create a new client by connecting to a given endpoint.
-        pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
-        where
-            D: TryInto<tonic::transport::Endpoint>,
-            D::Error: Into<StdError>,
-        {
-            let conn = tonic::transport::Endpoint::new(dst)?.connect().await?;
-            Ok(Self::new(conn))
-        }
-    }
-    impl<T> QueryClient<T>
-    where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
-    {
-        pub fn new(inner: T) -> Self {
-            let inner = tonic::client::Grpc::new(inner);
-            Self { inner }
-        }
-        pub fn with_origin(inner: T, origin: Uri) -> Self {
-            let inner = tonic::client::Grpc::with_origin(inner, origin);
-            Self { inner }
-        }
-        pub fn with_interceptor<F>(
-            inner: T,
-            interceptor: F,
-        ) -> QueryClient<InterceptedService<T, F>>
-        where
-            F: tonic::service::Interceptor,
-            T::ResponseBody: Default,
-            T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-                Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
-                >,
-            >,
-            <T as tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + Send + Sync,
-        {
-            QueryClient::new(InterceptedService::new(inner, interceptor))
-        }
-        /// Compress requests with the given encoding.
-        ///
-        /// This requires the server to support it otherwise it might respond with an
-        /// error.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.send_compressed(encoding);
-            self
-        }
-        /// Enable decompressing responses.
-        #[must_use]
-        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.accept_compressed(encoding);
-            self
-        }
-        /// Limits the maximum size of a decoded message.
-        ///
-        /// Default: `4MB`
-        #[must_use]
-        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_decoding_message_size(limit);
-            self
-        }
-        /// Limits the maximum size of an encoded message.
-        ///
-        /// Default: `usize::MAX`
-        #[must_use]
-        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_encoding_message_size(limit);
-            self
-        }
-        /// Balance queries the balance of a single coin for a single account.
-        pub async fn balance(
-            &mut self,
-            request: impl tonic::IntoRequest<super::QueryBalanceRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::QueryBalanceResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.bank.v1beta1.Query/Balance",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("cosmos.bank.v1beta1.Query", "Balance"));
-            self.inner.unary(req, path, codec).await
-        }
-        /// AllBalances queries the balance of all coins for a single account.
-        ///
-        /// When called from another module, this query might consume a high amount of
-        /// gas if the pagination field is incorrectly set.
-        pub async fn all_balances(
-            &mut self,
-            request: impl tonic::IntoRequest<super::QueryAllBalancesRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::QueryAllBalancesResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.bank.v1beta1.Query/AllBalances",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("cosmos.bank.v1beta1.Query", "AllBalances"));
-            self.inner.unary(req, path, codec).await
-        }
-        /// SpendableBalances queries the spendable balance of all coins for a single
-        /// account.
-        ///
-        /// When called from another module, this query might consume a high amount of
-        /// gas if the pagination field is incorrectly set.
-        ///
-        /// Since: cosmos-sdk 0.46
-        pub async fn spendable_balances(
-            &mut self,
-            request: impl tonic::IntoRequest<super::QuerySpendableBalancesRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::QuerySpendableBalancesResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.bank.v1beta1.Query/SpendableBalances",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new("cosmos.bank.v1beta1.Query", "SpendableBalances"),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// SpendableBalanceByDenom queries the spendable balance of a single denom for
-        /// a single account.
-        ///
-        /// When called from another module, this query might consume a high amount of
-        /// gas if the pagination field is incorrectly set.
-        ///
-        /// Since: cosmos-sdk 0.47
-        pub async fn spendable_balance_by_denom(
-            &mut self,
-            request: impl tonic::IntoRequest<super::QuerySpendableBalanceByDenomRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::QuerySpendableBalanceByDenomResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.bank.v1beta1.Query/SpendableBalanceByDenom",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "cosmos.bank.v1beta1.Query",
-                        "SpendableBalanceByDenom",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// TotalSupply queries the total supply of all coins.
-        ///
-        /// When called from another module, this query might consume a high amount of
-        /// gas if the pagination field is incorrectly set.
-        pub async fn total_supply(
-            &mut self,
-            request: impl tonic::IntoRequest<super::QueryTotalSupplyRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::QueryTotalSupplyResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.bank.v1beta1.Query/TotalSupply",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("cosmos.bank.v1beta1.Query", "TotalSupply"));
-            self.inner.unary(req, path, codec).await
-        }
-        /// SupplyOf queries the supply of a single coin.
-        ///
-        /// When called from another module, this query might consume a high amount of
-        /// gas if the pagination field is incorrectly set.
-        pub async fn supply_of(
-            &mut self,
-            request: impl tonic::IntoRequest<super::QuerySupplyOfRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::QuerySupplyOfResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.bank.v1beta1.Query/SupplyOf",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("cosmos.bank.v1beta1.Query", "SupplyOf"));
-            self.inner.unary(req, path, codec).await
-        }
-        /// Params queries the parameters of x/bank module.
-        pub async fn params(
-            &mut self,
-            request: impl tonic::IntoRequest<super::QueryParamsRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::QueryParamsResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.bank.v1beta1.Query/Params",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("cosmos.bank.v1beta1.Query", "Params"));
-            self.inner.unary(req, path, codec).await
-        }
-        /// DenomsMetadata queries the client metadata of a given coin denomination.
-        pub async fn denom_metadata(
-            &mut self,
-            request: impl tonic::IntoRequest<super::QueryDenomMetadataRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::QueryDenomMetadataResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.bank.v1beta1.Query/DenomMetadata",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("cosmos.bank.v1beta1.Query", "DenomMetadata"));
-            self.inner.unary(req, path, codec).await
-        }
-        /// DenomsMetadata queries the client metadata for all registered coin
-        /// denominations.
-        pub async fn denoms_metadata(
-            &mut self,
-            request: impl tonic::IntoRequest<super::QueryDenomsMetadataRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::QueryDenomsMetadataResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.bank.v1beta1.Query/DenomsMetadata",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("cosmos.bank.v1beta1.Query", "DenomsMetadata"));
-            self.inner.unary(req, path, codec).await
-        }
-        /// DenomOwners queries for all account addresses that own a particular token
-        /// denomination.
-        ///
-        /// When called from another module, this query might consume a high amount of
-        /// gas if the pagination field is incorrectly set.
-        ///
-        /// Since: cosmos-sdk 0.46
-        pub async fn denom_owners(
-            &mut self,
-            request: impl tonic::IntoRequest<super::QueryDenomOwnersRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::QueryDenomOwnersResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.bank.v1beta1.Query/DenomOwners",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("cosmos.bank.v1beta1.Query", "DenomOwners"));
-            self.inner.unary(req, path, codec).await
-        }
-        /// SendEnabled queries for SendEnabled entries.
-        ///
-        /// This query only returns denominations that have specific SendEnabled settings.
-        /// Any denomination that does not have a specific setting will use the default
-        /// params.default_send_enabled, and will not be returned by this query.
-        ///
-        /// Since: cosmos-sdk 0.47
-        pub async fn send_enabled(
-            &mut self,
-            request: impl tonic::IntoRequest<super::QuerySendEnabledRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::QuerySendEnabledResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/cosmos.bank.v1beta1.Query/SendEnabled",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("cosmos.bank.v1beta1.Query", "SendEnabled"));
-            self.inner.unary(req, path, codec).await
-        }
-    }
-}
-/// Generated server implementations.
-#[cfg(feature = "server")]
-pub mod query_server {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
-    use tonic::codegen::*;
-    /// Generated trait containing gRPC methods that should be implemented for use with QueryServer.
-    #[async_trait]
-    pub trait Query: Send + Sync + 'static {
-        /// Balance queries the balance of a single coin for a single account.
-        async fn balance(
-            &self,
-            request: tonic::Request<super::QueryBalanceRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::QueryBalanceResponse>,
-            tonic::Status,
-        >;
-        /// AllBalances queries the balance of all coins for a single account.
-        ///
-        /// When called from another module, this query might consume a high amount of
-        /// gas if the pagination field is incorrectly set.
-        async fn all_balances(
-            &self,
-            request: tonic::Request<super::QueryAllBalancesRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::QueryAllBalancesResponse>,
-            tonic::Status,
-        >;
-        /// SpendableBalances queries the spendable balance of all coins for a single
-        /// account.
-        ///
-        /// When called from another module, this query might consume a high amount of
-        /// gas if the pagination field is incorrectly set.
-        ///
-        /// Since: cosmos-sdk 0.46
-        async fn spendable_balances(
-            &self,
-            request: tonic::Request<super::QuerySpendableBalancesRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::QuerySpendableBalancesResponse>,
-            tonic::Status,
-        >;
-        /// SpendableBalanceByDenom queries the spendable balance of a single denom for
-        /// a single account.
-        ///
-        /// When called from another module, this query might consume a high amount of
-        /// gas if the pagination field is incorrectly set.
-        ///
-        /// Since: cosmos-sdk 0.47
-        async fn spendable_balance_by_denom(
-            &self,
-            request: tonic::Request<super::QuerySpendableBalanceByDenomRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::QuerySpendableBalanceByDenomResponse>,
-            tonic::Status,
-        >;
-        /// TotalSupply queries the total supply of all coins.
-        ///
-        /// When called from another module, this query might consume a high amount of
-        /// gas if the pagination field is incorrectly set.
-        async fn total_supply(
-            &self,
-            request: tonic::Request<super::QueryTotalSupplyRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::QueryTotalSupplyResponse>,
-            tonic::Status,
-        >;
-        /// SupplyOf queries the supply of a single coin.
-        ///
-        /// When called from another module, this query might consume a high amount of
-        /// gas if the pagination field is incorrectly set.
-        async fn supply_of(
-            &self,
-            request: tonic::Request<super::QuerySupplyOfRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::QuerySupplyOfResponse>,
-            tonic::Status,
-        >;
-        /// Params queries the parameters of x/bank module.
-        async fn params(
-            &self,
-            request: tonic::Request<super::QueryParamsRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::QueryParamsResponse>,
-            tonic::Status,
-        >;
-        /// DenomsMetadata queries the client metadata of a given coin denomination.
-        async fn denom_metadata(
-            &self,
-            request: tonic::Request<super::QueryDenomMetadataRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::QueryDenomMetadataResponse>,
-            tonic::Status,
-        >;
-        /// DenomsMetadata queries the client metadata for all registered coin
-        /// denominations.
-        async fn denoms_metadata(
-            &self,
-            request: tonic::Request<super::QueryDenomsMetadataRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::QueryDenomsMetadataResponse>,
-            tonic::Status,
-        >;
-        /// DenomOwners queries for all account addresses that own a particular token
-        /// denomination.
-        ///
-        /// When called from another module, this query might consume a high amount of
-        /// gas if the pagination field is incorrectly set.
-        ///
-        /// Since: cosmos-sdk 0.46
-        async fn denom_owners(
-            &self,
-            request: tonic::Request<super::QueryDenomOwnersRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::QueryDenomOwnersResponse>,
-            tonic::Status,
-        >;
-        /// SendEnabled queries for SendEnabled entries.
-        ///
-        /// This query only returns denominations that have specific SendEnabled settings.
-        /// Any denomination that does not have a specific setting will use the default
-        /// params.default_send_enabled, and will not be returned by this query.
-        ///
-        /// Since: cosmos-sdk 0.47
-        async fn send_enabled(
-            &self,
-            request: tonic::Request<super::QuerySendEnabledRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::QuerySendEnabledResponse>,
-            tonic::Status,
-        >;
-    }
-    /// Query defines the gRPC querier service.
-    #[derive(Debug)]
-    pub struct QueryServer<T: Query> {
-        inner: _Inner<T>,
-        accept_compression_encodings: EnabledCompressionEncodings,
-        send_compression_encodings: EnabledCompressionEncodings,
-        max_decoding_message_size: Option<usize>,
-        max_encoding_message_size: Option<usize>,
-    }
-    struct _Inner<T>(Arc<T>);
-    impl<T: Query> QueryServer<T> {
-        pub fn new(inner: T) -> Self {
-            Self::from_arc(Arc::new(inner))
-        }
-        pub fn from_arc(inner: Arc<T>) -> Self {
-            let inner = _Inner(inner);
-            Self {
-                inner,
-                accept_compression_encodings: Default::default(),
-                send_compression_encodings: Default::default(),
-                max_decoding_message_size: None,
-                max_encoding_message_size: None,
-            }
-        }
-        pub fn with_interceptor<F>(
-            inner: T,
-            interceptor: F,
-        ) -> InterceptedService<Self, F>
-        where
-            F: tonic::service::Interceptor,
-        {
-            InterceptedService::new(Self::new(inner), interceptor)
-        }
-        /// Enable decompressing requests with the given encoding.
-        #[must_use]
-        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.accept_compression_encodings.enable(encoding);
-            self
-        }
-        /// Compress responses with the given encoding, if the client supports it.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.send_compression_encodings.enable(encoding);
-            self
-        }
-        /// Limits the maximum size of a decoded message.
-        ///
-        /// Default: `4MB`
-        #[must_use]
-        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
-            self.max_decoding_message_size = Some(limit);
-            self
-        }
-        /// Limits the maximum size of an encoded message.
-        ///
-        /// Default: `usize::MAX`
-        #[must_use]
-        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
-            self.max_encoding_message_size = Some(limit);
-            self
-        }
-    }
-    impl<T, B> tonic::codegen::Service<http::Request<B>> for QueryServer<T>
-    where
-        T: Query,
-        B: Body + Send + 'static,
-        B::Error: Into<StdError> + Send + 'static,
-    {
-        type Response = http::Response<tonic::body::BoxBody>;
-        type Error = std::convert::Infallible;
-        type Future = BoxFuture<Self::Response, Self::Error>;
-        fn poll_ready(
-            &mut self,
-            _cx: &mut Context<'_>,
-        ) -> Poll<std::result::Result<(), Self::Error>> {
-            Poll::Ready(Ok(()))
-        }
-        fn call(&mut self, req: http::Request<B>) -> Self::Future {
-            let inner = self.inner.clone();
-            match req.uri().path() {
-                "/cosmos.bank.v1beta1.Query/Balance" => {
-                    #[allow(non_camel_case_types)]
-                    struct BalanceSvc<T: Query>(pub Arc<T>);
-                    impl<
-                        T: Query,
-                    > tonic::server::UnaryService<super::QueryBalanceRequest>
-                    for BalanceSvc<T> {
-                        type Response = super::QueryBalanceResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::QueryBalanceRequest>,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                <T as Query>::balance(&inner, request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = BalanceSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/cosmos.bank.v1beta1.Query/AllBalances" => {
-                    #[allow(non_camel_case_types)]
-                    struct AllBalancesSvc<T: Query>(pub Arc<T>);
-                    impl<
-                        T: Query,
-                    > tonic::server::UnaryService<super::QueryAllBalancesRequest>
-                    for AllBalancesSvc<T> {
-                        type Response = super::QueryAllBalancesResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::QueryAllBalancesRequest>,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                <T as Query>::all_balances(&inner, request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = AllBalancesSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/cosmos.bank.v1beta1.Query/SpendableBalances" => {
-                    #[allow(non_camel_case_types)]
-                    struct SpendableBalancesSvc<T: Query>(pub Arc<T>);
-                    impl<
-                        T: Query,
-                    > tonic::server::UnaryService<super::QuerySpendableBalancesRequest>
-                    for SpendableBalancesSvc<T> {
-                        type Response = super::QuerySpendableBalancesResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::QuerySpendableBalancesRequest>,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                <T as Query>::spendable_balances(&inner, request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = SpendableBalancesSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/cosmos.bank.v1beta1.Query/SpendableBalanceByDenom" => {
-                    #[allow(non_camel_case_types)]
-                    struct SpendableBalanceByDenomSvc<T: Query>(pub Arc<T>);
-                    impl<
-                        T: Query,
-                    > tonic::server::UnaryService<
-                        super::QuerySpendableBalanceByDenomRequest,
-                    > for SpendableBalanceByDenomSvc<T> {
-                        type Response = super::QuerySpendableBalanceByDenomResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<
-                                super::QuerySpendableBalanceByDenomRequest,
-                            >,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                <T as Query>::spendable_balance_by_denom(&inner, request)
-                                    .await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = SpendableBalanceByDenomSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/cosmos.bank.v1beta1.Query/TotalSupply" => {
-                    #[allow(non_camel_case_types)]
-                    struct TotalSupplySvc<T: Query>(pub Arc<T>);
-                    impl<
-                        T: Query,
-                    > tonic::server::UnaryService<super::QueryTotalSupplyRequest>
-                    for TotalSupplySvc<T> {
-                        type Response = super::QueryTotalSupplyResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::QueryTotalSupplyRequest>,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                <T as Query>::total_supply(&inner, request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = TotalSupplySvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/cosmos.bank.v1beta1.Query/SupplyOf" => {
-                    #[allow(non_camel_case_types)]
-                    struct SupplyOfSvc<T: Query>(pub Arc<T>);
-                    impl<
-                        T: Query,
-                    > tonic::server::UnaryService<super::QuerySupplyOfRequest>
-                    for SupplyOfSvc<T> {
-                        type Response = super::QuerySupplyOfResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::QuerySupplyOfRequest>,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                <T as Query>::supply_of(&inner, request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = SupplyOfSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/cosmos.bank.v1beta1.Query/Params" => {
-                    #[allow(non_camel_case_types)]
-                    struct ParamsSvc<T: Query>(pub Arc<T>);
-                    impl<T: Query> tonic::server::UnaryService<super::QueryParamsRequest>
-                    for ParamsSvc<T> {
-                        type Response = super::QueryParamsResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::QueryParamsRequest>,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                <T as Query>::params(&inner, request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = ParamsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/cosmos.bank.v1beta1.Query/DenomMetadata" => {
-                    #[allow(non_camel_case_types)]
-                    struct DenomMetadataSvc<T: Query>(pub Arc<T>);
-                    impl<
-                        T: Query,
-                    > tonic::server::UnaryService<super::QueryDenomMetadataRequest>
-                    for DenomMetadataSvc<T> {
-                        type Response = super::QueryDenomMetadataResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::QueryDenomMetadataRequest>,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                <T as Query>::denom_metadata(&inner, request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = DenomMetadataSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/cosmos.bank.v1beta1.Query/DenomsMetadata" => {
-                    #[allow(non_camel_case_types)]
-                    struct DenomsMetadataSvc<T: Query>(pub Arc<T>);
-                    impl<
-                        T: Query,
-                    > tonic::server::UnaryService<super::QueryDenomsMetadataRequest>
-                    for DenomsMetadataSvc<T> {
-                        type Response = super::QueryDenomsMetadataResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::QueryDenomsMetadataRequest>,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                <T as Query>::denoms_metadata(&inner, request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = DenomsMetadataSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/cosmos.bank.v1beta1.Query/DenomOwners" => {
-                    #[allow(non_camel_case_types)]
-                    struct DenomOwnersSvc<T: Query>(pub Arc<T>);
-                    impl<
-                        T: Query,
-                    > tonic::server::UnaryService<super::QueryDenomOwnersRequest>
-                    for DenomOwnersSvc<T> {
-                        type Response = super::QueryDenomOwnersResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::QueryDenomOwnersRequest>,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                <T as Query>::denom_owners(&inner, request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = DenomOwnersSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/cosmos.bank.v1beta1.Query/SendEnabled" => {
-                    #[allow(non_camel_case_types)]
-                    struct SendEnabledSvc<T: Query>(pub Arc<T>);
-                    impl<
-                        T: Query,
-                    > tonic::server::UnaryService<super::QuerySendEnabledRequest>
-                    for SendEnabledSvc<T> {
-                        type Response = super::QuerySendEnabledResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::QuerySendEnabledRequest>,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                <T as Query>::send_enabled(&inner, request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let inner = inner.0;
-                        let method = SendEnabledSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                _ => {
-                    Box::pin(async move {
-                        Ok(
-                            http::Response::builder()
-                                .status(200)
-                                .header("grpc-status", "12")
-                                .header("content-type", "application/grpc")
-                                .body(empty_body())
-                                .unwrap(),
-                        )
-                    })
-                }
-            }
-        }
-    }
-    impl<T: Query> Clone for QueryServer<T> {
-        fn clone(&self) -> Self {
-            let inner = self.inner.clone();
-            Self {
-                inner,
-                accept_compression_encodings: self.accept_compression_encodings,
-                send_compression_encodings: self.send_compression_encodings,
-                max_decoding_message_size: self.max_decoding_message_size,
-                max_encoding_message_size: self.max_encoding_message_size,
-            }
-        }
-    }
-    impl<T: Query> Clone for _Inner<T> {
-        fn clone(&self) -> Self {
-            Self(Arc::clone(&self.0))
-        }
-    }
-    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            write!(f, "{:?}", self.0)
-        }
-    }
-    impl<T: Query> tonic::server::NamedService for QueryServer<T> {
-        const NAME: &'static str = "cosmos.bank.v1beta1.Query";
-    }
-}
-/// SendAuthorization allows the grantee to spend up to spend_limit coins from
-/// the granter's account.
-///
-/// Since: cosmos-sdk 0.43
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SendAuthorization {
-    #[prost(message, repeated, tag = "1")]
-    pub spend_limit: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
-    /// allow_list specifies an optional list of addresses to whom the grantee can send tokens on behalf of the
-    /// granter. If omitted, any recipient is allowed.
-    ///
-    /// Since: cosmos-sdk 0.47
-    #[prost(string, repeated, tag = "2")]
-    pub allow_list: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-}
-impl ::prost::Name for SendAuthorization {
-    const NAME: &'static str = "SendAuthorization";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
-    }
-}
-/// GenesisState defines the bank module's genesis state.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GenesisState {
-    /// params defines all the parameters of the module.
-    #[prost(message, optional, tag = "1")]
-    pub params: ::core::option::Option<Params>,
-    /// balances is an array containing the balances of all the accounts.
-    #[prost(message, repeated, tag = "2")]
-    pub balances: ::prost::alloc::vec::Vec<Balance>,
-    /// supply represents the total supply. If it is left empty, then supply will be calculated based on the provided
-    /// balances. Otherwise, it will be used to validate that the sum of the balances equals this amount.
-    #[prost(message, repeated, tag = "3")]
-    pub supply: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
-    /// denom_metadata defines the metadata of the different coins.
-    #[prost(message, repeated, tag = "4")]
-    pub denom_metadata: ::prost::alloc::vec::Vec<Metadata>,
-    /// send_enabled defines the denoms where send is enabled or disabled.
-    ///
-    /// Since: cosmos-sdk 0.47
-    #[prost(message, repeated, tag = "5")]
-    pub send_enabled: ::prost::alloc::vec::Vec<SendEnabled>,
-}
-impl ::prost::Name for GenesisState {
-    const NAME: &'static str = "GenesisState";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
-    }
-}
-/// Balance defines an account address and balance pair used in the bank module's
-/// genesis state.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Balance {
-    /// address is the address of the balance holder.
-    #[prost(string, tag = "1")]
-    pub address: ::prost::alloc::string::String,
-    /// coins defines the different coins this balance holds.
-    #[prost(message, repeated, tag = "2")]
-    pub coins: ::prost::alloc::vec::Vec<super::super::base::v1beta1::Coin>,
-}
-impl ::prost::Name for Balance {
-    const NAME: &'static str = "Balance";
-    const PACKAGE: &'static str = "cosmos.bank.v1beta1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("cosmos.bank.v1beta1.{}", Self::NAME)
     }
 }

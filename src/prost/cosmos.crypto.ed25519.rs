@@ -16,7 +16,7 @@ impl ::prost::Name for PubKey {
         ::prost::alloc::format!("cosmos.crypto.ed25519.{}", Self::NAME)
     }
 }
-/// Deprecated: PrivKey defines a ed25519 private key.
+/// PrivKey defines a ed25519 private key.
 /// NOTE: ed25519 keys must not be used in SDK apps except in a tendermint validator context.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]

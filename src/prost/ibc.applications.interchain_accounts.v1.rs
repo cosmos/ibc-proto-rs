@@ -1,21 +1,3 @@
-/// An InterchainAccount is defined as a BaseAccount & the address of the account owner on the controller chain
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct InterchainAccount {
-    #[prost(message, optional, tag = "1")]
-    pub base_account: ::core::option::Option<
-        super::super::super::super::cosmos::auth::v1beta1::BaseAccount,
-    >,
-    #[prost(string, tag = "2")]
-    pub account_owner: ::prost::alloc::string::String,
-}
-impl ::prost::Name for InterchainAccount {
-    const NAME: &'static str = "InterchainAccount";
-    const PACKAGE: &'static str = "ibc.applications.interchain_accounts.v1";
-    fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("ibc.applications.interchain_accounts.v1.{}", Self::NAME)
-    }
-}
 /// InterchainAccountPacketData is comprised of a raw transaction, type of transaction and optional memo field.
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -78,6 +60,24 @@ impl Type {
             "TYPE_EXECUTE_TX" => Some(Self::ExecuteTx),
             _ => None,
         }
+    }
+}
+/// An InterchainAccount is defined as a BaseAccount & the address of the account owner on the controller chain
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct InterchainAccount {
+    #[prost(message, optional, tag = "1")]
+    pub base_account: ::core::option::Option<
+        super::super::super::super::cosmos::auth::v1beta1::BaseAccount,
+    >,
+    #[prost(string, tag = "2")]
+    pub account_owner: ::prost::alloc::string::String,
+}
+impl ::prost::Name for InterchainAccount {
+    const NAME: &'static str = "InterchainAccount";
+    const PACKAGE: &'static str = "ibc.applications.interchain_accounts.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.applications.interchain_accounts.v1.{}", Self::NAME)
     }
 }
 /// Metadata defines a set of protocol specific data encoded into the ICS27 channel version bytestring

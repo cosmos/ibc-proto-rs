@@ -9,6 +9,7 @@ impl serde::Serialize for AuthorizationType {
             Self::Delegate => "AUTHORIZATION_TYPE_DELEGATE",
             Self::Undelegate => "AUTHORIZATION_TYPE_UNDELEGATE",
             Self::Redelegate => "AUTHORIZATION_TYPE_REDELEGATE",
+            Self::CancelUnbondingDelegation => "AUTHORIZATION_TYPE_CANCEL_UNBONDING_DELEGATION",
         };
         serializer.serialize_str(variant)
     }
@@ -24,6 +25,7 @@ impl<'de> serde::Deserialize<'de> for AuthorizationType {
             "AUTHORIZATION_TYPE_DELEGATE",
             "AUTHORIZATION_TYPE_UNDELEGATE",
             "AUTHORIZATION_TYPE_REDELEGATE",
+            "AUTHORIZATION_TYPE_CANCEL_UNBONDING_DELEGATION",
         ];
 
         struct GeneratedVisitor;
@@ -68,6 +70,7 @@ impl<'de> serde::Deserialize<'de> for AuthorizationType {
                     "AUTHORIZATION_TYPE_DELEGATE" => Ok(AuthorizationType::Delegate),
                     "AUTHORIZATION_TYPE_UNDELEGATE" => Ok(AuthorizationType::Undelegate),
                     "AUTHORIZATION_TYPE_REDELEGATE" => Ok(AuthorizationType::Redelegate),
+                    "AUTHORIZATION_TYPE_CANCEL_UNBONDING_DELEGATION" => Ok(AuthorizationType::CancelUnbondingDelegation),
                     _ => Err(serde::de::Error::unknown_variant(value, FIELDS)),
                 }
             }
@@ -3062,9 +3065,15 @@ impl serde::Serialize for MsgUndelegateResponse {
         if true {
             len += 1;
         }
+        if true {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("cosmos.staking.v1beta1.MsgUndelegateResponse", len)?;
         if let Some(v) = self.completion_time.as_ref() {
             struct_ser.serialize_field("completionTime", v)?;
+        }
+        if let Some(v) = self.amount.as_ref() {
+            struct_ser.serialize_field("amount", v)?;
         }
         struct_ser.end()
     }
@@ -3078,11 +3087,13 @@ impl<'de> serde::Deserialize<'de> for MsgUndelegateResponse {
         const FIELDS: &[&str] = &[
             "completion_time",
             "completionTime",
+            "amount",
         ];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
             CompletionTime,
+            Amount,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
@@ -3105,6 +3116,7 @@ impl<'de> serde::Deserialize<'de> for MsgUndelegateResponse {
                     {
                         match value {
                             "completionTime" | "completion_time" => Ok(GeneratedField::CompletionTime),
+                            "amount" => Ok(GeneratedField::Amount),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -3125,6 +3137,7 @@ impl<'de> serde::Deserialize<'de> for MsgUndelegateResponse {
                     V: serde::de::MapAccess<'de>,
             {
                 let mut completion_time__ = None;
+                let mut amount__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::CompletionTime => {
@@ -3133,10 +3146,17 @@ impl<'de> serde::Deserialize<'de> for MsgUndelegateResponse {
                             }
                             completion_time__ = map_.next_value()?;
                         }
+                        GeneratedField::Amount => {
+                            if amount__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("amount"));
+                            }
+                            amount__ = map_.next_value()?;
+                        }
                     }
                 }
                 Ok(MsgUndelegateResponse {
                     completion_time: completion_time__,
+                    amount: amount__,
                 })
             }
         }

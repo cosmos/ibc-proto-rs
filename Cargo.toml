@@ -7,7 +7,7 @@ license      = "Apache-2.0"
 repository   = "https://github.com/cosmos/ibc-proto-rs"
 readme       = "README.md"
 categories   = ["cryptography::cryptocurrencies", "encoding", "no-std"]
-keywords     = ["blockchain", "cosmos", "tendermint", "ibc", "proto"]
+keywords     = ["blockchain", "cosmos", "interchain", "ibc", "proto"]
 exclude      = ["definitions", "tools", ".changelog", ".github"]
 description  = """
     ibc-proto provides Cosmos SDK & IBC Protocol Buffers definitions
@@ -47,8 +47,8 @@ scale-info         = { version = "2.1.2", default-features = false, features = [
 ## For borsh encode or decode, needs to track `anchor-lang` and `near-sdk-rs` borsh version
 borsh = { version = "0.10", default-features = false, optional = true }
 
-[dependencies.tendermint-proto]
-version          = "0.34"
+[dependencies.cometbft-proto]
+version          = "0.1.0-alpha.2"
 default-features = false
 
 [dev-dependencies]
