@@ -217,7 +217,7 @@ rm -f src/prost/cosmos.base.store.v1beta1.rs
 rm -f src/prost/tendermint.abci.rs
 
 # Remove the temporary checkouts of the repositories
-# rm -rf "$COSMOS_ICS_DIR"
-# rm -rf "$COSMOS_SDK_DIR"
-# rm -rf "$IBC_GO_DIR"
-# rm -rf "$NFT_TRANSFER_DIR"
+rm -rf "$COSMOS_ICS_DIR"
+rm -rf "$COSMOS_SDK_DIR"
+rm -rf "$IBC_GO_DIR"
+rm -rf "$NFT_TRANSFER_DIR"
