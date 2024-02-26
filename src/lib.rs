@@ -144,20 +144,6 @@ pub mod cosmos {
                 include_proto!("cosmos.base.tendermint.v1beta1.rs");
             }
         }
-        pub mod kv {
-            pub mod v1beta1 {
-                include_proto!("cosmos.base.kv.v1beta1.rs");
-                #[cfg(feature = "serde")]
-                include_proto!("cosmos.base.kv.v1beta1.serde.rs");
-            }
-        }
-        pub mod snapshots {
-            pub mod v1beta1 {
-                include_proto!("cosmos.base.snapshots.v1beta1.rs");
-                #[cfg(feature = "serde")]
-                include_proto!("cosmos.base.snapshots.v1beta1.serde.rs");
-            }
-        }
     }
     pub mod crypto {
         pub mod multisig {
