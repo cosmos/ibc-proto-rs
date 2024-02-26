@@ -32,8 +32,7 @@ pub struct CompileCmd {
 
 impl CompileCmd {
     pub fn run(&self) {
-        self.compile_ibc_protos()
-        .unwrap_or_else(|e| {
+        self.compile_ibc_protos().unwrap_or_else(|e| {
             eprintln!("[error] failed to compile protos: {}", e);
             process::exit(1);
         });
