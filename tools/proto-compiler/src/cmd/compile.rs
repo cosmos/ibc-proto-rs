@@ -134,7 +134,8 @@ impl CompileCmd {
             .file_descriptor_set_path(self.out.join("proto_descriptor.bin"))
             // Use the v0.34 definition of `abci.Event` which does not enforce valid UTF-8 data
             // for its `key` and `value` attributes, specifying them as `bytes` instead of `string`.
-            // This is required, because ibc-go emits event attributes which are not valid UTF-8,
+            // This is required, because ibc-go emits event attributes which are not valid UTF-8
+            // (sounds like a bug if it's up to CometBFT 0.38?),
             // so we need to use this definition to be able to parse them.
             // In Protobuf, `bytes` and `string` are wire-compatible, so doing this strictly
             // increases the amount fo data we can parse.
@@ -142,7 +143,12 @@ impl CompileCmd {
                 ".tendermint.abci.Event",
                 "::cometbft_proto::abci::v1beta1::Event",
             )
-            .extern_path(".cometbft", "::cometbft_proto")
+            // All other types should be up to CometBFT 0.38
+            .extern_path(".tendermint.abci", "::cometbft_proto::abci::v1beta3")
+            .extern_path(".tendermint.crypto", "::cometbft_proto::crypto::v1")
+            .extern_path(".tendermint.p2p", "::cometbft_proto::p2p::v1")
+            .extern_path(".tendermint.types", "::cometbft_proto::types::v1")
+            .extern_path(".tendermint.version", "::cometbft_proto::version::v1")
             .extern_path(".ics23", "::ics23")
             .type_attribute(".google.protobuf.Any", attrs_eq)
             .type_attribute(".google.protobuf.Any", attrs_jsonschema)
