@@ -8,7 +8,7 @@
 pub struct ValidatorSetChangePacketData {
     #[prost(message, repeated, tag = "1")]
     pub validator_updates: ::prost::alloc::vec::Vec<
-        ::cometbft_proto::abci::v1beta3::ValidatorUpdate,
+        ::cometbft_proto::abci::v1beta1::ValidatorUpdate,
     >,
     #[prost(uint64, tag = "2")]
     pub valset_update_id: u64,
@@ -47,7 +47,7 @@ impl ::prost::Name for VscMaturedPacketData {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SlashPacketData {
     #[prost(message, optional, tag = "1")]
-    pub validator: ::core::option::Option<::cometbft_proto::abci::v1beta3::Validator>,
+    pub validator: ::core::option::Option<::cometbft_proto::abci::v1beta1::Validator>,
     /// map to the infraction block height on the provider
     #[prost(uint64, tag = "2")]
     pub valset_update_id: u64,
@@ -142,7 +142,7 @@ impl ::prost::Name for ConsumerPacketDataV1 {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SlashPacketDataV1 {
     #[prost(message, optional, tag = "1")]
-    pub validator: ::core::option::Option<::cometbft_proto::abci::v1beta3::Validator>,
+    pub validator: ::core::option::Option<::cometbft_proto::abci::v1beta1::Validator>,
     /// map to the infraction block height on the provider
     #[prost(uint64, tag = "2")]
     pub valset_update_id: u64,
@@ -340,7 +340,7 @@ pub struct ConsumerGenesisState {
     /// InitialValset filled in on new chain and on restart.
     #[prost(message, repeated, tag = "8")]
     pub initial_val_set: ::prost::alloc::vec::Vec<
-        ::cometbft_proto::abci::v1beta3::ValidatorUpdate,
+        ::cometbft_proto::abci::v1beta1::ValidatorUpdate,
     >,
     /// HeightToValsetUpdateId nil on new chain, filled in on restart.
     #[prost(message, repeated, tag = "9")]

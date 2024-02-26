@@ -143,6 +143,8 @@ impl CompileCmd {
                 "::cometbft_proto::abci::v1beta1::Event",
             )
             // All other types should be up to CometBFT 0.38
+            .extern_path(".tendermint.abci.Validator", "::cometbft_proto::abci::v1beta1::Validator")
+            .extern_path(".tendermint.abci.ValidatorUpdate", "::cometbft_proto::abci::v1beta1::ValidatorUpdate")
             .extern_path(".tendermint.abci", "::cometbft_proto::abci::v1beta3")
             .extern_path(".tendermint.crypto", "::cometbft_proto::crypto::v1")
             .extern_path(".tendermint.p2p", "::cometbft_proto::p2p::v1")

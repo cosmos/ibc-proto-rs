@@ -580,7 +580,7 @@ impl ::prost::Name for Pool {
 pub struct ValidatorUpdates {
     #[prost(message, repeated, tag = "1")]
     pub updates: ::prost::alloc::vec::Vec<
-        ::cometbft_proto::abci::v1beta3::ValidatorUpdate,
+        ::cometbft_proto::abci::v1beta1::ValidatorUpdate,
     >,
 }
 impl ::prost::Name for ValidatorUpdates {
