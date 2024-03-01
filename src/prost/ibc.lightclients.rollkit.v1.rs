@@ -10,7 +10,7 @@
 pub struct Header {
     /// the Tendermint header
     #[prost(message, optional, tag = "1")]
-    pub tendermint_header: ::core::option::Option<super::super::super::lightclients::tendermint::v1::Header>,
+    pub tendermint_header: ::core::option::Option<super::super::tendermint::v1::Header>,
     /// additional data needed to query the VerifyMembership RPC on the DA light client
     #[prost(message, optional, tag = "2")]
     pub da_data: ::core::option::Option<DaData>,

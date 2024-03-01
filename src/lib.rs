@@ -313,13 +313,6 @@ pub mod ibc {
                 include_proto!("ibc.applications.nft_transfer.v1.serde.rs");
             }
         }
-        pub mod rollkit {
-            pub mod v1 {
-                include_proto!("ibc.lightclients.rollkit.v1.rs");
-                #[cfg(feature = "serde")]
-                include_proto!("ibc.lightclients.rollkit.v1.serde.rs");
-            }
-        }
     }
     pub mod core {
         pub mod channel {
@@ -383,6 +376,13 @@ pub mod ibc {
                 include_proto!("ibc.lightclients.tendermint.v1.rs");
                 #[cfg(feature = "serde")]
                 include_proto!("ibc.lightclients.tendermint.v1.serde.rs");
+            }
+        }
+        pub mod rollkit {
+            pub mod v1 {
+                include_proto!("ibc.lightclients.rollkit.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("ibc.lightclients.rollkit.v1.serde.rs");
             }
         }
     }
