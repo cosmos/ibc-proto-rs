@@ -25,6 +25,10 @@ pub struct CompileCmd {
     /// path to the nft-transfer proto files
     nft: PathBuf,
 
+    #[argh(option, short = 'r')]
+    /// path to the Rollkit rollups proto files
+    rol: PathBuf,
+
     #[argh(option, short = 'o')]
     /// path to output the generated Rust sources into
     out: PathBuf,
@@ -37,6 +41,7 @@ impl CompileCmd {
             self.sdk.as_ref(),
             self.ics.as_ref(),
             self.nft.as_ref(),
+            self.rol.as_ref(),
             self.out.as_ref(),
         )
         .unwrap_or_else(|e| {
@@ -62,6 +67,7 @@ impl CompileCmd {
         sdk_dir: &Path,
         ics_dir: &Path,
         nft_dir: &Path,
+        rol_dir: &Path,
         out_dir: &Path,
     ) -> Result<(), Box<dyn std::error::Error>> {
         println!(
@@ -77,6 +83,8 @@ impl CompileCmd {
             root.join("../../definitions/ibc/lightclients/localhost/v1"),
             root.join("../../definitions/stride/interchainquery/v1"),
             ibc_dir.join("ibc"),
+            nft_dir.join("ibc"),
+            rol_dir.join("ibc"),
             sdk_dir.join("cosmos/auth"),
             sdk_dir.join("cosmos/gov"),
             sdk_dir.join("cosmos/tx"),
@@ -88,7 +96,6 @@ impl CompileCmd {
             ics_dir.join("interchain_security/ccv/v1"),
             ics_dir.join("interchain_security/ccv/provider"),
             ics_dir.join("interchain_security/ccv/consumer"),
-            nft_dir.join("ibc"),
         ];
 
         let proto_includes_paths = [
@@ -96,6 +103,7 @@ impl CompileCmd {
             ibc_dir.to_path_buf(),
             ics_dir.to_path_buf(),
             nft_dir.to_path_buf(),
+            rol_dir.to_path_buf(),
             root.join("../../definitions/mock"),
             root.join("../../definitions/ibc/lightclients/localhost/v1"),
             root.join("../../definitions/stride/interchainquery/v1"),
@@ -212,6 +220,7 @@ impl CompileCmd {
                 ".cosmos",
                 ".interchain_security",
                 ".stride",
+                ".rollkit",
                 ".google",
             ])?;
 

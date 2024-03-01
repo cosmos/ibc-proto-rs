@@ -27,16 +27,19 @@ COSMOS_SDK_GIT="${COSMOS_SDK_GIT:-$CACHE_PATH/cosmos-sdk.git}"
 IBC_GO_GIT="${IBC_GO_GIT:-$CACHE_PATH/ibc-go.git}"
 COSMOS_ICS_GIT="${COSMOS_ICS_GIT:-$CACHE_PATH/interchain-security.git}"
 NFT_TRANSFER_GIT="${NFT_TRANSFER_GIT:-$CACHE_PATH/nft-transfer.git}"
+ROLLKIT_IBC_GIT="${ROLLKIT_IBC_GIT:-$CACHE_PATH/07-rollkit.git}"
 
 COSMOS_SDK_COMMIT="$(cat src/COSMOS_SDK_COMMIT)"
 IBC_GO_COMMIT="$(cat src/IBC_GO_COMMIT)"
 INTERCHAIN_SECURITY_COMMIT="$(cat src/INTERCHAIN_SECURITY_COMMIT)"
 NFT_TRANSFER_COMMIT="$(cat src/NFT_TRANSFER_COMMIT)"
+ROLLKIT_IBC_COMMIT="$(cat src/ROLLKIT_IBC_COMMIT)"
 
 echo "COSMOS_SDK_COMMIT: $COSMOS_SDK_COMMIT"
 echo "IBC_GO_COMMIT: $IBC_GO_COMMIT"
 echo "INTERCHAIN_SECURITY_COMMIT: $INTERCHAIN_SECURITY_COMMIT"
 echo "NFT_TRANSFER_COMMIT: $NFT_TRANSFER_COMMIT"
+echo "ROLLKIT_IBC_COMMIT: $ROLLKIT_IBC_COMMIT"
 
 # Use either --ics-commit flag for commit ID,
 # or --ics-tag for git tag. Because we can't modify
@@ -101,6 +104,14 @@ else
 fi
 
 
+if [[ ! -e "$ROLLKIT_IBC_GIT" ]]
+ then
+    echo "Cloning rollkit-ibc source code to as bare git repository to $ROLLKIT_IBC_GIT"
+    git clone --mirror https://github.com/cosmos/07-rollkit.git "$ROLLKIT_IBC_GIT"
+else 
+    echo "Using existing rollkit-ibc bare git repository at $ROLLKIT_IBC_GIT"
+fi
+
 # Update the repositories using git fetch. This is so that
 # we keep local copies of the repositories up to sync first.
 pushd "$COSMOS_ICS_GIT"
@@ -116,6 +127,10 @@ git fetch
 popd
 
 pushd "$NFT_TRANSFER_GIT"
+git fetch
+popd
+
+pushd "$ROLLKIT_IBC_GIT"
 git fetch
 popd
 
@@ -181,6 +196,19 @@ buf export -v -o ../proto-include
 rm ../proto-include/ibc/core/client/v1/client.proto
 popd
 
+ROLLKIT_IBC_DIR=$(mktemp -d /tmp/07-rollkit-XXXXXXXX)
+
+pushd "$ROLLKIT_IBC_DIR"
+git clone "$ROLLKIT_IBC_GIT" .
+git checkout -b "$ROLLKIT_IBC_COMMIT" "$ROLLKIT_IBC_COMMIT"
+
+cd proto
+buf export -v -o ../proto-include
+rm ../proto-include/ibc/core/client/v1/client.proto
+rm ../proto-include/ibc/core/commitment/v1/commitment.proto
+rm ../proto-include/ibc/lightclients/tendermint/v1/tendermint.proto
+popd
+
 # Remove the existing generated protobuf files
 # so that the newly generated code does not
 # contain removed files.
@@ -201,6 +229,7 @@ cargo run -- compile \
   --sdk "$COSMOS_SDK_DIR/proto-include" \
   --ibc "$IBC_GO_DIR/proto-include" \
   --nft "$NFT_TRANSFER_DIR/proto-include" \
+  --rol "$ROLLKIT_IBC_DIR/proto-include" \
   --out ../../src/prost
 
 cd ../..
@@ -221,3 +250,4 @@ rm -rf "$COSMOS_ICS_DIR"
 rm -rf "$COSMOS_SDK_DIR"
 rm -rf "$IBC_GO_DIR"
 rm -rf "$NFT_TRANSFER_DIR"
+rm -rf "$ROLLKIT_IBC_DIR"
