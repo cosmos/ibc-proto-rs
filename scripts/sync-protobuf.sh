@@ -27,7 +27,7 @@ COSMOS_SDK_GIT="${COSMOS_SDK_GIT:-$CACHE_PATH/cosmos-sdk.git}"
 IBC_GO_GIT="${IBC_GO_GIT:-$CACHE_PATH/ibc-go.git}"
 COSMOS_ICS_GIT="${COSMOS_ICS_GIT:-$CACHE_PATH/interchain-security.git}"
 NFT_TRANSFER_GIT="${NFT_TRANSFER_GIT:-$CACHE_PATH/nft-transfer.git}"
-ROLLKIT_IBC_GIT="${ROLLKIT_IBC_GIT:-$CACHE_PATH/07-rollkit.git}"
+ROLLKIT_IBC_GIT="${ROLLKIT_IBC_GIT:-$CACHE_PATH/rollkit-ibc.git}"
 
 COSMOS_SDK_COMMIT="$(cat src/COSMOS_SDK_COMMIT)"
 IBC_GO_COMMIT="$(cat src/IBC_GO_COMMIT)"
@@ -107,7 +107,7 @@ fi
 if [[ ! -e "$ROLLKIT_IBC_GIT" ]]
  then
     echo "Cloning rollkit-ibc source code to as bare git repository to $ROLLKIT_IBC_GIT"
-    git clone --mirror https://github.com/cosmos/07-rollkit.git "$ROLLKIT_IBC_GIT"
+    git clone --mirror https://github.com/cosmos/rollkit-ibc.git "$ROLLKIT_IBC_GIT"
 else 
     echo "Using existing rollkit-ibc bare git repository at $ROLLKIT_IBC_GIT"
 fi
@@ -196,7 +196,7 @@ buf export -v -o ../proto-include
 rm ../proto-include/ibc/core/client/v1/client.proto
 popd
 
-ROLLKIT_IBC_DIR=$(mktemp -d /tmp/07-rollkit-XXXXXXXX)
+ROLLKIT_IBC_DIR=$(mktemp -d /tmp/rollkit-ibc-XXXXXXXX)
 
 pushd "$ROLLKIT_IBC_DIR"
 git clone "$ROLLKIT_IBC_GIT" .
