@@ -36,7 +36,7 @@ pub struct ClientState {
     /// Proof specifications used in verifying counterparty state
     #[prost(message, repeated, tag = "8")]
     pub proof_specs: ::prost::alloc::vec::Vec<
-        super::super::super::super::cosmos::ics23::v1::ProofSpec,
+        ::cosmos_sdk_proto::cosmos::ics23::v1::ProofSpec,
     >,
     /// Path at which next upgraded client will be committed.
     /// Each element corresponds to the key for a single CommitmentProof in the

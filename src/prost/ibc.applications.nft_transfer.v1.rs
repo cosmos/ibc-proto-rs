@@ -602,7 +602,7 @@ pub struct QueryClassTracesRequest {
     /// pagination defines an optional pagination for the request.
     #[prost(message, optional, tag = "1")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageRequest,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageRequest,
     >,
 }
 impl ::prost::Name for QueryClassTracesRequest {
@@ -623,7 +623,7 @@ pub struct QueryClassTracesResponse {
     /// pagination defines the pagination in the response.
     #[prost(message, optional, tag = "2")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageResponse,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageResponse,
     >,
 }
 impl ::prost::Name for QueryClassTracesResponse {

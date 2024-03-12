@@ -792,7 +792,7 @@ pub struct Params {
     /// The fee required to be paid to add a reward denom
     #[prost(message, optional, tag = "9")]
     pub consumer_reward_denom_registration_fee: ::core::option::Option<
-        super::super::super::super::cosmos::base::v1beta1::Coin,
+        ::cosmos_sdk_proto::cosmos::base::v1beta1::Coin,
     >,
 }
 impl ::prost::Name for Params {

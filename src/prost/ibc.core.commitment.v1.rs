@@ -71,7 +71,7 @@ impl ::prost::Name for MerklePath {
 pub struct MerkleProof {
     #[prost(message, repeated, tag = "1")]
     pub proofs: ::prost::alloc::vec::Vec<
-        super::super::super::super::cosmos::ics23::v1::CommitmentProof,
+        ::cosmos_sdk_proto::cosmos::ics23::v1::CommitmentProof,
     >,
 }
 impl ::prost::Name for MerkleProof {

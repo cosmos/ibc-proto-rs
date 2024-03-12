@@ -2989,7 +2989,7 @@ pub struct QueryChannelsRequest {
     /// pagination request
     #[prost(message, optional, tag = "1")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageRequest,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageRequest,
     >,
 }
 impl ::prost::Name for QueryChannelsRequest {
@@ -3009,7 +3009,7 @@ pub struct QueryChannelsResponse {
     /// pagination response
     #[prost(message, optional, tag = "2")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageResponse,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageResponse,
     >,
     /// query block height
     #[prost(message, optional, tag = "3")]
@@ -3033,7 +3033,7 @@ pub struct QueryConnectionChannelsRequest {
     /// pagination request
     #[prost(message, optional, tag = "2")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageRequest,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageRequest,
     >,
 }
 impl ::prost::Name for QueryConnectionChannelsRequest {
@@ -3054,7 +3054,7 @@ pub struct QueryConnectionChannelsResponse {
     /// pagination response
     #[prost(message, optional, tag = "2")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageResponse,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageResponse,
     >,
     /// query block height
     #[prost(message, optional, tag = "3")]
@@ -3221,7 +3221,7 @@ pub struct QueryPacketCommitmentsRequest {
     /// pagination request
     #[prost(message, optional, tag = "3")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageRequest,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageRequest,
     >,
 }
 impl ::prost::Name for QueryPacketCommitmentsRequest {
@@ -3241,7 +3241,7 @@ pub struct QueryPacketCommitmentsResponse {
     /// pagination response
     #[prost(message, optional, tag = "2")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageResponse,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageResponse,
     >,
     /// query block height
     #[prost(message, optional, tag = "3")]
@@ -3358,7 +3358,7 @@ pub struct QueryPacketAcknowledgementsRequest {
     /// pagination request
     #[prost(message, optional, tag = "3")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageRequest,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageRequest,
     >,
     /// list of packet sequences
     #[prost(uint64, repeated, tag = "4")]
@@ -3381,7 +3381,7 @@ pub struct QueryPacketAcknowledgementsResponse {
     /// pagination response
     #[prost(message, optional, tag = "2")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageResponse,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageResponse,
     >,
     /// query block height
     #[prost(message, optional, tag = "3")]

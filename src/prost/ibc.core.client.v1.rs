@@ -150,9 +150,7 @@ pub struct UpgradeProposal {
     #[prost(string, tag = "2")]
     pub description: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "3")]
-    pub plan: ::core::option::Option<
-        super::super::super::super::cosmos::upgrade::v1beta1::Plan,
-    >,
+    pub plan: ::core::option::Option<::cosmos_sdk_proto::cosmos::upgrade::v1beta1::Plan>,
     /// An UpgradedClientState must be provided to perform an IBC breaking upgrade.
     /// This will make the chain commit to the correct upgraded (self) client state
     /// before the upgrade occurs, so that connecting chains can verify that the
@@ -432,9 +430,7 @@ impl ::prost::Name for MsgRecoverClientResponse {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgIbcSoftwareUpgrade {
     #[prost(message, optional, tag = "1")]
-    pub plan: ::core::option::Option<
-        super::super::super::super::cosmos::upgrade::v1beta1::Plan,
-    >,
+    pub plan: ::core::option::Option<::cosmos_sdk_proto::cosmos::upgrade::v1beta1::Plan>,
     /// An UpgradedClientState must be provided to perform an IBC breaking upgrade.
     /// This will make the chain commit to the correct upgraded (self) client state
     /// before the upgrade occurs, so that connecting chains can verify that the
@@ -1318,7 +1314,7 @@ pub struct QueryClientStatesRequest {
     /// pagination request
     #[prost(message, optional, tag = "1")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageRequest,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageRequest,
     >,
 }
 impl ::prost::Name for QueryClientStatesRequest {
@@ -1339,7 +1335,7 @@ pub struct QueryClientStatesResponse {
     /// pagination response
     #[prost(message, optional, tag = "2")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageResponse,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageResponse,
     >,
 }
 impl ::prost::Name for QueryClientStatesResponse {
@@ -1411,7 +1407,7 @@ pub struct QueryConsensusStatesRequest {
     /// pagination request
     #[prost(message, optional, tag = "2")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageRequest,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageRequest,
     >,
 }
 impl ::prost::Name for QueryConsensusStatesRequest {
@@ -1432,7 +1428,7 @@ pub struct QueryConsensusStatesResponse {
     /// pagination response
     #[prost(message, optional, tag = "2")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageResponse,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageResponse,
     >,
 }
 impl ::prost::Name for QueryConsensusStatesResponse {
@@ -1453,7 +1449,7 @@ pub struct QueryConsensusStateHeightsRequest {
     /// pagination request
     #[prost(message, optional, tag = "2")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageRequest,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageRequest,
     >,
 }
 impl ::prost::Name for QueryConsensusStateHeightsRequest {
@@ -1474,7 +1470,7 @@ pub struct QueryConsensusStateHeightsResponse {
     /// pagination response
     #[prost(message, optional, tag = "2")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageResponse,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageResponse,
     >,
 }
 impl ::prost::Name for QueryConsensusStateHeightsResponse {

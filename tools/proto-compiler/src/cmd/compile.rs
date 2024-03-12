@@ -13,10 +13,6 @@ pub struct CompileCmd {
     /// path to the IBC-Go proto files
     ibc: PathBuf,
 
-    #[argh(option, short = 's')]
-    /// path to the Cosmos SDK proto files
-    sdk: PathBuf,
-
     #[argh(option, short = 'c')]
     /// path to the Cosmos ICS proto files
     ics: PathBuf,
@@ -34,7 +30,6 @@ impl CompileCmd {
     pub fn run(&self) {
         Self::compile_ibc_protos(
             self.ibc.as_ref(),
-            self.sdk.as_ref(),
             self.ics.as_ref(),
             self.nft.as_ref(),
             self.out.as_ref(),
@@ -59,7 +54,6 @@ impl CompileCmd {
 
     fn compile_ibc_protos(
         ibc_dir: &Path,
-        sdk_dir: &Path,
         ics_dir: &Path,
         nft_dir: &Path,
         out_dir: &Path,
@@ -77,14 +71,6 @@ impl CompileCmd {
             root.join("../../definitions/ibc/lightclients/localhost/v1"),
             root.join("../../definitions/stride/interchainquery/v1"),
             ibc_dir.join("ibc"),
-            sdk_dir.join("cosmos/auth"),
-            sdk_dir.join("cosmos/gov"),
-            sdk_dir.join("cosmos/tx"),
-            sdk_dir.join("cosmos/base"),
-            sdk_dir.join("cosmos/crypto"),
-            sdk_dir.join("cosmos/bank"),
-            sdk_dir.join("cosmos/staking"),
-            sdk_dir.join("cosmos/upgrade"),
             ics_dir.join("interchain_security/ccv/v1"),
             ics_dir.join("interchain_security/ccv/provider"),
             ics_dir.join("interchain_security/ccv/consumer"),
@@ -92,7 +78,6 @@ impl CompileCmd {
         ];
 
         let proto_includes_paths = [
-            sdk_dir.to_path_buf(),
             ibc_dir.to_path_buf(),
             ics_dir.to_path_buf(),
             nft_dir.to_path_buf(),
@@ -105,6 +90,7 @@ impl CompileCmd {
         let mut protos: Vec<PathBuf> = vec![];
         for proto_path in &proto_paths {
             println!("Looking for proto files in '{}'", proto_path.display());
+
             protos.append(
                 &mut WalkDir::new(proto_path)
                     .into_iter()
@@ -120,10 +106,12 @@ impl CompileCmd {
         }
 
         println!("Found the following protos:");
+
         // Show which protos will be compiled
         for proto in &protos {
             println!("\t-> {}", proto.display());
         }
+
         println!("[info ] Compiling..");
 
         let attrs_jsonschema = r#"#[cfg_attr(all(feature = "json-schema", feature = "serde"), derive(::schemars::JsonSchema))]"#;
@@ -155,7 +143,7 @@ impl CompileCmd {
                 "::tendermint_proto::v0_34::abci::Event",
             )
             .extern_path(".tendermint", "::tendermint_proto")
-            .extern_path(".ics23", "::ics23")
+            .extern_path(".cosmos", "::cosmos_sdk_proto::cosmos")
             .type_attribute(".google.protobuf.Any", attrs_eq)
             .type_attribute(".google.protobuf.Any", attrs_jsonschema)
             .type_attribute(".google.protobuf.Duration", attrs_eq)
@@ -185,35 +173,22 @@ impl CompileCmd {
     }
 
     fn build_pbjson_impls(out_dir: &Path) -> Result<(), Box<dyn std::error::Error>> {
-        println!("[info] Building pbjson Serialize, Deserialize impls...");
+        println!("[info ] Building pbjson Serialize, Deserialize impls...");
+
         let descriptor_set_path = out_dir.join("proto_descriptor.bin");
         let descriptor_set = std::fs::read(descriptor_set_path)?;
 
         pbjson_build::Builder::new()
             .register_descriptors(&descriptor_set)?
-            .out_dir(&out_dir)
+            .out_dir(out_dir)
             .exclude([
-                // The validator patch is not compatible with protojson builds
-                ".cosmos.staking.v1beta1.StakeAuthorization",
-                ".cosmos.staking.v1beta1.ValidatorUpdates",
-                // TODO: These have dependencies on tendermint-proto, which does not implement protojson.
-                //       After it's implemented there, we can delete these exclusions.
-                ".cosmos.base.abci.v1beta1",
-                ".cosmos.tx.v1beta1",
-                ".cosmos.base.tendermint.v1beta1",
                 ".interchain_security.ccv.v1",
                 ".interchain_security.ccv.provider.v1",
                 ".interchain_security.ccv.consumer.v1",
                 ".stride.interchainquery.v1",
             ])
             .emit_fields()
-            .build(&[
-                ".ibc",
-                ".cosmos",
-                ".interchain_security",
-                ".stride",
-                ".google",
-            ])?;
+            .build(&[".ibc", ".interchain_security", ".stride", ".google"])?;
 
         Ok(())
     }
@@ -225,18 +200,6 @@ impl CompileCmd {
         );
 
         const PATCHES: &[(&str, &[(&str, &str)])] = &[
-            (
-                "cosmos.staking.v1beta1.rs",
-                &[
-                    ("pub struct Validators", "pub struct ValidatorsVec"),
-                    (
-                        "impl ::prost::Name for Validators {",
-                        "impl ::prost::Name for ValidatorsVec {",
-                    ),
-                    ("AllowList(Validators)", "AllowList(ValidatorsVec)"),
-                    ("DenyList(Validators)", "DenyList(ValidatorsVec)"),
-                ],
-            ),
             (
                 "ibc.applications.transfer.v1.rs",
                 &[(

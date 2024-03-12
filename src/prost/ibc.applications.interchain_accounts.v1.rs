@@ -4,7 +4,7 @@
 pub struct InterchainAccount {
     #[prost(message, optional, tag = "1")]
     pub base_account: ::core::option::Option<
-        super::super::super::super::cosmos::auth::v1beta1::BaseAccount,
+        ::cosmos_sdk_proto::cosmos::auth::v1beta1::BaseAccount,
     >,
     #[prost(string, tag = "2")]
     pub account_owner: ::prost::alloc::string::String,

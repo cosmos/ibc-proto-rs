@@ -1118,7 +1118,7 @@ impl ::prost::Name for QueryConnectionResponse {
 pub struct QueryConnectionsRequest {
     #[prost(message, optional, tag = "1")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageRequest,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageRequest,
     >,
 }
 impl ::prost::Name for QueryConnectionsRequest {
@@ -1139,7 +1139,7 @@ pub struct QueryConnectionsResponse {
     /// pagination response
     #[prost(message, optional, tag = "2")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageResponse,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageResponse,
     >,
     /// query block height
     #[prost(message, optional, tag = "3")]

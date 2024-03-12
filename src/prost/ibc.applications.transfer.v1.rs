@@ -55,9 +55,7 @@ pub struct MsgTransfer {
     pub source_channel: ::prost::alloc::string::String,
     /// the tokens to be transferred
     #[prost(message, optional, tag = "3")]
-    pub token: ::core::option::Option<
-        super::super::super::super::cosmos::base::v1beta1::Coin,
-    >,
+    pub token: ::core::option::Option<::cosmos_sdk_proto::cosmos::base::v1beta1::Coin>,
     /// the sender address
     #[prost(string, tag = "4")]
     pub sender: ::prost::alloc::string::String,
@@ -549,7 +547,7 @@ pub struct QueryDenomTracesRequest {
     /// pagination defines an optional pagination for the request.
     #[prost(message, optional, tag = "1")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageRequest,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageRequest,
     >,
 }
 impl ::prost::Name for QueryDenomTracesRequest {
@@ -570,7 +568,7 @@ pub struct QueryDenomTracesResponse {
     /// pagination defines the pagination in the response.
     #[prost(message, optional, tag = "2")]
     pub pagination: ::core::option::Option<
-        super::super::super::super::cosmos::base::query::v1beta1::PageResponse,
+        ::cosmos_sdk_proto::cosmos::base::query::v1beta1::PageResponse,
     >,
 }
 impl ::prost::Name for QueryDenomTracesResponse {
@@ -690,9 +688,7 @@ impl ::prost::Name for QueryTotalEscrowForDenomRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryTotalEscrowForDenomResponse {
     #[prost(message, optional, tag = "1")]
-    pub amount: ::core::option::Option<
-        super::super::super::super::cosmos::base::v1beta1::Coin,
-    >,
+    pub amount: ::core::option::Option<::cosmos_sdk_proto::cosmos::base::v1beta1::Coin>,
 }
 impl ::prost::Name for QueryTotalEscrowForDenomResponse {
     const NAME: &'static str = "QueryTotalEscrowForDenomResponse";
@@ -1429,7 +1425,7 @@ pub struct Allocation {
     /// spend limitation on the channel
     #[prost(message, repeated, tag = "3")]
     pub spend_limit: ::prost::alloc::vec::Vec<
-        super::super::super::super::cosmos::base::v1beta1::Coin,
+        ::cosmos_sdk_proto::cosmos::base::v1beta1::Coin,
     >,
     /// allow list of receivers, an empty allow list permits any receiver address
     #[prost(string, repeated, tag = "4")]
@@ -1476,7 +1472,7 @@ pub struct GenesisState {
     /// by the transfer module
     #[prost(message, repeated, tag = "4")]
     pub total_escrowed: ::prost::alloc::vec::Vec<
-        super::super::super::super::cosmos::base::v1beta1::Coin,
+        ::cosmos_sdk_proto::cosmos::base::v1beta1::Coin,
     >,
 }
 impl ::prost::Name for GenesisState {
