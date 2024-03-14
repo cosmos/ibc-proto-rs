@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## v0.42.1
+
+*March 14th, 2024*
+
+This release only updates the Protobuf messages to ibc-go v8.1.1, which brings back the `ibc.lightclients.wasm.v1` protos.
+
+### FEATURES
+
+- Update to ibc-go v8.1.1 which brings back the `ibc.lightclients.wasm.v1`
+  protos ([\#201](https://github.com/cosmos/ibc-proto-rs/pull/201))
+
 ## v0.42.0
 
 *February 8th, 2024*
