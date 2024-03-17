@@ -714,98 +714,6 @@ impl<'de> serde::Deserialize<'de> for Duration {
         deserializer.deserialize_struct("google.protobuf.Duration", FIELDS, GeneratedVisitor)
     }
 }
-impl serde::Serialize for Edition {
-    #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        let variant = match self {
-            Self::Unknown => "EDITION_UNKNOWN",
-            Self::Proto2 => "EDITION_PROTO2",
-            Self::Proto3 => "EDITION_PROTO3",
-            Self::Edition2023 => "EDITION_2023",
-            Self::Edition1TestOnly => "EDITION_1_TEST_ONLY",
-            Self::Edition2TestOnly => "EDITION_2_TEST_ONLY",
-            Self::Edition99997TestOnly => "EDITION_99997_TEST_ONLY",
-            Self::Edition99998TestOnly => "EDITION_99998_TEST_ONLY",
-            Self::Edition99999TestOnly => "EDITION_99999_TEST_ONLY",
-        };
-        serializer.serialize_str(variant)
-    }
-}
-impl<'de> serde::Deserialize<'de> for Edition {
-    #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        const FIELDS: &[&str] = &[
-            "EDITION_UNKNOWN",
-            "EDITION_PROTO2",
-            "EDITION_PROTO3",
-            "EDITION_2023",
-            "EDITION_1_TEST_ONLY",
-            "EDITION_2_TEST_ONLY",
-            "EDITION_99997_TEST_ONLY",
-            "EDITION_99998_TEST_ONLY",
-            "EDITION_99999_TEST_ONLY",
-        ];
-
-        struct GeneratedVisitor;
-
-        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = Edition;
-
-            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-                write!(formatter, "expected one of: {:?}", &FIELDS)
-            }
-
-            fn visit_i64<E>(self, v: i64) -> core::result::Result<Self::Value, E>
-            where
-                E: serde::de::Error,
-            {
-                i32::try_from(v)
-                    .ok()
-                    .and_then(|x| x.try_into().ok())
-                    .ok_or_else(|| {
-                        serde::de::Error::invalid_value(serde::de::Unexpected::Signed(v), &self)
-                    })
-            }
-
-            fn visit_u64<E>(self, v: u64) -> core::result::Result<Self::Value, E>
-            where
-                E: serde::de::Error,
-            {
-                i32::try_from(v)
-                    .ok()
-                    .and_then(|x| x.try_into().ok())
-                    .ok_or_else(|| {
-                        serde::de::Error::invalid_value(serde::de::Unexpected::Unsigned(v), &self)
-                    })
-            }
-
-            fn visit_str<E>(self, value: &str) -> core::result::Result<Self::Value, E>
-            where
-                E: serde::de::Error,
-            {
-                match value {
-                    "EDITION_UNKNOWN" => Ok(Edition::Unknown),
-                    "EDITION_PROTO2" => Ok(Edition::Proto2),
-                    "EDITION_PROTO3" => Ok(Edition::Proto3),
-                    "EDITION_2023" => Ok(Edition::Edition2023),
-                    "EDITION_1_TEST_ONLY" => Ok(Edition::Edition1TestOnly),
-                    "EDITION_2_TEST_ONLY" => Ok(Edition::Edition2TestOnly),
-                    "EDITION_99997_TEST_ONLY" => Ok(Edition::Edition99997TestOnly),
-                    "EDITION_99998_TEST_ONLY" => Ok(Edition::Edition99998TestOnly),
-                    "EDITION_99999_TEST_ONLY" => Ok(Edition::Edition99999TestOnly),
-                    _ => Err(serde::de::Error::unknown_variant(value, FIELDS)),
-                }
-            }
-        }
-        deserializer.deserialize_any(GeneratedVisitor)
-    }
-}
 impl serde::Serialize for EnumDescriptorProto {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
@@ -1916,6 +1824,9 @@ impl serde::Serialize for FeatureSet {
         if true {
             len += 1;
         }
+        if true {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.FeatureSet", len)?;
         if let Some(v) = self.field_presence.as_ref() {
             let v = feature_set::FieldPresence::try_from(*v)
@@ -1932,10 +1843,10 @@ impl serde::Serialize for FeatureSet {
                 .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
             struct_ser.serialize_field("repeatedFieldEncoding", &v)?;
         }
-        if let Some(v) = self.utf8_validation.as_ref() {
-            let v = feature_set::Utf8Validation::try_from(*v)
+        if let Some(v) = self.string_field_validation.as_ref() {
+            let v = feature_set::StringFieldValidation::try_from(*v)
                 .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
-            struct_ser.serialize_field("utf8Validation", &v)?;
+            struct_ser.serialize_field("stringFieldValidation", &v)?;
         }
         if let Some(v) = self.message_encoding.as_ref() {
             let v = feature_set::MessageEncoding::try_from(*v)
@@ -1946,6 +1857,9 @@ impl serde::Serialize for FeatureSet {
             let v = feature_set::JsonFormat::try_from(*v)
                 .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
             struct_ser.serialize_field("jsonFormat", &v)?;
+        }
+        if let Some(v) = self.raw_features.as_ref() {
+            struct_ser.serialize_field("rawFeatures", v)?;
         }
         struct_ser.end()
     }
@@ -1963,12 +1877,14 @@ impl<'de> serde::Deserialize<'de> for FeatureSet {
             "enumType",
             "repeated_field_encoding",
             "repeatedFieldEncoding",
-            "utf8_validation",
-            "utf8Validation",
+            "string_field_validation",
+            "stringFieldValidation",
             "message_encoding",
             "messageEncoding",
             "json_format",
             "jsonFormat",
+            "raw_features",
+            "rawFeatures",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -1976,9 +1892,10 @@ impl<'de> serde::Deserialize<'de> for FeatureSet {
             FieldPresence,
             EnumType,
             RepeatedFieldEncoding,
-            Utf8Validation,
+            StringFieldValidation,
             MessageEncoding,
             JsonFormat,
+            RawFeatures,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
@@ -2003,9 +1920,10 @@ impl<'de> serde::Deserialize<'de> for FeatureSet {
                             "fieldPresence" | "field_presence" => Ok(GeneratedField::FieldPresence),
                             "enumType" | "enum_type" => Ok(GeneratedField::EnumType),
                             "repeatedFieldEncoding" | "repeated_field_encoding" => Ok(GeneratedField::RepeatedFieldEncoding),
-                            "utf8Validation" | "utf8_validation" => Ok(GeneratedField::Utf8Validation),
+                            "stringFieldValidation" | "string_field_validation" => Ok(GeneratedField::StringFieldValidation),
                             "messageEncoding" | "message_encoding" => Ok(GeneratedField::MessageEncoding),
                             "jsonFormat" | "json_format" => Ok(GeneratedField::JsonFormat),
+                            "rawFeatures" | "raw_features" => Ok(GeneratedField::RawFeatures),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -2028,9 +1946,10 @@ impl<'de> serde::Deserialize<'de> for FeatureSet {
                 let mut field_presence__ = None;
                 let mut enum_type__ = None;
                 let mut repeated_field_encoding__ = None;
-                let mut utf8_validation__ = None;
+                let mut string_field_validation__ = None;
                 let mut message_encoding__ = None;
                 let mut json_format__ = None;
+                let mut raw_features__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::FieldPresence => {
@@ -2051,11 +1970,11 @@ impl<'de> serde::Deserialize<'de> for FeatureSet {
                             }
                             repeated_field_encoding__ = map_.next_value::<::core::option::Option<feature_set::RepeatedFieldEncoding>>()?.map(|x| x as i32);
                         }
-                        GeneratedField::Utf8Validation => {
-                            if utf8_validation__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("utf8Validation"));
+                        GeneratedField::StringFieldValidation => {
+                            if string_field_validation__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("stringFieldValidation"));
                             }
-                            utf8_validation__ = map_.next_value::<::core::option::Option<feature_set::Utf8Validation>>()?.map(|x| x as i32);
+                            string_field_validation__ = map_.next_value::<::core::option::Option<feature_set::StringFieldValidation>>()?.map(|x| x as i32);
                         }
                         GeneratedField::MessageEncoding => {
                             if message_encoding__.is_some() {
@@ -2069,15 +1988,22 @@ impl<'de> serde::Deserialize<'de> for FeatureSet {
                             }
                             json_format__ = map_.next_value::<::core::option::Option<feature_set::JsonFormat>>()?.map(|x| x as i32);
                         }
+                        GeneratedField::RawFeatures => {
+                            if raw_features__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("rawFeatures"));
+                            }
+                            raw_features__ = map_.next_value()?;
+                        }
                     }
                 }
                 Ok(FeatureSet {
                     field_presence: field_presence__,
                     enum_type: enum_type__,
                     repeated_field_encoding: repeated_field_encoding__,
-                    utf8_validation: utf8_validation__,
+                    string_field_validation: string_field_validation__,
                     message_encoding: message_encoding__,
                     json_format: json_format__,
+                    raw_features: raw_features__,
                 })
             }
         }
@@ -2457,36 +2383,38 @@ impl<'de> serde::Deserialize<'de> for feature_set::RepeatedFieldEncoding {
         deserializer.deserialize_any(GeneratedVisitor)
     }
 }
-impl serde::Serialize for feature_set::Utf8Validation {
+impl serde::Serialize for feature_set::StringFieldValidation {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
     {
         let variant = match self {
-            Self::Unknown => "UTF8_VALIDATION_UNKNOWN",
+            Self::Unknown => "STRING_FIELD_VALIDATION_UNKNOWN",
+            Self::Mandatory => "MANDATORY",
+            Self::Hint => "HINT",
             Self::None => "NONE",
-            Self::Verify => "VERIFY",
         };
         serializer.serialize_str(variant)
     }
 }
-impl<'de> serde::Deserialize<'de> for feature_set::Utf8Validation {
+impl<'de> serde::Deserialize<'de> for feature_set::StringFieldValidation {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         const FIELDS: &[&str] = &[
-            "UTF8_VALIDATION_UNKNOWN",
+            "STRING_FIELD_VALIDATION_UNKNOWN",
+            "MANDATORY",
+            "HINT",
             "NONE",
-            "VERIFY",
         ];
 
         struct GeneratedVisitor;
 
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = feature_set::Utf8Validation;
+            type Value = feature_set::StringFieldValidation;
 
             fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
                 write!(formatter, "expected one of: {:?}", &FIELDS)
@@ -2521,255 +2449,15 @@ impl<'de> serde::Deserialize<'de> for feature_set::Utf8Validation {
                 E: serde::de::Error,
             {
                 match value {
-                    "UTF8_VALIDATION_UNKNOWN" => Ok(feature_set::Utf8Validation::Unknown),
-                    "NONE" => Ok(feature_set::Utf8Validation::None),
-                    "VERIFY" => Ok(feature_set::Utf8Validation::Verify),
+                    "STRING_FIELD_VALIDATION_UNKNOWN" => Ok(feature_set::StringFieldValidation::Unknown),
+                    "MANDATORY" => Ok(feature_set::StringFieldValidation::Mandatory),
+                    "HINT" => Ok(feature_set::StringFieldValidation::Hint),
+                    "NONE" => Ok(feature_set::StringFieldValidation::None),
                     _ => Err(serde::de::Error::unknown_variant(value, FIELDS)),
                 }
             }
         }
         deserializer.deserialize_any(GeneratedVisitor)
-    }
-}
-impl serde::Serialize for FeatureSetDefaults {
-    #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-        let mut len = 0;
-        if true {
-            len += 1;
-        }
-        if true {
-            len += 1;
-        }
-        if true {
-            len += 1;
-        }
-        let mut struct_ser = serializer.serialize_struct("google.protobuf.FeatureSetDefaults", len)?;
-        if true {
-            struct_ser.serialize_field("defaults", &self.defaults)?;
-        }
-        if let Some(v) = self.minimum_edition.as_ref() {
-            let v = Edition::try_from(*v)
-                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
-            struct_ser.serialize_field("minimumEdition", &v)?;
-        }
-        if let Some(v) = self.maximum_edition.as_ref() {
-            let v = Edition::try_from(*v)
-                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
-            struct_ser.serialize_field("maximumEdition", &v)?;
-        }
-        struct_ser.end()
-    }
-}
-impl<'de> serde::Deserialize<'de> for FeatureSetDefaults {
-    #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        const FIELDS: &[&str] = &[
-            "defaults",
-            "minimum_edition",
-            "minimumEdition",
-            "maximum_edition",
-            "maximumEdition",
-        ];
-
-        #[allow(clippy::enum_variant_names)]
-        enum GeneratedField {
-            Defaults,
-            MinimumEdition,
-            MaximumEdition,
-        }
-        impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct GeneratedVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-                    type Value = GeneratedField;
-
-                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-                        write!(formatter, "expected one of: {:?}", &FIELDS)
-                    }
-
-                    #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        match value {
-                            "defaults" => Ok(GeneratedField::Defaults),
-                            "minimumEdition" | "minimum_edition" => Ok(GeneratedField::MinimumEdition),
-                            "maximumEdition" | "maximum_edition" => Ok(GeneratedField::MaximumEdition),
-                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(GeneratedVisitor)
-            }
-        }
-        struct GeneratedVisitor;
-        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = FeatureSetDefaults;
-
-            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-                formatter.write_str("struct google.protobuf.FeatureSetDefaults")
-            }
-
-            fn visit_map<V>(self, mut map_: V) -> core::result::Result<FeatureSetDefaults, V::Error>
-                where
-                    V: serde::de::MapAccess<'de>,
-            {
-                let mut defaults__ = None;
-                let mut minimum_edition__ = None;
-                let mut maximum_edition__ = None;
-                while let Some(k) = map_.next_key()? {
-                    match k {
-                        GeneratedField::Defaults => {
-                            if defaults__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("defaults"));
-                            }
-                            defaults__ = Some(map_.next_value()?);
-                        }
-                        GeneratedField::MinimumEdition => {
-                            if minimum_edition__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("minimumEdition"));
-                            }
-                            minimum_edition__ = map_.next_value::<::core::option::Option<Edition>>()?.map(|x| x as i32);
-                        }
-                        GeneratedField::MaximumEdition => {
-                            if maximum_edition__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("maximumEdition"));
-                            }
-                            maximum_edition__ = map_.next_value::<::core::option::Option<Edition>>()?.map(|x| x as i32);
-                        }
-                    }
-                }
-                Ok(FeatureSetDefaults {
-                    defaults: defaults__.unwrap_or_default(),
-                    minimum_edition: minimum_edition__,
-                    maximum_edition: maximum_edition__,
-                })
-            }
-        }
-        deserializer.deserialize_struct("google.protobuf.FeatureSetDefaults", FIELDS, GeneratedVisitor)
-    }
-}
-impl serde::Serialize for feature_set_defaults::FeatureSetEditionDefault {
-    #[allow(deprecated)]
-    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-        let mut len = 0;
-        if true {
-            len += 1;
-        }
-        if true {
-            len += 1;
-        }
-        let mut struct_ser = serializer.serialize_struct("google.protobuf.FeatureSetDefaults.FeatureSetEditionDefault", len)?;
-        if let Some(v) = self.edition.as_ref() {
-            let v = Edition::try_from(*v)
-                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
-            struct_ser.serialize_field("edition", &v)?;
-        }
-        if let Some(v) = self.features.as_ref() {
-            struct_ser.serialize_field("features", v)?;
-        }
-        struct_ser.end()
-    }
-}
-impl<'de> serde::Deserialize<'de> for feature_set_defaults::FeatureSetEditionDefault {
-    #[allow(deprecated)]
-    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        const FIELDS: &[&str] = &[
-            "edition",
-            "features",
-        ];
-
-        #[allow(clippy::enum_variant_names)]
-        enum GeneratedField {
-            Edition,
-            Features,
-        }
-        impl<'de> serde::Deserialize<'de> for GeneratedField {
-            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                struct GeneratedVisitor;
-
-                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-                    type Value = GeneratedField;
-
-                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-                        write!(formatter, "expected one of: {:?}", &FIELDS)
-                    }
-
-                    #[allow(unused_variables)]
-                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
-                    where
-                        E: serde::de::Error,
-                    {
-                        match value {
-                            "edition" => Ok(GeneratedField::Edition),
-                            "features" => Ok(GeneratedField::Features),
-                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
-                        }
-                    }
-                }
-                deserializer.deserialize_identifier(GeneratedVisitor)
-            }
-        }
-        struct GeneratedVisitor;
-        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = feature_set_defaults::FeatureSetEditionDefault;
-
-            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-                formatter.write_str("struct google.protobuf.FeatureSetDefaults.FeatureSetEditionDefault")
-            }
-
-            fn visit_map<V>(self, mut map_: V) -> core::result::Result<feature_set_defaults::FeatureSetEditionDefault, V::Error>
-                where
-                    V: serde::de::MapAccess<'de>,
-            {
-                let mut edition__ = None;
-                let mut features__ = None;
-                while let Some(k) = map_.next_key()? {
-                    match k {
-                        GeneratedField::Edition => {
-                            if edition__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("edition"));
-                            }
-                            edition__ = map_.next_value::<::core::option::Option<Edition>>()?.map(|x| x as i32);
-                        }
-                        GeneratedField::Features => {
-                            if features__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("features"));
-                            }
-                            features__ = map_.next_value()?;
-                        }
-                    }
-                }
-                Ok(feature_set_defaults::FeatureSetEditionDefault {
-                    edition: edition__,
-                    features: features__,
-                })
-            }
-        }
-        deserializer.deserialize_struct("google.protobuf.FeatureSetDefaults.FeatureSetEditionDefault", FIELDS, GeneratedVisitor)
     }
 }
 impl serde::Serialize for FieldDescriptorProto {
@@ -3054,8 +2742,8 @@ impl serde::Serialize for field_descriptor_proto::Label {
     {
         let variant = match self {
             Self::Optional => "LABEL_OPTIONAL",
-            Self::Repeated => "LABEL_REPEATED",
             Self::Required => "LABEL_REQUIRED",
+            Self::Repeated => "LABEL_REPEATED",
         };
         serializer.serialize_str(variant)
     }
@@ -3068,8 +2756,8 @@ impl<'de> serde::Deserialize<'de> for field_descriptor_proto::Label {
     {
         const FIELDS: &[&str] = &[
             "LABEL_OPTIONAL",
-            "LABEL_REPEATED",
             "LABEL_REQUIRED",
+            "LABEL_REPEATED",
         ];
 
         struct GeneratedVisitor;
@@ -3111,8 +2799,8 @@ impl<'de> serde::Deserialize<'de> for field_descriptor_proto::Label {
             {
                 match value {
                     "LABEL_OPTIONAL" => Ok(field_descriptor_proto::Label::Optional),
-                    "LABEL_REPEATED" => Ok(field_descriptor_proto::Label::Repeated),
                     "LABEL_REQUIRED" => Ok(field_descriptor_proto::Label::Required),
+                    "LABEL_REPEATED" => Ok(field_descriptor_proto::Label::Repeated),
                     _ => Err(serde::de::Error::unknown_variant(value, FIELDS)),
                 }
             }
@@ -3638,9 +3326,7 @@ impl serde::Serialize for field_options::EditionDefault {
         }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.FieldOptions.EditionDefault", len)?;
         if let Some(v) = self.edition.as_ref() {
-            let v = Edition::try_from(*v)
-                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
-            struct_ser.serialize_field("edition", &v)?;
+            struct_ser.serialize_field("edition", v)?;
         }
         if let Some(v) = self.value.as_ref() {
             struct_ser.serialize_field("value", v)?;
@@ -3713,7 +3399,7 @@ impl<'de> serde::Deserialize<'de> for field_options::EditionDefault {
                             if edition__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("edition"));
                             }
-                            edition__ = map_.next_value::<::core::option::Option<Edition>>()?.map(|x| x as i32);
+                            edition__ = map_.next_value()?;
                         }
                         GeneratedField::Value => {
                             if value__.is_some() {
@@ -4060,9 +3746,7 @@ impl serde::Serialize for FileDescriptorProto {
             struct_ser.serialize_field("syntax", v)?;
         }
         if let Some(v) = self.edition.as_ref() {
-            let v = Edition::try_from(*v)
-                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
-            struct_ser.serialize_field("edition", &v)?;
+            struct_ser.serialize_field("edition", v)?;
         }
         struct_ser.end()
     }
@@ -4259,7 +3943,7 @@ impl<'de> serde::Deserialize<'de> for FileDescriptorProto {
                             if edition__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("edition"));
                             }
-                            edition__ = map_.next_value::<::core::option::Option<Edition>>()?.map(|x| x as i32);
+                            edition__ = map_.next_value()?;
                         }
                     }
                 }
