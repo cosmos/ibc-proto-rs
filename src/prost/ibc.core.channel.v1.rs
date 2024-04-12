@@ -270,10 +270,12 @@ pub enum State {
     /// A channel has been closed and can no longer be used to send or receive
     /// packets.
     Closed = 4,
+    /// A channel has been forced closed due to a frozen client in the connection path.
+    Frozen = 5,
     /// A channel has just accepted the upgrade handshake attempt and is flushing in-flight packets.
-    Flushing = 5,
+    Flushing = 6,
     /// A channel has just completed flushing any in-flight packets.
-    Flushcomplete = 6,
+    Flushcomplete = 7,
 }
 impl State {
     /// String value of the enum field names used in the ProtoBuf definition.
@@ -287,6 +289,7 @@ impl State {
             State::Tryopen => "STATE_TRYOPEN",
             State::Open => "STATE_OPEN",
             State::Closed => "STATE_CLOSED",
+            State::Frozen => "STATE_FROZEN",
             State::Flushing => "STATE_FLUSHING",
             State::Flushcomplete => "STATE_FLUSHCOMPLETE",
         }
@@ -299,6 +302,7 @@ impl State {
             "STATE_TRYOPEN" => Some(Self::Tryopen),
             "STATE_OPEN" => Some(Self::Open),
             "STATE_CLOSED" => Some(Self::Closed),
+            "STATE_FROZEN" => Some(Self::Frozen),
             "STATE_FLUSHING" => Some(Self::Flushing),
             "STATE_FLUSHCOMPLETE" => Some(Self::Flushcomplete),
             _ => None,
@@ -670,6 +674,43 @@ impl ::prost::Name for MsgChannelCloseConfirm {
 pub struct MsgChannelCloseConfirmResponse {}
 impl ::prost::Name for MsgChannelCloseConfirmResponse {
     const NAME: &'static str = "MsgChannelCloseConfirmResponse";
+    const PACKAGE: &'static str = "ibc.core.channel.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.channel.v1.{}", Self::NAME)
+    }
+}
+/// MsgChannelCloseFrozen defines a msg sent by a Relayer to force close
+/// a channel due to a frozen client in a multi-hop channel path.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgChannelCloseFrozen {
+    #[prost(string, tag = "1")]
+    pub port_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub channel_id: ::prost::alloc::string::String,
+    #[prost(bytes = "vec", tag = "3")]
+    pub proof_connection: ::prost::alloc::vec::Vec<u8>,
+    #[prost(bytes = "vec", tag = "4")]
+    pub proof_client_state: ::prost::alloc::vec::Vec<u8>,
+    #[prost(message, optional, tag = "5")]
+    pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
+    #[prost(string, tag = "6")]
+    pub signer: ::prost::alloc::string::String,
+}
+impl ::prost::Name for MsgChannelCloseFrozen {
+    const NAME: &'static str = "MsgChannelCloseFrozen";
+    const PACKAGE: &'static str = "ibc.core.channel.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.channel.v1.{}", Self::NAME)
+    }
+}
+/// MsgChannelCloseFrozenResponse defines the Msg/ChannelFrozenConfirm response
+/// type.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgChannelCloseFrozenResponse {}
+impl ::prost::Name for MsgChannelCloseFrozenResponse {
+    const NAME: &'static str = "MsgChannelCloseFrozenResponse";
     const PACKAGE: &'static str = "ibc.core.channel.v1";
     fn full_name() -> ::prost::alloc::string::String {
         ::prost::alloc::format!("ibc.core.channel.v1.{}", Self::NAME)
@@ -1167,6 +1208,42 @@ impl ::prost::Name for MsgPruneAcknowledgementsResponse {
         ::prost::alloc::format!("ibc.core.channel.v1.{}", Self::NAME)
     }
 }
+/// MultihopProof holds the information necessary to prove a multihop message
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MultihopProof {
+    #[prost(bytes = "vec", tag = "2")]
+    pub proof: ::prost::alloc::vec::Vec<u8>,
+    #[prost(bytes = "vec", tag = "3")]
+    pub value: ::prost::alloc::vec::Vec<u8>,
+    #[prost(message, optional, tag = "4")]
+    pub prefixed_key: ::core::option::Option<super::super::commitment::v1::MerklePath>,
+}
+impl ::prost::Name for MultihopProof {
+    const NAME: &'static str = "MultihopProof";
+    const PACKAGE: &'static str = "ibc.core.channel.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.channel.v1.{}", Self::NAME)
+    }
+}
+/// MsgMultihopProofs holds the proof information for each intermediary hop for a multihop message
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgMultihopProofs {
+    #[prost(message, optional, tag = "2")]
+    pub key_proof: ::core::option::Option<MultihopProof>,
+    #[prost(message, repeated, tag = "3")]
+    pub connection_proofs: ::prost::alloc::vec::Vec<MultihopProof>,
+    #[prost(message, repeated, tag = "4")]
+    pub consensus_proofs: ::prost::alloc::vec::Vec<MultihopProof>,
+}
+impl ::prost::Name for MsgMultihopProofs {
+    const NAME: &'static str = "MsgMultihopProofs";
+    const PACKAGE: &'static str = "ibc.core.channel.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        ::prost::alloc::format!("ibc.core.channel.v1.{}", Self::NAME)
+    }
+}
 /// ResponseResultType defines the possible outcomes of the execution of a message
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
@@ -1449,6 +1526,34 @@ pub mod msg_client {
             req.extensions_mut()
                 .insert(
                     GrpcMethod::new("ibc.core.channel.v1.Msg", "ChannelCloseConfirm"),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// ChannelCloseFrozen defines a rpc handler method for MsgChannelCloseFrozen.
+        pub async fn channel_close_frozen(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgChannelCloseFrozen>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgChannelCloseFrozenResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/ibc.core.channel.v1.Msg/ChannelCloseFrozen",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("ibc.core.channel.v1.Msg", "ChannelCloseFrozen"),
                 );
             self.inner.unary(req, path, codec).await
         }
@@ -1861,6 +1966,14 @@ pub mod msg_server {
             request: tonic::Request<super::MsgChannelCloseConfirm>,
         ) -> std::result::Result<
             tonic::Response<super::MsgChannelCloseConfirmResponse>,
+            tonic::Status,
+        >;
+        /// ChannelCloseFrozen defines a rpc handler method for MsgChannelCloseFrozen.
+        async fn channel_close_frozen(
+            &self,
+            request: tonic::Request<super::MsgChannelCloseFrozen>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgChannelCloseFrozenResponse>,
             tonic::Status,
         >;
         /// RecvPacket defines a rpc handler method for MsgRecvPacket.
@@ -2301,6 +2414,52 @@ pub mod msg_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = ChannelCloseConfirmSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/ibc.core.channel.v1.Msg/ChannelCloseFrozen" => {
+                    #[allow(non_camel_case_types)]
+                    struct ChannelCloseFrozenSvc<T: Msg>(pub Arc<T>);
+                    impl<
+                        T: Msg,
+                    > tonic::server::UnaryService<super::MsgChannelCloseFrozen>
+                    for ChannelCloseFrozenSvc<T> {
+                        type Response = super::MsgChannelCloseFrozenResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgChannelCloseFrozen>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Msg>::channel_close_frozen(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ChannelCloseFrozenSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

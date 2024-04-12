@@ -170,6 +170,8 @@ cd proto
 buf export -v -o ../proto-include
 popd
 
+patch -d "$IBC_GO_DIR/proto-include" -p2 < multihop.patch
+
 NFT_TRANSFER_DIR=$(mktemp -d /tmp/nft-transfer-XXXXXXXX)
 
 pushd "$NFT_TRANSFER_DIR"

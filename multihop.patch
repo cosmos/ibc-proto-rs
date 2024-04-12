@@ -1,0 +1,137 @@
+diff --git a/proto/ibc/core/channel/v1/channel.proto b/proto/ibc/core/channel/v1/channel.proto
+index 44c3240e2..b7596c72b 100644
+--- a/proto/ibc/core/channel/v1/channel.proto
++++ b/proto/ibc/core/channel/v1/channel.proto
+@@ -71,10 +71,12 @@
+   // A channel has been closed and can no longer be used to send or receive
+   // packets.
+   STATE_CLOSED = 4 [(gogoproto.enumvalue_customname) = "CLOSED"];
++  // A channel has been forced closed due to a frozen client in the connection path.
++  STATE_FROZEN = 5 [(gogoproto.enumvalue_customname) = "FROZEN"];
+   // A channel has just accepted the upgrade handshake attempt and is flushing in-flight packets.
+-  STATE_FLUSHING = 5 [(gogoproto.enumvalue_customname) = "FLUSHING"];
++  STATE_FLUSHING = 6 [(gogoproto.enumvalue_customname) = "FLUSHING"];
+   // A channel has just completed flushing any in-flight packets.
+-  STATE_FLUSHCOMPLETE = 6 [(gogoproto.enumvalue_customname) = "FLUSHCOMPLETE"];
++  STATE_FLUSHCOMPLETE = 7 [(gogoproto.enumvalue_customname) = "FLUSHCOMPLETE"];
+ }
+ 
+ // Order defines if a channel is ORDERED or UNORDERED
+diff --git a/proto/ibc/core/channel/v1/tx.proto b/proto/ibc/core/channel/v1/tx.proto
+index 4b9ad3d75..07ee7f08d 100644
+--- a/proto/ibc/core/channel/v1/tx.proto
++++ b/proto/ibc/core/channel/v1/tx.proto
+@@ -9,6 +9,7 @@
+ import "ibc/core/client/v1/client.proto";
+ import "ibc/core/channel/v1/channel.proto";
+ import "ibc/core/channel/v1/upgrade.proto";
++import "ibc/core/commitment/v1/commitment.proto";
+ 
+ // Msg defines the ibc/channel Msg service.
+ service Msg {
+@@ -33,6 +34,9 @@
+   // MsgChannelCloseConfirm.
+   rpc ChannelCloseConfirm(MsgChannelCloseConfirm) returns (MsgChannelCloseConfirmResponse);
+ 
++  // ChannelCloseFrozen defines a rpc handler method for MsgChannelCloseFrozen.
++  rpc ChannelCloseFrozen(MsgChannelCloseFrozen) returns (MsgChannelCloseFrozenResponse);
++
+   // RecvPacket defines a rpc handler method for MsgRecvPacket.
+   rpc RecvPacket(MsgRecvPacket) returns (MsgRecvPacketResponse);
+ 
+@@ -208,6 +212,25 @@
+ // type.
+ message MsgChannelCloseConfirmResponse {}
+ 
++// MsgChannelCloseFrozen defines a msg sent by a Relayer to force close
++// a channel due to a frozen client in a multi-hop channel path.
++message MsgChannelCloseFrozen {
++  option (gogoproto.equal)           = false;
++  option (gogoproto.goproto_getters) = false;
++
++  string                    port_id            = 1 [(gogoproto.moretags) = "yaml:\"port_id\""];
++  string                    channel_id         = 2 [(gogoproto.moretags) = "yaml:\"channel_id\""];
++  bytes                     proof_connection   = 3 [(gogoproto.moretags) = "yaml:\"proof_connection\""];
++  bytes                     proof_client_state = 4 [(gogoproto.moretags) = "yaml:\"proof_client_state\""];
++  ibc.core.client.v1.Height proof_height       = 5
++      [(gogoproto.moretags) = "yaml:\"proof_height\"", (gogoproto.nullable) = false];
++  string signer = 6;
++}
++
++// MsgChannelCloseFrozenResponse defines the Msg/ChannelFrozenConfirm response
++// type.
++message MsgChannelCloseFrozenResponse {}
++
+ // MsgRecvPacket receives incoming IBC packet
+ message MsgRecvPacket {
+   option (cosmos.msg.v1.signer) = "signer";
+@@ -467,3 +490,23 @@
+   // Number of sequences left after pruning.
+   uint64 total_remaining_sequences = 2;
+ }
++
++// MultihopProof holds the information necessary to prove a multihop message
++message MultihopProof {
++  option (gogoproto.equal)           = false;
++  option (gogoproto.goproto_getters) = false;
++
++  bytes proof = 2;
++	bytes value = 3;
++	ibc.core.commitment.v1.MerklePath prefixed_key = 4;
++}
++
++// MsgMultihopProofs holds the proof information for each intermediary hop for a multihop message
++message MsgMultihopProofs {
++  option (gogoproto.equal)           = false;
++  option (gogoproto.goproto_getters) = false;
++
++  MultihopProof key_proof                  = 2;
++  repeated MultihopProof connection_proofs = 3;
++  repeated MultihopProof consensus_proofs  = 4;
++}
+diff --git a/proto/ibc/core/client/v1/query.proto b/proto/ibc/core/client/v1/query.proto
+index 0032306ec..4bd66bfee 100644
+--- a/proto/ibc/core/client/v1/query.proto
++++ b/proto/ibc/core/client/v1/query.proto
+@@ -36,6 +36,14 @@ service Query {
+     option (google.api.http).get = "/ibc/core/client/v1/consensus_states/{client_id}";
+   }
+ 
++  // NextConsensusStateHeight queries for a consensus state height associated with
++  // a client state at a minimum height greater than a given height.
++  rpc NextConsensusStateHeight(QueryNextConsensusStateHeightRequest) returns (QueryNextConsensusStateHeightResponse) {
++    option (google.api.http).get = "/ibc/core/client/v1/next_height/consensus_states/"
++                                   "{client_id}/revision/{revision_number}/"
++                                   "height/{revision_height}";
++  }
++
+   // ConsensusStateHeights queries the height of every consensus states associated with a given client.
+   rpc ConsensusStateHeights(QueryConsensusStateHeightsRequest) returns (QueryConsensusStateHeightsResponse) {
+     option (google.api.http).get = "/ibc/core/client/v1/consensus_states/{client_id}/heights";
+@@ -142,6 +150,26 @@ message QueryConsensusStatesResponse {
+   cosmos.base.query.v1beta1.PageResponse pagination = 2;
+ }
+ 
++// QueryNextConsensusStateRequest is the request type for the Query/ConsensusState
++// RPC method. Besides the consensus state, it includes a proof and the height
++// from which the proof was retrieved.
++message QueryNextConsensusStateHeightRequest {
++  // client identifier
++  string client_id = 1;
++  // consensus state revision number
++  uint64 revision_number = 2;
++  // consensus state revision height
++  uint64 revision_height = 3;
++}
++
++// QueryNextConsensusStateResponse is the response type for the Query/ConsensusState
++// RPC method
++message QueryNextConsensusStateHeightResponse {
++  // minimum consensus state height associated with the client identifier larger
++  // than the query height
++  ibc.core.client.v1.Height consensus_height = 1 [(gogoproto.nullable) = false];
++}
++
+ // QueryConsensusStateHeightsRequest is the request type for Query/ConsensusStateHeights
+ // RPC method.
+ message QueryConsensusStateHeightsRequest {

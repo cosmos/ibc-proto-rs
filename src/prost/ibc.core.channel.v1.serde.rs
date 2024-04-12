@@ -1485,6 +1485,264 @@ impl<'de> serde::Deserialize<'de> for MsgChannelCloseConfirmResponse {
         deserializer.deserialize_struct("ibc.core.channel.v1.MsgChannelCloseConfirmResponse", FIELDS, GeneratedVisitor)
     }
 }
+impl serde::Serialize for MsgChannelCloseFrozen {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("ibc.core.channel.v1.MsgChannelCloseFrozen", len)?;
+        if true {
+            struct_ser.serialize_field("portId", &self.port_id)?;
+        }
+        if true {
+            struct_ser.serialize_field("channelId", &self.channel_id)?;
+        }
+        if true {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field("proofConnection", pbjson::private::base64::encode(&self.proof_connection).as_str())?;
+        }
+        if true {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field("proofClientState", pbjson::private::base64::encode(&self.proof_client_state).as_str())?;
+        }
+        if let Some(v) = self.proof_height.as_ref() {
+            struct_ser.serialize_field("proofHeight", v)?;
+        }
+        if true {
+            struct_ser.serialize_field("signer", &self.signer)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for MsgChannelCloseFrozen {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "port_id",
+            "portId",
+            "channel_id",
+            "channelId",
+            "proof_connection",
+            "proofConnection",
+            "proof_client_state",
+            "proofClientState",
+            "proof_height",
+            "proofHeight",
+            "signer",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            PortId,
+            ChannelId,
+            ProofConnection,
+            ProofClientState,
+            ProofHeight,
+            Signer,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "portId" | "port_id" => Ok(GeneratedField::PortId),
+                            "channelId" | "channel_id" => Ok(GeneratedField::ChannelId),
+                            "proofConnection" | "proof_connection" => Ok(GeneratedField::ProofConnection),
+                            "proofClientState" | "proof_client_state" => Ok(GeneratedField::ProofClientState),
+                            "proofHeight" | "proof_height" => Ok(GeneratedField::ProofHeight),
+                            "signer" => Ok(GeneratedField::Signer),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgChannelCloseFrozen;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct ibc.core.channel.v1.MsgChannelCloseFrozen")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgChannelCloseFrozen, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut port_id__ = None;
+                let mut channel_id__ = None;
+                let mut proof_connection__ = None;
+                let mut proof_client_state__ = None;
+                let mut proof_height__ = None;
+                let mut signer__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::PortId => {
+                            if port_id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("portId"));
+                            }
+                            port_id__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::ChannelId => {
+                            if channel_id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("channelId"));
+                            }
+                            channel_id__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::ProofConnection => {
+                            if proof_connection__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("proofConnection"));
+                            }
+                            proof_connection__ = 
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                            ;
+                        }
+                        GeneratedField::ProofClientState => {
+                            if proof_client_state__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("proofClientState"));
+                            }
+                            proof_client_state__ = 
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                            ;
+                        }
+                        GeneratedField::ProofHeight => {
+                            if proof_height__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("proofHeight"));
+                            }
+                            proof_height__ = map_.next_value()?;
+                        }
+                        GeneratedField::Signer => {
+                            if signer__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("signer"));
+                            }
+                            signer__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(MsgChannelCloseFrozen {
+                    port_id: port_id__.unwrap_or_default(),
+                    channel_id: channel_id__.unwrap_or_default(),
+                    proof_connection: proof_connection__.unwrap_or_default(),
+                    proof_client_state: proof_client_state__.unwrap_or_default(),
+                    proof_height: proof_height__,
+                    signer: signer__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("ibc.core.channel.v1.MsgChannelCloseFrozen", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for MsgChannelCloseFrozenResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let len = 0;
+        let struct_ser = serializer.serialize_struct("ibc.core.channel.v1.MsgChannelCloseFrozenResponse", len)?;
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for MsgChannelCloseFrozenResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                            Err(serde::de::Error::unknown_field(value, FIELDS))
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgChannelCloseFrozenResponse;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct ibc.core.channel.v1.MsgChannelCloseFrozenResponse")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgChannelCloseFrozenResponse, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                while map_.next_key::<GeneratedField>()?.is_some() {
+                    let _ = map_.next_value::<serde::de::IgnoredAny>()?;
+                }
+                Ok(MsgChannelCloseFrozenResponse {
+                })
+            }
+        }
+        deserializer.deserialize_struct("ibc.core.channel.v1.MsgChannelCloseFrozenResponse", FIELDS, GeneratedVisitor)
+    }
+}
 impl serde::Serialize for MsgChannelCloseInit {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
@@ -4773,6 +5031,134 @@ impl<'de> serde::Deserialize<'de> for MsgChannelUpgradeTryResponse {
         deserializer.deserialize_struct("ibc.core.channel.v1.MsgChannelUpgradeTryResponse", FIELDS, GeneratedVisitor)
     }
 }
+impl serde::Serialize for MsgMultihopProofs {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("ibc.core.channel.v1.MsgMultihopProofs", len)?;
+        if let Some(v) = self.key_proof.as_ref() {
+            struct_ser.serialize_field("keyProof", v)?;
+        }
+        if true {
+            struct_ser.serialize_field("connectionProofs", &self.connection_proofs)?;
+        }
+        if true {
+            struct_ser.serialize_field("consensusProofs", &self.consensus_proofs)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for MsgMultihopProofs {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "key_proof",
+            "keyProof",
+            "connection_proofs",
+            "connectionProofs",
+            "consensus_proofs",
+            "consensusProofs",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            KeyProof,
+            ConnectionProofs,
+            ConsensusProofs,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "keyProof" | "key_proof" => Ok(GeneratedField::KeyProof),
+                            "connectionProofs" | "connection_proofs" => Ok(GeneratedField::ConnectionProofs),
+                            "consensusProofs" | "consensus_proofs" => Ok(GeneratedField::ConsensusProofs),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MsgMultihopProofs;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct ibc.core.channel.v1.MsgMultihopProofs")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MsgMultihopProofs, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut key_proof__ = None;
+                let mut connection_proofs__ = None;
+                let mut consensus_proofs__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::KeyProof => {
+                            if key_proof__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("keyProof"));
+                            }
+                            key_proof__ = map_.next_value()?;
+                        }
+                        GeneratedField::ConnectionProofs => {
+                            if connection_proofs__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("connectionProofs"));
+                            }
+                            connection_proofs__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::ConsensusProofs => {
+                            if consensus_proofs__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("consensusProofs"));
+                            }
+                            consensus_proofs__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(MsgMultihopProofs {
+                    key_proof: key_proof__,
+                    connection_proofs: connection_proofs__.unwrap_or_default(),
+                    consensus_proofs: consensus_proofs__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("ibc.core.channel.v1.MsgMultihopProofs", FIELDS, GeneratedVisitor)
+    }
+}
 impl serde::Serialize for MsgPruneAcknowledgements {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
@@ -6017,6 +6403,138 @@ impl<'de> serde::Deserialize<'de> for MsgUpdateParamsResponse {
             }
         }
         deserializer.deserialize_struct("ibc.core.channel.v1.MsgUpdateParamsResponse", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for MultihopProof {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("ibc.core.channel.v1.MultihopProof", len)?;
+        if true {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field("proof", pbjson::private::base64::encode(&self.proof).as_str())?;
+        }
+        if true {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field("value", pbjson::private::base64::encode(&self.value).as_str())?;
+        }
+        if let Some(v) = self.prefixed_key.as_ref() {
+            struct_ser.serialize_field("prefixedKey", v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for MultihopProof {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "proof",
+            "value",
+            "prefixed_key",
+            "prefixedKey",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Proof,
+            Value,
+            PrefixedKey,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "proof" => Ok(GeneratedField::Proof),
+                            "value" => Ok(GeneratedField::Value),
+                            "prefixedKey" | "prefixed_key" => Ok(GeneratedField::PrefixedKey),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = MultihopProof;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct ibc.core.channel.v1.MultihopProof")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MultihopProof, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut proof__ = None;
+                let mut value__ = None;
+                let mut prefixed_key__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Proof => {
+                            if proof__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("proof"));
+                            }
+                            proof__ = 
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                            ;
+                        }
+                        GeneratedField::Value => {
+                            if value__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("value"));
+                            }
+                            value__ = 
+                                Some(map_.next_value::<::pbjson::private::BytesDeserialize<_>>()?.0)
+                            ;
+                        }
+                        GeneratedField::PrefixedKey => {
+                            if prefixed_key__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("prefixedKey"));
+                            }
+                            prefixed_key__ = map_.next_value()?;
+                        }
+                    }
+                }
+                Ok(MultihopProof {
+                    proof: proof__.unwrap_or_default(),
+                    value: value__.unwrap_or_default(),
+                    prefixed_key: prefixed_key__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("ibc.core.channel.v1.MultihopProof", FIELDS, GeneratedVisitor)
     }
 }
 impl serde::Serialize for Order {
@@ -11056,6 +11574,7 @@ impl serde::Serialize for State {
             Self::Tryopen => "STATE_TRYOPEN",
             Self::Open => "STATE_OPEN",
             Self::Closed => "STATE_CLOSED",
+            Self::Frozen => "STATE_FROZEN",
             Self::Flushing => "STATE_FLUSHING",
             Self::Flushcomplete => "STATE_FLUSHCOMPLETE",
         };
@@ -11074,6 +11593,7 @@ impl<'de> serde::Deserialize<'de> for State {
             "STATE_TRYOPEN",
             "STATE_OPEN",
             "STATE_CLOSED",
+            "STATE_FROZEN",
             "STATE_FLUSHING",
             "STATE_FLUSHCOMPLETE",
         ];
@@ -11121,6 +11641,7 @@ impl<'de> serde::Deserialize<'de> for State {
                     "STATE_TRYOPEN" => Ok(State::Tryopen),
                     "STATE_OPEN" => Ok(State::Open),
                     "STATE_CLOSED" => Ok(State::Closed),
+                    "STATE_FROZEN" => Ok(State::Frozen),
                     "STATE_FLUSHING" => Ok(State::Flushing),
                     "STATE_FLUSHCOMPLETE" => Ok(State::Flushcomplete),
                     _ => Err(serde::de::Error::unknown_variant(value, FIELDS)),

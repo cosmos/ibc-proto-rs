@@ -3996,6 +3996,232 @@ impl<'de> serde::Deserialize<'de> for QueryConsensusStatesResponse {
         deserializer.deserialize_struct("ibc.core.client.v1.QueryConsensusStatesResponse", FIELDS, GeneratedVisitor)
     }
 }
+impl serde::Serialize for QueryNextConsensusStateHeightRequest {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.QueryNextConsensusStateHeightRequest", len)?;
+        if true {
+            struct_ser.serialize_field("clientId", &self.client_id)?;
+        }
+        if true {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field("revisionNumber", ::alloc::string::ToString::to_string(&self.revision_number).as_str())?;
+        }
+        if true {
+            #[allow(clippy::needless_borrow)]
+            struct_ser.serialize_field("revisionHeight", ::alloc::string::ToString::to_string(&self.revision_height).as_str())?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for QueryNextConsensusStateHeightRequest {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "client_id",
+            "clientId",
+            "revision_number",
+            "revisionNumber",
+            "revision_height",
+            "revisionHeight",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            ClientId,
+            RevisionNumber,
+            RevisionHeight,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "clientId" | "client_id" => Ok(GeneratedField::ClientId),
+                            "revisionNumber" | "revision_number" => Ok(GeneratedField::RevisionNumber),
+                            "revisionHeight" | "revision_height" => Ok(GeneratedField::RevisionHeight),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = QueryNextConsensusStateHeightRequest;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct ibc.core.client.v1.QueryNextConsensusStateHeightRequest")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryNextConsensusStateHeightRequest, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut client_id__ = None;
+                let mut revision_number__ = None;
+                let mut revision_height__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::ClientId => {
+                            if client_id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("clientId"));
+                            }
+                            client_id__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::RevisionNumber => {
+                            if revision_number__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("revisionNumber"));
+                            }
+                            revision_number__ = 
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                            ;
+                        }
+                        GeneratedField::RevisionHeight => {
+                            if revision_height__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("revisionHeight"));
+                            }
+                            revision_height__ = 
+                                Some(map_.next_value::<::pbjson::private::NumberDeserialize<_>>()?.0)
+                            ;
+                        }
+                    }
+                }
+                Ok(QueryNextConsensusStateHeightRequest {
+                    client_id: client_id__.unwrap_or_default(),
+                    revision_number: revision_number__.unwrap_or_default(),
+                    revision_height: revision_height__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("ibc.core.client.v1.QueryNextConsensusStateHeightRequest", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for QueryNextConsensusStateHeightResponse {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if true {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("ibc.core.client.v1.QueryNextConsensusStateHeightResponse", len)?;
+        if let Some(v) = self.consensus_height.as_ref() {
+            struct_ser.serialize_field("consensusHeight", v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for QueryNextConsensusStateHeightResponse {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "consensus_height",
+            "consensusHeight",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            ConsensusHeight,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "consensusHeight" | "consensus_height" => Ok(GeneratedField::ConsensusHeight),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = QueryNextConsensusStateHeightResponse;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct ibc.core.client.v1.QueryNextConsensusStateHeightResponse")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryNextConsensusStateHeightResponse, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut consensus_height__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::ConsensusHeight => {
+                            if consensus_height__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("consensusHeight"));
+                            }
+                            consensus_height__ = map_.next_value()?;
+                        }
+                    }
+                }
+                Ok(QueryNextConsensusStateHeightResponse {
+                    consensus_height: consensus_height__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("ibc.core.client.v1.QueryNextConsensusStateHeightResponse", FIELDS, GeneratedVisitor)
+    }
+}
 impl serde::Serialize for QueryUpgradedClientStateRequest {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
