@@ -74,7 +74,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           args: --no-default-features
 
-  check_features_powerset:
+  check_each_feature:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -85,7 +85,7 @@ jobs:
           override: true
       - uses: taiki-e/install-action@cargo-hack
       - uses: Swatinem/rust-cache@v1
-      - run: cargo hack check --feature-powerset --no-dev-deps
+      - run: cargo hack check --each-feature --no-dev-deps
 
   test-stable:
     runs-on: ubuntu-latest
