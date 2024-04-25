@@ -48,7 +48,7 @@ scale-info         = { version = "2.1.2", default-features = false, features = [
 borsh = { version = "0.10", default-features = false, optional = true }
 
 [dependencies.tendermint-proto]
-version          = "0.35"
+version          = "0.36"
 default-features = false
 
 [dev-dependencies]
