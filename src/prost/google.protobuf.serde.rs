@@ -725,11 +725,13 @@ impl serde::Serialize for Edition {
             Self::Proto2 => "EDITION_PROTO2",
             Self::Proto3 => "EDITION_PROTO3",
             Self::Edition2023 => "EDITION_2023",
+            Self::Edition2024 => "EDITION_2024",
             Self::Edition1TestOnly => "EDITION_1_TEST_ONLY",
             Self::Edition2TestOnly => "EDITION_2_TEST_ONLY",
             Self::Edition99997TestOnly => "EDITION_99997_TEST_ONLY",
             Self::Edition99998TestOnly => "EDITION_99998_TEST_ONLY",
             Self::Edition99999TestOnly => "EDITION_99999_TEST_ONLY",
+            Self::Max => "EDITION_MAX",
         };
         serializer.serialize_str(variant)
     }
@@ -745,11 +747,13 @@ impl<'de> serde::Deserialize<'de> for Edition {
             "EDITION_PROTO2",
             "EDITION_PROTO3",
             "EDITION_2023",
+            "EDITION_2024",
             "EDITION_1_TEST_ONLY",
             "EDITION_2_TEST_ONLY",
             "EDITION_99997_TEST_ONLY",
             "EDITION_99998_TEST_ONLY",
             "EDITION_99999_TEST_ONLY",
+            "EDITION_MAX",
         ];
 
         struct GeneratedVisitor;
@@ -794,11 +798,13 @@ impl<'de> serde::Deserialize<'de> for Edition {
                     "EDITION_PROTO2" => Ok(Edition::Proto2),
                     "EDITION_PROTO3" => Ok(Edition::Proto3),
                     "EDITION_2023" => Ok(Edition::Edition2023),
+                    "EDITION_2024" => Ok(Edition::Edition2024),
                     "EDITION_1_TEST_ONLY" => Ok(Edition::Edition1TestOnly),
                     "EDITION_2_TEST_ONLY" => Ok(Edition::Edition2TestOnly),
                     "EDITION_99997_TEST_ONLY" => Ok(Edition::Edition99997TestOnly),
                     "EDITION_99998_TEST_ONLY" => Ok(Edition::Edition99998TestOnly),
                     "EDITION_99999_TEST_ONLY" => Ok(Edition::Edition99999TestOnly),
+                    "EDITION_MAX" => Ok(Edition::Max),
                     _ => Err(serde::de::Error::unknown_variant(value, FIELDS)),
                 }
             }
@@ -2465,8 +2471,8 @@ impl serde::Serialize for feature_set::Utf8Validation {
     {
         let variant = match self {
             Self::Unknown => "UTF8_VALIDATION_UNKNOWN",
-            Self::None => "NONE",
             Self::Verify => "VERIFY",
+            Self::None => "NONE",
         };
         serializer.serialize_str(variant)
     }
@@ -2479,8 +2485,8 @@ impl<'de> serde::Deserialize<'de> for feature_set::Utf8Validation {
     {
         const FIELDS: &[&str] = &[
             "UTF8_VALIDATION_UNKNOWN",
-            "NONE",
             "VERIFY",
+            "NONE",
         ];
 
         struct GeneratedVisitor;
@@ -2522,8 +2528,8 @@ impl<'de> serde::Deserialize<'de> for feature_set::Utf8Validation {
             {
                 match value {
                     "UTF8_VALIDATION_UNKNOWN" => Ok(feature_set::Utf8Validation::Unknown),
-                    "NONE" => Ok(feature_set::Utf8Validation::None),
                     "VERIFY" => Ok(feature_set::Utf8Validation::Verify),
+                    "NONE" => Ok(feature_set::Utf8Validation::None),
                     _ => Err(serde::de::Error::unknown_variant(value, FIELDS)),
                 }
             }
@@ -4445,9 +4451,6 @@ impl serde::Serialize for FileOptions {
         if true {
             len += 1;
         }
-        if true {
-            len += 1;
-        }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.FileOptions", len)?;
         if let Some(v) = self.java_package.as_ref() {
             struct_ser.serialize_field("javaPackage", v)?;
@@ -4480,9 +4483,6 @@ impl serde::Serialize for FileOptions {
         }
         if let Some(v) = self.py_generic_services.as_ref() {
             struct_ser.serialize_field("pyGenericServices", v)?;
-        }
-        if let Some(v) = self.php_generic_services.as_ref() {
-            struct_ser.serialize_field("phpGenericServices", v)?;
         }
         if let Some(v) = self.deprecated.as_ref() {
             struct_ser.serialize_field("deprecated", v)?;
@@ -4547,8 +4547,6 @@ impl<'de> serde::Deserialize<'de> for FileOptions {
             "javaGenericServices",
             "py_generic_services",
             "pyGenericServices",
-            "php_generic_services",
-            "phpGenericServices",
             "deprecated",
             "cc_enable_arenas",
             "ccEnableArenas",
@@ -4583,7 +4581,6 @@ impl<'de> serde::Deserialize<'de> for FileOptions {
             CcGenericServices,
             JavaGenericServices,
             PyGenericServices,
-            PhpGenericServices,
             Deprecated,
             CcEnableArenas,
             ObjcClassPrefix,
@@ -4626,7 +4623,6 @@ impl<'de> serde::Deserialize<'de> for FileOptions {
                             "ccGenericServices" | "cc_generic_services" => Ok(GeneratedField::CcGenericServices),
                             "javaGenericServices" | "java_generic_services" => Ok(GeneratedField::JavaGenericServices),
                             "pyGenericServices" | "py_generic_services" => Ok(GeneratedField::PyGenericServices),
-                            "phpGenericServices" | "php_generic_services" => Ok(GeneratedField::PhpGenericServices),
                             "deprecated" => Ok(GeneratedField::Deprecated),
                             "ccEnableArenas" | "cc_enable_arenas" => Ok(GeneratedField::CcEnableArenas),
                             "objcClassPrefix" | "objc_class_prefix" => Ok(GeneratedField::ObjcClassPrefix),
@@ -4667,7 +4663,6 @@ impl<'de> serde::Deserialize<'de> for FileOptions {
                 let mut cc_generic_services__ = None;
                 let mut java_generic_services__ = None;
                 let mut py_generic_services__ = None;
-                let mut php_generic_services__ = None;
                 let mut deprecated__ = None;
                 let mut cc_enable_arenas__ = None;
                 let mut objc_class_prefix__ = None;
@@ -4740,12 +4735,6 @@ impl<'de> serde::Deserialize<'de> for FileOptions {
                                 return Err(serde::de::Error::duplicate_field("pyGenericServices"));
                             }
                             py_generic_services__ = map_.next_value()?;
-                        }
-                        GeneratedField::PhpGenericServices => {
-                            if php_generic_services__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("phpGenericServices"));
-                            }
-                            php_generic_services__ = map_.next_value()?;
                         }
                         GeneratedField::Deprecated => {
                             if deprecated__.is_some() {
@@ -4826,7 +4815,6 @@ impl<'de> serde::Deserialize<'de> for FileOptions {
                     cc_generic_services: cc_generic_services__,
                     java_generic_services: java_generic_services__,
                     py_generic_services: py_generic_services__,
-                    php_generic_services: php_generic_services__,
                     deprecated: deprecated__,
                     cc_enable_arenas: cc_enable_arenas__,
                     objc_class_prefix: objc_class_prefix__,
