@@ -1,78 +1,66 @@
 [package]
-name = "ibc-proto"
-version = "0.44.0"
-authors = ["Informal Systems <hello@informal.systems>"]
-edition = "2021"
-license = "Apache-2.0"
-repository = "https://github.com/cosmos/ibc-proto-rs"
-readme = "README.md"
-categories = ["cryptography::cryptocurrencies", "encoding", "no-std"]
-keywords = ["blockchain", "cosmos", "tendermint", "ibc", "proto"]
-exclude = ["definitions", "tools", ".changelog", ".github"]
-description = """
+name         = "ibc-proto"
+version      = "0.44.0"
+authors      = ["Informal Systems <hello@informal.systems>"]
+edition      = "2021"
+license      = "Apache-2.0"
+repository   = "https://github.com/cosmos/ibc-proto-rs"
+readme       = "README.md"
+categories   = ["cryptography::cryptocurrencies", "encoding", "no-std"]
+keywords     = ["blockchain", "cosmos", "tendermint", "ibc", "proto"]
+exclude      = ["definitions", "tools", ".changelog", ".github"]
+description  = """
     ibc-proto provides Cosmos SDK & IBC Protocol Buffers definitions
 """
 
 [workspace]
-members = [".", "tools/proto-compiler"]
+members = [
+    ".",
+    "tools/proto-compiler"
+]
 
 [lib]
-name = "ibc_proto"
-path = "src/lib.rs"
+name    = "ibc_proto"
+path    = "src/lib.rs"
 doctest = false
 
 [package.metadata.docs.rs]
 all-features = true
 
 [dependencies]
-prost = { version = "0.12.3", default-features = false, features = [
-    "prost-derive",
-] }
-bytes = { version = "1.2", default-features = false }
-tonic = { version = "0.11", default-features = false, optional = true }
-serde = { version = "1.0", default-features = false, optional = true }
-schemars = { version = "0.8", optional = true }
-subtle-encoding = { version = "0.5", default-features = false }
-base64 = { version = "0.22", default-features = false, features = ["alloc"] }
-flex-error = { version = "0.4", default-features = false }
-ics23 = { version = "0.11.0", default-features = false }
+prost                  = { version = "0.12.3", default-features = false, features = ["prost-derive"] }
+bytes                  = { version = "1.2",  default-features = false }
+tonic                  = { version = "0.11",  default-features = false, optional = true }
+serde                  = { version = "1.0",  default-features = false, optional = true }
+schemars               = { version = "0.8", optional = true }
+subtle-encoding        = { version = "0.5",  default-features = false }
+base64                 = { version = "0.22", default-features = false, features = ["alloc"] }
+flex-error             = { version = "0.4",  default-features = false }
+ics23                  = { version = "0.11.0", default-features = false }
 informalsystems-pbjson = { version = "0.7.0", optional = true, default-features = false }
 
 ## Optional: enabled by the `parity-scale-codec` feature
-parity-scale-codec = { version = "3.0.0", default-features = false, features = [
-    "full",
-], optional = true }
-scale-info = { version = "2.1.2", default-features = false, features = [
-    "derive",
-], optional = true }
+parity-scale-codec = { version = "3.0.0", default-features = false, features = ["full"],   optional = true }
+scale-info         = { version = "2.1.2", default-features = false, features = ["derive"], optional = true }
 
 ## Optional: enabled by the `borsh` feature
 ## For borsh encode or decode, needs to track `anchor-lang` and `near-sdk-rs` borsh version
 borsh = { version = "1.5", default-features = false, features = ["derive"], optional = true }
 
-
 [dependencies.tendermint-proto]
-version = "0.36"
+version          = "0.36"
 default-features = false
 
 [dev-dependencies]
 serde_json = "1.0.107"
 
 [features]
-default = ["std", "client"]
-std = [
-    "prost/std",
-    "bytes/std",
-    "subtle-encoding/std",
-    "base64/std",
-    "flex-error/std",
-    "ics23/std",
-    "informalsystems-pbjson/std",
-]
-serde = ["dep:serde", "ics23/serde", "informalsystems-pbjson"]
-client = ["std", "dep:tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
-json-schema = ["std", "serde", "dep:schemars"]
-server = ["std", "dep:tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
+default            = ["std", "client"]
+std                = ["prost/std", "bytes/std", "subtle-encoding/std", "base64/std", "flex-error/std", "ics23/std", "informalsystems-pbjson/std"]
+serde              = ["dep:serde", "ics23/serde", "informalsystems-pbjson"]
+client             = ["std", "dep:tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
+json-schema        = ["std", "serde", "dep:schemars"]
+server             = ["std", "dep:tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
 parity-scale-codec = ["dep:parity-scale-codec", "dep:scale-info"]
-borsh = ["dep:borsh"]
-proto-descriptor = []
+borsh              = ["dep:borsh"]
+proto-descriptor   = []
