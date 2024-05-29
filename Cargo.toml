@@ -45,7 +45,7 @@ scale-info         = { version = "2.1.2", default-features = false, features = [
 
 ## Optional: enabled by the `borsh` feature
 ## For borsh encode or decode, needs to track `anchor-lang` and `near-sdk-rs` borsh version
-borsh = { version = "1", default-features = false, optional = true }
+borsh = { version = "1", default-features = false, features = ["derive"], optional = true }
 
 [dependencies.tendermint-proto]
 version          = "0.36"
