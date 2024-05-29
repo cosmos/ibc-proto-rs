@@ -432,12 +432,12 @@ pub struct FieldDescriptorProto {
     /// If true, this is a proto3 "optional". When a proto3 field is optional, it
     /// tracks presence regardless of field type.
     ///
-    /// When proto3_optional is true, this field must belong to a oneof to signal
-    /// to old proto3 clients that presence is tracked for this field. This oneof
-    /// is known as a "synthetic" oneof, and this field must be its sole member
-    /// (each proto3 optional field gets its own synthetic oneof). Synthetic oneofs
-    /// exist in the descriptor only, and do not generate any API. Synthetic oneofs
-    /// must be ordered after all "real" oneofs.
+    /// When proto3_optional is true, this field must be belong to a oneof to
+    /// signal to old proto3 clients that presence is tracked for this field. This
+    /// oneof is known as a "synthetic" oneof, and this field must be its sole
+    /// member (each proto3 optional field gets its own synthetic oneof). Synthetic
+    /// oneofs exist in the descriptor only, and do not generate any API. Synthetic
+    /// oneofs must be ordered after all "real" oneofs.
     ///
     /// For message fields, proto3_optional doesn't create any semantic change,
     /// since non-repeated message fields always track presence. However it still
@@ -806,6 +806,8 @@ pub struct FileOptions {
     pub java_generic_services: ::core::option::Option<bool>,
     #[prost(bool, optional, tag = "18", default = "false")]
     pub py_generic_services: ::core::option::Option<bool>,
+    #[prost(bool, optional, tag = "42", default = "false")]
+    pub php_generic_services: ::core::option::Option<bool>,
     /// Is this file deprecated?
     /// Depending on the target platform, this can emit Deprecated annotations
     /// for everything in the file, or it will be completely ignored; in the very
@@ -945,6 +947,10 @@ pub struct MessageOptions {
     /// this is a formalization for deprecating messages.
     #[prost(bool, optional, tag = "3", default = "false")]
     pub deprecated: ::core::option::Option<bool>,
+    /// NOTE: Do not set the option in .proto files. Always use the maps syntax
+    /// instead. The option should only be implicitly set by the proto compiler
+    /// parser.
+    ///
     /// Whether the message is an automatically generated map entry type for the
     /// maps field.
     ///
@@ -962,10 +968,6 @@ pub struct MessageOptions {
     /// use a native map in the target language to hold the keys and values.
     /// The reflection APIs in such implementations still need to work as
     /// if the field is a repeated message field.
-    ///
-    /// NOTE: Do not set the option in .proto files. Always use the maps syntax
-    /// instead. The option should only be implicitly set by the proto compiler
-    /// parser.
     #[prost(bool, optional, tag = "7")]
     pub map_entry: ::core::option::Option<bool>,
     /// Enable the legacy handling of JSON field name conflicts.  This lowercases
@@ -1055,11 +1057,19 @@ pub struct FieldOptions {
     /// call from multiple threads concurrently, while non-const methods continue
     /// to require exclusive access.
     ///
-    /// Note that lazy message fields are still eagerly verified to check
-    /// ill-formed wireformat or missing required fields. Calling IsInitialized()
-    /// on the outer message would fail if the inner message has missing required
-    /// fields. Failed verification would result in parsing failure (except when
-    /// uninitialized messages are acceptable).
+    /// Note that implementations may choose not to check required fields within
+    /// a lazy sub-message.  That is, calling IsInitialized() on the outer message
+    /// may return true even if the inner message has missing required fields.
+    /// This is necessary because otherwise the inner message would have to be
+    /// parsed in order to perform the check, defeating the purpose of lazy
+    /// parsing.  An implementation which chooses not to check required fields
+    /// must be consistent about it.  That is, for any particular sub-message, the
+    /// implementation must either *always* check its required fields, or *never*
+    /// check its required fields, regardless of whether or not the message has
+    /// been parsed.
+    ///
+    /// As of May 2022, lazy verifies the contents of the byte stream during
+    /// parsing.  An invalid byte stream will cause the overall parsing to fail.
     #[prost(bool, optional, tag = "5", default = "false")]
     pub lazy: ::core::option::Option<bool>,
     /// unverified_lazy does no correctness checks on the byte stream. This should
@@ -1715,8 +1725,8 @@ pub mod feature_set {
     #[repr(i32)]
     pub enum Utf8Validation {
         Unknown = 0,
+        None = 1,
         Verify = 2,
-        None = 3,
     }
     impl Utf8Validation {
         /// String value of the enum field names used in the ProtoBuf definition.
@@ -1726,16 +1736,16 @@ pub mod feature_set {
         pub fn as_str_name(&self) -> &'static str {
             match self {
                 Utf8Validation::Unknown => "UTF8_VALIDATION_UNKNOWN",
-                Utf8Validation::Verify => "VERIFY",
                 Utf8Validation::None => "NONE",
+                Utf8Validation::Verify => "VERIFY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
         pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
             match value {
                 "UTF8_VALIDATION_UNKNOWN" => Some(Self::Unknown),
-                "VERIFY" => Some(Self::Verify),
                 "NONE" => Some(Self::None),
+                "VERIFY" => Some(Self::Verify),
                 _ => None,
             }
         }
@@ -1935,7 +1945,7 @@ pub mod source_code_info {
         /// location.
         ///
         /// Each element is a field number or an index.  They form a path from
-        /// the root FileDescriptorProto to the place where the definition appears.
+        /// the root FileDescriptorProto to the place where the definition occurs.
         /// For example, this path:
         ///    \[ 4, 3, 2, 7, 1 \]
         /// refers to:
@@ -2147,7 +2157,6 @@ pub enum Edition {
     /// should not be depended on, but they will always be time-ordered for easy
     /// comparison.
     Edition2023 = 1000,
-    Edition2024 = 1001,
     /// Placeholder editions for testing feature resolution.  These should not be
     /// used or relyed on outside of tests.
     Edition1TestOnly = 1,
@@ -2155,10 +2164,6 @@ pub enum Edition {
     Edition99997TestOnly = 99997,
     Edition99998TestOnly = 99998,
     Edition99999TestOnly = 99999,
-    /// Placeholder for specifying unbounded edition support.  This should only
-    /// ever be used by plugins that can expect to never require any changes to
-    /// support a new edition.
-    Max = 2147483647,
 }
 impl Edition {
     /// String value of the enum field names used in the ProtoBuf definition.
@@ -2171,13 +2176,11 @@ impl Edition {
             Edition::Proto2 => "EDITION_PROTO2",
             Edition::Proto3 => "EDITION_PROTO3",
             Edition::Edition2023 => "EDITION_2023",
-            Edition::Edition2024 => "EDITION_2024",
             Edition::Edition1TestOnly => "EDITION_1_TEST_ONLY",
             Edition::Edition2TestOnly => "EDITION_2_TEST_ONLY",
             Edition::Edition99997TestOnly => "EDITION_99997_TEST_ONLY",
             Edition::Edition99998TestOnly => "EDITION_99998_TEST_ONLY",
             Edition::Edition99999TestOnly => "EDITION_99999_TEST_ONLY",
-            Edition::Max => "EDITION_MAX",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2187,13 +2190,11 @@ impl Edition {
             "EDITION_PROTO2" => Some(Self::Proto2),
             "EDITION_PROTO3" => Some(Self::Proto3),
             "EDITION_2023" => Some(Self::Edition2023),
-            "EDITION_2024" => Some(Self::Edition2024),
             "EDITION_1_TEST_ONLY" => Some(Self::Edition1TestOnly),
             "EDITION_2_TEST_ONLY" => Some(Self::Edition2TestOnly),
             "EDITION_99997_TEST_ONLY" => Some(Self::Edition99997TestOnly),
             "EDITION_99998_TEST_ONLY" => Some(Self::Edition99998TestOnly),
             "EDITION_99999_TEST_ONLY" => Some(Self::Edition99999TestOnly),
-            "EDITION_MAX" => Some(Self::Max),
             _ => None,
         }
     }

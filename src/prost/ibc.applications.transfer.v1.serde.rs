@@ -448,6 +448,9 @@ impl serde::Serialize for MsgTransfer {
         if true {
             len += 1;
         }
+        if true {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.MsgTransfer", len)?;
         if true {
             struct_ser.serialize_field("sourcePort", &self.source_port)?;
@@ -474,6 +477,9 @@ impl serde::Serialize for MsgTransfer {
         if true {
             struct_ser.serialize_field("memo", &self.memo)?;
         }
+        if true {
+            struct_ser.serialize_field("tokens", &self.tokens)?;
+        }
         struct_ser.end()
     }
 }
@@ -496,6 +502,7 @@ impl<'de> serde::Deserialize<'de> for MsgTransfer {
             "timeout_timestamp",
             "timeoutTimestamp",
             "memo",
+            "tokens",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -508,6 +515,7 @@ impl<'de> serde::Deserialize<'de> for MsgTransfer {
             TimeoutHeight,
             TimeoutTimestamp,
             Memo,
+            Tokens,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
@@ -537,6 +545,7 @@ impl<'de> serde::Deserialize<'de> for MsgTransfer {
                             "timeoutHeight" | "timeout_height" => Ok(GeneratedField::TimeoutHeight),
                             "timeoutTimestamp" | "timeout_timestamp" => Ok(GeneratedField::TimeoutTimestamp),
                             "memo" => Ok(GeneratedField::Memo),
+                            "tokens" => Ok(GeneratedField::Tokens),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -564,6 +573,7 @@ impl<'de> serde::Deserialize<'de> for MsgTransfer {
                 let mut timeout_height__ = None;
                 let mut timeout_timestamp__ = None;
                 let mut memo__ = None;
+                let mut tokens__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::SourcePort => {
@@ -616,6 +626,12 @@ impl<'de> serde::Deserialize<'de> for MsgTransfer {
                             }
                             memo__ = Some(map_.next_value()?);
                         }
+                        GeneratedField::Tokens => {
+                            if tokens__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("tokens"));
+                            }
+                            tokens__ = Some(map_.next_value()?);
+                        }
                     }
                 }
                 Ok(MsgTransfer {
@@ -627,6 +643,7 @@ impl<'de> serde::Deserialize<'de> for MsgTransfer {
                     timeout_height: timeout_height__,
                     timeout_timestamp: timeout_timestamp__.unwrap_or_default(),
                     memo: memo__.unwrap_or_default(),
+                    tokens: tokens__.unwrap_or_default(),
                 })
             }
         }

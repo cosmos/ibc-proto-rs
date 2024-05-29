@@ -77,6 +77,11 @@ pub struct MsgTransfer {
     /// optional memo
     #[prost(string, tag = "8")]
     pub memo: ::prost::alloc::string::String,
+    /// tokens to be transferred
+    #[prost(message, repeated, tag = "9")]
+    pub tokens: ::prost::alloc::vec::Vec<
+        super::super::super::super::cosmos::base::v1beta1::Coin,
+    >,
 }
 impl ::prost::Name for MsgTransfer {
     const NAME: &'static str = "MsgTransfer";
@@ -1434,8 +1439,8 @@ pub struct Allocation {
     /// allow list of receivers, an empty allow list permits any receiver address
     #[prost(string, repeated, tag = "4")]
     pub allow_list: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// allow list of packet data keys, an empty list prohibits all packet data keys;
-    /// a list only with "*" permits any packet data key
+    /// allow list of memo strings, an empty list prohibits all memo strings;
+    /// a list only with "*" permits any memo string
     #[prost(string, repeated, tag = "5")]
     pub allowed_packet_data: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }

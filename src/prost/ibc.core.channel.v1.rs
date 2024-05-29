@@ -162,7 +162,7 @@ impl ::prost::Name for PacketState {
         ::prost::alloc::format!("ibc.core.channel.v1.{}", Self::NAME)
     }
 }
-/// PacketId is an identifer for a unique Packet
+/// PacketId is an identifier for a unique Packet
 /// Source chains refer to packets by source port/channel
 /// Destination chains refer to packets by destination port/channel
 #[allow(clippy::derive_partial_eq_without_eq)]
