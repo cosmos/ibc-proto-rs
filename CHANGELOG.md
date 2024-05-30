@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v0.45.0
+
+*May 30th, 2024*
+
+This release updates `tonic` to v0.11.0 and `borsh` to v1.
+
+### BREAKING CHANGES
+
+- Update `tonic` to v0.11.0 ([#195](https://github.com/cosmos/ibc-proto-rs/pull/195))
+- Update `borsh` to v1
+  ([\#210](https://github.com/cosmos/ibc-proto-rs/pull/210))
+
 ## v0.44.0
 
 *April 25th, 2024*
