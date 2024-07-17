@@ -25,7 +25,7 @@ impl ::prost::Name for MsgAssignConsumerKey {
     }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgAssignConsumerKeyResponse {}
 impl ::prost::Name for MsgAssignConsumerKeyResponse {
     const NAME: &'static str = "MsgAssignConsumerKeyResponse";
@@ -62,7 +62,7 @@ impl ::prost::Name for MsgSubmitConsumerMisbehaviour {
     }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgSubmitConsumerMisbehaviourResponse {}
 impl ::prost::Name for MsgSubmitConsumerMisbehaviourResponse {
     const NAME: &'static str = "MsgSubmitConsumerMisbehaviourResponse";
@@ -106,7 +106,7 @@ impl ::prost::Name for MsgSubmitConsumerDoubleVoting {
     }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgSubmitConsumerDoubleVotingResponse {}
 impl ::prost::Name for MsgSubmitConsumerDoubleVotingResponse {
     const NAME: &'static str = "MsgSubmitConsumerDoubleVotingResponse";
@@ -332,19 +332,17 @@ pub mod msg_server {
     /// Msg defines the Msg service.
     #[derive(Debug)]
     pub struct MsgServer<T: Msg> {
-        inner: _Inner<T>,
+        inner: Arc<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
         max_decoding_message_size: Option<usize>,
         max_encoding_message_size: Option<usize>,
     }
-    struct _Inner<T>(Arc<T>);
     impl<T: Msg> MsgServer<T> {
         pub fn new(inner: T) -> Self {
             Self::from_arc(Arc::new(inner))
         }
         pub fn from_arc(inner: Arc<T>) -> Self {
-            let inner = _Inner(inner);
             Self {
                 inner,
                 accept_compression_encodings: Default::default(),
@@ -407,7 +405,6 @@ pub mod msg_server {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
-            let inner = self.inner.clone();
             match req.uri().path() {
                 "/interchain_security.ccv.provider.v1.Msg/AssignConsumerKey" => {
                     #[allow(non_camel_case_types)]
@@ -436,7 +433,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = AssignConsumerKeySvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -483,7 +479,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = SubmitConsumerMisbehaviourSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -530,7 +525,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = SubmitConsumerDoubleVotingSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -552,8 +546,11 @@ pub mod msg_server {
                         Ok(
                             http::Response::builder()
                                 .status(200)
-                                .header("grpc-status", "12")
-                                .header("content-type", "application/grpc")
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
                                 .body(empty_body())
                                 .unwrap(),
                         )
@@ -572,16 +569,6 @@ pub mod msg_server {
                 max_decoding_message_size: self.max_decoding_message_size,
                 max_encoding_message_size: self.max_encoding_message_size,
             }
-        }
-    }
-    impl<T: Msg> Clone for _Inner<T> {
-        fn clone(&self) -> Self {
-            Self(Arc::clone(&self.0))
-        }
-    }
-    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            write!(f, "{:?}", self.0)
         }
     }
     impl<T: Msg> tonic::server::NamedService for MsgServer<T> {
@@ -993,7 +980,7 @@ impl ::prost::Name for InitTimeoutTimestamp {
     }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct VscSendTimestamp {
     #[prost(uint64, tag = "1")]
     pub vsc_id: u64,
@@ -1187,7 +1174,7 @@ impl ::prost::Name for QueryConsumerGenesisResponse {
     }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct QueryConsumerChainsRequest {}
 impl ::prost::Name for QueryConsumerChainsRequest {
     const NAME: &'static str = "QueryConsumerChainsRequest";
@@ -1216,7 +1203,7 @@ impl ::prost::Name for QueryConsumerChainsResponse {
     }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct QueryConsumerChainStartProposalsRequest {}
 impl ::prost::Name for QueryConsumerChainStartProposalsRequest {
     const NAME: &'static str = "QueryConsumerChainStartProposalsRequest";
@@ -1249,7 +1236,7 @@ impl ::prost::Name for QueryConsumerChainStartProposalsResponse {
     }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct QueryConsumerChainStopProposalsRequest {}
 impl ::prost::Name for QueryConsumerChainStopProposalsRequest {
     const NAME: &'static str = "QueryConsumerChainStopProposalsRequest";
@@ -1374,7 +1361,7 @@ impl ::prost::Name for QueryValidatorProviderAddrResponse {
     }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct QueryThrottleStateRequest {}
 impl ::prost::Name for QueryThrottleStateRequest {
     const NAME: &'static str = "QueryThrottleStateRequest";
@@ -1506,7 +1493,7 @@ impl ::prost::Name for ThrottledPacketDataWrapper {
     }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct QueryRegisteredConsumerRewardDenomsRequest {}
 impl ::prost::Name for QueryRegisteredConsumerRewardDenomsRequest {
     const NAME: &'static str = "QueryRegisteredConsumerRewardDenomsRequest";
@@ -2010,19 +1997,17 @@ pub mod query_server {
     }
     #[derive(Debug)]
     pub struct QueryServer<T: Query> {
-        inner: _Inner<T>,
+        inner: Arc<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
         max_decoding_message_size: Option<usize>,
         max_encoding_message_size: Option<usize>,
     }
-    struct _Inner<T>(Arc<T>);
     impl<T: Query> QueryServer<T> {
         pub fn new(inner: T) -> Self {
             Self::from_arc(Arc::new(inner))
         }
         pub fn from_arc(inner: Arc<T>) -> Self {
-            let inner = _Inner(inner);
             Self {
                 inner,
                 accept_compression_encodings: Default::default(),
@@ -2085,7 +2070,6 @@ pub mod query_server {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
-            let inner = self.inner.clone();
             match req.uri().path() {
                 "/interchain_security.ccv.provider.v1.Query/QueryConsumerGenesis" => {
                     #[allow(non_camel_case_types)]
@@ -2116,7 +2100,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = QueryConsumerGenesisSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2162,7 +2145,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = QueryConsumerChainsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2212,7 +2194,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = QueryConsumerChainStartsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2262,7 +2243,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = QueryConsumerChainStopsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2312,7 +2292,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = QueryValidatorConsumerAddrSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2362,7 +2341,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = QueryValidatorProviderAddrSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2408,7 +2386,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = QueryThrottleStateSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2461,7 +2438,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = QueryThrottledConsumerPacketDataSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2514,7 +2490,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = QueryRegisteredConsumerRewardDenomsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2536,8 +2511,11 @@ pub mod query_server {
                         Ok(
                             http::Response::builder()
                                 .status(200)
-                                .header("grpc-status", "12")
-                                .header("content-type", "application/grpc")
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
                                 .body(empty_body())
                                 .unwrap(),
                         )
@@ -2556,16 +2534,6 @@ pub mod query_server {
                 max_decoding_message_size: self.max_decoding_message_size,
                 max_encoding_message_size: self.max_encoding_message_size,
             }
-        }
-    }
-    impl<T: Query> Clone for _Inner<T> {
-        fn clone(&self) -> Self {
-            Self(Arc::clone(&self.0))
-        }
-    }
-    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            write!(f, "{:?}", self.0)
         }
     }
     impl<T: Query> tonic::server::NamedService for QueryServer<T> {
@@ -2670,7 +2638,7 @@ impl ::prost::Name for ConsumerState {
 /// ValsetUpdateIdToHeight defines the genesis information for the mapping
 /// of each valset udpate id to a block height
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct ValsetUpdateIdToHeight {
     #[prost(uint64, tag = "1")]
     pub valset_update_id: u64,

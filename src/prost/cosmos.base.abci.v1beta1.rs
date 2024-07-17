@@ -127,7 +127,7 @@ impl ::prost::Name for Attribute {
 }
 /// GasInfo defines tx execution gas context.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct GasInfo {
     /// GasWanted is the maximum units of work we allow this tx to perform.
     #[prost(uint64, tag = "1")]
