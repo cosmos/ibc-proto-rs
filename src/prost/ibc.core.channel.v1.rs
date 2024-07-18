@@ -244,7 +244,7 @@ impl ::prost::Name for Acknowledgement {
 /// This includes packet lifecycle handlers as well as the upgrade handshake handlers.
 /// A valid Timeout contains either one or both of a timestamp and block height (sequence).
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct Timeout {
     /// block height after which the packet or upgrade times out
     #[prost(message, optional, tag = "1")]
@@ -265,7 +265,7 @@ impl ::prost::Name for Timeout {
 }
 /// Params defines the set of IBC channel parameters.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct Params {
     /// the relative timeout after which channel upgrades will time out.
     #[prost(message, optional, tag = "1")]
@@ -622,7 +622,7 @@ impl ::prost::Name for MsgChannelOpenAck {
 }
 /// MsgChannelOpenAckResponse defines the Msg/ChannelOpenAck response type.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgChannelOpenAckResponse {}
 impl ::prost::Name for MsgChannelOpenAckResponse {
     const NAME: &'static str = "MsgChannelOpenAckResponse";
@@ -663,7 +663,7 @@ impl ::prost::Name for MsgChannelOpenConfirm {
 /// MsgChannelOpenConfirmResponse defines the Msg/ChannelOpenConfirm response
 /// type.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgChannelOpenConfirmResponse {}
 impl ::prost::Name for MsgChannelOpenConfirmResponse {
     const NAME: &'static str = "MsgChannelOpenConfirmResponse";
@@ -699,7 +699,7 @@ impl ::prost::Name for MsgChannelCloseInit {
 }
 /// MsgChannelCloseInitResponse defines the Msg/ChannelCloseInit response type.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgChannelCloseInitResponse {}
 impl ::prost::Name for MsgChannelCloseInitResponse {
     const NAME: &'static str = "MsgChannelCloseInitResponse";
@@ -742,7 +742,7 @@ impl ::prost::Name for MsgChannelCloseConfirm {
 /// MsgChannelCloseConfirmResponse defines the Msg/ChannelCloseConfirm response
 /// type.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgChannelCloseConfirmResponse {}
 impl ::prost::Name for MsgChannelCloseConfirmResponse {
     const NAME: &'static str = "MsgChannelCloseConfirmResponse";
@@ -779,7 +779,7 @@ impl ::prost::Name for MsgRecvPacket {
 }
 /// MsgRecvPacketResponse defines the Msg/RecvPacket response type.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgRecvPacketResponse {
     #[prost(enumeration = "ResponseResultType", tag = "1")]
     pub result: i32,
@@ -821,7 +821,7 @@ impl ::prost::Name for MsgTimeout {
 }
 /// MsgTimeoutResponse defines the Msg/Timeout response type.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgTimeoutResponse {
     #[prost(enumeration = "ResponseResultType", tag = "1")]
     pub result: i32,
@@ -867,7 +867,7 @@ impl ::prost::Name for MsgTimeoutOnClose {
 }
 /// MsgTimeoutOnCloseResponse defines the Msg/TimeoutOnClose response type.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgTimeoutOnCloseResponse {
     #[prost(enumeration = "ResponseResultType", tag = "1")]
     pub result: i32,
@@ -909,7 +909,7 @@ impl ::prost::Name for MsgAcknowledgement {
 }
 /// MsgAcknowledgementResponse defines the Msg/Acknowledgement response type.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgAcknowledgementResponse {
     #[prost(enumeration = "ResponseResultType", tag = "1")]
     pub result: i32,
@@ -1055,7 +1055,7 @@ impl ::prost::Name for MsgChannelUpgradeAck {
 }
 /// MsgChannelUpgradeAckResponse defines MsgChannelUpgradeAck response type
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgChannelUpgradeAckResponse {
     #[prost(enumeration = "ResponseResultType", tag = "1")]
     pub result: i32,
@@ -1103,7 +1103,7 @@ impl ::prost::Name for MsgChannelUpgradeConfirm {
 }
 /// MsgChannelUpgradeConfirmResponse defines MsgChannelUpgradeConfirm response type
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgChannelUpgradeConfirmResponse {
     #[prost(enumeration = "ResponseResultType", tag = "1")]
     pub result: i32,
@@ -1149,7 +1149,7 @@ impl ::prost::Name for MsgChannelUpgradeOpen {
 }
 /// MsgChannelUpgradeOpenResponse defines the MsgChannelUpgradeOpen response type
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgChannelUpgradeOpenResponse {}
 impl ::prost::Name for MsgChannelUpgradeOpenResponse {
     const NAME: &'static str = "MsgChannelUpgradeOpenResponse";
@@ -1190,7 +1190,7 @@ impl ::prost::Name for MsgChannelUpgradeTimeout {
 }
 /// MsgChannelUpgradeTimeoutRepsonse defines the MsgChannelUpgradeTimeout response type
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgChannelUpgradeTimeoutResponse {}
 impl ::prost::Name for MsgChannelUpgradeTimeoutResponse {
     const NAME: &'static str = "MsgChannelUpgradeTimeoutResponse";
@@ -1231,7 +1231,7 @@ impl ::prost::Name for MsgChannelUpgradeCancel {
 }
 /// MsgChannelUpgradeCancelResponse defines the MsgChannelUpgradeCancel response type
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgChannelUpgradeCancelResponse {}
 impl ::prost::Name for MsgChannelUpgradeCancelResponse {
     const NAME: &'static str = "MsgChannelUpgradeCancelResponse";
@@ -1268,7 +1268,7 @@ impl ::prost::Name for MsgUpdateParams {
 }
 /// MsgUpdateParamsResponse defines the MsgUpdateParams response type.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgUpdateParamsResponse {}
 impl ::prost::Name for MsgUpdateParamsResponse {
     const NAME: &'static str = "MsgUpdateParamsResponse";
@@ -1305,7 +1305,7 @@ impl ::prost::Name for MsgPruneAcknowledgements {
 }
 /// MsgPruneAcknowledgementsResponse defines the response type for the PruneAcknowledgements rpc.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgPruneAcknowledgementsResponse {
     /// Number of sequences pruned (includes both packet acknowledgements and packet receipts where appropriate).
     #[prost(uint64, tag = "1")]
@@ -2128,19 +2128,17 @@ pub mod msg_server {
     /// Msg defines the ibc/channel Msg service.
     #[derive(Debug)]
     pub struct MsgServer<T: Msg> {
-        inner: _Inner<T>,
+        inner: Arc<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
         max_decoding_message_size: Option<usize>,
         max_encoding_message_size: Option<usize>,
     }
-    struct _Inner<T>(Arc<T>);
     impl<T: Msg> MsgServer<T> {
         pub fn new(inner: T) -> Self {
             Self::from_arc(Arc::new(inner))
         }
         pub fn from_arc(inner: Arc<T>) -> Self {
-            let inner = _Inner(inner);
             Self {
                 inner,
                 accept_compression_encodings: Default::default(),
@@ -2203,7 +2201,6 @@ pub mod msg_server {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
-            let inner = self.inner.clone();
             match req.uri().path() {
                 "/ibc.core.channel.v1.Msg/ChannelOpenInit" => {
                     #[allow(non_camel_case_types)]
@@ -2232,7 +2229,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ChannelOpenInitSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2276,7 +2272,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ChannelOpenTrySvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2320,7 +2315,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ChannelOpenAckSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2366,7 +2360,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ChannelOpenConfirmSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2410,7 +2403,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ChannelCloseInitSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2456,7 +2448,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ChannelCloseConfirmSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2500,7 +2491,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = RecvPacketSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2544,7 +2534,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = TimeoutSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2588,7 +2577,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = TimeoutOnCloseSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2632,7 +2620,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = AcknowledgementSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2678,7 +2665,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ChannelUpgradeInitSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2722,7 +2708,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ChannelUpgradeTrySvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2766,7 +2751,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ChannelUpgradeAckSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2812,7 +2796,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ChannelUpgradeConfirmSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2858,7 +2841,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ChannelUpgradeOpenSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2904,7 +2886,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ChannelUpgradeTimeoutSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2950,7 +2931,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ChannelUpgradeCancelSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2994,7 +2974,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = UpdateChannelParamsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -3040,7 +3019,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = PruneAcknowledgementsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -3062,8 +3040,11 @@ pub mod msg_server {
                         Ok(
                             http::Response::builder()
                                 .status(200)
-                                .header("grpc-status", "12")
-                                .header("content-type", "application/grpc")
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
                                 .body(empty_body())
                                 .unwrap(),
                         )
@@ -3082,16 +3063,6 @@ pub mod msg_server {
                 max_decoding_message_size: self.max_decoding_message_size,
                 max_encoding_message_size: self.max_encoding_message_size,
             }
-        }
-    }
-    impl<T: Msg> Clone for _Inner<T> {
-        fn clone(&self) -> Self {
-            Self(Arc::clone(&self.0))
-        }
-    }
-    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            write!(f, "{:?}", self.0)
         }
     }
     impl<T: Msg> tonic::server::NamedService for MsgServer<T> {
@@ -3885,7 +3856,7 @@ impl ::prost::Name for QueryUpgradeResponse {
 }
 /// QueryChannelParamsRequest is the request type for the Query/ChannelParams RPC method.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct QueryChannelParamsRequest {}
 impl ::prost::Name for QueryChannelParamsRequest {
     const NAME: &'static str = "QueryChannelParamsRequest";
@@ -3899,7 +3870,7 @@ impl ::prost::Name for QueryChannelParamsRequest {
 }
 /// QueryChannelParamsResponse is the response type for the Query/ChannelParams RPC method.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct QueryChannelParamsResponse {
     /// params defines the parameters of the module.
     #[prost(message, optional, tag = "1")]
@@ -4633,19 +4604,17 @@ pub mod query_server {
     /// Query provides defines the gRPC querier service
     #[derive(Debug)]
     pub struct QueryServer<T: Query> {
-        inner: _Inner<T>,
+        inner: Arc<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
         max_decoding_message_size: Option<usize>,
         max_encoding_message_size: Option<usize>,
     }
-    struct _Inner<T>(Arc<T>);
     impl<T: Query> QueryServer<T> {
         pub fn new(inner: T) -> Self {
             Self::from_arc(Arc::new(inner))
         }
         pub fn from_arc(inner: Arc<T>) -> Self {
-            let inner = _Inner(inner);
             Self {
                 inner,
                 accept_compression_encodings: Default::default(),
@@ -4708,7 +4677,6 @@ pub mod query_server {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
-            let inner = self.inner.clone();
             match req.uri().path() {
                 "/ibc.core.channel.v1.Query/Channel" => {
                     #[allow(non_camel_case_types)]
@@ -4739,7 +4707,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ChannelSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -4785,7 +4752,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ChannelsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -4833,7 +4799,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ConnectionChannelsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -4881,7 +4846,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ChannelClientStateSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -4930,7 +4894,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ChannelConsensusStateSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -4976,7 +4939,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = PacketCommitmentSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -5022,7 +4984,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = PacketCommitmentsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -5068,7 +5029,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = PacketReceiptSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -5117,7 +5077,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = PacketAcknowledgementSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -5166,7 +5125,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = PacketAcknowledgementsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -5212,7 +5170,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = UnreceivedPacketsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -5258,7 +5215,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = UnreceivedAcksSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -5306,7 +5262,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = NextSequenceReceiveSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -5352,7 +5307,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = NextSequenceSendSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -5398,7 +5352,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = UpgradeErrorSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -5444,7 +5397,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = UpgradeSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -5490,7 +5442,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ChannelParamsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -5512,8 +5463,11 @@ pub mod query_server {
                         Ok(
                             http::Response::builder()
                                 .status(200)
-                                .header("grpc-status", "12")
-                                .header("content-type", "application/grpc")
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
                                 .body(empty_body())
                                 .unwrap(),
                         )
@@ -5532,16 +5486,6 @@ pub mod query_server {
                 max_decoding_message_size: self.max_decoding_message_size,
                 max_encoding_message_size: self.max_encoding_message_size,
             }
-        }
-    }
-    impl<T: Query> Clone for _Inner<T> {
-        fn clone(&self) -> Self {
-            Self(Arc::clone(&self.0))
-        }
-    }
-    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            write!(f, "{:?}", self.0)
         }
     }
     impl<T: Query> tonic::server::NamedService for QueryServer<T> {

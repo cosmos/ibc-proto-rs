@@ -28,15 +28,15 @@ doctest = false
 all-features = true
 
 [dependencies]
-prost                  = { version = "0.12.3", default-features = false, features = ["prost-derive"] }
+prost                  = { version = "0.13", default-features = false, features = ["prost-derive"] }
 bytes                  = { version = "1.2",  default-features = false }
-tonic                  = { version = "0.11",  default-features = false, optional = true }
+tonic                  = { version = "0.12",  default-features = false, optional = true }
 serde                  = { version = "1.0",  default-features = false, optional = true }
 schemars               = { version = "0.8", optional = true }
 subtle-encoding        = { version = "0.5",  default-features = false }
 base64                 = { version = "0.22", default-features = false, features = ["alloc"] }
 flex-error             = { version = "0.4",  default-features = false }
-ics23                  = { version = "0.11.0", default-features = false }
+ics23                  = { version = "0.12.0", default-features = false }
 informalsystems-pbjson = { version = "0.7.0", optional = true, default-features = false }
 
 ## Optional: enabled by the `parity-scale-codec` feature
@@ -48,7 +48,7 @@ scale-info         = { version = "2.1.2", default-features = false, features = [
 borsh = { version = "1", default-features = false, features = ["derive"], optional = true }
 
 [dependencies.tendermint-proto]
-version          = "0.37"
+version          = "0.38"
 default-features = false
 
 [dev-dependencies]
