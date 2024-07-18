@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## v0.47.0
+
+*July 18th, 2024*
+
+This release bumps `tendermint-proto` to v0.38, `prost` to v0.13 and `tonic` to v0.12.
+
+### BREAKING CHANGES
+
+- Update `tendermint-proto` to v0.38 ([#223](https://github.com/cosmos/ibc-proto-rs/pull/223))
+- Update `prost` to v0.13 and `tonic` to v0.12 ([#223](https://github.com/cosmos/ibc-proto-rs/pull/223))
+
 ## v0.46.0
 
 *June 3rd, 2024*
