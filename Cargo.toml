@@ -48,7 +48,7 @@ scale-info         = { version = "2.1.2", default-features = false, features = [
 borsh = { version = "1", default-features = false, features = ["derive"], optional = true }
 
 [dependencies.tendermint-proto]
-version          = "0.37"
+version          = "0.38"
 default-features = false
 
 [dev-dependencies]
@@ -64,9 +64,3 @@ server             = ["std", "dep:tonic", "tonic/codegen", "tonic/transport", "t
 parity-scale-codec = ["dep:parity-scale-codec", "dep:scale-info"]
 borsh              = ["dep:borsh"]
 proto-descriptor   = []
-
-
-# FIXME: Remove once both crates are released
-[patch.crates-io]
-tendermint-proto = { git = "https://github.com/informalsystems/tendermint-rs", branch = "prost-0.13+tonic-v0.12" }
-ics23 = { git = "https://github.com/cosmos/ics23.git", branch = "rust/release/v0.12.0" }
