@@ -1,0 +1,1 @@
+- Update `prost` to v0.13 and `tonic` to v0.12 ([#223](https://github.com/cosmos/ibc-proto-rs/pull/223))
