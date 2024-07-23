@@ -220,6 +220,7 @@ exposed.
 
 Our release process is as follows:
 
+0. Bump the version in `Cargo.toml`.
 1. Update the [changelog](#changelog) to reflect and summarize all changes in
    the release. This involves:
    1. Running `unclog build -u` and copy pasting the output at the top
@@ -228,13 +229,8 @@ Our release process is as follows:
    2. Running `unclog release --version vX.Y.Z --editor <editor>` to create a
       summary of all of the changes in this release.
    3. Committing the updated `CHANGELOG.md` file and `.changelog` directory to the repo.
-2. Push this to a branch `release/vX.Y.Z` according to the version number of
+3. Push this to a branch `release/vX.Y.Z` according to the version number of
    the anticipated release (e.g. `release/v0.18.0`) and open a **draft PR**.
-3. Bump all relevant versions in the codebase to the new version and push these
-   changes to the release PR. This includes:
-   1. All `Cargo.toml` files (making sure dependencies' versions are updated too).
-   2. All crates' `lib.rs` files documentation references' `html_root_url`
-      parameters must point to the new version.
 4. Run `cargo doc --all-features --open` locally to double-check that all the
    documentation compiles and is up-to-date and coherent. Fix any potential
    issues here and push them to the release PR.

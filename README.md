@@ -7,8 +7,10 @@
 ![Rust Stable][rustc-image]
 ![Rust 1.56.1+][rustc-version]
 
-Rust crate for interacting with Cosmos SDK IBC structs.
+Rust Protobuf definitions and gRPC clients for interacting with Cosmos SDK, IBC and Interchain Security.
+
 This repository maintains all the data structures relevant for interacting with on-chain IBC data.
+
 Whether you're building an IBC relayer, IBC modules, or any client software that consumes IBC data structures in Rust, you're at the right place.
 
 

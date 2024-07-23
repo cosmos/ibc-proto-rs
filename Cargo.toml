@@ -1,6 +1,6 @@
 [package]
 name         = "ibc-proto"
-version      = "0.44.0"
+version      = "0.46.0"
 authors      = ["Informal Systems <hello@informal.systems>"]
 edition      = "2021"
 license      = "Apache-2.0"
@@ -45,10 +45,10 @@ scale-info         = { version = "2.1.2", default-features = false, features = [
 
 ## Optional: enabled by the `borsh` feature
 ## For borsh encode or decode, needs to track `anchor-lang` and `near-sdk-rs` borsh version
-borsh = { version = "0.10", default-features = false, optional = true }
+borsh = { version = "1", default-features = false, features = ["derive"], optional = true }
 
 [dependencies.tendermint-proto]
-version          = "0.36"
+version          = "0.37"
 default-features = false
 
 [dev-dependencies]
