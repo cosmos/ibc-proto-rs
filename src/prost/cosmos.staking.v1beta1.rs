@@ -56,7 +56,7 @@ pub struct Commission {
     /// update_time is the last time the commission rate was changed.
     #[prost(message, optional, tag = "2")]
     pub update_time: ::core::option::Option<
-        super::super::super::google::protobuf::Timestamp,
+        ::tendermint_proto::google::protobuf::Timestamp,
     >,
 }
 impl ::prost::Name for Commission {
@@ -116,7 +116,7 @@ pub struct Validator {
     /// consensus_pubkey is the consensus public key of the validator, as a Protobuf Any.
     #[prost(message, optional, tag = "2")]
     pub consensus_pubkey: ::core::option::Option<
-        super::super::super::google::protobuf::Any,
+        ::tendermint_proto::google::protobuf::Any,
     >,
     /// jailed defined whether the validator has been jailed from bonded status or not.
     #[prost(bool, tag = "3")]
@@ -139,7 +139,7 @@ pub struct Validator {
     /// unbonding_time defines, if unbonding, the min time for the validator to complete unbonding.
     #[prost(message, optional, tag = "9")]
     pub unbonding_time: ::core::option::Option<
-        super::super::super::google::protobuf::Timestamp,
+        ::tendermint_proto::google::protobuf::Timestamp,
     >,
     /// commission defines the commission parameters.
     #[prost(message, optional, tag = "10")]
@@ -325,7 +325,7 @@ pub struct UnbondingDelegationEntry {
     /// completion_time is the unix time for unbonding completion.
     #[prost(message, optional, tag = "2")]
     pub completion_time: ::core::option::Option<
-        super::super::super::google::protobuf::Timestamp,
+        ::tendermint_proto::google::protobuf::Timestamp,
     >,
     /// initial_balance defines the tokens initially scheduled to receive at completion.
     #[prost(string, tag = "3")]
@@ -360,7 +360,7 @@ pub struct RedelegationEntry {
     /// completion_time defines the unix time for redelegation completion.
     #[prost(message, optional, tag = "2")]
     pub completion_time: ::core::option::Option<
-        super::super::super::google::protobuf::Timestamp,
+        ::tendermint_proto::google::protobuf::Timestamp,
     >,
     /// initial_balance defines the initial balance when redelegation started.
     #[prost(string, tag = "3")]
@@ -422,7 +422,7 @@ pub struct Params {
     /// unbonding_time is the time duration of unbonding.
     #[prost(message, optional, tag = "1")]
     pub unbonding_time: ::core::option::Option<
-        super::super::super::google::protobuf::Duration,
+        ::tendermint_proto::google::protobuf::Duration,
     >,
     /// max_validators is the maximum number of validators.
     #[prost(uint32, tag = "2")]
@@ -668,7 +668,7 @@ pub struct MsgCreateValidator {
     #[prost(string, tag = "5")]
     pub validator_address: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "6")]
-    pub pubkey: ::core::option::Option<super::super::super::google::protobuf::Any>,
+    pub pubkey: ::core::option::Option<::tendermint_proto::google::protobuf::Any>,
     #[prost(message, optional, tag = "7")]
     pub value: ::core::option::Option<super::super::base::v1beta1::Coin>,
 }
@@ -803,7 +803,7 @@ impl ::prost::Name for MsgBeginRedelegate {
 pub struct MsgBeginRedelegateResponse {
     #[prost(message, optional, tag = "1")]
     pub completion_time: ::core::option::Option<
-        super::super::super::google::protobuf::Timestamp,
+        ::tendermint_proto::google::protobuf::Timestamp,
     >,
 }
 impl ::prost::Name for MsgBeginRedelegateResponse {
@@ -844,7 +844,7 @@ impl ::prost::Name for MsgUndelegate {
 pub struct MsgUndelegateResponse {
     #[prost(message, optional, tag = "1")]
     pub completion_time: ::core::option::Option<
-        super::super::super::google::protobuf::Timestamp,
+        ::tendermint_proto::google::protobuf::Timestamp,
     >,
 }
 impl ::prost::Name for MsgUndelegateResponse {

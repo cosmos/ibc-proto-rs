@@ -14,9 +14,7 @@ pub struct CrossChainValidator {
     pub power: i64,
     /// pubkey is the consensus public key of the validator, as a Protobuf Any.
     #[prost(message, optional, tag = "3")]
-    pub pubkey: ::core::option::Option<
-        super::super::super::super::google::protobuf::Any,
-    >,
+    pub pubkey: ::core::option::Option<::tendermint_proto::google::protobuf::Any>,
 }
 impl ::prost::Name for CrossChainValidator {
     const NAME: &'static str = "CrossChainValidator";
@@ -39,7 +37,7 @@ pub struct SlashRecord {
     pub waiting_on_reply: bool,
     #[prost(message, optional, tag = "2")]
     pub send_time: ::core::option::Option<
-        super::super::super::super::google::protobuf::Timestamp,
+        ::tendermint_proto::google::protobuf::Timestamp,
     >,
 }
 impl ::prost::Name for SlashRecord {
