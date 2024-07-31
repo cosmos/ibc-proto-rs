@@ -46,9 +46,7 @@ impl ::prost::Name for InterchainAccountPacketData {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CosmosTx {
     #[prost(message, repeated, tag = "1")]
-    pub messages: ::prost::alloc::vec::Vec<
-        super::super::super::super::google::protobuf::Any,
-    >,
+    pub messages: ::prost::alloc::vec::Vec<::tendermint_proto::google::protobuf::Any>,
 }
 impl ::prost::Name for CosmosTx {
     const NAME: &'static str = "CosmosTx";

@@ -35,9 +35,7 @@ impl ::prost::Name for ClientState {
 pub struct ConsensusState {
     /// public key of the solo machine
     #[prost(message, optional, tag = "1")]
-    pub public_key: ::core::option::Option<
-        super::super::super::super::google::protobuf::Any,
-    >,
+    pub public_key: ::core::option::Option<::tendermint_proto::google::protobuf::Any>,
     /// diversifier allows the same public key to be re-used across different solo
     /// machine clients (potentially on different chains) without being considered
     /// misbehaviour.
@@ -69,7 +67,7 @@ pub struct Header {
     pub signature: ::prost::alloc::vec::Vec<u8>,
     #[prost(message, optional, tag = "4")]
     pub new_public_key: ::core::option::Option<
-        super::super::super::super::google::protobuf::Any,
+        ::tendermint_proto::google::protobuf::Any,
     >,
     #[prost(string, tag = "5")]
     pub new_diversifier: ::prost::alloc::string::String,
@@ -185,9 +183,7 @@ impl ::prost::Name for SignBytes {
 pub struct HeaderData {
     /// header public key
     #[prost(message, optional, tag = "1")]
-    pub new_pub_key: ::core::option::Option<
-        super::super::super::super::google::protobuf::Any,
-    >,
+    pub new_pub_key: ::core::option::Option<::tendermint_proto::google::protobuf::Any>,
     /// header diversifier
     #[prost(string, tag = "2")]
     pub new_diversifier: ::prost::alloc::string::String,
@@ -209,9 +205,7 @@ pub struct ClientStateData {
     #[prost(bytes = "vec", tag = "1")]
     pub path: ::prost::alloc::vec::Vec<u8>,
     #[prost(message, optional, tag = "2")]
-    pub client_state: ::core::option::Option<
-        super::super::super::super::google::protobuf::Any,
-    >,
+    pub client_state: ::core::option::Option<::tendermint_proto::google::protobuf::Any>,
 }
 impl ::prost::Name for ClientStateData {
     const NAME: &'static str = "ClientStateData";
@@ -232,7 +226,7 @@ pub struct ConsensusStateData {
     pub path: ::prost::alloc::vec::Vec<u8>,
     #[prost(message, optional, tag = "2")]
     pub consensus_state: ::core::option::Option<
-        super::super::super::super::google::protobuf::Any,
+        ::tendermint_proto::google::protobuf::Any,
     >,
 }
 impl ::prost::Name for ConsensusStateData {
