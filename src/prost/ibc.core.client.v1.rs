@@ -9,9 +9,7 @@ pub struct IdentifiedClientState {
     pub client_id: ::prost::alloc::string::String,
     /// client state
     #[prost(message, optional, tag = "2")]
-    pub client_state: ::core::option::Option<
-        super::super::super::super::google::protobuf::Any,
-    >,
+    pub client_state: ::core::option::Option<::tendermint_proto::google::protobuf::Any>,
 }
 impl ::prost::Name for IdentifiedClientState {
     const NAME: &'static str = "IdentifiedClientState";
@@ -34,7 +32,7 @@ pub struct ConsensusStateWithHeight {
     /// consensus state
     #[prost(message, optional, tag = "2")]
     pub consensus_state: ::core::option::Option<
-        super::super::super::super::google::protobuf::Any,
+        ::tendermint_proto::google::protobuf::Any,
     >,
 }
 impl ::prost::Name for ConsensusStateWithHeight {
@@ -180,7 +178,7 @@ pub struct UpgradeProposal {
     /// planned chain upgrades
     #[prost(message, optional, tag = "4")]
     pub upgraded_client_state: ::core::option::Option<
-        super::super::super::super::google::protobuf::Any,
+        ::tendermint_proto::google::protobuf::Any,
     >,
 }
 impl ::prost::Name for UpgradeProposal {
@@ -275,14 +273,12 @@ impl ::prost::Name for IdentifiedGenesisMetadata {
 pub struct MsgCreateClient {
     /// light client state
     #[prost(message, optional, tag = "1")]
-    pub client_state: ::core::option::Option<
-        super::super::super::super::google::protobuf::Any,
-    >,
+    pub client_state: ::core::option::Option<::tendermint_proto::google::protobuf::Any>,
     /// consensus state associated with the client that corresponds to a given
     /// height.
     #[prost(message, optional, tag = "2")]
     pub consensus_state: ::core::option::Option<
-        super::super::super::super::google::protobuf::Any,
+        ::tendermint_proto::google::protobuf::Any,
     >,
     /// signer address
     #[prost(string, tag = "3")]
@@ -323,7 +319,7 @@ pub struct MsgUpdateClient {
     /// client message to update the light client
     #[prost(message, optional, tag = "2")]
     pub client_message: ::core::option::Option<
-        super::super::super::super::google::protobuf::Any,
+        ::tendermint_proto::google::protobuf::Any,
     >,
     /// signer address
     #[prost(string, tag = "3")]
@@ -363,14 +359,12 @@ pub struct MsgUpgradeClient {
     pub client_id: ::prost::alloc::string::String,
     /// upgraded client state
     #[prost(message, optional, tag = "2")]
-    pub client_state: ::core::option::Option<
-        super::super::super::super::google::protobuf::Any,
-    >,
+    pub client_state: ::core::option::Option<::tendermint_proto::google::protobuf::Any>,
     /// upgraded consensus state, only contains enough information to serve as a
     /// basis of trust in update logic
     #[prost(message, optional, tag = "3")]
     pub consensus_state: ::core::option::Option<
-        super::super::super::super::google::protobuf::Any,
+        ::tendermint_proto::google::protobuf::Any,
     >,
     /// proof that old chain committed to new client
     #[prost(bytes = "vec", tag = "4")]
@@ -417,9 +411,7 @@ pub struct MsgSubmitMisbehaviour {
     pub client_id: ::prost::alloc::string::String,
     /// misbehaviour used for freezing the light client
     #[prost(message, optional, tag = "2")]
-    pub misbehaviour: ::core::option::Option<
-        super::super::super::super::google::protobuf::Any,
-    >,
+    pub misbehaviour: ::core::option::Option<::tendermint_proto::google::protobuf::Any>,
     /// signer address
     #[prost(string, tag = "3")]
     pub signer: ::prost::alloc::string::String,
@@ -506,7 +498,7 @@ pub struct MsgIbcSoftwareUpgrade {
     /// the 02-client module.
     #[prost(message, optional, tag = "2")]
     pub upgraded_client_state: ::core::option::Option<
-        super::super::super::super::google::protobuf::Any,
+        ::tendermint_proto::google::protobuf::Any,
     >,
     /// signer address
     #[prost(string, tag = "3")]
@@ -1352,9 +1344,7 @@ impl ::prost::Name for QueryClientStateRequest {
 pub struct QueryClientStateResponse {
     /// client state associated with the request identifier
     #[prost(message, optional, tag = "1")]
-    pub client_state: ::core::option::Option<
-        super::super::super::super::google::protobuf::Any,
-    >,
+    pub client_state: ::core::option::Option<::tendermint_proto::google::protobuf::Any>,
     /// merkle proof of existence
     #[prost(bytes = "vec", tag = "2")]
     pub proof: ::prost::alloc::vec::Vec<u8>,
@@ -1455,7 +1445,7 @@ pub struct QueryConsensusStateResponse {
     /// consensus state associated with the client identifier at the given height
     #[prost(message, optional, tag = "1")]
     pub consensus_state: ::core::option::Option<
-        super::super::super::super::google::protobuf::Any,
+        ::tendermint_proto::google::protobuf::Any,
     >,
     /// merkle proof of existence
     #[prost(bytes = "vec", tag = "2")]
@@ -1664,7 +1654,7 @@ pub struct QueryUpgradedClientStateResponse {
     /// client state associated with the request identifier
     #[prost(message, optional, tag = "1")]
     pub upgraded_client_state: ::core::option::Option<
-        super::super::super::super::google::protobuf::Any,
+        ::tendermint_proto::google::protobuf::Any,
     >,
 }
 impl ::prost::Name for QueryUpgradedClientStateResponse {
@@ -1700,7 +1690,7 @@ pub struct QueryUpgradedConsensusStateResponse {
     /// Consensus state associated with the request identifier
     #[prost(message, optional, tag = "1")]
     pub upgraded_consensus_state: ::core::option::Option<
-        super::super::super::super::google::protobuf::Any,
+        ::tendermint_proto::google::protobuf::Any,
     >,
 }
 impl ::prost::Name for QueryUpgradedConsensusStateResponse {

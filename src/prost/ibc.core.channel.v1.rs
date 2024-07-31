@@ -3298,7 +3298,7 @@ pub struct QueryChannelConsensusStateResponse {
     /// consensus state associated with the channel
     #[prost(message, optional, tag = "1")]
     pub consensus_state: ::core::option::Option<
-        super::super::super::super::google::protobuf::Any,
+        ::tendermint_proto::google::protobuf::Any,
     >,
     /// client ID associated with the consensus state
     #[prost(string, tag = "2")]

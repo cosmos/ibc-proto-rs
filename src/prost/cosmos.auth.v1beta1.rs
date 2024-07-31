@@ -8,7 +8,7 @@ pub struct BaseAccount {
     #[prost(string, tag = "1")]
     pub address: ::prost::alloc::string::String,
     #[prost(message, optional, tag = "2")]
-    pub pub_key: ::core::option::Option<super::super::super::google::protobuf::Any>,
+    pub pub_key: ::core::option::Option<::tendermint_proto::google::protobuf::Any>,
     #[prost(uint64, tag = "3")]
     pub account_number: u64,
     #[prost(uint64, tag = "4")]
@@ -458,7 +458,7 @@ impl ::prost::Name for QueryAccountsRequest {
 pub struct QueryAccountsResponse {
     /// accounts are the existing accounts
     #[prost(message, repeated, tag = "1")]
-    pub accounts: ::prost::alloc::vec::Vec<super::super::super::google::protobuf::Any>,
+    pub accounts: ::prost::alloc::vec::Vec<::tendermint_proto::google::protobuf::Any>,
     /// pagination defines the pagination in the response.
     #[prost(message, optional, tag = "2")]
     pub pagination: ::core::option::Option<
@@ -499,7 +499,7 @@ impl ::prost::Name for QueryAccountRequest {
 pub struct QueryAccountResponse {
     /// account defines the account of the corresponding address.
     #[prost(message, optional, tag = "1")]
-    pub account: ::core::option::Option<super::super::super::google::protobuf::Any>,
+    pub account: ::core::option::Option<::tendermint_proto::google::protobuf::Any>,
 }
 impl ::prost::Name for QueryAccountResponse {
     const NAME: &'static str = "QueryAccountResponse";
@@ -566,7 +566,7 @@ impl ::prost::Name for QueryModuleAccountsRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryModuleAccountsResponse {
     #[prost(message, repeated, tag = "1")]
-    pub accounts: ::prost::alloc::vec::Vec<super::super::super::google::protobuf::Any>,
+    pub accounts: ::prost::alloc::vec::Vec<::tendermint_proto::google::protobuf::Any>,
 }
 impl ::prost::Name for QueryModuleAccountsResponse {
     const NAME: &'static str = "QueryModuleAccountsResponse";
@@ -600,7 +600,7 @@ impl ::prost::Name for QueryModuleAccountByNameRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryModuleAccountByNameResponse {
     #[prost(message, optional, tag = "1")]
-    pub account: ::core::option::Option<super::super::super::google::protobuf::Any>,
+    pub account: ::core::option::Option<::tendermint_proto::google::protobuf::Any>,
 }
 impl ::prost::Name for QueryModuleAccountByNameResponse {
     const NAME: &'static str = "QueryModuleAccountByNameResponse";
@@ -1864,7 +1864,7 @@ pub struct GenesisState {
     pub params: ::core::option::Option<Params>,
     /// accounts are the accounts present at genesis.
     #[prost(message, repeated, tag = "2")]
-    pub accounts: ::prost::alloc::vec::Vec<super::super::super::google::protobuf::Any>,
+    pub accounts: ::prost::alloc::vec::Vec<::tendermint_proto::google::protobuf::Any>,
 }
 impl ::prost::Name for GenesisState {
     const NAME: &'static str = "GenesisState";

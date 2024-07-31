@@ -615,23 +615,23 @@ pub struct ConsumerAdditionProposal {
     /// their consumer chain validator node.
     #[prost(message, optional, tag = "7")]
     pub spawn_time: ::core::option::Option<
-        super::super::super::super::google::protobuf::Timestamp,
+        ::tendermint_proto::google::protobuf::Timestamp,
     >,
     /// Unbonding period for the consumer,
     /// which should be smaller than that of the provider in general.
     #[prost(message, optional, tag = "8")]
     pub unbonding_period: ::core::option::Option<
-        super::super::super::super::google::protobuf::Duration,
+        ::tendermint_proto::google::protobuf::Duration,
     >,
     /// Sent CCV related IBC packets will timeout after this duration
     #[prost(message, optional, tag = "9")]
     pub ccv_timeout_period: ::core::option::Option<
-        super::super::super::super::google::protobuf::Duration,
+        ::tendermint_proto::google::protobuf::Duration,
     >,
     /// Sent transfer related IBC packets will timeout after this duration
     #[prost(message, optional, tag = "10")]
     pub transfer_timeout_period: ::core::option::Option<
-        super::super::super::super::google::protobuf::Duration,
+        ::tendermint_proto::google::protobuf::Duration,
     >,
     /// The fraction of tokens allocated to the consumer redistribution address
     /// during distribution events. The fraction is a string representing a
@@ -688,7 +688,7 @@ pub struct ConsumerRemovalProposal {
     /// stop their consumer chain validator node
     #[prost(message, optional, tag = "4")]
     pub stop_time: ::core::option::Option<
-        super::super::super::super::google::protobuf::Timestamp,
+        ::tendermint_proto::google::protobuf::Timestamp,
     >,
 }
 impl ::prost::Name for ConsumerRemovalProposal {
@@ -739,7 +739,7 @@ pub struct GlobalSlashEntry {
     /// This field is used for store key iteration ordering.
     #[prost(message, optional, tag = "1")]
     pub recv_time: ::core::option::Option<
-        super::super::super::super::google::protobuf::Timestamp,
+        ::tendermint_proto::google::protobuf::Timestamp,
     >,
     /// The consumer that sent a slash packet.
     #[prost(string, tag = "2")]
@@ -781,13 +781,13 @@ pub struct Params {
     /// Sent IBC packets will timeout after this duration
     #[prost(message, optional, tag = "3")]
     pub ccv_timeout_period: ::core::option::Option<
-        super::super::super::super::google::protobuf::Duration,
+        ::tendermint_proto::google::protobuf::Duration,
     >,
     /// The channel initialization (IBC channel opening handshake) will timeout
     /// after this duration
     #[prost(message, optional, tag = "4")]
     pub init_timeout_period: ::core::option::Option<
-        super::super::super::super::google::protobuf::Duration,
+        ::tendermint_proto::google::protobuf::Duration,
     >,
     /// The VSC packets sent by the provider will timeout after this duration.
     /// Note that unlike ccv_timeout_period which is an IBC param,
@@ -795,12 +795,12 @@ pub struct Params {
     /// to timeout VSC packets even when a consumer chain is not live.
     #[prost(message, optional, tag = "5")]
     pub vsc_timeout_period: ::core::option::Option<
-        super::super::super::super::google::protobuf::Duration,
+        ::tendermint_proto::google::protobuf::Duration,
     >,
     /// The period for which the slash meter is replenished
     #[prost(message, optional, tag = "6")]
     pub slash_meter_replenish_period: ::core::option::Option<
-        super::super::super::super::google::protobuf::Duration,
+        ::tendermint_proto::google::protobuf::Duration,
     >,
     /// The fraction of total voting power that is replenished to the slash meter
     /// every replenish period. This param also serves as a maximum fraction of
@@ -986,7 +986,7 @@ pub struct VscSendTimestamp {
     pub vsc_id: u64,
     #[prost(message, optional, tag = "2")]
     pub timestamp: ::core::option::Option<
-        super::super::super::super::google::protobuf::Timestamp,
+        ::tendermint_proto::google::protobuf::Timestamp,
     >,
 }
 impl ::prost::Name for VscSendTimestamp {
@@ -1387,7 +1387,7 @@ pub struct QueryThrottleStateResponse {
     /// full
     #[prost(message, optional, tag = "3")]
     pub next_replenish_candidate: ::core::option::Option<
-        super::super::super::super::google::protobuf::Timestamp,
+        ::tendermint_proto::google::protobuf::Timestamp,
     >,
     /// data relevant to currently throttled slash packets
     #[prost(message, repeated, tag = "4")]

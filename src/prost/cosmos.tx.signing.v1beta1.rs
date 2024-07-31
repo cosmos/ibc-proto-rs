@@ -26,9 +26,7 @@ impl ::prost::Name for SignatureDescriptors {
 pub struct SignatureDescriptor {
     /// public_key is the public key of the signer
     #[prost(message, optional, tag = "1")]
-    pub public_key: ::core::option::Option<
-        super::super::super::super::google::protobuf::Any,
-    >,
+    pub public_key: ::core::option::Option<::tendermint_proto::google::protobuf::Any>,
     #[prost(message, optional, tag = "2")]
     pub data: ::core::option::Option<signature_descriptor::Data>,
     /// sequence is the sequence of the account, which describes the
