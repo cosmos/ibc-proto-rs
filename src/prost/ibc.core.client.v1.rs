@@ -1522,6 +1522,52 @@ impl ::prost::Name for QueryConsensusStatesResponse {
         "/ibc.core.client.v1.QueryConsensusStatesResponse".into()
     }
 }
+/// QueryNextConsensusStateRequest is the request type for the Query/ConsensusState
+/// RPC method. Besides the consensus state, it includes a proof and the height
+/// from which the proof was retrieved.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryNextConsensusStateHeightRequest {
+    /// client identifier
+    #[prost(string, tag = "1")]
+    pub client_id: ::prost::alloc::string::String,
+    /// consensus state revision number
+    #[prost(uint64, tag = "2")]
+    pub revision_number: u64,
+    /// consensus state revision height
+    #[prost(uint64, tag = "3")]
+    pub revision_height: u64,
+}
+impl ::prost::Name for QueryNextConsensusStateHeightRequest {
+    const NAME: &'static str = "QueryNextConsensusStateHeightRequest";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "ibc.core.client.v1.QueryNextConsensusStateHeightRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "/ibc.core.client.v1.QueryNextConsensusStateHeightRequest".into()
+    }
+}
+/// QueryNextConsensusStateResponse is the response type for the Query/ConsensusState
+/// RPC method
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct QueryNextConsensusStateHeightResponse {
+    /// minimum consensus state height associated with the client identifier larger
+    /// than the query height
+    #[prost(message, optional, tag = "1")]
+    pub consensus_height: ::core::option::Option<Height>,
+}
+impl ::prost::Name for QueryNextConsensusStateHeightResponse {
+    const NAME: &'static str = "QueryNextConsensusStateHeightResponse";
+    const PACKAGE: &'static str = "ibc.core.client.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "ibc.core.client.v1.QueryNextConsensusStateHeightResponse".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "/ibc.core.client.v1.QueryNextConsensusStateHeightResponse".into()
+    }
+}
 /// QueryConsensusStateHeightsRequest is the request type for Query/ConsensusStateHeights
 /// RPC method.
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -1906,6 +1952,38 @@ pub mod query_client {
                 .insert(GrpcMethod::new("ibc.core.client.v1.Query", "ConsensusStates"));
             self.inner.unary(req, path, codec).await
         }
+        /// NextConsensusStateHeight queries for a consensus state height associated with
+        /// a client state at a minimum height greater than a given height.
+        pub async fn next_consensus_state_height(
+            &mut self,
+            request: impl tonic::IntoRequest<super::QueryNextConsensusStateHeightRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryNextConsensusStateHeightResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/ibc.core.client.v1.Query/NextConsensusStateHeight",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "ibc.core.client.v1.Query",
+                        "NextConsensusStateHeight",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
         /// ConsensusStateHeights queries the height of every consensus states associated with a given client.
         pub async fn consensus_state_heights(
             &mut self,
@@ -2084,6 +2162,15 @@ pub mod query_server {
             request: tonic::Request<super::QueryConsensusStatesRequest>,
         ) -> std::result::Result<
             tonic::Response<super::QueryConsensusStatesResponse>,
+            tonic::Status,
+        >;
+        /// NextConsensusStateHeight queries for a consensus state height associated with
+        /// a client state at a minimum height greater than a given height.
+        async fn next_consensus_state_height(
+            &self,
+            request: tonic::Request<super::QueryNextConsensusStateHeightRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryNextConsensusStateHeightResponse>,
             tonic::Status,
         >;
         /// ConsensusStateHeights queries the height of every consensus states associated with a given client.
@@ -2369,6 +2456,55 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ConsensusStatesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/ibc.core.client.v1.Query/NextConsensusStateHeight" => {
+                    #[allow(non_camel_case_types)]
+                    struct NextConsensusStateHeightSvc<T: Query>(pub Arc<T>);
+                    impl<
+                        T: Query,
+                    > tonic::server::UnaryService<
+                        super::QueryNextConsensusStateHeightRequest,
+                    > for NextConsensusStateHeightSvc<T> {
+                        type Response = super::QueryNextConsensusStateHeightResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::QueryNextConsensusStateHeightRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Query>::next_consensus_state_height(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = NextConsensusStateHeightSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
