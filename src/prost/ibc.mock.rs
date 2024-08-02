@@ -1,5 +1,5 @@
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct Header {
     #[prost(message, optional, tag = "1")]
     pub height: ::core::option::Option<super::core::client::v1::Height>,
@@ -14,7 +14,7 @@ impl ::prost::Name for Header {
     }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct ClientState {
     #[prost(message, optional, tag = "1")]
     pub header: ::core::option::Option<Header>,
@@ -31,7 +31,7 @@ impl ::prost::Name for ClientState {
     }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct ConsensusState {
     #[prost(message, optional, tag = "1")]
     pub header: ::core::option::Option<Header>,

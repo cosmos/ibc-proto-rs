@@ -255,7 +255,7 @@ pub mod descriptor_proto {
     /// fields or extension ranges in the same message. Reserved ranges may
     /// not overlap.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct ReservedRange {
         /// Inclusive.
         #[prost(int32, optional, tag = "1")]
@@ -652,7 +652,7 @@ pub mod enum_descriptor_proto {
     /// is inclusive such that it can appropriately represent the entire int32
     /// domain.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct EnumReservedRange {
         /// Inclusive.
         #[prost(int32, optional, tag = "1")]
@@ -1152,6 +1152,39 @@ pub mod field_options {
             ::prost::alloc::format!("google.protobuf.FieldOptions.{}", Self::NAME)
         }
     }
+    /// Information about the support window of a feature.
+    #[allow(clippy::derive_partial_eq_without_eq)]
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct FeatureSupport {
+        /// The edition that this feature was first available in.  In editions
+        /// earlier than this one, the default assigned to EDITION_LEGACY will be
+        /// used, and proto files will not be able to override it.
+        #[prost(enumeration = "super::Edition", optional, tag = "1")]
+        pub edition_introduced: ::core::option::Option<i32>,
+        /// The edition this feature becomes deprecated in.  Using this after this
+        /// edition may trigger warnings.
+        #[prost(enumeration = "super::Edition", optional, tag = "2")]
+        pub edition_deprecated: ::core::option::Option<i32>,
+        /// The deprecation warning text if this feature is used after the edition it
+        /// was marked deprecated in.
+        #[prost(string, optional, tag = "3")]
+        pub deprecation_warning: ::core::option::Option<::prost::alloc::string::String>,
+        /// The edition this feature is no longer available in.  In editions after
+        /// this one, the last default assigned will be used, and proto files will
+        /// not be able to override it.
+        #[prost(enumeration = "super::Edition", optional, tag = "4")]
+        pub edition_removed: ::core::option::Option<i32>,
+    }
+    impl ::prost::Name for FeatureSupport {
+        const NAME: &'static str = "FeatureSupport";
+        const PACKAGE: &'static str = "google.protobuf";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.protobuf.FieldOptions.FeatureSupport".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "/google.protobuf.FieldOptions.FeatureSupport".into()
+        }
+    }
     #[derive(
         Clone,
         Copy,
@@ -1603,7 +1636,7 @@ impl ::prost::Name for UninterpretedOption {
 /// be designed and implemented to handle this, hopefully before we ever hit a
 /// conflict here.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct FeatureSet {
     #[prost(enumeration = "feature_set::FieldPresence", optional, tag = "1")]
     pub field_presence: ::core::option::Option<i32>,
@@ -1892,7 +1925,7 @@ pub mod feature_set_defaults {
     /// the defaults at the closest matching edition ordered at or before it should
     /// be used.  This field must be in strict ascending order by edition.
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct FeatureSetEditionDefault {
         #[prost(enumeration = "super::Edition", optional, tag = "3")]
         pub edition: ::core::option::Option<i32>,
@@ -2337,7 +2370,7 @@ impl Edition {
 /// ) to obtain a formatter capable of generating timestamps in this format.
 ///
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct Timestamp {
     /// Represents seconds of UTC time since Unix epoch
     /// 1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to
@@ -2419,7 +2452,7 @@ impl ::prost::Name for Timestamp {
 ///
 #[derive(Eq)]
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct Duration {
     /// Signed seconds of the span of time. Must be from -315,576,000,000
     /// to +315,576,000,000 inclusive. Note: these bounds are computed from:

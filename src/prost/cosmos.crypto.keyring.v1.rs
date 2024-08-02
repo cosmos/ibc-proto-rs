@@ -35,7 +35,7 @@ pub mod record {
     }
     /// Ledger item
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct Ledger {
         #[prost(message, optional, tag = "1")]
         pub path: ::core::option::Option<super::super::super::hd::v1::Bip44Params>,
@@ -49,7 +49,7 @@ pub mod record {
     }
     /// Multi item
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct Multi {}
     impl ::prost::Name for Multi {
         const NAME: &'static str = "Multi";
@@ -60,7 +60,7 @@ pub mod record {
     }
     /// Offline item
     #[allow(clippy::derive_partial_eq_without_eq)]
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct Offline {}
     impl ::prost::Name for Offline {
         const NAME: &'static str = "Offline";

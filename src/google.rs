@@ -1,13 +1,13 @@
 pub mod protobuf {
     use crate::include_proto;
+
     include_proto!("google.protobuf.rs");
+
     #[cfg(feature = "serde")]
     include_proto!("google.protobuf.serde.rs");
 
     // source: https://github.com/tokio-rs/prost/blob/master/prost-types/src/lib.rs
     use core::convert::TryFrom;
-    use core::i32;
-    use core::i64;
     use core::time;
 
     // The Protobuf `Duration` and `Timestamp` types can't delegate to the standard library equivalents
@@ -210,7 +210,8 @@ pub mod protobuf {
         type Error = TimestampOutOfSystemRangeError;
 
         fn try_from(mut timestamp: Timestamp) -> Result<std::time::SystemTime, Self::Error> {
-            let orig_timestamp = timestamp.clone();
+            let orig_timestamp = timestamp;
+
             timestamp.normalize();
 
             let system_time = if timestamp.seconds >= 0 {

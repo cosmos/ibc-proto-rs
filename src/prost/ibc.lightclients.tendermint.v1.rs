@@ -147,7 +147,7 @@ impl ::prost::Name for Header {
 /// Fraction defines the protobuf message type for tmmath.Fraction that only
 /// supports positive values.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct Fraction {
     #[prost(uint64, tag = "1")]
     pub numerator: u64,

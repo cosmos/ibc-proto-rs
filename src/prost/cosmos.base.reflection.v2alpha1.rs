@@ -218,7 +218,7 @@ impl ::prost::Name for MsgDescriptor {
 }
 /// GetAuthnDescriptorRequest is the request used for the GetAuthnDescriptor RPC
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct GetAuthnDescriptorRequest {}
 impl ::prost::Name for GetAuthnDescriptorRequest {
     const NAME: &'static str = "GetAuthnDescriptorRequest";
@@ -244,7 +244,7 @@ impl ::prost::Name for GetAuthnDescriptorResponse {
 }
 /// GetChainDescriptorRequest is the request used for the GetChainDescriptor RPC
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct GetChainDescriptorRequest {}
 impl ::prost::Name for GetChainDescriptorRequest {
     const NAME: &'static str = "GetChainDescriptorRequest";
@@ -270,7 +270,7 @@ impl ::prost::Name for GetChainDescriptorResponse {
 }
 /// GetCodecDescriptorRequest is the request used for the GetCodecDescriptor RPC
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct GetCodecDescriptorRequest {}
 impl ::prost::Name for GetCodecDescriptorRequest {
     const NAME: &'static str = "GetCodecDescriptorRequest";
@@ -296,7 +296,7 @@ impl ::prost::Name for GetCodecDescriptorResponse {
 }
 /// GetConfigurationDescriptorRequest is the request used for the GetConfigurationDescriptor RPC
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct GetConfigurationDescriptorRequest {}
 impl ::prost::Name for GetConfigurationDescriptorRequest {
     const NAME: &'static str = "GetConfigurationDescriptorRequest";
@@ -322,7 +322,7 @@ impl ::prost::Name for GetConfigurationDescriptorResponse {
 }
 /// GetQueryServicesDescriptorRequest is the request used for the GetQueryServicesDescriptor RPC
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct GetQueryServicesDescriptorRequest {}
 impl ::prost::Name for GetQueryServicesDescriptorRequest {
     const NAME: &'static str = "GetQueryServicesDescriptorRequest";
@@ -348,7 +348,7 @@ impl ::prost::Name for GetQueryServicesDescriptorResponse {
 }
 /// GetTxDescriptorRequest is the request used for the GetTxDescriptor RPC
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct GetTxDescriptorRequest {}
 impl ::prost::Name for GetTxDescriptorRequest {
     const NAME: &'static str = "GetTxDescriptorRequest";
@@ -769,19 +769,17 @@ pub mod reflection_service_server {
     /// ReflectionService defines a service for application reflection.
     #[derive(Debug)]
     pub struct ReflectionServiceServer<T: ReflectionService> {
-        inner: _Inner<T>,
+        inner: Arc<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
         max_decoding_message_size: Option<usize>,
         max_encoding_message_size: Option<usize>,
     }
-    struct _Inner<T>(Arc<T>);
     impl<T: ReflectionService> ReflectionServiceServer<T> {
         pub fn new(inner: T) -> Self {
             Self::from_arc(Arc::new(inner))
         }
         pub fn from_arc(inner: Arc<T>) -> Self {
-            let inner = _Inner(inner);
             Self {
                 inner,
                 accept_compression_encodings: Default::default(),
@@ -844,7 +842,6 @@ pub mod reflection_service_server {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
-            let inner = self.inner.clone();
             match req.uri().path() {
                 "/cosmos.base.reflection.v2alpha1.ReflectionService/GetAuthnDescriptor" => {
                     #[allow(non_camel_case_types)]
@@ -879,7 +876,6 @@ pub mod reflection_service_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = GetAuthnDescriptorSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -929,7 +925,6 @@ pub mod reflection_service_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = GetChainDescriptorSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -979,7 +974,6 @@ pub mod reflection_service_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = GetCodecDescriptorSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -1034,7 +1028,6 @@ pub mod reflection_service_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = GetConfigurationDescriptorSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -1089,7 +1082,6 @@ pub mod reflection_service_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = GetQueryServicesDescriptorSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -1136,7 +1128,6 @@ pub mod reflection_service_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = GetTxDescriptorSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -1158,8 +1149,11 @@ pub mod reflection_service_server {
                         Ok(
                             http::Response::builder()
                                 .status(200)
-                                .header("grpc-status", "12")
-                                .header("content-type", "application/grpc")
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
                                 .body(empty_body())
                                 .unwrap(),
                         )
@@ -1178,16 +1172,6 @@ pub mod reflection_service_server {
                 max_decoding_message_size: self.max_decoding_message_size,
                 max_encoding_message_size: self.max_encoding_message_size,
             }
-        }
-    }
-    impl<T: ReflectionService> Clone for _Inner<T> {
-        fn clone(&self) -> Self {
-            Self(Arc::clone(&self.0))
-        }
-    }
-    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            write!(f, "{:?}", self.0)
         }
     }
     impl<T: ReflectionService> tonic::server::NamedService

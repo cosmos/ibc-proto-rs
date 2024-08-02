@@ -27,7 +27,7 @@ impl ::prost::Name for ValidatorSetChangePacketData {
 /// This packet is sent from the consumer chain to the provider chain
 /// to notify that a VSC packet reached maturity on the consumer chain.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct VscMaturedPacketData {
     /// the id of the VSC packet that reached maturity
     #[prost(uint64, tag = "1")]
@@ -370,7 +370,7 @@ impl ::prost::Name for ConsumerGenesisState {
 /// HeightValsetUpdateID represents a mapping internal to the consumer CCV module
 /// AND used in shared consumer genesis state, which links a block height to each recv valset update id.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct HeightToValsetUpdateId {
     #[prost(uint64, tag = "1")]
     pub height: u64,
@@ -404,7 +404,7 @@ impl ::prost::Name for OutstandingDowntime {
 /// pools were transmitted to the provider chain. This type is used internally
 /// to the consumer CCV module AND used in shared consumer genesis state.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct LastTransmissionBlockHeight {
     #[prost(int64, tag = "1")]
     pub height: i64,
@@ -421,7 +421,7 @@ impl ::prost::Name for LastTransmissionBlockHeight {
 /// back to the provider.  This type is used internally to the consumer CCV module
 /// AND used in shared consumer genesis state.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MaturingVscPacket {
     #[prost(uint64, tag = "1")]
     pub vsc_id: u64,
