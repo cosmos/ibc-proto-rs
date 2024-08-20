@@ -171,7 +171,7 @@ impl ::prost::Name for Version {
 }
 /// Params defines the set of Connection parameters.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct Params {
     /// maximum expected time per block (in nanoseconds), used to enforce block delay. This parameter should reflect the
     /// largest amount of time that the chain might reasonably take to produce the next block under normal operating
@@ -281,7 +281,7 @@ impl ::prost::Name for MsgConnectionOpenInit {
 /// MsgConnectionOpenInitResponse defines the Msg/ConnectionOpenInit response
 /// type.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgConnectionOpenInitResponse {}
 impl ::prost::Name for MsgConnectionOpenInitResponse {
     const NAME: &'static str = "MsgConnectionOpenInitResponse";
@@ -346,7 +346,7 @@ impl ::prost::Name for MsgConnectionOpenTry {
 }
 /// MsgConnectionOpenTryResponse defines the Msg/ConnectionOpenTry response type.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgConnectionOpenTryResponse {}
 impl ::prost::Name for MsgConnectionOpenTryResponse {
     const NAME: &'static str = "MsgConnectionOpenTryResponse";
@@ -405,7 +405,7 @@ impl ::prost::Name for MsgConnectionOpenAck {
 }
 /// MsgConnectionOpenAckResponse defines the Msg/ConnectionOpenAck response type.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgConnectionOpenAckResponse {}
 impl ::prost::Name for MsgConnectionOpenAckResponse {
     const NAME: &'static str = "MsgConnectionOpenAckResponse";
@@ -445,7 +445,7 @@ impl ::prost::Name for MsgConnectionOpenConfirm {
 /// MsgConnectionOpenConfirmResponse defines the Msg/ConnectionOpenConfirm
 /// response type.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgConnectionOpenConfirmResponse {}
 impl ::prost::Name for MsgConnectionOpenConfirmResponse {
     const NAME: &'static str = "MsgConnectionOpenConfirmResponse";
@@ -482,7 +482,7 @@ impl ::prost::Name for MsgUpdateParams {
 }
 /// MsgUpdateParamsResponse defines the MsgUpdateParams response type.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgUpdateParamsResponse {}
 impl ::prost::Name for MsgUpdateParamsResponse {
     const NAME: &'static str = "MsgUpdateParamsResponse";
@@ -785,19 +785,17 @@ pub mod msg_server {
     /// Msg defines the ibc/connection Msg service.
     #[derive(Debug)]
     pub struct MsgServer<T: Msg> {
-        inner: _Inner<T>,
+        inner: Arc<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
         max_decoding_message_size: Option<usize>,
         max_encoding_message_size: Option<usize>,
     }
-    struct _Inner<T>(Arc<T>);
     impl<T: Msg> MsgServer<T> {
         pub fn new(inner: T) -> Self {
             Self::from_arc(Arc::new(inner))
         }
         pub fn from_arc(inner: Arc<T>) -> Self {
-            let inner = _Inner(inner);
             Self {
                 inner,
                 accept_compression_encodings: Default::default(),
@@ -860,7 +858,6 @@ pub mod msg_server {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
-            let inner = self.inner.clone();
             match req.uri().path() {
                 "/ibc.core.connection.v1.Msg/ConnectionOpenInit" => {
                     #[allow(non_camel_case_types)]
@@ -891,7 +888,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ConnectionOpenInitSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -935,7 +931,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ConnectionOpenTrySvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -979,7 +974,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ConnectionOpenAckSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -1025,7 +1019,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ConnectionOpenConfirmSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -1069,7 +1062,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = UpdateConnectionParamsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -1091,8 +1083,11 @@ pub mod msg_server {
                         Ok(
                             http::Response::builder()
                                 .status(200)
-                                .header("grpc-status", "12")
-                                .header("content-type", "application/grpc")
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
                                 .body(empty_body())
                                 .unwrap(),
                         )
@@ -1111,16 +1106,6 @@ pub mod msg_server {
                 max_decoding_message_size: self.max_decoding_message_size,
                 max_encoding_message_size: self.max_encoding_message_size,
             }
-        }
-    }
-    impl<T: Msg> Clone for _Inner<T> {
-        fn clone(&self) -> Self {
-            Self(Arc::clone(&self.0))
-        }
-    }
-    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            write!(f, "{:?}", self.0)
         }
     }
     impl<T: Msg> tonic::server::NamedService for MsgServer<T> {
@@ -1364,7 +1349,7 @@ impl ::prost::Name for QueryConnectionConsensusStateResponse {
 }
 /// QueryConnectionParamsRequest is the request type for the Query/ConnectionParams RPC method.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct QueryConnectionParamsRequest {}
 impl ::prost::Name for QueryConnectionParamsRequest {
     const NAME: &'static str = "QueryConnectionParamsRequest";
@@ -1378,7 +1363,7 @@ impl ::prost::Name for QueryConnectionParamsRequest {
 }
 /// QueryConnectionParamsResponse is the response type for the Query/ConnectionParams RPC method.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct QueryConnectionParamsResponse {
     /// params defines the parameters of the module.
     #[prost(message, optional, tag = "1")]
@@ -1719,19 +1704,17 @@ pub mod query_server {
     /// Query provides defines the gRPC querier service
     #[derive(Debug)]
     pub struct QueryServer<T: Query> {
-        inner: _Inner<T>,
+        inner: Arc<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
         max_decoding_message_size: Option<usize>,
         max_encoding_message_size: Option<usize>,
     }
-    struct _Inner<T>(Arc<T>);
     impl<T: Query> QueryServer<T> {
         pub fn new(inner: T) -> Self {
             Self::from_arc(Arc::new(inner))
         }
         pub fn from_arc(inner: Arc<T>) -> Self {
-            let inner = _Inner(inner);
             Self {
                 inner,
                 accept_compression_encodings: Default::default(),
@@ -1794,7 +1777,6 @@ pub mod query_server {
             Poll::Ready(Ok(()))
         }
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
-            let inner = self.inner.clone();
             match req.uri().path() {
                 "/ibc.core.connection.v1.Query/Connection" => {
                     #[allow(non_camel_case_types)]
@@ -1825,7 +1807,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ConnectionSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -1871,7 +1852,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ConnectionsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -1917,7 +1897,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ClientConnectionsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -1966,7 +1945,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ConnectionClientStateSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2016,7 +1994,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ConnectionConsensusStateSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2062,7 +2039,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ConnectionParamsSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
@@ -2084,8 +2060,11 @@ pub mod query_server {
                         Ok(
                             http::Response::builder()
                                 .status(200)
-                                .header("grpc-status", "12")
-                                .header("content-type", "application/grpc")
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
                                 .body(empty_body())
                                 .unwrap(),
                         )
@@ -2104,16 +2083,6 @@ pub mod query_server {
                 max_decoding_message_size: self.max_decoding_message_size,
                 max_encoding_message_size: self.max_encoding_message_size,
             }
-        }
-    }
-    impl<T: Query> Clone for _Inner<T> {
-        fn clone(&self) -> Self {
-            Self(Arc::clone(&self.0))
-        }
-    }
-    impl<T: std::fmt::Debug> std::fmt::Debug for _Inner<T> {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            write!(f, "{:?}", self.0)
         }
     }
     impl<T: Query> tonic::server::NamedService for QueryServer<T> {
