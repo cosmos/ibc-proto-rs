@@ -79,6 +79,9 @@ impl ::prost::Name for ClientConsensusStates {
 /// breaking changes In these cases, the RevisionNumber is incremented so that
 /// height continues to be monitonically increasing even as the RevisionHeight
 /// gets reset
+///
+/// Please note that json tags for generated Go code are overridden to explicitly exclude the omitempty jsontag.
+/// This enforces the Go json marshaller to always emit zero values for both revision_number and revision_height.
 #[derive(Eq, PartialOrd, Ord)]
 #[cfg_attr(
     all(feature = "json-schema", feature = "serde"),
@@ -122,75 +125,6 @@ impl ::prost::Name for Params {
     }
     fn type_url() -> ::prost::alloc::string::String {
         "/ibc.core.client.v1.Params".into()
-    }
-}
-/// ClientUpdateProposal is a legacy governance proposal. If it passes, the substitute
-/// client's latest consensus state is copied over to the subject client. The proposal
-/// handler may fail if the subject and the substitute do not match in client and
-/// chain parameters (with exception to latest height, frozen height, and chain-id).
-///
-/// Deprecated: Please use MsgRecoverClient in favour of this message type.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ClientUpdateProposal {
-    /// the title of the update proposal
-    #[prost(string, tag = "1")]
-    pub title: ::prost::alloc::string::String,
-    /// the description of the proposal
-    #[prost(string, tag = "2")]
-    pub description: ::prost::alloc::string::String,
-    /// the client identifier for the client to be updated if the proposal passes
-    #[prost(string, tag = "3")]
-    pub subject_client_id: ::prost::alloc::string::String,
-    /// the substitute client identifier for the client standing in for the subject
-    /// client
-    #[prost(string, tag = "4")]
-    pub substitute_client_id: ::prost::alloc::string::String,
-}
-impl ::prost::Name for ClientUpdateProposal {
-    const NAME: &'static str = "ClientUpdateProposal";
-    const PACKAGE: &'static str = "ibc.core.client.v1";
-    fn full_name() -> ::prost::alloc::string::String {
-        "ibc.core.client.v1.ClientUpdateProposal".into()
-    }
-    fn type_url() -> ::prost::alloc::string::String {
-        "/ibc.core.client.v1.ClientUpdateProposal".into()
-    }
-}
-/// UpgradeProposal is a gov Content type for initiating an IBC breaking
-/// upgrade.
-///
-/// Deprecated: Please use MsgIBCSoftwareUpgrade in favour of this message type.
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpgradeProposal {
-    #[prost(string, tag = "1")]
-    pub title: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub description: ::prost::alloc::string::String,
-    #[prost(message, optional, tag = "3")]
-    pub plan: ::core::option::Option<
-        super::super::super::super::cosmos::upgrade::v1beta1::Plan,
-    >,
-    /// An UpgradedClientState must be provided to perform an IBC breaking upgrade.
-    /// This will make the chain commit to the correct upgraded (self) client state
-    /// before the upgrade occurs, so that connecting chains can verify that the
-    /// new upgraded client is valid by verifying a proof on the previous version
-    /// of the chain. This will allow IBC connections to persist smoothly across
-    /// planned chain upgrades
-    #[prost(message, optional, tag = "4")]
-    pub upgraded_client_state: ::core::option::Option<
-        super::super::super::super::google::protobuf::Any,
-    >,
-}
-impl ::prost::Name for UpgradeProposal {
-    const NAME: &'static str = "UpgradeProposal";
-    const PACKAGE: &'static str = "ibc.core.client.v1";
-    fn full_name() -> ::prost::alloc::string::String {
-        "ibc.core.client.v1.UpgradeProposal".into()
-    }
-    fn type_url() -> ::prost::alloc::string::String {
-        "/ibc.core.client.v1.UpgradeProposal".into()
     }
 }
 /// GenesisState defines the ibc client submodule's genesis state.
@@ -300,8 +234,11 @@ impl ::prost::Name for MsgCreateClient {
 }
 /// MsgCreateClientResponse defines the Msg/CreateClient response type.
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
-pub struct MsgCreateClientResponse {}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgCreateClientResponse {
+    #[prost(string, tag = "1")]
+    pub client_id: ::prost::alloc::string::String,
+}
 impl ::prost::Name for MsgCreateClientResponse {
     const NAME: &'static str = "MsgCreateClientResponse";
     const PACKAGE: &'static str = "ibc.core.client.v1";
@@ -1726,9 +1663,6 @@ pub struct QueryVerifyMembershipRequest {
     /// the height of the commitment root at which the proof is verified.
     #[prost(message, optional, tag = "3")]
     pub proof_height: ::core::option::Option<Height>,
-    /// the commitment key path.
-    #[prost(message, optional, tag = "4")]
-    pub merkle_path: ::core::option::Option<super::super::commitment::v1::MerklePath>,
     /// the value which is proven.
     #[prost(bytes = "vec", tag = "5")]
     pub value: ::prost::alloc::vec::Vec<u8>,
@@ -1738,17 +1672,23 @@ pub struct QueryVerifyMembershipRequest {
     /// optional block delay
     #[prost(uint64, tag = "7")]
     pub block_delay: u64,
+    /// the commitment key path.
+    #[prost(message, optional, tag = "8")]
+    pub merkle_path: ::core::option::Option<super::super::commitment::v2::MerklePath>,
 }
 impl ::prost::Name for QueryVerifyMembershipRequest {
     const NAME: &'static str = "QueryVerifyMembershipRequest";
     const PACKAGE: &'static str = "ibc.core.client.v1";
     fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+        "ibc.core.client.v1.QueryVerifyMembershipRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "/ibc.core.client.v1.QueryVerifyMembershipRequest".into()
     }
 }
 /// QueryVerifyMembershipResponse is the response type for the Query/VerifyMembership RPC method
 #[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct QueryVerifyMembershipResponse {
     /// boolean indicating success or failure of proof verification.
     #[prost(bool, tag = "1")]
@@ -1758,7 +1698,10 @@ impl ::prost::Name for QueryVerifyMembershipResponse {
     const NAME: &'static str = "QueryVerifyMembershipResponse";
     const PACKAGE: &'static str = "ibc.core.client.v1";
     fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!("ibc.core.client.v1.{}", Self::NAME)
+        "ibc.core.client.v1.QueryVerifyMembershipResponse".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "/ibc.core.client.v1.QueryVerifyMembershipResponse".into()
     }
 }
 /// Generated client implementations.
@@ -2729,7 +2672,6 @@ pub mod query_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = VerifyMembershipSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)

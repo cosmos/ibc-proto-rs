@@ -39,9 +39,10 @@ impl ::prost::Name for QueryRequest {
     const NAME: &'static str = "QueryRequest";
     const PACKAGE: &'static str = "ibc.applications.interchain_accounts.host.v1";
     fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!(
-            "ibc.applications.interchain_accounts.host.v1.{}", Self::NAME
-        )
+        "ibc.applications.interchain_accounts.host.v1.QueryRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "/ibc.applications.interchain_accounts.host.v1.QueryRequest".into()
     }
 }
 /// MsgUpdateParams defines the payload for Msg/UpdateParams
@@ -96,9 +97,10 @@ impl ::prost::Name for MsgModuleQuerySafe {
     const NAME: &'static str = "MsgModuleQuerySafe";
     const PACKAGE: &'static str = "ibc.applications.interchain_accounts.host.v1";
     fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!(
-            "ibc.applications.interchain_accounts.host.v1.{}", Self::NAME
-        )
+        "ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafe".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "/ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafe".into()
     }
 }
 /// MsgModuleQuerySafeResponse defines the response for Msg/ModuleQuerySafe
@@ -116,9 +118,10 @@ impl ::prost::Name for MsgModuleQuerySafeResponse {
     const NAME: &'static str = "MsgModuleQuerySafeResponse";
     const PACKAGE: &'static str = "ibc.applications.interchain_accounts.host.v1";
     fn full_name() -> ::prost::alloc::string::String {
-        ::prost::alloc::format!(
-            "ibc.applications.interchain_accounts.host.v1.{}", Self::NAME
-        )
+        "ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafeResponse".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "/ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafeResponse".into()
     }
 }
 /// Generated client implementations.
@@ -444,7 +447,6 @@ pub mod msg_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let inner = inner.0;
                         let method = ModuleQuerySafeSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)

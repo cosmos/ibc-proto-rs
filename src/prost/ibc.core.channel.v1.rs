@@ -1188,7 +1188,7 @@ impl ::prost::Name for MsgChannelUpgradeTimeout {
         "/ibc.core.channel.v1.MsgChannelUpgradeTimeout".into()
     }
 }
-/// MsgChannelUpgradeTimeoutRepsonse defines the MsgChannelUpgradeTimeout response type
+/// MsgChannelUpgradeTimeoutResponse defines the MsgChannelUpgradeTimeout response type
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgChannelUpgradeTimeoutResponse {}

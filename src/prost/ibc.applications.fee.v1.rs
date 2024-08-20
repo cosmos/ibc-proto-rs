@@ -1033,7 +1033,7 @@ impl ::prost::Name for QueryIncentivizedPacketRequest {
         "/ibc.applications.fee.v1.QueryIncentivizedPacketRequest".into()
     }
 }
-/// QueryIncentivizedPacketsResponse defines the response type for the IncentivizedPacket rpc
+/// QueryIncentivizedPacketResponse defines the response type for the IncentivizedPacket rpc
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryIncentivizedPacketResponse {
@@ -1079,7 +1079,8 @@ impl ::prost::Name for QueryIncentivizedPacketsForChannelRequest {
         "/ibc.applications.fee.v1.QueryIncentivizedPacketsForChannelRequest".into()
     }
 }
-/// QueryIncentivizedPacketsResponse defines the response type for the incentivized packets RPC
+/// QueryIncentivizedPacketsForChannelResponse defines the response type for querying for all incentivized packets
+/// for a specific channel
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryIncentivizedPacketsForChannelResponse {
