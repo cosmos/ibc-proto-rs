@@ -188,7 +188,7 @@ pub struct MsgPayPacketFee {
     /// the source port unique identifier
     #[prost(string, tag = "2")]
     pub source_port_id: ::prost::alloc::string::String,
-    /// the source channel unique identifer
+    /// the source channel unique identifier
     #[prost(string, tag = "3")]
     pub source_channel_id: ::prost::alloc::string::String,
     /// account address to refund fee if necessary
@@ -948,7 +948,7 @@ pub struct ForwardRelayerAddress {
     /// the forward relayer address
     #[prost(string, tag = "1")]
     pub address: ::prost::alloc::string::String,
-    /// unique packet identifer comprised of the channel ID, port ID and sequence
+    /// unique packet identifier comprised of the channel ID, port ID and sequence
     #[prost(message, optional, tag = "2")]
     pub packet_id: ::core::option::Option<
         super::super::super::core::channel::v1::PacketId,
@@ -1033,7 +1033,7 @@ impl ::prost::Name for QueryIncentivizedPacketRequest {
         "/ibc.applications.fee.v1.QueryIncentivizedPacketRequest".into()
     }
 }
-/// QueryIncentivizedPacketsResponse defines the response type for the IncentivizedPacket rpc
+/// QueryIncentivizedPacketResponse defines the response type for the IncentivizedPacket rpc
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryIncentivizedPacketResponse {
@@ -1079,7 +1079,8 @@ impl ::prost::Name for QueryIncentivizedPacketsForChannelRequest {
         "/ibc.applications.fee.v1.QueryIncentivizedPacketsForChannelRequest".into()
     }
 }
-/// QueryIncentivizedPacketsResponse defines the response type for the incentivized packets RPC
+/// QueryIncentivizedPacketsForChannelResponse defines the response type for querying for all incentivized packets
+/// for a specific channel
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryIncentivizedPacketsForChannelResponse {

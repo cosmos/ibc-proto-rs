@@ -52,25 +52,6 @@ impl ::prost::Name for MerklePrefix {
         "/ibc.core.commitment.v1.MerklePrefix".into()
     }
 }
-/// MerklePath is the path used to verify commitment proofs, which can be an
-/// arbitrary structured object (defined by a commitment type).
-/// MerklePath is represented from root-to-leaf
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MerklePath {
-    #[prost(string, repeated, tag = "1")]
-    pub key_path: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-}
-impl ::prost::Name for MerklePath {
-    const NAME: &'static str = "MerklePath";
-    const PACKAGE: &'static str = "ibc.core.commitment.v1";
-    fn full_name() -> ::prost::alloc::string::String {
-        "ibc.core.commitment.v1.MerklePath".into()
-    }
-    fn type_url() -> ::prost::alloc::string::String {
-        "/ibc.core.commitment.v1.MerklePath".into()
-    }
-}
 /// MerkleProof is a wrapper type over a chain of CommitmentProofs.
 /// It demonstrates membership or non-membership for an element or set of
 /// elements, verifiable in conjunction with a known commitment root. Proofs

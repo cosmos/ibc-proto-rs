@@ -21,6 +21,30 @@ impl ::prost::Name for Params {
         "/ibc.applications.interchain_accounts.host.v1.Params".into()
     }
 }
+/// QueryRequest defines the parameters for a particular query request
+/// by an interchain account.
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct QueryRequest {
+    /// path defines the path of the query request as defined by ADR-021.
+    /// <https://github.com/cosmos/cosmos-sdk/blob/main/docs/architecture/adr-021-protobuf-query-encoding.md#custom-query-registration-and-routing>
+    #[prost(string, tag = "1")]
+    pub path: ::prost::alloc::string::String,
+    /// data defines the payload of the query request as defined by ADR-021.
+    /// <https://github.com/cosmos/cosmos-sdk/blob/main/docs/architecture/adr-021-protobuf-query-encoding.md#custom-query-registration-and-routing>
+    #[prost(bytes = "vec", tag = "2")]
+    pub data: ::prost::alloc::vec::Vec<u8>,
+}
+impl ::prost::Name for QueryRequest {
+    const NAME: &'static str = "QueryRequest";
+    const PACKAGE: &'static str = "ibc.applications.interchain_accounts.host.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "ibc.applications.interchain_accounts.host.v1.QueryRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "/ibc.applications.interchain_accounts.host.v1.QueryRequest".into()
+    }
+}
 /// MsgUpdateParams defines the payload for Msg/UpdateParams
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -56,6 +80,48 @@ impl ::prost::Name for MsgUpdateParamsResponse {
     }
     fn type_url() -> ::prost::alloc::string::String {
         "/ibc.applications.interchain_accounts.host.v1.MsgUpdateParamsResponse".into()
+    }
+}
+/// MsgModuleQuerySafe defines the payload for Msg/ModuleQuerySafe
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgModuleQuerySafe {
+    /// signer address
+    #[prost(string, tag = "1")]
+    pub signer: ::prost::alloc::string::String,
+    /// requests defines the module safe queries to execute.
+    #[prost(message, repeated, tag = "2")]
+    pub requests: ::prost::alloc::vec::Vec<QueryRequest>,
+}
+impl ::prost::Name for MsgModuleQuerySafe {
+    const NAME: &'static str = "MsgModuleQuerySafe";
+    const PACKAGE: &'static str = "ibc.applications.interchain_accounts.host.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafe".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "/ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafe".into()
+    }
+}
+/// MsgModuleQuerySafeResponse defines the response for Msg/ModuleQuerySafe
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct MsgModuleQuerySafeResponse {
+    /// height at which the responses were queried
+    #[prost(uint64, tag = "1")]
+    pub height: u64,
+    /// protobuf encoded responses for each query
+    #[prost(bytes = "vec", repeated, tag = "2")]
+    pub responses: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
+}
+impl ::prost::Name for MsgModuleQuerySafeResponse {
+    const NAME: &'static str = "MsgModuleQuerySafeResponse";
+    const PACKAGE: &'static str = "ibc.applications.interchain_accounts.host.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafeResponse".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "/ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafeResponse".into()
     }
 }
 /// Generated client implementations.
@@ -176,6 +242,37 @@ pub mod msg_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+        /// ModuleQuerySafe defines a rpc handler for MsgModuleQuerySafe.
+        pub async fn module_query_safe(
+            &mut self,
+            request: impl tonic::IntoRequest<super::MsgModuleQuerySafe>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgModuleQuerySafeResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/ibc.applications.interchain_accounts.host.v1.Msg/ModuleQuerySafe",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "ibc.applications.interchain_accounts.host.v1.Msg",
+                        "ModuleQuerySafe",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
     }
 }
 /// Generated server implementations.
@@ -192,6 +289,14 @@ pub mod msg_server {
             request: tonic::Request<super::MsgUpdateParams>,
         ) -> std::result::Result<
             tonic::Response<super::MsgUpdateParamsResponse>,
+            tonic::Status,
+        >;
+        /// ModuleQuerySafe defines a rpc handler for MsgModuleQuerySafe.
+        async fn module_query_safe(
+            &self,
+            request: tonic::Request<super::MsgModuleQuerySafe>,
+        ) -> std::result::Result<
+            tonic::Response<super::MsgModuleQuerySafeResponse>,
             tonic::Status,
         >;
     }
@@ -300,6 +405,49 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = UpdateParamsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/ibc.applications.interchain_accounts.host.v1.Msg/ModuleQuerySafe" => {
+                    #[allow(non_camel_case_types)]
+                    struct ModuleQuerySafeSvc<T: Msg>(pub Arc<T>);
+                    impl<T: Msg> tonic::server::UnaryService<super::MsgModuleQuerySafe>
+                    for ModuleQuerySafeSvc<T> {
+                        type Response = super::MsgModuleQuerySafeResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MsgModuleQuerySafe>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Msg>::module_query_safe(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ModuleQuerySafeSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

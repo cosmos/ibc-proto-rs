@@ -332,6 +332,11 @@ pub mod ibc {
                 #[cfg(feature = "serde")]
                 include_proto!("ibc.core.commitment.v1.serde.rs");
             }
+            pub mod v2 {
+                include_proto!("ibc.core.commitment.v2.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("ibc.core.commitment.v2.serde.rs");
+            }
         }
         pub mod connection {
             pub mod v1 {

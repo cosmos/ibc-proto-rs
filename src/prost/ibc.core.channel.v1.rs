@@ -178,7 +178,7 @@ impl ::prost::Name for PacketState {
         "/ibc.core.channel.v1.PacketState".into()
     }
 }
-/// PacketId is an identifer for a unique Packet
+/// PacketId is an identifier for a unique Packet
 /// Source chains refer to packets by source port/channel
 /// Destination chains refer to packets by destination port/channel
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -1188,7 +1188,7 @@ impl ::prost::Name for MsgChannelUpgradeTimeout {
         "/ibc.core.channel.v1.MsgChannelUpgradeTimeout".into()
     }
 }
-/// MsgChannelUpgradeTimeoutRepsonse defines the MsgChannelUpgradeTimeout response type
+/// MsgChannelUpgradeTimeoutResponse defines the MsgChannelUpgradeTimeout response type
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgChannelUpgradeTimeoutResponse {}
