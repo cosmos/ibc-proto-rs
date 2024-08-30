@@ -14,6 +14,7 @@
 
 pub mod google;
 
+pub use tendermint_proto::Error;
 pub use tendermint_proto::Protobuf;
 
 extern crate alloc;
