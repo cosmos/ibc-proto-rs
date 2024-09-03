@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v0.47.1
+
+*September 3rd, 2024*
+
+This release exports the `tendermint_proto::Error` type.
+
+### IMPROVEMENTS
+
+- Export `tendermint_proto::Error` ([#229](https://github.com/cosmos/ibc-proto-rs/pull/229))
+
 ## v0.47.0
 
 *July 18th, 2024*
