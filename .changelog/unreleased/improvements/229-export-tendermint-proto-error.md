@@ -1,0 +1,1 @@
+- Export `tendermint_proto::Error` ([#229](https://github.com/cosmos/ibc-proto-rs/pull/229))
