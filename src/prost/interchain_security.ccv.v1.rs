@@ -283,12 +283,12 @@ pub struct ConsumerParams {
     /// Sent CCV related IBC packets will timeout after this duration
     #[prost(message, optional, tag = "5")]
     pub ccv_timeout_period: ::core::option::Option<
-        super::super::super::google::protobuf::Duration,
+        ::tendermint_proto::google::protobuf::Duration,
     >,
     /// Sent transfer related IBC packets will timeout after this duration
     #[prost(message, optional, tag = "6")]
     pub transfer_timeout_period: ::core::option::Option<
-        super::super::super::google::protobuf::Duration,
+        ::tendermint_proto::google::protobuf::Duration,
     >,
     /// The fraction of tokens allocated to the consumer redistribution address
     /// during distribution events. The fraction is a string representing a
@@ -304,7 +304,7 @@ pub struct ConsumerParams {
     /// which should be smaller than that of the provider in general.
     #[prost(message, optional, tag = "9")]
     pub unbonding_period: ::core::option::Option<
-        super::super::super::google::protobuf::Duration,
+        ::tendermint_proto::google::protobuf::Duration,
     >,
     /// The threshold for the percentage of validators at the bottom of the set who
     /// can opt out of running the consumer chain without being punished. For
@@ -464,7 +464,7 @@ pub struct MaturingVscPacket {
     pub vsc_id: u64,
     #[prost(message, optional, tag = "2")]
     pub maturity_time: ::core::option::Option<
-        super::super::super::google::protobuf::Timestamp,
+        ::tendermint_proto::google::protobuf::Timestamp,
     >,
 }
 impl ::prost::Name for MaturingVscPacket {

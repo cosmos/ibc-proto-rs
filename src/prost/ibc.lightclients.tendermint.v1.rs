@@ -12,17 +12,17 @@ pub struct ClientState {
     /// submitted headers are valid for upgrade
     #[prost(message, optional, tag = "3")]
     pub trusting_period: ::core::option::Option<
-        super::super::super::super::google::protobuf::Duration,
+        ::tendermint_proto::google::protobuf::Duration,
     >,
     /// duration of the staking unbonding period
     #[prost(message, optional, tag = "4")]
     pub unbonding_period: ::core::option::Option<
-        super::super::super::super::google::protobuf::Duration,
+        ::tendermint_proto::google::protobuf::Duration,
     >,
     /// defines how much new (untrusted) header's Time can drift into the future.
     #[prost(message, optional, tag = "5")]
     pub max_clock_drift: ::core::option::Option<
-        super::super::super::super::google::protobuf::Duration,
+        ::tendermint_proto::google::protobuf::Duration,
     >,
     /// Block height when the client was frozen due to a misbehaviour
     #[prost(message, optional, tag = "6")]
@@ -75,7 +75,7 @@ pub struct ConsensusState {
     /// was stored.
     #[prost(message, optional, tag = "1")]
     pub timestamp: ::core::option::Option<
-        super::super::super::super::google::protobuf::Timestamp,
+        ::tendermint_proto::google::protobuf::Timestamp,
     >,
     /// commitment root (i.e app hash)
     #[prost(message, optional, tag = "2")]

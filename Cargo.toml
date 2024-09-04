@@ -39,14 +39,6 @@ flex-error             = { version = "0.4",  default-features = false }
 ics23                  = { version = "0.12.0", default-features = false }
 informalsystems-pbjson = { version = "0.7.0", optional = true, default-features = false }
 
-## Optional: enabled by the `parity-scale-codec` feature
-parity-scale-codec = { version = "3.0.0", default-features = false, features = ["full"],   optional = true }
-scale-info         = { version = "2.1.2", default-features = false, features = ["derive"], optional = true }
-
-## Optional: enabled by the `borsh` feature
-## For borsh encode or decode, needs to track `anchor-lang` and `near-sdk-rs` borsh version
-borsh = { version = "1", default-features = false, features = ["derive"], optional = true }
-
 [dependencies.tendermint-proto]
 version          = "0.39"
 default-features = false
@@ -61,6 +53,6 @@ serde              = ["dep:serde", "ics23/serde", "informalsystems-pbjson"]
 client             = ["std", "dep:tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
 json-schema        = ["std", "serde", "dep:schemars"]
 server             = ["std", "dep:tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
-parity-scale-codec = ["dep:parity-scale-codec", "dep:scale-info"]
-borsh              = ["dep:borsh"]
+parity-scale-codec = ["tendermint-proto/parity-scale-codec"]
+borsh              = ["tendermint-proto/borsh"]
 proto-descriptor   = []

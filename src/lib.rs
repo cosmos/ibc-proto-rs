@@ -12,8 +12,6 @@
 #![allow(rustdoc::bare_urls)]
 #![forbid(unsafe_code)]
 
-pub mod google;
-
 pub use tendermint_proto::Error;
 pub use tendermint_proto::Protobuf;
 
