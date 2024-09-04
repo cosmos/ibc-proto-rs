@@ -52,7 +52,7 @@ serde_json = "1.0.107"
 
 [features]
 default            = ["std", "client"]
-std                = ["prost/std", "bytes/std", "subtle-encoding/std", "base64/std", "flex-error/std", "ics23/std", "informalsystems-pbjson/std"]
+std                = ["cosmos-sdk-proto/std", "prost/std", "bytes/std", "subtle-encoding/std", "base64/std", "flex-error/std", "ics23/std", "informalsystems-pbjson/std"]
 serde              = ["dep:serde", "dep:informalsystems-pbjson", "ics23/serde", "cosmos-sdk-proto/serde"]
 client             = ["std", "dep:tonic", "tonic/codegen", "tonic/transport", "tonic/prost", "cosmos-sdk-proto/grpc-transport"]
 json-schema        = ["std", "serde", "dep:schemars"]
