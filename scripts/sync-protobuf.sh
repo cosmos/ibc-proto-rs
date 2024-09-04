@@ -100,9 +100,10 @@ COSMOS_ICS_DIR=$(mktemp -d /tmp/interchain-security-XXXXXXXX)
 
 pushd "$COSMOS_ICS_DIR"
 git clone "$COSMOS_ICS_GIT" .
-git checkout -b "$INTERCHAIN_SECURITY_COMMIT" "$INTERCHAIN_SECURITY_COMMIT"
+git checkout "$INTERCHAIN_SECURITY_COMMIT"
 
 cd proto
+buf mod prune
 buf mod update
 buf export -v -o ../proto-include
 popd
@@ -111,7 +112,7 @@ IBC_GO_DIR=$(mktemp -d /tmp/ibc-go-XXXXXXXX)
 
 pushd "$IBC_GO_DIR"
 git clone "$IBC_GO_GIT" .
-git checkout -b "$IBC_GO_COMMIT" "$IBC_GO_COMMIT"
+git checkout "$IBC_GO_COMMIT"
 
 cd proto
 buf export -v -o ../proto-include
@@ -121,7 +122,7 @@ NFT_TRANSFER_DIR=$(mktemp -d /tmp/nft-transfer-XXXXXXXX)
 
 pushd "$NFT_TRANSFER_DIR"
 git clone "$NFT_TRANSFER_GIT" .
-git checkout -b "$NFT_TRANSFER_COMMIT" "$NFT_TRANSFER_COMMIT"
+git checkout "$NFT_TRANSFER_COMMIT"
 
 cd proto
 buf export -v -o ../proto-include

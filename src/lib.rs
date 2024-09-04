@@ -12,8 +12,7 @@
 #![allow(rustdoc::bare_urls)]
 #![forbid(unsafe_code)]
 
-pub mod google;
-
+pub use tendermint_proto::Error;
 pub use tendermint_proto::Protobuf;
 
 extern crate alloc;
@@ -161,6 +160,13 @@ pub mod ibc {
                 include_proto!("ibc.lightclients.tendermint.v1.rs");
                 #[cfg(feature = "serde")]
                 include_proto!("ibc.lightclients.tendermint.v1.serde.rs");
+            }
+        }
+        pub mod wasm {
+            pub mod v1 {
+                include_proto!("ibc.lightclients.wasm.v1.rs");
+                #[cfg(feature = "serde")]
+                include_proto!("ibc.lightclients.wasm.v1.serde.rs");
             }
         }
     }

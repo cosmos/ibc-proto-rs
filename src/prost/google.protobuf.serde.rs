@@ -722,14 +722,17 @@ impl serde::Serialize for Edition {
     {
         let variant = match self {
             Self::Unknown => "EDITION_UNKNOWN",
+            Self::Legacy => "EDITION_LEGACY",
             Self::Proto2 => "EDITION_PROTO2",
             Self::Proto3 => "EDITION_PROTO3",
             Self::Edition2023 => "EDITION_2023",
+            Self::Edition2024 => "EDITION_2024",
             Self::Edition1TestOnly => "EDITION_1_TEST_ONLY",
             Self::Edition2TestOnly => "EDITION_2_TEST_ONLY",
             Self::Edition99997TestOnly => "EDITION_99997_TEST_ONLY",
             Self::Edition99998TestOnly => "EDITION_99998_TEST_ONLY",
             Self::Edition99999TestOnly => "EDITION_99999_TEST_ONLY",
+            Self::Max => "EDITION_MAX",
         };
         serializer.serialize_str(variant)
     }
@@ -742,14 +745,17 @@ impl<'de> serde::Deserialize<'de> for Edition {
     {
         const FIELDS: &[&str] = &[
             "EDITION_UNKNOWN",
+            "EDITION_LEGACY",
             "EDITION_PROTO2",
             "EDITION_PROTO3",
             "EDITION_2023",
+            "EDITION_2024",
             "EDITION_1_TEST_ONLY",
             "EDITION_2_TEST_ONLY",
             "EDITION_99997_TEST_ONLY",
             "EDITION_99998_TEST_ONLY",
             "EDITION_99999_TEST_ONLY",
+            "EDITION_MAX",
         ];
 
         struct GeneratedVisitor;
@@ -791,14 +797,17 @@ impl<'de> serde::Deserialize<'de> for Edition {
             {
                 match value {
                     "EDITION_UNKNOWN" => Ok(Edition::Unknown),
+                    "EDITION_LEGACY" => Ok(Edition::Legacy),
                     "EDITION_PROTO2" => Ok(Edition::Proto2),
                     "EDITION_PROTO3" => Ok(Edition::Proto3),
                     "EDITION_2023" => Ok(Edition::Edition2023),
+                    "EDITION_2024" => Ok(Edition::Edition2024),
                     "EDITION_1_TEST_ONLY" => Ok(Edition::Edition1TestOnly),
                     "EDITION_2_TEST_ONLY" => Ok(Edition::Edition2TestOnly),
                     "EDITION_99997_TEST_ONLY" => Ok(Edition::Edition99997TestOnly),
                     "EDITION_99998_TEST_ONLY" => Ok(Edition::Edition99998TestOnly),
                     "EDITION_99999_TEST_ONLY" => Ok(Edition::Edition99999TestOnly),
+                    "EDITION_MAX" => Ok(Edition::Max),
                     _ => Err(serde::de::Error::unknown_variant(value, FIELDS)),
                 }
             }
@@ -1388,6 +1397,9 @@ impl serde::Serialize for EnumValueOptions {
         if true {
             len += 1;
         }
+        if true {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.EnumValueOptions", len)?;
         if let Some(v) = self.deprecated.as_ref() {
             struct_ser.serialize_field("deprecated", v)?;
@@ -1397,6 +1409,9 @@ impl serde::Serialize for EnumValueOptions {
         }
         if let Some(v) = self.debug_redact.as_ref() {
             struct_ser.serialize_field("debugRedact", v)?;
+        }
+        if let Some(v) = self.feature_support.as_ref() {
+            struct_ser.serialize_field("featureSupport", v)?;
         }
         if true {
             struct_ser.serialize_field("uninterpretedOption", &self.uninterpreted_option)?;
@@ -1415,6 +1430,8 @@ impl<'de> serde::Deserialize<'de> for EnumValueOptions {
             "features",
             "debug_redact",
             "debugRedact",
+            "feature_support",
+            "featureSupport",
             "uninterpreted_option",
             "uninterpretedOption",
         ];
@@ -1424,6 +1441,7 @@ impl<'de> serde::Deserialize<'de> for EnumValueOptions {
             Deprecated,
             Features,
             DebugRedact,
+            FeatureSupport,
             UninterpretedOption,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
@@ -1449,6 +1467,7 @@ impl<'de> serde::Deserialize<'de> for EnumValueOptions {
                             "deprecated" => Ok(GeneratedField::Deprecated),
                             "features" => Ok(GeneratedField::Features),
                             "debugRedact" | "debug_redact" => Ok(GeneratedField::DebugRedact),
+                            "featureSupport" | "feature_support" => Ok(GeneratedField::FeatureSupport),
                             "uninterpretedOption" | "uninterpreted_option" => Ok(GeneratedField::UninterpretedOption),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
@@ -1472,6 +1491,7 @@ impl<'de> serde::Deserialize<'de> for EnumValueOptions {
                 let mut deprecated__ = None;
                 let mut features__ = None;
                 let mut debug_redact__ = None;
+                let mut feature_support__ = None;
                 let mut uninterpreted_option__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
@@ -1493,6 +1513,12 @@ impl<'de> serde::Deserialize<'de> for EnumValueOptions {
                             }
                             debug_redact__ = map_.next_value()?;
                         }
+                        GeneratedField::FeatureSupport => {
+                            if feature_support__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("featureSupport"));
+                            }
+                            feature_support__ = map_.next_value()?;
+                        }
                         GeneratedField::UninterpretedOption => {
                             if uninterpreted_option__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("uninterpretedOption"));
@@ -1505,6 +1531,7 @@ impl<'de> serde::Deserialize<'de> for EnumValueOptions {
                     deprecated: deprecated__,
                     features: features__,
                     debug_redact: debug_redact__,
+                    feature_support: feature_support__,
                     uninterpreted_option: uninterpreted_option__.unwrap_or_default(),
                 })
             }
@@ -2465,8 +2492,8 @@ impl serde::Serialize for feature_set::Utf8Validation {
     {
         let variant = match self {
             Self::Unknown => "UTF8_VALIDATION_UNKNOWN",
-            Self::None => "NONE",
             Self::Verify => "VERIFY",
+            Self::None => "NONE",
         };
         serializer.serialize_str(variant)
     }
@@ -2479,8 +2506,8 @@ impl<'de> serde::Deserialize<'de> for feature_set::Utf8Validation {
     {
         const FIELDS: &[&str] = &[
             "UTF8_VALIDATION_UNKNOWN",
-            "NONE",
             "VERIFY",
+            "NONE",
         ];
 
         struct GeneratedVisitor;
@@ -2522,8 +2549,8 @@ impl<'de> serde::Deserialize<'de> for feature_set::Utf8Validation {
             {
                 match value {
                     "UTF8_VALIDATION_UNKNOWN" => Ok(feature_set::Utf8Validation::Unknown),
-                    "NONE" => Ok(feature_set::Utf8Validation::None),
                     "VERIFY" => Ok(feature_set::Utf8Validation::Verify),
+                    "NONE" => Ok(feature_set::Utf8Validation::None),
                     _ => Err(serde::de::Error::unknown_variant(value, FIELDS)),
                 }
             }
@@ -2676,14 +2703,20 @@ impl serde::Serialize for feature_set_defaults::FeatureSetEditionDefault {
         if true {
             len += 1;
         }
+        if true {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.FeatureSetDefaults.FeatureSetEditionDefault", len)?;
         if let Some(v) = self.edition.as_ref() {
             let v = Edition::try_from(*v)
                 .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
             struct_ser.serialize_field("edition", &v)?;
         }
-        if let Some(v) = self.features.as_ref() {
-            struct_ser.serialize_field("features", v)?;
+        if let Some(v) = self.overridable_features.as_ref() {
+            struct_ser.serialize_field("overridableFeatures", v)?;
+        }
+        if let Some(v) = self.fixed_features.as_ref() {
+            struct_ser.serialize_field("fixedFeatures", v)?;
         }
         struct_ser.end()
     }
@@ -2696,13 +2729,17 @@ impl<'de> serde::Deserialize<'de> for feature_set_defaults::FeatureSetEditionDef
     {
         const FIELDS: &[&str] = &[
             "edition",
-            "features",
+            "overridable_features",
+            "overridableFeatures",
+            "fixed_features",
+            "fixedFeatures",
         ];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
             Edition,
-            Features,
+            OverridableFeatures,
+            FixedFeatures,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
@@ -2725,7 +2762,8 @@ impl<'de> serde::Deserialize<'de> for feature_set_defaults::FeatureSetEditionDef
                     {
                         match value {
                             "edition" => Ok(GeneratedField::Edition),
-                            "features" => Ok(GeneratedField::Features),
+                            "overridableFeatures" | "overridable_features" => Ok(GeneratedField::OverridableFeatures),
+                            "fixedFeatures" | "fixed_features" => Ok(GeneratedField::FixedFeatures),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -2746,7 +2784,8 @@ impl<'de> serde::Deserialize<'de> for feature_set_defaults::FeatureSetEditionDef
                     V: serde::de::MapAccess<'de>,
             {
                 let mut edition__ = None;
-                let mut features__ = None;
+                let mut overridable_features__ = None;
+                let mut fixed_features__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::Edition => {
@@ -2755,17 +2794,24 @@ impl<'de> serde::Deserialize<'de> for feature_set_defaults::FeatureSetEditionDef
                             }
                             edition__ = map_.next_value::<::core::option::Option<Edition>>()?.map(|x| x as i32);
                         }
-                        GeneratedField::Features => {
-                            if features__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("features"));
+                        GeneratedField::OverridableFeatures => {
+                            if overridable_features__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("overridableFeatures"));
                             }
-                            features__ = map_.next_value()?;
+                            overridable_features__ = map_.next_value()?;
+                        }
+                        GeneratedField::FixedFeatures => {
+                            if fixed_features__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("fixedFeatures"));
+                            }
+                            fixed_features__ = map_.next_value()?;
                         }
                     }
                 }
                 Ok(feature_set_defaults::FeatureSetEditionDefault {
                     edition: edition__,
-                    features: features__,
+                    overridable_features: overridable_features__,
+                    fixed_features: fixed_features__,
                 })
             }
         }
@@ -3286,6 +3332,9 @@ impl serde::Serialize for FieldOptions {
         if true {
             len += 1;
         }
+        if true {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.FieldOptions", len)?;
         if let Some(v) = self.ctype.as_ref() {
             let v = field_options::CType::try_from(*v)
@@ -3333,6 +3382,9 @@ impl serde::Serialize for FieldOptions {
         if let Some(v) = self.features.as_ref() {
             struct_ser.serialize_field("features", v)?;
         }
+        if let Some(v) = self.feature_support.as_ref() {
+            struct_ser.serialize_field("featureSupport", v)?;
+        }
         if true {
             struct_ser.serialize_field("uninterpretedOption", &self.uninterpreted_option)?;
         }
@@ -3361,6 +3413,8 @@ impl<'de> serde::Deserialize<'de> for FieldOptions {
             "edition_defaults",
             "editionDefaults",
             "features",
+            "feature_support",
+            "featureSupport",
             "uninterpreted_option",
             "uninterpretedOption",
         ];
@@ -3379,6 +3433,7 @@ impl<'de> serde::Deserialize<'de> for FieldOptions {
             Targets,
             EditionDefaults,
             Features,
+            FeatureSupport,
             UninterpretedOption,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
@@ -3413,6 +3468,7 @@ impl<'de> serde::Deserialize<'de> for FieldOptions {
                             "targets" => Ok(GeneratedField::Targets),
                             "editionDefaults" | "edition_defaults" => Ok(GeneratedField::EditionDefaults),
                             "features" => Ok(GeneratedField::Features),
+                            "featureSupport" | "feature_support" => Ok(GeneratedField::FeatureSupport),
                             "uninterpretedOption" | "uninterpreted_option" => Ok(GeneratedField::UninterpretedOption),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
@@ -3445,6 +3501,7 @@ impl<'de> serde::Deserialize<'de> for FieldOptions {
                 let mut targets__ = None;
                 let mut edition_defaults__ = None;
                 let mut features__ = None;
+                let mut feature_support__ = None;
                 let mut uninterpreted_option__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
@@ -3520,6 +3577,12 @@ impl<'de> serde::Deserialize<'de> for FieldOptions {
                             }
                             features__ = map_.next_value()?;
                         }
+                        GeneratedField::FeatureSupport => {
+                            if feature_support__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("featureSupport"));
+                            }
+                            feature_support__ = map_.next_value()?;
+                        }
                         GeneratedField::UninterpretedOption => {
                             if uninterpreted_option__.is_some() {
                                 return Err(serde::de::Error::duplicate_field("uninterpretedOption"));
@@ -3541,6 +3604,7 @@ impl<'de> serde::Deserialize<'de> for FieldOptions {
                     targets: targets__.unwrap_or_default(),
                     edition_defaults: edition_defaults__.unwrap_or_default(),
                     features: features__,
+                    feature_support: feature_support__,
                     uninterpreted_option: uninterpreted_option__.unwrap_or_default(),
                 })
             }
@@ -3730,6 +3794,158 @@ impl<'de> serde::Deserialize<'de> for field_options::EditionDefault {
             }
         }
         deserializer.deserialize_struct("google.protobuf.FieldOptions.EditionDefault", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for field_options::FeatureSupport {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("google.protobuf.FieldOptions.FeatureSupport", len)?;
+        if let Some(v) = self.edition_introduced.as_ref() {
+            let v = Edition::try_from(*v)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
+            struct_ser.serialize_field("editionIntroduced", &v)?;
+        }
+        if let Some(v) = self.edition_deprecated.as_ref() {
+            let v = Edition::try_from(*v)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
+            struct_ser.serialize_field("editionDeprecated", &v)?;
+        }
+        if let Some(v) = self.deprecation_warning.as_ref() {
+            struct_ser.serialize_field("deprecationWarning", v)?;
+        }
+        if let Some(v) = self.edition_removed.as_ref() {
+            let v = Edition::try_from(*v)
+                .map_err(|_| serde::ser::Error::custom(::alloc::format!("Invalid variant {}", *v)))?;
+            struct_ser.serialize_field("editionRemoved", &v)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for field_options::FeatureSupport {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "edition_introduced",
+            "editionIntroduced",
+            "edition_deprecated",
+            "editionDeprecated",
+            "deprecation_warning",
+            "deprecationWarning",
+            "edition_removed",
+            "editionRemoved",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            EditionIntroduced,
+            EditionDeprecated,
+            DeprecationWarning,
+            EditionRemoved,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "editionIntroduced" | "edition_introduced" => Ok(GeneratedField::EditionIntroduced),
+                            "editionDeprecated" | "edition_deprecated" => Ok(GeneratedField::EditionDeprecated),
+                            "deprecationWarning" | "deprecation_warning" => Ok(GeneratedField::DeprecationWarning),
+                            "editionRemoved" | "edition_removed" => Ok(GeneratedField::EditionRemoved),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = field_options::FeatureSupport;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct google.protobuf.FieldOptions.FeatureSupport")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<field_options::FeatureSupport, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut edition_introduced__ = None;
+                let mut edition_deprecated__ = None;
+                let mut deprecation_warning__ = None;
+                let mut edition_removed__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::EditionIntroduced => {
+                            if edition_introduced__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("editionIntroduced"));
+                            }
+                            edition_introduced__ = map_.next_value::<::core::option::Option<Edition>>()?.map(|x| x as i32);
+                        }
+                        GeneratedField::EditionDeprecated => {
+                            if edition_deprecated__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("editionDeprecated"));
+                            }
+                            edition_deprecated__ = map_.next_value::<::core::option::Option<Edition>>()?.map(|x| x as i32);
+                        }
+                        GeneratedField::DeprecationWarning => {
+                            if deprecation_warning__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("deprecationWarning"));
+                            }
+                            deprecation_warning__ = map_.next_value()?;
+                        }
+                        GeneratedField::EditionRemoved => {
+                            if edition_removed__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("editionRemoved"));
+                            }
+                            edition_removed__ = map_.next_value::<::core::option::Option<Edition>>()?.map(|x| x as i32);
+                        }
+                    }
+                }
+                Ok(field_options::FeatureSupport {
+                    edition_introduced: edition_introduced__,
+                    edition_deprecated: edition_deprecated__,
+                    deprecation_warning: deprecation_warning__,
+                    edition_removed: edition_removed__,
+                })
+            }
+        }
+        deserializer.deserialize_struct("google.protobuf.FieldOptions.FeatureSupport", FIELDS, GeneratedVisitor)
     }
 }
 impl serde::Serialize for field_options::JsType {
@@ -4445,9 +4661,6 @@ impl serde::Serialize for FileOptions {
         if true {
             len += 1;
         }
-        if true {
-            len += 1;
-        }
         let mut struct_ser = serializer.serialize_struct("google.protobuf.FileOptions", len)?;
         if let Some(v) = self.java_package.as_ref() {
             struct_ser.serialize_field("javaPackage", v)?;
@@ -4480,9 +4693,6 @@ impl serde::Serialize for FileOptions {
         }
         if let Some(v) = self.py_generic_services.as_ref() {
             struct_ser.serialize_field("pyGenericServices", v)?;
-        }
-        if let Some(v) = self.php_generic_services.as_ref() {
-            struct_ser.serialize_field("phpGenericServices", v)?;
         }
         if let Some(v) = self.deprecated.as_ref() {
             struct_ser.serialize_field("deprecated", v)?;
@@ -4547,8 +4757,6 @@ impl<'de> serde::Deserialize<'de> for FileOptions {
             "javaGenericServices",
             "py_generic_services",
             "pyGenericServices",
-            "php_generic_services",
-            "phpGenericServices",
             "deprecated",
             "cc_enable_arenas",
             "ccEnableArenas",
@@ -4583,7 +4791,6 @@ impl<'de> serde::Deserialize<'de> for FileOptions {
             CcGenericServices,
             JavaGenericServices,
             PyGenericServices,
-            PhpGenericServices,
             Deprecated,
             CcEnableArenas,
             ObjcClassPrefix,
@@ -4626,7 +4833,6 @@ impl<'de> serde::Deserialize<'de> for FileOptions {
                             "ccGenericServices" | "cc_generic_services" => Ok(GeneratedField::CcGenericServices),
                             "javaGenericServices" | "java_generic_services" => Ok(GeneratedField::JavaGenericServices),
                             "pyGenericServices" | "py_generic_services" => Ok(GeneratedField::PyGenericServices),
-                            "phpGenericServices" | "php_generic_services" => Ok(GeneratedField::PhpGenericServices),
                             "deprecated" => Ok(GeneratedField::Deprecated),
                             "ccEnableArenas" | "cc_enable_arenas" => Ok(GeneratedField::CcEnableArenas),
                             "objcClassPrefix" | "objc_class_prefix" => Ok(GeneratedField::ObjcClassPrefix),
@@ -4667,7 +4873,6 @@ impl<'de> serde::Deserialize<'de> for FileOptions {
                 let mut cc_generic_services__ = None;
                 let mut java_generic_services__ = None;
                 let mut py_generic_services__ = None;
-                let mut php_generic_services__ = None;
                 let mut deprecated__ = None;
                 let mut cc_enable_arenas__ = None;
                 let mut objc_class_prefix__ = None;
@@ -4740,12 +4945,6 @@ impl<'de> serde::Deserialize<'de> for FileOptions {
                                 return Err(serde::de::Error::duplicate_field("pyGenericServices"));
                             }
                             py_generic_services__ = map_.next_value()?;
-                        }
-                        GeneratedField::PhpGenericServices => {
-                            if php_generic_services__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("phpGenericServices"));
-                            }
-                            php_generic_services__ = map_.next_value()?;
                         }
                         GeneratedField::Deprecated => {
                             if deprecated__.is_some() {
@@ -4826,7 +5025,6 @@ impl<'de> serde::Deserialize<'de> for FileOptions {
                     cc_generic_services: cc_generic_services__,
                     java_generic_services: java_generic_services__,
                     py_generic_services: py_generic_services__,
-                    php_generic_services: php_generic_services__,
                     deprecated: deprecated__,
                     cc_enable_arenas: cc_enable_arenas__,
                     objc_class_prefix: objc_class_prefix__,

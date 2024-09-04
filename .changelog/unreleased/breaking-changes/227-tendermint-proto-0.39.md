@@ -1,0 +1,1 @@
+- Update `tendermint-proto` to v0.39 ([\#227](https://github.com/cosmos/ibc-proto-rs/pull/227))
