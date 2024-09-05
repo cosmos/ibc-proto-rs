@@ -251,6 +251,13 @@ pub mod cosmos {
             }
         }
     }
+    pub mod evidence {
+        pub mod v1beta1 {
+            include_proto!("cosmos.evidence.v1beta1.rs");
+            #[cfg(feature = "serde")]
+            include_proto!("cosmos.evidence.v1beta1.serde.rs");
+        }
+    }
     pub mod ics23 {
         pub use ics23 as v1;
     }
