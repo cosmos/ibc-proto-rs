@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## v0.48.0
+
+*September 5th, 2024*
+
+This release updates `tendermint-proto` to v0.39 and now uses
+the `google.protobuf.{Duration, Timestamp}` Protobuf messages
+exposed by `tendermint-proto` instead of defining and bundling our own.
+
+### BREAKING CHANGES
+
+- Update `tendermint-proto` to v0.39 ([\#227](https://github.com/cosmos/ibc-proto-rs/pull/227))
+- Use the `google.protobuf.{Duration, Timestamp}` Protobuf messages
+  exposed by `tendermint-proto` instead of defining and bundling our own.
+  ([\#226](https://github.com/cosmos/ibc-proto-rs/pull/226))
+
 ## v0.47.1
 
 *September 3rd, 2024*
