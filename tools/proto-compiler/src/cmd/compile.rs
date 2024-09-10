@@ -116,9 +116,7 @@ impl CompileCmd {
 
         let attrs_jsonschema = r#"#[cfg_attr(all(feature = "json-schema", feature = "serde"), derive(::schemars::JsonSchema))]"#;
         let attrs_jsonschema_str = r#"#[cfg_attr(all(feature = "json-schema", feature = "serde"), schemars(with = "String"))]"#;
-
         let attrs_ord = "#[derive(Eq, PartialOrd, Ord)]";
-        let attrs_eq = "#[derive(Eq)]";
 
         // Automatically derive a `prost::Name` implementation.
         let mut config = prost_build::Config::new();
@@ -143,7 +141,7 @@ impl CompileCmd {
                 "::tendermint_proto::v0_34::abci::Event",
             )
             .extern_path(".tendermint", "::tendermint_proto")
-            .extern_path(".ics23", "::ics23")
+            .extern_path(".cosmos.ics23.v1", "::ics23")
             .extern_path(".google.protobuf", "::tendermint_proto::google::protobuf")
             .type_attribute(".ibc.core.client.v1.Height", attrs_ord)
             .type_attribute(".ibc.core.client.v1.Height", attrs_jsonschema)

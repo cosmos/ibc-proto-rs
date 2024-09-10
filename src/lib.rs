@@ -44,6 +44,9 @@ pub const FILE_DESCRIPTOR_SET: &[u8] = include_bytes!("prost/proto_descriptor.bi
 // Re-export Cosmos SDK protos from the `cosmos_sdk_proto` crate
 pub use cosmos_sdk_proto::cosmos;
 
+// Re-export the ICS23 proto from the `ics23` crate
+pub use ics23;
+
 pub mod ibc {
     #[deprecated(since = "0.15.0", note = "Use `ibc_proto::ibc::applications` instead")]
     pub mod apps {
