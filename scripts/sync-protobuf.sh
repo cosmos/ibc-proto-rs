@@ -152,7 +152,6 @@ cargo build
 cargo run -- compile \
   --transport \
   --ics "$COSMOS_ICS_DIR/proto-include" \
-  --sdk "$COSMOS_SDK_DIR/proto-include" \
   --ibc "$IBC_GO_DIR/proto-include" \
   --nft "$NFT_TRANSFER_DIR/proto-include" \
   --out "../../src/$PROST_TRANSPORT_DIR"
@@ -180,12 +179,12 @@ rm -f "src/$PROST_TRANSPORT_DIR/src/prost/cosmos.upgrade.v1beta1.rs"
 rm -f "src/$PROST_TRANSPORT_DIR/src/prost/cosmos_proto.rs"
 
 rm -f "src/$PROST_NO_TRANSPORT_DIR/src/prost/cosmos.base.store.v1beta1.rs"
-rm -f "src/$PROST_NO_TTRANSPORT_DIR/src/prost/cosmos.auth.v1beta1.rs"
-rm -f "src/$PROST_NO_TTRANSPORT_DIR/src/prost/cosmos.base.query.v1beta1.rs"
-rm -f "src/$PROST_NO_TTRANSPORT_DIR/src/prost/cosmos.base.v1beta1.rs"
-rm -f "src/$PROST_NO_TTRANSPORT_DIR/src/prost/cosmos.staking.v1beta1.rs"
-rm -f "src/$PROST_NO_TTRANSPORT_DIR/src/prost/cosmos.upgrade.v1beta1.rs"
-rm -f "src/$PROST_NO_TTRANSPORT_DIR/src/prost/cosmos_proto.rs"
+rm -f "src/$PROST_NO_TRANSPORT_DIR/src/prost/cosmos.auth.v1beta1.rs"
+rm -f "src/$PROST_NO_TRANSPORT_DIR/src/prost/cosmos.base.query.v1beta1.rs"
+rm -f "src/$PROST_NO_TRANSPORT_DIR/src/prost/cosmos.base.v1beta1.rs"
+rm -f "src/$PROST_NO_TRANSPORT_DIR/src/prost/cosmos.staking.v1beta1.rs"
+rm -f "src/$PROST_NO_TRANSPORT_DIR/src/prost/cosmos.upgrade.v1beta1.rs"
+rm -f "src/$PROST_NO_TRANSPORT_DIR/src/prost/cosmos_proto.rs"
 
 # The Tendermint ABCI protos are unused from within ibc-proto
 rm -f "src/$PROST_TRANSPORT_DIR/tendermint.abci.rs"
