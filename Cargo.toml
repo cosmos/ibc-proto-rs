@@ -51,12 +51,13 @@ default-features = false
 serde_json = "1.0.107"
 
 [features]
-default            = ["std", "client"]
+default            = ["std", "client", "transport"]
+transport          = ["tonic/transport", "cosmos-sdk-proto/grpc-transport"]
 std                = ["cosmos-sdk-proto/std", "prost/std", "bytes/std", "subtle-encoding/std", "base64/std", "flex-error/std", "ics23/std", "informalsystems-pbjson/std"]
 serde              = ["dep:serde", "dep:informalsystems-pbjson", "ics23/serde", "cosmos-sdk-proto/serde"]
-client             = ["std", "dep:tonic", "tonic/codegen", "tonic/transport", "tonic/prost", "cosmos-sdk-proto/grpc-transport"]
+client             = ["std", "dep:tonic", "tonic/codegen", "tonic/prost"]
 json-schema        = ["std", "serde", "dep:schemars"]
-server             = ["std", "dep:tonic", "tonic/codegen", "tonic/transport", "tonic/prost"]
+server             = ["std", "dep:tonic", "tonic/codegen", "tonic/prost"]
 parity-scale-codec = ["tendermint-proto/parity-scale-codec"]
 borsh              = ["tendermint-proto/borsh"]
 proto-descriptor   = []
