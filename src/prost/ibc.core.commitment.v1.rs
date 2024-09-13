@@ -80,9 +80,7 @@ impl ::prost::Name for MerklePath {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MerkleProof {
     #[prost(message, repeated, tag = "1")]
-    pub proofs: ::prost::alloc::vec::Vec<
-        super::super::super::super::cosmos::ics23::v1::CommitmentProof,
-    >,
+    pub proofs: ::prost::alloc::vec::Vec<::ics23::CommitmentProof>,
 }
 impl ::prost::Name for MerkleProof {
     const NAME: &'static str = "MerkleProof";
