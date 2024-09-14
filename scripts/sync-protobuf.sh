@@ -168,6 +168,9 @@ rm -f src/prost/cosmos_proto.rs
 # The Tendermint ABCI protos are unused from within ibc-proto
 rm -f src/prost/tendermint.abci.rs
 
+# Remove leftover Google HTTP configuration protos.
+rm -f src/prost/google.api.rs
+
 # Remove the temporary checkouts of the repositories
 rm -rf "$COSMOS_ICS_DIR"
 rm -rf "$IBC_GO_DIR"
