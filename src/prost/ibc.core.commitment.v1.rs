@@ -5,7 +5,6 @@
     all(feature = "json-schema", feature = "serde"),
     derive(::schemars::JsonSchema)
 )]
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MerkleRoot {
     #[prost(bytes = "vec", tag = "1")]
@@ -32,7 +31,6 @@ impl ::prost::Name for MerkleRoot {
     all(feature = "json-schema", feature = "serde"),
     derive(::schemars::JsonSchema)
 )]
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MerklePrefix {
     #[prost(bytes = "vec", tag = "1")]
@@ -55,7 +53,6 @@ impl ::prost::Name for MerklePrefix {
 /// MerklePath is the path used to verify commitment proofs, which can be an
 /// arbitrary structured object (defined by a commitment type).
 /// MerklePath is represented from root-to-leaf
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MerklePath {
     #[prost(string, repeated, tag = "1")]
@@ -76,7 +73,6 @@ impl ::prost::Name for MerklePath {
 /// elements, verifiable in conjunction with a known commitment root. Proofs
 /// should be succinct.
 /// MerkleProofs are ordered from leaf-to-root
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MerkleProof {
     #[prost(message, repeated, tag = "1")]
