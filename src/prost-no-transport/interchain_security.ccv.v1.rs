@@ -4,6 +4,7 @@
 /// slashing events) A VSCMatured packet from consumer chain will be sent
 /// asynchronously once unbonding period is over, and this will function as
 /// `UnbondingOver` message for this packet.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ValidatorSetChangePacketData {
     #[prost(message, repeated, tag = "1")]
@@ -29,6 +30,7 @@ impl ::prost::Name for ValidatorSetChangePacketData {
 }
 /// This packet is sent from the consumer chain to the provider chain
 /// to notify that a VSC packet reached maturity on the consumer chain.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct VscMaturedPacketData {
     /// the id of the VSC packet that reached maturity
@@ -48,6 +50,7 @@ impl ::prost::Name for VscMaturedPacketData {
 /// This packet is sent from the consumer chain to the provider chain
 /// to request the slashing of a validator as a result of an infraction
 /// committed on the consumer chain.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SlashPacketData {
     #[prost(message, optional, tag = "1")]
@@ -73,6 +76,7 @@ impl ::prost::Name for SlashPacketData {
     }
 }
 /// ConsumerPacketData contains a consumer packet data and a type tag
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerPacketData {
     #[prost(enumeration = "ConsumerPacketDataType", tag = "1")]
@@ -82,6 +86,7 @@ pub struct ConsumerPacketData {
 }
 /// Nested message and enum types in `ConsumerPacketData`.
 pub mod consumer_packet_data {
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Data {
         #[prost(message, tag = "2")]
@@ -101,6 +106,7 @@ impl ::prost::Name for ConsumerPacketData {
     }
 }
 /// Note this type is used during IBC handshake methods for both the consumer and provider
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct HandshakeMetadata {
     #[prost(string, tag = "1")]
@@ -120,6 +126,7 @@ impl ::prost::Name for HandshakeMetadata {
 }
 /// ConsumerPacketData contains a consumer packet data and a type tag
 /// that is compatible with ICS v1 and v2 over the wire. It is not used for internal storage.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerPacketDataV1 {
     #[prost(enumeration = "ConsumerPacketDataType", tag = "1")]
@@ -129,6 +136,7 @@ pub struct ConsumerPacketDataV1 {
 }
 /// Nested message and enum types in `ConsumerPacketDataV1`.
 pub mod consumer_packet_data_v1 {
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Data {
         #[prost(message, tag = "2")]
@@ -149,6 +157,7 @@ impl ::prost::Name for ConsumerPacketDataV1 {
 }
 /// This packet is sent from the consumer chain to the provider chain
 /// It is backward compatible with the ICS v1 and v2 version of the packet.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SlashPacketDataV1 {
     #[prost(message, optional, tag = "1")]
@@ -249,6 +258,7 @@ impl InfractionType {
 /// Note this type is referenced in both the consumer and provider CCV modules,
 /// and persisted on the provider, see MakeConsumerGenesis and SetConsumerGenesis.
 ///
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerParams {
     /// TODO: Remove enabled flag and find a better way to setup integration tests
@@ -325,6 +335,7 @@ impl ::prost::Name for ConsumerParams {
 ///
 /// Note this type is referenced in both the consumer and provider CCV modules,
 /// and persisted on the provider, see MakeConsumerGenesis and SetConsumerGenesis.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerGenesisState {
     #[prost(message, optional, tag = "1")]
@@ -386,6 +397,7 @@ impl ::prost::Name for ConsumerGenesisState {
 }
 /// HeightValsetUpdateID represents a mapping internal to the consumer CCV module
 /// AND used in shared consumer genesis state, which links a block height to each recv valset update id.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct HeightToValsetUpdateId {
     #[prost(uint64, tag = "1")]
@@ -406,6 +418,7 @@ impl ::prost::Name for HeightToValsetUpdateId {
 /// OutstandingDowntime defines the type used internally to the consumer CCV module,
 /// AND used in shared consumer genesis state, in order to not send multiple slashing
 /// requests for the same downtime infraction.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct OutstandingDowntime {
     #[prost(string, tag = "1")]
@@ -424,6 +437,7 @@ impl ::prost::Name for OutstandingDowntime {
 /// LastTransmissionBlockHeight is the last time validator holding
 /// pools were transmitted to the provider chain. This type is used internally
 /// to the consumer CCV module AND used in shared consumer genesis state.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct LastTransmissionBlockHeight {
     #[prost(int64, tag = "1")]
@@ -443,6 +457,7 @@ impl ::prost::Name for LastTransmissionBlockHeight {
 /// consumer CCV module, where the consumer has not yet relayed a VSCMatured packet
 /// back to the provider.  This type is used internally to the consumer CCV module
 /// AND used in shared consumer genesis state.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MaturingVscPacket {
     #[prost(uint64, tag = "1")]
@@ -468,6 +483,7 @@ impl ::prost::Name for MaturingVscPacket {
 /// for exporting / importing state in InitGenesis and ExportGenesis,
 /// AND included in the consumer genesis type (reffed by provider and consumer modules),
 /// hence this is a shared type.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerPacketDataList {
     #[prost(message, repeated, tag = "1")]

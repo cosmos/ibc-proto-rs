@@ -146,7 +146,7 @@ cd tools/proto-compiler
 cargo build
 
 # Run the proto-compiler twice,
-# once with transport and once without 
+# once with transport and once without
 
 
 cargo run -- compile \
@@ -170,25 +170,29 @@ rm -f "src/$PROST_TRANSPORT_DIR/cosmos.ics23.v1.rs"
 rm -f "src/$PROST_NO_TRANSPORT_DIR/cosmos.ics23.v1.rs"
 
 # Remove leftover Cosmos SDK modules.
-rm -f "src/$PROST_TRANSPORT_DIR/src/prost/cosmos.base.store.v1beta1.rs"
-rm -f "src/$PROST_TRANSPORT_DIR/src/prost/cosmos.auth.v1beta1.rs"
-rm -f "src/$PROST_TRANSPORT_DIR/src/prost/cosmos.base.query.v1beta1.rs"
-rm -f "src/$PROST_TRANSPORT_DIR/src/prost/cosmos.base.v1beta1.rs"
-rm -f "src/$PROST_TRANSPORT_DIR/src/prost/cosmos.staking.v1beta1.rs"
-rm -f "src/$PROST_TRANSPORT_DIR/src/prost/cosmos.upgrade.v1beta1.rs"
-rm -f "src/$PROST_TRANSPORT_DIR/src/prost/cosmos_proto.rs"
+rm -f "src/$PROST_TRANSPORT_DIR/cosmos.base.store.v1beta1.rs"
+rm -f "src/$PROST_TRANSPORT_DIR/cosmos.auth.v1beta1.rs"
+rm -f "src/$PROST_TRANSPORT_DIR/cosmos.base.query.v1beta1.rs"
+rm -f "src/$PROST_TRANSPORT_DIR/cosmos.base.v1beta1.rs"
+rm -f "src/$PROST_TRANSPORT_DIR/cosmos.staking.v1beta1.rs"
+rm -f "src/$PROST_TRANSPORT_DIR/cosmos.upgrade.v1beta1.rs"
+rm -f "src/$PROST_TRANSPORT_DIR/cosmos_proto.rs"
 
-rm -f "src/$PROST_NO_TRANSPORT_DIR/src/prost/cosmos.base.store.v1beta1.rs"
-rm -f "src/$PROST_NO_TRANSPORT_DIR/src/prost/cosmos.auth.v1beta1.rs"
-rm -f "src/$PROST_NO_TRANSPORT_DIR/src/prost/cosmos.base.query.v1beta1.rs"
-rm -f "src/$PROST_NO_TRANSPORT_DIR/src/prost/cosmos.base.v1beta1.rs"
-rm -f "src/$PROST_NO_TRANSPORT_DIR/src/prost/cosmos.staking.v1beta1.rs"
-rm -f "src/$PROST_NO_TRANSPORT_DIR/src/prost/cosmos.upgrade.v1beta1.rs"
-rm -f "src/$PROST_NO_TRANSPORT_DIR/src/prost/cosmos_proto.rs"
+rm -f "src/$PROST_NO_TRANSPORT_DIR/cosmos.base.store.v1beta1.rs"
+rm -f "src/$PROST_NO_TRANSPORT_DIR/cosmos.auth.v1beta1.rs"
+rm -f "src/$PROST_NO_TRANSPORT_DIR/cosmos.base.query.v1beta1.rs"
+rm -f "src/$PROST_NO_TRANSPORT_DIR/cosmos.base.v1beta1.rs"
+rm -f "src/$PROST_NO_TRANSPORT_DIR/cosmos.staking.v1beta1.rs"
+rm -f "src/$PROST_NO_TRANSPORT_DIR/cosmos.upgrade.v1beta1.rs"
+rm -f "src/$PROST_NO_TRANSPORT_DIR/cosmos_proto.rs"
 
 # The Tendermint ABCI protos are unused from within ibc-proto
 rm -f "src/$PROST_TRANSPORT_DIR/tendermint.abci.rs"
 rm -f "src/$PROST_NO_TRANSPORT_DIR/tendermint.abci.rs"
+
+# Remove leftover Google HTTP configuration protos.
+rm -f "src/$PROST_TRANSPORT_DIR/google.api.rs"
+rm -f "src/$PROST_NO_TRANSPORT_DIR/google.api.rs"
 
 # Remove the temporary checkouts of the repositories
 rm -rf "$COSMOS_ICS_DIR"
