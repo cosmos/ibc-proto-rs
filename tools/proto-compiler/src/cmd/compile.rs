@@ -10,7 +10,7 @@ use argh::FromArgs;
 /// Compile
 pub struct CompileCmd {
     #[argh(switch, short = 't')]
-    /// generate transport client/server code 
+    /// generate transport client/server code
     transport: bool,
 
     #[argh(option, short = 'i')]
