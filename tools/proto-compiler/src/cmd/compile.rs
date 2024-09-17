@@ -9,6 +9,10 @@ use argh::FromArgs;
 #[argh(subcommand, name = "compile")]
 /// Compile
 pub struct CompileCmd {
+    #[argh(switch, short = 't')]
+    /// generate transport client/server code
+    transport: bool,
+
     #[argh(option, short = 'i')]
     /// path to the IBC-Go proto files
     ibc: PathBuf,
@@ -29,6 +33,7 @@ pub struct CompileCmd {
 impl CompileCmd {
     pub fn run(&self) {
         Self::compile_ibc_protos(
+            self.transport,
             self.ibc.as_ref(),
             self.ics.as_ref(),
             self.nft.as_ref(),
@@ -53,6 +58,7 @@ impl CompileCmd {
     }
 
     fn compile_ibc_protos(
+        transport: bool,
         ibc_dir: &Path,
         ics_dir: &Path,
         nft_dir: &Path,
@@ -123,6 +129,7 @@ impl CompileCmd {
         config.enable_type_names();
 
         tonic_build::configure()
+            .build_transport(transport)
             .build_client(true)
             .compile_well_known_types(true)
             .client_mod_attribute(".", r#"#[cfg(feature = "client")]"#)

@@ -18,9 +18,18 @@ extern crate alloc;
 extern crate core as std;
 
 #[macro_export]
+#[cfg(not(feature = "transport"))]
 macro_rules! include_proto {
     ($path:literal) => {
-        include!(concat!("prost/", $path));
+        include!(concat!("prost-no-transport/", $path));
+    };
+}
+
+#[macro_export]
+#[cfg(feature = "transport")]
+macro_rules! include_proto {
+    ($path:literal) => {
+        include!(concat!("prost-transport/", $path));
     };
 }
 
@@ -34,8 +43,10 @@ pub const INTERCHAIN_SECURITY_COMMIT: &str = include_str!("INTERCHAIN_SECURITY_C
 pub const NFT_TRANSFER_COMMIT: &str = include_str!("NFT_TRANSFER_COMMIT");
 
 /// File descriptor set of compiled proto.
-#[cfg(feature = "proto-descriptor")]
-pub const FILE_DESCRIPTOR_SET: &[u8] = include_bytes!("prost/proto_descriptor.bin");
+#[cfg(all(feature = "proto-descriptor", feature = "transport"))]
+pub const FILE_DESCRIPTOR_SET: &[u8] = include_bytes!("prost-transport/proto_descriptor.bin");
+#[cfg(all(feature = "proto-descriptor", not(feature = "transport")))]
+pub const FILE_DESCRIPTOR_SET: &[u8] = include_bytes!("prost-no-transport/proto_descriptor.bin");
 
 // Re-export Cosmos SDK protos from the `cosmos_sdk_proto` crate
 pub use cosmos_sdk_proto::cosmos;
