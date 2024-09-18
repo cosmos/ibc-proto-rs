@@ -44,6 +44,9 @@ pub const NFT_TRANSFER_COMMIT: &str = include_str!("NFT_TRANSFER_COMMIT");
 #[cfg(feature = "proto-descriptor")]
 pub const FILE_DESCRIPTOR_SET: &[u8] = include_bytes!("prost/proto_descriptor.bin");
 
+/// Re-exports well-known types from tendermint-proto
+pub use tendermint_proto::google;
+
 pub mod cosmos {
     pub mod app {
         pub mod v1alpha1 {
