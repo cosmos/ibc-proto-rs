@@ -245,7 +245,7 @@ impl CompileCmd {
                 "impl(.+)tonic::transport(.+)",
                 "#[cfg(feature = \"transport\")]\n    \
                 impl${1}tonic::transport${2}",
-            )
+            ),
         ];
 
         let files_iter = WalkDir::new(out_dir)
@@ -268,7 +268,6 @@ impl CompileCmd {
             fs::write(file.path(), contents)?;
         }
         println!("finished global patches");
-
 
         Ok(())
     }
