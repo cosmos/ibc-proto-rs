@@ -1,6 +1,7 @@
 use std::path::{Path, PathBuf};
-use std::process;
+use std::{fs, process};
 
+use regex::Regex;
 use similar::TextDiff;
 use walkdir::WalkDir;
 
@@ -235,6 +236,38 @@ impl CompileCmd {
 
             std::fs::write(&path, patched)?;
         }
+
+        // patches applied to all generated files
+        println!("applying global patches");
+        const GLOBAL_REPLACEMENTS: &[(&str, &str)] = &[
+            // Feature-gate gRPC impls which use `tonic::transport`
+            (
+                "impl(.+)tonic::transport(.+)",
+                "#[cfg(feature = \"transport\")]\n    \
+                impl${1}tonic::transport${2}",
+            ),
+        ];
+
+        let files_iter = WalkDir::new(out_dir)
+            .into_iter()
+            .filter_map(|e| e.ok())
+            .filter(|e| e.file_type().is_file())
+            .filter(|e| e.path().extension() == Some("rs".as_ref()));
+
+        for file in files_iter {
+            println!("patching file: {:?}", file.path());
+            let mut contents = fs::read_to_string(file.path())?;
+
+            for &(regex, replacement) in GLOBAL_REPLACEMENTS {
+                contents = Regex::new(regex)
+                    .unwrap_or_else(|_| panic!("invalid regex: {}", regex))
+                    .replace_all(&contents, replacement)
+                    .to_string();
+            }
+
+            fs::write(file.path(), contents)?;
+        }
+        println!("finished global patches");
 
         Ok(())
     }
