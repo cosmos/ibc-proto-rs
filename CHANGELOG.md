@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## v0.49.0
+
+*September 24th, 2024*
+
+Starting from this release, Protobuf messages for the Cosmos SDK are not longer included in this crate,
+but rather are now re-exported from the [`cosmos-sdk-proto`](http://crates.io/crates/cosmos-sdk-proto) crate.
+
+Moreover, the generated transport code for `tonic` is now feature-gated under the `transport` feature,
+which is enabled by default.
+
+### BREAKING CHANGES
+
+- Cosmos SDK protos are now re-exported from the `cosmos_sdk_proto`
+  crate instead of being generated as part of `ibc-proto`
+  ([\#187](https://github.com/cosmos/ibc-proto-rs/pull/187))
+
+### FEATURES
+
+- Feature-gate generated `tonic` transport code behind `transport` feature
+  ([\#237](https://github.com/cosmos/ibc-proto-rs/issues/237))
+
 ## v0.48.0
 
 *September 5th, 2024*
