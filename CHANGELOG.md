@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v0.49.1
+
+*October 16th, 2024*
+
+This patch release re-exports Google protobuf types from `tendermint_proto` for
+easier use by downstream projects.
+
+### FEATURES
+
+- Re-export Google proto types from the `tendermint_proto` for added convenience
+  ([\#242](https://github.com/cosmos/ibc-proto-rs/pull/242))
+
 ## v0.49.0
 
 *September 24th, 2024*
