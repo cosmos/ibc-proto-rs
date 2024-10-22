@@ -48,6 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: arduino/setup-protoc@v2
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
@@ -63,6 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: arduino/setup-protoc@v2
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
@@ -78,6 +80,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: arduino/setup-protoc@v2
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
@@ -92,6 +95,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v2
+      - uses: arduino/setup-protoc@v2
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
@@ -110,6 +114,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: arduino/setup-protoc@v2
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
@@ -127,6 +132,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: arduino/setup-protoc@v2
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
@@ -143,6 +149,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: arduino/setup-protoc@v2
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
