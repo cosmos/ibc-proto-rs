@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## v0.50.0
+
+This release updates `interchain-security` to `v6.1.0` and `tendermint-proto` to `v0.40.0`.
+
+### BREAKING CHANGES
+
+- Update `interchain-security` to v6.1.0
+  ([\#245](https://github.com/cosmos/ibc-proto-rs/issues/245))
+- Update `tendermint-proto` to `v0.40.0`
+  ([\#246](https://github.com/cosmos/ibc-proto-rs/issues/246))
+
 ## v0.49.1
 
 *October 16th, 2024*
