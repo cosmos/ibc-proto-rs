@@ -169,7 +169,7 @@ impl CompileCmd {
             .type_attribute(".ibc.core.connection.v1.Counterparty", attrs_jsonschema)
             .type_attribute(".ibc.core.connection.v1.Version", attrs_jsonschema)
             .type_attribute(".ibc.lightclients.wasm.v1.ClientMessage", attrs_jsonschema)
-            .compile_with_config(config, &protos, &proto_includes_paths)?;
+            .compile_protos_with_config(config, &protos, &proto_includes_paths)?;
 
         println!("[info ] Protos compiled successfully");
 
