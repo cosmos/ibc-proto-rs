@@ -1,6 +1,19 @@
 # CHANGELOG
 
+## v0.51.0
+
+*October 24th, 2024*
+
+This patch release updates `cosmos-sdk-proto` to `v0.26.0`.
+
+### BREAKING CHANGES
+
+- Update `cosmos-sdk-proto` to `v0.26.0`
+  ([\#249](https://github.com/cosmos/ibc-proto-rs/issues/249))
+
 ## v0.50.0
+
+*October 23rd, 2024*
 
 This release updates `interchain-security` to `v6.1.0` and `tendermint-proto` to `v0.40.0`.
 
