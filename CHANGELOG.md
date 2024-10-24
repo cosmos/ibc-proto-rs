@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## v0.50.1
+## v0.51.0
 
 *October 24th, 2024*
 
