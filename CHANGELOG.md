@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## v0.51.1
+
+*November 8th, 2024*
+
+This patch release enables the `json-schema` feature for the `tendermint-proto` dependency.
+
+### BUG FIXES
+
+- Enable `json-schema` for `tendermint-proto` dependency.
+  ([\#252](https://github.com/cosmos/ibc-proto-rs/issues/252))
+
 ## v0.51.0
 
 *October 24th, 2024*
