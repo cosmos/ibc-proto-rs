@@ -44,7 +44,7 @@ version          = "0.40.0"
 default-features = false
 
 [dependencies.cosmos-sdk-proto]
-version = "0.26.0"
+version = "0.26.1"
 default-features = false
 
 [dev-dependencies]
