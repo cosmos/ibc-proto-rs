@@ -7,7 +7,7 @@ publish      = false
 rust-version = "1.60"
 
 [dependencies]
-git2                         = "0.19"
+git2                         = "0.20"
 prost-build                  = "0.13"
 walkdir                      = "2.3"
 argh                         = "0.1"
