@@ -12,6 +12,7 @@ exclude      = ["definitions", "tools", ".changelog", ".github"]
 description  = """
     ibc-proto provides Cosmos SDK & IBC Protocol Buffers definitions
 """
+rust-version = "1.75.0"
 
 [workspace]
 members = [

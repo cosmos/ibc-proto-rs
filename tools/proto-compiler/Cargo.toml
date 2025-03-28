@@ -4,7 +4,7 @@ version      = "0.3.0"
 authors      = ["Informal Systems <hello@informal.systems>"]
 edition      = "2021"
 publish      = false
-rust-version = "1.60"
+rust-version = "1.75"
 
 [dependencies]
 git2                         = "0.19"
