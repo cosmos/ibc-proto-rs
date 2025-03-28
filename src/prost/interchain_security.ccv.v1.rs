@@ -5,7 +5,6 @@
 /// and persisted on the provider, see MakeConsumerGenesis and
 /// SetConsumerGenesis.
 ///
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerParams {
     /// TODO: Remove enabled flag and find a better way to setup integration tests
@@ -83,7 +82,6 @@ impl ::prost::Name for ConsumerParams {
 }
 /// ConsumerGenesisState defines shared genesis information between provider and
 /// consumer
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerGenesisState {
     #[prost(message, optional, tag = "1")]
@@ -108,7 +106,6 @@ impl ::prost::Name for ConsumerGenesisState {
 }
 /// ProviderInfo defines all information a consumer needs from a provider
 /// Shared data type between provider and consumer
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ProviderInfo {
     /// ProviderClientState filled in on new chain, nil on restart.
@@ -142,7 +139,6 @@ impl ::prost::Name for ProviderInfo {
 /// slashing events) A VSCMatured packet from consumer chain will be sent
 /// asynchronously once unbonding period is over, and this will function as
 /// `UnbondingOver` message for this packet.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ValidatorSetChangePacketData {
     #[prost(message, repeated, tag = "1")]
@@ -168,7 +164,6 @@ impl ::prost::Name for ValidatorSetChangePacketData {
 }
 /// This packet is sent from the consumer chain to the provider chain
 /// to notify that a VSC packet reached maturity on the consumer chain.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct VscMaturedPacketData {
     /// the id of the VSC packet that reached maturity
@@ -188,7 +183,6 @@ impl ::prost::Name for VscMaturedPacketData {
 /// This packet is sent from the consumer chain to the provider chain
 /// to request the slashing of a validator as a result of an infraction
 /// committed on the consumer chain.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SlashPacketData {
     #[prost(message, optional, tag = "1")]
@@ -214,7 +208,6 @@ impl ::prost::Name for SlashPacketData {
     }
 }
 /// ConsumerPacketData contains a consumer packet data and a type tag
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerPacketData {
     #[prost(enumeration = "ConsumerPacketDataType", tag = "1")]
@@ -224,7 +217,6 @@ pub struct ConsumerPacketData {
 }
 /// Nested message and enum types in `ConsumerPacketData`.
 pub mod consumer_packet_data {
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Data {
         #[prost(message, tag = "2")]
@@ -244,7 +236,6 @@ impl ::prost::Name for ConsumerPacketData {
     }
 }
 /// Note this type is used during IBC handshake methods for both the consumer and provider
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct HandshakeMetadata {
     #[prost(string, tag = "1")]
@@ -264,7 +255,6 @@ impl ::prost::Name for HandshakeMetadata {
 }
 /// ConsumerPacketData contains a consumer packet data and a type tag
 /// that is compatible with ICS v1 and v2 over the wire. It is not used for internal storage.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerPacketDataV1 {
     #[prost(enumeration = "ConsumerPacketDataType", tag = "1")]
@@ -274,7 +264,6 @@ pub struct ConsumerPacketDataV1 {
 }
 /// Nested message and enum types in `ConsumerPacketDataV1`.
 pub mod consumer_packet_data_v1 {
-    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Data {
         #[prost(message, tag = "2")]
@@ -295,7 +284,6 @@ impl ::prost::Name for ConsumerPacketDataV1 {
 }
 /// This packet is sent from the consumer chain to the provider chain
 /// It is backward compatible with the ICS v1 and v2 version of the packet.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SlashPacketDataV1 {
     #[prost(message, optional, tag = "1")]
@@ -335,13 +323,9 @@ impl ConsumerPacketDataType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ConsumerPacketDataType::ConsumerPacketTypeUnspecified => {
-                "CONSUMER_PACKET_TYPE_UNSPECIFIED"
-            }
-            ConsumerPacketDataType::ConsumerPacketTypeSlash => {
-                "CONSUMER_PACKET_TYPE_SLASH"
-            }
-            ConsumerPacketDataType::ConsumerPacketTypeVscm => "CONSUMER_PACKET_TYPE_VSCM",
+            Self::ConsumerPacketTypeUnspecified => "CONSUMER_PACKET_TYPE_UNSPECIFIED",
+            Self::ConsumerPacketTypeSlash => "CONSUMER_PACKET_TYPE_SLASH",
+            Self::ConsumerPacketTypeVscm => "CONSUMER_PACKET_TYPE_VSCM",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -376,9 +360,9 @@ impl InfractionType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            InfractionType::Unspecified => "INFRACTION_TYPE_UNSPECIFIED",
-            InfractionType::DoubleSign => "INFRACTION_TYPE_DOUBLE_SIGN",
-            InfractionType::Downtime => "INFRACTION_TYPE_DOWNTIME",
+            Self::Unspecified => "INFRACTION_TYPE_UNSPECIFIED",
+            Self::DoubleSign => "INFRACTION_TYPE_DOUBLE_SIGN",
+            Self::Downtime => "INFRACTION_TYPE_DOWNTIME",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
