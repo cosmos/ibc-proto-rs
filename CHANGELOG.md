@@ -1,5 +1,15 @@
 # CHANGELOG
 
+# v0.52.0
+
+*April 4th, 2025*
+
+This release bumps the `tonic` and `cosmos-sdk-proto` dependencies.
+
+### FEATURES
+
+- Bump `tonic` to v0.13 and `cosmos-sdk-proto` to v0.27 ([\#260](https://github.com/cosmos/ibc-proto-rs/pull/260))
+
 ## v0.51.1
 
 *November 8th, 2024*
