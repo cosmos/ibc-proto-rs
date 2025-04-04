@@ -6,6 +6,13 @@
 #![deny(warnings, trivial_casts, trivial_numeric_casts, unused_import_braces)]
 #![allow(clippy::large_enum_variant, clippy::needless_borrows_for_generic_args)]
 #![allow(rustdoc::bare_urls)]
+#![cfg_attr(
+    feature = "serde",
+    expect(
+        clippy::needless_lifetimes,
+        reason = "triggered in pbjson generated code; addressed by https://github.com/influxdata/pbjson/pull/138"
+    )
+)]
 #![forbid(unsafe_code)]
 
 pub use tendermint_proto::Error;

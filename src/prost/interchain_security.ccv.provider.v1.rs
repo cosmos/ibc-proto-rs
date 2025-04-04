@@ -6,7 +6,6 @@
 /// slashed. It is recommended that spawn time occurs after the proposal end
 /// time.
 /// Use MsgConsumerAddition to submit this proposal type.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerAdditionProposal {
     /// the title of the proposal
@@ -130,7 +129,6 @@ impl ::prost::Name for ConsumerAdditionProposal {
 /// state is removed from the provider chain. The outstanding unbonding operation
 /// funds are released.
 /// Use MsgConsumerRemoval to submit this proposal type.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerRemovalProposal {
     /// the title of the proposal
@@ -162,7 +160,6 @@ impl ::prost::Name for ConsumerRemovalProposal {
 /// WARNING: This message is deprecated in favor of `MsgUpdateConsumer`.
 /// ConsumerModificationProposal is a governance proposal on the provider chain to modify parameters of a running
 /// consumer chain. If it passes, the consumer chain's state is updated to take into account the newest params.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerModificationProposal {
     /// the title of the proposal
@@ -221,7 +218,6 @@ impl ::prost::Name for ConsumerModificationProposal {
 /// This type is only used internally to the consumer CCV module.
 /// WARNING: This message is deprecated now that equivocations can be submitted
 /// and verified automatically on the provider. (see SubmitConsumerDoubleVoting in proto/interchain-security/ccv/provider/v1/tx.proto).
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EquivocationProposal {
     /// the title of the proposal
@@ -249,7 +245,6 @@ impl ::prost::Name for EquivocationProposal {
 /// ChangeRewardDenomsProposal is a governance proposal on the provider chain to
 /// mutate the set of denoms accepted by the provider as rewards.
 /// Use MsgChangeRewardDenoms to submit this proposal type.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChangeRewardDenomsProposal {
     /// the title of the proposal
@@ -278,7 +273,6 @@ impl ::prost::Name for ChangeRewardDenomsProposal {
 /// A persisted queue entry indicating that a slash packet data instance needs to
 /// be handled. This type belongs in the "global" queue, to coordinate slash
 /// packet handling times between consumers.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GlobalSlashEntry {
     /// Block time that slash packet was received by provider chain.
@@ -313,7 +307,6 @@ impl ::prost::Name for GlobalSlashEntry {
     }
 }
 /// Params defines the parameters for CCV Provider module
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Params {
     #[prost(message, optional, tag = "1")]
@@ -367,7 +360,6 @@ impl ::prost::Name for Params {
 }
 /// SlashAcks contains cons addresses of consumer chain validators
 /// successfully slashed on the provider chain.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SlashAcks {
     #[prost(string, repeated, tag = "1")]
@@ -385,7 +377,6 @@ impl ::prost::Name for SlashAcks {
 }
 /// ConsumerAdditionProposals holds pending governance proposals on the provider
 /// chain to spawn a new chain.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerAdditionProposals {
     /// proposals waiting for spawn_time to pass
@@ -404,7 +395,6 @@ impl ::prost::Name for ConsumerAdditionProposals {
 }
 /// ConsumerRemovalProposals holds pending governance proposals on the provider
 /// chain to remove (and stop) a consumer chain.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerRemovalProposals {
     /// proposals waiting for stop_time to pass
@@ -422,7 +412,6 @@ impl ::prost::Name for ConsumerRemovalProposals {
     }
 }
 /// AddressList contains a list of consensus addresses
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddressList {
     #[prost(bytes = "vec", repeated, tag = "1")]
@@ -440,7 +429,6 @@ impl ::prost::Name for AddressList {
 }
 /// WARNING: This message is deprecated and is not used.
 /// ChannelToChain is used to map a CCV channel ID to the consumer chainID
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChannelToChain {
     #[prost(string, tag = "1")]
@@ -459,7 +447,6 @@ impl ::prost::Name for ChannelToChain {
     }
 }
 /// ValidatorSetChangePackets is a pb list of ccv.ValidatorSetChangePacketData.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ValidatorSetChangePackets {
     #[prost(message, repeated, tag = "1")]
@@ -475,7 +462,6 @@ impl ::prost::Name for ValidatorSetChangePackets {
         "/interchain_security.ccv.provider.v1.ValidatorSetChangePackets".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct KeyAssignmentReplacement {
     #[prost(bytes = "vec", tag = "1")]
@@ -498,7 +484,6 @@ impl ::prost::Name for KeyAssignmentReplacement {
 /// Used to serialize the ValidatorConsumerPubKey index from key assignment
 /// ValidatorConsumerPubKey: (chainID, providerAddr consAddr) -> consumerKey
 /// tmprotocrypto.PublicKey
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ValidatorConsumerPubKey {
     #[prost(string, tag = "1")]
@@ -521,7 +506,6 @@ impl ::prost::Name for ValidatorConsumerPubKey {
 /// Used to serialize the ValidatorConsumerAddr index from key assignment
 /// ValidatorByConsumerAddr: (chainID, consumerAddr consAddr) -> providerAddr
 /// consAddr
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ValidatorByConsumerAddr {
     #[prost(string, tag = "1")]
@@ -543,7 +527,6 @@ impl ::prost::Name for ValidatorByConsumerAddr {
 }
 /// Used to serialize the ConsumerAddrsToPruneV2 index from key assignment
 /// ConsumerAddrsToPruneV2: (chainID, pruneTs time.Time) -> consumerAddrs AddressList
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerAddrsToPruneV2 {
     #[prost(string, tag = "1")]
@@ -570,7 +553,6 @@ impl ::prost::Name for ConsumerAddrsToPruneV2 {
 /// It contains relevant info for
 /// a validator that is expected to validate on
 /// either the provider or a consumer chain.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsensusValidator {
     /// validator's consensus address on the provider chain
@@ -602,7 +584,6 @@ impl ::prost::Name for ConsensusValidator {
 /// ConsumerRewardsAllocation stores the rewards allocated by a consumer chain
 /// to the consumer rewards pool. It is used to allocate the tokens to the consumer
 /// opted-in validators and the community pool during BeginBlock.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerRewardsAllocation {
     #[prost(message, repeated, tag = "1")]
@@ -621,7 +602,6 @@ impl ::prost::Name for ConsumerRewardsAllocation {
     }
 }
 /// ConsumerMetadata contains general information about the registered chain
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerMetadata {
     /// the name of the chain
@@ -649,7 +629,6 @@ impl ::prost::Name for ConsumerMetadata {
 /// ---------- ---------- ----------
 /// Following fields are used when the consumer chain launches and are not needed by the provider afterwards.
 /// ---------- ---------- ----------
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerInitializationParameters {
     /// the proposed initial height of new consumer chain.
@@ -728,7 +707,6 @@ impl ::prost::Name for ConsumerInitializationParameters {
     }
 }
 /// PowerShapingParameters contains parameters that shape the validator set that we send to the consumer chain
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PowerShapingParameters {
     /// Corresponds to the percentage of validators that have to validate the chain under the Top N case.
@@ -773,7 +751,6 @@ impl ::prost::Name for PowerShapingParameters {
 }
 /// ConsumerIds contains consumer ids of chains
 /// Used so we can easily (de)serialize slices of strings
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerIds {
     #[prost(string, repeated, tag = "1")]
@@ -816,12 +793,12 @@ impl ConsumerPhase {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ConsumerPhase::Unspecified => "CONSUMER_PHASE_UNSPECIFIED",
-            ConsumerPhase::Registered => "CONSUMER_PHASE_REGISTERED",
-            ConsumerPhase::Initialized => "CONSUMER_PHASE_INITIALIZED",
-            ConsumerPhase::Launched => "CONSUMER_PHASE_LAUNCHED",
-            ConsumerPhase::Stopped => "CONSUMER_PHASE_STOPPED",
-            ConsumerPhase::Deleted => "CONSUMER_PHASE_DELETED",
+            Self::Unspecified => "CONSUMER_PHASE_UNSPECIFIED",
+            Self::Registered => "CONSUMER_PHASE_REGISTERED",
+            Self::Initialized => "CONSUMER_PHASE_INITIALIZED",
+            Self::Launched => "CONSUMER_PHASE_LAUNCHED",
+            Self::Stopped => "CONSUMER_PHASE_STOPPED",
+            Self::Deleted => "CONSUMER_PHASE_DELETED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -837,7 +814,6 @@ impl ConsumerPhase {
         }
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgAssignConsumerKey {
     /// \[DEPRECATED\] use `consumer_id` instead
@@ -868,7 +844,6 @@ impl ::prost::Name for MsgAssignConsumerKey {
         "/interchain_security.ccv.provider.v1.MsgAssignConsumerKey".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgAssignConsumerKeyResponse {}
 impl ::prost::Name for MsgAssignConsumerKeyResponse {
@@ -883,7 +858,6 @@ impl ::prost::Name for MsgAssignConsumerKeyResponse {
 }
 /// MsgSubmitConsumerMisbehaviour defines a message that reports a light client attack,
 /// also known as a misbehaviour, observed on a consumer chain
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgSubmitConsumerMisbehaviour {
     #[prost(string, tag = "1")]
@@ -908,7 +882,6 @@ impl ::prost::Name for MsgSubmitConsumerMisbehaviour {
         "/interchain_security.ccv.provider.v1.MsgSubmitConsumerMisbehaviour".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgSubmitConsumerMisbehaviourResponse {}
 impl ::prost::Name for MsgSubmitConsumerMisbehaviourResponse {
@@ -925,7 +898,6 @@ impl ::prost::Name for MsgSubmitConsumerMisbehaviourResponse {
 }
 /// MsgSubmitConsumerDoubleVoting defines a message that reports
 /// a double signing infraction observed on a consumer chain
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgSubmitConsumerDoubleVoting {
     #[prost(string, tag = "1")]
@@ -955,7 +927,6 @@ impl ::prost::Name for MsgSubmitConsumerDoubleVoting {
         "/interchain_security.ccv.provider.v1.MsgSubmitConsumerDoubleVoting".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgSubmitConsumerDoubleVotingResponse {}
 impl ::prost::Name for MsgSubmitConsumerDoubleVotingResponse {
@@ -971,7 +942,6 @@ impl ::prost::Name for MsgSubmitConsumerDoubleVotingResponse {
     }
 }
 /// MsgUpdateParams is the Msg/UpdateParams request type
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgUpdateParams {
     /// authority is the address of the governance account.
@@ -991,7 +961,6 @@ impl ::prost::Name for MsgUpdateParams {
         "/interchain_security.ccv.provider.v1.MsgUpdateParams".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgUpdateParamsResponse {}
 impl ::prost::Name for MsgUpdateParamsResponse {
@@ -1005,7 +974,6 @@ impl ::prost::Name for MsgUpdateParamsResponse {
     }
 }
 /// \[DEPRECATED\] Use `MsgCreateConsumer` instead
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgConsumerAddition {
     /// the proposed chain-id of the new consumer chain, must be different from all
@@ -1121,7 +1089,6 @@ impl ::prost::Name for MsgConsumerAddition {
     }
 }
 /// \[DEPRECATED\] Use `MsgRemoveConsumer` instead
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgConsumerRemoval {
     /// the chain-id of the consumer chain to be stopped
@@ -1149,7 +1116,6 @@ impl ::prost::Name for MsgConsumerRemoval {
 }
 /// MsgRemoveConsumer defines the message used to remove (and stop) a consumer chain.
 /// If it passes, all the consumer chain's state is eventually removed from the provider chain.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgRemoveConsumer {
     /// the consumer id of the consumer chain to be stopped
@@ -1170,7 +1136,6 @@ impl ::prost::Name for MsgRemoveConsumer {
     }
 }
 /// MsgRemoveConsumerResponse defines response type for MsgRemoveConsumer messages
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgRemoveConsumerResponse {}
 impl ::prost::Name for MsgRemoveConsumerResponse {
@@ -1187,7 +1152,6 @@ impl ::prost::Name for MsgRemoveConsumerResponse {
 /// mutate the set of denoms accepted by the provider as rewards.
 ///
 /// Note: this replaces ChangeRewardDenomsProposal which is deprecated and will be removed soon
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgChangeRewardDenoms {
     /// the list of consumer reward denoms to add
@@ -1211,7 +1175,6 @@ impl ::prost::Name for MsgChangeRewardDenoms {
     }
 }
 /// MsgChangeRewardDenomsResponse defines response type for MsgChangeRewardDenoms messages
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgChangeRewardDenomsResponse {}
 impl ::prost::Name for MsgChangeRewardDenomsResponse {
@@ -1224,7 +1187,6 @@ impl ::prost::Name for MsgChangeRewardDenomsResponse {
         "/interchain_security.ccv.provider.v1.MsgChangeRewardDenomsResponse".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgOptIn {
     /// \[DEPRECATED\] use `consumer_id` instead
@@ -1257,7 +1219,6 @@ impl ::prost::Name for MsgOptIn {
         "/interchain_security.ccv.provider.v1.MsgOptIn".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgOptInResponse {}
 impl ::prost::Name for MsgOptInResponse {
@@ -1270,7 +1231,6 @@ impl ::prost::Name for MsgOptInResponse {
         "/interchain_security.ccv.provider.v1.MsgOptInResponse".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgOptOut {
     /// \[DEPRECATED\] use `consumer_id` instead
@@ -1297,7 +1257,6 @@ impl ::prost::Name for MsgOptOut {
         "/interchain_security.ccv.provider.v1.MsgOptOut".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgOptOutResponse {}
 impl ::prost::Name for MsgOptOutResponse {
@@ -1312,7 +1271,6 @@ impl ::prost::Name for MsgOptOutResponse {
 }
 /// MsgSetConsumerCommissionRate allows validators to set
 /// a per-consumer chain commission rate
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgSetConsumerCommissionRate {
     /// The validator address on the provider
@@ -1343,7 +1301,6 @@ impl ::prost::Name for MsgSetConsumerCommissionRate {
         "/interchain_security.ccv.provider.v1.MsgSetConsumerCommissionRate".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgSetConsumerCommissionRateResponse {}
 impl ::prost::Name for MsgSetConsumerCommissionRateResponse {
@@ -1358,7 +1315,6 @@ impl ::prost::Name for MsgSetConsumerCommissionRateResponse {
     }
 }
 /// \[DEPRECATED\] Use `MsgUpdateConsumer` instead
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgConsumerModification {
     /// the title of the proposal
@@ -1414,7 +1370,6 @@ impl ::prost::Name for MsgConsumerModification {
         "/interchain_security.ccv.provider.v1.MsgConsumerModification".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgConsumerModificationResponse {}
 impl ::prost::Name for MsgConsumerModificationResponse {
@@ -1428,7 +1383,6 @@ impl ::prost::Name for MsgConsumerModificationResponse {
     }
 }
 /// MsgCreateConsumer defines the message that creates a consumer chain
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgCreateConsumer {
     /// Submitter address. If the message is successfully handled, the ownership of
@@ -1458,7 +1412,6 @@ impl ::prost::Name for MsgCreateConsumer {
     }
 }
 /// MsgCreateConsumerResponse defines response type for MsgCreateConsumer
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgCreateConsumerResponse {
     #[prost(string, tag = "1")]
@@ -1475,7 +1428,6 @@ impl ::prost::Name for MsgCreateConsumerResponse {
     }
 }
 /// MsgUpdateConsumer defines the message used to modify a consumer chain.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgUpdateConsumer {
     /// the address of the owner of the consumer chain to be updated
@@ -1510,7 +1462,6 @@ impl ::prost::Name for MsgUpdateConsumer {
     }
 }
 /// MsgUpdateConsumerResponse defines response type for MsgUpdateConsumer messages
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct MsgUpdateConsumerResponse {}
 impl ::prost::Name for MsgUpdateConsumerResponse {
@@ -1526,7 +1477,13 @@ impl ::prost::Name for MsgUpdateConsumerResponse {
 /// Generated client implementations.
 #[cfg(feature = "client")]
 pub mod msg_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    #![allow(
+        unused_variables,
+        dead_code,
+        missing_docs,
+        clippy::wildcard_imports,
+        clippy::let_unit_value,
+    )]
     use tonic::codegen::*;
     use tonic::codegen::http::Uri;
     /// Msg defines the Msg service.
@@ -1548,10 +1505,10 @@ pub mod msg_client {
     }
     impl<T> MsgClient<T>
     where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T: tonic::client::GrpcService<tonic::body::Body>,
         T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
     {
         pub fn new(inner: T) -> Self {
             let inner = tonic::client::Grpc::new(inner);
@@ -1569,14 +1526,14 @@ pub mod msg_client {
             F: tonic::service::Interceptor,
             T::ResponseBody: Default,
             T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
+                http::Request<tonic::body::Body>,
                 Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                    <T as tonic::client::GrpcService<tonic::body::Body>>::ResponseBody,
                 >,
             >,
             <T as tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + Send + Sync,
+                http::Request<tonic::body::Body>,
+            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
         {
             MsgClient::new(InterceptedService::new(inner, interceptor))
         }
@@ -1622,8 +1579,7 @@ pub mod msg_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -1652,8 +1608,7 @@ pub mod msg_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -1682,8 +1637,7 @@ pub mod msg_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -1712,8 +1666,7 @@ pub mod msg_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -1742,8 +1695,7 @@ pub mod msg_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -1772,8 +1724,7 @@ pub mod msg_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -1802,8 +1753,7 @@ pub mod msg_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -1832,8 +1782,7 @@ pub mod msg_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -1859,8 +1808,7 @@ pub mod msg_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -1886,8 +1834,7 @@ pub mod msg_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -1916,8 +1863,7 @@ pub mod msg_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -1940,11 +1886,17 @@ pub mod msg_client {
 /// Generated server implementations.
 #[cfg(feature = "server")]
 pub mod msg_server {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    #![allow(
+        unused_variables,
+        dead_code,
+        missing_docs,
+        clippy::wildcard_imports,
+        clippy::let_unit_value,
+    )]
     use tonic::codegen::*;
     /// Generated trait containing gRPC methods that should be implemented for use with MsgServer.
     #[async_trait]
-    pub trait Msg: Send + Sync + 'static {
+    pub trait Msg: std::marker::Send + std::marker::Sync + 'static {
         async fn assign_consumer_key(
             &self,
             request: tonic::Request<super::MsgAssignConsumerKey>,
@@ -2025,14 +1977,14 @@ pub mod msg_server {
     }
     /// Msg defines the Msg service.
     #[derive(Debug)]
-    pub struct MsgServer<T: Msg> {
+    pub struct MsgServer<T> {
         inner: Arc<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
         max_decoding_message_size: Option<usize>,
         max_encoding_message_size: Option<usize>,
     }
-    impl<T: Msg> MsgServer<T> {
+    impl<T> MsgServer<T> {
         pub fn new(inner: T) -> Self {
             Self::from_arc(Arc::new(inner))
         }
@@ -2086,10 +2038,10 @@ pub mod msg_server {
     impl<T, B> tonic::codegen::Service<http::Request<B>> for MsgServer<T>
     where
         T: Msg,
-        B: Body + Send + 'static,
-        B::Error: Into<StdError> + Send + 'static,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
     {
-        type Response = http::Response<tonic::body::BoxBody>;
+        type Response = http::Response<tonic::body::Body>;
         type Error = std::convert::Infallible;
         type Future = BoxFuture<Self::Response, Self::Error>;
         fn poll_ready(
@@ -2586,23 +2538,27 @@ pub mod msg_server {
                 }
                 _ => {
                     Box::pin(async move {
-                        Ok(
-                            http::Response::builder()
-                                .status(200)
-                                .header("grpc-status", tonic::Code::Unimplemented as i32)
-                                .header(
-                                    http::header::CONTENT_TYPE,
-                                    tonic::metadata::GRPC_CONTENT_TYPE,
-                                )
-                                .body(empty_body())
-                                .unwrap(),
-                        )
+                        let mut response = http::Response::new(
+                            tonic::body::Body::default(),
+                        );
+                        let headers = response.headers_mut();
+                        headers
+                            .insert(
+                                tonic::Status::GRPC_STATUS,
+                                (tonic::Code::Unimplemented as i32).into(),
+                            );
+                        headers
+                            .insert(
+                                http::header::CONTENT_TYPE,
+                                tonic::metadata::GRPC_CONTENT_TYPE,
+                            );
+                        Ok(response)
                     })
                 }
             }
         }
     }
-    impl<T: Msg> Clone for MsgServer<T> {
+    impl<T> Clone for MsgServer<T> {
         fn clone(&self) -> Self {
             let inner = self.inner.clone();
             Self {
@@ -2614,11 +2570,12 @@ pub mod msg_server {
             }
         }
     }
-    impl<T: Msg> tonic::server::NamedService for MsgServer<T> {
-        const NAME: &'static str = "interchain_security.ccv.provider.v1.Msg";
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "interchain_security.ccv.provider.v1.Msg";
+    impl<T> tonic::server::NamedService for MsgServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsumerGenesisRequest {
     #[prost(string, tag = "1")]
@@ -2634,7 +2591,6 @@ impl ::prost::Name for QueryConsumerGenesisRequest {
         "/interchain_security.ccv.provider.v1.QueryConsumerGenesisRequest".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsumerGenesisResponse {
     #[prost(message, optional, tag = "1")]
@@ -2650,7 +2606,6 @@ impl ::prost::Name for QueryConsumerGenesisResponse {
         "/interchain_security.ccv.provider.v1.QueryConsumerGenesisResponse".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsumerChainsRequest {
     /// The phase of the consumer chains returned (optional)
@@ -2672,7 +2627,6 @@ impl ::prost::Name for QueryConsumerChainsRequest {
         "/interchain_security.ccv.provider.v1.QueryConsumerChainsRequest".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsumerChainsResponse {
     #[prost(message, repeated, tag = "1")]
@@ -2692,7 +2646,6 @@ impl ::prost::Name for QueryConsumerChainsResponse {
         "/interchain_security.ccv.provider.v1.QueryConsumerChainsResponse".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Chain {
     #[prost(string, tag = "1")]
@@ -2744,7 +2697,6 @@ impl ::prost::Name for Chain {
         "/interchain_security.ccv.provider.v1.Chain".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryValidatorConsumerAddrRequest {
     /// The consensus address of the validator on the provider chain
@@ -2764,7 +2716,6 @@ impl ::prost::Name for QueryValidatorConsumerAddrRequest {
         "/interchain_security.ccv.provider.v1.QueryValidatorConsumerAddrRequest".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryValidatorConsumerAddrResponse {
     /// The address of the validator on the consumer chain
@@ -2781,7 +2732,6 @@ impl ::prost::Name for QueryValidatorConsumerAddrResponse {
         "/interchain_security.ccv.provider.v1.QueryValidatorConsumerAddrResponse".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryValidatorProviderAddrRequest {
     /// The consensus address of the validator on the consumer chain
@@ -2801,7 +2751,6 @@ impl ::prost::Name for QueryValidatorProviderAddrRequest {
         "/interchain_security.ccv.provider.v1.QueryValidatorProviderAddrRequest".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryValidatorProviderAddrResponse {
     /// The address of the validator on the provider chain
@@ -2818,7 +2767,6 @@ impl ::prost::Name for QueryValidatorProviderAddrResponse {
         "/interchain_security.ccv.provider.v1.QueryValidatorProviderAddrResponse".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct QueryThrottleStateRequest {}
 impl ::prost::Name for QueryThrottleStateRequest {
@@ -2831,7 +2779,6 @@ impl ::prost::Name for QueryThrottleStateRequest {
         "/interchain_security.ccv.provider.v1.QueryThrottleStateRequest".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct QueryThrottleStateResponse {
     /// current slash_meter state
@@ -2858,7 +2805,6 @@ impl ::prost::Name for QueryThrottleStateResponse {
         "/interchain_security.ccv.provider.v1.QueryThrottleStateResponse".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct QueryRegisteredConsumerRewardDenomsRequest {}
 impl ::prost::Name for QueryRegisteredConsumerRewardDenomsRequest {
@@ -2873,7 +2819,6 @@ impl ::prost::Name for QueryRegisteredConsumerRewardDenomsRequest {
             .into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryRegisteredConsumerRewardDenomsResponse {
     #[prost(string, repeated, tag = "1")]
@@ -2891,7 +2836,6 @@ impl ::prost::Name for QueryRegisteredConsumerRewardDenomsResponse {
             .into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryAllPairsValConsAddrByConsumerRequest {
     /// The id of the consumer chain
@@ -2910,7 +2854,6 @@ impl ::prost::Name for QueryAllPairsValConsAddrByConsumerRequest {
             .into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryAllPairsValConsAddrByConsumerResponse {
     #[prost(message, repeated, tag = "1")]
@@ -2928,7 +2871,6 @@ impl ::prost::Name for QueryAllPairsValConsAddrByConsumerResponse {
             .into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PairValConAddrProviderAndConsumer {
     /// The consensus address of the validator on the provider chain
@@ -2950,7 +2892,6 @@ impl ::prost::Name for PairValConAddrProviderAndConsumer {
         "/interchain_security.ccv.provider.v1.PairValConAddrProviderAndConsumer".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct QueryParamsRequest {}
 impl ::prost::Name for QueryParamsRequest {
@@ -2963,7 +2904,6 @@ impl ::prost::Name for QueryParamsRequest {
         "/interchain_security.ccv.provider.v1.QueryParamsRequest".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryParamsResponse {
     #[prost(message, optional, tag = "1")]
@@ -2979,7 +2919,6 @@ impl ::prost::Name for QueryParamsResponse {
         "/interchain_security.ccv.provider.v1.QueryParamsResponse".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsumerChainOptedInValidatorsRequest {
     #[prost(string, tag = "1")]
@@ -2997,7 +2936,6 @@ impl ::prost::Name for QueryConsumerChainOptedInValidatorsRequest {
             .into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsumerChainOptedInValidatorsResponse {
     /// The consensus addresses of the validators on the provider chain
@@ -3018,7 +2956,6 @@ impl ::prost::Name for QueryConsumerChainOptedInValidatorsResponse {
             .into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsumerValidatorsRequest {
     #[prost(string, tag = "1")]
@@ -3034,7 +2971,6 @@ impl ::prost::Name for QueryConsumerValidatorsRequest {
         "/interchain_security.ccv.provider.v1.QueryConsumerValidatorsRequest".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsumerValidatorsValidator {
     /// The consensus address of the validator on the provider chain
@@ -3097,7 +3033,6 @@ impl ::prost::Name for QueryConsumerValidatorsValidator {
         "/interchain_security.ccv.provider.v1.QueryConsumerValidatorsValidator".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsumerValidatorsResponse {
     #[prost(message, repeated, tag = "1")]
@@ -3113,7 +3048,6 @@ impl ::prost::Name for QueryConsumerValidatorsResponse {
         "/interchain_security.ccv.provider.v1.QueryConsumerValidatorsResponse".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsumerChainsValidatorHasToValidateRequest {
     /// The consensus address of the validator on the provider chain
@@ -3132,7 +3066,6 @@ impl ::prost::Name for QueryConsumerChainsValidatorHasToValidateRequest {
             .into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsumerChainsValidatorHasToValidateResponse {
     #[prost(string, repeated, tag = "1")]
@@ -3150,7 +3083,6 @@ impl ::prost::Name for QueryConsumerChainsValidatorHasToValidateResponse {
             .into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryValidatorConsumerCommissionRateRequest {
     #[prost(string, tag = "1")]
@@ -3171,7 +3103,6 @@ impl ::prost::Name for QueryValidatorConsumerCommissionRateRequest {
             .into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryValidatorConsumerCommissionRateResponse {
     /// The rate to charge delegators on the consumer chain, as a fraction
@@ -3190,7 +3121,6 @@ impl ::prost::Name for QueryValidatorConsumerCommissionRateResponse {
             .into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct QueryBlocksUntilNextEpochRequest {}
 impl ::prost::Name for QueryBlocksUntilNextEpochRequest {
@@ -3203,7 +3133,6 @@ impl ::prost::Name for QueryBlocksUntilNextEpochRequest {
         "/interchain_security.ccv.provider.v1.QueryBlocksUntilNextEpochRequest".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct QueryBlocksUntilNextEpochResponse {
     /// The number of blocks until the next epoch starts
@@ -3220,7 +3149,6 @@ impl ::prost::Name for QueryBlocksUntilNextEpochResponse {
         "/interchain_security.ccv.provider.v1.QueryBlocksUntilNextEpochResponse".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsumerIdFromClientIdRequest {
     /// the client id (on the provider) that is tracking the consumer chain
@@ -3238,7 +3166,6 @@ impl ::prost::Name for QueryConsumerIdFromClientIdRequest {
         "/interchain_security.ccv.provider.v1.QueryConsumerIdFromClientIdRequest".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsumerIdFromClientIdResponse {
     /// the consumer id of the chain associated with this client id
@@ -3255,7 +3182,6 @@ impl ::prost::Name for QueryConsumerIdFromClientIdResponse {
         "/interchain_security.ccv.provider.v1.QueryConsumerIdFromClientIdResponse".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsumerChainRequest {
     #[prost(string, tag = "1")]
@@ -3271,7 +3197,6 @@ impl ::prost::Name for QueryConsumerChainRequest {
         "/interchain_security.ccv.provider.v1.QueryConsumerChainRequest".into()
     }
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryConsumerChainResponse {
     #[prost(string, tag = "1")]
@@ -3302,7 +3227,13 @@ impl ::prost::Name for QueryConsumerChainResponse {
 /// Generated client implementations.
 #[cfg(feature = "client")]
 pub mod query_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    #![allow(
+        unused_variables,
+        dead_code,
+        missing_docs,
+        clippy::wildcard_imports,
+        clippy::let_unit_value,
+    )]
     use tonic::codegen::*;
     use tonic::codegen::http::Uri;
     #[derive(Debug, Clone)]
@@ -3323,10 +3254,10 @@ pub mod query_client {
     }
     impl<T> QueryClient<T>
     where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T: tonic::client::GrpcService<tonic::body::Body>,
         T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
     {
         pub fn new(inner: T) -> Self {
             let inner = tonic::client::Grpc::new(inner);
@@ -3344,14 +3275,14 @@ pub mod query_client {
             F: tonic::service::Interceptor,
             T::ResponseBody: Default,
             T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
+                http::Request<tonic::body::Body>,
                 Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                    <T as tonic::client::GrpcService<tonic::body::Body>>::ResponseBody,
                 >,
             >,
             <T as tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + Send + Sync,
+                http::Request<tonic::body::Body>,
+            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
         {
             QueryClient::new(InterceptedService::new(inner, interceptor))
         }
@@ -3399,8 +3330,7 @@ pub mod query_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -3431,8 +3361,7 @@ pub mod query_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -3463,8 +3392,7 @@ pub mod query_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -3495,8 +3423,7 @@ pub mod query_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -3527,8 +3454,7 @@ pub mod query_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -3561,8 +3487,7 @@ pub mod query_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -3595,8 +3520,7 @@ pub mod query_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -3626,8 +3550,7 @@ pub mod query_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -3660,8 +3583,7 @@ pub mod query_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -3694,8 +3616,7 @@ pub mod query_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -3728,8 +3649,7 @@ pub mod query_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -3761,8 +3681,7 @@ pub mod query_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -3793,8 +3712,7 @@ pub mod query_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -3825,8 +3743,7 @@ pub mod query_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -3857,8 +3774,7 @@ pub mod query_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -3881,11 +3797,17 @@ pub mod query_client {
 /// Generated server implementations.
 #[cfg(feature = "server")]
 pub mod query_server {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    #![allow(
+        unused_variables,
+        dead_code,
+        missing_docs,
+        clippy::wildcard_imports,
+        clippy::let_unit_value,
+    )]
     use tonic::codegen::*;
     /// Generated trait containing gRPC methods that should be implemented for use with QueryServer.
     #[async_trait]
-    pub trait Query: Send + Sync + 'static {
+    pub trait Query: std::marker::Send + std::marker::Sync + 'static {
         /// ConsumerGenesis queries the genesis state needed to start a consumer chain
         /// whose proposal has been accepted
         async fn query_consumer_genesis(
@@ -4025,14 +3947,14 @@ pub mod query_server {
         >;
     }
     #[derive(Debug)]
-    pub struct QueryServer<T: Query> {
+    pub struct QueryServer<T> {
         inner: Arc<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
         max_decoding_message_size: Option<usize>,
         max_encoding_message_size: Option<usize>,
     }
-    impl<T: Query> QueryServer<T> {
+    impl<T> QueryServer<T> {
         pub fn new(inner: T) -> Self {
             Self::from_arc(Arc::new(inner))
         }
@@ -4086,10 +4008,10 @@ pub mod query_server {
     impl<T, B> tonic::codegen::Service<http::Request<B>> for QueryServer<T>
     where
         T: Query,
-        B: Body + Send + 'static,
-        B::Error: Into<StdError> + Send + 'static,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
     {
-        type Response = http::Response<tonic::body::BoxBody>;
+        type Response = http::Response<tonic::body::Body>;
         type Error = std::convert::Infallible;
         type Future = BoxFuture<Self::Response, Self::Error>;
         fn poll_ready(
@@ -4834,23 +4756,27 @@ pub mod query_server {
                 }
                 _ => {
                     Box::pin(async move {
-                        Ok(
-                            http::Response::builder()
-                                .status(200)
-                                .header("grpc-status", tonic::Code::Unimplemented as i32)
-                                .header(
-                                    http::header::CONTENT_TYPE,
-                                    tonic::metadata::GRPC_CONTENT_TYPE,
-                                )
-                                .body(empty_body())
-                                .unwrap(),
-                        )
+                        let mut response = http::Response::new(
+                            tonic::body::Body::default(),
+                        );
+                        let headers = response.headers_mut();
+                        headers
+                            .insert(
+                                tonic::Status::GRPC_STATUS,
+                                (tonic::Code::Unimplemented as i32).into(),
+                            );
+                        headers
+                            .insert(
+                                http::header::CONTENT_TYPE,
+                                tonic::metadata::GRPC_CONTENT_TYPE,
+                            );
+                        Ok(response)
                     })
                 }
             }
         }
     }
-    impl<T: Query> Clone for QueryServer<T> {
+    impl<T> Clone for QueryServer<T> {
         fn clone(&self) -> Self {
             let inner = self.inner.clone();
             Self {
@@ -4862,12 +4788,13 @@ pub mod query_server {
             }
         }
     }
-    impl<T: Query> tonic::server::NamedService for QueryServer<T> {
-        const NAME: &'static str = "interchain_security.ccv.provider.v1.Query";
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "interchain_security.ccv.provider.v1.Query";
+    impl<T> tonic::server::NamedService for QueryServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }
 /// GenesisState defines the CCV provider chain genesis state
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenesisState {
     /// strictly positive and set to 1 (DefaultValsetUpdateID) for a new chain
@@ -4904,7 +4831,6 @@ impl ::prost::Name for GenesisState {
 /// The provider CCV module's knowledge of consumer state.
 ///
 /// Note this type is only used internally to the provider CCV module.
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConsumerState {
     /// ChainID defines the chain ID for the consumer chain
@@ -4946,7 +4872,6 @@ impl ::prost::Name for ConsumerState {
 }
 /// ValsetUpdateIdToHeight defines the genesis information for the mapping
 /// of each valset update id to a block height
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct ValsetUpdateIdToHeight {
     #[prost(uint64, tag = "1")]

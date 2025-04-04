@@ -12,6 +12,7 @@ exclude      = ["definitions", "tools", ".changelog", ".github"]
 description  = """
     ibc-proto provides Cosmos SDK & IBC Protocol Buffers definitions
 """
+rust-version = "1.75.0"
 
 [workspace]
 members = [
@@ -30,7 +31,7 @@ all-features = true
 [dependencies]
 prost                  = { version = "0.13", default-features = false, features = ["prost-derive"] }
 bytes                  = { version = "1.2",  default-features = false }
-tonic                  = { version = "0.12.3",  default-features = false, optional = true }
+tonic                  = { version = "0.13.0",  default-features = false, optional = true }
 serde                  = { version = "1.0",  default-features = false, optional = true }
 schemars               = { version = "0.8", optional = true }
 subtle-encoding        = { version = "0.5",  default-features = false }
@@ -44,7 +45,7 @@ version          = "0.40.0"
 default-features = false
 
 [dependencies.cosmos-sdk-proto]
-version = "0.26.1"
+version = "0.27.0"
 default-features = false
 
 [dev-dependencies]
