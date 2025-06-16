@@ -8,7 +8,7 @@ rust-version = "1.75"
 
 [dependencies]
 git2                         = "0.19"
-prost-build                  = "0.13"
+prost-build                  = "0.14"
 walkdir                      = "2.3"
 argh                         = "0.1"
 tonic                        = "0.13.0"
