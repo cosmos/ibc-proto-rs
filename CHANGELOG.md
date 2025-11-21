@@ -1,6 +1,22 @@
 # CHANGELOG
 
-# v0.52.0
+## Unpublished
+
+This release updates the proto types for IBC-Go to `v10.4.0` which includes;
+
+- `ibc.core.channel.v2`
+- `ibc.core.client.v2`
+- `ibc.core.commitment.v2`
+
+and removes;
+
+- `ibc.lightclients.localhost.v1`
+- `ibc.applications.transfer.v2`
+- `ibc.applications.fee.v1`
+- `ibc.lightclients.localhost.v2`
+
+
+## v0.52.0
 
 *April 4th, 2025*
 

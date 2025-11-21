@@ -1,4 +1,4 @@
-impl serde::Serialize for ClientState {
+impl serde::Serialize for MerklePath {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
@@ -9,27 +9,27 @@ impl serde::Serialize for ClientState {
         if true {
             len += 1;
         }
-        let mut struct_ser = serializer.serialize_struct("ibc.lightclients.localhost.v2.ClientState", len)?;
-        if let Some(v) = self.latest_height.as_ref() {
-            struct_ser.serialize_field("latestHeight", v)?;
+        let mut struct_ser = serializer.serialize_struct("ibc.core.commitment.v2.MerklePath", len)?;
+        if true {
+            struct_ser.serialize_field("keyPath", &self.key_path.iter().map(pbjson::private::base64::encode).collect::<::alloc::vec::Vec<_>>())?;
         }
         struct_ser.end()
     }
 }
-impl<'de> serde::Deserialize<'de> for ClientState {
+impl<'de> serde::Deserialize<'de> for MerklePath {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         const FIELDS: &[&str] = &[
-            "latest_height",
-            "latestHeight",
+            "key_path",
+            "keyPath",
         ];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
-            LatestHeight,
+            KeyPath,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
@@ -51,7 +51,7 @@ impl<'de> serde::Deserialize<'de> for ClientState {
                         E: serde::de::Error,
                     {
                         match value {
-                            "latestHeight" | "latest_height" => Ok(GeneratedField::LatestHeight),
+                            "keyPath" | "key_path" => Ok(GeneratedField::KeyPath),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -61,32 +61,35 @@ impl<'de> serde::Deserialize<'de> for ClientState {
         }
         struct GeneratedVisitor;
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = ClientState;
+            type Value = MerklePath;
 
             fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-                formatter.write_str("struct ibc.lightclients.localhost.v2.ClientState")
+                formatter.write_str("struct ibc.core.commitment.v2.MerklePath")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> core::result::Result<ClientState, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<MerklePath, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                let mut latest_height__ = None;
+                let mut key_path__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
-                        GeneratedField::LatestHeight => {
-                            if latest_height__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("latestHeight"));
+                        GeneratedField::KeyPath => {
+                            if key_path__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("keyPath"));
                             }
-                            latest_height__ = map_.next_value()?;
+                            key_path__ = 
+                                Some(map_.next_value::<::alloc::vec::Vec<::pbjson::private::BytesDeserialize<_>>>()?
+                                    .into_iter().map(|x| x.0).collect())
+                            ;
                         }
                     }
                 }
-                Ok(ClientState {
-                    latest_height: latest_height__,
+                Ok(MerklePath {
+                    key_path: key_path__.unwrap_or_default(),
                 })
             }
         }
-        deserializer.deserialize_struct("ibc.lightclients.localhost.v2.ClientState", FIELDS, GeneratedVisitor)
+        deserializer.deserialize_struct("ibc.core.commitment.v2.MerklePath", FIELDS, GeneratedVisitor)
     }
 }

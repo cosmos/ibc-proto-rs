@@ -162,6 +162,114 @@ impl<'de> serde::Deserialize<'de> for Allocation {
         deserializer.deserialize_struct("ibc.applications.transfer.v1.Allocation", FIELDS, GeneratedVisitor)
     }
 }
+impl serde::Serialize for Denom {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.Denom", len)?;
+        if true {
+            struct_ser.serialize_field("base", &self.base)?;
+        }
+        if true {
+            struct_ser.serialize_field("trace", &self.trace)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for Denom {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "base",
+            "trace",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Base,
+            Trace,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "base" => Ok(GeneratedField::Base),
+                            "trace" => Ok(GeneratedField::Trace),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = Denom;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct ibc.applications.transfer.v1.Denom")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Denom, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut base__ = None;
+                let mut trace__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Base => {
+                            if base__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("base"));
+                            }
+                            base__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Trace => {
+                            if trace__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("trace"));
+                            }
+                            trace__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(Denom {
+                    base: base__.unwrap_or_default(),
+                    trace: trace__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("ibc.applications.transfer.v1.Denom", FIELDS, GeneratedVisitor)
+    }
+}
 impl serde::Serialize for DenomTrace {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
@@ -271,6 +379,165 @@ impl<'de> serde::Deserialize<'de> for DenomTrace {
         deserializer.deserialize_struct("ibc.applications.transfer.v1.DenomTrace", FIELDS, GeneratedVisitor)
     }
 }
+impl serde::Serialize for FungibleTokenPacketData {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.FungibleTokenPacketData", len)?;
+        if true {
+            struct_ser.serialize_field("denom", &self.denom)?;
+        }
+        if true {
+            struct_ser.serialize_field("amount", &self.amount)?;
+        }
+        if true {
+            struct_ser.serialize_field("sender", &self.sender)?;
+        }
+        if true {
+            struct_ser.serialize_field("receiver", &self.receiver)?;
+        }
+        if true {
+            struct_ser.serialize_field("memo", &self.memo)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for FungibleTokenPacketData {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "denom",
+            "amount",
+            "sender",
+            "receiver",
+            "memo",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Denom,
+            Amount,
+            Sender,
+            Receiver,
+            Memo,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "denom" => Ok(GeneratedField::Denom),
+                            "amount" => Ok(GeneratedField::Amount),
+                            "sender" => Ok(GeneratedField::Sender),
+                            "receiver" => Ok(GeneratedField::Receiver),
+                            "memo" => Ok(GeneratedField::Memo),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = FungibleTokenPacketData;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct ibc.applications.transfer.v1.FungibleTokenPacketData")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<FungibleTokenPacketData, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut denom__ = None;
+                let mut amount__ = None;
+                let mut sender__ = None;
+                let mut receiver__ = None;
+                let mut memo__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Denom => {
+                            if denom__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("denom"));
+                            }
+                            denom__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Amount => {
+                            if amount__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("amount"));
+                            }
+                            amount__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Sender => {
+                            if sender__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("sender"));
+                            }
+                            sender__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Receiver => {
+                            if receiver__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("receiver"));
+                            }
+                            receiver__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::Memo => {
+                            if memo__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("memo"));
+                            }
+                            memo__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(FungibleTokenPacketData {
+                    denom: denom__.unwrap_or_default(),
+                    amount: amount__.unwrap_or_default(),
+                    sender: sender__.unwrap_or_default(),
+                    receiver: receiver__.unwrap_or_default(),
+                    memo: memo__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("ibc.applications.transfer.v1.FungibleTokenPacketData", FIELDS, GeneratedVisitor)
+    }
+}
 impl serde::Serialize for GenesisState {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
@@ -296,7 +563,7 @@ impl serde::Serialize for GenesisState {
             struct_ser.serialize_field("portId", &self.port_id)?;
         }
         if true {
-            struct_ser.serialize_field("denomTraces", &self.denom_traces)?;
+            struct_ser.serialize_field("denoms", &self.denoms)?;
         }
         if let Some(v) = self.params.as_ref() {
             struct_ser.serialize_field("params", v)?;
@@ -316,8 +583,7 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
         const FIELDS: &[&str] = &[
             "port_id",
             "portId",
-            "denom_traces",
-            "denomTraces",
+            "denoms",
             "params",
             "total_escrowed",
             "totalEscrowed",
@@ -326,7 +592,7 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
             PortId,
-            DenomTraces,
+            Denoms,
             Params,
             TotalEscrowed,
         }
@@ -351,7 +617,7 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                     {
                         match value {
                             "portId" | "port_id" => Ok(GeneratedField::PortId),
-                            "denomTraces" | "denom_traces" => Ok(GeneratedField::DenomTraces),
+                            "denoms" => Ok(GeneratedField::Denoms),
                             "params" => Ok(GeneratedField::Params),
                             "totalEscrowed" | "total_escrowed" => Ok(GeneratedField::TotalEscrowed),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
@@ -374,7 +640,7 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                     V: serde::de::MapAccess<'de>,
             {
                 let mut port_id__ = None;
-                let mut denom_traces__ = None;
+                let mut denoms__ = None;
                 let mut params__ = None;
                 let mut total_escrowed__ = None;
                 while let Some(k) = map_.next_key()? {
@@ -385,11 +651,11 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                             }
                             port_id__ = Some(map_.next_value()?);
                         }
-                        GeneratedField::DenomTraces => {
-                            if denom_traces__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("denomTraces"));
+                        GeneratedField::Denoms => {
+                            if denoms__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("denoms"));
                             }
-                            denom_traces__ = Some(map_.next_value()?);
+                            denoms__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Params => {
                             if params__.is_some() {
@@ -407,13 +673,123 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                 }
                 Ok(GenesisState {
                     port_id: port_id__.unwrap_or_default(),
-                    denom_traces: denom_traces__.unwrap_or_default(),
+                    denoms: denoms__.unwrap_or_default(),
                     params: params__,
                     total_escrowed: total_escrowed__.unwrap_or_default(),
                 })
             }
         }
         deserializer.deserialize_struct("ibc.applications.transfer.v1.GenesisState", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for Hop {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.Hop", len)?;
+        if true {
+            struct_ser.serialize_field("portId", &self.port_id)?;
+        }
+        if true {
+            struct_ser.serialize_field("channelId", &self.channel_id)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for Hop {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "port_id",
+            "portId",
+            "channel_id",
+            "channelId",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            PortId,
+            ChannelId,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "portId" | "port_id" => Ok(GeneratedField::PortId),
+                            "channelId" | "channel_id" => Ok(GeneratedField::ChannelId),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = Hop;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct ibc.applications.transfer.v1.Hop")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Hop, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut port_id__ = None;
+                let mut channel_id__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::PortId => {
+                            if port_id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("portId"));
+                            }
+                            port_id__ = Some(map_.next_value()?);
+                        }
+                        GeneratedField::ChannelId => {
+                            if channel_id__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("channelId"));
+                            }
+                            channel_id__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(Hop {
+                    port_id: port_id__.unwrap_or_default(),
+                    channel_id: channel_id__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("ibc.applications.transfer.v1.Hop", FIELDS, GeneratedVisitor)
     }
 }
 impl serde::Serialize for MsgTransfer {
@@ -424,6 +800,9 @@ impl serde::Serialize for MsgTransfer {
     {
         use serde::ser::SerializeStruct;
         let mut len = 0;
+        if true {
+            len += 1;
+        }
         if true {
             len += 1;
         }
@@ -474,6 +853,9 @@ impl serde::Serialize for MsgTransfer {
         if true {
             struct_ser.serialize_field("memo", &self.memo)?;
         }
+        if true {
+            struct_ser.serialize_field("encoding", &self.encoding)?;
+        }
         struct_ser.end()
     }
 }
@@ -496,6 +878,7 @@ impl<'de> serde::Deserialize<'de> for MsgTransfer {
             "timeout_timestamp",
             "timeoutTimestamp",
             "memo",
+            "encoding",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -508,6 +891,7 @@ impl<'de> serde::Deserialize<'de> for MsgTransfer {
             TimeoutHeight,
             TimeoutTimestamp,
             Memo,
+            Encoding,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
@@ -537,6 +921,7 @@ impl<'de> serde::Deserialize<'de> for MsgTransfer {
                             "timeoutHeight" | "timeout_height" => Ok(GeneratedField::TimeoutHeight),
                             "timeoutTimestamp" | "timeout_timestamp" => Ok(GeneratedField::TimeoutTimestamp),
                             "memo" => Ok(GeneratedField::Memo),
+                            "encoding" => Ok(GeneratedField::Encoding),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -564,6 +949,7 @@ impl<'de> serde::Deserialize<'de> for MsgTransfer {
                 let mut timeout_height__ = None;
                 let mut timeout_timestamp__ = None;
                 let mut memo__ = None;
+                let mut encoding__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::SourcePort => {
@@ -616,6 +1002,12 @@ impl<'de> serde::Deserialize<'de> for MsgTransfer {
                             }
                             memo__ = Some(map_.next_value()?);
                         }
+                        GeneratedField::Encoding => {
+                            if encoding__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("encoding"));
+                            }
+                            encoding__ = Some(map_.next_value()?);
+                        }
                     }
                 }
                 Ok(MsgTransfer {
@@ -627,6 +1019,7 @@ impl<'de> serde::Deserialize<'de> for MsgTransfer {
                     timeout_height: timeout_height__,
                     timeout_timestamp: timeout_timestamp__.unwrap_or_default(),
                     memo: memo__.unwrap_or_default(),
+                    encoding: encoding__.unwrap_or_default(),
                 })
             }
         }
@@ -1198,7 +1591,7 @@ impl<'de> serde::Deserialize<'de> for QueryDenomHashResponse {
         deserializer.deserialize_struct("ibc.applications.transfer.v1.QueryDenomHashResponse", FIELDS, GeneratedVisitor)
     }
 }
-impl serde::Serialize for QueryDenomTraceRequest {
+impl serde::Serialize for QueryDenomRequest {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
@@ -1209,14 +1602,14 @@ impl serde::Serialize for QueryDenomTraceRequest {
         if true {
             len += 1;
         }
-        let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.QueryDenomTraceRequest", len)?;
+        let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.QueryDenomRequest", len)?;
         if true {
             struct_ser.serialize_field("hash", &self.hash)?;
         }
         struct_ser.end()
     }
 }
-impl<'de> serde::Deserialize<'de> for QueryDenomTraceRequest {
+impl<'de> serde::Deserialize<'de> for QueryDenomRequest {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
@@ -1260,13 +1653,13 @@ impl<'de> serde::Deserialize<'de> for QueryDenomTraceRequest {
         }
         struct GeneratedVisitor;
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = QueryDenomTraceRequest;
+            type Value = QueryDenomRequest;
 
             fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-                formatter.write_str("struct ibc.applications.transfer.v1.QueryDenomTraceRequest")
+                formatter.write_str("struct ibc.applications.transfer.v1.QueryDenomRequest")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryDenomTraceRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryDenomRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -1281,15 +1674,15 @@ impl<'de> serde::Deserialize<'de> for QueryDenomTraceRequest {
                         }
                     }
                 }
-                Ok(QueryDenomTraceRequest {
+                Ok(QueryDenomRequest {
                     hash: hash__.unwrap_or_default(),
                 })
             }
         }
-        deserializer.deserialize_struct("ibc.applications.transfer.v1.QueryDenomTraceRequest", FIELDS, GeneratedVisitor)
+        deserializer.deserialize_struct("ibc.applications.transfer.v1.QueryDenomRequest", FIELDS, GeneratedVisitor)
     }
 }
-impl serde::Serialize for QueryDenomTraceResponse {
+impl serde::Serialize for QueryDenomResponse {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
@@ -1300,27 +1693,26 @@ impl serde::Serialize for QueryDenomTraceResponse {
         if true {
             len += 1;
         }
-        let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.QueryDenomTraceResponse", len)?;
-        if let Some(v) = self.denom_trace.as_ref() {
-            struct_ser.serialize_field("denomTrace", v)?;
+        let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.QueryDenomResponse", len)?;
+        if let Some(v) = self.denom.as_ref() {
+            struct_ser.serialize_field("denom", v)?;
         }
         struct_ser.end()
     }
 }
-impl<'de> serde::Deserialize<'de> for QueryDenomTraceResponse {
+impl<'de> serde::Deserialize<'de> for QueryDenomResponse {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         const FIELDS: &[&str] = &[
-            "denom_trace",
-            "denomTrace",
+            "denom",
         ];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
-            DenomTrace,
+            Denom,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
@@ -1342,7 +1734,7 @@ impl<'de> serde::Deserialize<'de> for QueryDenomTraceResponse {
                         E: serde::de::Error,
                     {
                         match value {
-                            "denomTrace" | "denom_trace" => Ok(GeneratedField::DenomTrace),
+                            "denom" => Ok(GeneratedField::Denom),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -1352,36 +1744,36 @@ impl<'de> serde::Deserialize<'de> for QueryDenomTraceResponse {
         }
         struct GeneratedVisitor;
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = QueryDenomTraceResponse;
+            type Value = QueryDenomResponse;
 
             fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-                formatter.write_str("struct ibc.applications.transfer.v1.QueryDenomTraceResponse")
+                formatter.write_str("struct ibc.applications.transfer.v1.QueryDenomResponse")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryDenomTraceResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryDenomResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                let mut denom_trace__ = None;
+                let mut denom__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
-                        GeneratedField::DenomTrace => {
-                            if denom_trace__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("denomTrace"));
+                        GeneratedField::Denom => {
+                            if denom__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("denom"));
                             }
-                            denom_trace__ = map_.next_value()?;
+                            denom__ = map_.next_value()?;
                         }
                     }
                 }
-                Ok(QueryDenomTraceResponse {
-                    denom_trace: denom_trace__,
+                Ok(QueryDenomResponse {
+                    denom: denom__,
                 })
             }
         }
-        deserializer.deserialize_struct("ibc.applications.transfer.v1.QueryDenomTraceResponse", FIELDS, GeneratedVisitor)
+        deserializer.deserialize_struct("ibc.applications.transfer.v1.QueryDenomResponse", FIELDS, GeneratedVisitor)
     }
 }
-impl serde::Serialize for QueryDenomTracesRequest {
+impl serde::Serialize for QueryDenomsRequest {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
@@ -1392,14 +1784,14 @@ impl serde::Serialize for QueryDenomTracesRequest {
         if true {
             len += 1;
         }
-        let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.QueryDenomTracesRequest", len)?;
+        let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.QueryDenomsRequest", len)?;
         if let Some(v) = self.pagination.as_ref() {
             struct_ser.serialize_field("pagination", v)?;
         }
         struct_ser.end()
     }
 }
-impl<'de> serde::Deserialize<'de> for QueryDenomTracesRequest {
+impl<'de> serde::Deserialize<'de> for QueryDenomsRequest {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
@@ -1443,13 +1835,13 @@ impl<'de> serde::Deserialize<'de> for QueryDenomTracesRequest {
         }
         struct GeneratedVisitor;
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = QueryDenomTracesRequest;
+            type Value = QueryDenomsRequest;
 
             fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-                formatter.write_str("struct ibc.applications.transfer.v1.QueryDenomTracesRequest")
+                formatter.write_str("struct ibc.applications.transfer.v1.QueryDenomsRequest")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryDenomTracesRequest, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryDenomsRequest, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
@@ -1464,15 +1856,15 @@ impl<'de> serde::Deserialize<'de> for QueryDenomTracesRequest {
                         }
                     }
                 }
-                Ok(QueryDenomTracesRequest {
+                Ok(QueryDenomsRequest {
                     pagination: pagination__,
                 })
             }
         }
-        deserializer.deserialize_struct("ibc.applications.transfer.v1.QueryDenomTracesRequest", FIELDS, GeneratedVisitor)
+        deserializer.deserialize_struct("ibc.applications.transfer.v1.QueryDenomsRequest", FIELDS, GeneratedVisitor)
     }
 }
-impl serde::Serialize for QueryDenomTracesResponse {
+impl serde::Serialize for QueryDenomsResponse {
     #[allow(deprecated)]
     fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
     where
@@ -1486,9 +1878,9 @@ impl serde::Serialize for QueryDenomTracesResponse {
         if true {
             len += 1;
         }
-        let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.QueryDenomTracesResponse", len)?;
+        let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.QueryDenomsResponse", len)?;
         if true {
-            struct_ser.serialize_field("denomTraces", &self.denom_traces)?;
+            struct_ser.serialize_field("denoms", &self.denoms)?;
         }
         if let Some(v) = self.pagination.as_ref() {
             struct_ser.serialize_field("pagination", v)?;
@@ -1496,21 +1888,20 @@ impl serde::Serialize for QueryDenomTracesResponse {
         struct_ser.end()
     }
 }
-impl<'de> serde::Deserialize<'de> for QueryDenomTracesResponse {
+impl<'de> serde::Deserialize<'de> for QueryDenomsResponse {
     #[allow(deprecated)]
     fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
         const FIELDS: &[&str] = &[
-            "denom_traces",
-            "denomTraces",
+            "denoms",
             "pagination",
         ];
 
         #[allow(clippy::enum_variant_names)]
         enum GeneratedField {
-            DenomTraces,
+            Denoms,
             Pagination,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
@@ -1533,7 +1924,7 @@ impl<'de> serde::Deserialize<'de> for QueryDenomTracesResponse {
                         E: serde::de::Error,
                     {
                         match value {
-                            "denomTraces" | "denom_traces" => Ok(GeneratedField::DenomTraces),
+                            "denoms" => Ok(GeneratedField::Denoms),
                             "pagination" => Ok(GeneratedField::Pagination),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
@@ -1544,25 +1935,25 @@ impl<'de> serde::Deserialize<'de> for QueryDenomTracesResponse {
         }
         struct GeneratedVisitor;
         impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
-            type Value = QueryDenomTracesResponse;
+            type Value = QueryDenomsResponse;
 
             fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-                formatter.write_str("struct ibc.applications.transfer.v1.QueryDenomTracesResponse")
+                formatter.write_str("struct ibc.applications.transfer.v1.QueryDenomsResponse")
             }
 
-            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryDenomTracesResponse, V::Error>
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<QueryDenomsResponse, V::Error>
                 where
                     V: serde::de::MapAccess<'de>,
             {
-                let mut denom_traces__ = None;
+                let mut denoms__ = None;
                 let mut pagination__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
-                        GeneratedField::DenomTraces => {
-                            if denom_traces__.is_some() {
-                                return Err(serde::de::Error::duplicate_field("denomTraces"));
+                        GeneratedField::Denoms => {
+                            if denoms__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("denoms"));
                             }
-                            denom_traces__ = Some(map_.next_value()?);
+                            denoms__ = Some(map_.next_value()?);
                         }
                         GeneratedField::Pagination => {
                             if pagination__.is_some() {
@@ -1572,13 +1963,13 @@ impl<'de> serde::Deserialize<'de> for QueryDenomTracesResponse {
                         }
                     }
                 }
-                Ok(QueryDenomTracesResponse {
-                    denom_traces: denom_traces__.unwrap_or_default(),
+                Ok(QueryDenomsResponse {
+                    denoms: denoms__.unwrap_or_default(),
                     pagination: pagination__,
                 })
             }
         }
-        deserializer.deserialize_struct("ibc.applications.transfer.v1.QueryDenomTracesResponse", FIELDS, GeneratedVisitor)
+        deserializer.deserialize_struct("ibc.applications.transfer.v1.QueryDenomsResponse", FIELDS, GeneratedVisitor)
     }
 }
 impl serde::Serialize for QueryEscrowAddressRequest {
@@ -2125,6 +2516,114 @@ impl<'de> serde::Deserialize<'de> for QueryTotalEscrowForDenomResponse {
             }
         }
         deserializer.deserialize_struct("ibc.applications.transfer.v1.QueryTotalEscrowForDenomResponse", FIELDS, GeneratedVisitor)
+    }
+}
+impl serde::Serialize for Token {
+    #[allow(deprecated)]
+    fn serialize<S>(&self, serializer: S) -> core::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeStruct;
+        let mut len = 0;
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
+        let mut struct_ser = serializer.serialize_struct("ibc.applications.transfer.v1.Token", len)?;
+        if let Some(v) = self.denom.as_ref() {
+            struct_ser.serialize_field("denom", v)?;
+        }
+        if true {
+            struct_ser.serialize_field("amount", &self.amount)?;
+        }
+        struct_ser.end()
+    }
+}
+impl<'de> serde::Deserialize<'de> for Token {
+    #[allow(deprecated)]
+    fn deserialize<D>(deserializer: D) -> core::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        const FIELDS: &[&str] = &[
+            "denom",
+            "amount",
+        ];
+
+        #[allow(clippy::enum_variant_names)]
+        enum GeneratedField {
+            Denom,
+            Amount,
+        }
+        impl<'de> serde::Deserialize<'de> for GeneratedField {
+            fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct GeneratedVisitor;
+
+                impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+                    type Value = GeneratedField;
+
+                    fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                        write!(formatter, "expected one of: {:?}", &FIELDS)
+                    }
+
+                    #[allow(unused_variables)]
+                    fn visit_str<E>(self, value: &str) -> core::result::Result<GeneratedField, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        match value {
+                            "denom" => Ok(GeneratedField::Denom),
+                            "amount" => Ok(GeneratedField::Amount),
+                            _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(GeneratedVisitor)
+            }
+        }
+        struct GeneratedVisitor;
+        impl<'de> serde::de::Visitor<'de> for GeneratedVisitor {
+            type Value = Token;
+
+            fn expecting(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+                formatter.write_str("struct ibc.applications.transfer.v1.Token")
+            }
+
+            fn visit_map<V>(self, mut map_: V) -> core::result::Result<Token, V::Error>
+                where
+                    V: serde::de::MapAccess<'de>,
+            {
+                let mut denom__ = None;
+                let mut amount__ = None;
+                while let Some(k) = map_.next_key()? {
+                    match k {
+                        GeneratedField::Denom => {
+                            if denom__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("denom"));
+                            }
+                            denom__ = map_.next_value()?;
+                        }
+                        GeneratedField::Amount => {
+                            if amount__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("amount"));
+                            }
+                            amount__ = Some(map_.next_value()?);
+                        }
+                    }
+                }
+                Ok(Token {
+                    denom: denom__,
+                    amount: amount__.unwrap_or_default(),
+                })
+            }
+        }
+        deserializer.deserialize_struct("ibc.applications.transfer.v1.Token", FIELDS, GeneratedVisitor)
     }
 }
 impl serde::Serialize for TransferAuthorization {

@@ -13,6 +13,16 @@ pub struct GenesisState {
     /// ICS004 - Channel genesis state
     #[prost(message, optional, tag = "3")]
     pub channel_genesis: ::core::option::Option<super::super::channel::v1::GenesisState>,
+    /// ICS002 - Clients/v2 genesis state
+    #[prost(message, optional, tag = "4")]
+    pub client_v2_genesis: ::core::option::Option<
+        super::super::client::v2::GenesisState,
+    >,
+    /// ICS004 - Channel/v2 genesis state
+    #[prost(message, optional, tag = "5")]
+    pub channel_v2_genesis: ::core::option::Option<
+        super::super::channel::v2::GenesisState,
+    >,
 }
 impl ::prost::Name for GenesisState {
     const NAME: &'static str = "GenesisState";

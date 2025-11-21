@@ -27,7 +27,7 @@ fn test_serde_can_serialize_defaults() {
 #[cfg(feature = "serde")]
 #[test]
 fn test_serde_can_serialize_packet_data() {
-    use ibc_proto::ibc::applications::transfer::v2::FungibleTokenPacketData;
+    use ibc_proto::ibc::applications::transfer::v1::FungibleTokenPacketData;
 
     let packet_data = FungibleTokenPacketData {
         denom: "uatom".to_string(),

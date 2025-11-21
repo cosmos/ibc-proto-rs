@@ -15,6 +15,12 @@ impl serde::Serialize for GenesisState {
         if true {
             len += 1;
         }
+        if true {
+            len += 1;
+        }
+        if true {
+            len += 1;
+        }
         let mut struct_ser = serializer.serialize_struct("ibc.core.types.v1.GenesisState", len)?;
         if let Some(v) = self.client_genesis.as_ref() {
             struct_ser.serialize_field("clientGenesis", v)?;
@@ -24,6 +30,12 @@ impl serde::Serialize for GenesisState {
         }
         if let Some(v) = self.channel_genesis.as_ref() {
             struct_ser.serialize_field("channelGenesis", v)?;
+        }
+        if let Some(v) = self.client_v2_genesis.as_ref() {
+            struct_ser.serialize_field("clientV2Genesis", v)?;
+        }
+        if let Some(v) = self.channel_v2_genesis.as_ref() {
+            struct_ser.serialize_field("channelV2Genesis", v)?;
         }
         struct_ser.end()
     }
@@ -41,6 +53,10 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
             "connectionGenesis",
             "channel_genesis",
             "channelGenesis",
+            "client_v2_genesis",
+            "clientV2Genesis",
+            "channel_v2_genesis",
+            "channelV2Genesis",
         ];
 
         #[allow(clippy::enum_variant_names)]
@@ -48,6 +64,8 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
             ClientGenesis,
             ConnectionGenesis,
             ChannelGenesis,
+            ClientV2Genesis,
+            ChannelV2Genesis,
         }
         impl<'de> serde::Deserialize<'de> for GeneratedField {
             fn deserialize<D>(deserializer: D) -> core::result::Result<GeneratedField, D::Error>
@@ -72,6 +90,8 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                             "clientGenesis" | "client_genesis" => Ok(GeneratedField::ClientGenesis),
                             "connectionGenesis" | "connection_genesis" => Ok(GeneratedField::ConnectionGenesis),
                             "channelGenesis" | "channel_genesis" => Ok(GeneratedField::ChannelGenesis),
+                            "clientV2Genesis" | "client_v2_genesis" => Ok(GeneratedField::ClientV2Genesis),
+                            "channelV2Genesis" | "channel_v2_genesis" => Ok(GeneratedField::ChannelV2Genesis),
                             _ => Err(serde::de::Error::unknown_field(value, FIELDS)),
                         }
                     }
@@ -94,6 +114,8 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                 let mut client_genesis__ = None;
                 let mut connection_genesis__ = None;
                 let mut channel_genesis__ = None;
+                let mut client_v2_genesis__ = None;
+                let mut channel_v2_genesis__ = None;
                 while let Some(k) = map_.next_key()? {
                     match k {
                         GeneratedField::ClientGenesis => {
@@ -114,12 +136,26 @@ impl<'de> serde::Deserialize<'de> for GenesisState {
                             }
                             channel_genesis__ = map_.next_value()?;
                         }
+                        GeneratedField::ClientV2Genesis => {
+                            if client_v2_genesis__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("clientV2Genesis"));
+                            }
+                            client_v2_genesis__ = map_.next_value()?;
+                        }
+                        GeneratedField::ChannelV2Genesis => {
+                            if channel_v2_genesis__.is_some() {
+                                return Err(serde::de::Error::duplicate_field("channelV2Genesis"));
+                            }
+                            channel_v2_genesis__ = map_.next_value()?;
+                        }
                     }
                 }
                 Ok(GenesisState {
                     client_genesis: client_genesis__,
                     connection_genesis: connection_genesis__,
                     channel_genesis: channel_genesis__,
+                    client_v2_genesis: client_v2_genesis__,
+                    channel_v2_genesis: channel_v2_genesis__,
                 })
             }
         }

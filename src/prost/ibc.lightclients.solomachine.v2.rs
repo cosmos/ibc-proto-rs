@@ -34,7 +34,7 @@ pub struct ConsensusState {
     /// public key of the solo machine
     #[prost(message, optional, tag = "1")]
     pub public_key: ::core::option::Option<::tendermint_proto::google::protobuf::Any>,
-    /// diversifier allows the same public key to be re-used across different solo
+    /// diversifier allows the same public key to be reused across different solo
     /// machine clients (potentially on different chains) without being considered
     /// misbehaviour.
     #[prost(string, tag = "2")]

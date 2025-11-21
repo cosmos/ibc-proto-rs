@@ -149,6 +149,7 @@ impl CompileCmd {
                 "::tendermint_proto::v0_34::abci::Event",
             )
             .extern_path(".tendermint", "::tendermint_proto")
+            .extern_path(".cometbft.types.v1", "::tendermint_proto::types")
             .extern_path(".cosmos.ics23.v1", "::ics23")
             .extern_path(".google.protobuf", "::tendermint_proto::google::protobuf")
             .type_attribute(".ibc.core.client.v1.Height", attrs_ord)
