@@ -323,45 +323,6 @@ impl ::prost::Name for MsgUpgradeClientResponse {
         "/ibc.core.client.v1.MsgUpgradeClientResponse".into()
     }
 }
-/// MsgSubmitMisbehaviour defines an sdk.Msg type that submits Evidence for
-/// light client misbehaviour.
-/// This message has been deprecated. Use MsgUpdateClient instead.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct MsgSubmitMisbehaviour {
-    /// client unique identifier
-    #[prost(string, tag = "1")]
-    pub client_id: ::prost::alloc::string::String,
-    /// misbehaviour used for freezing the light client
-    #[prost(message, optional, tag = "2")]
-    pub misbehaviour: ::core::option::Option<::tendermint_proto::google::protobuf::Any>,
-    /// signer address
-    #[prost(string, tag = "3")]
-    pub signer: ::prost::alloc::string::String,
-}
-impl ::prost::Name for MsgSubmitMisbehaviour {
-    const NAME: &'static str = "MsgSubmitMisbehaviour";
-    const PACKAGE: &'static str = "ibc.core.client.v1";
-    fn full_name() -> ::prost::alloc::string::String {
-        "ibc.core.client.v1.MsgSubmitMisbehaviour".into()
-    }
-    fn type_url() -> ::prost::alloc::string::String {
-        "/ibc.core.client.v1.MsgSubmitMisbehaviour".into()
-    }
-}
-/// MsgSubmitMisbehaviourResponse defines the Msg/SubmitMisbehaviour response
-/// type.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
-pub struct MsgSubmitMisbehaviourResponse {}
-impl ::prost::Name for MsgSubmitMisbehaviourResponse {
-    const NAME: &'static str = "MsgSubmitMisbehaviourResponse";
-    const PACKAGE: &'static str = "ibc.core.client.v1";
-    fn full_name() -> ::prost::alloc::string::String {
-        "ibc.core.client.v1.MsgSubmitMisbehaviourResponse".into()
-    }
-    fn type_url() -> ::prost::alloc::string::String {
-        "/ibc.core.client.v1.MsgSubmitMisbehaviourResponse".into()
-    }
-}
 /// MsgRecoverClient defines the message used to recover a frozen or expired client.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MsgRecoverClient {
@@ -682,31 +643,6 @@ pub mod msg_client {
                 .insert(GrpcMethod::new("ibc.core.client.v1.Msg", "UpgradeClient"));
             self.inner.unary(req, path, codec).await
         }
-        /// SubmitMisbehaviour defines a rpc handler method for MsgSubmitMisbehaviour.
-        pub async fn submit_misbehaviour(
-            &mut self,
-            request: impl tonic::IntoRequest<super::MsgSubmitMisbehaviour>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgSubmitMisbehaviourResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::unknown(
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/ibc.core.client.v1.Msg/SubmitMisbehaviour",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("ibc.core.client.v1.Msg", "SubmitMisbehaviour"));
-            self.inner.unary(req, path, codec).await
-        }
         /// RecoverClient defines a rpc handler method for MsgRecoverClient.
         pub async fn recover_client(
             &mut self,
@@ -847,14 +783,6 @@ pub mod msg_server {
             request: tonic::Request<super::MsgUpgradeClient>,
         ) -> std::result::Result<
             tonic::Response<super::MsgUpgradeClientResponse>,
-            tonic::Status,
-        >;
-        /// SubmitMisbehaviour defines a rpc handler method for MsgSubmitMisbehaviour.
-        async fn submit_misbehaviour(
-            &self,
-            request: tonic::Request<super::MsgSubmitMisbehaviour>,
-        ) -> std::result::Result<
-            tonic::Response<super::MsgSubmitMisbehaviourResponse>,
             tonic::Status,
         >;
         /// RecoverClient defines a rpc handler method for MsgRecoverClient.
@@ -1081,51 +1009,6 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = UpgradeClientSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
-                        let mut grpc = tonic::server::Grpc::new(codec)
-                            .apply_compression_config(
-                                accept_compression_encodings,
-                                send_compression_encodings,
-                            )
-                            .apply_max_message_size_config(
-                                max_decoding_message_size,
-                                max_encoding_message_size,
-                            );
-                        let res = grpc.unary(method, req).await;
-                        Ok(res)
-                    };
-                    Box::pin(fut)
-                }
-                "/ibc.core.client.v1.Msg/SubmitMisbehaviour" => {
-                    #[allow(non_camel_case_types)]
-                    struct SubmitMisbehaviourSvc<T: Msg>(pub Arc<T>);
-                    impl<
-                        T: Msg,
-                    > tonic::server::UnaryService<super::MsgSubmitMisbehaviour>
-                    for SubmitMisbehaviourSvc<T> {
-                        type Response = super::MsgSubmitMisbehaviourResponse;
-                        type Future = BoxFuture<
-                            tonic::Response<Self::Response>,
-                            tonic::Status,
-                        >;
-                        fn call(
-                            &mut self,
-                            request: tonic::Request<super::MsgSubmitMisbehaviour>,
-                        ) -> Self::Future {
-                            let inner = Arc::clone(&self.0);
-                            let fut = async move {
-                                <T as Msg>::submit_misbehaviour(&inner, request).await
-                            };
-                            Box::pin(fut)
-                        }
-                    }
-                    let accept_compression_encodings = self.accept_compression_encodings;
-                    let send_compression_encodings = self.send_compression_encodings;
-                    let max_decoding_message_size = self.max_decoding_message_size;
-                    let max_encoding_message_size = self.max_encoding_message_size;
-                    let inner = self.inner.clone();
-                    let fut = async move {
-                        let method = SubmitMisbehaviourSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

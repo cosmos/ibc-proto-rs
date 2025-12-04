@@ -1120,22 +1120,3 @@ impl ::prost::Name for ClientMessage {
         "/ibc.lightclients.wasm.v1.ClientMessage".into()
     }
 }
-/// Checksums defines a list of all checksums that are stored
-///
-/// Deprecated: This message is deprecated in favor of storing the checksums
-/// using a Collections.KeySet.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Checksums {
-    #[prost(bytes = "vec", repeated, tag = "1")]
-    pub checksums: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
-}
-impl ::prost::Name for Checksums {
-    const NAME: &'static str = "Checksums";
-    const PACKAGE: &'static str = "ibc.lightclients.wasm.v1";
-    fn full_name() -> ::prost::alloc::string::String {
-        "ibc.lightclients.wasm.v1.Checksums".into()
-    }
-    fn type_url() -> ::prost::alloc::string::String {
-        "/ibc.lightclients.wasm.v1.Checksums".into()
-    }
-}
